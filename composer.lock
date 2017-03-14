@@ -2136,16 +2136,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v2.0.9",
+            "version": "v2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "6968531206671f94377b01dc7888d5d1b858a01b"
+                "reference": "634bae8e911eefa89c1abfbf1b66da679ac8f54d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/6968531206671f94377b01dc7888d5d1b858a01b",
-                "reference": "6968531206671f94377b01dc7888d5d1b858a01b",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/634bae8e911eefa89c1abfbf1b66da679ac8f54d",
+                "reference": "634bae8e911eefa89c1abfbf1b66da679ac8f54d",
                 "shasum": ""
             },
             "require": {
@@ -2180,7 +2180,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2017-03-03T20:43:42+00:00"
+            "time": "2017-03-13T16:27:32+00:00"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -2291,16 +2291,16 @@
         },
         {
             "name": "prettus/l5-repository",
-            "version": "2.6.15",
+            "version": "2.6.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/andersao/l5-repository.git",
-                "reference": "efca3fc20864c54a30ce95e6f0f090a0ec21e9f2"
+                "reference": "f509a51e9f3933dcd4d99ce11f4ac8688df5eba2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andersao/l5-repository/zipball/efca3fc20864c54a30ce95e6f0f090a0ec21e9f2",
-                "reference": "efca3fc20864c54a30ce95e6f0f090a0ec21e9f2",
+                "url": "https://api.github.com/repos/andersao/l5-repository/zipball/f509a51e9f3933dcd4d99ce11f4ac8688df5eba2",
+                "reference": "f509a51e9f3933dcd4d99ce11f4ac8688df5eba2",
                 "shasum": ""
             },
             "require": {
@@ -2347,7 +2347,7 @@
                 "model",
                 "repository"
             ],
-            "time": "2017-03-10T19:32:32+00:00"
+            "time": "2017-03-13T23:07:29+00:00"
         },
         {
             "name": "prettus/laravel-validation",
