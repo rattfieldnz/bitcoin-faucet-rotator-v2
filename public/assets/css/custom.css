@@ -1,0 +1,22 @@
+
+
+#faucets-table thead, #payment-processors-table thead {
+    border: 1px solid #ddd;
+}
+
+#faucets-table thead th, #payment-processors-table thead th {
+    height: 4em !important;
+    padding-bottom: 1.25em !important;
+}
+
+#faucets-table thead th .headerSortDown, #payment-processors-table thead th .headerSortDown {
+    background-image: url("table_sorter_themes/blue/desc.gif");
+}
+
+#faucets-table thead th .headerSortUp, #payment-processors-table thead th .headerSortUp {
+    background-image: url("table_sorter_themes/blue/asc.gif");
+}
+
+.form-control-feedback{
+    text-align: inherit !important;
+}
