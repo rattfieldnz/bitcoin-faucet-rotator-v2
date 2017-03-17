@@ -41,7 +41,7 @@
 <!-- Has Ref Program Field -->
 <div class="form-group">
     {!! Form::label('has_ref_program', 'Has Ref Program:') !!}
-    <p>{!! $faucet->has_ref_program !!}</p>
+    <p>{!! $faucet->has_ref_program == true ? "Yes" : "No" !!}</p>
 </div>
 
 <!-- Ref Payout Percent Field -->
@@ -53,13 +53,13 @@
 <!-- Comments Field -->
 <div class="form-group">
     {!! Form::label('comments', 'Comments:') !!}
-    <p>{!! $faucet->comments !!}</p>
+    <p>{!! $faucet->comments == null ? "None" : $faucet->comments !!}</p>
 </div>
 
 <!-- Is Paused Field -->
 <div class="form-group">
     {!! Form::label('is_paused', 'Is Paused:') !!}
-    <p>{!! $faucet->is_paused !!}</p>
+    <p>{!! $faucet->is_paused == true ? "Yes" : "No" !!}</p>
 </div>
 @if(Auth::user() != null)
     @if(Auth::user()->is_admin == true)
@@ -104,6 +104,6 @@
 <!-- Has Low Balance Field -->
 <div class="form-group">
     {!! Form::label('has_low_balance', 'Has Low Balance:') !!}
-    <p>{!! $faucet->has_low_balance !!}</p>
+    <p>{!! $faucet->has_low_balance == true ? "Yes" : "No" !!}</p>
 </div>
 
