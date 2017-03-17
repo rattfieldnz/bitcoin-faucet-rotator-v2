@@ -1,3 +1,13 @@
+@if(Auth::user() != null)
+    @if(Auth::user()->is_admin == true)
+        <!-- Id Field -->
+        <div class="form-group">
+            {!! Form::label('id', 'Id:') !!}
+            <p>{!! $paymentProcessor->id !!}</p>
+        </div>
+    @endif
+@endif
+
 <!-- Name Field -->
 <div class="form-group">
     {!! Form::label('name', 'Name:') !!}
@@ -15,7 +25,6 @@
     {!! Form::label('slug', 'Slug:') !!}
     <p>{!! $paymentProcessor->slug !!}</p>
 </div>
-
 
 @if(Auth::user() != null)
     @if(Auth::user()->is_admin == true)

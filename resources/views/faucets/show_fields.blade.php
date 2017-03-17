@@ -1,3 +1,13 @@
+@if(Auth::user() != null)
+    @if(Auth::user()->is_admin == true)
+        <!-- Id Field -->
+        <div class="form-group">
+            {!! Form::label('id', 'Id:') !!}
+            <p>{!! $faucet->id !!}</p>
+        </div>
+    @endif
+@endif
+
 <!-- Name Field -->
 <div class="form-group">
     {!! Form::label('name', 'Name:') !!}
@@ -51,12 +61,15 @@
     {!! Form::label('is_paused', 'Is Paused:') !!}
     <p>{!! $faucet->is_paused !!}</p>
 </div>
-
-<!-- Created At Field -->
-<div class="form-group">
-    {!! Form::label('created_at', 'Created At:') !!}
-    <p>{!! $faucet->created_at !!}</p>
-</div>
+@if(Auth::user() != null)
+    @if(Auth::user()->is_admin == true)
+        <!-- Created At Field -->
+        <div class="form-group">
+            {!! Form::label('created_at', 'Created At:') !!}
+            <p>{!! $faucet->created_at !!}</p>
+        </div>
+    @endif
+@endif
 
 <!-- Updated At Field -->
 <div class="form-group">

@@ -1,6 +1,11 @@
 <div class="table-responsive">
 <table class="table table-striped bordered tablesorter" id="faucets-table">
     <thead>
+        @if(Auth::user() != null)
+            @if(Auth::user()->is_admin == true)
+                <th>Id</th>
+            @endif
+        @endif
         <th>Name</th>
         <th>Url</th>
         <th>Interval Minutes</th>
@@ -17,6 +22,11 @@
     <tbody>
     @foreach($faucets as $faucet)
         <tr>
+            @if(Auth::user() != null)
+                @if(Auth::user()->is_admin == true)
+                    <td>{!! $faucet->id !!}</td>
+                @endif
+            @endif
             <td>{!! $faucet->name !!}</td>
             <td>{!! $faucet->url !!}</td>
             <td>{!! $faucet->interval_minutes !!}</td>

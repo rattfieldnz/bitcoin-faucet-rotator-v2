@@ -1,6 +1,11 @@
 <div class="table-responsive">
 <table class="table table-striped bordered tablesorter" id="users-table">
     <thead>
+        @if(Auth::user() != null)
+            @if(Auth::user()->is_admin == true)
+                <th>Id</th>
+            @endif
+        @endif
         <th>User Name</th>
         <th>First Name</th>
         <th>Last Name</th>
@@ -19,6 +24,11 @@
     <tbody>
     @foreach($users as $user)
         <tr>
+            @if(Auth::user() != null)
+                @if(Auth::user()->is_admin == true)
+                    <td>{!! $user->id !!}</td>
+                @endif
+            @endif
             <td>{!! $user->user_name !!}</td>
             <td>{!! $user->first_name !!}</td>
             <td>{!! $user->last_name !!}</td>
