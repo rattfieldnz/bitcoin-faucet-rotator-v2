@@ -79,7 +79,7 @@ class PaymentProcessorController extends AppBaseController
         if (empty($paymentProcessor)) {
             Flash::error('Payment Processor not found');
 
-            return redirect(route('paymentProcessors.index'));
+            return redirect(route('payment-processors.index'));
         }
 
         return view('payment_processors.show')->with('paymentProcessor', $paymentProcessor);
