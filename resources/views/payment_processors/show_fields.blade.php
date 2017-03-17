@@ -1,9 +1,3 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $paymentProcessor->id !!}</p>
-</div>
-
 <!-- Name Field -->
 <div class="form-group">
     {!! Form::label('name', 'Name:') !!}
@@ -22,17 +16,22 @@
     <p>{!! $paymentProcessor->slug !!}</p>
 </div>
 
-<!-- Created At Field -->
-<div class="form-group">
-    {!! Form::label('created_at', 'Created At:') !!}
-    <p>{!! $paymentProcessor->created_at !!}</p>
-</div>
 
-<!-- Updated At Field -->
-<div class="form-group">
-    {!! Form::label('updated_at', 'Updated At:') !!}
-    <p>{!! $paymentProcessor->updated_at !!}</p>
-</div>
+@if(Auth::user() != null)
+    @if(Auth::user()->is_admin == true)
+        <!-- Created At Field -->
+        <div class="form-group">
+            {!! Form::label('created_at', 'Created At:') !!}
+            <p>{!! $paymentProcessor->created_at !!}</p>
+        </div>
+
+        <!-- Updated At Field -->
+        <div class="form-group">
+            {!! Form::label('updated_at', 'Updated At:') !!}
+            <p>{!! $paymentProcessor->updated_at !!}</p>
+        </div>
+    @endif
+@endif
 
 <!-- Meta Title Field -->
 <div class="form-group">
