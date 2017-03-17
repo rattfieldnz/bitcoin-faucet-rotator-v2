@@ -86,7 +86,7 @@
 
 
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('payment_processors') ? ' has-error' : '' }}">
-    {!! Form::label('Payment Processors:') !!}<br />
+    {!! Form::label('payment_processors' => 'Payment Processors:') !!}<br />
     {!! Form::select('payment_processors', $paymentProcessors->pluck('name', 'id'),
         $faucetPaymentProcessorIds,
         ['class' => 'form-control',

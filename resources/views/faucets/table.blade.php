@@ -22,7 +22,7 @@
             <td>{!! $faucet->interval_minutes !!}</td>
             <td>{!! $faucet->min_payout !!}</td>
             <td>{!! $faucet->max_payout !!}</td>
-            <td>{!! $faucet->has_ref_program !!}</td>
+            <td>{!! $faucet->has_ref_program == true ? "Yes" : "No" !!}</td>
             <td>{!! $faucet->ref_payout_percent !!}</td>
             <td>
                 <ul>
@@ -31,17 +31,22 @@
                 @endforeach
                 </ul>
             </td>
-            <td>{!! $faucet->is_paused !!}</td>
+            <td>{!! $faucet->is_paused == true ? "Yes" : "No" !!}</td>
             <td>{!! $faucet->slug !!}</td>
-            <td>{!! $faucet->has_low_balance !!}</td>
+            <td>{!! $faucet->has_low_balance == true ? "Yes" : "No" !!}</td>
             <td>
-                {!! Form::open(['route' => ['faucets.destroy', $faucet->slug], 'method' => 'delete']) !!}
+
                 <div class='btn-group'>
                     <a href="{!! route('faucets.show', [$faucet->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('faucets.edit', [$faucet->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                    @if(Auth::user() != null)
+                        @if(Auth::user()->is_admin == true)
+                            <a href="{!! route('faucets.edit', [$faucet->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                            {!! Form::open(['route' => ['faucets.destroy', $faucet->slug], 'method' => 'delete']) !!}
+                            {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                            {!! Form::close() !!}
+                        @endif
+                    @endif
                 </div>
-                {!! Form::close() !!}
             </td>
         </tr>
     @endforeach

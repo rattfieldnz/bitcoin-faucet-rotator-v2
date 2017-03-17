@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateFaucetRequest;
 use App\Models\PaymentProcessor;
 use App\Repositories\FaucetRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash as LaracastsFlash;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -32,6 +33,8 @@ class FaucetController extends AppBaseController
     {
         $this->faucetRepository->pushCriteria(new RequestCriteria($request));
         $faucets = $this->faucetRepository->all()->where('deleted_at', null);
+
+        $user = Auth::user();
 
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->pluck('name', 'id');
 

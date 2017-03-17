@@ -186,7 +186,7 @@ class Faucet extends Model
      **/
     public function users()
     {
-        return $this->belongsToMany(\App\Models\User::class, 'referral_info');
+        return $this->belongsToMany(\App\Models\User::class, 'referral_info')->withPivot('user_id', 'faucet_id', 'referral_code');
     }
 
 
