@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Functions;
 use App\Http\Requests\CreatePaymentProcessorRequest;
 use App\Http\Requests\UpdatePaymentProcessorRequest;
 use App\Repositories\PaymentProcessorRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -44,6 +46,7 @@ class PaymentProcessorController extends AppBaseController
      */
     public function create()
     {
+        Functions::userCanAccessArea(Auth::user(), 'payment-processors.create');
         return view('payment_processors.create');
     }
 
@@ -56,6 +59,7 @@ class PaymentProcessorController extends AppBaseController
      */
     public function store(CreatePaymentProcessorRequest $request)
     {
+        Functions::userCanAccessArea(Auth::user(), 'payment-processors.store');
         $input = $request->all();
 
         $paymentProcessor = $this->paymentProcessorRepository->create($input);
@@ -94,6 +98,7 @@ class PaymentProcessorController extends AppBaseController
      */
     public function edit($slug)
     {
+        Functions::userCanAccessArea(Auth::user(), 'payment-processors.edit',['slug' => $slug], null);
         $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
 
         if (empty($paymentProcessor)) {
@@ -115,6 +120,7 @@ class PaymentProcessorController extends AppBaseController
      */
     public function update($slug, UpdatePaymentProcessorRequest $request)
     {
+        Functions::userCanAccessArea(Auth::user(), 'payment-processors.update', ['slug' => $slug], null);
         $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
 
         if (empty($paymentProcessor)) {
@@ -139,6 +145,7 @@ class PaymentProcessorController extends AppBaseController
      */
     public function destroy($slug)
     {
+        Functions::userCanAccessArea(Auth::user(), 'payment-processors.destroy', ['slug' => $slug], null);
         $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
 
         if (empty($paymentProcessor)) {

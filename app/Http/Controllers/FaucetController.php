@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Functions;
 use App\Http\Requests\CreateFaucetRequest;
 use App\Http\Requests\UpdateFaucetRequest;
 use App\Models\PaymentProcessor;
@@ -52,6 +53,15 @@ class FaucetController extends AppBaseController
     {
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->get();
         $faucetPaymentProcessorIds = null;
+        Functions::userCanAccessArea(
+            Auth::user(),
+            'faucets.create',
+            null,
+            [
+                'paymentProcessors' => $paymentProcessors,
+                'faucetPaymentProcessorIds' => $faucetPaymentProcessorIds
+            ]
+        );
         return view('faucets.create')
             ->with('paymentProcessors', $paymentProcessors)
             ->with('faucetPaymentProcessorIds', $faucetPaymentProcessorIds);
@@ -66,6 +76,7 @@ class FaucetController extends AppBaseController
      */
     public function store(CreateFaucetRequest $request)
     {
+        Functions::userCanAccessArea(Auth::user(), 'faucets.store');
         $input = $request->except('payment_processors', 'slug');
 
         $faucet = $this->faucetRepository->create($input);
@@ -117,6 +128,7 @@ class FaucetController extends AppBaseController
      */
     public function edit($slug)
     {
+        Functions::userCanAccessArea(Auth::user(), 'faucets.edit', ['slug' => $slug]);
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->get();
 
@@ -149,6 +161,7 @@ class FaucetController extends AppBaseController
      */
     public function update($slug, UpdateFaucetRequest $request)
     {
+        Functions::userCanAccessArea(Auth::user(), 'faucets.update', ['slug' => $slug]);
         $currentFaucet = $this->faucetRepository->findByField('slug', $slug);
 
         if (empty($currentFaucet)) {
@@ -183,6 +196,7 @@ class FaucetController extends AppBaseController
      */
     public function destroy($slug)
     {
+        Functions::userCanAccessArea(Auth::user(), 'faucets.destroy', ['slug' => $slug]);
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
 
         if (empty($faucet)) {

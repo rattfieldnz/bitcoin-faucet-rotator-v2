@@ -28,12 +28,6 @@
     <p>{!! $twitterConfig->access_token_secret !!}</p>
 </div>
 
-<!-- User Id Field -->
-<div class="form-group">
-    {!! Form::label('user_id', 'User Id:') !!}
-    <p>{!! $twitterConfig->user_id !!}</p>
-</div>
-
 <!-- Created At Field -->
 <div class="form-group">
     {!! Form::label('created_at', 'Created At:') !!}

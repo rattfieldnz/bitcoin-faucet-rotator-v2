@@ -171,3 +171,10 @@
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
     <a href="{!! route('main-meta.index') !!}" class="btn btn-default">Cancel</a>
 </div>
+
+@section('scripts')
+    <script src="/assets/js/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'page_main_content');
+    </script>
+@endsection
