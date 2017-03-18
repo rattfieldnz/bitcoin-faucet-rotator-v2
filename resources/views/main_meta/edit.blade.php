@@ -11,9 +11,9 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($mainMeta, ['route' => ['main-metas.update', $mainMeta->id], 'method' => 'patch']) !!}
+                   {!! Form::model($mainMeta, ['route' => ['main-meta.update', $mainMeta->id], 'method' => 'patch']) !!}
 
-                        @include('main_metas.fields')
+                        @include('main_meta.fields')
 
                    {!! Form::close() !!}
                </div>

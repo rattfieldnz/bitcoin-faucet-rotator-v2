@@ -33,7 +33,7 @@ class TwitterConfigController extends AppBaseController
         $this->twitterConfigRepository->pushCriteria(new RequestCriteria($request));
         $twitterConfigs = $this->twitterConfigRepository->all();
 
-        return view('twitter_configs.index')
+        return view('twitter_config.index')
             ->with('twitterConfigs', $twitterConfigs);
     }
 
@@ -44,7 +44,7 @@ class TwitterConfigController extends AppBaseController
      */
     public function create()
     {
-        return view('twitter_configs.create');
+        return view('twitter_config.create');
     }
 
     /**
@@ -82,7 +82,7 @@ class TwitterConfigController extends AppBaseController
             return redirect(route('twitterConfigs.index'));
         }
 
-        return view('twitter_configs.show')->with('twitterConfig', $twitterConfig);
+        return view('twitter_config.show')->with('twitterConfig', $twitterConfig);
     }
 
     /**
@@ -102,7 +102,7 @@ class TwitterConfigController extends AppBaseController
             return redirect(route('twitterConfigs.index'));
         }
 
-        return view('twitter_configs.edit')->with('twitterConfig', $twitterConfig);
+        return view('twitter_config.edit')->with('twitterConfig', $twitterConfig);
     }
 
     /**

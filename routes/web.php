@@ -36,8 +36,8 @@ Route::resource('payment-processors', 'PaymentProcessorController');
 
 Route::resource('users', 'UserController');
 
-Route::resource('main-metas', 'MainMetaController');
+Route::resource('main-meta', 'MainMetaController');
 
-Route::resource('ad-blocks', 'AdBlockController');
+Route::resource('ad-block', 'AdBlockController');
 
-Route::resource('twitter-configs', 'TwitterConfigController');
+Route::resource('twitter-config', 'TwitterConfigController');

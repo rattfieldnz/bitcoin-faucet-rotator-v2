@@ -12,9 +12,9 @@
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'twitter-configs.store']) !!}
+                    {!! Form::open(['route' => 'twitter-config.store']) !!}
 
-                        @include('twitter_configs.fields')
+                        @include('twitter_config.fields')
 
                     {!! Form::close() !!}
                 </div>

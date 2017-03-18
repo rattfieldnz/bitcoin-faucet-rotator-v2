@@ -33,10 +33,10 @@
             <td>{!! $mainMeta->disqus_shortname !!}</td>
             <td>{!! $mainMeta->prevent_adblock_blocking !!}</td>
             <td>
-                {!! Form::open(['route' => ['main-metas.destroy', $mainMeta->id], 'method' => 'delete']) !!}
+                {!! Form::open(['route' => ['main-meta.destroy', $mainMeta->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
-                    <a href="{!! route('main-metas.show', [$mainMeta->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('main-metas.edit', [$mainMeta->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                    <a href="{!! route('main-meta.show', [$mainMeta->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! route('main-meta.edit', [$mainMeta->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>
                 {!! Form::close() !!}

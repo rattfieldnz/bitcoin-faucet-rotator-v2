@@ -33,7 +33,7 @@ class AdBlockController extends AppBaseController
         $this->adBlockRepository->pushCriteria(new RequestCriteria($request));
         $adBlocks = $this->adBlockRepository->all();
 
-        return view('ad_blocks.index')
+        return view('ad_block.index')
             ->with('adBlocks', $adBlocks);
     }
 
@@ -44,7 +44,7 @@ class AdBlockController extends AppBaseController
      */
     public function create()
     {
-        return view('ad_blocks.create');
+        return view('ad_block.create');
     }
 
     /**
@@ -62,7 +62,7 @@ class AdBlockController extends AppBaseController
 
         Flash::success('Ad Block saved successfully.');
 
-        return redirect(route('ad-blocks.index'));
+        return redirect(route('ad-block.index'));
     }
 
     /**
@@ -79,7 +79,7 @@ class AdBlockController extends AppBaseController
         if (empty($adBlock)) {
             Flash::error('Ad Block not found');
 
-            return redirect(route('ad-blocks.index'));
+            return redirect(route('ad-block.index'));
         }
 
         return view('ad_blocks.show')->with('adBlock', $adBlock);
@@ -99,10 +99,10 @@ class AdBlockController extends AppBaseController
         if (empty($adBlock)) {
             Flash::error('Ad Block not found');
 
-            return redirect(route('ad-blocks.index'));
+            return redirect(route('ad-block.index'));
         }
 
-        return view('ad_blocks.edit')->with('adBlock', $adBlock);
+        return view('ad_block.edit')->with('adBlock', $adBlock);
     }
 
     /**
@@ -120,14 +120,14 @@ class AdBlockController extends AppBaseController
         if (empty($adBlock)) {
             Flash::error('Ad Block not found');
 
-            return redirect(route('ad-blocks.index'));
+            return redirect(route('ad-block.index'));
         }
 
         $adBlock = $this->adBlockRepository->update($request->all(), $id);
 
         Flash::success('Ad Block updated successfully.');
 
-        return redirect(route('ad-blocks.index'));
+        return redirect(route('ad-block.index'));
     }
 
     /**
@@ -144,13 +144,13 @@ class AdBlockController extends AppBaseController
         if (empty($adBlock)) {
             Flash::error('Ad Block not found');
 
-            return redirect(route('ad-blocks.index'));
+            return redirect(route('ad-block.index'));
         }
 
         $this->adBlockRepository->delete($id);
 
         Flash::success('Ad Block deleted successfully.');
 
-        return redirect(route('ad-blocks.index'));
+        return redirect(route('ad-block.index'));
     }
 }

@@ -3,20 +3,15 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Main Meta
+            Ad Block
         </h1>
     </section>
     <div class="content">
-        @include('adminlte-templates::common.errors')
         <div class="box box-primary">
-
             <div class="box-body">
-                <div class="row">
-                    {!! Form::open(['route' => 'main-metas.store']) !!}
-
-                        @include('main_metas.fields')
-
-                    {!! Form::close() !!}
+                <div class="row" style="padding-left: 20px">
+                    @include('ad_block.show_fields')
+                    <a href="{!! route('ad-block.index') !!}" class="btn btn-default">Back</a>
                 </div>
             </div>
         </div>

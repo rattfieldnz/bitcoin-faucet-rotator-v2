@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Ad Block
+            Twitter Config
         </h1>
    </section>
    <div class="content">
@@ -11,9 +11,9 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($adBlock, ['route' => ['ad-blocks.update', $adBlock->id], 'method' => 'patch']) !!}
+                   {!! Form::model($twitterConfig, ['route' => ['twitter-config.update', $twitterConfig->id], 'method' => 'patch']) !!}
 
-                        @include('ad_blocks.fields')
+                        @include('twitter_config.fields')
 
                    {!! Form::close() !!}
                </div>

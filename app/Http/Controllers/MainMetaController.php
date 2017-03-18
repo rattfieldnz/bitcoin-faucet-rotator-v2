@@ -33,7 +33,7 @@ class MainMetaController extends AppBaseController
         $this->mainMetaRepository->pushCriteria(new RequestCriteria($request));
         $mainMetas = $this->mainMetaRepository->all();
 
-        return view('main_metas.index')
+        return view('main_meta.index')
             ->with('mainMetas', $mainMetas);
     }
 
@@ -44,7 +44,7 @@ class MainMetaController extends AppBaseController
      */
     public function create()
     {
-        return view('main_metas.create');
+        return view('main_meta.create');
     }
 
     /**
@@ -82,7 +82,7 @@ class MainMetaController extends AppBaseController
             return redirect(route('mainMetas.index'));
         }
 
-        return view('main_metas.show')->with('mainMeta', $mainMeta);
+        return view('main_meta.show')->with('mainMeta', $mainMeta);
     }
 
     /**
@@ -102,7 +102,7 @@ class MainMetaController extends AppBaseController
             return redirect(route('mainMetas.index'));
         }
 
-        return view('main_metas.edit')->with('mainMeta', $mainMeta);
+        return view('main_meta.edit')->with('mainMeta', $mainMeta);
     }
 
     /**
