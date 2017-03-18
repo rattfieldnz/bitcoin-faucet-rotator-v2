@@ -1,3 +1,4 @@
+{!! Form::hidden('id', $faucet != null ? $faucet->id : null) !!}
 <!-- Name Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('name') ? ' has-error' : '' }}">
     {!! Form::label('name', 'Name:') !!}

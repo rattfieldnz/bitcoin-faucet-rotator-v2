@@ -150,7 +150,7 @@ class Faucet extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required|unique:faucets,name|min:5|max:25',
+        'name' => 'min:5|max:25|required|unique:faucets,name',
         'url' => [
             'required',
             'url',

@@ -164,21 +164,44 @@ class FaucetController extends AppBaseController
         Functions::userCanAccessArea(Auth::user(), 'faucets.update', ['slug' => $slug]);
         $currentFaucet = $this->faucetRepository->findByField('slug', $slug);
 
+        $paymentProcessors = $request->get('payment_processors');
+        $paymentProcessorIds = $request->get('payment_processors');
+        //dd($paymentProcessorIds);
+
+        if(count($paymentProcessorIds) == 1){
+            $paymentProcessors = PaymentProcessor::where('id', $paymentProcessorIds[0]);
+        }
+        else if(count($paymentProcessorIds) >= 1){
+            $paymentProcessors = PaymentProcessor::whereIn('id', $paymentProcessorIds);
+        }
+
         if (empty($currentFaucet)) {
             LaracastsFlash::error('Faucet not found');
 
             return redirect(route('faucets.index'));
         }
 
-        $paymentProcessors = $request->get('payment_processors');
+        $toAddPaymentProcressorIds = [];
 
+
+        foreach($paymentProcessors->pluck('id')->toArray() as $key => $value){
+            array_push($toAddPaymentProcressorIds, (int)$value);
+        }
+
+        //Below logic disables foreign key checking before
+        //updating many-to-many table (faucet_payment_processor)
+        //that ties instances of faucets to instances of payment
+        //processors. The retrieved payment processor ids are
+        //iterated through, then synced with the current faucet in
+        // the many-many table. Then foreign key checking is re-enabled.
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        $currentFaucet->first()->paymentProcessors()->detach();
+        //$faucet->paymentProcessors()->detach();
 
-        if(count($paymentProcessors) >= 1){
-            foreach ($paymentProcessors as $paymentProcessorId) {
-                $currentFaucet->first()->paymentProcessors()->attach((int)$paymentProcessorId);
-            }
+        if(count($toAddPaymentProcressorIds) > 1){
+            $currentFaucet->paymentProcessors()->sync($toAddPaymentProcressorIds);
+        }
+        else if(count($toAddPaymentProcressorIds) == 1){
+            $currentFaucet->paymentProcessors()->sync([$toAddPaymentProcressorIds[0]]);
         }
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 

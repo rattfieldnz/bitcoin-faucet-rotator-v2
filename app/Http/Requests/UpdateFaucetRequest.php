@@ -25,6 +25,9 @@ class UpdateFaucetRequest extends Request
      */
     public function rules()
     {
-        return Faucet::$rules;
+        $rules = Faucet::$rules;
+        $rules['name'] = $rules['name'] . ', '. $this->id;
+        $rules['url'][3] = $rules['url'][3] . ', '. $this->id;
+        return $rules;
     }
 }
