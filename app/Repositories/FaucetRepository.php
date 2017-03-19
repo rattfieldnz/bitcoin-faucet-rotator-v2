@@ -41,14 +41,14 @@ class FaucetRepository extends BaseRepository
      * NOTE: New users cannot register as an admin.
      *
      * @param  array  $data
-     * @return User
+     * @return Faucet
      */
     public function create(array $data)
     {
         // Have to skip presenter to get a model not some data
         $temporarySkipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
-        $userData = [
+        $faucetData = [
             'name' => $data['name'],
             'url' => $data['url'],
             'interval_minutes' => $data['interval_minutes'],
@@ -61,12 +61,12 @@ class FaucetRepository extends BaseRepository
             'meta_title' => $data['meta_title'],
             'meta_description' => $data['meta_description'],
             'meta_keywords' => $data['meta_keywords'],
-            'has_low_balance'  => $data['meta_keywords'] != null && $data['meta_keywords'] != '' ? $data['meta_keywords'] : false
+            'has_low_balance'  => $data['has_low_balance']
         ];
-        $user = Faucet::create($userData);
+        $faucet = Faucet::create($faucetData);
         $this->skipPresenter($temporarySkipPresenter);
-        $this->updateRelations($user, $userData);
-        $user->save();
-        return $this->parserResult($user);
+        $this->updateRelations($faucet, $faucetData);
+        $faucet->save();
+        return $this->parserResult($faucet);
     }
 }
