@@ -91,7 +91,7 @@ class PaymentProcessor extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required|unique:payment_processors,name|min:5|max:25',
+        'name' => 'min:1|max:25|required|unique:payment_processors,name',
         'url' => [
             'required',
             'url',

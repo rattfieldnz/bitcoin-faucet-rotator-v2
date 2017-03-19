@@ -11,7 +11,7 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($paymentProcessor, ['route' => ['payment-processors.update', $paymentProcessor->id], 'method' => 'patch']) !!}
+                   {!! Form::model($paymentProcessor, ['route' => ['payment-processors.update', $paymentProcessor->slug], 'method' => 'patch']) !!}
 
                         @include('payment_processors.fields')
 

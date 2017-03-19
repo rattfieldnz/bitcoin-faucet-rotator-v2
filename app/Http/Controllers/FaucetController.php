@@ -164,6 +164,8 @@ class FaucetController extends AppBaseController
         Functions::userCanAccessArea(Auth::user(), 'faucets.update', ['slug' => $slug]);
         $currentFaucet = $this->faucetRepository->findByField('slug', $slug)->first();
 
+        $faucet = $this->faucetRepository->update($request->all(), $currentFaucet->id);
+
         $paymentProcessors = $request->get('payment_processors');
         $paymentProcessorIds = $request->get('payment_processors');
 

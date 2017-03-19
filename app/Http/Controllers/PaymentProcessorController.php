@@ -122,18 +122,17 @@ class PaymentProcessorController extends AppBaseController
     {
         Functions::userCanAccessArea(Auth::user(), 'payment-processors.update', ['slug' => $slug], null);
         $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
-
         if (empty($paymentProcessor)) {
             Flash::error('Payment Processor not found');
 
-            return redirect(route('paymentProcessors.index'));
+            return redirect(route('payment-processors.index'));
         }
 
-        $paymentProcessor = $this->paymentProcessorRepository->update($request->all(), $slug);
+        $paymentProcessor = $this->paymentProcessorRepository->update($request->all(), $paymentProcessor->id);
 
         Flash::success('Payment Processor updated successfully.');
 
-        return redirect(route('paymentProcessors.index'));
+        return redirect(route('payment-processors.index'));
     }
 
     /**
