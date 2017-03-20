@@ -1,5 +1,3 @@
-{!! Form::hidden('is_admin', 0) !!}
-
 <!-- User Name Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('user_name') ? ' has-error' : '' }}">
     {!! Form::label('user_name', 'User Name:') !!}
@@ -85,7 +83,20 @@
 </div>
 
 <!-- Is Admin Field -->
-{!! Form::hidden('is_admin', false) !!}
+@if(Auth::user()->is_admin == true)
+<div class="form-group col-sm-6 has-feedback{{ $errors->has('is_admin') ? ' has-error' : '' }}">
+    {!! Form::label('is_admin', 'Set user as an admin?:') !!}
+
+    {!! Form::label('is_admin', 'Yes') !!}    {!! Form::radio('is_admin', 1) !!}
+    {!! Form::label('is_admin', 'No') !!}    {!! Form::radio('is_admin', 0) !!}
+
+    @if ($errors->has('is_admin'))
+        <span class="help-block">
+		    <strong>{{ $errors->first('is_admin') }}</strong>
+		</span>
+    @endif
+</div>
+@endif
 
 <!-- Submit Field -->
 <div class="row">
