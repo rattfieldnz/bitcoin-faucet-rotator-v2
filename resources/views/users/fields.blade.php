@@ -1,3 +1,5 @@
+<!-- Used in updating user. -->
+{!! Form::hidden('id', $user != null ? $user->id : null) !!}
 <!-- User Name Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('user_name') ? ' has-error' : '' }}">
     {!! Form::label('user_name', 'User Name:') !!}

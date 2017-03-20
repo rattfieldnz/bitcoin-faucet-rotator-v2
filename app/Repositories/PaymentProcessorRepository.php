@@ -4,8 +4,9 @@ namespace App\Repositories;
 
 use App\Models\PaymentProcessor;
 use InfyOm\Generator\Common\BaseRepository;
+use Mews\Purifier\Facades\Purifier;
 
-class PaymentProcessorRepository extends BaseRepository
+class PaymentProcessorRepository extends BaseRepository implements IRepository
 {
     /**
      * @var array
@@ -25,5 +26,48 @@ class PaymentProcessorRepository extends BaseRepository
     public function model()
     {
         return PaymentProcessor::class;
+    }
+
+    /**
+     * Create a new payment processor.
+     *
+     * @param  array  $data
+     * @return PaymentProcessor
+     */
+    public function create(array $data)
+    {
+        // Have to skip presenter to get a model not some data
+        $temporarySkipPresenter = $this->skipPresenter;
+        $this->skipPresenter(true);
+        $paymentProcessorData = self::cleanInput($data);
+        $paymentProcessor = parent::create($paymentProcessorData);
+        $this->skipPresenter($temporarySkipPresenter);
+        $this->updateRelations($paymentProcessor, $paymentProcessorData);
+        $paymentProcessor->save();
+        return $this->parserResult($paymentProcessor);
+    }
+
+    public function update(array $data, $id)
+    {
+        // Have to skip presenter to get a model not some data
+        $temporarySkipPresenter = $this->skipPresenter;
+        $this->skipPresenter(true);
+        $paymentProcessorData = self::cleanInput($data);
+        $paymentProcessor = parent::update($paymentProcessorData, $id);
+        $this->skipPresenter($temporarySkipPresenter);
+        $paymentProcessor = $this->updateRelations($paymentProcessor, $paymentProcessorData);
+        $paymentProcessor->save();
+        return $this->parserResult($paymentProcessor);
+    }
+
+    static function cleanInput(array $data)
+    {
+        return [
+            'name' => Purifier::clean($data['name'], 'generalFields'),
+            'url' => Purifier::clean($data['url'], 'generalFields'),
+            'meta_title' => Purifier::clean($data['meta_title'], 'generalFields'),
+            'meta_description' => Purifier::clean($data['meta_description'], 'generalFields'),
+            'meta_keywords' => Purifier::clean($data['meta_keywords'], 'generalFields')
+        ];
     }
 }

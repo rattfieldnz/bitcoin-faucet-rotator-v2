@@ -91,6 +91,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    //protected $hidden = ['password'];
+
+    protected $guarded = ['id', 'password'];
+
     /**
      * The attributes that should be casted to native types.
      *
@@ -118,10 +122,10 @@ class User extends Authenticatable
      * @var array
      */
     public static $rules = [
-        'user_name' => 'required|unique:users,user_name|min:5|max:15',
+        'user_name' => 'min:5|max:15|required|unique:users,user_name',
         'first_name' => 'required|min:1|max:50',
         'last_name' => 'required|min:1|max:50',
-        'email' => 'required|email|unique:users',
+        'email' => 'required|email|unique:users,email',
         'password' => [
             'required',
             'confirmed',
@@ -129,7 +133,7 @@ class User extends Authenticatable
             'max:20',
             'regex:/^(?=.*[a-z|A-Z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/'
         ],
-        'bitcoin_address' => 'required|string|min:26|max:35|unique:users',
+        'bitcoin_address' => 'required|string|min:26|max:35|unique:users,bitcoin_address',
     ];
 
     /**

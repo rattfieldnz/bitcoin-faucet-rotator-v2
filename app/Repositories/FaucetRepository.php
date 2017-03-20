@@ -4,8 +4,9 @@ namespace App\Repositories;
 
 use App\Models\Faucet;
 use InfyOm\Generator\Common\BaseRepository;
+use Mews\Purifier\Facades\Purifier;
 
-class FaucetRepository extends BaseRepository
+class FaucetRepository extends BaseRepository implements IRepository
 {
     /**
      * @var array
@@ -48,25 +49,43 @@ class FaucetRepository extends BaseRepository
         // Have to skip presenter to get a model not some data
         $temporarySkipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
-        $faucetData = [
-            'name' => $data['name'],
-            'url' => $data['url'],
-            'interval_minutes' => $data['interval_minutes'],
-            'min_payout' => $data['min_payout'],
-            'max_payout' => $data['max_payout'],
-            'has_ref_program' => $data['has_ref_program'],
-            'ref_payout_percent' => $data['ref_payout_percent'],
-            'comments' => $data['comments'],
-            'is_paused' => $data['comments'],
-            'meta_title' => $data['meta_title'],
-            'meta_description' => $data['meta_description'],
-            'meta_keywords' => $data['meta_keywords'],
-            'has_low_balance'  => $data['has_low_balance']
-        ];
-        $faucet = Faucet::create($faucetData);
+        $faucetData = self::cleanInput($data);
+        $faucet = parent::create($faucetData);
         $this->skipPresenter($temporarySkipPresenter);
         $this->updateRelations($faucet, $faucetData);
         $faucet->save();
         return $this->parserResult($faucet);
+    }
+
+    public function update(array $data, $id)
+    {
+        // Have to skip presenter to get a model not some data
+        $temporarySkipPresenter = $this->skipPresenter;
+        $this->skipPresenter(true);
+        $faucetData = self::cleanInput($data);
+        $faucet = parent::update($faucetData, $id);
+        $this->skipPresenter($temporarySkipPresenter);
+        $faucet = $this->updateRelations($faucet, $faucetData);
+        $faucet->save();
+        return $this->parserResult($faucet);
+    }
+
+    static function cleanInput(array $data)
+    {
+        return [
+            'name' => Purifier::clean($data['name'], 'generalFields'),
+            'url' => Purifier::clean($data['url'], 'generalFields'),
+            'interval_minutes' => Purifier::clean($data['interval_minutes'], 'generalFields'),
+            'min_payout' => Purifier::clean($data['min_payout'], 'generalFields'),
+            'max_payout' => Purifier::clean($data['max_payout'], 'generalFields'),
+            'has_ref_program' => Purifier::clean($data['has_ref_program'], 'generalFields'),
+            'ref_payout_percent' => Purifier::clean($data['ref_payout_percent'], 'generalFields'),
+            'comments' => Purifier::clean($data['comments'], 'generalFields'),
+            'is_paused' => Purifier::clean($data['comments'], 'generalFields'),
+            'meta_title' => Purifier::clean($data['meta_title'], 'generalFields'),
+            'meta_description' => Purifier::clean($data['meta_description'], 'generalFields'),
+            'meta_keywords' => Purifier::clean($data['meta_keywords'], 'generalFields'),
+            'has_low_balance'  => Purifier::clean($data['has_low_balance'], 'generalFields')
+        ];
     }
 }

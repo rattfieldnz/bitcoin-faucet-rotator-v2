@@ -37,7 +37,7 @@
         <!-- Password Field -->
         <div class="form-group">
             {!! Form::label('password', 'Password:') !!}
-            <p> ************ </p>
+            <p> {{ $user->password }} </p>
         </div>
 
         <!-- Bitcoin Address Field -->
