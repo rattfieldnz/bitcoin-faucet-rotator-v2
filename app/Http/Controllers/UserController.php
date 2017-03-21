@@ -43,7 +43,8 @@ class UserController extends AppBaseController
      */
     public function create()
     {
-        return view('users.create');
+        $user = null;
+        return view('users.create')->with('user');
     }
 
     /**
