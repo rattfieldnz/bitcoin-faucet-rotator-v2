@@ -7,18 +7,15 @@
             @endif
         @endif
         <th>User Name</th>
-        <th>First Name</th>
-        <th>Last Name</th>
 
         @if(Auth::user() != null)
             @if(Auth::user()->is_admin == true)
                 <th>Email</th>
                 <th>Password</th>
-                <th>Bitcoin Address</th>
                 <th>Is Admin</th>
+                <th>Has Been Deleted</th>
             @endif
         @endif
-        <th>Slug</th>
         <th colspan="3">Action</th>
     </thead>
     <tbody>
@@ -30,17 +27,14 @@
                 @endif
             @endif
             <td>{!! $user->user_name !!}</td>
-            <td>{!! $user->first_name !!}</td>
-            <td>{!! $user->last_name !!}</td>
             @if(Auth::user() != null)
                 @if(Auth::user()->is_admin == true)
                     <td>{!! $user->email !!}</td>
                     <td> ************ </td>
-                    <td>{!! $user->bitcoin_address !!}</td>
                     <td>{!! $user->isAnAdmin() !!}</td>
+                    <td>{!! $user->isDeleted() == true ? "Yes" : "No" !!}</td>
                 @endif
             @endif
-            <td>{!! $user->slug !!}</td>
             <td>
                 <div class='btn-group'>
                     <a href="{!! route('users.show', ['slug' => $user->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>

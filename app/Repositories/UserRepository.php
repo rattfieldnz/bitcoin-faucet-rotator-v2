@@ -86,4 +86,33 @@ class UserRepository extends BaseRepository implements IRepository
 
         return $data;
     }
+
+    /**
+     * Find data by field and value
+     *
+     * @param       $field
+     * @param       $value
+     * @param array $columns
+     *
+     * @return mixed
+     */
+    public function findByField($field, $value = null, $trashed = false, $columns = ['*'])
+    {
+        $this->applyCriteria();
+        $this->applyScope();
+        if($trashed = true){
+            $model = $this->model->withTrashed()->where($field, '=', $value)->get($columns);
+            $this->resetModel();
+
+            return $this->parserResult($model);
+        }
+        $model = $this->model->where($field, '=', $value)->get($columns);
+        $this->resetModel();
+
+        return $this->parserResult($model);
+    }
+
+    public function withTrashed(){
+        return User::withTrashed();
+    }
 }

@@ -33,7 +33,7 @@ class UserController extends AppBaseController
     public function index(Request $request)
     {
         $this->userRepository->pushCriteria(new RequestCriteria($request));
-        $users = $this->userRepository->all();
+        $users = $this->userRepository->withTrashed()->get();
 
         return view('users.index')
             ->with('users', $users);
@@ -92,12 +92,15 @@ class UserController extends AppBaseController
      */
     public function show($slug)
     {
-        $user = $this->userRepository->findByField('slug', $slug)->first();
+        $user = $this->userRepository->findByField('slug', $slug, true)->first();
 
-        if (empty($user)) {
+        if (empty($user) || (Auth::guest() && $user->isDeleted() == true)) {
             Flash::error('User not found');
 
             return redirect(route('users.index'));
+        }
+        if(!Auth::user()->is_admin && $user->isDeleted() == true){
+            abort(403);
         }
 
         return view('users.show')->with('user', $user);

@@ -180,4 +180,11 @@ class User extends Authenticatable
         }
         return 'No';
     }
+
+    public function isDeleted(){
+        if ($this->attributes['deleted_at']) {
+            return true;
+        }
+        return false;
+    }
 }
