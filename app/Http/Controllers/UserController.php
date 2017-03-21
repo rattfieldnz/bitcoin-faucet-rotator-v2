@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Functions;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -19,6 +21,7 @@ class UserController extends AppBaseController
     public function __construct(UserRepository $userRepo)
     {
         $this->userRepository = $userRepo;
+        $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
     /**
@@ -43,7 +46,16 @@ class UserController extends AppBaseController
      */
     public function create()
     {
+
         $user = null;
+        Functions::userCanAccessArea(
+            Auth::user(),
+            'users.create',
+            null,
+            [
+                'user' => $user
+            ]
+        );
         return view('users.create')->with('user');
     }
 
@@ -56,6 +68,12 @@ class UserController extends AppBaseController
      */
     public function store(CreateUserRequest $request)
     {
+        Functions::userCanAccessArea(
+            Auth::user(),
+            'users.store',
+            null,
+            null
+        );
         $input = $request->all();
 
         $user = $this->userRepository->create($input);
@@ -95,6 +113,15 @@ class UserController extends AppBaseController
     public function edit($slug)
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
+        Functions::userCanAccessArea(
+            Auth::user(),
+            'users.edit',
+            null,
+            [
+                'user' => $user,
+                'slug' => $slug
+            ]
+        );
 
         if (empty($user)) {
             Flash::error('User not found');
@@ -102,7 +129,9 @@ class UserController extends AppBaseController
             return redirect(route('users.index'));
         }
 
-        return view('users.edit')->with('user', $user);
+        return view('users.edit')
+            ->with('user', $user)
+            ->with('slug', $slug);
     }
 
     /**
@@ -116,6 +145,15 @@ class UserController extends AppBaseController
     public function update($slug, UpdateUserRequest $request)
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
+        Functions::userCanAccessArea(
+            Auth::user(),
+            'users.update',
+            null,
+            [
+                'user' => $user,
+                'slug' => $slug
+            ]
+        );
 
         if (empty($user)) {
             Flash::error('User not found');
@@ -145,9 +183,18 @@ class UserController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $user = $this->userRepository->findWithoutFail($id);
+        $user = $this->userRepository->findByField('slug', $slug)->first();
+        Functions::userCanAccessArea(
+            Auth::user(),
+            'users.destroy',
+            null,
+            [
+                'user' => $user,
+                'slug' => $slug
+            ]
+        );
 
         if (empty($user)) {
             Flash::error('User not found');
@@ -155,7 +202,7 @@ class UserController extends AppBaseController
             return redirect(route('users.index'));
         }
 
-        $this->userRepository->delete($id);
+        $this->userRepository->deleteWhere(['slug' => $slug]);
 
         Flash::success('User deleted successfully.');
 
