@@ -239,7 +239,7 @@ class UserController extends AppBaseController
 
     }
 
-    public function restoreDeletedUser($slug){
+    public function restoreDeleted($slug){
         $user = $this->userRepository->findByField('slug', $slug)->first();
         Functions::userCanAccessArea(
             Auth::user(),

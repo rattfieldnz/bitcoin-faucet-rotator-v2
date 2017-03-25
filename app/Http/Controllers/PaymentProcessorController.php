@@ -33,7 +33,7 @@ class PaymentProcessorController extends AppBaseController
     public function index(Request $request)
     {
         $this->paymentProcessorRepository->pushCriteria(new RequestCriteria($request));
-        $paymentProcessors = $this->paymentProcessorRepository->all();
+        $paymentProcessors = $this->paymentProcessorRepository->withTrashed()->get();
 
         return view('payment_processors.index')
             ->with('paymentProcessors', $paymentProcessors);
@@ -47,7 +47,8 @@ class PaymentProcessorController extends AppBaseController
     public function create()
     {
         Functions::userCanAccessArea(Auth::user(), 'payment-processors.create');
-        return view('payment_processors.create');
+        $paymentProcessor = null;
+        return view('payment_processors.create')->with('paymentProcessor');
     }
 
     /**
@@ -150,13 +151,74 @@ class PaymentProcessorController extends AppBaseController
         if (empty($paymentProcessor)) {
             Flash::error('Payment Processor not found');
 
-            return redirect(route('paymentProcessors.index'));
+            return redirect(route('payment-processors.index'));
         }
 
         $this->paymentProcessorRepository->deleteWhere(['slug' => $slug]);
 
         Flash::success('Payment Processor deleted successfully.');
 
-        return redirect(route('paymentProcessors.index'));
+        return redirect(route('payment-processors.index'));
+    }
+
+    /**
+     * @param $slug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function destroyPermanently($slug)
+    {
+        $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
+        Functions::userCanAccessArea(
+            Auth::user(),
+            'payment-processors.delete-permanently',
+            null,
+            [
+                'paymentProcessor' => $paymentProcessor,
+                'slug' => $slug
+            ]
+        );
+
+        if (empty($paymentProcessor)) {
+            Flash::error('Payment Processor not found');
+
+            return redirect(route('payment-processors.index'));
+        }
+
+        $this->paymentProcessorRepository->deleteWhere(['slug' => $slug], true);
+
+        Flash::success('Payment Processor was permanently deleted!');
+
+        return redirect(route('payment-processors.index'));
+
+    }
+
+    /**
+     * @param $slug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function restoreDeleted($slug){
+        $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
+        Functions::userCanAccessArea(
+            Auth::user(),
+            'payment-processors.restore',
+            null,
+            [
+                'paymentProcessor' => $paymentProcessor,
+                'slug' => $slug
+            ]
+        );
+
+        if (empty($paymentProcessor)) {
+            Flash::error('Payment Processor not found');
+
+            return redirect(route('payment-processors.index'));
+        }
+
+        $this->paymentProcessorRepository->restoreDeleted($slug);
+
+        Flash::success('Payment Processor was successfully restored!');
+
+        return redirect(route('payment-processors.index'));
+
     }
 }

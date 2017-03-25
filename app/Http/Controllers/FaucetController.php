@@ -263,7 +263,7 @@ class FaucetController extends AppBaseController
 
     }
 
-    public function restoreDeletedFaucet($slug){
+    public function restoreDeleted($slug){
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
         Functions::userCanAccessArea(
             Auth::user(),

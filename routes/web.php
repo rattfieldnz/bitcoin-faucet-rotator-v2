@@ -44,11 +44,27 @@ Route::patch(
     'faucets/{slug}/restore',
     [
         'as' => 'faucets.restore',
-        'uses' => 'FaucetController@restoreDeletedFaucet'
+        'uses' => 'FaucetController@restoreDeleted'
     ]
 );
 
 Route::resource('faucets', 'FaucetController');
+
+Route::delete(
+    'payment-processors/{slug}/delete-permanently',
+    [
+        'as' => 'payment-processors.delete-permanently',
+        'uses' => 'PaymentProcessorController@destroyPermanently'
+    ]
+);
+
+Route::patch(
+    'payment-processors/{slug}/restore',
+    [
+        'as' => 'payment-processors.restore',
+        'uses' => 'PaymentProcessorController@restoreDeleted'
+    ]
+);
 
 Route::resource('payment-processors', 'PaymentProcessorController');
 
@@ -64,7 +80,7 @@ Route::patch(
     'users/{slug}/restore',
     [
         'as' => 'users.restore',
-        'uses' => 'UserController@restoreDeletedUser'
+        'uses' => 'UserController@restoreDeleted'
     ]
 );
 

@@ -3,10 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\PaymentProcessor;
-use InfyOm\Generator\Common\BaseRepository;
 use Mews\Purifier\Facades\Purifier;
 
-class PaymentProcessorRepository extends BaseRepository implements IRepository
+class PaymentProcessorRepository extends Repository implements IRepository
 {
     /**
      * @var array
