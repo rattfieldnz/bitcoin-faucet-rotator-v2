@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laratrust\Traits\LaratrustUserTrait;
 
 /**
  * @SWG\Definition(
@@ -67,6 +68,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class User extends Authenticatable
 {
+    use LaratrustUserTrait;
     use SoftDeletes;
     use Notifiable;
     use Sluggable;
