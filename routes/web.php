@@ -91,3 +91,7 @@ Route::resource('main-meta', 'MainMetaController');
 Route::resource('ad-block', 'AdBlockController');
 
 Route::resource('twitter-config', 'TwitterConfigController');
+
+Route::resource('roles', 'RoleController');
+
+Route::resource('permissions', 'PermissionController');
