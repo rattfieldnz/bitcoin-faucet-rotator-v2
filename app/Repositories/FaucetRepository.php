@@ -3,11 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\Faucet;
-use InfyOm\Generator\Common\BaseRepository;
 use Mews\Purifier\Facades\Purifier;
-use Prettus\Repository\Events\RepositoryEntityDeleted;
 
-class FaucetRepository extends BaseRepository implements IRepository
+class FaucetRepository extends Repository implements IRepository
 {
     /**
      * @var array
@@ -71,48 +69,6 @@ class FaucetRepository extends BaseRepository implements IRepository
         return $this->parserResult($faucet);
     }
 
-    /**
-     * Delete multiple entities by given criteria.
-     *
-     * @param array $where
-     *
-     * @param bool $permanent
-     * @return int
-     */
-    public function deleteWhere(array $where, $permanent = false)
-    {
-        $this->applyScope();
-        $deleted = null;
-
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-
-        $this->applyConditions($where);
-
-        if($permanent == true){
-            $deleted = $this->model->forceDelete();
-        }
-        $deleted = $this->model->delete();
-
-        event(new RepositoryEntityDeleted($this, $this->model->getModel()));
-
-        $this->skipPresenter($temporarySkipPresenter);
-        $this->resetModel();
-
-        return $deleted;
-    }
-
-    public function restoreDeleted($slug){
-        $faucet = Faucet::onlyTrashed()->where('slug', $slug)->first();
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-        $restoredFaucet = $faucet->restore();
-        $this->skipPresenter($temporarySkipPresenter);
-
-        return $this->parserResult($restoredFaucet);
-
-    }
-
     static function cleanInput(array $data)
     {
         return [
@@ -130,34 +86,5 @@ class FaucetRepository extends BaseRepository implements IRepository
             'meta_keywords' => Purifier::clean($data['meta_keywords'], 'generalFields'),
             'has_low_balance'  => Purifier::clean($data['has_low_balance'], 'generalFields')
         ];
-    }
-
-    /**
-     * Find data by field and value
-     *
-     * @param       $field
-     * @param       $value
-     * @param array $columns
-     *
-     * @return mixed
-     */
-    public function findByField($field, $value = null, $trashed = false, $columns = ['*'])
-    {
-        $this->applyCriteria();
-        $this->applyScope();
-        if($trashed = true){
-            $model = $this->model->withTrashed()->where($field, '=', $value)->get($columns);
-            $this->resetModel();
-
-            return $this->parserResult($model);
-        }
-        $model = $this->model->where($field, '=', $value)->get($columns);
-        $this->resetModel();
-
-        return $this->parserResult($model);
-    }
-
-    public function withTrashed(){
-        return Faucet::withTrashed();
     }
 }
