@@ -30,7 +30,7 @@ return [
         ],
     ],
     'permission_structure' => [
-        'user' => [
+        'owner' => [
             'users' => 'c,r,u,sd,pd,rs',
             'faucets' => 'c,r,u,sd,pd,rs',
             'payment-processors' => 'c,r,u,sd,pd,rs',
@@ -39,6 +39,22 @@ return [
             'ad-block' => 'c,r,u,sd,pd,rs',
             'roles' => 'c,r,u,sd,pd,rs',
             'permissions' => 'c,r,u,sd,pd,rs'
+        ],
+        'administrator' => [
+            'users' => 'c,r,u,sd,rs',
+            'faucets' => 'c,r,u,sd,rs',
+            'user-faucets' => 'c,r,u,sd,rs',
+            'payment-processors' => 'c,r,u,sd,rs',
+            'main-meta' => 'r',
+            'ad-block' => 'r',
+            'roles' => 'r',
+            'permissions' => 'r'
+        ],
+        'user' => [
+            'users' => 'r',
+            'faucets' => 'r',
+            'user-faucets' => 'c,r,u,sd,pd,rs',
+            'payment-processors' => 'r'
         ],
     ],
     'permissions_map' => [
