@@ -16,7 +16,7 @@ class LaratrustSeeder extends Seeder
     public function run()
     {
         $user = User::where('is_admin', '=', true)->first();
-        $this->command->info('Truncating User, Role and Permission tables');
+        $this->command->info('Truncating Role and Permission tables');
         $this->truncateLaratrustTables();
 
         $config = config('laratrust_seeder.role_structure');
@@ -94,6 +94,7 @@ class LaratrustSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         DB::table('permission_role')->truncate();
+        DB::table('permission_user')->truncate();
         DB::table('role_user')->truncate();
         Role::truncate();
         Permission::truncate();

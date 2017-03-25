@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Functions;
 use App\Http\Requests\CreatePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Repositories\PermissionRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -19,6 +21,7 @@ class PermissionController extends AppBaseController
     public function __construct(PermissionRepository $permissionRepo)
     {
         $this->permissionRepository = $permissionRepo;
+        $this->middleware('auth');
     }
 
     /**
@@ -29,6 +32,7 @@ class PermissionController extends AppBaseController
      */
     public function index(Request $request)
     {
+        Functions::userCanAccessArea(Auth::user(), 'permissions.index');
         $this->permissionRepository->pushCriteria(new RequestCriteria($request));
         $permissions = $this->permissionRepository->all();
 
@@ -43,6 +47,7 @@ class PermissionController extends AppBaseController
      */
     public function create()
     {
+        Functions::userCanAccessArea(Auth::user(), 'permissions.create');
         return view('permissions.create');
     }
 
@@ -55,6 +60,7 @@ class PermissionController extends AppBaseController
      */
     public function store(CreatePermissionRequest $request)
     {
+        Functions::userCanAccessArea(Auth::user(), 'permissions.store');
         $input = $request->all();
 
         $permission = $this->permissionRepository->create($input);
@@ -73,6 +79,7 @@ class PermissionController extends AppBaseController
      */
     public function show($id)
     {
+        Functions::userCanAccessArea(Auth::user(), 'permissions.show');
         $permission = $this->permissionRepository->findWithoutFail($id);
 
         if (empty($permission)) {
@@ -93,6 +100,7 @@ class PermissionController extends AppBaseController
      */
     public function edit($id)
     {
+        Functions::userCanAccessArea(Auth::user(), 'permissions.edit');
         $permission = $this->permissionRepository->findWithoutFail($id);
 
         if (empty($permission)) {
@@ -114,6 +122,7 @@ class PermissionController extends AppBaseController
      */
     public function update($id, UpdatePermissionRequest $request)
     {
+        Functions::userCanAccessArea(Auth::user(), 'permissions.update');
         $permission = $this->permissionRepository->findWithoutFail($id);
 
         if (empty($permission)) {
@@ -138,6 +147,7 @@ class PermissionController extends AppBaseController
      */
     public function destroy($id)
     {
+        Functions::userCanAccessArea(Auth::user(), 'permissions.destroy');
         $permission = $this->permissionRepository->findWithoutFail($id);
 
         if (empty($permission)) {
