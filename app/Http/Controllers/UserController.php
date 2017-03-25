@@ -211,4 +211,31 @@ class UserController extends AppBaseController
 
         return redirect(route('users.index'));
     }
+
+    public function destroyPermanently($slug)
+    {
+        $user = $this->userRepository->findByField('slug', $slug)->first();
+        Functions::userCanAccessArea(
+            Auth::user(),
+            'users.delete-permanently',
+            null,
+            [
+                'user' => $user,
+                'slug' => $slug
+            ]
+        );
+
+        if (empty($user)) {
+            Flash::error('User not found');
+
+            return redirect(route('users.index'));
+        }
+
+        $this->userRepository->deleteWhere(['slug' => $slug], true);
+
+        Flash::success('User was permanently deleted!');
+
+        return redirect(route('users.index'));
+
+    }
 }

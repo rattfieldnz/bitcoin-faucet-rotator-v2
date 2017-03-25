@@ -41,9 +41,17 @@
                     @if(Auth::user() != null)
                         @if(Auth::user()->is_admin == true)
                             <a href="{!! route('users.edit', ['slug' => $user->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                            {!! Form::open(['route' => ['users.destroy', 'slug' => $user->slug], 'method' => 'delete']) !!}
-                            {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                            {!! Form::close() !!}
+                            @if($user->isDeleted())
+                                {!! Form::open(['route' => ['users.delete-permanently', $user->slug], 'method' => 'delete']) !!}
+                                {!! csrf_field() !!}
+                                {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure? The user will be PERMANENTLY deleted!')"]) !!}
+                                {!! Form::close() !!}
+                            @else
+                                {!! Form::open(['route' => ['users.destroy', 'slug' => $user->slug], 'method' => 'delete']) !!}
+                                {!! csrf_field() !!}
+                                {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-warning btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                                {!! Form::close() !!}
+                            @endif
                         @endif
                     @endif
                 </div>

@@ -36,6 +36,14 @@ Route::resource('faucets', 'FaucetController');
 
 Route::resource('payment-processors', 'PaymentProcessorController');
 
+Route::delete(
+    'users/{slug}/delete-permanently',
+        [
+            'as' => 'users.delete-permanently',
+            'uses' => 'UserController@destroyPermanently'
+        ]
+);
+
 Route::resource('users', 'UserController');
 
 Route::resource('main-meta', 'MainMetaController');

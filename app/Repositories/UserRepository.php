@@ -6,6 +6,7 @@ use App\Models\User;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use InfyOm\Generator\Common\BaseRepository;
 use Mews\Purifier\Facades\Purifier;
+use Prettus\Repository\Events\RepositoryEntityDeleted;
 
 class UserRepository extends BaseRepository implements IRepository
 {
@@ -110,6 +111,37 @@ class UserRepository extends BaseRepository implements IRepository
         $this->resetModel();
 
         return $this->parserResult($model);
+    }
+
+    /**
+     * Delete multiple entities by given criteria.
+     *
+     * @param array $where
+     *
+     * @param bool $permanent
+     * @return int
+     */
+    public function deleteWhere(array $where, $permanent = false)
+    {
+        $this->applyScope();
+        $deleted = null;
+
+        $temporarySkipPresenter = $this->skipPresenter;
+        $this->skipPresenter(true);
+
+        $this->applyConditions($where);
+
+        if($permanent == true){
+            $deleted = $this->model->forceDelete();
+        }
+        $deleted = $this->model->delete();
+
+        event(new RepositoryEntityDeleted($this, $this->model->getModel()));
+
+        $this->skipPresenter($temporarySkipPresenter);
+        $this->resetModel();
+
+        return $deleted;
     }
 
     public function withTrashed(){
