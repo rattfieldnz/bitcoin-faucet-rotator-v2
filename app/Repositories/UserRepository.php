@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\User;
 use Mews\Purifier\Facades\Purifier;
-use Prettus\Repository\Events\RepositoryEntityDeleted;
 
 class UserRepository extends Repository implements IRepository
 {
