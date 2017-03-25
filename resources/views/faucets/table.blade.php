@@ -9,14 +9,12 @@
         <th>Name</th>
         <th>Url</th>
         <th>Interval Minutes</th>
-        <th>Min Payout</th>
-        <th>Max Payout</th>
-        <th>Has Ref Program</th>
-        <th>Ref Payout Percent</th>
         <th>Payment Processors</th>
-        <th>Is Paused</th>
-        <th>Slug</th>
-        <th>Has Low Balance</th>
+        @if(Auth::user() != null)
+            @if(Auth::user()->is_admin == true)
+                <th>Has Been Deleted</th>
+            @endif
+        @endif
         <th>Action</th>
     </thead>
     <tbody>
@@ -30,10 +28,6 @@
             <td>{!! $faucet->name !!}</td>
             <td>{!! $faucet->url !!}</td>
             <td>{!! $faucet->interval_minutes !!}</td>
-            <td>{!! $faucet->min_payout !!}</td>
-            <td>{!! $faucet->max_payout !!}</td>
-            <td>{!! $faucet->has_ref_program == true ? "Yes" : "No" !!}</td>
-            <td>{!! $faucet->ref_payout_percent !!}</td>
             <td>
                 <ul>
                 @foreach($faucet->paymentProcessors as $p)
@@ -41,19 +35,33 @@
                 @endforeach
                 </ul>
             </td>
-            <td>{!! $faucet->is_paused == true ? "Yes" : "No" !!}</td>
-            <td>{!! $faucet->slug !!}</td>
-            <td>{!! $faucet->has_low_balance == true ? "Yes" : "No" !!}</td>
+            @if(Auth::user() != null)
+                @if(Auth::user()->is_admin == true)
+                    <td>{!! $faucet->isDeleted() == true ? "Yes" : "No" !!}</td>
+                @endif
+            @endif
             <td>
 
                 <div class='btn-group'>
-                    <a href="{!! route('faucets.show', [$faucet->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! route('faucets.show', ['slug' => $faucet->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                     @if(Auth::user() != null)
                         @if(Auth::user()->is_admin == true)
-                            <a href="{!! route('faucets.edit', [$faucet->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                            {!! Form::open(['route' => ['faucets.destroy', $faucet->slug], 'method' => 'delete']) !!}
-                            {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                            {!! Form::close() !!}
+                            <a href="{!! route('faucets.edit', ['slug' => $faucet->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                            @if($faucet->isDeleted())
+                                {!! Form::open(['route' => ['faucets.delete-permanently', $faucet->slug], 'method' => 'delete']) !!}
+                                {!! csrf_field() !!}
+                                {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"]) !!}
+                                {!! Form::close() !!}
+                                {!! Form::open(['route' => ['faucets.restore', $faucet->slug], 'method' => 'patch']) !!}
+                                {!! csrf_field() !!}
+                                {!! Form::button('<i class="glyphicon glyphicon-refresh"></i>', ['type' => 'submit', 'class' => 'btn btn-info btn-xs', 'onclick' => "return confirm('Are you sure you want to restore this deleted faucet?')"]) !!}
+                                {!! Form::close() !!}
+                            @else
+                                {!! Form::open(['route' => ['faucets.destroy', 'slug' => $faucet->slug], 'method' => 'delete']) !!}
+                                {!! csrf_field() !!}
+                                {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-warning btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                                {!! Form::close() !!}
+                            @endif
                         @endif
                     @endif
                 </div>

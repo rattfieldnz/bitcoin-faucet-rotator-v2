@@ -32,6 +32,22 @@ Route::group(['prefix' => 'api', 'namespace' => 'API'], function () {
 
 Route::get('/home', 'HomeController@index');
 
+Route::delete(
+    'faucets/{slug}/delete-permanently',
+    [
+        'as' => 'faucets.delete-permanently',
+        'uses' => 'FaucetController@destroyPermanently'
+    ]
+);
+
+Route::patch(
+    'faucets/{slug}/restore',
+    [
+        'as' => 'faucets.restore',
+        'uses' => 'FaucetController@restoreDeletedFaucet'
+    ]
+);
+
 Route::resource('faucets', 'FaucetController');
 
 Route::resource('payment-processors', 'PaymentProcessorController');

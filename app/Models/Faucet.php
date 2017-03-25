@@ -204,4 +204,11 @@ class Faucet extends Model
             ]
         ];
     }
+
+    public function isDeleted(){
+        if ($this->attributes['deleted_at']) {
+            return true;
+        }
+        return false;
+    }
 }

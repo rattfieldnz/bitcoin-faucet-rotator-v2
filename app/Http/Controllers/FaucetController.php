@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash as LaracastsFlash;
+use Laracasts\Flash\Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 
 class FaucetController extends AppBaseController
@@ -33,7 +34,7 @@ class FaucetController extends AppBaseController
     public function index(Request $request)
     {
         $this->faucetRepository->pushCriteria(new RequestCriteria($request));
-        $faucets = $this->faucetRepository->all()->where('deleted_at', null);
+        $faucets = $this->faucetRepository->withTrashed()->get();
 
         $user = Auth::user();
 
@@ -233,5 +234,58 @@ class FaucetController extends AppBaseController
         Flash::success('Faucet deleted successfully.');
 
         return redirect(route('faucets.index'));
+    }
+
+    public function destroyPermanently($slug)
+    {
+        $user = $this->faucetRepository->findByField('slug', $slug)->first();
+        Functions::userCanAccessArea(
+            Auth::user(),
+            'faucets.delete-permanently',
+            null,
+            [
+                'user' => $user,
+                'slug' => $slug
+            ]
+        );
+
+        if (empty($user)) {
+            Flash::error('Faucet not found');
+
+            return redirect(route('faucets.index'));
+        }
+
+        $this->faucetRepository->deleteWhere(['slug' => $slug], true);
+
+        Flash::success('Faucet was permanently deleted!');
+
+        return redirect(route('faucets.index'));
+
+    }
+
+    public function restoreDeletedFaucet($slug){
+        $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
+        Functions::userCanAccessArea(
+            Auth::user(),
+            'faucets.restore',
+            null,
+            [
+                'faucet' => $faucet,
+                'slug' => $slug
+            ]
+        );
+
+        if (empty($faucet)) {
+            Flash::error('Faucet not found');
+
+            return redirect(route('faucets.index'));
+        }
+
+        $this->faucetRepository->restoreDeleted($slug);
+
+        Flash::success('Faucet was successfully restored!');
+
+        return redirect(route('faucets.index'));
+
     }
 }
