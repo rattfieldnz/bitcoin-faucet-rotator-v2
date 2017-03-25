@@ -144,6 +144,17 @@ class UserRepository extends BaseRepository implements IRepository
         return $deleted;
     }
 
+    public function restoreDeleted($slug){
+        $user = User::onlyTrashed()->where('slug', $slug)->first();
+        $temporarySkipPresenter = $this->skipPresenter;
+        $this->skipPresenter(true);
+        $restoredUser = $user->restore();
+        $this->skipPresenter($temporarySkipPresenter);
+
+        return $this->parserResult($restoredUser);
+
+    }
+
     public function withTrashed(){
         return User::withTrashed();
     }

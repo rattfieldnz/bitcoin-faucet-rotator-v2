@@ -46,6 +46,10 @@
                                 {!! csrf_field() !!}
                                 {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure? The user will be PERMANENTLY deleted!')"]) !!}
                                 {!! Form::close() !!}
+                                {!! Form::open(['route' => ['users.restore', $user->slug], 'method' => 'patch']) !!}
+                                {!! csrf_field() !!}
+                                {!! Form::button('<i class="glyphicon glyphicon-refresh"></i>', ['type' => 'submit', 'class' => 'btn btn-info btn-xs', 'onclick' => "return confirm('Are you sure you want to restore this deleted user?')"]) !!}
+                                {!! Form::close() !!}
                             @else
                                 {!! Form::open(['route' => ['users.destroy', 'slug' => $user->slug], 'method' => 'delete']) !!}
                                 {!! csrf_field() !!}

@@ -44,6 +44,14 @@ Route::delete(
         ]
 );
 
+Route::patch(
+    'users/{slug}/restore',
+    [
+        'as' => 'users.restore',
+        'uses' => 'UserController@restoreDeletedUser'
+    ]
+);
+
 Route::resource('users', 'UserController');
 
 Route::resource('main-meta', 'MainMetaController');
