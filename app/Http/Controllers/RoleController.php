@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Functions;
 use App\Http\Requests\CreateRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Repositories\RoleRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -19,6 +21,7 @@ class RoleController extends AppBaseController
     public function __construct(RoleRepository $roleRepo)
     {
         $this->roleRepository = $roleRepo;
+        $this->middleware('auth');
     }
 
     /**
@@ -29,6 +32,7 @@ class RoleController extends AppBaseController
      */
     public function index(Request $request)
     {
+        Functions::userCanAccessArea(Auth::user(), 'roles.index');
         $this->roleRepository->pushCriteria(new RequestCriteria($request));
         $roles = $this->roleRepository->all();
 
@@ -43,6 +47,7 @@ class RoleController extends AppBaseController
      */
     public function create()
     {
+        Functions::userCanAccessArea(Auth::user(), 'roles.create');
         return view('roles.create');
     }
 
@@ -55,6 +60,7 @@ class RoleController extends AppBaseController
      */
     public function store(CreateRoleRequest $request)
     {
+        Functions::userCanAccessArea(Auth::user(), 'roles.store');
         $input = $request->all();
 
         $role = $this->roleRepository->create($input);
@@ -73,6 +79,7 @@ class RoleController extends AppBaseController
      */
     public function show($id)
     {
+        Functions::userCanAccessArea(Auth::user(), 'roles.show');
         $role = $this->roleRepository->findWithoutFail($id);
 
         if (empty($role)) {
@@ -93,6 +100,7 @@ class RoleController extends AppBaseController
      */
     public function edit($id)
     {
+        Functions::userCanAccessArea(Auth::user(), 'roles.edit');
         $role = $this->roleRepository->findWithoutFail($id);
 
         if (empty($role)) {
@@ -114,6 +122,7 @@ class RoleController extends AppBaseController
      */
     public function update($id, UpdateRoleRequest $request)
     {
+        Functions::userCanAccessArea(Auth::user(), 'roles.update');
         $role = $this->roleRepository->findWithoutFail($id);
 
         if (empty($role)) {
@@ -138,6 +147,7 @@ class RoleController extends AppBaseController
      */
     public function destroy($id)
     {
+        Functions::userCanAccessArea(Auth::user(), 'roles.destroy');
         $role = $this->roleRepository->findWithoutFail($id);
 
         if (empty($role)) {
