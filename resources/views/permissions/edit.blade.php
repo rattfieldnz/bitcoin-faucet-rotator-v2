@@ -11,7 +11,7 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($permission, ['route' => ['permissions.update', $permission->id], 'method' => 'patch']) !!}
+                   {!! Form::model($permission, ['route' => ['permissions.update', $permission->slug], 'method' => 'patch']) !!}
 
                         @include('permissions.fields')
 

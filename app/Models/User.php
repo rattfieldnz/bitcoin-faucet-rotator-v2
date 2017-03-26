@@ -139,11 +139,11 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      **/
-    public function adBlocks()
+    public function adBlock()
     {
-        return $this->hasMany(AdBlock::class);
+        return $this->hasOne(AdBlock::class);
     }
 
     /**

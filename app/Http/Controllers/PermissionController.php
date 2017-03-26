@@ -73,14 +73,14 @@ class PermissionController extends AppBaseController
     /**
      * Display the specified Permission.
      *
-     * @param  int $id
+     * @param  string $slug
      *
      * @return Response
      */
-    public function show($id)
+    public function show($slug)
     {
         Functions::userCanAccessArea(Auth::user(), 'permissions.show');
-        $permission = $this->permissionRepository->findWithoutFail($id);
+        $permission = $this->permissionRepository->findByField('slug', $slug)->first();
 
         if (empty($permission)) {
             Flash::error('Permission not found');
@@ -94,14 +94,14 @@ class PermissionController extends AppBaseController
     /**
      * Show the form for editing the specified Permission.
      *
-     * @param  int $id
+     * @param  string $slug
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
         Functions::userCanAccessArea(Auth::user(), 'permissions.edit');
-        $permission = $this->permissionRepository->findWithoutFail($id);
+        $permission = $this->permissionRepository->findByField('slug', $slug)->first();
 
         if (empty($permission)) {
             Flash::error('Permission not found');
@@ -120,10 +120,10 @@ class PermissionController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdatePermissionRequest $request)
+    public function update($slug, UpdatePermissionRequest $request)
     {
         Functions::userCanAccessArea(Auth::user(), 'permissions.update');
-        $permission = $this->permissionRepository->findWithoutFail($id);
+        $permission = $this->permissionRepository->findByField('slug', $slug)->first();
 
         if (empty($permission)) {
             Flash::error('Permission not found');
@@ -131,7 +131,7 @@ class PermissionController extends AppBaseController
             return redirect(route('permissions.index'));
         }
 
-        $permission = $this->permissionRepository->update($request->all(), $id);
+        $permission = $this->permissionRepository->update($request->all(), $slug);
 
         Flash::success('Permission updated successfully.');
 
