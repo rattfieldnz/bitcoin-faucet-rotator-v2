@@ -178,7 +178,7 @@ class Faucet extends Model
      **/
     public function paymentProcessors()
     {
-        return $this->belongsToMany(\App\Models\PaymentProcessor::class, 'faucet_payment_processor');
+        return $this->belongsToMany(PaymentProcessor::class, 'faucet_payment_processor');
     }
 
     /**
@@ -186,7 +186,7 @@ class Faucet extends Model
      **/
     public function users()
     {
-        return $this->belongsToMany(\App\Models\User::class, 'referral_info')->withPivot('user_id', 'faucet_id', 'referral_code');
+        return $this->belongsToMany(User::class, 'referral_info')->withPivot('user_id', 'faucet_id', 'referral_code');
     }
 
 

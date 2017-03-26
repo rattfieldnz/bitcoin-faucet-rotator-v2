@@ -109,7 +109,7 @@ class PaymentProcessor extends Model
      **/
     public function faucets()
     {
-        return $this->belongsToMany(\App\Models\Faucet::class, 'faucet_payment_processor');
+        return $this->belongsToMany(Faucet::class, 'faucet_payment_processor');
     }
 
 

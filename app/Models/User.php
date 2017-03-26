@@ -143,7 +143,7 @@ class User extends Authenticatable
      **/
     public function adBlocks()
     {
-        return $this->hasMany(\App\Models\AdBlock::class);
+        return $this->hasMany(AdBlock::class);
     }
 
     /**
@@ -151,15 +151,15 @@ class User extends Authenticatable
      **/
     public function faucets()
     {
-        return $this->belongsToMany(\App\Models\Faucet::class, 'referral_info');
+        return $this->belongsToMany(Faucet::class, 'referral_info')->withPivot('user_id', 'faucet_id', 'referral_code');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      **/
-    public function twitterConfigs()
+    public function twitterConfig()
     {
-        return $this->hasMany(\App\Models\TwitterConfig::class);
+        return $this->hasOne(TwitterConfig::class);
     }
 
     /**
