@@ -60,29 +60,33 @@ class LaratrustSeeder extends Seeder
         $user->attachRole(Role::where('name', '=', 'owner')->first());
 
         // creating user with permissions
-        if (!empty($userPermission)) {
-            foreach ($userPermission as $key => $modules) {
-                foreach ($modules as $module => $value) {
-                    $permissions = explode(',', $value);
-                    foreach ($permissions as $p => $perm) {
-                        $permissionValue = $mapPermission->get($perm);
+        try {
+            if (!empty($userPermission)) {
+                foreach ($userPermission as $key => $modules) {
+                    foreach ($modules as $module => $value) {
+                        $permissions = explode(',', $value);
+                        foreach ($permissions as $p => $perm) {
+                            $permissionValue = $mapPermission->get($perm);
 
-                        $permission = Permission::firstOrCreate([
-                            'name' => $permissionValue . '-' . $module,
-                            'display_name' => ucfirst($permissionValue) . ' ' . ucfirst($module),
-                            'description' => ucfirst($permissionValue) . ' ' . ucfirst($module),
-                        ]);
+                            $permission = Permission::firstOrCreate([
+                                'name' => $permissionValue . '-' . $module,
+                                'display_name' => ucfirst($permissionValue) . ' ' . ucfirst($module),
+                                'description' => ucfirst($permissionValue) . ' ' . ucfirst($module),
+                            ]);
 
-                        $this->command->info('Creating Permission to '.$permissionValue.' for '. $module);
+                            $this->command->info('Creating Permission to ' . $permissionValue . ' for ' . $module);
 
-                        if (!$user->hasPermission($permission)) {
-                            $user->attachPermission($permission);
-                        } else {
-                            $this->command->info($key . ': ' . $p . ' ' . $permissionValue . ' already exist');
+                            if (!$user->hasPermission($permission)) {
+                                $user->attachPermission($permission);
+                            } else {
+                                $this->command->info($key . ': ' . $p . ' ' . $permissionValue . ' already exist');
+                            }
                         }
                     }
                 }
             }
+        } catch(Illuminate\Database\QueryException $e){
+
         }
     }
 
@@ -92,12 +96,10 @@ class LaratrustSeeder extends Seeder
      */
     public function truncateLaratrustTables()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         DB::table('permission_role')->truncate();
         DB::table('permission_user')->truncate();
         DB::table('role_user')->truncate();
         Role::truncate();
         Permission::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

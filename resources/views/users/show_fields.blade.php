@@ -1,5 +1,5 @@
 @if(Auth::user() != null)
-    @if(Auth::user()->is_admin == true)
+    @if(Auth::user()->is_admin == true && $user->hasRole(['owner', 'administrator']))
         <!-- Id Field -->
         <div class="form-group">
             {!! Form::label('id', 'Id:') !!}
@@ -27,7 +27,7 @@
 </div>
 
 @if(Auth::user() != null)
-    @if(Auth::user()->is_admin == true)
+    @if(Auth::user()->is_admin == true && $user->hasRole(['owner', 'administrator']))
         <!-- Email Field -->
         <div class="form-group">
             {!! Form::label('email', 'Email:') !!}
@@ -63,12 +63,30 @@
             {!! Form::label('updated_at', 'Updated At:') !!}
             <p>{!! $user->updated_at !!}</p>
         </div>
+
+        <!-- Roles -->
+        <div class="form-group">
+            {!! Form::label('roles', 'Roles:') !!}
+            @if(count($user->roles) > 0)
+                <ul>
+                @foreach($user->roles as $role)
+                    <li>{!! $role->display_name !!}</li>
+                @endforeach
+                </ul>
+            @endif
+        </div>
+
+        <!-- Permissions -->
+        <div class="form-group">
+            {!! Form::label('roles', 'Permissions:') !!}
+            @if(count($user->permissions) > 0)
+                <ul>
+                    @foreach($user->permissions as $permission)
+                        <li>{!! $permission->display_name !!}</li>
+                    @endforeach
+                </ul>
+            @endif
+        </div>
     @endif
 @endif
-
-<!-- Slug Field -->
-<div class="form-group">
-    {!! Form::label('slug', 'Slug:') !!}
-    <p>{!! $user->slug !!}</p>
-</div>
 

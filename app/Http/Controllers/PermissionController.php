@@ -45,11 +45,11 @@ class PermissionController extends AppBaseController
      *
      * @return Response
      */
-    public function create()
+    /*public function create()
     {
         Functions::userCanAccessArea(Auth::user(), 'permissions.create');
         return view('permissions.create');
-    }
+    }*/
 
     /**
      * Store a newly created Permission in storage.
@@ -58,7 +58,7 @@ class PermissionController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreatePermissionRequest $request)
+    /*public function store(CreatePermissionRequest $request)
     {
         Functions::userCanAccessArea(Auth::user(), 'permissions.store');
         $input = $request->all();
@@ -68,7 +68,7 @@ class PermissionController extends AppBaseController
         Flash::success('Permission saved successfully.');
 
         return redirect(route('permissions.index'));
-    }
+    }*/
 
     /**
      * Display the specified Permission.
@@ -145,7 +145,7 @@ class PermissionController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    /*public function destroy($id)
     {
         Functions::userCanAccessArea(Auth::user(), 'permissions.destroy');
         $permission = $this->permissionRepository->findWithoutFail($id);
@@ -161,5 +161,5 @@ class PermissionController extends AppBaseController
         Flash::success('Permission deleted successfully.');
 
         return redirect(route('permissions.index'));
-    }
+    }*/
 }

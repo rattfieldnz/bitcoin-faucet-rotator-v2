@@ -45,11 +45,11 @@ class RoleController extends AppBaseController
      *
      * @return Response
      */
-    public function create()
+    /*public function create()
     {
         Functions::userCanAccessArea(Auth::user(), 'roles.create');
         return view('roles.create');
-    }
+    }*/
 
     /**
      * Store a newly created Role in storage.
@@ -58,7 +58,7 @@ class RoleController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateRoleRequest $request)
+    /*public function store(CreateRoleRequest $request)
     {
         Functions::userCanAccessArea(Auth::user(), 'roles.store');
         $input = $request->all();
@@ -68,7 +68,7 @@ class RoleController extends AppBaseController
         Flash::success('Role saved successfully.');
 
         return redirect(route('roles.index'));
-    }
+    }*/
 
     /**
      * Display the specified Role.
@@ -145,7 +145,7 @@ class RoleController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    /*public function destroy($id)
     {
         Functions::userCanAccessArea(Auth::user(), 'roles.destroy');
         $role = $this->roleRepository->findWithoutFail($id);
@@ -161,5 +161,5 @@ class RoleController extends AppBaseController
         Flash::success('Role deleted successfully.');
 
         return redirect(route('roles.index'));
-    }
+    }*/
 }
