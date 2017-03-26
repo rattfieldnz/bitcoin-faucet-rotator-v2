@@ -73,14 +73,14 @@ class RoleController extends AppBaseController
     /**
      * Display the specified Role.
      *
-     * @param  int $id
+     * @param  string $slug
      *
      * @return Response
      */
-    public function show($id)
+    public function show($slug)
     {
         Functions::userCanAccessArea(Auth::user(), 'roles.show');
-        $role = $this->roleRepository->findWithoutFail($id);
+        $role = $this->roleRepository->findByField('slug', $slug)->first();
 
         if (empty($role)) {
             Flash::error('Role not found');
@@ -94,14 +94,14 @@ class RoleController extends AppBaseController
     /**
      * Show the form for editing the specified Role.
      *
-     * @param  int $id
+     * @param  string $slug
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
         Functions::userCanAccessArea(Auth::user(), 'roles.edit');
-        $role = $this->roleRepository->findWithoutFail($id);
+        $role = $this->roleRepository->findByField('slug', $slug)->first();
 
         if (empty($role)) {
             Flash::error('Role not found');
@@ -115,15 +115,15 @@ class RoleController extends AppBaseController
     /**
      * Update the specified Role in storage.
      *
-     * @param  int              $id
+     * @param  string             $slug
      * @param UpdateRoleRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateRoleRequest $request)
+    public function update($slug, UpdateRoleRequest $request)
     {
         Functions::userCanAccessArea(Auth::user(), 'roles.update');
-        $role = $this->roleRepository->findWithoutFail($id);
+        $role = $this->roleRepository->findByField('slug', $slug)->first();
 
         if (empty($role)) {
             Flash::error('Role not found');
@@ -131,7 +131,7 @@ class RoleController extends AppBaseController
             return redirect(route('roles.index'));
         }
 
-        $role = $this->roleRepository->update($request->all(), $id);
+        $role = $this->roleRepository->update($request->all(), $slug);
 
         Flash::success('Role updated successfully.');
 
