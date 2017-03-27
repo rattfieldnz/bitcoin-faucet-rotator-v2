@@ -45,6 +45,7 @@
         <form method="post" action="{{ url('/register') }}">
 
             {!! csrf_field() !!}
+            {!! Form::hidden('is_admin', 0) !!}
 
             <!-- User Name Field -->
                 <div class="form-group has-feedback{{ $errors->has('user_name') ? ' has-error' : '' }}">

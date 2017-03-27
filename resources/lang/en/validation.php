@@ -164,11 +164,11 @@ return [
             'unique' => 'That email address has already been taken, please try another one.'
         ],
         'password' => [
-            'required' => 'A valid password is required. Must have at least: 1 lower and upper-case character, 1 numeric character, and a symbol.',
+            'required' => 'A valid password is required. Must have at least: 2 lower and upper-case character, 2 numeric character, and 2 symbols.',
             'confirmed' => 'The confirmed password did not match the desired password that was entered.',
             'min' => 'The password must have at least 10 characters.',
             'max' => 'The password cannot have more than 20 characters.',
-            'regex' => 'The password must have at least: 1 lower and upper-case character, 1 numeric character, and a symbol.',
+            'regex' => 'The password must have at least: 2 lower and upper-case character, 2 numeric character, and 2 symbold.',
         ],
         'bitcoin_address' => [
             'required' => 'A valid bitcoin address is required for registration. Bitcoin addresses are between 26 and 35 alpha-numeric characters in length.',

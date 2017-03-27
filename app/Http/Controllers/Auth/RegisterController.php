@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Role;
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -20,6 +22,9 @@ class RegisterController extends Controller
     |
     */
 
+    /** @var  UserRepository */
+    private $userRepository;
+
     use RegistersUsers;
 
     /**
@@ -32,10 +37,10 @@ class RegisterController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param UserRepository $userRepo
      */
-    public function __construct()
-    {
+    public function __construct(UserRepository $userRepo){
+        $this->userRepository = $userRepo;
         $this->middleware('guest');
     }
 
@@ -60,7 +65,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+
+        $user = $this->userRepository->create($data);
+
+        $newUser = User::where('slug', $user->slug)->first();
+
+        $userRole = Role::where('name', 'user')->first();
+        $newUser->attachRole($userRole);
+
+        return $user;
+        /*return User::create([
             'user_name' => $data['user_name'],
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
@@ -68,6 +82,6 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'bitcoin_address' => $data['bitcoin_address'],
             'is_admin' => false
-        ]);
+        ]);*/
     }
 }

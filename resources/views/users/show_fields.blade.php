@@ -1,5 +1,5 @@
 @if(Auth::user() != null)
-    @if(Auth::user()->is_admin == true && $user->hasRole(['owner', 'administrator']))
+    @if(Auth::user()->is_admin == true && Auth::user()->hasRole(['owner', 'administrator']))
         <!-- Id Field -->
         <div class="form-group">
             {!! Form::label('id', 'Id:') !!}
@@ -27,7 +27,7 @@
 </div>
 
 @if(Auth::user() != null)
-    @if(Auth::user()->is_admin == true && $user->hasRole(['owner', 'administrator']))
+    @if(Auth::user()->is_admin == true && Auth::user()->hasRole(['owner', 'administrator']))
         <!-- Email Field -->
         <div class="form-group">
             {!! Form::label('email', 'Email:') !!}
