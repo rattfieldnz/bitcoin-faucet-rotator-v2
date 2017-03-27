@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use App\Repositories\UserRepository;
@@ -72,6 +73,22 @@ class RegisterController extends Controller
 
         $userRole = Role::where('name', 'user')->first();
         $newUser->attachRole($userRole);
+
+        $initialPermissions = [
+            Permission::where('name', 'read-users')->first(),
+            Permission::where('name', 'read-faucets')->first(),
+            Permission::where('name', 'create-user-faucets')->first(),
+            Permission::where('name', 'read-user-faucets')->first(),
+            Permission::where('name', 'update-user-faucets')->first(),
+            Permission::where('name', 'soft-delete-user-faucets')->first(),
+            Permission::where('name', 'permanent-delete-user-faucets')->first(),
+            Permission::where('name', 'restore-user-faucets')->first(),
+            Permission::where('name', 'read-payment-processors')->first(),
+        ];
+
+        foreach($initialPermissions as $permission){
+            $newUser->attachPermission($permission);
+        }
 
         return $user;
         /*return User::create([
