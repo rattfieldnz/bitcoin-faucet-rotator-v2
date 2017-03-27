@@ -2,14 +2,14 @@
 <table class="table table-striped bordered tablesorter" id="users-table">
     <thead>
         @if(Auth::user() != null)
-            @if(Auth::user()->is_admin == true)
+            @if(Auth::user()->is_admin == true && Auth::user()->hasRole(['owner', 'administrator']))
                 <th>Id</th>
             @endif
         @endif
         <th>User Name</th>
 
         @if(Auth::user() != null)
-            @if(Auth::user()->is_admin == true)
+            @if(Auth::user()->is_admin == true && Auth::user()->hasRole(['owner', 'administrator']))
                 <th>Email</th>
                 <th>Password</th>
                 <th>Is Admin</th>

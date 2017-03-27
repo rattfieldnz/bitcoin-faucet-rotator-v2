@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-<title>Unauthorized!</title>
+<title>403 Unauthorized!</title>
 @endsection
 
 @section('css')
@@ -44,7 +44,7 @@
     <div class="content">
         <h1 class="title">Sorry!</h1>
         <p><strong>You aren't authorized, or do not have the sufficient permissions to access this feature.</strong></p>
-        <p><strong>Please <a href="mailto:{{ App\Models\User::where('is_admin', '=', true)->first()->email }}?Subject=RE:%20Unauthorized%20access%20to%20site%20section.">contact the administrator</a> to request access.</strong></p>
+        <p><strong>Please <a href="mailto:{{ App\Models\User::where('is_admin', '=', true)->first()->hasRole('owner')->email }}?Subject=RE:%20Unauthorized%20access%20to%20site%20section.">contact the site owner</a> to request access.</strong></p>
     </div>
 </div>
 @endsection
