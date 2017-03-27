@@ -9,8 +9,8 @@ return [
             'twitter-config' => 'c,r,u,sd,pd,rs',
             'main-meta' => 'c,r,u,sd,pd,rs',
             'ad-block' => 'c,r,u,sd,pd,rs',
-            'roles' => 'c,r,u,sd,pd,rs',
-            'permissions' => 'c,r,u,sd,pd,rs'
+            'roles' => 'r,u',
+            'permissions' => 'r,u'
         ],
         'administrator' => [
             'users' => 'c,r,u,sd,rs',
@@ -37,8 +37,8 @@ return [
             'twitter-config' => 'c,r,u,sd,pd,rs',
             'main-meta' => 'c,r,u,sd,pd,rs',
             'ad-block' => 'c,r,u,sd,pd,rs',
-            'roles' => 'c,r,u,sd,pd,rs',
-            'permissions' => 'c,r,u,sd,pd,rs'
+            'roles' => 'r,u',
+            'permissions' => 'r,u'
         ],
         'administrator' => [
             'users' => 'c,r,u,sd,rs',

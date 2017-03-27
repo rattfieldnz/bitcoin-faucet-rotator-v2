@@ -1,3 +1,4 @@
+{!! Form::hidden('id', $permission->id != null ? $permission->id : null) !!}
 <!-- Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('name', 'Name:') !!}

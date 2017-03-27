@@ -25,6 +25,8 @@ class UpdatePermissionRequest extends FormRequest
      */
     public function rules()
     {
-        return Permission::$rules;
+        $rules = Permission::$rules;
+        $rules['name'] = $rules['name'] . ', '. $this->id;
+        return $rules;
     }
 }

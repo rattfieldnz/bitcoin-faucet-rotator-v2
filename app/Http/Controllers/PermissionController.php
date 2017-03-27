@@ -131,7 +131,7 @@ class PermissionController extends AppBaseController
             return redirect(route('permissions.index'));
         }
 
-        $permission = $this->permissionRepository->update($request->all(), $slug);
+        $permission = $this->permissionRepository->update($request->all(), $permission->id);
 
         Flash::success('Permission updated successfully.');
 

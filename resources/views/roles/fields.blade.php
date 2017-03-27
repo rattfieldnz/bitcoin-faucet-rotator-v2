@@ -1,3 +1,4 @@
+{!! Form::hidden('id', $role->id != null ? $role->id : null) !!}
 <!-- Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('name', 'Name:') !!}
