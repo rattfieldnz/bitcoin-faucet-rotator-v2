@@ -9,10 +9,10 @@ use App\Models\Role;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
-use Flash;
+use Laracasts\Flash\Flash as LaracastsFlash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
 
 class UserController extends AppBaseController
 {
@@ -34,7 +34,7 @@ class UserController extends AppBaseController
     public function index(Request $request)
     {
         $this->userRepository->pushCriteria(new RequestCriteria($request));
-        $user = null;
+        $users = null;
         if(Auth::guest() || Auth::user()->hasRole('user') && !Auth::user()->hasRole(['owner', 'administrator'])){
             $users = $this->userRepository->all();
         }
@@ -99,19 +99,49 @@ class UserController extends AppBaseController
      */
     public function show($slug)
     {
-        $user = $this->userRepository->findByField('slug', $slug, true)->first();
-        //dd($user);
+        $user = $this->userRepository->findByField('slug', $slug)->first();
+        $message = null;
 
-        if (empty($user) && (Auth::guest() && $user->isDeleted() == true)) {
-            Flash::error('User not found');
-
+        if(Auth::guest() && !empty($user) && $user->isDeleted()){ // If the visitor is a guest, user exists, and user is soft-deleted
+            LaracastsFlash::error('User not found');
             return redirect(route('users.index'));
         }
-        if(Auth::guest() && $user->isDeleted() == true){
-            abort(404);
+        else if(
+            !Auth::guest() && // If the visitor isn't a guest visitor,
+            Auth::user()->hasRole('user') && // If the visitor is an authenticated user with 'user' role
+            !Auth::user()->hasRole(['owner', 'administrator']) && // If the visitor is an authenticated user, but without 'owner' or 'admin' roles,
+            $user->isDeleted() // If the user has been soft-deleted
+        ){
+            LaracastsFlash::error('User not found');
+            return redirect(route('users.index'));
         }
+        else{
+            if(
+                !empty($user) && // If the user exists,
+                $user->isDeleted() && // If the user is soft-deleted,
+                Auth::user()->hasRole(['owner', 'administrator']) // If the currently authenticated user has 'owner', 'admin' roles
+            ){
+                if(Auth::user()->hasRole(['owner'])){
+                    $message = 'The user has been temporarily deleted. You can restore the user or permanently delete them.';
+                }
+                else if(Auth::user()->hasRole(['administrator'])){
+                    $message = 'The user has been temporarily deleted, you can restore the user.';
+                }
 
-        return view('users.show')->with('user', $user);
+                return view('users.show')
+                    ->with('user', $user)
+                    ->with('message', $message);
+            }
+            if(!empty($user) && !$user->isDeleted()){ // If the user exists and isn't soft-deleted
+
+                return view('users.show')
+                    ->with('user', $user)
+                    ->with('message', $message);
+            } else{
+                LaracastsFlash::error('User not found');
+                return redirect(route('users.index'));
+            }
+        }
     }
 
     /**

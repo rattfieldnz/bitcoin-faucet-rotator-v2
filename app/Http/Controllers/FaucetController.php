@@ -34,9 +34,15 @@ class FaucetController extends AppBaseController
     public function index(Request $request)
     {
         $this->faucetRepository->pushCriteria(new RequestCriteria($request));
-        $faucets = $this->faucetRepository->withTrashed()->get();
+        $faucets = null;
 
-        $user = Auth::user();
+        if(Auth::guest() || Auth::user()->hasRole('user') && !Auth::user()->hasRole(['owner', 'administrator']))
+        {
+            $faucets = $this->faucetRepository->all();
+        }
+        else{
+            $faucets = $this->faucetRepository->withTrashed()->get();
+        }
 
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->pluck('name', 'id');
 
@@ -109,15 +115,48 @@ class FaucetController extends AppBaseController
     public function show($slug)
     {
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
+        $message = null;
 
-        if (empty($faucet)) {
+        if(Auth::guest() && !empty($faucet) && $faucet->isDeleted()){ // If the visitor is a guest, faucet exists, and faucet is soft-deleted
             LaracastsFlash::error('Faucet not found');
-
             return redirect(route('faucets.index'));
         }
+        else if(
+            !Auth::guest() && // If the visitor isn't a guest visitor,
+            Auth::user()->hasRole('user') && // If the visitor is an authenticated user with 'user' role
+            !Auth::user()->hasRole(['owner', 'administrator']) && // If the visitor is an authenticated user, but without 'owner' or 'admin' roles,
+            $faucet->isDeleted() // If the faucet has been soft-deleted
+        ){
+            LaracastsFlash::error('Faucet not found');
+            return redirect(route('faucets.index'));
+        }
+        else{
+            if(
+                !empty($faucet) && // If the faucet exists,
+                $faucet->isDeleted() && // If the faucet is soft-deleted,
+                Auth::user()->hasRole(['owner', 'administrator']) // If the currently authenticated user has 'owner', 'admin' roles
+            ){
+                if(Auth::user()->hasRole(['owner'])){
+                    $message = 'The faucet has been temporarily deleted. You can restore the faucet or permanently delete it.';
+                }
+                else if(Auth::user()->hasRole(['administrator'])){
+                    $message = 'The faucet has been temporarily deleted, you can restore the faucet.';
+                }
 
-        return view('faucets.show')
-            ->with('faucet', $faucet);
+                return view('faucets.show')
+                    ->with('faucet', $faucet)
+                    ->with('message', $message);
+            }
+            if(!empty($faucet) && !$faucet->isDeleted()){ // If the faucet exists and isn't soft-deleted
+
+                return view('faucets.show')
+                    ->with('faucet', $faucet)
+                    ->with('message', $message);
+            } else{
+                LaracastsFlash::error('Faucet not found');
+                return redirect(route('faucets.index'));
+            }
+        }
     }
 
     /**
