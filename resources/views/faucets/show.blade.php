@@ -19,6 +19,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
+                    <a href="{!! route('faucets.index') !!}" class="btn btn-default">Back</a>
                     @include('faucets.show_fields')
                     <a href="{!! route('faucets.index') !!}" class="btn btn-default">Back</a>
                 </div>

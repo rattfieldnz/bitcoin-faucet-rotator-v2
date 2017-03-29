@@ -62,11 +62,12 @@ class FaucetRepository extends Repository implements IRepository
         $temporarySkipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
         $faucetData = self::cleanInput($data);
-        $faucet = parent::update($faucetData, $id);
+        $faucet = Faucet::where('id', $id)->withTrashed()->first();
+        $updatedFaucet = $faucet->fill($faucetData);
         $this->skipPresenter($temporarySkipPresenter);
-        $faucet = $this->updateRelations($faucet, $faucetData);
-        $faucet->save();
-        return $this->parserResult($faucet);
+        $faucet = $this->updateRelations($updatedFaucet, $faucetData);
+        $updatedFaucet->save();
+        return $this->parserResult($updatedFaucet);
     }
 
     static function cleanInput(array $data)

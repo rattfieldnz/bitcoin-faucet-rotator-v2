@@ -12,16 +12,6 @@ return [
             'roles' => 'r,u',
             'permissions' => 'r,u'
         ],
-        'administrator' => [
-            'users' => 'c,r,u,sd,rs',
-            'faucets' => 'c,r,u,sd,rs',
-            'user-faucets' => 'c,r,u,sd,rs',
-            'payment-processors' => 'c,r,u,sd,rs',
-            'main-meta' => 'r',
-            'ad-block' => 'r',
-            'roles' => 'r',
-            'permissions' => 'r'
-        ],
         'user' => [
             'users' => 'r',
             'faucets' => 'r',
@@ -39,16 +29,6 @@ return [
             'ad-block' => 'c,r,u,sd,pd,rs',
             'roles' => 'r,u',
             'permissions' => 'r,u'
-        ],
-        'administrator' => [
-            'users' => 'c,r,u,sd,rs',
-            'faucets' => 'c,r,u,sd,rs',
-            'user-faucets' => 'c,r,u,sd,rs',
-            'payment-processors' => 'c,r,u,sd,rs',
-            'main-meta' => 'r',
-            'ad-block' => 'r',
-            'roles' => 'r',
-            'permissions' => 'r'
         ],
         'user' => [
             'users' => 'r',

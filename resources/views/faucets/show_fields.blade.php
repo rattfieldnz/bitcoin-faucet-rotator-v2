@@ -1,5 +1,5 @@
 @if(Auth::user() != null)
-    @if(Auth::user()->is_admin == true)
+    @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
         <!-- Id Field -->
         <div class="form-group">
             {!! Form::label('id', 'Id:') !!}
@@ -61,15 +61,12 @@
     {!! Form::label('is_paused', 'Is Paused:') !!}
     <p>{!! $faucet->is_paused == true ? "Yes" : "No" !!}</p>
 </div>
-@if(Auth::user() != null)
-    @if(Auth::user()->is_admin == true)
-        <!-- Created At Field -->
-        <div class="form-group">
-            {!! Form::label('created_at', 'Created At:') !!}
-            <p>{!! $faucet->created_at !!}</p>
-        </div>
-    @endif
-@endif
+
+<!-- Created At Field -->
+<div class="form-group">
+    {!! Form::label('created_at', 'Created At:') !!}
+    <p>{!! $faucet->created_at !!}</p>
+</div>
 
 <!-- Updated At Field -->
 <div class="form-group">

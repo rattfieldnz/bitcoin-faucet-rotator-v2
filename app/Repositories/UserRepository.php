@@ -59,7 +59,7 @@ class UserRepository extends Repository implements IRepository
     public function update(array $data, $slug)
     {
         // Have to skip presenter to get a model not some data
-        $user = User::where('slug', $slug)->first();
+        $user = User::where('slug', $slug)->withTrashed()->first();
         $temporarySkipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
         $userData = self::cleanInput($data);
@@ -80,7 +80,9 @@ class UserRepository extends Repository implements IRepository
             $data['password'] = Purifier::clean(bcrypt($data['password']), 'generalFields');
         }
         $data['bitcoin_address'] = Purifier::clean($data['bitcoin_address'], 'generalFields');
-        $data['is_admin'] = Purifier::clean($data['is_admin'], 'generalFields');
+        if(isset($data['is_admin'])){
+            $data['is_admin'] = Purifier::clean($data['is_admin'], 'generalFields');
+        }
 
         return $data;
     }

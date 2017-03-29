@@ -13,17 +13,14 @@ use App\Models\User;
 
 class Functions
 {
-    public static function userCanAccessArea(User $user, $route, array $parameters = null, array $dataParameters = null){
-        //dd(route($route, $parameters));
-        if(!$user){
-            return redirect(route('login'));
-        }
-        if(!route($route, $parameters)){
-            abort(404);
-        }
-        if($user->is_admin == false){
+    public static function userCanAccessArea(User $user, $routeName, array $dataParameters = null){
+        if($user->is_admin == false || !$user->hasRole('owner')){
             abort(403);
         }
-        return redirect(route($route, $parameters))->with($dataParameters);
+        $currentRoute = route($routeName, $dataParameters);
+        if(!$currentRoute){
+            abort(404);
+        }
+        return redirect($currentRoute)->with($dataParameters);
     }
 }
