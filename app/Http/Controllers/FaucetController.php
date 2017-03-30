@@ -64,7 +64,10 @@ class FaucetController extends AppBaseController
         Functions::userCanAccessArea(
             Auth::user(),
             'faucets.create',
-            null,
+            [
+                'paymentProcessors' => $paymentProcessors,
+                'faucetPaymentProcessorIds' => $faucetPaymentProcessorIds
+            ],
             [
                 'paymentProcessors' => $paymentProcessors,
                 'faucetPaymentProcessorIds' => $faucetPaymentProcessorIds
@@ -85,7 +88,7 @@ class FaucetController extends AppBaseController
      */
     public function store(CreateFaucetRequest $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'faucets.store');
+        Functions::userCanAccessArea(Auth::user(), 'faucets.store', null, null);
         $input = $request->except('payment_processors', 'slug');
 
         $faucet = $this->faucetRepository->create($input);
@@ -167,7 +170,7 @@ class FaucetController extends AppBaseController
      */
     public function edit($slug)
     {
-        Functions::userCanAccessArea(Auth::user(), 'faucets.edit', ['slug' => $slug]);
+        Functions::userCanAccessArea(Auth::user(), 'faucets.edit', ['slug' => $slug], ['slug' => $slug]);
         $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->get();
 
@@ -200,7 +203,7 @@ class FaucetController extends AppBaseController
      */
     public function update($slug, UpdateFaucetRequest $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'faucets.update', ['slug' => $slug]);
+        Functions::userCanAccessArea(Auth::user(), 'faucets.update', ['slug' => $slug], ['slug' => $slug]);
         $currentFaucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
 
         $faucet = $this->faucetRepository->update($request->all(), $currentFaucet->id);
@@ -248,7 +251,7 @@ class FaucetController extends AppBaseController
      */
     public function destroy($slug)
     {
-        Functions::userCanAccessArea(Auth::user(), 'faucets.destroy', ['slug' => $slug]);
+        Functions::userCanAccessArea(Auth::user(), 'faucets.destroy', ['slug' => $slug], ['slug' => $slug]);
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
 
         if (empty($faucet)) {
@@ -272,6 +275,7 @@ class FaucetController extends AppBaseController
 
     public function destroyPermanently($slug)
     {
+        Functions::userCanAccessArea(Auth::user(), 'faucets.delete-permanently', ['slug' => $slug], ['slug' => $slug]);
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
         Functions::userCanAccessArea(
             Auth::user(),
@@ -298,6 +302,7 @@ class FaucetController extends AppBaseController
     }
 
     public function restoreDeleted($slug){
+        Functions::userCanAccessArea(Auth::user(), 'faucets.restore', ['slug' => $slug], ['slug' => $slug]);
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
         Functions::userCanAccessArea(
             Auth::user(),

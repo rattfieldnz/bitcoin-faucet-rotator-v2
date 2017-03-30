@@ -145,19 +145,19 @@ class UserController extends AppBaseController
     public function edit($slug)
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
-        if($user == Auth::user() || Auth::user()->hasRole('owner'))
-        {
-            $user = $this->userRepository->findByField('slug', $slug)->first();
-            if (empty($user)) {
-                LaracastsFlash::error('User not found');
+        if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->hasRole('owner') && $user->isDeleted() == true)) {
+            LaracastsFlash::error('User not found');
 
-                return redirect(route('users.index'));
+            return redirect(route('users.index'));
+        }
+        else{
+            if($user == Auth::user() || ($user->isDeleted() == true && Auth::user()->hasRole('owner')))
+            {
+
+                return view('users.edit')
+                    ->with('user', $user)
+                    ->with('slug', $slug);
             }
-
-            return view('users.edit')
-                ->with('user', $user)
-                ->with('slug', $slug);
-        } else {
             abort(403);
         }
     }
@@ -173,35 +173,29 @@ class UserController extends AppBaseController
     public function update($slug, UpdateUserRequest $request)
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
-        Functions::userCanAccessArea(
-            Auth::user(),
-            'users.update',
-            null,
-            [
-                'user' => $user,
-                'slug' => $slug
-            ]
-        );
-
-        if (empty($user)) {
+        if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && $user->isDeleted() == true)) {
             LaracastsFlash::error('User not found');
 
             return redirect(route('users.index'));
         }
+        else{
+            if($user == Auth::user() || ($user->isDeleted() == true && Auth::user()->hasRole('owner')))
+            {
+                $updateRequestData = $request->has('password') &&
+                $request->has('password_confirmation') ?
+                    $request->all() :
+                    $request->except(['password','password_confirmation']);
 
-        $updateRequestData = $request->has('password') &&
-            $request->has('password_confirmation') ?
-            $request->all() :
-            $request->except(['password','password_confirmation']);
+                $user = $this->userRepository->update(
+                    $updateRequestData,
+                    $user->slug
+                );
 
-        $user = $this->userRepository->update(
-            $updateRequestData,
-            $user->slug
-        );
+                LaracastsFlash::success('User updated successfully.');
 
-        LaracastsFlash::success('User updated successfully.');
-
-        return redirect(route('users.index'));
+                return redirect(route('users.index'));
+            }
+        }
     }
 
     /**
@@ -217,14 +211,11 @@ class UserController extends AppBaseController
         Functions::userCanAccessArea(
             Auth::user(),
             'users.destroy',
-            null,
-            [
-                'user' => $user,
-                'slug' => $slug
-            ]
+            ['user' => $user, 'slug' => $slug],
+            ['user' => $user, 'slug' => $slug]
         );
 
-        if (empty($user)) {
+        if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->hasRole('owner') && $user->isDeleted() == true)) {
             LaracastsFlash::error('User not found');
 
             return redirect(route('users.index'));
@@ -249,15 +240,18 @@ class UserController extends AppBaseController
         Functions::userCanAccessArea(
             Auth::user(),
             'users.delete-permanently',
-            null,
-            [
-                'user' => $user,
-                'slug' => $slug
-            ]
+            ['user' => $user, 'slug' => $slug],
+            ['user' => $user, 'slug' => $slug]
         );
 
-        if (empty($user)) {
+        if (empty($user) || ($user == Auth::user() && $user->hasRole('user'))) {
             LaracastsFlash::error('User not found');
+
+            return redirect(route('users.index'));
+        }
+
+        if($user->hasRole('owner') == true){
+            LaracastsFlash::error('An owner-user cannot be deleted.');
 
             return redirect(route('users.index'));
         }
@@ -275,14 +269,11 @@ class UserController extends AppBaseController
         Functions::userCanAccessArea(
             Auth::user(),
             'users.restore',
-            null,
-            [
-                'user' => $user,
-                'slug' => $slug
-            ]
+            ['user' => $user, 'slug' => $slug],
+            ['user' => $user, 'slug' => $slug]
         );
 
-        if (empty($user)) {
+        if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->hasRole('owner') && $user->isDeleted() == true)) {
             LaracastsFlash::error('User not found');
 
             return redirect(route('users.index'));

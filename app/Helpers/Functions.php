@@ -13,11 +13,11 @@ use App\Models\User;
 
 class Functions
 {
-    public static function userCanAccessArea(User $user, $routeName, array $dataParameters = null){
+    public static function userCanAccessArea(User $user, $routeName, array $routeParameters, array $dataParameters = null){
         if($user->is_admin == false || !$user->hasRole('owner')){
             abort(403);
         }
-        $currentRoute = route($routeName, $dataParameters);
+        $currentRoute = route($routeName, $routeParameters);
         if(!$currentRoute){
             abort(404);
         }
