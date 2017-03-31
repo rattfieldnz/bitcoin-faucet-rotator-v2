@@ -36,9 +36,7 @@ class FaucetRepository extends Repository implements IRepository
     }
 
     /**
-     * Create a new user instance after a valid registration.
-     *
-     * NOTE: New users cannot register as an admin.
+     * Create a new faucet.
      *
      * @param  array  $data
      * @return Faucet
