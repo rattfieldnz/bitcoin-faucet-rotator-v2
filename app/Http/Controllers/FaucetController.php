@@ -317,15 +317,6 @@ class FaucetController extends AppBaseController
     public function restoreDeleted($slug){
         Functions::userCanAccessArea(Auth::user(), 'faucets.restore', ['slug' => $slug], ['slug' => $slug]);
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
-        Functions::userCanAccessArea(
-            Auth::user(),
-            'faucets.restore',
-            null,
-            [
-                'faucet' => $faucet,
-                'slug' => $slug
-            ]
-        );
 
         if (empty($faucet)) {
             Flash::error('Faucet not found');
