@@ -32,7 +32,7 @@ class PermissionController extends AppBaseController
      */
     public function index(Request $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'permissions.index');
+        Functions::userCanAccessArea(Auth::user(), 'permissions.index', [], []);
         $this->permissionRepository->pushCriteria(new RequestCriteria($request));
         $permissions = $this->permissionRepository->all();
 
@@ -79,7 +79,7 @@ class PermissionController extends AppBaseController
      */
     public function show($slug)
     {
-        Functions::userCanAccessArea(Auth::user(), 'permissions.show');
+        Functions::userCanAccessArea(Auth::user(), 'permissions.show', ['slug' => $slug], ['slug' => $slug]);
         $permission = $this->permissionRepository->findByField('slug', $slug)->first();
 
         if (empty($permission)) {
@@ -100,7 +100,7 @@ class PermissionController extends AppBaseController
      */
     public function edit($slug)
     {
-        Functions::userCanAccessArea(Auth::user(), 'permissions.edit');
+        Functions::userCanAccessArea(Auth::user(), 'permissions.edit', ['slug' => $slug], ['slug' => $slug]);
         $permission = $this->permissionRepository->findByField('slug', $slug)->first();
 
         if (empty($permission)) {
@@ -122,7 +122,7 @@ class PermissionController extends AppBaseController
      */
     public function update($slug, UpdatePermissionRequest $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'permissions.update');
+        Functions::userCanAccessArea(Auth::user(), 'permissions.update', ['slug' => $slug], ['slug' => $slug]);
         $permission = $this->permissionRepository->findByField('slug', $slug)->first();
 
         if (empty($permission)) {

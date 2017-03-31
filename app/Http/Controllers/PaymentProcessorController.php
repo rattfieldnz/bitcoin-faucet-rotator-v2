@@ -46,7 +46,7 @@ class PaymentProcessorController extends AppBaseController
      */
     public function create()
     {
-        Functions::userCanAccessArea(Auth::user(), 'payment-processors.create');
+        Functions::userCanAccessArea(Auth::user(), 'payment-processors.create', null, null);
         $paymentProcessor = null;
         return view('payment_processors.create')->with('paymentProcessor');
     }
@@ -60,7 +60,7 @@ class PaymentProcessorController extends AppBaseController
      */
     public function store(CreatePaymentProcessorRequest $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'payment-processors.store');
+        Functions::userCanAccessArea(Auth::user(), 'payment-processors.store', null, null);
         $input = $request->all();
 
         $paymentProcessor = $this->paymentProcessorRepository->create($input);
@@ -99,7 +99,7 @@ class PaymentProcessorController extends AppBaseController
      */
     public function edit($slug)
     {
-        Functions::userCanAccessArea(Auth::user(), 'payment-processors.edit',['slug' => $slug], null);
+        Functions::userCanAccessArea(Auth::user(), 'payment-processors.edit',['slug' => $slug], ['slug' => $slug]);
         $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
 
         if (empty($paymentProcessor)) {
@@ -121,7 +121,7 @@ class PaymentProcessorController extends AppBaseController
      */
     public function update($slug, UpdatePaymentProcessorRequest $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'payment-processors.update', ['slug' => $slug], null);
+        Functions::userCanAccessArea(Auth::user(), 'payment-processors.update', ['slug' => $slug], ['slug' => $slug]);
         $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
         if (empty($paymentProcessor)) {
             Flash::error('Payment Processor not found');
@@ -145,7 +145,7 @@ class PaymentProcessorController extends AppBaseController
      */
     public function destroy($slug)
     {
-        Functions::userCanAccessArea(Auth::user(), 'payment-processors.destroy', ['slug' => $slug], null);
+        Functions::userCanAccessArea(Auth::user(), 'payment-processors.destroy', ['slug' => $slug], ['slug' => $slug]);
         $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
 
         if (empty($paymentProcessor)) {
@@ -171,7 +171,7 @@ class PaymentProcessorController extends AppBaseController
         Functions::userCanAccessArea(
             Auth::user(),
             'payment-processors.delete-permanently',
-            null,
+            ['slug' => $slug],
             [
                 'paymentProcessor' => $paymentProcessor,
                 'slug' => $slug
@@ -201,7 +201,7 @@ class PaymentProcessorController extends AppBaseController
         Functions::userCanAccessArea(
             Auth::user(),
             'payment-processors.restore',
-            null,
+            ['slug' => $slug],
             [
                 'paymentProcessor' => $paymentProcessor,
                 'slug' => $slug

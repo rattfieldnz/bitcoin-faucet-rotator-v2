@@ -7,12 +7,10 @@ use App\Http\Requests\CreateAdBlockRequest;
 use App\Http\Requests\UpdateAdBlockRequest;
 use App\Models\User;
 use App\Repositories\AdBlockRepository;
-use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
-use Flash;
 use Illuminate\Support\Facades\Auth;
+use Laracasts\Flash\Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
 
 class AdBlockController extends AppBaseController
 {
@@ -33,7 +31,7 @@ class AdBlockController extends AppBaseController
      */
     public function index(Request $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'ad-block.index');
+        Functions::userCanAccessArea(Auth::user(), 'ad-block.index', [], []);
 
         $this->adBlockRepository->pushCriteria(new RequestCriteria($request));
         $adBlocks = $this->adBlockRepository->all();
@@ -56,7 +54,7 @@ class AdBlockController extends AppBaseController
      */
     public function create()
     {
-        Functions::userCanAccessArea(Auth::user(), 'ad-block.create');
+        Functions::userCanAccessArea(Auth::user(), 'ad-block.create', [], []);
         return view('ad_block.create');
     }
 
@@ -69,7 +67,7 @@ class AdBlockController extends AppBaseController
      */
     public function store(CreateAdBlockRequest $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'ad-block.store');
+        Functions::userCanAccessArea(Auth::user(), 'ad-block.store', [], []);
         $input = $request->all();
 
         $adBlock = $this->adBlockRepository->create($input);
@@ -88,7 +86,7 @@ class AdBlockController extends AppBaseController
      */
     public function edit($id)
     {
-        Functions::userCanAccessArea(Auth::user(), 'ad-block.edit', ['id' => $id]);
+        Functions::userCanAccessArea(Auth::user(), 'ad-block.edit', ['id' => $id], ['id' => $id]);
         $adBlock = $this->adBlockRepository->findWithoutFail($id);
 
         if (empty($adBlock)) {
@@ -110,7 +108,7 @@ class AdBlockController extends AppBaseController
      */
     public function update($id, UpdateAdBlockRequest $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'ad-block.update', ['id' => $id]);
+        Functions::userCanAccessArea(Auth::user(), 'ad-block.update', ['id' => $id], ['id' => $id]);
         $adBlock = $this->adBlockRepository->findWithoutFail($id);
 
         if (empty($adBlock)) {
@@ -136,7 +134,7 @@ class AdBlockController extends AppBaseController
     public function destroy($id)
     {
 
-        Functions::userCanAccessArea(Auth::user(), 'ad-block.destroy', ['id' => $id]);
+        Functions::userCanAccessArea(Auth::user(), 'ad-block.destroy', ['id' => $id], ['id' => $id]);
         $adBlock = $this->adBlockRepository->findWithoutFail($id);
 
         if (empty($adBlock)) {

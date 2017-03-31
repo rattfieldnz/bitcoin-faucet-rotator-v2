@@ -88,7 +88,7 @@ class FaucetController extends AppBaseController
      */
     public function store(CreateFaucetRequest $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'faucets.store', null, null);
+        Functions::userCanAccessArea(Auth::user(), 'faucets.store', [], []);
         $input = $request->except('payment_processors', 'slug');
 
         $faucet = $this->faucetRepository->create($input);

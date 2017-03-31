@@ -6,13 +6,10 @@ use App\Helpers\Functions;
 use App\Http\Requests\CreateMainMetaRequest;
 use App\Http\Requests\UpdateMainMetaRequest;
 use App\Repositories\MainMetaRepository;
-use App\Http\Controllers\AppBaseController;
-use Chromabits\Purifier\Contracts\Purifier;
 use Illuminate\Http\Request;
-use Flash;
 use Illuminate\Support\Facades\Auth;
+use Laracasts\Flash\Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
 
 class MainMetaController extends AppBaseController
 {
@@ -33,7 +30,7 @@ class MainMetaController extends AppBaseController
      */
     public function index(Request $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'main-meta.index');
+        Functions::userCanAccessArea(Auth::user(), 'main-meta.index', [], []);
         $this->mainMetaRepository->pushCriteria(new RequestCriteria($request));
         $mainMetas = $this->mainMetaRepository->all();
 
@@ -52,7 +49,7 @@ class MainMetaController extends AppBaseController
      */
     public function create()
     {
-        Functions::userCanAccessArea(Auth::user(), 'main-meta.create');
+        Functions::userCanAccessArea(Auth::user(), 'main-meta.create', [], []);
         return view('main_meta.create');
     }
 
@@ -65,7 +62,7 @@ class MainMetaController extends AppBaseController
      */
     public function store(CreateMainMetaRequest $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'main-meta.store');
+        Functions::userCanAccessArea(Auth::user(), 'main-meta.store', [], []);
         $input = $request->all();
 
         $mainMeta = $this->mainMetaRepository->create($input);
@@ -84,7 +81,7 @@ class MainMetaController extends AppBaseController
      */
     public function edit($id)
     {
-        Functions::userCanAccessArea(Auth::user(), 'main-meta.edit', ['id' => $id]);
+        Functions::userCanAccessArea(Auth::user(), 'main-meta.edit', ['id' => $id], ['id' => $id]);
         $mainMeta = $this->mainMetaRepository->findWithoutFail($id);
 
         if (empty($mainMeta)) {
@@ -106,7 +103,7 @@ class MainMetaController extends AppBaseController
      */
     public function update($id, UpdateMainMetaRequest $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'main-meta.update', ['id' => $id]);
+        Functions::userCanAccessArea(Auth::user(), 'main-meta.update', ['id' => $id], ['id' => $id]);
         $mainMeta = $this->mainMetaRepository->findWithoutFail($id);
 
         if (empty($mainMeta)) {
@@ -133,7 +130,7 @@ class MainMetaController extends AppBaseController
      */
     public function destroy($id)
     {
-        Functions::userCanAccessArea(Auth::user(), 'main-meta.destroy', ['id' => $id]);
+        Functions::userCanAccessArea(Auth::user(), 'main-meta.destroy', ['id' => $id], ['id' => $id]);
         $mainMeta = $this->mainMetaRepository->findWithoutFail($id);
 
         if (empty($mainMeta)) {

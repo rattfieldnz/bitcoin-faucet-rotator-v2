@@ -32,7 +32,7 @@ class RoleController extends AppBaseController
      */
     public function index(Request $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'roles.index');
+        Functions::userCanAccessArea(Auth::user(), 'roles.index', [], []);
         $this->roleRepository->pushCriteria(new RequestCriteria($request));
         $roles = $this->roleRepository->all();
 
@@ -79,7 +79,7 @@ class RoleController extends AppBaseController
      */
     public function show($slug)
     {
-        Functions::userCanAccessArea(Auth::user(), 'roles.show');
+        Functions::userCanAccessArea(Auth::user(), 'roles.show', ['slug' => $slug], ['slug' => $slug]);
         $role = $this->roleRepository->findByField('slug', $slug)->first();
 
         if (empty($role)) {
@@ -100,7 +100,7 @@ class RoleController extends AppBaseController
      */
     public function edit($slug)
     {
-        Functions::userCanAccessArea(Auth::user(), 'roles.edit');
+        Functions::userCanAccessArea(Auth::user(), 'roles.edit', ['slug' => $slug], ['slug' => $slug]);
         $role = $this->roleRepository->findByField('slug', $slug)->first();
 
         if (empty($role)) {
@@ -122,7 +122,7 @@ class RoleController extends AppBaseController
      */
     public function update($slug, UpdateRoleRequest $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'roles.update');
+        Functions::userCanAccessArea(Auth::user(), 'roles.update', ['slug' => $slug], ['slug' => $slug]);
         $role = $this->roleRepository->findByField('slug', $slug)->first();
 
         if (empty($role)) {

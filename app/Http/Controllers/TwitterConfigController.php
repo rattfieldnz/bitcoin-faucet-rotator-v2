@@ -32,7 +32,7 @@ class TwitterConfigController extends AppBaseController
      */
     public function index(Request $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'twitter-config.index');
+        Functions::userCanAccessArea(Auth::user(), 'twitter-config.index', [], []);
         $this->twitterConfigRepository->pushCriteria(new RequestCriteria($request));
         $twitterConfigs = $this->twitterConfigRepository->all();
         $adminUser = Auth::user()->where('is_admin', true)->first();
@@ -55,7 +55,7 @@ class TwitterConfigController extends AppBaseController
      */
     public function create()
     {
-        Functions::userCanAccessArea(Auth::user(), 'twitter-config.create');
+        Functions::userCanAccessArea(Auth::user(), 'twitter-config.create', [], []);
         return view('twitter_config.create');
     }
 
@@ -68,7 +68,7 @@ class TwitterConfigController extends AppBaseController
      */
     public function store(CreateTwitterConfigRequest $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'twitter-config.store');
+        Functions::userCanAccessArea(Auth::user(), 'twitter-config.store', [], []);
         $input = $request->all();
 
         $twitterConfig = $this->twitterConfigRepository->create($input);
@@ -87,7 +87,7 @@ class TwitterConfigController extends AppBaseController
      */
     public function edit($id)
     {
-        Functions::userCanAccessArea(Auth::user(), 'twitter-config.edit', ['id' => $id]);
+        Functions::userCanAccessArea(Auth::user(), 'twitter-config.edit', ['id' => $id], ['id' => $id]);
         $twitterConfig = $this->twitterConfigRepository->findWithoutFail($id);
 
         if (empty($twitterConfig)) {
@@ -109,6 +109,7 @@ class TwitterConfigController extends AppBaseController
      */
     public function update($id, UpdateTwitterConfigRequest $request)
     {
+        Functions::userCanAccessArea(Auth::user(), 'twitter-config.update', ['id' => $id], ['id' => $id]);
         $twitterConfig = $this->twitterConfigRepository->findWithoutFail($id);
 
         if (empty($twitterConfig)) {
@@ -133,6 +134,7 @@ class TwitterConfigController extends AppBaseController
      */
     public function destroy($id)
     {
+        Functions::userCanAccessArea(Auth::user(), 'twitter-config.destroy', ['id' => $id], ['id' => $id]);
         $twitterConfig = $this->twitterConfigRepository->findWithoutFail($id);
 
         if (empty($twitterConfig)) {
