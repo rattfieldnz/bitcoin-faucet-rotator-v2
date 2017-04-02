@@ -2,10 +2,10 @@
 
 #faucets-table thead, #payment-processors-table thead {
     border: 1px solid #ddd;
+    width:calc(100% - 1.5em);
 }
 
 #faucets-table thead th, #payment-processors-table thead th {
-    height: 4em !important;
     padding-bottom: 1.25em !important;
 }
 
@@ -19,4 +19,14 @@
 
 .form-control-feedback{
     text-align: inherit !important;
+}
+
+#faucet-info{
+    width:calc(100% - 1.5em);
+}
+
+#faucet-iframe, #rotator-iframe {
+    width: calc(100% - 1.5em);
+    height: 50em;
+    border: 2px solid #ddd;
 }

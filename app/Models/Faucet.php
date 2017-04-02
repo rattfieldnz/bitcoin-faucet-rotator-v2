@@ -122,6 +122,10 @@ class Faucet extends Model
         'has_low_balance'
     ];
 
+    protected $guarded = [
+        'id'
+    ];
+
     /**
      * The attributes that should be casted to native types.
      *
@@ -210,5 +214,40 @@ class Faucet extends Model
             return true;
         }
         return false;
+    }
+
+    /**
+     * A method to tell user if a faucet
+     * has a referral program or not, in
+     * a readable format.
+     * @return string
+     */
+    public function hasRefProgram()
+    {
+        if ($this->attributes['has_ref_program']) {
+            return 'Yes';
+        }
+        return 'No';
+    }
+    /**
+     * A method to tell user if a faucet
+     * is paused or not, in
+     * a readable format.
+     * @return string
+     */
+    public function status()
+    {
+        if ($this->attributes['is_paused']) {
+            return 'Paused';
+        }
+        return 'Active';
+    }
+
+    public function lowBalanceStatus()
+    {
+        if ($this->attributes['has_low_balance'] == true) {
+            return 'Yes';
+        }
+        return 'No';
     }
 }

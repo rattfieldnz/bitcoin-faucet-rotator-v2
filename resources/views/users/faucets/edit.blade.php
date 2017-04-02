@@ -16,11 +16,8 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($faucet, ['route' => ['faucets.update', $faucet->slug], 'method' => 'patch']) !!}
 
-                        @include('faucets.fields')
-
-                   {!! Form::close() !!}
+                        @include('users.faucets.fields')
                </div>
            </div>
        </div>

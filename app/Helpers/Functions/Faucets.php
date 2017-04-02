@@ -1,12 +1,11 @@
 <?php namespace App\Helpers\Functions;
 
-use App\Faucet;
+use App\Models\Faucet;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-use RattfieldNz\UrlValidation\UrlValidation;
 
 /**
  * Class Faucets

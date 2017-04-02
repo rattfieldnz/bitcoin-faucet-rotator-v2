@@ -23,6 +23,18 @@
     @endif
 </div>
 
+<!-- Referral Code Field -->
+<div class="form-group col-sm-6 has-feedback{{ $errors->has('referral_code') ? ' has-error' : '' }}">
+	{!! Form::label('referral_code', 'Referral Code:') !!}
+	{!! Form::text('referral_code', $faucet->users()->first() != null ? $faucet->users()->first()->pivot->referral_code : null, ['class' => 'form-control', 'placeholder' => 'ABCDEF123456']) !!}
+	<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
+	@if ($errors->has('referral_code'))
+		<span class="help-block">
+		    <strong>{{ $errors->first('referral_code') }}</strong>
+		</span>
+	@endif
+</div>
+
 <!-- Minutes Between Claims Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('interval_minutes') ? ' has-error' : '' }}">
     {!! Form::label('interval_minutes', 'Minutes Between Claims:') !!}

@@ -13,7 +13,7 @@ class CreateUserFaucetRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class CreateUserFaucetRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'user_id' => 'required|numeric|exists:users,id',
+            'faucet_id' => 'required|numeric|exists:faucets,id',
+            'referral_code' => 'sometimes|string|max:255',
         ];
     }
 }

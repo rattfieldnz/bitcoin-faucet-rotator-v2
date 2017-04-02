@@ -20,6 +20,16 @@
     <p>{!! $faucet->url !!}</p>
 </div>
 
+@if(Auth::user() != null)
+    @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
+        <!-- Referral Code Field -->
+        <div class="form-group">
+            {!! Form::label('referral_code', 'Referral Code:') !!}
+            <p>{!! $faucet->users()->first()->pivot->referral_code !!}</p>
+        </div>
+    @endif
+@endif
+
 <!-- Interval Minutes Field -->
 <div class="form-group">
     {!! Form::label('interval_minutes', 'Interval Minutes:') !!}

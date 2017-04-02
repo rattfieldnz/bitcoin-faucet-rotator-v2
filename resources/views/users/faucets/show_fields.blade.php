@@ -17,7 +17,7 @@
 <!-- Url Field -->
 <div class="form-group">
     {!! Form::label('url', 'Url:') !!}
-    <p>{!! $faucet->url !!}</p>
+    <p>{!! $faucet->url . App\Helpers\Functions::getUserFaucetRefCode($user, $faucet) !!}</p>
 </div>
 
 <!-- Interval Minutes Field -->

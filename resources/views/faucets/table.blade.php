@@ -8,6 +8,11 @@
         @endif
         <th>Name</th>
         <th>Url</th>
+        @if(Auth::user() != null)
+            @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
+                <th>Referral Code</th>
+            @endif
+        @endif
         <th>Interval Minutes</th>
         <th>Payment Processors</th>
         @if(Auth::user() != null)
@@ -27,6 +32,11 @@
             @endif
             <td>{!! $faucet->name !!}</td>
             <td>{!! $faucet->url !!}</td>
+            @if(Auth::user() != null)
+                @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
+                    <td>{!! $faucet->users()->first() != null ? $faucet->users()->first()->pivot->referral_code : "None" !!}</td>
+                @endif
+            @endif
             <td>{!! $faucet->interval_minutes !!}</td>
             <td>
                 <ul>

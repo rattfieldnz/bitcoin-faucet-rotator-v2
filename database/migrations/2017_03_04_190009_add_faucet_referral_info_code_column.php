@@ -14,7 +14,7 @@ class AddFaucetReferralInfoCodeColumn extends Migration
     public function up()
     {
         Schema::table('referral_info', function (Blueprint $table) {
-            $table->string('referral_code')->unique()->nullable();
+            $table->string('referral_code')->nullable();
         });
     }
 

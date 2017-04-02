@@ -90,11 +90,12 @@ class FaucetController extends AppBaseController
     public function store(CreateFaucetRequest $request)
     {
         Functions::userCanAccessArea(Auth::user(), 'faucets.store', [], []);
-        $input = $request->except('payment_processors', 'slug');
+        $input = $request->except('payment_processors', 'slug', 'referral_code');
 
         $faucet = $this->faucetRepository->create($input);
 
         $paymentProcessors = $request->get('payment_processors');
+        $referralCode = $request->get('referral_code');
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         $faucet->first()->paymentProcessors->detach();
@@ -104,6 +105,11 @@ class FaucetController extends AppBaseController
                 $faucet->first()->paymentProcessors->attach((int)$paymentProcessorId);
             }
         }
+
+        if(Auth::user()->hasRole('owner')){
+            Auth::user()->faucets()->sync([$faucet->id => ['referral_code' => $referralCode]]);
+        }
+
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
         LaracastsFlash::success('Faucet saved successfully.');
@@ -212,6 +218,8 @@ class FaucetController extends AppBaseController
         $paymentProcessors = $request->get('payment_processors');
         $paymentProcessorIds = $request->get('payment_processors');
 
+        $referralCode = $request->get('referral_code');
+
         if(count($paymentProcessorIds) == 1){
             $paymentProcessors = PaymentProcessor::where('id', $paymentProcessorIds[0]);
         }
@@ -219,7 +227,7 @@ class FaucetController extends AppBaseController
             $paymentProcessors = PaymentProcessor::whereIn('id', $paymentProcessorIds);
         }
 
-        if (empty($currentFaucet)) {
+        if (empty($faucet)) {
             LaracastsFlash::error('Faucet not found');
 
             return redirect(route('faucets.index'));
@@ -232,10 +240,16 @@ class FaucetController extends AppBaseController
         }
 
         if(count($toAddPaymentProcressorIds) > 1){
-            $currentFaucet->paymentProcessors()->sync($toAddPaymentProcressorIds);
+            $faucet->paymentProcessors()->sync($toAddPaymentProcressorIds);
         }
         else if(count($toAddPaymentProcressorIds) == 1){
-            $currentFaucet->paymentProcessors()->sync([$toAddPaymentProcressorIds[0]]);
+            $faucet->paymentProcessors()->sync([$toAddPaymentProcressorIds[0]]);
+        }
+
+        if(Auth::user()->hasRole('owner')){
+            //$faucet->users()->sync([Auth::user()->id => ['referral_code' => $referralCode]]);
+            $faucet->users()->sync([Auth::user()->id => ['faucet_id' => $faucet->id, 'referral_code' => $referralCode]]);
+            //dd(Auth::user()->faucets());
         }
 
         LaracastsFlash::success('Faucet updated successfully.');
