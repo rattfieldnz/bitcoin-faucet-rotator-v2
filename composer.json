@@ -22,7 +22,7 @@
         "infyomlabs/adminlte-templates": "5.3.x-dev",
         "infyomlabs/swagger-generator": "dev-master",
         "jlapp/swaggervel": "dev-master",
-        "doctrine/dbal": "~2.3",
+        "doctrine/dbal": "^2.5",
         "way/generators": "~3.0",
         "roumen/sitemap": "dev-master",
         "abraham/twitteroauth": "^0.5.3",
@@ -71,6 +71,9 @@
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "php artisan ide-helper:generate",
+            "php artisan ide-helper:models",
+            "php artisan ide-helper:meta",
             "php artisan optimize"
         ]
     },

@@ -1,11 +1,12 @@
 <?php namespace App\Helpers\Functions;
 
-use App\Models\Faucet;
-use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
+use App\Http\Requests\CreateFaucetRequest;
+use App\Http\Requests\UpdateFaucetRequest;
+use Laracasts\Flash\Flash as LaracastsFlash;
+use App\Models\PaymentProcessor;
+use App\Repositories\FaucetRepository;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class Faucets
@@ -18,78 +19,139 @@ use Illuminate\Support\Facades\Session;
  */
 class Faucets
 {
-    /**
-     * A function to update a faucet's status (active or paused)
-     * according to their low-balance status and if the
-     * faucet's URL is error-free and valid.
-     */
-    public static function checkUpdateStatuses()
+    private $faucetRepository;
+    public function __construct(FaucetRepository $faucetRepository)
     {
-        //Retrieve faucets to be updated.
-        $faucets = Faucet::all();
+        $this->faucetRepository = $faucetRepository;
+    }
 
-        $pausedFaucets = [];
-        $activatedFaucets = [];
-        foreach ($faucets as $f) {
-            if (UrlValidation::urlExists($f->url) != true &&
-                $f->is_paused == false &&
-                $f->has_low_balance == false) {
-                    $f->is_paused = true;
-                    $f->save();
-                    array_push($pausedFaucets, $f->name);
-            } elseif (UrlValidation::urlExists($f->url) != false &&
-                $f->is_paused == true &&
-                $f->has_low_balance == false) {
-                    $f->is_paused = false;
-                    $f->save();
-                    array_push($activatedFaucets, $f->name);
+    /**
+     * Create and store a new faucet.
+     * @param CreateFaucetRequest $request
+     */
+    public function createStoreFaucet(CreateFaucetRequest $request){
+
+        $input = $request->except('payment_processors', 'slug', 'referral_code');
+
+        $faucet = $this->faucetRepository->create($input);
+
+        $paymentProcessors = $request->get('payment_processors');
+        $referralCode = $request->get('referral_code');
+
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        $faucet->first()->paymentProcessors->detach();
+
+        if(count($paymentProcessors) >= 1){
+            foreach ($paymentProcessors as $paymentProcessorId) {
+                $faucet->first()->paymentProcessors->attach((int)$paymentProcessorId);
             }
         }
 
-        if (count($pausedFaucets) == 0 && count($activatedFaucets) == 0) {
-            Session::flash('success_message_update_faucet_statuses_none', 'No faucets have been updated.');
+        if(Auth::user()->hasRole('owner')){
+            Auth::user()->faucets()->sync([$faucet->id => ['referral_code' => $referralCode]]);
         }
-        if (count($pausedFaucets) > 0) {
-            Session::flash(
-                'success_message_update_faucet_statuses_paused',
-                'The following faucets have been paused: ' . implode(",", $pausedFaucets)
-            );
+
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+    }
+
+    /**
+     * Update the specified faucet.
+     * @param $slug
+     * @param UpdateFaucetRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function updateFaucet($slug, UpdateFaucetRequest $request){
+
+        $currentFaucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
+
+        $faucet = $this->faucetRepository->update($request->all(), $currentFaucet->id);
+
+        $paymentProcessors = $request->get('payment_processors');
+        $paymentProcessorIds = $request->get('payment_processors');
+
+        $referralCode = $request->get('referral_code');
+
+        if(count($paymentProcessorIds) == 1){
+            $paymentProcessors = PaymentProcessor::where('id', $paymentProcessorIds[0]);
         }
-        if (count($activatedFaucets) > 0) {
-            Session::flash(
-                'success_message_update_faucet_statuses_activated',
-                'The following faucets have been activated: ' . implode(",", $activatedFaucets)
-            );
+        else if(count($paymentProcessorIds) >= 1){
+            $paymentProcessors = PaymentProcessor::whereIn('id', $paymentProcessorIds);
+        }
+
+        if (empty($faucet)) {
+            LaracastsFlash::error('Faucet not found');
+
+            return redirect(route('faucets.index'));
+        }
+
+        $toAddPaymentProcressorIds = [];
+
+        foreach($paymentProcessors->pluck('id')->toArray() as $key => $value){
+            array_push($toAddPaymentProcressorIds, (int)$value);
+        }
+
+        if(count($toAddPaymentProcressorIds) > 1){
+            $faucet->paymentProcessors()->sync($toAddPaymentProcressorIds);
+        }
+        else if(count($toAddPaymentProcressorIds) == 1){
+            $faucet->paymentProcessors()->sync([$toAddPaymentProcressorIds[0]]);
+        }
+
+        if(Auth::user()->hasRole('owner')){
+            $faucet->users()->sync([Auth::user()->id => ['faucet_id' => $faucet->id, 'referral_code' => $referralCode]]);
         }
     }
 
     /**
-     * A function used to update the 'low balance' status of a
-     * faucet.
-     *
-     * @param $faucetSlug
-     * @return mixed
+     * Soft-delete or permanently delete a faucet.
+     * @param $slug
+     * @param bool $permanentlyDelete
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public static function lowBalance($faucetSlug)
-    {
-        try {
-            $lowBalanceStatus = Input::get('has_low_balance');
-            $faucet = Faucet::findBySlugOrId($faucetSlug);
-            $faucet->has_low_balance = $lowBalanceStatus;
-            $faucet->save();
+    public function destroyFaucet($slug, bool $permanentlyDelete = false){
 
-            Session::flash(
-                'success_message_update_faucet_low_balance_status',
-                'The faucet has been paused due to low balance (less than 10,000 Satoshis).'
-            );
+        $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
 
-            return Redirect::to('faucets/' . $faucetSlug);
-        } catch (ModelNotFoundException $e) {
-            abort(404);
-        } catch (Exception $e) {
-            return Redirect::to('faucets/' . $faucetSlug)
-                ->withErrors(['There was a problem changing low balance status, please try again.'])
-                ->withInput(Input::get('has_low_balance'));
+        if (empty($faucet)) {
+            LaracastsFlash::error('Faucet not found');
+
+            return redirect(route('faucets.index'));
         }
+
+        if(!empty($faucet) && $faucet->isDeleted()){
+            LaracastsFlash::error('The faucet has already been deleted.');
+
+            return redirect(route('faucets.index'));
+        }
+
+        if($permanentlyDelete == false){
+            $this->faucetRepository->deleteWhere(['slug' => $slug]);
+        } else{
+            $this->faucetRepository->deleteWhere(['slug' => $slug], true);
+        }
+
+    }
+
+    /**
+     * Restore a specified soft-deleted faucet.
+     * @param $slug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function restoreFaucet($slug){
+        $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
+
+        if (empty($faucet)) {
+            LaracastsFlash::error('Faucet not found');
+
+            return redirect(route('faucets.index'));
+        }
+
+        if(!empty($faucet) && !$faucet->isDeleted()){
+            LaracastsFlash::error('The faucet has already been restored or is still active.');
+
+            return redirect(route('faucets.index'));
+        }
+
+        $this->faucetRepository->restoreDeleted($slug);
     }
 }

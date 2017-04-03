@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\Permission;
-use App\Models\Role;
 use App\Models\User;
-use App\Repositories\UserRepository;
+use Helpers\Functions\Users;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -23,8 +21,7 @@ class RegisterController extends Controller
     |
     */
 
-    /** @var  UserRepository */
-    private $userRepository;
+    private $userFunctions;
 
     use RegistersUsers;
 
@@ -38,10 +35,10 @@ class RegisterController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param UserRepository $userRepo
+     * @param Users $userFunctions
      */
-    public function __construct(UserRepository $userRepo){
-        $this->userRepository = $userRepo;
+    public function __construct(Users $userFunctions){
+        $this->userFunctions = $userFunctions;
         $this->middleware('guest');
     }
 
@@ -66,39 +63,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
-        $user = $this->userRepository->create($data);
-
-        $newUser = User::where('slug', $user->slug)->first();
-
-        $userRole = Role::where('name', 'user')->first();
-        $newUser->attachRole($userRole);
-
-        $initialPermissions = [
-            Permission::where('name', 'read-users')->first(),
-            Permission::where('name', 'read-faucets')->first(),
-            Permission::where('name', 'create-user-faucets')->first(),
-            Permission::where('name', 'read-user-faucets')->first(),
-            Permission::where('name', 'update-user-faucets')->first(),
-            Permission::where('name', 'soft-delete-user-faucets')->first(),
-            Permission::where('name', 'permanent-delete-user-faucets')->first(),
-            Permission::where('name', 'restore-user-faucets')->first(),
-            Permission::where('name', 'read-payment-processors')->first(),
-        ];
-
-        foreach($initialPermissions as $permission){
-            $newUser->attachPermission($permission);
-        }
-
-        return $user;
-        /*return User::create([
-            'user_name' => $data['user_name'],
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'bitcoin_address' => $data['bitcoin_address'],
-            'is_admin' => false
-        ]);*/
+        return $this->userFunctions->createStoreUser($data);
     }
 }

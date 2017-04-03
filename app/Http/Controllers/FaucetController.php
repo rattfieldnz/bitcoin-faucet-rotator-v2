@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Functions;
+use App\Helpers\Functions\Faucets;
 use App\Http\Requests\CreateFaucetRequest;
 use App\Http\Requests\UpdateFaucetRequest;
 use App\Models\PaymentProcessor;
 use App\Repositories\FaucetRepository;
+use Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Laracasts\Flash\Flash as LaracastsFlash;
 use Laracasts\Flash\Flash;
@@ -17,12 +17,22 @@ use Prettus\Repository\Criteria\RequestCriteria;
 
 class FaucetController extends AppBaseController
 {
-    /** @var  FaucetRepository */
     private $faucetRepository;
+    private $userFunctions;
+    private $faucetFunctions;
 
-    public function __construct(FaucetRepository $faucetRepo)
+    /**
+     * FaucetController constructor.
+     * 
+     * @param FaucetRepository $faucetRepo
+     * @param Users $userFunctions
+     * @param Faucets $faucetFunctions
+     */
+    public function __construct(FaucetRepository $faucetRepo, Users $userFunctions, Faucets $faucetFunctions)
     {
         $this->faucetRepository = $faucetRepo;
+        $this->userFunctions = $userFunctions;
+        $this->faucetFunctions = $faucetFunctions;
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
@@ -62,7 +72,7 @@ class FaucetController extends AppBaseController
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->get();
         $faucetPaymentProcessorIds = null;
         $faucet = null;
-        Functions::userCanAccessArea(
+        Users::userCanAccessArea(
             Auth::user(),
             'faucets.create',
             [
@@ -89,28 +99,8 @@ class FaucetController extends AppBaseController
      */
     public function store(CreateFaucetRequest $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'faucets.store', [], []);
-        $input = $request->except('payment_processors', 'slug', 'referral_code');
-
-        $faucet = $this->faucetRepository->create($input);
-
-        $paymentProcessors = $request->get('payment_processors');
-        $referralCode = $request->get('referral_code');
-
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        $faucet->first()->paymentProcessors->detach();
-
-        if(count($paymentProcessors) >= 1){
-            foreach ($paymentProcessors as $paymentProcessorId) {
-                $faucet->first()->paymentProcessors->attach((int)$paymentProcessorId);
-            }
-        }
-
-        if(Auth::user()->hasRole('owner')){
-            Auth::user()->faucets()->sync([$faucet->id => ['referral_code' => $referralCode]]);
-        }
-
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        Users::userCanAccessArea(Auth::user(), 'faucets.store', [], []);
+        $this->faucetFunctions->createStoreFaucet($request);
 
         LaracastsFlash::success('Faucet saved successfully.');
 
@@ -171,13 +161,13 @@ class FaucetController extends AppBaseController
     /**
      * Show the form for editing the specified Faucet.
      *
-     * @param  int $id
+     * @param string $slug
      *
      * @return Response
      */
     public function edit($slug)
     {
-        Functions::userCanAccessArea(Auth::user(), 'faucets.edit', ['slug' => $slug], ['slug' => $slug]);
+        Users::userCanAccessArea(Auth::user(), 'faucets.edit', ['slug' => $slug], ['slug' => $slug]);
         $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->get();
 
@@ -210,47 +200,9 @@ class FaucetController extends AppBaseController
      */
     public function update($slug, UpdateFaucetRequest $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'faucets.update', ['slug' => $slug], ['slug' => $slug]);
-        $currentFaucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
+        Users::userCanAccessArea(Auth::user(), 'faucets.update', ['slug' => $slug], ['slug' => $slug]);
 
-        $faucet = $this->faucetRepository->update($request->all(), $currentFaucet->id);
-
-        $paymentProcessors = $request->get('payment_processors');
-        $paymentProcessorIds = $request->get('payment_processors');
-
-        $referralCode = $request->get('referral_code');
-
-        if(count($paymentProcessorIds) == 1){
-            $paymentProcessors = PaymentProcessor::where('id', $paymentProcessorIds[0]);
-        }
-        else if(count($paymentProcessorIds) >= 1){
-            $paymentProcessors = PaymentProcessor::whereIn('id', $paymentProcessorIds);
-        }
-
-        if (empty($faucet)) {
-            LaracastsFlash::error('Faucet not found');
-
-            return redirect(route('faucets.index'));
-        }
-
-        $toAddPaymentProcressorIds = [];
-
-        foreach($paymentProcessors->pluck('id')->toArray() as $key => $value){
-            array_push($toAddPaymentProcressorIds, (int)$value);
-        }
-
-        if(count($toAddPaymentProcressorIds) > 1){
-            $faucet->paymentProcessors()->sync($toAddPaymentProcressorIds);
-        }
-        else if(count($toAddPaymentProcressorIds) == 1){
-            $faucet->paymentProcessors()->sync([$toAddPaymentProcressorIds[0]]);
-        }
-
-        if(Auth::user()->hasRole('owner')){
-            //$faucet->users()->sync([Auth::user()->id => ['referral_code' => $referralCode]]);
-            $faucet->users()->sync([Auth::user()->id => ['faucet_id' => $faucet->id, 'referral_code' => $referralCode]]);
-            //dd(Auth::user()->faucets());
-        }
+        $this->faucetFunctions->updateFaucet($slug, $request);
 
         LaracastsFlash::success('Faucet updated successfully.');
 
@@ -260,51 +212,36 @@ class FaucetController extends AppBaseController
     /**
      * Remove the specified Faucet from storage.
      *
-     * @param  int $id
-     *
-     * @return Response
+     * @param  string $slug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($slug)
     {
-        Functions::userCanAccessArea(
+        Users::userCanAccessArea(
             Auth::user(),
             'faucets.destroy',
             ['slug' => $slug],
             ['slug' => $slug]
         );
-        $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
 
-        if (empty($faucet)) {
-            Flash::error('Faucet not found');
-
-            return redirect(route('faucets.index'));
-        }
-
-        if(!empty($faucet) && $faucet->isDeleted()){
-            Flash::error('The faucet has already been deleted.');
-
-            return redirect(route('faucets.index'));
-        }
-
-        $this->faucetRepository->deleteWhere(['slug' => $slug]);
+        $this->faucetFunctions->destroyFaucet($slug, false);
 
         Flash::success('Faucet deleted successfully.');
 
         return redirect(route('faucets.index'));
     }
 
+    /**
+     * Permanently remove the specified Faucet from storage.
+     *
+     * @param $slug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function destroyPermanently($slug)
     {
-        Functions::userCanAccessArea(Auth::user(), 'faucets.delete-permanently', ['slug' => $slug], ['slug' => $slug]);
-        $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
+        Users::userCanAccessArea(Auth::user(), 'faucets.delete-permanently', ['slug' => $slug], ['slug' => $slug]);
 
-        if (empty($faucet)&& !$faucet->isDeleted()) {
-            Flash::error('Faucet not found');
-
-            return redirect(route('faucets.index'));
-        }
-
-        $this->faucetRepository->deleteWhere(['slug' => $slug], true);
+        $this->faucetFunctions->destroyFaucet($slug, true);
 
         Flash::success('Faucet was permanently deleted!');
 
@@ -312,23 +249,16 @@ class FaucetController extends AppBaseController
 
     }
 
+    /**
+     * Restore a soft-deleted faucet.
+     *
+     * @param $slug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function restoreDeleted($slug){
-        Functions::userCanAccessArea(Auth::user(), 'faucets.restore', ['slug' => $slug], ['slug' => $slug]);
-        $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
+        Users::userCanAccessArea(Auth::user(), 'faucets.restore', ['slug' => $slug], ['slug' => $slug]);
 
-        if (empty($faucet)) {
-            Flash::error('Faucet not found');
-
-            return redirect(route('faucets.index'));
-        }
-
-        if(!empty($faucet) && !$faucet->isDeleted()){
-            Flash::error('The faucet has already been restored or is still active.');
-
-            return redirect(route('faucets.index'));
-        }
-
-        $this->faucetRepository->restoreDeleted($slug);
+        $this->faucetFunctions->restoreFaucet($slug);
 
         Flash::success('Faucet was successfully restored!');
 

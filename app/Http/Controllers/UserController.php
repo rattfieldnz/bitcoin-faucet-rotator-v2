@@ -6,20 +6,28 @@ use App\Helpers\Functions;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\UserRepository;
+use Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Laracasts\Flash\Flash as LaracastsFlash;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Response;
 use Prettus\Repository\Criteria\RequestCriteria;
 
 class UserController extends AppBaseController
 {
-    /** @var  UserRepository */
-    private $userRepository;
 
-    public function __construct(UserRepository $userRepo)
+    private $userRepository;
+    private $userFunctions;
+
+    /**
+     * UserController constructor.
+     *
+     * @param UserRepository $userRepo
+     * @param Users $userFunctions
+     */
+    public function __construct(UserRepository $userRepo, Users $userFunctions)
     {
         $this->userRepository = $userRepo;
+        $this->userFunctions = $userFunctions;
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
@@ -27,7 +35,7 @@ class UserController extends AppBaseController
      * Display a listing of the User.
      *
      * @param Request $request
-     * @return Response
+     * @return $this
      */
     public function index(Request $request)
     {
@@ -48,7 +56,7 @@ class UserController extends AppBaseController
     /**
      * Show the form for creating a new User.
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -66,15 +74,14 @@ class UserController extends AppBaseController
      * Store a newly created User in storage.
      *
      * @param CreateUserRequest $request
-     *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(CreateUserRequest $request)
     {
         if(Auth::user()->hasRole('owner')) {
             $input = $request->all();
 
-            $user = $this->userRepository->create($input);
+            $this->userFunctions->createStoreUser($input);
 
             LaracastsFlash::success('User saved successfully.');
 
@@ -87,9 +94,8 @@ class UserController extends AppBaseController
     /**
      * Display the specified User.
      *
-     * @param  int $id
-     *
-     * @return Response
+     * @param $slug
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function show($slug)
     {
@@ -138,9 +144,8 @@ class UserController extends AppBaseController
     /**
      * Show the form for editing the specified User.
      *
-     * @param  int $id
-     *
-     * @return Response
+     * @param $slug
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function edit($slug)
     {
@@ -151,7 +156,7 @@ class UserController extends AppBaseController
             return redirect(route('users.index'));
         }
         else{
-            if($user == Auth::user() || ($user->isDeleted() == true && Auth::user()->hasRole('owner')))
+            if(($user == Auth::user() || Auth::user()->hasRole('owner')) || ($user->isDeleted() == true && Auth::user()->hasRole('owner')))
             {
 
                 return view('users.edit')
@@ -165,45 +170,21 @@ class UserController extends AppBaseController
     /**
      * Update the specified User in storage.
      *
-     * @param  int              $id
+     * @param $slug
      * @param UpdateUserRequest $request
-     *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update($slug, UpdateUserRequest $request)
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
-        if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && $user->isDeleted() == true)) {
-            LaracastsFlash::error('User not found');
-
-            return redirect(route('users.index'));
-        }
-        else{
-            if($user == Auth::user() || ($user->isDeleted() == true && Auth::user()->hasRole('owner')))
-            {
-                $updateRequestData = $request->has('password') &&
-                $request->has('password_confirmation') ?
-                    $request->all() :
-                    $request->except(['password','password_confirmation']);
-
-                $user = $this->userRepository->update(
-                    $updateRequestData,
-                    $user->slug
-                );
-
-                LaracastsFlash::success('User updated successfully.');
-
-                return redirect(route('users.index'));
-            }
-        }
+        return $this->userFunctions->updateUser($user->slug, $request);
     }
 
     /**
      * Remove the specified User from storage.
      *
-     * @param  int $id
-     *
-     * @return Response
+     * @param $slug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($slug)
     {
@@ -215,25 +196,19 @@ class UserController extends AppBaseController
             ['user' => $user, 'slug' => $slug]
         );
 
-        if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->hasRole('owner') && $user->isDeleted() == true)) {
-            LaracastsFlash::error('User not found');
-
-            return redirect(route('users.index'));
-        }
-
-        if($user->hasRole('owner') == true){
-            LaracastsFlash::error('An owner-user cannot be deleted.');
-
-            return redirect(route('users.index'));
-        }
-
-        $this->userRepository->deleteWhere(['slug' => $slug]);
+        $this->userFunctions->destroyUser($user->slug, false);
 
         LaracastsFlash::success('User deleted successfully.');
 
         return redirect(route('users.index'));
     }
 
+    /**
+     * Permanently delete the specified user.
+     *
+     * @param $slug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function destroyPermanently($slug)
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
@@ -244,19 +219,7 @@ class UserController extends AppBaseController
             ['user' => $user, 'slug' => $slug]
         );
 
-        if (empty($user) || ($user == Auth::user() && $user->hasRole('user'))) {
-            LaracastsFlash::error('User not found');
-
-            return redirect(route('users.index'));
-        }
-
-        if($user->hasRole('owner') == true){
-            LaracastsFlash::error('An owner-user cannot be deleted.');
-
-            return redirect(route('users.index'));
-        }
-
-        $this->userRepository->deleteWhere(['slug' => $slug], true);
+        $this->userFunctions->destroyUser($user->slug, true);
 
         LaracastsFlash::success('User was permanently deleted!');
 
@@ -264,6 +227,12 @@ class UserController extends AppBaseController
 
     }
 
+    /**
+     * Restore the specified soft-deleted user.
+     *
+     * @param $slug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function restoreDeleted($slug){
         $user = $this->userRepository->findByField('slug', $slug)->first();
         Functions::userCanAccessArea(
@@ -273,13 +242,7 @@ class UserController extends AppBaseController
             ['user' => $user, 'slug' => $slug]
         );
 
-        if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->hasRole('owner') && $user->isDeleted() == true)) {
-            LaracastsFlash::error('User not found');
-
-            return redirect(route('users.index'));
-        }
-
-        $this->userRepository->restoreDeleted($slug);
+        $this->userFunctions->restoreUser($user->slug);
 
         LaracastsFlash::success('User was successfully restored!');
 

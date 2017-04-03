@@ -10,6 +10,8 @@ namespace App\Helpers;
 
 
 use App\Models\Faucet;
+use App\Models\Permission;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
