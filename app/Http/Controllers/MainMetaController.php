@@ -65,7 +65,7 @@ class MainMetaController extends AppBaseController
         Functions::userCanAccessArea(Auth::user(), 'main-meta.store', [], []);
         $input = $request->all();
 
-        $mainMeta = $this->mainMetaRepository->create($input);
+        $this->mainMetaRepository->create($input);
 
         Flash::success('Main Meta saved successfully.');
 
@@ -114,7 +114,7 @@ class MainMetaController extends AppBaseController
 
         $input = $request->all();
 
-        $mainMeta = $this->mainMetaRepository->update($input, $id);
+        $this->mainMetaRepository->update($input, $id);
 
         Flash::success('Main Meta updated successfully.');
 

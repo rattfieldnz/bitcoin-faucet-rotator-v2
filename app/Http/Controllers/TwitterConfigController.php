@@ -36,7 +36,6 @@ class TwitterConfigController extends AppBaseController
         $this->twitterConfigRepository->pushCriteria(new RequestCriteria($request));
         $twitterConfigs = $this->twitterConfigRepository->all();
         $adminUser = Auth::user()->where('is_admin', true)->first();
-        //dd($adminUser);
 
         if (count($twitterConfigs) == 0) {
             return view('twitter_config.create')->with('adminUser', $adminUser);
@@ -71,7 +70,7 @@ class TwitterConfigController extends AppBaseController
         Functions::userCanAccessArea(Auth::user(), 'twitter-config.store', [], []);
         $input = $request->all();
 
-        $twitterConfig = $this->twitterConfigRepository->create($input);
+        $this->twitterConfigRepository->create($input);
 
         Flash::success('Twitter Config saved successfully.');
 
@@ -118,7 +117,7 @@ class TwitterConfigController extends AppBaseController
             return redirect(route('twitter-config.index'));
         }
 
-        $twitterConfig = $this->twitterConfigRepository->update($request->all(), $id);
+        $this->twitterConfigRepository->update($request->all(), $id);
 
         Flash::success('Twitter Config updated successfully.');
 

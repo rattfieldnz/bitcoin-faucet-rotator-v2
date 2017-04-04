@@ -60,7 +60,7 @@ class PaymentProcessorController extends AppBaseController
      */
     public function store(CreatePaymentProcessorRequest $request)
     {
-        Functions::userCanAccessArea(Auth::user(), 'payment-processors.store', null, null);
+        Functions::userCanAccessArea(Auth::user(), 'payment-processors.store', [], []);
         $input = $request->all();
 
         $paymentProcessor = $this->paymentProcessorRepository->create($input);
@@ -73,7 +73,7 @@ class PaymentProcessorController extends AppBaseController
     /**
      * Display the specified PaymentProcessor.
      *
-     * @param  int $id
+     * @param string $slug
      *
      * @return Response
      */
@@ -93,7 +93,7 @@ class PaymentProcessorController extends AppBaseController
     /**
      * Show the form for editing the specified PaymentProcessor.
      *
-     * @param  int $id
+     * @param string $slug
      *
      * @return Response
      */
@@ -114,7 +114,7 @@ class PaymentProcessorController extends AppBaseController
     /**
      * Update the specified PaymentProcessor in storage.
      *
-     * @param  int              $id
+     * @param string $slug
      * @param UpdatePaymentProcessorRequest $request
      *
      * @return Response
@@ -129,7 +129,7 @@ class PaymentProcessorController extends AppBaseController
             return redirect(route('payment-processors.index'));
         }
 
-        $paymentProcessor = $this->paymentProcessorRepository->update($request->all(), $paymentProcessor->id);
+        $this->paymentProcessorRepository->update($request->all(), $paymentProcessor->id);
 
         Flash::success('Payment Processor updated successfully.');
 
@@ -139,7 +139,7 @@ class PaymentProcessorController extends AppBaseController
     /**
      * Remove the specified PaymentProcessor from storage.
      *
-     * @param  int $id
+     * @param string $slug
      *
      * @return Response
      */

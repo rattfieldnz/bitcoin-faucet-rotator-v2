@@ -110,7 +110,7 @@ class FaucetController extends AppBaseController
     /**
      * Display the specified Faucet.
      *
-     * @param  int $id
+     * @param string $slug
      *
      * @return Response
      */
@@ -138,9 +138,7 @@ class FaucetController extends AppBaseController
                 $faucet->isDeleted() && // If the faucet is soft-deleted,
                 Auth::user()->hasRole('owner') // If the currently authenticated user has 'owner' role,
             ){
-                if(Auth::user()->hasRole('owner')){
-                    $message = 'The faucet has been temporarily deleted. You can restore the faucet or permanently delete it.';
-                }
+                $message = 'The faucet has been temporarily deleted. You can restore the faucet or permanently delete it.';
 
                 return view('faucets.show')
                     ->with('faucet', $faucet)
@@ -193,7 +191,7 @@ class FaucetController extends AppBaseController
     /**
      * Update the specified Faucet in storage.
      *
-     * @param  int              $id
+     * @param string $slug
      * @param UpdateFaucetRequest $request
      *
      * @return Response

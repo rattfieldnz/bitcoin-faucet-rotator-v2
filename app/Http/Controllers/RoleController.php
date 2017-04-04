@@ -131,7 +131,7 @@ class RoleController extends AppBaseController
             return redirect(route('roles.index'));
         }
 
-        $role = $this->roleRepository->update($request->all(), $role->id);
+        $this->roleRepository->update($request->all(), $role->id);
 
         Flash::success('Role updated successfully.');
 

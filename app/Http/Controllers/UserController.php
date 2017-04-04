@@ -121,9 +121,7 @@ class UserController extends AppBaseController
                 $user->isDeleted() && // If the user is soft-deleted,
                 Auth::user()->hasRole('owner') // If the currently authenticated user has 'owner' role,
             ){
-                if(Auth::user()->hasRole(['owner'])){
-                    $message = 'The user has been temporarily deleted. You can restore the user or permanently delete them.';
-                }
+                $message = 'The user has been temporarily deleted. You can restore the user or permanently delete them.';
 
                 return view('users.show')
                     ->with('user', $user)
@@ -132,8 +130,7 @@ class UserController extends AppBaseController
             if(!empty($user) && !$user->isDeleted()){ // If the user exists and isn't soft-deleted
 
                 return view('users.show')
-                    ->with('user', $user)
-                    ->with('message', $message);
+                    ->with('user', $user);
             } else{
                 LaracastsFlash::error('User not found');
                 return redirect(route('users.index'));

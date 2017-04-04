@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Functions;
 use App\Http\Requests\CreateUserFaucetRequest;
 use App\Http\Requests\UpdateUserFaucetRequest;
 use App\Models\Faucet;
@@ -14,8 +13,6 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Response;
 use Laracasts\Flash\Flash as LaracastsFlash;
-use Laracasts\Flash\Flash;
-use Mews\Purifier\Purifier;
 use Prettus\Repository\Criteria\RequestCriteria;
 
 class UserFaucetsController extends Controller
@@ -72,7 +69,6 @@ class UserFaucetsController extends Controller
 
         $availableFaucets = $faucets->except($userFaucets->modelKeys());
 
-        $faucet = null;
         return view('users.faucets.create')
             ->with('paymentProcessors', $paymentProcessors)
             ->with('faucetPaymentProcessorIds', $faucetPaymentProcessorIds)
@@ -94,7 +90,7 @@ class UserFaucetsController extends Controller
             $input = $request->except('_token');
             $userId = (int)$request->get('user_id');
             $user = User::where('id', $userId)->first();
-            $userFaucet = $this->userFaucetRepository->create($input);
+            $this->userFaucetRepository->create($input);
 
             LaracastsFlash::success('Faucet saved successfully.');
 
@@ -136,9 +132,7 @@ class UserFaucetsController extends Controller
                 $faucet->isDeleted() && // If the faucet is soft-deleted,
                 Auth::user()->hasRole('owner') // If the currently authenticated user has 'owner' role,
             ){
-                if(Auth::user()->hasRole('owner')){
-                    $message = 'The faucet has been temporarily deleted. You can restore the faucet or permanently delete it.';
-                }
+                $message = 'The faucet has been temporarily deleted. You can restore the faucet or permanently delete it.';
 
                 return view('users.faucets.show')
                     ->with('user', $user)
@@ -149,8 +143,7 @@ class UserFaucetsController extends Controller
 
                 return view('users.faucets.show')
                     ->with('user', $user)
-                    ->with('faucet', $faucet)
-                    ->with('message', $message);
+                    ->with('faucet', $faucet);
             } else{
                 LaracastsFlash::error('Faucet not found');
                 return redirect(route('users.faucets', $user->slug));

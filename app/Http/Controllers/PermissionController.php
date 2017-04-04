@@ -115,7 +115,7 @@ class PermissionController extends AppBaseController
     /**
      * Update the specified Permission in storage.
      *
-     * @param  int              $id
+     * @param string $slug
      * @param UpdatePermissionRequest $request
      *
      * @return Response
@@ -131,7 +131,7 @@ class PermissionController extends AppBaseController
             return redirect(route('permissions.index'));
         }
 
-        $permission = $this->permissionRepository->update($request->all(), $permission->id);
+        $this->permissionRepository->update($request->all(), $permission->id);
 
         Flash::success('Permission updated successfully.');
 

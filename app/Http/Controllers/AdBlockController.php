@@ -70,7 +70,7 @@ class AdBlockController extends AppBaseController
         Functions::userCanAccessArea(Auth::user(), 'ad-block.store', [], []);
         $input = $request->all();
 
-        $adBlock = $this->adBlockRepository->create($input);
+        $this->adBlockRepository->create($input);
 
         Flash::success('Ad Block saved successfully.');
 
@@ -117,7 +117,7 @@ class AdBlockController extends AppBaseController
             return redirect(route('ad-block.index'));
         }
 
-        $adBlock = $this->adBlockRepository->update($request->all(), $id);
+        $this->adBlockRepository->update($request->all(), $id);
 
         Flash::success('Ad Block updated successfully.');
 
