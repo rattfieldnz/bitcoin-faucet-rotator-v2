@@ -151,7 +151,7 @@ class User extends Authenticatable
      **/
     public function faucets()
     {
-        return $this->belongsToMany(Faucet::class, 'referral_info')->withPivot('user_id', 'faucet_id', 'referral_code');
+        return $this->belongsToMany(Faucet::class, 'referral_info')->withPivot('user_id', 'faucet_id', 'referral_code', 'deleted_at');
     }
 
     /**

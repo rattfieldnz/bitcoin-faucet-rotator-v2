@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Helpers\Functions;
 use App\Models\Faucet;
 use App\Models\User;
+use Helpers\Functions\Users;
 use Illuminate\Support\Facades\DB;
 use Mews\Purifier\Facades\Purifier;
 
@@ -41,7 +42,7 @@ class UserFaucetRepository extends Repository implements IRepository
         $user = User::where('id', $userId)->first();
         $faucet = Faucet::where('id', $faucetId)->first();
 
-        Functions::setUserFaucetRefCode($user, $faucet, $referralCode);
+        Users::setUserFaucetRefCode($user, $faucet, $referralCode);
     }
 
     public function update(array $data, $userId)
@@ -53,7 +54,7 @@ class UserFaucetRepository extends Repository implements IRepository
         $user = User::where('id', $userId)->first();
         $faucet = Faucet::where('id', $faucetId)->first();
 
-        Functions::setUserFaucetRefCode($user, $faucet, $referralCode);
+        Users::setUserFaucetRefCode($user, $faucet, $referralCode);
     }
 
     static function cleanInput(array $data)

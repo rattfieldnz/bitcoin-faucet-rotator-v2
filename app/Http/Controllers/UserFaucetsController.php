@@ -8,9 +8,11 @@ use App\Models\Faucet;
 use App\Models\PaymentProcessor;
 use App\Models\User;
 use App\Repositories\UserFaucetRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Laracasts\Flash\Flash as LaracastsFlash;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -188,7 +190,8 @@ class UserFaucetsController extends Controller
         $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
         $input = $request->except('_token', '_method');
 
-        if(empty($user)){abort(404);
+        if(empty($user)){
+            abort(404);
         }
 
         if (empty($faucet)) {
@@ -206,24 +209,74 @@ class UserFaucetsController extends Controller
     }
 
     /**
-     * Remove the specified Faucet from storage.
+     * Soft-delete the specified Faucet from storage.
      *
-     * @param  int $id
-     *
-     * @return Response
+     * @param $userSlug
+     * @param $faucetSlug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($userSlug, $faucetSlug)
     {
+        $user = User::where('slug', $userSlug)->first();
+        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
 
+        if(empty($user)){
+            abort(404);
+        }
+
+        if (empty($faucet)) {
+            LaracastsFlash::error('Faucet not found');
+
+            return redirect(route('users.faucets', $user->slug));
+        }
+
+        if(!empty($faucet) && $faucet->pivot->deleted_at != null){
+            LaracastsFlash::error('The faucet has already been soft-deleted.');
+
+            return redirect(route('users.faucets', $user->slug));
+        }
+
+        DB::table('referral_info')
+            ->where('user_id', $user->id)
+            ->where('faucet_id', $faucet->id)
+            ->update(['deleted_at' => Carbon::now()]);
+
+        LaracastsFlash::success('The faucet has successfully been soft-deleted!');
+
+        return redirect(route('users.faucets', $user->slug));
     }
 
     /**
+     * Permanently delete the specified Faucet from storage.
+     *
      * @param $userSlug
      * @param $faucetSlug
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroyPermanently($userSlug, $faucetSlug)
     {
+        $user = User::where('slug', $userSlug)->first();
+        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
 
+        if(empty($user)){
+            abort(404);
+        }
+
+        if (empty($faucet)) {
+            LaracastsFlash::error('The faucet was not found, or has already been permanently deleted.');
+
+            return redirect(route('users.faucets', $user->slug));
+        }
+
+        DB::table('referral_info')
+            ->where('user_id', $user->id)
+            ->where('faucet_id', $faucet->id)
+            ->delete();
+
+        LaracastsFlash::success('The faucet was permanently deleted!');
+
+        return redirect(route('users.faucets', $user->slug));
     }
 
     /**
