@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Functions\Faucets;
 use App\Http\Requests\CreateUserFaucetRequest;
 use App\Http\Requests\UpdateUserFaucetRequest;
 use App\Models\Faucet;
@@ -9,11 +10,13 @@ use App\Models\PaymentProcessor;
 use App\Models\User;
 use App\Repositories\UserFaucetRepository;
 use Carbon\Carbon;
+use Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Route;
 use Laracasts\Flash\Flash as LaracastsFlash;
 use Prettus\Repository\Criteria\RequestCriteria;
 
@@ -22,9 +25,12 @@ class UserFaucetsController extends Controller
     /** @var  UserFaucetRepository */
     private $userFaucetRepository;
 
-    public function __construct(UserFaucetRepository $userFaucetRepo)
+    private $faucetFunctions;
+
+    public function __construct(UserFaucetRepository $userFaucetRepo, Faucets $faucetFunctions)
     {
         $this->userFaucetRepository = $userFaucetRepo;
+        $this->faucetFunctions = $faucetFunctions;
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
@@ -43,13 +49,20 @@ class UserFaucetsController extends Controller
         if(empty($user)){
             abort(404);
         }
-        $faucets = $user->faucets()->get();
+
+        if(Auth::guest() == true){
+            $showFaucets = $this->faucetFunctions->getUserFaucets($user, false);
+        }
+
+        else{
+            $showFaucets = $this->faucetFunctions->getUserFaucets($user, true);
+        }
 
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->pluck('name', 'id');
 
         return view('users.faucets.index')
             ->with('user', $user)
-            ->with('faucets', $faucets)
+            ->with('faucets', $showFaucets)
             ->with('paymentProcessors', $paymentProcessors);
 
     }
@@ -67,7 +80,12 @@ class UserFaucetsController extends Controller
         $faucetPaymentProcessorIds = null;
 
         $faucets = Faucet::distinct()->orderBy('name', 'asc')->get();
-        $userFaucets = $user->faucets()->orderBy('name', 'asc')->get();
+        $userFaucets = null;
+        if(Auth::user()->hasRole('user') || Auth::user()->hasRole('owner')){
+            $userFaucets = $this->faucetFunctions->getUserFaucets($user, true);
+        } else{
+            $userFaucets = $this->faucetFunctions->getUserFaucets($user, false);
+        }
 
         $availableFaucets = $faucets->except($userFaucets->modelKeys());
 
@@ -113,43 +131,65 @@ class UserFaucetsController extends Controller
         $user = User::where('slug', $userSlug)->first();
         $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
 
+        $mainFaucet = Faucet::where('slug', $faucetSlug)->withTrashed()->first();
+
         $message = null;
 
-        if(Auth::guest() && !empty($faucet) && $faucet->isDeleted()){ // If the visitor is a guest, faucet exists, and faucet is soft-deleted
-            LaracastsFlash::error('Faucet not found');
-            return redirect(route('faucets.index'));
+        if(empty($user)){
+            abort(404);
         }
-        else if(
-            !Auth::guest() && // If the visitor isn't a guest visitor,
-            Auth::user()->hasRole('user') && // If the visitor is an authenticated user with 'user' role
-            !Auth::user()->hasRole('owner') && // If the visitor is an authenticated user, but without 'owner' role,
-            $faucet->isDeleted() // If the faucet has been soft-deleted
-        ){
-            LaracastsFlash::error('Faucet not found');
-            return redirect(route('faucets.index'));
+        else if(empty($faucet) && $mainFaucet != null) {
+            if (Auth::guest()) {
+                LaracastsFlash::error('The faucet was not found');
+                return redirect(route('users.faucets', $user->slug));
+            } else if (Auth::user()->hasRole('owner') || Auth::user()->hasRole('user')) {
+                $message = null;
+                if (Auth::user()->hasRole('owner')) {
+                    $message = 'The faucet you requested has been temporarily deleted. You can restore the faucet or permanently delete it.';
+                }
+                else if (Auth::user()->hasRole('user')) {
+                    $message = 'You have deleted the faucet that was requested; however, you are able to restore this faucet.';
+                }
+
+                return redirect(route('users.faucets', $user->slug))->with('message', $message);
+            }
         }
-        else{
-            if(
-                !empty($faucet) && // If the faucet exists,
-                $faucet->isDeleted() && // If the faucet is soft-deleted,
-                Auth::user()->hasRole('owner') // If the currently authenticated user has 'owner' role,
-            ){
-                $message = 'The faucet has been temporarily deleted. You can restore the faucet or permanently delete it.';
+        else if(!empty($faucet) && $faucet->isDeleted()){
+            if(!Auth::guest() && (Auth::user()->hasRole('owner') || Auth::user()->hasRole('user')))
+            {
+                if(Auth::user()->hasRole('user')){
+                    $message = 'The owner of this rotator has deleted the faucet you requested. You can contact them if you would like it to be restored.';
+                }
+                elseif (Auth::user()->hasRole('owner')){
+                    $message = 'The faucet has been temporarily deleted. You can restore the faucet or permanently delete it.';
+                }
 
                 return view('users.faucets.show')
                     ->with('user', $user)
                     ->with('faucet', $faucet)
                     ->with('message', $message);
             }
-            if(!empty($faucet) && !$faucet->isDeleted()){ // If the faucet exists and isn't soft-deleted
+        }
+
+        else if(!empty($faucet) && ($faucet->pivot->deleted_at != null || $faucet->isDeleted())){
+            if(!Auth::guest() && (Auth::user()->hasRole('owner') || Auth::user()->hasRole('user')))
+            {
+                if(Auth::user()->hasRole('user')){
+                    $message = 'You have deleted the faucet that was requested; however, you are able to restore this faucet.';
+                }
+                elseif (Auth::user()->hasRole('owner')){
+                    $message = 'The faucet has been temporarily deleted. You can restore the faucet or permanently delete it.';
+                }
 
                 return view('users.faucets.show')
                     ->with('user', $user)
-                    ->with('faucet', $faucet);
-            } else{
-                LaracastsFlash::error('Faucet not found');
-                return redirect(route('users.faucets', $user->slug));
+                    ->with('faucet', $faucet)
+                    ->with('message', $message);
             }
+        }
+        else{
+            LaracastsFlash::error('The faucet was not found');
+            return redirect(route('users.faucets', $user->slug));
         }
     }
 
@@ -167,7 +207,7 @@ class UserFaucetsController extends Controller
         $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
 
         if (empty($faucet)) {
-            Flash::error('Faucet not found');
+            LaracastsFlash::error('Faucet not found');
 
             return redirect(route('users.faucets', $user->slug));
         }
@@ -218,7 +258,7 @@ class UserFaucetsController extends Controller
     public function destroy($userSlug, $faucetSlug)
     {
         $user = User::where('slug', $userSlug)->first();
-        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
+        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->withTrashed()->first();
 
         if(empty($user)){
             abort(404);
@@ -226,6 +266,12 @@ class UserFaucetsController extends Controller
 
         if (empty($faucet)) {
             LaracastsFlash::error('Faucet not found');
+
+            return redirect(route('users.faucets', $user->slug));
+        }
+
+        if(!empty($faucet) && $faucet->isDeleted()){
+            LaracastsFlash::error('The owner has temporarily deleted this faucet, and you are not able to restore it. You can ask the owner if the faucet can be restored.');
 
             return redirect(route('users.faucets', $user->slug));
         }
@@ -284,6 +330,40 @@ class UserFaucetsController extends Controller
      * @param $faucetSlug
      */
     public function restoreDeleted($userSlug, $faucetSlug){
+
+        $user = User::where('slug', $userSlug)->first();
+        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->withTrashed()->first();
+
+        if(empty($user)){
+            abort(404);
+        }
+
+        if (empty($faucet)) {
+            LaracastsFlash::error('The faucet was not found, or has been permanently deleted.');
+
+            return redirect(route('users.faucets', $user->slug));
+        }
+
+        if(!empty($faucet) && $faucet->isDeleted()){
+            LaracastsFlash::error('The owner has temporarily deleted this faucet, and you are not able to restore it. You can ask the owner if the faucet can be restored.');
+
+            return redirect(route('users.faucets', $user->slug));
+        }
+
+        if($faucet->pivot->deleted_at == null){
+            LaracastsFlash::error('The faucet is already active, and hasn\'t been deleted.');
+
+            return redirect(route('users.faucets', $user->slug));
+        }
+
+        DB::table('referral_info')
+            ->where('user_id', $user->id)
+            ->where('faucet_id', $faucet->id)
+            ->update(['deleted_at' => null]);
+
+        LaracastsFlash::success('The faucet was successfully restored!');
+
+        return redirect(route('users.faucets', $user->slug));
 
     }
 }

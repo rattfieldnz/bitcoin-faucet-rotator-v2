@@ -9,7 +9,7 @@
     <div class="content">
         <div class="clearfix"></div>
         @include('flash::message')
-        @if($message != null)
+        @if(!empty($message))
             <div class="alert alert-info">
                 {!! $message !!}
             </div>
@@ -39,7 +39,7 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    {!! link_to($faucet->url . App\Helpers\Functions::getUserFaucetRefCode($user, $faucet), $faucet->name, ['target' => 'blank', 'title' => $faucet->name]) !!}
+                                    {!! link_to($faucet->url . App\Helpers\Functions\Faucets::getUserFaucetRefCode($user, $faucet), $faucet->name, ['target' => 'blank', 'title' => $faucet->name]) !!}
                                 </td>
                                 <td>{{ $faucet->interval_minutes }}</td>
                                 <td>{{ $faucet->min_payout }}</td>

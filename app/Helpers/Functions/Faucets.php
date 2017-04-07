@@ -2,6 +2,8 @@
 
 use App\Http\Requests\CreateFaucetRequest;
 use App\Http\Requests\UpdateFaucetRequest;
+use App\Models\Faucet;
+use App\Models\User;
 use Laracasts\Flash\Flash as LaracastsFlash;
 use App\Models\PaymentProcessor;
 use App\Repositories\FaucetRepository;
@@ -153,5 +155,103 @@ class Faucets
         }
 
         $this->faucetRepository->restoreDeleted($slug);
+    }
+
+
+    /**
+     * @param User $user
+     * @param Faucet $faucet
+     * @return string
+     */
+    public static function getUserFaucetRefCode(User $user, Faucet $faucet){
+
+        // Check if the user and faucet exists.
+        if(empty($user) || empty($faucet)){
+            return null;
+        }
+
+        $referralCode = DB::table('referral_info')->where(
+            [
+                ['faucet_id', '=', $faucet->id],
+                ['user_id', '=', $user->id]
+            ]
+        )->first();
+
+        return $referralCode != null ? $referralCode->referral_code : null;
+    }
+
+    /**
+     * @param User $user
+     * @param Faucet $faucet
+     * @param string $refCode
+     * @return null
+     */
+    public static function setUserFaucetRefCode(User $user, Faucet $faucet, $refCode = null){
+
+        // Check if the user and faucet exists.
+        if(empty($user) || empty($faucet)){
+            return null;
+        }
+
+        // Check if the user already has a matching ref code.
+        $referralCode = self::getUserFaucetRefCode($user, $faucet);
+
+        // If there is no matching ref code, add record to database.
+        if($referralCode == null || $referralCode == '' || empty($referralCode)){
+            DB::table('referral_info')->insert(
+                ['faucet_id' => $faucet->id, 'user_id' => $user->id, 'referral_code' => $refCode]
+            );
+        } else{
+            DB::table('referral_info')->where(
+                [
+                    ['faucet_id', '=', $faucet->id],
+                    ['user_id', '=', $user->id]
+                ]
+            )->update(['referral_code' => $refCode]);
+        }
+    }
+
+    /**
+     * Retrieve the faucets of a specified user.
+     *
+     * @param User $user
+     * @param bool $isDeleted
+     * @return \Illuminate\Support\Collection
+     */
+    public function getUserFaucets(User $user, bool $isDeleted = false){
+        if(empty($user)){
+            return null;
+        }
+
+        $userFaucetIds = $this->getUserFaucetIds($user, $isDeleted);
+
+        $faucets = $user->faucets()->whereIn('id', $userFaucetIds)->get();
+
+        return $faucets;
+    }
+
+    /**
+     * Retrieve faucet ids matching with specified user.
+     *
+     * @param User $user
+     * @param bool $isDeleted
+     * @return \Illuminate\Support\Collection
+     */
+    private function getUserFaucetIds(User $user, bool $isDeleted = false){
+        if($isDeleted == true){
+            $userFaucetIds = DB::table('referral_info')->where(
+                [
+                    ['user_id', '=', $user->id],
+                ]
+            );
+        } else{
+            $userFaucetIds = DB::table('referral_info')->where(
+                [
+                    ['user_id', '=', $user->id],
+                    ['deleted_at', '=', null]
+                ]
+            );
+        }
+        return $userFaucetIds->get()->pluck('faucet_id');
     }
 }
