@@ -164,7 +164,7 @@ class UserFaucetsController extends Controller
                 return redirect(route('users.faucets', $user->slug));
             }
             //If the authenticated user is an owner or standard user.
-            if ((Auth::user()->hasRole('owner') || Auth::user()->hasRole('user'))) {
+            if ((Auth::user()->hasRole('owner') || Auth::user()->hasRole('user')) || $user === Auth::user()) {
                 $message = null;
                 if (Auth::user()->hasRole('owner')) {
                     $message = 'The faucet has been temporarily deleted by it\'s user. You can restore the faucet or permanently delete it.';
