@@ -200,7 +200,7 @@ class UserFaucetsController extends Controller
             }
         }
 
-        // If user faucet exists, and and the user's faucet is soft-deleted.
+        // If user faucet exists, and the user's faucet is soft-deleted.
         else if(!empty($faucet) && $faucet->pivot->deleted_at != null){
             if(!Auth::guest() && (Auth::user()->hasRole('owner') || Auth::user()->hasRole('user')) && $user == Auth::user())
             {

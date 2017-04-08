@@ -9,6 +9,10 @@
         <th>User Name</th>
 
         @if(Auth::user() != null)
+            <th>Role</th>
+        @endif
+
+        @if(Auth::user() != null)
             @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
                 <th>Email</th>
                 <th>Password</th>
@@ -22,13 +26,16 @@
     @foreach($users as $user)
         <tr>
             @if(Auth::user() != null)
-                @if(Auth::user()->is_admin == true && Auth::user()->role()->first()->name == 'owner')
+                @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
                     <td>{!! $user->id !!}</td>
                 @endif
             @endif
             <td>{!! $user->user_name !!} </td>
             @if(Auth::user() != null)
-                @if(Auth::user()->is_admin == true && Auth::user()->role()->first()->name == 'owner')
+                <td>{!! ucfirst($user->role()->first()->name) !!}</td>
+            @endif
+            @if(Auth::user() != null)
+                @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
                     <td>{!! $user->email !!}</td>
                     <td> ************ </td>
                     <td>{!! $user->isAnAdmin() !!}</td>

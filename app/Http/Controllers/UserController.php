@@ -41,10 +41,10 @@ class UserController extends AppBaseController
     {
         $this->userRepository->pushCriteria(new RequestCriteria($request));
         $users = null;
-        if(Auth::guest()){
-            $users = $this->userRepository->all();
+        if(Auth::guest() || Auth::user()->hasRole('user')){
+            $users = $this->userRepository->findByField('is_admin', false);
         }
-        else if(Auth::user()->role()->first()->name == 'user' || Auth::user()->role()->first()->name == 'owner'){
+        else if(Auth::user()->hasRole('owner')){
             $users = $this->userRepository->withTrashed()->get();
         }
 
@@ -191,6 +191,11 @@ class UserController extends AppBaseController
             ['user' => $user, 'slug' => $slug]
         );
 
+        if($user->hasRole('owner')){
+            LaracastsFlash::error('An owner-user cannot be soft-deleted.');
+
+            return redirect(route('users.index'));
+        }
         $this->userFunctions->destroyUser($user->slug, false);
 
         LaracastsFlash::success('User deleted successfully.');
@@ -214,6 +219,12 @@ class UserController extends AppBaseController
             ['user' => $user, 'slug' => $slug]
         );
 
+
+        if($user->hasRole('owner')){
+            LaracastsFlash::error('An owner-user cannot be permanently deleted.');
+
+            return redirect(route('users.index'));
+        }
         $this->userFunctions->destroyUser($user->slug, true);
 
         LaracastsFlash::success('User was permanently deleted!');
