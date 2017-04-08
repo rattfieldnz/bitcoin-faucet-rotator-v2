@@ -20,11 +20,12 @@
     <p>{!! $paymentProcessor->url !!}</p>
 </div>
 
-<!-- Slug Field -->
+@if(count($paymentProcessor->faucets()->get()) > 0)
 <div class="form-group">
-    {!! Form::label('slug', 'Slug:') !!}
-    <p>{!! $paymentProcessor->slug !!}</p>
+    {!! Form::label('faucets', 'Faucets:') !!}
+    {!! link_to_route('payment-processors.faucets', 'View Faucets', $paymentProcessor->slug) !!}
 </div>
+@endif
 
 @if(Auth::user() != null)
     @if(Auth::user()->is_admin == true)
@@ -41,22 +42,4 @@
         </div>
     @endif
 @endif
-
-<!-- Meta Title Field -->
-<div class="form-group">
-    {!! Form::label('meta_title', 'Meta Title:') !!}
-    <p>{!! $paymentProcessor->meta_title !!}</p>
-</div>
-
-<!-- Meta Description Field -->
-<div class="form-group">
-    {!! Form::label('meta_description', 'Meta Description:') !!}
-    <p>{!! $paymentProcessor->meta_description !!}</p>
-</div>
-
-<!-- Meta Keywords Field -->
-<div class="form-group">
-    {!! Form::label('meta_keywords', 'Meta Keywords:') !!}
-    <p>{!! $paymentProcessor->meta_keywords !!}</p>
-</div>
 

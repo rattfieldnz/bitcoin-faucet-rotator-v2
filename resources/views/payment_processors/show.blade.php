@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Payment Processor
+            {!! $paymentProcessor->name !!} Payment Processor
         </h1>
     </section>
     <div class="content">

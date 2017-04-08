@@ -2,9 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <div class="clearfix"></div>
-        <h1 class="pull-left">'{!! $paymentProcessor->name !!}' Faucets</h1>
-        <div class="clearfix"></div>
+        <h1 class="pull-left">{!! link_to_route('payment-processors.show', $paymentProcessor->name, $paymentProcessor->slug) !!} Faucets</h1>
     </section>
     <div class="content">
         <div class="clearfix"></div>
