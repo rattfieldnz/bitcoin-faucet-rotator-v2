@@ -21,7 +21,7 @@ class PaymentProcessorController extends AppBaseController
     public function __construct(PaymentProcessorRepository $paymentProcessorRepo)
     {
         $this->paymentProcessorRepository = $paymentProcessorRepo;
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'faucets']]);
     }
 
     /**
@@ -88,6 +88,29 @@ class PaymentProcessorController extends AppBaseController
         }
 
         return view('payment_processors.show')->with('paymentProcessor', $paymentProcessor);
+    }
+
+    public function faucets($slug){
+        $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
+        $faucets = null;
+
+        if (empty($paymentProcessor)) {
+            Flash::error('Payment Processor not found');
+
+            return redirect(route('payment-processors.index'));
+        }
+
+        if(Auth::guest() || Auth::user()->hasRole('user')){
+            $faucets = $paymentProcessor->faucets()->get();
+        }
+        else if(Auth::user()->hasRole('owner')){
+            $faucets = $paymentProcessor->faucets()->withTrashed()->get();
+        }
+
+        return view('payment_processors.faucets.index')
+            ->with('faucets', $faucets)
+            ->with('paymentProcessor', $paymentProcessor);
+
     }
 
     /**

@@ -76,6 +76,14 @@ Route::patch(
     ]
 );
 
+Route::get(
+    'payment-processors/{slug}/faucets',
+    [
+        'as' => 'payment-processors.faucets',
+        'uses' => 'PaymentProcessorController@faucets'
+    ]
+);
+
 Route::resource('payment-processors', 'PaymentProcessorController');
 
 Route::delete(
