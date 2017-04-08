@@ -66,7 +66,7 @@
             </td>
             @if(Auth::user() != null)
                 @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner') || Auth::user() == $user)
-                        @if(Route::getCurrentRoute() != 'users.faucets.create')
+                        @if(Route::getCurrentRoute() != 'users.faucets.create' || Route::getCurrentRoute() == 'users.faucets')
                             @if(!empty($faucet) && $faucet->pivot != null)
                                 <td>{!! $faucet->pivot->deleted_at != null ? "Yes" : "No" !!}</td>
                                 <td>
@@ -74,12 +74,15 @@
                                         @if(Auth::user()->hasRole('owner') || Auth::user() == $user)
                                             @if(
                                                 Auth::user()->hasPermission('permanent-delete-faucets') ||
-                                                Auth::user()->hasPermission('permanent-delete-user-faucets')
+                                                $user->hasPermission('permanent-delete-user-faucets')
                                             )
                                                 {!! Form::open(['route' => ['users.faucets.delete-permanently', $user->slug, $faucet->slug], 'method' => 'delete']) !!}
                                                 {!! csrf_field() !!}
                                                 {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"]) !!}
                                                 {!! Form::close() !!}
+                                                @else
+                                                fart
+
                                             @endif
                                         @endif
                                         @if(Auth::user()->hasRole('owner') || Auth::user() == $user)

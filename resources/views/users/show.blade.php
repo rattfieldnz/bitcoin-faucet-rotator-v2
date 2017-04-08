@@ -9,7 +9,7 @@
     <div class="content">
         <div class="clearfix"></div>
         @include('flash::message')
-        @if($message != null)
+        @if(!empty($message))
             <div class="alert alert-info">
                 {!! $message !!}
             </div>

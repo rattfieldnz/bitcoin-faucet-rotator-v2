@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Helpers\Functions;
+use App\Helpers\Functions\Faucets;
 use App\Models\Faucet;
 use App\Models\User;
 use Helpers\Functions\Users;
@@ -42,7 +43,7 @@ class UserFaucetRepository extends Repository implements IRepository
         $user = User::where('id', $userId)->first();
         $faucet = Faucet::where('id', $faucetId)->first();
 
-        Users::setUserFaucetRefCode($user, $faucet, $referralCode);
+        Faucets::setUserFaucetRefCode($user, $faucet, $referralCode);
     }
 
     public function update(array $data, $userId)
@@ -54,7 +55,7 @@ class UserFaucetRepository extends Repository implements IRepository
         $user = User::where('id', $userId)->first();
         $faucet = Faucet::where('id', $faucetId)->first();
 
-        Users::setUserFaucetRefCode($user, $faucet, $referralCode);
+        Faucets::setUserFaucetRefCode($user, $faucet, $referralCode);
     }
 
     static function cleanInput(array $data)
