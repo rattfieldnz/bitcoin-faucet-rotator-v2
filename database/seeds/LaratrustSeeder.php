@@ -17,7 +17,11 @@ class LaratrustSeeder extends Seeder
     {
         $user = User::where('is_admin', '=', true)->first();
         $this->command->info('Truncating Role and Permission tables');
-        $this->truncateLaratrustTables();
+        try{
+            $this->truncateLaratrustTables();
+        }catch(Illuminate\Database\QueryException $e){
+
+        }
 
         $config = config('laratrust_seeder.role_structure');
         $userPermission = config('laratrust_seeder.permission_structure');
@@ -57,7 +61,8 @@ class LaratrustSeeder extends Seeder
             }
         }
 
-        $user->attachRole(Role::where('name', '=', 'owner')->first());
+        $user->role_id = Role::where('name', '=', 'owner')->first()->id;
+        $user->save();
 
         // creating user with permissions
         try {
@@ -99,7 +104,10 @@ class LaratrustSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         DB::table('permission_role')->truncate();
         DB::table('permission_user')->truncate();
-        DB::table('role_user')->truncate();
+
+        if(DB::table('role_user')->exists()){
+            DB::table('role_user')->truncate();
+        }
         Role::truncate();
         Permission::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');

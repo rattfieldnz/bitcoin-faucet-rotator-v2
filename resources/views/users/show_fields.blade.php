@@ -68,13 +68,9 @@
 
         <!-- Roles -->
         <div class="form-group">
-            {!! Form::label('roles', 'Roles:') !!}
-            @if(count($user->roles) > 0)
-                <ul>
-                    @foreach($user->roles as $role)
-                        <li>{!! $role->display_name !!}</li>
-                    @endforeach
-                </ul>
+            {!! Form::label('roles', 'Role:') !!}
+            @if(!empty($user))
+                {!! ucfirst($user->role()->first()->name) !!}
             @endif
         </div>
 
@@ -91,4 +87,3 @@
         </div>
     @endif
 @endif
-

@@ -38,6 +38,10 @@ class Role extends LaratrustRole
         'description' => 'min:5|max:255|required',
     ];
 
+    public function users(){
+        return $this->hasMany(User::class, 'id');
+    }
+
     /**
      * Return the sluggable configuration array for this model.
      *

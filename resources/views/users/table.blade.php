@@ -22,13 +22,13 @@
     @foreach($users as $user)
         <tr>
             @if(Auth::user() != null)
-                @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
+                @if(Auth::user()->is_admin == true && Auth::user()->role()->first()->name == 'owner')
                     <td>{!! $user->id !!}</td>
                 @endif
             @endif
-            <td>{!! $user->user_name !!}</td>
+            <td>{!! $user->user_name !!} </td>
             @if(Auth::user() != null)
-                @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
+                @if(Auth::user()->is_admin == true && Auth::user()->role()->first()->name == 'owner')
                     <td>{!! $user->email !!}</td>
                     <td> ************ </td>
                     <td>{!! $user->isAnAdmin() !!}</td>
@@ -39,16 +39,16 @@
                 <div class='btn-group'>
                     <a href="{!! route('users.show', ['slug' => $user->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                     @if(Auth::user() != null)
-                        @if(Auth::user()->is_admin  == true && Auth::user()->hasRole('owner') || ($user == Auth::user() && $user->hasRole('user') == true))
+                        @if(Auth::user()->is_admin  == true && Auth::user()->hasRole('owner') || ($user == Auth::user() && $user->hasRole('user')))
                             <a href="{!! route('users.edit', ['slug' => $user->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                             @if($user->isDeleted())
-                                @if(Auth::user()->hasRole('owner') && !$user->hasRole('owner'))
+                                @if(Auth::user()->hasRole('owner') || $user->hasRole('owner'))
                                     {!! Form::open(['route' => ['users.delete-permanently', $user->slug], 'method' => 'delete']) !!}
                                     {!! csrf_field() !!}
                                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure? The user will be PERMANENTLY deleted!')"]) !!}
                                     {!! Form::close() !!}
                                 @endif
-                                @if(Auth::user()->hasRole('owner'))
+                                @if(Auth::user()->hasRole('owner') || $user->hasRole('owner'))
                                     @if(Auth::user()->hasPermission('restore-users'))
                                         {!! Form::open(['route' => ['users.restore', $user->slug], 'method' => 'patch']) !!}
                                         {!! csrf_field() !!}
@@ -57,7 +57,7 @@
                                     @endif
                                 @endif
                             @else
-                                @if(Auth::user()->hasRole('owner') && !$user->hasRole('owner'))
+                                @if(Auth::user()->hasRole('owner') || $user->hasRole('owner'))
                                     @if(Auth::user()->hasPermission('soft-delete-users'))
                                         {!! Form::open(['route' => ['users.destroy', 'slug' => $user->slug], 'method' => 'delete']) !!}
                                         {!! csrf_field() !!}

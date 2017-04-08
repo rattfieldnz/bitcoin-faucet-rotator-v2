@@ -41,11 +41,10 @@ class UserController extends AppBaseController
     {
         $this->userRepository->pushCriteria(new RequestCriteria($request));
         $users = null;
-        if(Auth::guest() || Auth::user()->hasRole('user') &&
-            (!Auth::user()->hasRole('owner') && !Auth::user()->hasRole('administrator'))){
+        if(Auth::guest()){
             $users = $this->userRepository->all();
         }
-        else{
+        else if(Auth::user()->role()->first()->name == 'user' || Auth::user()->role()->first()->name == 'owner'){
             $users = $this->userRepository->withTrashed()->get();
         }
 
@@ -108,8 +107,7 @@ class UserController extends AppBaseController
         }
         else if(
             !Auth::guest() && // If the visitor isn't a guest visitor,
-            Auth::user()->hasRole('user') && // If the visitor is an authenticated user with 'user' role
-            !Auth::user()->hasRole('owner') && // If the visitor is an authenticated user, but without 'owner' role,
+            Auth::user()->role()->first()->name == 'user' && // If the visitor is an authenticated user with 'user' role
             $user->isDeleted() // If the requested user has been soft-deleted
         ){
             LaracastsFlash::error('User not found');
@@ -119,7 +117,7 @@ class UserController extends AppBaseController
             if(
                 !empty($user) && // If the user exists,
                 $user->isDeleted() && // If the user is soft-deleted,
-                Auth::user()->hasRole('owner') // If the currently authenticated user has 'owner' role,
+                Auth::user()->role()->first()->name == 'owner' // If the currently authenticated user has 'owner' role,
             ){
                 $message = 'The user has been temporarily deleted. You can restore the user or permanently delete them.';
 
