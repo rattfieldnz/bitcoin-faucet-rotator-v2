@@ -287,7 +287,9 @@ class FaucetController extends AppBaseController
     }
 
     private static function cleanInput(array $data){
-
-        return Purifier::clean($data['payment_processor'], 'generalFields');
+        if(!empty($data['payment_processor'])){
+            return Purifier::clean($data['payment_processor'], 'generalFields');
+        }
+        return null;
     }
 }
