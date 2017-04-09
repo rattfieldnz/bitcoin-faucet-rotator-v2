@@ -10,9 +10,11 @@ use App\Repositories\FaucetRepository;
 use Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Laracasts\Flash\Flash as LaracastsFlash;
 use Laracasts\Flash\Flash;
+use Mews\Purifier\Facades\Purifier;
 use Prettus\Repository\Criteria\RequestCriteria;
 
 class FaucetController extends AppBaseController
@@ -222,11 +224,21 @@ class FaucetController extends AppBaseController
             ['slug' => $slug]
         );
 
+        $redirectRoute = route('faucets.index');
+
+        // If the faucet is being deleted from a payment processor's faucet list,
+        // create appropriate route and redirect to list after delete completes.
+        $paymentProcessorSlug = self::cleanInput(Input::all());
+
+        if(!empty($paymentProcessorSlug)){
+            $redirectRoute = route('payment-processors.faucets', $paymentProcessorSlug);
+        }
+
         $this->faucetFunctions->destroyFaucet($slug, false);
 
         Flash::success('Faucet deleted successfully.');
 
-        return redirect(route('faucets.index'));
+        return redirect($redirectRoute);
     }
 
     /**
@@ -239,11 +251,21 @@ class FaucetController extends AppBaseController
     {
         Users::userCanAccessArea(Auth::user(), 'faucets.delete-permanently', ['slug' => $slug], ['slug' => $slug]);
 
+        $redirectRoute = route('faucets.index');
+
+        // If the faucet is being deleted from a payment processor's faucet list,
+        // create appropriate route and redirect to list after delete completes.
+        $paymentProcessorSlug = self::cleanInput(Input::all());
+
+        if(!empty($paymentProcessorSlug)){
+            $redirectRoute = route('payment-processors.faucets', $paymentProcessorSlug);
+        }
+
         $this->faucetFunctions->destroyFaucet($slug, true);
 
         Flash::success('Faucet was permanently deleted!');
 
-        return redirect(route('faucets.index'));
+        return redirect($redirectRoute);
 
     }
 
@@ -262,5 +284,10 @@ class FaucetController extends AppBaseController
 
         return redirect(route('faucets.index'));
 
+    }
+
+    private static function cleanInput(array $data){
+
+        return Purifier::clean($data['payment_processor'], 'generalFields');
     }
 }

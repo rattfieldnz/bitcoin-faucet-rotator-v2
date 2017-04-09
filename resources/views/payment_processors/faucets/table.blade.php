@@ -25,7 +25,7 @@
                 @endif
             @endif
             <td>{!! $faucet->name !!}</td>
-            <td>{!! $faucet->url . ($faucet->users()->first() != null ? $faucet->users()->first()->pivot->referral_code : "") !!}</td>
+            <td>{!! $faucet->url . ($faucet->users()->where('is_admin', true)->first() != null ? $faucet->users()->where('is_admin', true)->first()->pivot->referral_code : "") !!}</td>
             <td>{!! $faucet->interval_minutes !!}</td>
             @if(Auth::user() != null)
                 @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
@@ -42,7 +42,7 @@
                                 @if(Auth::user()->hasRole('owner'))
                                     {!! Form::open(['route' => ['faucets.delete-permanently', $faucet->slug], 'method' => 'delete']) !!}
                                     @if(!empty($paymentProcessor))
-                                        {!! Form::hidden('payment_processor', $paymentProcessor->name) !!}
+                                        {!! Form::hidden('payment_processor', $paymentProcessor->slug) !!}
                                     @endif
                                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"]) !!}
                                     {!! Form::close() !!}
@@ -51,7 +51,7 @@
                                     @if(Auth::user()->hasPermission('restore-faucets'))
                                         {!! Form::open(['route' => ['faucets.restore', $faucet->slug], 'method' => 'patch']) !!}
                                         @if(!empty($paymentProcessor))
-                                            {!! Form::hidden('payment_processor', $paymentProcessor->name) !!}
+                                            {!! Form::hidden('payment_processor', $paymentProcessor->slug) !!}
                                         @endif
                                         {!! Form::button('<i class="glyphicon glyphicon-refresh"></i>', ['type' => 'submit', 'class' => 'btn btn-info btn-xs', 'onclick' => "return confirm('Are you sure you want to restore this deleted faucet?')"]) !!}
                                         {!! Form::close() !!}
@@ -62,7 +62,7 @@
                                     @if(Auth::user()->hasPermission('soft-delete-faucets'))
                                         {!! Form::open(['route' => ['faucets.destroy', 'slug' => $faucet->slug], 'method' => 'delete']) !!}
                                         @if(!empty($paymentProcessor))
-                                            {!! Form::hidden('payment_processor', $paymentProcessor->name) !!}
+                                            {!! Form::hidden('payment_processor', $paymentProcessor->slug) !!}
                                         @endif
                                         {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-warning btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                                         {!! Form::close() !!}
