@@ -2,7 +2,7 @@
 <table class="table table-striped bordered tablesorter" id="payment-processors-table">
     <thead>
         @if(Auth::user() != null)
-            @if(Auth::user()->is_admin == true)
+            @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
                 <th>Id</th>
             @endif
         @endif
@@ -14,7 +14,7 @@
     @foreach($paymentProcessors as $paymentProcessor)
         <tr>
             @if(Auth::user() != null)
-                @if(Auth::user()->is_admin == true)
+                @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
                     <td>{!! $paymentProcessor->id !!}</td>
                 @endif
             @endif
@@ -25,7 +25,7 @@
                 <div class='btn-group'>
                     <a href="{!! route('payment-processors.show', ['slug' => $paymentProcessor->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                     @if(Auth::user() != null)
-                        @if(Auth::user()->is_admin == true)
+                        @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
                             <a href="{!! route('payment-processors.edit', ['slug' => $paymentProcessor->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                             @if($paymentProcessor->isDeleted())
                                 {!! Form::open(['route' => ['payment-processors.delete-permanently', $paymentProcessor->slug], 'method' => 'delete']) !!}

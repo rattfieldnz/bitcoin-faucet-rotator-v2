@@ -66,51 +66,51 @@
             </td>
             @if(Auth::user() != null)
                 @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner') || Auth::user() == $user)
-                        @if(Route::getCurrentRoute() != 'users.faucets.create' || Route::getCurrentRoute() == 'users.faucets')
-                            @if(!empty($faucet) && $faucet->pivot != null)
-                                <td>{!! $faucet->pivot->deleted_at != null ? "Yes" : "No" !!}</td>
-                                <td>
-                                    @if($faucet->pivot->deleted_at != null)
-                                        @if(Auth::user()->hasRole('owner') || Auth::user() == $user)
-                                            @if(
-                                                Auth::user()->hasPermission('permanent-delete-faucets') ||
-                                                $user->hasPermission('permanent-delete-user-faucets')
-                                            )
-                                                {!! Form::open(['route' => ['users.faucets.delete-permanently', $user->slug, $faucet->slug], 'method' => 'delete']) !!}
-                                                {!! csrf_field() !!}
-                                                {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"]) !!}
-                                                {!! Form::close() !!}
-                                                @else
-                                                fart
+                    @if(Route::getCurrentRoute() != 'users.faucets.create' || Route::getCurrentRoute() == 'users.faucets')
+                        @if(!empty($faucet) && $faucet->pivot != null)
+                            <td>{!! $faucet->pivot->deleted_at != null ? "Yes" : "No" !!}</td>
+                            <td>
+                                @if($faucet->pivot->deleted_at != null)
+                                    @if(Auth::user()->hasRole('owner') || Auth::user() == $user)
+                                        @if(
+                                            Auth::user()->hasPermission('permanent-delete-faucets') ||
+                                            $user->hasPermission('permanent-delete-user-faucets')
+                                        )
+                                            {!! Form::open(['route' => ['users.faucets.delete-permanently', $user->slug, $faucet->slug], 'method' => 'delete']) !!}
+                                            {!! csrf_field() !!}
+                                            {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"]) !!}
+                                            {!! Form::close() !!}
+                                            @else
+                                            fart
 
-                                            @endif
-                                        @endif
-                                        @if(Auth::user()->hasRole('owner') || Auth::user() == $user)
-                                            @if(
-                                                Auth::user()->hasPermission('restore-faucets') ||
-                                                Auth::user()->hasPermission('restore-user-faucets')
-                                            )
-                                                {!! Form::open(['route' => ['users.faucets.restore', $user->slug, $faucet->slug], 'method' => 'patch']) !!}
-                                                {!! csrf_field() !!}
-                                                {!! Form::button('<i class="glyphicon glyphicon-refresh"></i>', ['type' => 'submit', 'class' => 'btn btn-info btn-xs', 'onclick' => "return confirm('Are you sure you want to restore this deleted faucet?')"]) !!}
-                                                {!! Form::close() !!}
-                                            @endif
-                                        @endif
-                                    @else
-                                        @if(Auth::user()->hasRole('owner') || Auth::user() == $user)
-                                            @if(
-                                                Auth::user()->hasPermission('soft-delete-faucets') ||
-                                                Auth::user()->hasPermission('soft-delete-user-faucets')
-                                            )
-                                                {!! Form::open(['route' => ['users.faucets.destroy', $user->slug, $faucet->slug], 'method' => 'delete']) !!}
-                                                {!! csrf_field() !!}
-                                                {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-warning btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                                                {!! Form::close() !!}
-                                            @endif
                                         @endif
                                     @endif
-                                </td>
-                            @endif
+                                    @if(Auth::user()->hasRole('owner') || Auth::user() == $user)
+                                        @if(
+                                            Auth::user()->hasPermission('restore-faucets') ||
+                                            Auth::user()->hasPermission('restore-user-faucets')
+                                        )
+                                            {!! Form::open(['route' => ['users.faucets.restore', $user->slug, $faucet->slug], 'method' => 'patch']) !!}
+                                            {!! csrf_field() !!}
+                                            {!! Form::button('<i class="glyphicon glyphicon-refresh"></i>', ['type' => 'submit', 'class' => 'btn btn-info btn-xs', 'onclick' => "return confirm('Are you sure you want to restore this deleted faucet?')"]) !!}
+                                            {!! Form::close() !!}
+                                        @endif
+                                    @endif
+                                @else
+                                    @if(Auth::user()->hasRole('owner') || Auth::user() == $user)
+                                        @if(
+                                            Auth::user()->hasPermission('soft-delete-faucets') ||
+                                            Auth::user()->hasPermission('soft-delete-user-faucets')
+                                        )
+                                            {!! Form::open(['route' => ['users.faucets.destroy', $user->slug, $faucet->slug], 'method' => 'delete']) !!}
+                                            {!! csrf_field() !!}
+                                            {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-warning btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                                            {!! Form::close() !!}
+                                        @endif
+                                    @endif
+                                @endif
+                            </td>
+                        @endif
                     @endif
                 @endif
             @endif

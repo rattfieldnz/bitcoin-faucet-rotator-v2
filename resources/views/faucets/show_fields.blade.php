@@ -17,7 +17,7 @@
 <!-- Url Field -->
 <div class="form-group">
     {!! Form::label('url', 'Url:') !!}
-    <p>{!! $faucet->url !!}</p>
+    <p>{!! $faucet->url . $faucet->users()->where('is_admin', true)->first()->pivot->referral_code !!}</p>
 </div>
 
 @if(Auth::user() != null)
@@ -25,7 +25,7 @@
         <!-- Referral Code Field -->
         <div class="form-group">
             {!! Form::label('referral_code', 'Referral Code:') !!}
-            <p>{!! $faucet->users()->first()->pivot->referral_code !!}</p>
+            <p>{!! $faucet->users()->where('is_admin', true)->first()->pivot->referral_code !!}</p>
         </div>
     @endif
 @endif
