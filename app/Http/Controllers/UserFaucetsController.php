@@ -241,7 +241,7 @@ class UserFaucetsController extends Controller
      * @return Response
      *
      */
-    public function edit($userSlug, $faucetSlug)
+    /*public function edit($userSlug, $faucetSlug)
     {
         $user = User::where('slug', $userSlug)->first();
         $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
@@ -252,9 +252,9 @@ class UserFaucetsController extends Controller
             return redirect(route('users.faucets', $user->slug));
         }
 
-        return view('users.faucets.edit', $user->slug, $faucet->slug)
+        return view('users.faucets.edit')
             ->with('faucet', $faucet);
-    }
+    }*/
 
     /**
      * Update the specified Faucet in storage.
@@ -275,7 +275,7 @@ class UserFaucetsController extends Controller
         }
 
         if (empty($faucet)) {
-            Flash::error('Faucet not found');
+            LaracastsFlash::error('Faucet not found');
 
             return redirect(route('users.faucets', $user->slug));
         }
@@ -285,6 +285,29 @@ class UserFaucetsController extends Controller
         LaracastsFlash::success('Faucet updated successfully.');
 
         return redirect(route('users.faucets', $user->slug));
+
+    }
+
+    /**
+     * [paymentProcessorFaucets description]
+     * @param  string $userSlug             The user's slug.
+     * @param  string $paymentProcessorSlug The payment processor's slug.
+     * @return Response
+     */
+    public function paymentProcessors($userSlug){
+
+        $user = User::where('slug', $userSlug)->first();
+
+        $paymentProcessors = PaymentProcessor::all();
+
+        if(empty($user)){
+            abort(404);
+        }
+
+        if(empty($paymentProcessors)){
+            LaracastsFlash::error('No payment processors were found.');
+            return redirect(route('users.payment-processors', $user->slug));
+        }
 
     }
 

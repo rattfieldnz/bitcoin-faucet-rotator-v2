@@ -13,17 +13,21 @@ use App\Models\Faucet;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\PaymentProcessor;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash as LaracastsFlash;
+use App\Helpers\Functions\Faucets;
 
 class Users
 {
     private $userRepository;
-    public function __construct(UserRepository $userRepository)
+    private $faucetFunctions;
+    public function __construct(UserRepository $userRepository, Faucets $faucetFunctions)
     {
         $this->userRepository = $userRepository;
+        $this->faucetFunctions = $faucetFunctions;
     }
 
     /**
@@ -158,6 +162,28 @@ class Users
             abort(404);
         }
         return redirect($currentRoute)->with($dataParameters);
+    }
+
+    public function getPaymentProcessorFaucets(User $user, PaymentProcessor $paymentProcessor, $trashed = false){
+
+        if(empty($user) || empty($paymentProcessor)){
+            abort(404);
+        }
+
+        $faucets = $this->faucetFunctions->getUserFaucets($user, $trashed);
+
+        $paymentProcessorFaucets = null;
+
+        if($trashed == true){
+            $paymentProcessorFaucets = $paymentProcessor->faucets()->withTrashed()->pluck('id');
+        } else{
+            $paymentProcessorFaucets = $paymentProcessor->faucets()->pluck('id');
+        }
+
+        $userFaucets = $faucets->whereIn('id', $paymentProcessorFaucets)->all();
+
+        return $userFaucets;
+
     }
 
 }

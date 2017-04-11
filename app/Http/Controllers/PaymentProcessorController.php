@@ -8,20 +8,25 @@ use App\Http\Requests\UpdatePaymentProcessorRequest;
 use App\Repositories\PaymentProcessorRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\PaymentProcessor;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Helpers\Functions\Users;
 
 class PaymentProcessorController extends AppBaseController
 {
     /** @var  PaymentProcessorRepository */
     private $paymentProcessorRepository;
+    private $userFunctions;
 
-    public function __construct(PaymentProcessorRepository $paymentProcessorRepo)
+    public function __construct(PaymentProcessorRepository $paymentProcessorRepo, Users $userFunctions)
     {
         $this->paymentProcessorRepository = $paymentProcessorRepo;
-        $this->middleware('auth', ['except' => ['index', 'show', 'faucets']]);
+        $this->userFunctions = $userFunctions;
+        $this->middleware('auth', ['except' => ['index', 'show', 'faucets', 'userPaymentProcessors', 'userPaymentProcessorFaucets']]);
     }
 
     /**
@@ -111,6 +116,46 @@ class PaymentProcessorController extends AppBaseController
             ->with('faucets', $faucets)
             ->with('paymentProcessor', $paymentProcessor);
 
+    }
+
+    /**
+     * [userPaymentProcessors description]
+     * @param  [type] $userSlug [description]
+     * @return [type]           [description]
+     */
+    public function userPaymentProcessors($userSlug){
+
+        $user = User::where('slug', $userSlug)->first();
+
+        if(empty($user)){
+            abort(404);
+        }
+
+        $paymentProcessors = $this->paymentProcessorRepository->withTrashed()->get();
+
+        return view('users.payment_processors.index')
+            ->with('paymentProcessors', $paymentProcessors)
+            ->with('user', $user);
+    }
+
+    public function userPaymentProcessorFaucets($userSlug, $paymentProcessorSlug){
+
+        $user = User::where('slug', $userSlug)->first();
+        $paymentProcessor = PaymentProcessor::where('slug', $paymentProcessorSlug)->first();
+
+        $faucets = null;
+
+        if(Auth::guest()){
+            $faucets = $this->userFunctions->getPaymentProcessorFaucets($user, $paymentProcessor, false);
+        }
+        else if(Auth::user()->hasRole('user') || Auth::user()->hasRole('owner')){
+            $faucets = $this->userFunctions->getPaymentProcessorFaucets($user, $paymentProcessor, true);
+        }
+
+        return view('users.payment_processors.faucets.index')
+            ->with('user', $user)
+            ->with('faucets', $faucets)
+            ->with('paymentProcessor', $paymentProcessor);
     }
 
     /**
