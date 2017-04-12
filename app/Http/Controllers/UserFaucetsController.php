@@ -15,9 +15,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use Laracasts\Flash\Flash as LaracastsFlash;
+use Mews\Purifier\Facades\Purifier;
 use Prettus\Repository\Criteria\RequestCriteria;
 
 class UserFaucetsController extends Controller
@@ -117,14 +119,36 @@ class UserFaucetsController extends Controller
     public function store($userSlug, CreateUserFaucetRequest $request)
     {
         if(Auth::user()->hasRole('owner') || Auth::user()){
-            $input = $request->except('_token');
-            $userId = (int)$request->get('user_id');
-            $user = User::where('id', $userId)->first();
+            $input = $request->except('_token', 'payment_processor');
+            $user = User::where('slug', $userSlug)->first();
+
+            //If there is no such user, about to 404 page.
+            if(empty($user)){
+                abort(404);
+            }
+
+            $redirectRoute = route('users.faucets', $user->slug);
+
             $this->userFaucetRepository->create($input);
+
+            if(!empty($request->get('payment_processor'))){
+                $input = $request->except('_token');
+                $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
+            }
+
+            if(!empty($user) && !empty($paymentProcessor)){
+                $redirectRoute = route(
+                    'users.payment-processors.faucets',
+                    [
+                        'userSlug' => $user->slug,
+                        'paymentProcessorSlug' => $paymentProcessor->slug
+                    ]
+                );
+            }
 
             LaracastsFlash::success('Faucet saved successfully.');
 
-            return redirect(route('users.faucets', ['userSlug' => $user->slug]));
+            return redirect($redirectRoute);
         }
 
     }
@@ -234,29 +258,6 @@ class UserFaucetsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified Faucet.
-     *
-     * @param $userSlug
-     * @param $faucetSlug
-     * @return Response
-     *
-     */
-    /*public function edit($userSlug, $faucetSlug)
-    {
-        $user = User::where('slug', $userSlug)->first();
-        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
-
-        if (empty($faucet)) {
-            LaracastsFlash::error('Faucet not found');
-
-            return redirect(route('users.faucets', $user->slug));
-        }
-
-        return view('users.faucets.edit')
-            ->with('faucet', $faucet);
-    }*/
-
-    /**
      * Update the specified Faucet in storage.
      *
      * @param $userSlug
@@ -274,17 +275,33 @@ class UserFaucetsController extends Controller
             abort(404);
         }
 
+        $redirectRoute = route('users.faucets', $user->slug);
+
         if (empty($faucet)) {
             LaracastsFlash::error('Faucet not found');
 
             return redirect(route('users.faucets', $user->slug));
         }
 
+        if(!empty($input['payment_processor'])){
+            $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
+        }
+
+        if(!empty($user) && !empty($faucet) && !empty($paymentProcessor)){
+            $redirectRoute = route(
+                'users.payment-processors.faucets',
+                [
+                    'userSlug' => $user->slug,
+                    'paymentProcessorSlug' => $paymentProcessor->slug
+                ]
+            );
+        }
+
         $this->userFaucetRepository->update($input, $user->id);
 
         LaracastsFlash::success('Faucet updated successfully.');
 
-        return redirect(route('users.faucets', $user->slug));
+        return redirect($redirectRoute);
 
     }
 
@@ -327,22 +344,39 @@ class UserFaucetsController extends Controller
             abort(404);
         }
 
+        $redirectRoute = route('users.faucets', $user->slug);
+
         if (empty($faucet)) {
             LaracastsFlash::error('Faucet not found');
 
-            return redirect(route('users.faucets', $user->slug));
+            return redirect($redirectRoute);
         }
 
         if(!empty($faucet) && $faucet->isDeleted()){
             LaracastsFlash::error('The owner has temporarily deleted this faucet, and you are not able to restore it. You can ask the owner if the faucet can be restored.');
 
-            return redirect(route('users.faucets', $user->slug));
+            return redirect($redirectRoute);
         }
 
         if(!empty($faucet) && $faucet->pivot->deleted_at != null){
             LaracastsFlash::error('The faucet has already been soft-deleted.');
 
-            return redirect(route('users.faucets', $user->slug));
+            return redirect($redirectRoute);
+        }
+
+        $input = Input::all();
+        if(!empty($input['payment_processor'])){
+            $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
+        }
+
+        if(!empty($user) && !empty($faucet) && !empty($paymentProcessor)){
+            $redirectRoute = route(
+                'users.payment-processors.faucets',
+                    [
+                        'userSlug' => $user->slug,
+                        'paymentProcessorSlug' => $paymentProcessor->slug
+                    ]
+            );
         }
 
         DB::table('referral_info')
@@ -352,7 +386,7 @@ class UserFaucetsController extends Controller
 
         LaracastsFlash::success('The faucet has successfully been soft-deleted!');
 
-        return redirect(route('users.faucets', $user->slug));
+        return redirect($redirectRoute);
     }
 
     /**
@@ -372,10 +406,12 @@ class UserFaucetsController extends Controller
             abort(404);
         }
 
+        $redirectRoute = route('users.faucets', $user->slug);
+
         if (empty($faucet)) {
             LaracastsFlash::error('The faucet was not found, or has already been permanently deleted.');
 
-            return redirect(route('users.faucets', $user->slug));
+            return redirect($redirectRoute);
         }
 
         DB::table('referral_info')
@@ -383,9 +419,24 @@ class UserFaucetsController extends Controller
             ->where('faucet_id', $faucet->id)
             ->delete();
 
+        $input = Input::all();
+        if(!empty($input['payment_processor'])){
+            $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
+        }
+
+        if(!empty($user) && !empty($paymentProcessor)){
+            $redirectRoute = route(
+                'users.payment-processors.faucets',
+                [
+                    'userSlug' => $user->slug,
+                    'paymentProcessorSlug' => $paymentProcessor->slug
+                ]
+            );
+        }
+
         LaracastsFlash::success('The faucet was permanently deleted!');
 
-        return redirect(route('users.faucets', $user->slug));
+        return redirect($redirectRoute);
     }
 
     /**
@@ -401,6 +452,8 @@ class UserFaucetsController extends Controller
             abort(404);
         }
 
+        $redirectRoute = route('users.faucets', $user->slug);
+
         if (empty($faucet)) {
             LaracastsFlash::error('The faucet was not found, or has been permanently deleted.');
 
@@ -410,13 +463,28 @@ class UserFaucetsController extends Controller
         if(!empty($faucet) && $faucet->isDeleted()){
             LaracastsFlash::error('The owner has temporarily deleted this faucet, and you are not able to restore it. You can ask the owner if the faucet can be restored.');
 
-            return redirect(route('users.faucets', $user->slug));
+            return redirect($redirectRoute);
         }
 
         if($faucet->pivot->deleted_at == null){
             LaracastsFlash::error('The faucet is already active, and hasn\'t been deleted.');
 
-            return redirect(route('users.faucets', $user->slug));
+            return redirect($redirectRoute);
+        }
+
+        $input = Input::all();
+        if(!empty($input['payment_processor'])){
+            $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
+        }
+
+        if(!empty($user) && !empty($faucet) && !empty($paymentProcessor)){
+            $redirectRoute = route(
+                'users.payment-processors.faucets',
+                [
+                    'userSlug' => $user->slug,
+                    'paymentProcessorSlug' => $paymentProcessor->slug
+                ]
+            );
         }
 
         DB::table('referral_info')
@@ -426,7 +494,12 @@ class UserFaucetsController extends Controller
 
         LaracastsFlash::success('The faucet was successfully restored!');
 
-        return redirect(route('users.faucets', $user->slug));
+        return redirect($redirectRoute);
 
+    }
+
+    private static function cleanInput(array $data){
+        $data['payment_processor'] = Purifier::clean($data['payment_processor'], 'generalFields');
+        return $data;
     }
 }

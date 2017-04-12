@@ -7,8 +7,15 @@
             @endif
         @endif
         <th>Name</th>
-        <th>Url</th>
+        @if(Auth::user() != null)
+            @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner') || Auth::user() == $user)
+                <th>Referral Code</th>
+            @endif
+        @endif
         <th>Interval Minutes</th>
+        <th>Min. Payout</th>
+        <th>Max. Payout</th>
+        <th>Payment Processors</th>
         @if(Auth::user() != null)
             @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner') || Auth::user() == $user)
                 <th>Has Been Deleted</th>
@@ -24,26 +31,58 @@
                     <td>{!! $faucet->id !!}</td>
                 @endif
             @endif
-            <td>{!! $faucet->name !!}</td>
-            <td>{!! $faucet->url . $faucet->pivot->referral_code !!}</td>
-            <td>{!! $faucet->interval_minutes !!}</td>
+            <td>{!! link_to(route('users.faucets.show', [$user->slug, $faucet->slug]), $faucet->name, ['target' => 'blank', 'title' => $faucet->name]) !!}</td>
+
             @if(Auth::user() != null)
                 @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner') || Auth::user() == $user)
-                    <td>{!! $faucet->isDeleted() == true ? "Yes" : "No" !!}</td>
+                    @if(!empty($faucet))
+                        <td>
+                            @if($faucet->pivot == null)
+                                {!! Form::open(['route' => ['users.faucets.store', $user->slug], 'method' => 'POST', 'class' => 'form-inline']) !!}
+                            @else
+                                {!! Form::open(['route' => ['users.faucets.update', $user->slug, $faucet->slug], 'method' => 'POST', 'class' => 'form-inline']) !!}
+                                {!! Form::hidden('_method', 'PATCH') !!}
+                            @endif
+                            {!! Form::hidden('user_id', $user->id) !!}
+                            {!! Form::hidden('faucet_id', $faucet->id) !!}
+                            @if(!empty($paymentProcessor))
+                                {!! Form::hidden('payment_processor', $paymentProcessor->slug) !!}
+                            @endif
+                            {!! Form::text('referral_code', \App\Helpers\Functions\Faucets::getUserFaucetRefCode($user, $faucet), ['class' => 'form-control', 'placeholder' => 'ABCDEF123456']) !!}
+                            {!! Form::submit('Save Ref Code', ['class' => 'btn btn-primary']) !!}
+                            {!! Form::close() !!}
+                        </td>
+                    @endif
+                @endif
+            @endif
+            <td>{!! $faucet->interval_minutes !!}</td>
+            <td>{!! $faucet->min_payout !!}</td>
+            <td>{!! $faucet->max_payout !!}</td>
+            <td>
+                <ul>
+                    @foreach($faucet->paymentProcessors as $p)
+                        <li>{!! link_to(route('payment-processors.show', $p->slug), $p->name, ['target' => 'blank', 'title' => $p->name]) !!}</li>
+                    @endforeach
+                </ul>
+            </td>
+            @if(Auth::user() != null)
+                @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner') || Auth::user() == $user)
+                    <td>{!! $faucet->pivot->deleted_at != null ? "Yes" : "No" !!}</td>
                 @endif
             @endif
             <td>
                 <div class='btn-group'>
-                    <a href="{!! route('users.faucets.show', ['userSlug' => $user->slug,'faucetSlug' => $faucet->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                     @if(Auth::user() != null)
                         @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner') || Auth::user() == $user)
                             @if($faucet->pivot->deleted_at != null)
+
                                 {!! Form::open(['route' => ['users.faucets.delete-permanently', $user->slug, $faucet->slug], 'method' => 'delete']) !!}
                                 @if(!empty($paymentProcessor))
                                     {!! Form::hidden('payment_processor', $paymentProcessor->slug) !!}
                                 @endif
                                 {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"]) !!}
                                 {!! Form::close() !!}
+
                                 {!! Form::open(['route' => ['users.faucets.restore', $user->slug, $faucet->slug], 'method' => 'patch']) !!}
                                 @if(!empty($paymentProcessor))
                                     {!! Form::hidden('payment_processor', $paymentProcessor->slug) !!}

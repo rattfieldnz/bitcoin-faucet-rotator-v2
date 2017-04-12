@@ -39,19 +39,21 @@
                         @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
                             <a href="{!! route('faucets.edit', ['slug' => $faucet->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                             @if($faucet->isDeleted())
+
                                 {!! Form::open(['route' => ['faucets.delete-permanently', $faucet->slug], 'method' => 'delete']) !!}
                                 @if(!empty($paymentProcessor))
                                     {!! Form::hidden('payment_processor', $paymentProcessor->slug) !!}
                                 @endif
                                 {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"]) !!}
                                 {!! Form::close() !!}
+
                                 {!! Form::open(['route' => ['faucets.restore', $faucet->slug], 'method' => 'patch']) !!}
                                 @if(!empty($paymentProcessor))
                                     {!! Form::hidden('payment_processor', $paymentProcessor->slug) !!}
                                 @endif
-                            @else
                                 {!! Form::button('<i class="glyphicon glyphicon-refresh"></i>', ['type' => 'submit', 'class' => 'btn btn-info btn-xs', 'onclick' => "return confirm('Are you sure you want to restore this deleted faucet?')"]) !!}
                                 {!! Form::close() !!}
+                            @else
                                 {!! Form::open(['route' => ['faucets.destroy', 'slug' => $faucet->slug], 'method' => 'delete']) !!}
                                 @if(!empty($paymentProcessor))
                                     {!! Form::hidden('payment_processor', $paymentProcessor->slug) !!}

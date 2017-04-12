@@ -3,6 +3,16 @@
 @section('content')
     <section class="content-header">
         <h1 class="pull-left">{!! link_to_route('payment-processors.show', $paymentProcessor->name, $paymentProcessor->slug) !!} Faucets</h1>
+        @if(Auth::user() != null)
+            @if(
+            (Auth::user()->is_admin == true && Auth::user()->hasRole('owner')) ||
+            ($user == Auth::user() && $user->hasPermission('create-user-faucets'))
+            )
+                <h1 class="pull-right">
+                    <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('users.faucets.create', $user->slug) !!}">Add New</a>
+                </h1>
+            @endif
+        @endif
     </section>
     <div class="content">
         <div class="clearfix"></div>

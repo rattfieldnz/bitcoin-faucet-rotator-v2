@@ -228,10 +228,18 @@ class FaucetController extends AppBaseController
 
         // If the faucet is being deleted from a payment processor's faucet list,
         // create appropriate route and redirect to list after delete completes.
-        $paymentProcessorSlug = self::cleanInput(Input::all());
+        $input = Input::all();
+        if(!empty($input['payment_processor'])){
+            $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
+        }
 
-        if(!empty($paymentProcessorSlug)){
-            $redirectRoute = route('payment-processors.faucets', $paymentProcessorSlug);
+        if(!empty($paymentProcessor)){
+            $redirectRoute = route(
+                'payment-processors.faucets',
+                [
+                    'slug' => $paymentProcessor->slug
+                ]
+            );
         }
 
         $this->faucetFunctions->destroyFaucet($slug, false);
@@ -255,10 +263,18 @@ class FaucetController extends AppBaseController
 
         // If the faucet is being deleted from a payment processor's faucet list,
         // create appropriate route and redirect to list after delete completes.
-        $paymentProcessorSlug = self::cleanInput(Input::all());
+        $input = Input::all();
+        if(!empty($input['payment_processor'])){
+            $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
+        }
 
-        if(!empty($paymentProcessorSlug)){
-            $redirectRoute = route('payment-processors.faucets', $paymentProcessorSlug);
+        if(!empty($paymentProcessor)){
+            $redirectRoute = route(
+                'payment-processors.faucets',
+                [
+                    'slug' => $paymentProcessor->slug
+                ]
+            );
         }
 
         $this->faucetFunctions->destroyFaucet($slug, true);
@@ -277,19 +293,31 @@ class FaucetController extends AppBaseController
      */
     public function restoreDeleted($slug){
         Users::userCanAccessArea(Auth::user(), 'faucets.restore', ['slug' => $slug], ['slug' => $slug]);
+        $redirectRoute = route('faucets.index');
 
-        $this->faucetFunctions->restoreFaucet($slug);
+        $this->faucetFunctions->restoreFaucet($slug);$input = Input::all();
+
+        if(!empty($input['payment_processor'])){
+            $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
+        }
+
+        if(!empty($paymentProcessor)){
+            $redirectRoute = route(
+                'payment-processors.faucets',
+                [
+                    'slug' => $paymentProcessor->slug
+                ]
+            );
+        }
 
         Flash::success('Faucet was successfully restored!');
 
-        return redirect(route('faucets.index'));
+        return redirect($redirectRoute);
 
     }
 
     private static function cleanInput(array $data){
-        if(!empty($data['payment_processor'])){
-            return Purifier::clean($data['payment_processor'], 'generalFields');
-        }
-        return null;
+        $data['payment_processor'] = Purifier::clean($data['payment_processor'], 'generalFields');
+        return $data;
     }
 }

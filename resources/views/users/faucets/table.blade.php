@@ -77,7 +77,6 @@
                                             $user->hasPermission('permanent-delete-user-faucets')
                                         )
                                             {!! Form::open(['route' => ['users.faucets.delete-permanently', $user->slug, $faucet->slug], 'method' => 'delete']) !!}
-                                            {!! csrf_field() !!}
                                             {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"]) !!}
                                             {!! Form::close() !!}
                                             @else
@@ -91,7 +90,6 @@
                                             Auth::user()->hasPermission('restore-user-faucets')
                                         )
                                             {!! Form::open(['route' => ['users.faucets.restore', $user->slug, $faucet->slug], 'method' => 'patch']) !!}
-                                            {!! csrf_field() !!}
                                             {!! Form::button('<i class="glyphicon glyphicon-refresh"></i>', ['type' => 'submit', 'class' => 'btn btn-info btn-xs', 'onclick' => "return confirm('Are you sure you want to restore this deleted faucet?')"]) !!}
                                             {!! Form::close() !!}
                                         @endif
@@ -103,7 +101,6 @@
                                             Auth::user()->hasPermission('soft-delete-user-faucets')
                                         )
                                             {!! Form::open(['route' => ['users.faucets.destroy', $user->slug, $faucet->slug], 'method' => 'delete']) !!}
-                                            {!! csrf_field() !!}
                                             {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-warning btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                                             {!! Form::close() !!}
                                         @endif
