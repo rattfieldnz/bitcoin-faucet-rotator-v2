@@ -21,7 +21,11 @@
                 <th>Has Been Deleted</th>
             @endif
         @endif
-        <th>Action</th>
+        @if(Auth::user() != null)
+            @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner') || Auth::user() == $user)
+                <th>Action</th>
+            @endif
+        @endif
     </thead>
     <tbody>
     @foreach($faucets as $faucet)
@@ -70,10 +74,11 @@
                     <td>{!! $faucet->pivot->deleted_at != null ? "Yes" : "No" !!}</td>
                 @endif
             @endif
+
+            @if(Auth::user() != null)
+                @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner') || Auth::user() == $user)
             <td>
                 <div class='btn-group'>
-                    @if(Auth::user() != null)
-                        @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner') || Auth::user() == $user)
                             @if($faucet->pivot->deleted_at != null)
 
                                 {!! Form::open(['route' => ['users.faucets.delete-permanently', $user->slug, $faucet->slug], 'method' => 'delete']) !!}
