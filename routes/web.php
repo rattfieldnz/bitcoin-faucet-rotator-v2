@@ -15,8 +15,6 @@ Route::auth();
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-Route::get('/', 'HomeController@index');
-
 /*
 |--------------------------------------------------------------------------
 | API routes
@@ -30,7 +28,7 @@ Route::group(['prefix' => 'api', 'namespace' => 'API'], function () {
 });
 
 
-Route::get('/home', 'HomeController@index');
+Route::get('home', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 Route::delete(
     'faucets/{slug}/delete-permanently',
