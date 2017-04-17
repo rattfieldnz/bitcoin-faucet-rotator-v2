@@ -110,7 +110,7 @@ class Faucets
      * @param bool $permanentlyDelete
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroyFaucet($slug, bool $permanentlyDelete = false){
+    public function destroyFaucet($slug, $permanentlyDelete = false){
 
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
 
@@ -126,12 +126,12 @@ class Faucets
             return redirect(route('faucets.index'));
         }
 
-        if($permanentlyDelete == false){
-            $this->faucetRepository->deleteWhere(['slug' => $slug]);
+        if($permanentlyDelete == true){
+            $faucet->forceDelete();
         } else{
-            $this->faucetRepository->deleteWhere(['slug' => $slug], true);
+            dd($permanentlyDelete);
+            $this->faucetRepository->deleteWhere(['slug' => $slug]);
         }
-
     }
 
     /**
@@ -253,5 +253,23 @@ class Faucets
             );
         }
         return $userFaucetIds->get()->pluck('faucet_id');
+    }
+
+    /**
+     * Permanently delete user-faucet data from pivot table.
+     * @param User $user
+     * @param Faucet $faucet
+     * @return int
+     */
+    public function destroyUserFaucet(User $user, Faucet $faucet){
+        if(empty($faucet) || empty($user)){
+            abort(404);
+        }
+        return DB::table('referral_info')->where(
+            [
+                ['faucet_id', '=', $faucet->id],
+                ['user_id', '=', $user->id]
+            ]
+        )->delete();
     }
 }

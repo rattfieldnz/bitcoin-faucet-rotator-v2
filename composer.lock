@@ -1859,23 +1859,23 @@
         },
         {
             "name": "mews/purifier",
-            "version": "2.0.6",
+            "version": "v2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mewebstudio/Purifier.git",
-                "reference": "e3f8b41dafa21994b9a8349f316d8e967559ee5a"
+                "reference": "e7cb532acbb9f5aaed4d62fe21fe387c8abf18db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mewebstudio/Purifier/zipball/e3f8b41dafa21994b9a8349f316d8e967559ee5a",
-                "reference": "e3f8b41dafa21994b9a8349f316d8e967559ee5a",
+                "url": "https://api.github.com/repos/mewebstudio/Purifier/zipball/e7cb532acbb9f5aaed4d62fe21fe387c8abf18db",
+                "reference": "e7cb532acbb9f5aaed4d62fe21fe387c8abf18db",
                 "shasum": ""
             },
             "require": {
                 "ezyang/htmlpurifier": "4.8.*",
-                "illuminate/config": "5.1.*|5.2.*|5.3.*",
-                "illuminate/filesystem": "5.1.*|5.2.*|5.3.*",
-                "illuminate/support": "5.1.*|5.2.*|5.3.*",
+                "illuminate/config": "5.1.*|5.2.*|5.3.*|5.4.*",
+                "illuminate/filesystem": "5.1.*|5.2.*|5.3.*|5.4.*",
+                "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*",
                 "php": ">=5.5.9"
             },
             "require-dev": {
@@ -1920,7 +1920,7 @@
                 "security",
                 "xss"
             ],
-            "time": "2016-07-27T10:02:13+00:00"
+            "time": "2017-04-16T12:23:45+00:00"
         },
         {
             "name": "michelecurletta/laravel-schedule-overview",

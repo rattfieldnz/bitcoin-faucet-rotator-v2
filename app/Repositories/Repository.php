@@ -48,7 +48,7 @@ abstract class Repository extends BaseRepository
      * @param bool $permanent
      * @return int
      */
-    public function deleteWhere(array $where, $permanent = false)
+    public function deleteWhere(array $where)
     {
         $this->applyScope();
         $deleted = null;
@@ -58,9 +58,6 @@ abstract class Repository extends BaseRepository
 
         $this->applyConditions($where);
 
-        if($permanent == true){
-            $deleted = $this->model->forceDelete();
-        }
         $deleted = $this->model->delete();
 
         event(new RepositoryEntityDeleted($this, $this->model->getModel()));

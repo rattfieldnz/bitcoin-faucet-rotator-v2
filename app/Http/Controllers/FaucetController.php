@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Functions\Faucets;
 use App\Http\Requests\CreateFaucetRequest;
 use App\Http\Requests\UpdateFaucetRequest;
+use App\Models\Faucet;
 use App\Models\PaymentProcessor;
 use App\Repositories\FaucetRepository;
 use Helpers\Functions\Users;
@@ -120,6 +121,7 @@ class FaucetController extends AppBaseController
     {
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
         $message = null;
+        $referralCode = null;
 
         if(Auth::guest() && !empty($faucet) && $faucet->isDeleted()){ // If the visitor is a guest, faucet exists, and faucet is soft-deleted
             LaracastsFlash::error('Faucet not found');
@@ -142,15 +144,24 @@ class FaucetController extends AppBaseController
             ){
                 $message = 'The faucet has been temporarily deleted. You can restore the faucet or permanently delete it.';
 
-                return view('faucets.show')
-                    ->with('faucet', $faucet)
-                    ->with('message', $message);
-            }
-            if(!empty($faucet) && !$faucet->isDeleted()){ // If the faucet exists and isn't soft-deleted
+                if(!empty($faucet->users()->where('is_admin', true)->first())){
+                    $referralCode = $faucet->users()->where('is_admin', true)->first()->pivot->referral_code;
+                }
 
                 return view('faucets.show')
                     ->with('faucet', $faucet)
-                    ->with('message', $message);
+                    ->with('message', $message)
+                    ->with('referralCode', $referralCode);
+            }
+            if(!empty($faucet) && !$faucet->isDeleted()){ // If the faucet exists and isn't soft-deleted
+                if(!empty($faucet->users()->where('is_admin', true)->first())){
+                    $referralCode = $faucet->users()->where('is_admin', true)->first()->pivot->referral_code;
+                }
+
+                return view('faucets.show')
+                    ->with('faucet', $faucet)
+                    ->with('message', $message)
+                    ->with('referralCode', $referralCode);
             } else{
                 LaracastsFlash::error('Faucet not found');
                 return redirect(route('faucets.index'));
@@ -258,12 +269,14 @@ class FaucetController extends AppBaseController
     public function destroyPermanently($slug)
     {
         Users::userCanAccessArea(Auth::user(), 'faucets.delete-permanently', ['slug' => $slug], ['slug' => $slug]);
+        $faucet = Faucet::where('slug', $slug)->withTrashed()->first();
 
         $redirectRoute = route('faucets.index');
 
         // If the faucet is being deleted from a payment processor's faucet list,
         // create appropriate route and redirect to list after delete completes.
         $input = Input::all();
+
         if(!empty($input['payment_processor'])){
             $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
         }
@@ -277,7 +290,8 @@ class FaucetController extends AppBaseController
             );
         }
 
-        $this->faucetFunctions->destroyFaucet($slug, true);
+        $this->faucetFunctions->destroyUserFaucet(Auth::user(), $faucet);
+        $faucet->forceDelete();
 
         Flash::success('Faucet was permanently deleted!');
 
