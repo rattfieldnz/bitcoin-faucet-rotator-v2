@@ -70,7 +70,12 @@
         <div class="form-group">
             {!! Form::label('roles', 'Role:') !!}
             @if(!empty($user))
-                {!! ucfirst($user->role()->first()->name) !!}
+
+                <ul>
+                    @foreach ($user->roles()->get() as $role)
+                        <li>{!! ucfirst($role->name) !!}</li>
+                    @endforeach
+                </ul>
             @endif
         </div>
 

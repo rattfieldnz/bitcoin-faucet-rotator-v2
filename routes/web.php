@@ -28,7 +28,7 @@ Route::group(['prefix' => 'api', 'namespace' => 'API'], function () {
 });
 
 
-Route::get('home', ['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 Route::delete(
     'faucets/{slug}/delete-permanently',

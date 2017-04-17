@@ -146,20 +146,6 @@ class User extends Authenticatable
         return $this->hasOne(AdBlock::class);
     }
 
-    public function role(){
-        return $this->hasOne(Role::class, 'id');
-    }
-
-    public function hasRole($name)
-    {
-        if(!empty($this->role())){
-            return $this->role()->first()->name == $name;
-        }
-        else{
-            return false;
-        }
-    }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      **/

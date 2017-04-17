@@ -32,7 +32,13 @@
             @endif
             <td>{!! $user->user_name !!} </td>
             @if(Auth::user() != null)
-                <td>{!! ucfirst($user->role()->first()->name) !!}</td>
+                <td>
+                    <ul>
+                        @foreach ($user->roles()->get() as $role)
+                            <li>{!! ucfirst($role->name) !!}</li>
+                        @endforeach
+                    </ul>
+                </td>
             @endif
             @if(Auth::user() != null)
                 @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))

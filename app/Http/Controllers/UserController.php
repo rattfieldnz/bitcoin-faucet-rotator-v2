@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\UserRepository;
 use Helpers\Functions\Users;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash as LaracastsFlash;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -107,7 +108,7 @@ class UserController extends AppBaseController
         }
         else if(
             !Auth::guest() && // If the visitor isn't a guest visitor,
-            Auth::user()->role()->first()->name == 'user' && // If the visitor is an authenticated user with 'user' role
+            Auth::user()->hasRole('user') && // If the visitor is an authenticated user with 'user' role
             $user->isDeleted() // If the requested user has been soft-deleted
         ){
             LaracastsFlash::error('User not found');
@@ -215,7 +216,7 @@ class UserController extends AppBaseController
      */
     public function destroyPermanently($slug)
     {
-        $user = $this->userRepository->findByField('slug', $slug)->withTrashed()->first();
+        $user = $this->userRepository->findByField('slug', $slug)->first();
         Functions::userCanAccessArea(
             Auth::user(),
             'users.delete-permanently',
@@ -235,6 +236,9 @@ class UserController extends AppBaseController
             return redirect(route('users.index'));
         }
         $user->forceDelete();
+        DB::table('referral_info')
+            ->where('user_id', $user->id)
+            ->delete();
 
         LaracastsFlash::success('User was permanently deleted!');
 
