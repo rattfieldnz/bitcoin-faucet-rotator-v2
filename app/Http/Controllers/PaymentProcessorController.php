@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use Helpers\Functions\Users;
+use Laracasts\Flash\Flash as LaracastsFlash;
 
 class PaymentProcessorController extends AppBaseController
 {
@@ -51,7 +52,7 @@ class PaymentProcessorController extends AppBaseController
      */
     public function create()
     {
-        Functions::userCanAccessArea(Auth::user(), 'payment-processors.create', null, null);
+        Functions::userCanAccessArea(Auth::user(), 'payment-processors.create', [], []);
         $paymentProcessor = null;
         return view('payment_processors.create')->with('paymentProcessor');
     }
@@ -131,6 +132,11 @@ class PaymentProcessorController extends AppBaseController
             abort(404);
         }
 
+        else if((Auth::guest() || Auth::user()->hasRole('user')) && $user->hasRole('owner')){
+            LaracastsFlash::error('User not found');
+            return redirect(route('users.index'));
+        }
+
         $paymentProcessors = $this->paymentProcessorRepository->withTrashed()->get();
 
         return view('users.payment_processors.index')
@@ -145,7 +151,11 @@ class PaymentProcessorController extends AppBaseController
 
         $faucets = null;
 
-        if(Auth::guest()){
+        if((Auth::guest() || Auth::user()->hasRole('user')) && $user->hasRole('owner')){
+            LaracastsFlash::error('User not found');
+            return redirect(route('users.index'));
+        }
+        else if(Auth::guest()){
             $faucets = $this->userFunctions->getPaymentProcessorFaucets($user, $paymentProcessor, false);
         }
         else if(Auth::user()->hasRole('user') || Auth::user()->hasRole('owner')){

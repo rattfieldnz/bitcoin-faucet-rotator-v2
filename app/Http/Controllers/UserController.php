@@ -113,6 +113,10 @@ class UserController extends AppBaseController
             LaracastsFlash::error('User not found');
             return redirect(route('users.index'));
         }
+        else if((Auth::guest() || Auth::user()->hasRole('user')) && $user->hasRole('owner')){
+            LaracastsFlash::error('User not found');
+            return redirect(route('users.index'));
+        }
         else{
             if(
                 !empty($user) && // If the user exists,

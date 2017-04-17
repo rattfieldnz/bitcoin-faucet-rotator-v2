@@ -174,6 +174,11 @@ class UserFaucetsController extends Controller
             abort(404);
         }
 
+        else if((Auth::guest() || Auth::user()->hasRole('user')) && $user->hasRole('owner')){
+            LaracastsFlash::error('User not found');
+            return redirect(route('users.index'));
+        }
+
         // If the visitor isn't authenticated, the user's faucet is soft-deleted, and main admin faucet exists.
         else if(Auth::guest() && ($mainFaucet != null && $faucet->pivot->deleted_at != null)){
             LaracastsFlash::error('The faucet was not found');

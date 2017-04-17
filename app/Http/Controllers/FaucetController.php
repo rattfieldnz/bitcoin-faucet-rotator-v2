@@ -49,7 +49,7 @@ class FaucetController extends AppBaseController
         $this->faucetRepository->pushCriteria(new RequestCriteria($request));
         $faucets = null;
 
-        if(Auth::guest() && Auth::user()->hasRole('user') && !Auth::user()->hasRole('owner'))
+        if(Auth::guest() || Auth::user()->hasRole('user') && !Auth::user()->hasRole('owner'))
         {
             $faucets = $this->faucetRepository->all();
         }

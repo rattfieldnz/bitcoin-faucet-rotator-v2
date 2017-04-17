@@ -26,7 +26,7 @@
 <!-- Referral Code Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('referral_code') ? ' has-error' : '' }}">
 	{!! Form::label('referral_code', 'Referral Code:') !!}
-	{!! Form::text('referral_code', $faucet->users()->first() != null ? $faucet->users()->first()->pivot->referral_code : null, ['class' => 'form-control', 'placeholder' => 'ABCDEF123456']) !!}
+	{!! Form::text('referral_code', $faucet != null ? $faucet->users()->first()->pivot->referral_code : null, ['class' => 'form-control', 'placeholder' => 'ABCDEF123456']) !!}
 	<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
 	@if ($errors->has('referral_code'))
 		<span class="help-block">
