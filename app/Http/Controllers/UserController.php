@@ -215,7 +215,7 @@ class UserController extends AppBaseController
      */
     public function destroyPermanently($slug)
     {
-        $user = $this->userRepository->findByField('slug', $slug)->first();
+        $user = $this->userRepository->findByField('slug', $slug)->withTrashed()->first();
         Functions::userCanAccessArea(
             Auth::user(),
             'users.delete-permanently',
@@ -229,7 +229,12 @@ class UserController extends AppBaseController
 
             return redirect(route('users.index'));
         }
-        $this->userFunctions->destroyUser($user->slug, true);
+        if(empty($user)){
+            LaracastsFlash::error('User not found.');
+
+            return redirect(route('users.index'));
+        }
+        $user->forceDelete();
 
         LaracastsFlash::success('User was permanently deleted!');
 

@@ -269,7 +269,7 @@ class FaucetController extends AppBaseController
     public function destroyPermanently($slug)
     {
         Users::userCanAccessArea(Auth::user(), 'faucets.delete-permanently', ['slug' => $slug], ['slug' => $slug]);
-        $faucet = Faucet::where('slug', $slug)->withTrashed()->first();
+        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
 
         $redirectRoute = route('faucets.index');
 
@@ -309,7 +309,8 @@ class FaucetController extends AppBaseController
         Users::userCanAccessArea(Auth::user(), 'faucets.restore', ['slug' => $slug], ['slug' => $slug]);
         $redirectRoute = route('faucets.index');
 
-        $this->faucetFunctions->restoreFaucet($slug);$input = Input::all();
+        $this->faucetFunctions->restoreFaucet($slug);
+        $input = Input::all();
 
         if(!empty($input['payment_processor'])){
             $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();

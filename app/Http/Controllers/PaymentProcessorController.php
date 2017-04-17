@@ -262,7 +262,7 @@ class PaymentProcessorController extends AppBaseController
             return redirect(route('payment-processors.index'));
         }
 
-        $this->paymentProcessorRepository->deleteWhere(['slug' => $slug], true);
+        $paymentProcessor->forceDelete();
 
         Flash::success('Payment Processor was permanently deleted!');
 
