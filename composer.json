@@ -33,7 +33,8 @@
         "league/csv": "^8.1",
         "michelecurletta/laravel-schedule-overview": "^0.0.2",
         "predis/predis": "1.1.*",
-        "santigarcor/laratrust": "3.2.*"
+        "santigarcor/laratrust": "3.2.*",
+        "squareboat/sneaker": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

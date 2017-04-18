@@ -161,6 +161,7 @@ return [
         Mews\Purifier\PurifierServiceProvider::class,
         Laratrust\LaratrustServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        SquareBoat\Sneaker\SneakerServiceProvider::class,
         /*
          * Application Service Providers...
          */
