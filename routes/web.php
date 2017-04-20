@@ -15,19 +15,6 @@ Route::auth();
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-/*
-|--------------------------------------------------------------------------
-| API routes
-|--------------------------------------------------------------------------
-*/
-
-Route::group(['prefix' => 'api', 'namespace' => 'API'], function () {
-    Route::group(['prefix' => 'v1'], function () {
-        require config('infyom.laravel_generator.path.api_routes');
-    });
-});
-
-
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 Route::delete(

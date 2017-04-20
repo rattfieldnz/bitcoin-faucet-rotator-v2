@@ -51,11 +51,11 @@ class UserRepository extends Repository implements IRepository
     }
 
     /**
-    * Update user data,
-    * @param array $data
-    * @param $id
-    * @return mixed
-    */
+     * Update user data,
+     * @param array $data
+     * @param $id
+     * @return mixed
+     */
     public function update(array $data, $slug)
     {
         // Have to skip presenter to get a model not some data
