@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/robattfield/PhpstormProjects/NewBitcoinFaucetRotator/app/Http/Controllers/FaucetController.php</file>
+            <file>file:/C:/Users/robattfield/PhpstormProjects/NewBitcoinFaucetRotator/app/Http/Controllers/UserFaucetsController.php</file>
+            <file>file:/C:/Users/robattfield/PhpstormProjects/NewBitcoinFaucetRotator/database/migrations/2015_02_27_100911_create_referral_info_table.php</file>
+            <file>file:/C:/Users/robattfield/PhpstormProjects/NewBitcoinFaucetRotator/app/Http/Controllers/UserController.php</file>
+            <file>file:/C:/Users/robattfield/PhpstormProjects/NewBitcoinFaucetRotator/database/migrations/2017_03_04_190009_add_faucet_referral_info_code_column.php</file>
+            <file>file:/C:/Users/robattfield/PhpstormProjects/NewBitcoinFaucetRotator/app/Helpers/Functions/Faucets.php</file>
+            <file>file:/C:/Users/robattfield/PhpstormProjects/NewBitcoinFaucetRotator/database/migrations/2017_03_10_204122_create_users_soft_deletes_column.php</file>
+            <file>file:/C:/Users/robattfield/PhpstormProjects/NewBitcoinFaucetRotator/app/Repositories/UserFaucetRepository.php</file>
+        </group>
+    </open-files>
+</project-private>

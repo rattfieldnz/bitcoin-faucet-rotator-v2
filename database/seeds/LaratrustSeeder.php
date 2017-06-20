@@ -60,9 +60,9 @@ class LaratrustSeeder extends Seeder
                 }
             }
         }
-
-        $user->role_id = Role::where('name', '=', 'owner')->first()->id;
-        $user->save();
+		
+		$this->command->info('Attaching \'owner\' role to user that has \'is_admin\' set to true.');
+		$user->attachRole(Role::where('name', '=', 'owner')->first());
 
         // creating user with permissions
         try {
