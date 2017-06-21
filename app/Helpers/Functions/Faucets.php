@@ -129,7 +129,6 @@ class Faucets
         if($permanentlyDelete == true){
             $faucet->forceDelete();
         } else{
-            dd($permanentlyDelete);
             $this->faucetRepository->deleteWhere(['slug' => $slug]);
         }
     }
