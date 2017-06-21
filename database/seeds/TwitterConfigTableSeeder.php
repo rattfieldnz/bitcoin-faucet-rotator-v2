@@ -12,10 +12,10 @@ class TwitterConfigTableSeeder extends Seeder
         $user = User::find(1);
         $twitterConfig = new TwitterConfig();
 
-        $keys['consumer_key'] = env('CONSUMER_KEY');
-        $keys['consumer_key_secret'] = env('CONSUMER_KEY_SECRET');
-        $keys['access_token'] = env('ACCESS_TOKEN');
-        $keys['access_token_secret'] = env('ACCESS_TOKEN_SECRET');
+        $keys['consumer_key'] = Purifier::clean(env('CONSUMER_KEY'), 'generalFields');
+        $keys['consumer_key_secret'] = Purifier::clean(env('CONSUMER_KEY_SECRET'), 'generalFields');
+        $keys['access_token'] = Purifier::clean(env('ACCESS_TOKEN'), 'generalFields');
+        $keys['access_token_secret'] = Purifier::clean(env('ACCESS_TOKEN_SECRET'), 'generalFields');
         $keys['user_id'] = $user->id;
 
         $twitterConfig->fill($keys);

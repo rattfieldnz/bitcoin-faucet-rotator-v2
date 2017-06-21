@@ -23,22 +23,22 @@ class FaucetsTableSeeder extends BaseSeeder
         $user = User::where('user_name', env('ADMIN_USERNAME'))->first();
 
         foreach ($data as $d) {
-            $url = $d['url'];
+            $url = Purifier::clean($d['url'], 'generalFields');
             try {
                 $faucet = new Faucet([
-                    'name' => $d['name'],
+                    'name' => Purifier::clean($d['name'], 'generalFields'),
                     'url' => $url,
-                    'interval_minutes' => (int)$d['interval_minutes'],
-                    'min_payout' => (int)$d['min_payout'],
-                    'max_payout' => (int)$d['max_payout'],
-                    'has_ref_program' => (int)$d['has_ref_program'],
-                    'ref_payout_percent' => (int)$d['ref_payout_percent'],
-                    'comments' => $d['comments'],
-                    'is_paused' => (int)$d['is_paused'],
-                    'meta_title' => $d['meta_title'],
-                    'meta_description' => $d['meta_description'],
-                    'meta_keywords' => $d['meta_keywords'],
-                    'has_low_balance' => (int)$d['has_low_balance'],
+                    'interval_minutes' => (int)Purifier::clean($d['interval_minutes'], 'generalFields'),
+                    'min_payout' => (int)Purifier::clean($d['min_payout'], 'generalFields'),
+                    'max_payout' => (int)Purifier::clean($d['max_payout'], 'generalFields'),
+                    'has_ref_program' => (int)Purifier::clean($d['has_ref_program'], 'generalFields'),
+                    'ref_payout_percent' => (int)Purifier::clean($d['ref_payout_percent'], 'generalFields'),
+                    'comments' => Purifier::clean($d['comments'], 'generalFields'),
+                    'is_paused' => (int)Purifier::clean($d['is_paused'], 'generalFields'),
+                    'meta_title' => Purifier::clean($d['meta_title'], 'generalFields'),
+                    'meta_description' => Purifier::clean($d['meta_description'], 'generalFields'),
+                    'meta_keywords' => Purifier::clean($d['meta_keywords'], 'generalFields'),
+                    'has_low_balance' => (int)Purifier::clean($d['has_low_balance'], 'generalFields'),
                 ]);
                 $faucet->save();
                 $this->command->info(
@@ -47,7 +47,7 @@ class FaucetsTableSeeder extends BaseSeeder
                     ", URL: " . $faucet->url
                 );
 
-                $referralCode = $d['referral_code'];
+                $referralCode = Purifier::clean($d['referral_code'], 'generalFields');
                 $faucet->users()->attach($user->id, ['faucet_id' => $faucet->id, 'referral_code' => $referralCode]);
                 $this->command->info(
                     "Seeding Admin-Faucet Referral Info => User ID: " . $user->id .

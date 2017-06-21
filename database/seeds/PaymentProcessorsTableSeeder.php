@@ -23,11 +23,11 @@ class PaymentProcessorsTableSeeder extends BaseSeeder
         foreach ($data as $d) {
             try {
                 $paymentProcessor = new PaymentProcessor([
-                    'name' => $d['name'],
-                    'url' => $d['url'],
-                    'meta_title' => $d['meta_title'],
-                    'meta_description' => $d['meta_description'],
-                    'meta_keywords' => $d['meta_keywords']
+                    'name' => Purifier::clean($d['name'], 'generalFields'),
+                    'url' => Purifier::clean($d['url'], 'generalFields'),
+                    'meta_title' => Purifier::clean($d['meta_title'], 'generalFields'),
+                    'meta_description' => Purifier::clean($d['meta_description'], 'generalFields'),
+                    'meta_keywords' => Purifier::clean($d['meta_keywords'], 'generalFields')
                 ]);
 
                 $paymentProcessor->save();

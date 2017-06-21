@@ -27,7 +27,8 @@ class LaratrustSeeder extends Seeder
         $mapPermission = collect(config('laratrust_seeder.permissions_map'));
 
         foreach ($config as $key => $modules) {
-            // Create a new role
+            // Create a new
+            $key = Purifier::clean($key, 'generalFields');
             $role = Role::create([
                 'name' => $key,
                 'display_name' => ucwords(str_replace("_", " ", $key)),
@@ -41,7 +42,8 @@ class LaratrustSeeder extends Seeder
                 $permissions = explode(',', $value);
 
                 foreach ($permissions as $p => $perm) {
-                    $permissionValue = $mapPermission->get($perm);
+                    $permissionValue = Purifier::clean($mapPermission->get($perm), 'generalFields');
+                    $module = Purifier::clean($module, 'generalFields');
 
                     $permission = Permission::firstOrCreate([
                         'name' => $permissionValue . '-' . $module,
@@ -70,7 +72,8 @@ class LaratrustSeeder extends Seeder
                     foreach ($modules as $module => $value) {
                         $permissions = explode(',', $value);
                         foreach ($permissions as $p => $perm) {
-                            $permissionValue = $mapPermission->get($perm);
+                            $permissionValue = Purifier::clean($mapPermission->get($perm), 'generalFields');
+                            $module = Purifier::clean($module, 'generalFields');
 
                             $permission = Permission::firstOrCreate([
                                 'name' => $permissionValue . '-' . $module,

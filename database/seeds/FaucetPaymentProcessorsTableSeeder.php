@@ -159,7 +159,5 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
             }
         }
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-        //$data = $this->csv_to_array(base_path() . '/database/seeds/csv_files/faucets_payment_processors.csv');
-        //$this->insert_data('faucet_payment_processor', $data);
     }
 }

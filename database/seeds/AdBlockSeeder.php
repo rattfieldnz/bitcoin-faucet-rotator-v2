@@ -13,7 +13,7 @@ class AdBlockSeeder extends BaseSeeder
         foreach ($data as $d) {
             try {
                 $adBlock = new AdBlock([
-                    'ad_content' => $d['ad_content'],
+                    'ad_content' => Purifier::clean($d['ad_content']),
                     'user_id' => (int)User::where('is_admin', '=', true)->firstOrFail()->id
                 ]);
 

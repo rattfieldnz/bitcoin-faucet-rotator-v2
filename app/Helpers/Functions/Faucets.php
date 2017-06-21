@@ -9,6 +9,7 @@ use App\Models\PaymentProcessor;
 use App\Repositories\FaucetRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Mews\Purifier\Facades\Purifier;
 
 /**
  * Class Faucets
@@ -195,11 +196,16 @@ class Faucets
 
         // Check if the user already has a matching ref code.
         $referralCode = self::getUserFaucetRefCode($user, $faucet);
+        $refCode = Purifier::clean($refCode, 'generalFields');
 
         // If there is no matching ref code, add record to database.
         if (empty($referralCode) && !empty($refCode)) {
             DB::table('referral_info')->insert(
-                ['faucet_id' => $faucet->id, 'user_id' => $user->id, 'referral_code' => $refCode]
+                [
+                    'faucet_id' => $faucet->id,
+                    'user_id' => $user->id,
+                    'referral_code' => $refCode
+                ]
             );
         } else {
             DB::table('referral_info')->where(

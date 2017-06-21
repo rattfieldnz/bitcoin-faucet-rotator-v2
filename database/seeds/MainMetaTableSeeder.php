@@ -11,14 +11,14 @@ class MainMetaTableSeeder extends BaseSeeder
         foreach ($data as $d) {
             try {
                 $mainMeta = new MainMeta([
-                    'title' => $d['title'],
-                    'description' => $d['description'],
-                    'keywords' => $d['keywords'],
+                    'title' => Purifier::clean($d['title'], 'generalFields'),
+                    'description' => Purifier::clean($d['description'], 'generalFields'),
+                    'keywords' => Purifier::clean($d['keywords'], 'generalFields'),
                     'google_analytics_id' => "",
                     'yandex_verification' => "",
                     'bing_verification' => "",
-                    'page_main_title' => $d['page_main_title'],
-                    'page_main_content' => $d['page_main_content'],
+                    'page_main_title' => Purifier::clean($d['page_main_title'], 'generalFields'),
+                    'page_main_content' => Purifier::clean($d['page_main_content']),
                     'addthisid' => "",
                     'twitter_username' => "",
                     'feedburner_feed_url' => "",

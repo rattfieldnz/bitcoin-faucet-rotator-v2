@@ -14,12 +14,12 @@ class UsersSeeder extends Seeder
         DB::table('users')->truncate();
 
         $adminUser = new User([
-            'user_name'=>env('ADMIN_USERNAME'),
-            'first_name' =>env('ADMIN_FIRSTNAME'),
-            'last_name' =>env('ADMIN_LASTNAME'),
-            'email'=>env('ADMIN_EMAIL'),
-            'password'=> bcrypt(env('ADMIN_PASSWORD')),
-            'bitcoin_address' => env('ADMIN_BITCOINADDRESS'),
+            'user_name' => Purifier::clean(env('ADMIN_USERNAME'), 'generalFields'),
+            'first_name' => Purifier::clean(env('ADMIN_FIRSTNAME'), 'generalFields'),
+            'last_name' => Purifier::clean(env('ADMIN_LASTNAME'), 'generalFields'),
+            'email' => Purifier::clean(env('ADMIN_EMAIL'), 'generalFields'),
+            'password' => Purifier::clean(bcrypt(env('ADMIN_PASSWORD')), 'generalFields'),
+            'bitcoin_address' => Purifier::clean(env('ADMIN_BITCOINADDRESS'), 'generalFields'),
             'is_admin' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
