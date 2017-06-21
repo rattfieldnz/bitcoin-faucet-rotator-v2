@@ -41,15 +41,20 @@ class FaucetsTableSeeder extends BaseSeeder
                     'has_low_balance' => (int)$d['has_low_balance'],
                 ]);
                 $faucet->save();
+                $this->command->info(
+                    "Seeding Faucet => Name: " . $faucet->name .
+                    ", ID: " . $faucet->id .
+                    ", URL: " . $faucet->url
+                );
 
                 $referralCode = $d['referral_code'];
+                $faucet->users()->attach($user->id, ['faucet_id' => $faucet->id, 'referral_code' => $referralCode]);
                 $this->command->info(
-                    "User ID: " . $user->id .
+                    "Seeding Admin-Faucet Referral Info => User ID: " . $user->id .
                     ", Faucet ID:  " . $faucet->id .
                     ", Faucet Name: " . $faucet->name .
                     ", Referral Code: " . $referralCode
                 );
-                $faucet->users()->attach($user->id, ['faucet_id' => $faucet->id, 'referral_code' => $referralCode]);
 
             } catch (Exception $e) {
                 error_log($e->getMessage());

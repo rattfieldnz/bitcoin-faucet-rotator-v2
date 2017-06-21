@@ -31,6 +31,10 @@ class PaymentProcessorsTableSeeder extends BaseSeeder
                 ]);
 
                 $payment_processor->save();
+                $this->command->info(
+                    "Seeded Payment Processor => ID:  " . $payment_processor->id .
+                    ", Name: " . $payment_processor->name
+                );
             } catch (Exception $e) {
                 error_log($e->getMessage());
             }
