@@ -106,14 +106,14 @@ class UserAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateUserAPIRequest $request)
+    /*public function store(CreateUserAPIRequest $request)
     {
         $input = $request->all();
 
         $users = $this->userRepository->create($input);
 
         return $this->sendResponse($users->toArray(), 'User saved successfully');
-    }
+    }*/
 
     /**
      * @param int $id
@@ -155,7 +155,6 @@ class UserAPIController extends AppBaseController
      */
     public function show($id)
     {
-        /** @var User $user */
         $user = $this->userRepository->findWithoutFail($id);
 
         if (empty($user)) {
@@ -211,11 +210,10 @@ class UserAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateUserAPIRequest $request)
+    /*public function update($id, UpdateUserAPIRequest $request)
     {
         $input = $request->all();
 
-        /** @var User $user */
         $user = $this->userRepository->findWithoutFail($id);
 
         if (empty($user)) {
@@ -225,7 +223,7 @@ class UserAPIController extends AppBaseController
         $user = $this->userRepository->update($input, $id);
 
         return $this->sendResponse($user->toArray(), 'User updated successfully');
-    }
+    }*/
 
     /**
      * @param int $id
@@ -265,9 +263,8 @@ class UserAPIController extends AppBaseController
      *      )
      * )
      */
-    public function destroy($id)
+    /*public function destroy($id)
     {
-        /** @var User $user */
         $user = $this->userRepository->findWithoutFail($id);
 
         if (empty($user)) {
@@ -277,5 +274,5 @@ class UserAPIController extends AppBaseController
         $user->delete();
 
         return $this->sendResponse($id, 'User deleted successfully');
-    }
+    }*/
 }

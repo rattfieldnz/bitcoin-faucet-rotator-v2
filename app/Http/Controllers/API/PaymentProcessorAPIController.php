@@ -112,14 +112,14 @@ class PaymentProcessorAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreatePaymentProcessorAPIRequest $request)
+    /*public function store(CreatePaymentProcessorAPIRequest $request)
     {
         $input = $request->all();
 
         $paymentProcessors = $this->paymentProcessorRepository->create($input);
 
         return $this->sendResponse($paymentProcessors->toArray(), 'Payment Processor saved successfully');
-    }
+    }*/
 
     /**
      * @param int $id
@@ -161,7 +161,6 @@ class PaymentProcessorAPIController extends AppBaseController
      */
     public function show($id)
     {
-        /** @var PaymentProcessor $paymentProcessor */
         $paymentProcessor = $this->paymentProcessorRepository->findWithoutFail($id);
 
         if (empty($paymentProcessor)) {
@@ -217,11 +216,10 @@ class PaymentProcessorAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdatePaymentProcessorAPIRequest $request)
+    /*public function update($id, UpdatePaymentProcessorAPIRequest $request)
     {
         $input = $request->all();
 
-        /** @var PaymentProcessor $paymentProcessor */
         $paymentProcessor = $this->paymentProcessorRepository->findWithoutFail($id);
 
         if (empty($paymentProcessor)) {
@@ -231,7 +229,7 @@ class PaymentProcessorAPIController extends AppBaseController
         $paymentProcessor = $this->paymentProcessorRepository->update($input, $id);
 
         return $this->sendResponse($paymentProcessor->toArray(), 'PaymentProcessor updated successfully');
-    }
+    }*/
 
     /**
      * @param int $id
@@ -271,9 +269,8 @@ class PaymentProcessorAPIController extends AppBaseController
      *      )
      * )
      */
-    public function destroy($id)
+    /*public function destroy($id)
     {
-        /** @var PaymentProcessor $paymentProcessor */
         $paymentProcessor = $this->paymentProcessorRepository->findWithoutFail($id);
 
         if (empty($paymentProcessor)) {
@@ -283,5 +280,5 @@ class PaymentProcessorAPIController extends AppBaseController
         $paymentProcessor->delete();
 
         return $this->sendResponse($id, 'Payment Processor deleted successfully');
-    }
+    }*/
 }

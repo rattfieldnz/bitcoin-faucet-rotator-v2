@@ -217,11 +217,10 @@ class FaucetAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateFaucetAPIRequest $request)
+    /*public function update($id, UpdateFaucetAPIRequest $request)
     {
         $input = $request->all();
 
-        /** @var Faucet $faucet */
         $faucet = $this->faucetRepository->findWithoutFail($id);
 
         if (empty($faucet)) {
@@ -231,7 +230,7 @@ class FaucetAPIController extends AppBaseController
         $faucet = $this->faucetRepository->update($input, $id);
 
         return $this->sendResponse($faucet->toArray(), 'Faucet updated successfully');
-    }
+    }*/
 
     /**
      * @param int $id
@@ -271,9 +270,8 @@ class FaucetAPIController extends AppBaseController
      *      )
      * )
      */
-    public function destroy($id)
+    /*public function destroy($id)
     {
-        /** @var Faucet $faucet */
         $faucet = $this->faucetRepository->findWithoutFail($id);
 
         if (empty($faucet)) {
@@ -283,5 +281,5 @@ class FaucetAPIController extends AppBaseController
         $faucet->delete();
 
         return $this->sendResponse($id, 'Faucet deleted successfully');
-    }
+    }*/
 }
