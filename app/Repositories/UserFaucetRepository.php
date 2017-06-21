@@ -58,7 +58,7 @@ class UserFaucetRepository extends Repository implements IRepository
         Faucets::setUserFaucetRefCode($user, $faucet, $referralCode);
     }
 
-    static function cleanInput(array $data)
+    public static function cleanInput(array $data)
     {
         return [
             'user_id' => Purifier::clean($data['user_id'], 'generalFields'),

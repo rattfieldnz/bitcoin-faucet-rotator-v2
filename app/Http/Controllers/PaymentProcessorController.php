@@ -96,7 +96,8 @@ class PaymentProcessorController extends AppBaseController
         return view('payment_processors.show')->with('paymentProcessor', $paymentProcessor);
     }
 
-    public function faucets($slug){
+    public function faucets($slug)
+    {
         $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
         $faucets = null;
 
@@ -106,17 +107,15 @@ class PaymentProcessorController extends AppBaseController
             return redirect(route('payment-processors.index'));
         }
 
-        if(Auth::guest() || Auth::user()->hasRole('user')){
+        if (Auth::guest() || Auth::user()->hasRole('user')) {
             $faucets = $paymentProcessor->faucets()->get();
-        }
-        else if(Auth::user()->hasRole('owner')){
+        } elseif (Auth::user()->hasRole('owner')) {
             $faucets = $paymentProcessor->faucets()->withTrashed()->get();
         }
 
         return view('payment_processors.faucets.index')
             ->with('faucets', $faucets)
             ->with('paymentProcessor', $paymentProcessor);
-
     }
 
     /**
@@ -124,15 +123,13 @@ class PaymentProcessorController extends AppBaseController
      * @param  [type] $userSlug [description]
      * @return [type]           [description]
      */
-    public function userPaymentProcessors($userSlug){
-
+    public function userPaymentProcessors($userSlug)
+    {
         $user = User::where('slug', $userSlug)->first();
 
-        if(empty($user)){
+        if (empty($user)) {
             abort(404);
-        }
-
-        else if((Auth::guest() || Auth::user()->hasRole('user')) && $user->hasRole('owner')){
+        } elseif ((Auth::guest() || Auth::user()->hasRole('user')) && $user->hasRole('owner')) {
             LaracastsFlash::error('User not found');
             return redirect(route('users.index'));
         }
@@ -144,21 +141,19 @@ class PaymentProcessorController extends AppBaseController
             ->with('user', $user);
     }
 
-    public function userPaymentProcessorFaucets($userSlug, $paymentProcessorSlug){
-
+    public function userPaymentProcessorFaucets($userSlug, $paymentProcessorSlug)
+    {
         $user = User::where('slug', $userSlug)->first();
         $paymentProcessor = PaymentProcessor::where('slug', $paymentProcessorSlug)->first();
 
         $faucets = null;
 
-        if((Auth::guest() || Auth::user()->hasRole('user')) && $user->hasRole('owner')){
+        if ((Auth::guest() || Auth::user()->hasRole('user')) && $user->hasRole('owner')) {
             LaracastsFlash::error('User not found');
             return redirect(route('users.index'));
-        }
-        else if(Auth::guest()){
+        } elseif (Auth::guest()) {
             $faucets = $this->userFunctions->getPaymentProcessorFaucets($user, $paymentProcessor, false);
-        }
-        else if(Auth::user()->hasRole('user') || Auth::user()->hasRole('owner')){
+        } elseif (Auth::user()->hasRole('user') || Auth::user()->hasRole('owner')) {
             $faucets = $this->userFunctions->getPaymentProcessorFaucets($user, $paymentProcessor, true);
         }
 
@@ -177,7 +172,7 @@ class PaymentProcessorController extends AppBaseController
      */
     public function edit($slug)
     {
-        Functions::userCanAccessArea(Auth::user(), 'payment-processors.edit',['slug' => $slug], ['slug' => $slug]);
+        Functions::userCanAccessArea(Auth::user(), 'payment-processors.edit', ['slug' => $slug], ['slug' => $slug]);
         $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
 
         if (empty($paymentProcessor)) {
@@ -267,14 +262,14 @@ class PaymentProcessorController extends AppBaseController
         Flash::success('Payment Processor was permanently deleted!');
 
         return redirect(route('payment-processors.index'));
-
     }
 
     /**
      * @param $slug
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function restoreDeleted($slug){
+    public function restoreDeleted($slug)
+    {
         $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
         Functions::userCanAccessArea(
             Auth::user(),
@@ -297,6 +292,5 @@ class PaymentProcessorController extends AppBaseController
         Flash::success('Payment Processor was successfully restored!');
 
         return redirect(route('payment-processors.index'));
-
     }
 }

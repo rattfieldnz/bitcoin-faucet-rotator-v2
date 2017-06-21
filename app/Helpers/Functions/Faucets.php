@@ -31,8 +31,8 @@ class Faucets
      * Create and store a new faucet.
      * @param CreateFaucetRequest $request
      */
-    public function createStoreFaucet(CreateFaucetRequest $request){
-
+    public function createStoreFaucet(CreateFaucetRequest $request)
+    {
         $input = $request->except('payment_processors', 'slug', 'referral_code');
 
         $faucet = $this->faucetRepository->create($input);
@@ -43,13 +43,13 @@ class Faucets
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         $faucet->first()->paymentProcessors->detach();
 
-        if(count($paymentProcessors) >= 1){
+        if (count($paymentProcessors) >= 1) {
             foreach ($paymentProcessors as $paymentProcessorId) {
                 $faucet->first()->paymentProcessors->attach((int)$paymentProcessorId);
             }
         }
 
-        if(Auth::user()->hasRole('owner')){
+        if (Auth::user()->hasRole('owner')) {
             Auth::user()->faucets()->sync([$faucet->id => ['referral_code' => $referralCode]]);
         }
 
@@ -62,8 +62,8 @@ class Faucets
      * @param UpdateFaucetRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function updateFaucet($slug, UpdateFaucetRequest $request){
-
+    public function updateFaucet($slug, UpdateFaucetRequest $request)
+    {
         $currentFaucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
 
         $faucet = $this->faucetRepository->update($request->all(), $currentFaucet->id);
@@ -73,10 +73,9 @@ class Faucets
 
         $referralCode = $request->get('referral_code');
 
-        if(count($paymentProcessorIds) == 1){
+        if (count($paymentProcessorIds) == 1) {
             $paymentProcessors = PaymentProcessor::where('id', $paymentProcessorIds[0]);
-        }
-        else if(count($paymentProcessorIds) >= 1){
+        } elseif (count($paymentProcessorIds) >= 1) {
             $paymentProcessors = PaymentProcessor::whereIn('id', $paymentProcessorIds);
         }
 
@@ -88,18 +87,17 @@ class Faucets
 
         $toAddPaymentProcressorIds = [];
 
-        foreach($paymentProcessors->pluck('id')->toArray() as $key => $value){
+        foreach ($paymentProcessors->pluck('id')->toArray() as $key => $value) {
             array_push($toAddPaymentProcressorIds, (int)$value);
         }
 
-        if(count($toAddPaymentProcressorIds) > 1){
+        if (count($toAddPaymentProcressorIds) > 1) {
             $faucet->paymentProcessors()->sync($toAddPaymentProcressorIds);
-        }
-        else if(count($toAddPaymentProcressorIds) == 1){
+        } elseif (count($toAddPaymentProcressorIds) == 1) {
             $faucet->paymentProcessors()->sync([$toAddPaymentProcressorIds[0]]);
         }
 
-        if(Auth::user()->hasRole('owner')){
+        if (Auth::user()->hasRole('owner')) {
             $faucet->users()->sync([Auth::user()->id => ['faucet_id' => $faucet->id, 'referral_code' => $referralCode]]);
         }
     }
@@ -110,8 +108,8 @@ class Faucets
      * @param bool $permanentlyDelete
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroyFaucet($slug, $permanentlyDelete = false){
-
+    public function destroyFaucet($slug, $permanentlyDelete = false)
+    {
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
 
         if (empty($faucet)) {
@@ -120,15 +118,15 @@ class Faucets
             return redirect(route('faucets.index'));
         }
 
-        if(!empty($faucet) && $faucet->isDeleted()){
+        if (!empty($faucet) && $faucet->isDeleted()) {
             LaracastsFlash::error('The faucet has already been deleted.');
 
             return redirect(route('faucets.index'));
         }
 
-        if($permanentlyDelete == true){
+        if ($permanentlyDelete == true) {
             $faucet->forceDelete();
-        } else{
+        } else {
             $this->faucetRepository->deleteWhere(['slug' => $slug]);
         }
     }
@@ -138,7 +136,8 @@ class Faucets
      * @param $slug
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function restoreFaucet($slug){
+    public function restoreFaucet($slug)
+    {
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
 
         if (empty($faucet)) {
@@ -147,7 +146,7 @@ class Faucets
             return redirect(route('faucets.index'));
         }
 
-        if(!empty($faucet) && !$faucet->isDeleted()){
+        if (!empty($faucet) && !$faucet->isDeleted()) {
             LaracastsFlash::error('The faucet has already been restored or is still active.');
 
             return redirect(route('faucets.index'));
@@ -162,10 +161,11 @@ class Faucets
      * @param Faucet $faucet
      * @return string
      */
-    public static function getUserFaucetRefCode(User $user, Faucet $faucet){
+    public static function getUserFaucetRefCode(User $user, Faucet $faucet)
+    {
 
         // Check if the user and faucet exists.
-        if(empty($user) || empty($faucet)){
+        if (empty($user) || empty($faucet)) {
             return null;
         }
 
@@ -185,10 +185,11 @@ class Faucets
      * @param string $refCode
      * @return null
      */
-    public static function setUserFaucetRefCode(User $user, Faucet $faucet, $refCode = null){
+    public static function setUserFaucetRefCode(User $user, Faucet $faucet, $refCode = null)
+    {
 
         // Check if the user and faucet exists.
-        if(empty($user) || empty($faucet)){
+        if (empty($user) || empty($faucet)) {
             return null;
         }
 
@@ -196,11 +197,11 @@ class Faucets
         $referralCode = self::getUserFaucetRefCode($user, $faucet);
 
         // If there is no matching ref code, add record to database.
-        if($referralCode == null || $referralCode == '' || empty($referralCode)){
+        if ($referralCode == null || $referralCode == '' || empty($referralCode)) {
             DB::table('referral_info')->insert(
                 ['faucet_id' => $faucet->id, 'user_id' => $user->id, 'referral_code' => $refCode]
             );
-        } else{
+        } else {
             DB::table('referral_info')->where(
                 [
                     ['faucet_id', '=', $faucet->id],
@@ -217,8 +218,9 @@ class Faucets
      * @param bool $isDeleted
      * @return \Illuminate\Support\Collection
      */
-    public function getUserFaucets(User $user, bool $isDeleted = false){
-        if(empty($user)){
+    public function getUserFaucets(User $user, bool $isDeleted = false)
+    {
+        if (empty($user)) {
             return null;
         }
 
@@ -236,14 +238,15 @@ class Faucets
      * @param bool $isDeleted
      * @return \Illuminate\Support\Collection
      */
-    private function getUserFaucetIds(User $user, bool $isDeleted = false){
-        if($isDeleted == true){
+    private function getUserFaucetIds(User $user, bool $isDeleted = false)
+    {
+        if ($isDeleted == true) {
             $userFaucetIds = DB::table('referral_info')->where(
                 [
                     ['user_id', '=', $user->id],
                 ]
             );
-        } else{
+        } else {
             $userFaucetIds = DB::table('referral_info')->where(
                 [
                     ['user_id', '=', $user->id],
@@ -260,8 +263,9 @@ class Faucets
      * @param Faucet $faucet
      * @return int
      */
-    public function destroyUserFaucet(User $user, Faucet $faucet){
-        if(empty($faucet) || empty($user)){
+    public function destroyUserFaucet(User $user, Faucet $faucet)
+    {
+        if (empty($faucet) || empty($user)) {
             abort(404);
         }
         return DB::table('referral_info')->where(

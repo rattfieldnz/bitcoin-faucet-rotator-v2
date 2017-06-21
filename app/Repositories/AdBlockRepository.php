@@ -67,7 +67,7 @@ class AdBlockRepository extends BaseRepository implements IRepository
      * @param array $input
      * @return array
      */
-    static function cleanInput(array $input)
+    public static function cleanInput(array $input)
     {
         $input['ad_content'] = Purifier::clean($input['ad_content']);
         $input['user_id'] = Purifier::clean($input['user_id'], 'generalFields');

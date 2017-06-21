@@ -78,7 +78,7 @@ class MainMetaRepository extends BaseRepository implements IRepository
      * @param array $input
      * @return array
      */
-    static function cleanInput(array $input)
+    public static function cleanInput(array $input)
     {
         $input['title'] = Purifier::clean($input['title'], 'generalFields');
         $input['description'] = Purifier::clean($input['description'], 'generalFields');

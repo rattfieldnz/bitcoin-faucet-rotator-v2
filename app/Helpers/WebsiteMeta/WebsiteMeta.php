@@ -15,7 +15,6 @@ use RattfieldNz\UrlValidation\UrlValidation;
  */
 class WebsiteMeta
 {
-
     private $url;
     private $urlMetaUrl = 'https://api.urlmeta.org?url=';
     private $urlContents;
@@ -28,8 +27,8 @@ class WebsiteMeta
     public function __construct($url)
     {
         ini_set("allow_url_fopen", 1);
-            $this->url = $this->urlMetaUrl . $url;
-            $this->contents = $this->getUrlContents($this->url);
+        $this->url = $this->urlMetaUrl . $url;
+        $this->contents = $this->getUrlContents($this->url);
     }
 
     /**
@@ -42,7 +41,7 @@ class WebsiteMeta
     {
         try {
             return $this->contents->meta->title != null ? $this->contents->meta->title : "";
-        } catch(Exception $e){
+        } catch (Exception $e) {
             return "";
         }
     }
@@ -57,7 +56,7 @@ class WebsiteMeta
     {
         try {
             return $this->contents->meta->keywords != null ? $this->contents->meta->keywords : "";
-        } catch(Exception $e){
+        } catch (Exception $e) {
             return "";
         }
     }
@@ -72,7 +71,7 @@ class WebsiteMeta
     {
         try {
             return $this->contents->meta->description != null ? $this->contents->meta->description : "";
-        } catch(Exception $e){
+        } catch (Exception $e) {
             return "";
         }
     }
@@ -127,7 +126,8 @@ class WebsiteMeta
         return MainMeta::firstOrFail()->prevent_adblock_blocking;
     }
 
-    private function getUrlContents($url){
+    private function getUrlContents($url)
+    {
         $content = file_get_contents($url);
         return json_decode($content);
     }

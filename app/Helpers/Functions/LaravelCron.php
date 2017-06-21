@@ -20,7 +20,6 @@ class LaravelCron
      */
     public static function cronExists($command)
     {
-
         $cronjobExists = false;
         exec('crontab -l', $crontab);
         if (isset($crontab) && is_array($crontab)) {

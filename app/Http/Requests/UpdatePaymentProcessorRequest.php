@@ -26,11 +26,10 @@ class UpdatePaymentProcessorRequest extends Request
     public function rules()
     {
         $rules = PaymentProcessor::$rules;
-        $urlUniqueKey = array_search('unique:payment_processors,url',$rules['url']);
+        $urlUniqueKey = array_search('unique:payment_processors,url', $rules['url']);
 
         $rules['name'] = $rules['name'] . ', '. $this->id;
         $rules['url'][$urlUniqueKey] = $rules['url'][$urlUniqueKey] . ', '. $this->id;
         return $rules;
-
     }
 }

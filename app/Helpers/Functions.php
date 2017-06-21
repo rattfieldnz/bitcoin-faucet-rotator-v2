@@ -8,7 +8,6 @@
 
 namespace App\Helpers;
 
-
 use App\Models\Faucet;
 use App\Models\Permission;
 use App\Models\Role;
@@ -17,12 +16,13 @@ use Illuminate\Support\Facades\DB;
 
 class Functions
 {
-    public static function userCanAccessArea(User $user, $routeName, array $routeParameters, array $dataParameters = null){
-        if($user->is_admin == false || !$user->hasRole('owner')){
+    public static function userCanAccessArea(User $user, $routeName, array $routeParameters, array $dataParameters = null)
+    {
+        if ($user->is_admin == false || !$user->hasRole('owner')) {
             abort(403);
         }
         $currentRoute = route($routeName, $routeParameters);
-        if(!$currentRoute){
+        if (!$currentRoute) {
             abort(404);
         }
         return redirect($currentRoute)->with($dataParameters);
@@ -33,10 +33,11 @@ class Functions
      * @param Faucet $faucet
      * @return string
      */
-    public static function getUserFaucetRefCode(User $user, Faucet $faucet){
+    public static function getUserFaucetRefCode(User $user, Faucet $faucet)
+    {
 
         // Check if the user and faucet exists.
-        if(empty($user) || empty($faucet)){
+        if (empty($user) || empty($faucet)) {
             return null;
         }
 
@@ -56,10 +57,11 @@ class Functions
      * @param string $refCode
      * @return null
      */
-    public static function setUserFaucetRefCode(User $user, Faucet $faucet, $refCode = null){
+    public static function setUserFaucetRefCode(User $user, Faucet $faucet, $refCode = null)
+    {
 
         // Check if the user and faucet exists.
-        if(empty($user) || empty($faucet)){
+        if (empty($user) || empty($faucet)) {
             return null;
         }
 
@@ -67,11 +69,11 @@ class Functions
         $referralCode = self::getUserFaucetRefCode($user, $faucet);
 
         // If there is no matching ref code, add record to database.
-        if($referralCode == null || $referralCode == '' || empty($referralCode)){
+        if ($referralCode == null || $referralCode == '' || empty($referralCode)) {
             DB::table('referral_info')->insert(
                 ['faucet_id' => $faucet->id, 'user_id' => $user->id, 'referral_code' => $refCode]
             );
-        } else{
+        } else {
             DB::table('referral_info')->where(
                 [
                     ['faucet_id', '=', $faucet->id],

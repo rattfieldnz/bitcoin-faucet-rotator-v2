@@ -133,7 +133,6 @@ class AdBlockController extends AppBaseController
      */
     public function destroy($id)
     {
-
         Functions::userCanAccessArea(Auth::user(), 'ad-block.destroy', ['id' => $id], ['id' => $id]);
         $adBlock = $this->adBlockRepository->findWithoutFail($id);
 

@@ -45,9 +45,9 @@ class FaucetsTransformer extends TransformerAbstract
             'meta_keywords' => $model->meta_keywords
         ];
 
-        if($addPaymentProcessors == true){
+        if ($addPaymentProcessors == true) {
             $paymentProcessors = $model->paymentProcessors()->get();
-            for($i = 0; $i < count($paymentProcessors); $i++){
+            for ($i = 0; $i < count($paymentProcessors); $i++) {
                 $paymentProcessors[$i] = (new PaymentProcessorsTransformer)->transform($paymentProcessors[$i]);
             }
             $faucet['payment_processors'] = $paymentProcessors;
@@ -56,11 +56,11 @@ class FaucetsTransformer extends TransformerAbstract
         return $faucet;
     }
 
-    public function transformMultiple(Collection $models){
-
+    public function transformMultiple(Collection $models)
+    {
         $collection = collect();
 
-        foreach($models as $m){
+        foreach ($models as $m) {
             $collection->push($this->transform($m, false));
         }
 

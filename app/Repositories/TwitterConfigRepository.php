@@ -66,7 +66,7 @@ class TwitterConfigRepository extends BaseRepository implements IRepository
         return $this->parserResult($twitterConfig);
     }
 
-    static function cleanInput(array $input)
+    public static function cleanInput(array $input)
     {
         $input['consumer_key'] = Purifier::clean($input['consumer_key'], 'generalFields');
         $input['consumer_key_secret'] = Purifier::clean($input['consumer_key_secret'], 'generalFields');

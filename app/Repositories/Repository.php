@@ -8,7 +8,6 @@
 
 namespace App\Repositories;
 
-
 use InfyOm\Generator\Common\BaseRepository;
 use Prettus\Repository\Events\RepositoryEntityDeleted;
 
@@ -28,7 +27,7 @@ abstract class Repository extends BaseRepository
     {
         $this->applyCriteria();
         $this->applyScope();
-        if($trashed = true){
+        if ($trashed = true) {
             $model = $this->model->withTrashed()->where($field, '=', $value)->get($columns);
             $this->resetModel();
 
@@ -68,7 +67,8 @@ abstract class Repository extends BaseRepository
         return $deleted;
     }
 
-    public function restoreDeleted($slug){
+    public function restoreDeleted($slug)
+    {
         $model = $this->model->onlyTrashed()->where('slug', $slug)->first();
         $temporarySkipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
@@ -76,11 +76,10 @@ abstract class Repository extends BaseRepository
         $this->skipPresenter($temporarySkipPresenter);
 
         return $this->parserResult($restoredModel);
-
     }
 
-    public function withTrashed(){
+    public function withTrashed()
+    {
         return $this->model->withTrashed();
     }
-
 }

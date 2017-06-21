@@ -38,7 +38,7 @@ class RoleRepository extends BaseRepository implements IRepository
         return $this->parserResult($role);
     }
 
-    static function cleanInput(array $data)
+    public static function cleanInput(array $data)
     {
         return [
             'name' => Purifier::clean($data['name'], 'generalFields'),

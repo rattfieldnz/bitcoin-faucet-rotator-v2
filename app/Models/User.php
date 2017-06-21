@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -176,14 +177,16 @@ class User extends Authenticatable
         ];
     }
 
-    public function isAnAdmin(){
+    public function isAnAdmin()
+    {
         if ($this->attributes['is_admin']) {
             return 'Yes';
         }
         return 'No';
     }
 
-    public function isDeleted(){
+    public function isDeleted()
+    {
         if ($this->attributes['deleted_at']) {
             return true;
         }

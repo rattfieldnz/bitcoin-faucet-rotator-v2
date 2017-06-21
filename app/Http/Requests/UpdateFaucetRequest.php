@@ -26,7 +26,7 @@ class UpdateFaucetRequest extends Request
     public function rules()
     {
         $rules = Faucet::$rules;
-        $urlUniqueKey = array_search('unique:faucets,url',$rules['url']);
+        $urlUniqueKey = array_search('unique:faucets,url', $rules['url']);
 
         $rules['name'] = $rules['name'] . ', '. $this->id;
         $rules['url'][$urlUniqueKey] = $rules['url'][$urlUniqueKey] . ', '. $this->id;

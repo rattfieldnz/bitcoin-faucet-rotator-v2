@@ -32,7 +32,6 @@ class UpdateUserRequest extends Request
         $rules['bitcoin_address'] = $rules['bitcoin_address'] . ', '. $this->id;
 
         if (!$this->has('password')) {
-
             $rules['password'] = [
                 'confirmed',
                 'min:10',

@@ -15,7 +15,6 @@ use \App\User;
  */
 class Twitter
 {
-
     private $keys;
     private $connection;
 
@@ -62,7 +61,6 @@ class Twitter
      */
     public function sendRandomFaucetTweet()
     {
-
         $faucetIds = Faucet::where('id', '>', 0)->pluck('id')->toArray();
         shuffle($faucetIds);
         $randomNumber = array_slice($faucetIds, 0, 1);

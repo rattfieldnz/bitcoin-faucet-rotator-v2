@@ -27,9 +27,9 @@ class PaymentProcessorsTransformer extends TransformerAbstract
         ];
 
 
-        if($addFaucets == true){
+        if ($addFaucets == true) {
             $faucets = $model->faucets()->get();
-            for($i = 0; $i < count($faucets); $i++){
+            for ($i = 0; $i < count($faucets); $i++) {
                 $faucets[$i] = (new FaucetsTransformer)->transform($faucets[$i]);
             }
             $paymentProcessor['faucets'] = $faucets;
@@ -38,11 +38,11 @@ class PaymentProcessorsTransformer extends TransformerAbstract
         return $paymentProcessor;
     }
 
-    public function transformMultiple(Collection $models){
-
+    public function transformMultiple(Collection $models)
+    {
         $collection = collect();
 
-        foreach($models as $m){
+        foreach ($models as $m) {
             $collection->push($this->transform($m));
         }
 

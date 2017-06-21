@@ -70,17 +70,17 @@ class UserRepository extends Repository implements IRepository
         return $this->parserResult($user);
     }
 
-    static function cleanInput(array $data)
+    public static function cleanInput(array $data)
     {
         $data['user_name'] = Purifier::clean($data['user_name'], 'generalFields');
         $data['first_name'] = Purifier::clean($data['first_name'], 'generalFields');
         $data['last_name'] = Purifier::clean($data['last_name'], 'generalFields');
         $data['email'] = Purifier::clean($data['email'], 'generalFields');
-        if(isset($data['password']) && isset($data['password_confirmation'])){
+        if (isset($data['password']) && isset($data['password_confirmation'])) {
             $data['password'] = Purifier::clean(bcrypt($data['password']), 'generalFields');
         }
         $data['bitcoin_address'] = Purifier::clean($data['bitcoin_address'], 'generalFields');
-        if(isset($data['is_admin'])){
+        if (isset($data['is_admin'])) {
             $data['is_admin'] = Purifier::clean($data['is_admin'], 'generalFields');
         }
 

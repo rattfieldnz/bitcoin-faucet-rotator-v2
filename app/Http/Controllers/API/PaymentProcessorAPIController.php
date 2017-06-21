@@ -67,7 +67,7 @@ class PaymentProcessorAPIController extends AppBaseController
 
         $paymentProcessors = $this->paymentProcessorRepository->all();
 
-        for($i = 0; $i < count($paymentProcessors); $i++){
+        for ($i = 0; $i < count($paymentProcessors); $i++) {
             $paymentProcessors[$i] = (new PaymentProcessorsTransformer)->transform($paymentProcessors[$i], true);
         }
 

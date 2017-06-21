@@ -68,7 +68,7 @@ class FaucetRepository extends Repository implements IRepository
         return $this->parserResult($updatedFaucet);
     }
 
-    static function cleanInput(array $data)
+    public static function cleanInput(array $data)
     {
         return [
             'name' => Purifier::clean($data['name'], 'generalFields'),

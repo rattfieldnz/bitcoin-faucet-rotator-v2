@@ -37,7 +37,8 @@ class RegisterController extends Controller
      *
      * @param Users $userFunctions
      */
-    public function __construct(Users $userFunctions){
+    public function __construct(Users $userFunctions)
+    {
         $this->userFunctions = $userFunctions;
         $this->middleware('guest');
     }

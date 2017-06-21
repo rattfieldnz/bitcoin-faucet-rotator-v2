@@ -128,7 +128,8 @@ class PaymentProcessor extends Model
         ];
     }
 
-    public function isDeleted(){
+    public function isDeleted()
+    {
         if ($this->attributes['deleted_at']) {
             return true;
         }

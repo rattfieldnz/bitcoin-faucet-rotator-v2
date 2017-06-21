@@ -38,7 +38,8 @@ class Role extends LaratrustRole
         'description' => 'min:5|max:255|required',
     ];
 
-    public function users(){
+    public function users()
+    {
         return $this->hasMany(User::class, 'id');
     }
 

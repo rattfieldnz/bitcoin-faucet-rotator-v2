@@ -59,7 +59,7 @@ class PaymentProcessorRepository extends Repository implements IRepository
         return $this->parserResult($paymentProcessor);
     }
 
-    static function cleanInput(array $data)
+    public static function cleanInput(array $data)
     {
         return [
             'name' => Purifier::clean($data['name'], 'generalFields'),

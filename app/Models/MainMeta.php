@@ -152,6 +152,4 @@ class MainMeta extends Model
         'page_main_title' => 'required|min:15|max:100',
         'prevent_adblock_blocking' => 'min:0|max:1'
     ];
-
-    
 }

@@ -2,8 +2,7 @@
 
 namespace App\Repositories;
 
-
 interface IRepository
 {
-    static function cleanInput(array $input);
+    public static function cleanInput(array $input);
 }

@@ -67,7 +67,7 @@ class FaucetAPIController extends AppBaseController
 
         $faucets = $this->faucetRepository->all();
 
-        for($i = 0; $i < count($faucets); $i++){
+        for ($i = 0; $i < count($faucets); $i++) {
             $faucets[$i] = (new FaucetsTransformer)->transform($faucets[$i], true);
         }
 

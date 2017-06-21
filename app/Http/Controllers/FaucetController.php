@@ -26,7 +26,7 @@ class FaucetController extends AppBaseController
 
     /**
      * FaucetController constructor.
-     * 
+     *
      * @param FaucetRepository $faucetRepo
      * @param Users $userFunctions
      * @param Faucets $faucetFunctions
@@ -50,11 +50,9 @@ class FaucetController extends AppBaseController
         $this->faucetRepository->pushCriteria(new RequestCriteria($request));
         $faucets = null;
 
-        if(Auth::guest() || Auth::user()->hasRole('user') && !Auth::user()->hasRole('owner'))
-        {
+        if (Auth::guest() || Auth::user()->hasRole('user') && !Auth::user()->hasRole('owner')) {
             $faucets = $this->faucetRepository->all();
-        }
-        else{
+        } else {
             $faucets = $this->faucetRepository->withTrashed()->get();
         }
 
@@ -123,28 +121,26 @@ class FaucetController extends AppBaseController
         $message = null;
         $referralCode = null;
 
-        if(Auth::guest() && !empty($faucet) && $faucet->isDeleted()){ // If the visitor is a guest, faucet exists, and faucet is soft-deleted
+        if (Auth::guest() && !empty($faucet) && $faucet->isDeleted()) { // If the visitor is a guest, faucet exists, and faucet is soft-deleted
             LaracastsFlash::error('Faucet not found');
             return redirect(route('faucets.index'));
-        }
-        else if(
+        } elseif (
             !Auth::guest() && // If the visitor isn't a guest visitor,
             Auth::user()->hasRole('user') && // If the visitor is an authenticated user with 'user' role
             !Auth::user()->hasRole('owner') && // If the visitor is an authenticated user, but without 'owner' role,
             $faucet->isDeleted() // If the faucet has been soft-deleted
-        ){
+        ) {
             LaracastsFlash::error('Faucet not found');
             return redirect(route('faucets.index'));
-        }
-        else{
-            if(
+        } else {
+            if (
                 !empty($faucet) && // If the faucet exists,
                 $faucet->isDeleted() && // If the faucet is soft-deleted,
                 Auth::user()->hasRole('owner') // If the currently authenticated user has 'owner' role,
-            ){
+            ) {
                 $message = 'The faucet has been temporarily deleted. You can restore the faucet or permanently delete it.';
 
-                if(!empty($faucet->users()->where('is_admin', true)->first())){
+                if (!empty($faucet->users()->where('is_admin', true)->first())) {
                     $referralCode = $faucet->users()->where('is_admin', true)->first()->pivot->referral_code;
                 }
 
@@ -153,8 +149,8 @@ class FaucetController extends AppBaseController
                     ->with('message', $message)
                     ->with('referralCode', $referralCode);
             }
-            if(!empty($faucet) && !$faucet->isDeleted()){ // If the faucet exists and isn't soft-deleted
-                if(!empty($faucet->users()->where('is_admin', true)->first())){
+            if (!empty($faucet) && !$faucet->isDeleted()) { // If the faucet exists and isn't soft-deleted
+                if (!empty($faucet->users()->where('is_admin', true)->first())) {
                     $referralCode = $faucet->users()->where('is_admin', true)->first()->pivot->referral_code;
                 }
 
@@ -162,7 +158,7 @@ class FaucetController extends AppBaseController
                     ->with('faucet', $faucet)
                     ->with('message', $message)
                     ->with('referralCode', $referralCode);
-            } else{
+            } else {
                 LaracastsFlash::error('Faucet not found');
                 return redirect(route('faucets.index'));
             }
@@ -184,7 +180,7 @@ class FaucetController extends AppBaseController
 
         $paymentProcessorIds = [];
 
-        foreach($faucet->paymentProcessors->pluck('id')->toArray() as $key => $value){
+        foreach ($faucet->paymentProcessors->pluck('id')->toArray() as $key => $value) {
             array_push($paymentProcessorIds, $value);
         }
 
@@ -198,7 +194,6 @@ class FaucetController extends AppBaseController
             ->with('faucet', $faucet)
             ->with('faucetPaymentProcessorIds', $paymentProcessorIds)
             ->with('paymentProcessors', $paymentProcessors);
-
     }
 
     /**
@@ -240,11 +235,11 @@ class FaucetController extends AppBaseController
         // If the faucet is being deleted from a payment processor's faucet list,
         // create appropriate route and redirect to list after delete completes.
         $input = Input::all();
-        if(!empty($input['payment_processor'])){
+        if (!empty($input['payment_processor'])) {
             $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
         }
 
-        if(!empty($paymentProcessor)){
+        if (!empty($paymentProcessor)) {
             $redirectRoute = route(
                 'payment-processors.faucets',
                 [
@@ -277,11 +272,11 @@ class FaucetController extends AppBaseController
         // create appropriate route and redirect to list after delete completes.
         $input = Input::all();
 
-        if(!empty($input['payment_processor'])){
+        if (!empty($input['payment_processor'])) {
             $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
         }
 
-        if(!empty($paymentProcessor)){
+        if (!empty($paymentProcessor)) {
             $redirectRoute = route(
                 'payment-processors.faucets',
                 [
@@ -296,7 +291,6 @@ class FaucetController extends AppBaseController
         Flash::success('Faucet was permanently deleted!');
 
         return redirect($redirectRoute);
-
     }
 
     /**
@@ -305,18 +299,19 @@ class FaucetController extends AppBaseController
      * @param $slug
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function restoreDeleted($slug){
+    public function restoreDeleted($slug)
+    {
         Users::userCanAccessArea(Auth::user(), 'faucets.restore', ['slug' => $slug], ['slug' => $slug]);
         $redirectRoute = route('faucets.index');
 
         $this->faucetFunctions->restoreFaucet($slug);
         $input = Input::all();
 
-        if(!empty($input['payment_processor'])){
+        if (!empty($input['payment_processor'])) {
             $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
         }
 
-        if(!empty($paymentProcessor)){
+        if (!empty($paymentProcessor)) {
             $redirectRoute = route(
                 'payment-processors.faucets',
                 [
@@ -328,10 +323,10 @@ class FaucetController extends AppBaseController
         Flash::success('Faucet was successfully restored!');
 
         return redirect($redirectRoute);
-
     }
 
-    private static function cleanInput(array $data){
+    private static function cleanInput(array $data)
+    {
         $data['payment_processor'] = Purifier::clean($data['payment_processor'], 'generalFields');
         return $data;
     }

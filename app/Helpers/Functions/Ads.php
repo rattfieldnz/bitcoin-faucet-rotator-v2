@@ -30,7 +30,7 @@ class Ads
             $this->userId = Auth::user()->id;
             //dd($this->userId);
             $adminAdBlock = User::find($this->userId)->firstOrFail()->adBlock;
-            if($adminAdBlock == null){
+            if ($adminAdBlock == null) {
                 return null;
             }
         }
