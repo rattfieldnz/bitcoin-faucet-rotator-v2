@@ -65,7 +65,6 @@ class LaratrustSetupTables extends Migration
 
             $table->primary(['permission_id', 'user_id', 'user_type']);
         });
-
     }
 
     /**

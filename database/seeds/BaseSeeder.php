@@ -39,9 +39,9 @@ class BaseSeeder extends Seeder
         $header = null;
         $data = [];
         if (($handle = fopen($filename, 'r')) !== false) {
-        // While there are still rows in the file
+            // While there are still rows in the file
             while (($row = fgetcsv($handle, 1000, $delimiter)) !== false) {
-            // Below conditional forms the associated array,
+                // Below conditional forms the associated array,
                 // filling each array within with data from each
                 // row.
                 if (!$header) {

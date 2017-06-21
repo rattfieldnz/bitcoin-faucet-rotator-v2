@@ -22,8 +22,8 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
     {
         $paymentProcessors = PaymentProcessor::all();
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        foreach($paymentProcessors as $paymentProcessor){
-            switch($paymentProcessor->name){
+        foreach ($paymentProcessors as $paymentProcessor) {
+            switch ($paymentProcessor->name) {
                 case 'Direct':
                     $faucets = [
                         //16//
@@ -43,8 +43,8 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                         Faucet::where('name', 'Field Bitcoins')->first(),
                         Faucet::where('name', 'Moon Bitcoin')->first(),
                     ];
-                    for($i = 0; $i < count($faucets); $i++){
-                        if(!empty($faucets[$i])) {
+                    for ($i = 0; $i < count($faucets); $i++) {
+                        if (!empty($faucets[$i])) {
                             $faucets[$i]->paymentProcessors()->attach(
                                 $paymentProcessor->where('name', '=', 'Direct')->first()->id
                             );
@@ -71,8 +71,8 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                         Faucet::where('name', 'IFaucet')->first(),
                         Faucet::where('name', 'Field Bitcoins')->first(),
                     ];
-                    for($i = 0; $i < count($faucets); $i++){
-                        if(!empty($faucets[$i])) {
+                    for ($i = 0; $i < count($faucets); $i++) {
+                        if (!empty($faucets[$i])) {
                             $faucets[$i]->paymentProcessors()->attach(
                                 $paymentProcessor->where('name', '=', 'Epay')->first()->id
                             );
@@ -102,8 +102,8 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                         Faucet::where('name', 'Penta Faucet')->first(),
                         Faucet::where('name', 'Free4Faucet')->first(),
                     ];
-                    for($i = 0; $i < count($faucets); $i++){
-                        if(!empty($faucets[$i])) {
+                    for ($i = 0; $i < count($faucets); $i++) {
+                        if (!empty($faucets[$i])) {
                             $faucets[$i]->paymentProcessors()->attach(
                                 $paymentProcessor->where('name', '=', 'FaucetHub.io')->first()->id
                             );
@@ -113,7 +113,7 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                 case 'FaucetSystem':
                     $faucet = Faucet::where('name', 'IFaucet')->first();
 
-                    if(!empty($faucet)) {
+                    if (!empty($faucet)) {
                         $faucet->first()->paymentProcessors()->attach(
                             $paymentProcessor->where('name', '=', 'FaucetSystem')->first()->id
                         );
@@ -128,8 +128,8 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                         Faucet::where('name', 'BitcoBear4')->first(),
                         Faucet::where('name', 'BitcoBear5')->first(),
                     ];
-                    for($i = 0; $i < count($faucets); $i++){
-                        if(!empty($faucets[$i])) {
+                    for ($i = 0; $i < count($faucets); $i++) {
+                        if (!empty($faucets[$i])) {
                             $faucets[$i]->paymentProcessors()->attach(
                                 $paymentProcessor->where('name', '=', 'PurseFaucets')->first()->id
                             );
@@ -148,8 +148,8 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                         Faucet::where('name', 'We Love Bitcoin')->first(),
                         Faucet::where('name', 'BTC Source')->first(),
                     ];
-                    for($i = 0; $i < count($faucets); $i++){
-                        if(!empty($faucets[$i])) {
+                    for ($i = 0; $i < count($faucets); $i++) {
+                        if (!empty($faucets[$i])) {
                             $faucets[$i]->paymentProcessors()->attach(
                                 $paymentProcessor->where('name', '=', 'Xapo')->first()->id
                             );

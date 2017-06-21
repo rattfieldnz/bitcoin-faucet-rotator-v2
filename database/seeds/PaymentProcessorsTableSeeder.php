@@ -22,7 +22,7 @@ class PaymentProcessorsTableSeeder extends BaseSeeder
 
         foreach ($data as $d) {
             try {
-                $payment_processor = new PaymentProcessor([
+                $paymentProcessor = new PaymentProcessor([
                     'name' => $d['name'],
                     'url' => $d['url'],
                     'meta_title' => $d['meta_title'],
@@ -30,10 +30,10 @@ class PaymentProcessorsTableSeeder extends BaseSeeder
                     'meta_keywords' => $d['meta_keywords']
                 ]);
 
-                $payment_processor->save();
+                $paymentProcessor->save();
                 $this->command->info(
-                    "Seeded Payment Processor => ID:  " . $payment_processor->id .
-                    ", Name: " . $payment_processor->name
+                    "Seeded Payment Processor => ID:  " . $paymentProcessor->id .
+                    ", Name: " . $paymentProcessor->name
                 );
             } catch (Exception $e) {
                 error_log($e->getMessage());

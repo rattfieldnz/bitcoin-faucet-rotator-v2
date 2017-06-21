@@ -17,10 +17,9 @@ class LaratrustSeeder extends Seeder
     {
         $user = User::where('is_admin', '=', true)->first();
         $this->command->info('Truncating Role and Permission tables');
-        try{
+        try {
             $this->truncateLaratrustTables();
-        }catch(Illuminate\Database\QueryException $e){
-
+        } catch (Illuminate\Database\QueryException $e) {
         }
 
         $config = config('laratrust_seeder.role_structure');
@@ -60,9 +59,9 @@ class LaratrustSeeder extends Seeder
                 }
             }
         }
-		
-		$this->command->info('Attaching \'owner\' role to user that has \'is_admin\' set to true.');
-		$user->attachRole(Role::where('name', '=', 'owner')->first());
+        
+        $this->command->info('Attaching \'owner\' role to user that has \'is_admin\' set to true.');
+        $user->attachRole(Role::where('name', '=', 'owner')->first());
 
         // creating user with permissions
         try {
@@ -90,8 +89,7 @@ class LaratrustSeeder extends Seeder
                     }
                 }
             }
-        } catch(Illuminate\Database\QueryException $e){
-
+        } catch (Illuminate\Database\QueryException $e) {
         }
     }
 
@@ -105,7 +103,7 @@ class LaratrustSeeder extends Seeder
         DB::table('permission_role')->truncate();
         DB::table('permission_user')->truncate();
 
-        if(DB::table('role_user')->exists()){
+        if (DB::table('role_user')->exists()) {
             DB::table('role_user')->truncate();
         }
         Role::truncate();

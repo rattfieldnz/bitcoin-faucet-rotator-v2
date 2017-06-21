@@ -15,14 +15,14 @@ class CreateFaucetsTable extends Migration
     {
         Schema::create('faucets', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',25);
-            $table->string('url',150)->unique();
+            $table->string('name', 25);
+            $table->string('url', 150)->unique();
             $table->integer('interval_minutes');
             $table->integer('min_payout');
             $table->integer('max_payout');
             $table->boolean('has_ref_program')->default(0);
             $table->smallInteger('ref_payout_percent')->default(0);
-            $table->string('comments',255)->nullable();
+            $table->string('comments', 255)->nullable();
             $table->boolean('is_paused')->default(0);
             $table->timestamps();
         });

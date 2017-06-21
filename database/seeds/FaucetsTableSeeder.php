@@ -55,7 +55,6 @@ class FaucetsTableSeeder extends BaseSeeder
                     ", Faucet Name: " . $faucet->name .
                     ", Referral Code: " . $referralCode
                 );
-
             } catch (Exception $e) {
                 error_log($e->getMessage());
             }
