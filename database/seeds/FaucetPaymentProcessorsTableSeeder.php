@@ -24,12 +24,6 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         foreach($paymentProcessors as $paymentProcessor){
             switch($paymentProcessor->name){
-                case 'CoinBase':
-                    $dataFaucet = Faucet::where('name', 'DataFaucet')->first();
-                    $dataFaucet->paymentProcessors()->attach(
-                        $paymentProcessor->where('name', '=', 'CoinBase')->first()->id
-                    );
-                    break;
                 case 'Direct':
                     $faucets = [
                         //16//
@@ -40,7 +34,6 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                         Faucet::where('name', 'CarBitcoin')->first(),
                         Faucet::where('name', 'Bonus Bitcoin')->first(),
                         Faucet::where('name', 'Claim BTC')->first(),
-                        Faucet::where('name', 'BioBTC')->first(),
                         Faucet::where('name', 'Moon Faucet')->first(),
                         Faucet::where('name', 'BTC 4 You')->first(),
                         Faucet::where('name', '777Bitco.in')->first(),
@@ -51,9 +44,11 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                         Faucet::where('name', 'Moon Bitcoin')->first(),
                     ];
                     for($i = 0; $i < count($faucets); $i++){
-                        $faucets[$i]->paymentProcessors()->attach(
-                            $paymentProcessor->where('name', '=', 'Direct')->first()->id
-                        );
+                        if(!empty($faucets[$i])) {
+                            $faucets[$i]->paymentProcessors()->attach(
+                                $paymentProcessor->where('name', '=', 'Direct')->first()->id
+                            );
+                        }
                     }
                     break;
                 case 'Epay':
@@ -73,14 +68,15 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                         Faucet::where('name', 'Switch Bux')->first(),
                         Faucet::where('name', 'PayMyClic')->first(),
                         Faucet::where('name', 'Coin Prizes')->first(),
-                        Faucet::where('name', 'Omnibot\'s Faucet')->first(),
                         Faucet::where('name', 'IFaucet')->first(),
                         Faucet::where('name', 'Field Bitcoins')->first(),
                     ];
                     for($i = 0; $i < count($faucets); $i++){
-                        $faucets[$i]->paymentProcessors()->attach(
-                            $paymentProcessor->where('name', '=', 'Epay')->first()->id
-                        );
+                        if(!empty($faucets[$i])) {
+                            $faucets[$i]->paymentProcessors()->attach(
+                                $paymentProcessor->where('name', '=', 'Epay')->first()->id
+                            );
+                        }
                     }
 
                     break;
@@ -107,15 +103,21 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                         Faucet::where('name', 'Free4Faucet')->first(),
                     ];
                     for($i = 0; $i < count($faucets); $i++){
-                        $faucets[$i]->paymentProcessors()->attach(
-                            $paymentProcessor->where('name', '=', 'FaucetHub.io')->first()->id
-                        );
+                        if(!empty($faucets[$i])) {
+                            $faucets[$i]->paymentProcessors()->attach(
+                                $paymentProcessor->where('name', '=', 'FaucetHub.io')->first()->id
+                            );
+                        }
                     }
                     break;
                 case 'FaucetSystem':
-                        Faucet::where('name', 'IFaucet')->first()->paymentProcessors()->attach(
+                    $faucet = Faucet::where('name', 'IFaucet')->first();
+
+                    if(!empty($faucet)) {
+                        $faucet->first()->paymentProcessors()->attach(
                             $paymentProcessor->where('name', '=', 'FaucetSystem')->first()->id
                         );
+                    }
                     break;
                 case 'PurseFaucets':
                     $faucets = [
@@ -127,9 +129,11 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                         Faucet::where('name', 'BitcoBear5')->first(),
                     ];
                     for($i = 0; $i < count($faucets); $i++){
-                        $faucets[$i]->paymentProcessors()->attach(
-                            $paymentProcessor->where('name', '=', 'PurseFaucets')->first()->id
-                        );
+                        if(!empty($faucets[$i])) {
+                            $faucets[$i]->paymentProcessors()->attach(
+                                $paymentProcessor->where('name', '=', 'PurseFaucets')->first()->id
+                            );
+                        }
                     }
                     break;
                 case 'Xapo':
@@ -145,9 +149,11 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                         Faucet::where('name', 'BTC Source')->first(),
                     ];
                     for($i = 0; $i < count($faucets); $i++){
-                        $faucets[$i]->paymentProcessors()->attach(
-                            $paymentProcessor->where('name', '=', 'Xapo')->first()->id
-                        );
+                        if(!empty($faucets[$i])) {
+                            $faucets[$i]->paymentProcessors()->attach(
+                                $paymentProcessor->where('name', '=', 'Xapo')->first()->id
+                            );
+                        }
                     }
                     break;
             }

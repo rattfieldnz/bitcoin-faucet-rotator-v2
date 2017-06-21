@@ -197,7 +197,7 @@ class Faucets
         $referralCode = self::getUserFaucetRefCode($user, $faucet);
 
         // If there is no matching ref code, add record to database.
-        if ($referralCode == null || $referralCode == '' || empty($referralCode)) {
+        if (empty($referralCode) && !empty($refCode)) {
             DB::table('referral_info')->insert(
                 ['faucet_id' => $faucet->id, 'user_id' => $user->id, 'referral_code' => $refCode]
             );

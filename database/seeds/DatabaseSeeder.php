@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FaucetsTableSeeder::class);
         $this->call(PaymentProcessorsTableSeeder::class);
         $this->call(FaucetPaymentProcessorsTableSeeder::class);
-        $this->call(ReferralInfoTableSeeder::class);
         $this->call(MainMetaTableSeeder::class);
         $this->call(TwitterConfigTableSeeder::class);
         $this->call(AdBlockSeeder::class);

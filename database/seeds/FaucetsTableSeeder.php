@@ -1,5 +1,6 @@
 <?php
 use App\Models\Faucet;
+use App\Models\User;
 
 /**
  * Created by PhpStorm.
@@ -18,7 +19,8 @@ class FaucetsTableSeeder extends BaseSeeder
      */
     public function run()
     {
-        $data = $this->csv_to_array(base_path() . '/database/seeds/csv_files/faucets.csv');
+        $data = $this->csv_to_array(base_path() . '/database/seeds/csv_files/faucets.csv', ';');
+        $user = User::where('user_name', env('ADMIN_USERNAME'))->first();
 
         foreach ($data as $d) {
             $url = $d['url'];
@@ -38,8 +40,17 @@ class FaucetsTableSeeder extends BaseSeeder
                     'meta_keywords' => $d['meta_keywords'],
                     'has_low_balance' => (int)$d['has_low_balance'],
                 ]);
-
                 $faucet->save();
+
+                $referralCode = $d['referral_code'];
+                $this->command->info(
+                    "User ID: " . $user->id .
+                    ", Faucet ID:  " . $faucet->id .
+                    ", Faucet Name: " . $faucet->name .
+                    ", Referral Code: " . $referralCode
+                );
+                $faucet->users()->attach($user->id, ['faucet_id' => $faucet->id, 'referral_code' => $referralCode]);
+
             } catch (Exception $e) {
                 error_log($e->getMessage());
             }
