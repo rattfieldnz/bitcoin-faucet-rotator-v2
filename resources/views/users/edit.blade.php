@@ -17,7 +17,7 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($user, ['route' => ['users.update', $user->slug], 'method' => 'patch']) !!}
+                   {!! Form::model($user, ['route' => ['users.update', $user->userSlug()], 'method' => 'patch']) !!}
 
                         @include('users.fields')
 

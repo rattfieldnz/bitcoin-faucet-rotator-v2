@@ -1,5 +1,5 @@
 @if(Auth::user() != null)
-    @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
+    @if(Auth::user()->isAnAdmin())
         <!-- Id Field -->
         <div class="form-group">
             {!! Form::label('id', 'Id:') !!}
@@ -11,23 +11,37 @@
 <!-- User Name Field -->
 <div class="form-group">
     {!! Form::label('user_name', 'User Name:') !!}
-    <p>{!! $user->user_name !!}</p>
+    @if((Auth::user() != null && Auth::user()->isAnAdmin()) && $user->isAnAdmin())
+        <p>{!! $user->user_name !!}</p>
+    @else
+        <p>{!! $user->userName() !!}</p>
+    @endif
 </div>
 
 <!-- First Name Field -->
 <div class="form-group">
     {!! Form::label('first_name', 'First Name:') !!}
-    <p>{!! $user->first_name !!}</p>
+
+    @if((Auth::user() != null && Auth::user()->isAnAdmin()) && $user->isAnAdmin())
+        <p>{!! $user->first_name !!}</p>
+    @else
+        <p>{!! $user->userFirstName() !!}</p>
+    @endif
 </div>
 
 <!-- Last Name Field -->
 <div class="form-group">
     {!! Form::label('last_name', 'Last Name:') !!}
-    <p>{!! $user->last_name !!}</p>
+
+    @if((Auth::user() != null && Auth::user()->isAnAdmin()) && $user->isAnAdmin())
+        <p>{!! $user->last_name !!}</p>
+    @else
+        <p>{!! $user->userLastName() !!}</p>
+    @endif
 </div>
 
 @if(Auth::user() != null)
-    @if((Auth::user()->is_admin == true && Auth::user()->hasRole('owner')) || $user == Auth::user())
+    @if(Auth::user()->isAnAdmin() || $user == Auth::user())
         <!-- Email Field -->
         <div class="form-group">
             {!! Form::label('email', 'Email:') !!}
@@ -64,7 +78,7 @@
             <p>{!! $user->updated_at !!}</p>
         </div>
     @endif
-    @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
+    @if(Auth::user()->isAnAdmin())
 
         <!-- Roles -->
         <div class="form-group">

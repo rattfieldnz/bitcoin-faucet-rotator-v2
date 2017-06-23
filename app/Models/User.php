@@ -179,10 +179,46 @@ class User extends Authenticatable
 
     public function isAnAdmin()
     {
-        if ($this->attributes['is_admin']) {
-            return 'Yes';
+        if ($this->is_admin == true && $this->hasRole('owner')) {
+            return true;
         }
-        return 'No';
+        return false;
+    }
+
+    public function userName() {
+        if($this->hasRole('owner') && $this->is_admin == true) {
+            return 'admin';
+        }
+        else {
+            return $this->user_name;
+        }
+    }
+
+    public function userSlug(){
+        if($this->hasRole('owner') && $this->is_admin == true) {
+            return 'admin';
+        }
+        else {
+            return $this->slug;
+        }
+    }
+
+    public function userFirstName(){
+        if($this->hasRole('owner') && $this->is_admin == true) {
+            return 'Admin';
+        }
+        else {
+            return $this->first_name;
+        }
+    }
+
+    public function userLastName(){
+        if($this->hasRole('owner') && $this->is_admin == true) {
+            return 'Admin';
+        }
+        else {
+            return $this->last_name;
+        }
     }
 
     public function isDeleted()

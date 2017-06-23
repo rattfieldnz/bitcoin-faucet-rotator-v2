@@ -9,6 +9,7 @@ use App\Models\Faucet;
 use App\Models\PaymentProcessor;
 use App\Models\User;
 use App\Repositories\UserFaucetRepository;
+use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use Helpers\Functions\Users;
 use Illuminate\Http\Request;
@@ -27,9 +28,21 @@ class UserFaucetsController extends Controller
     /** @var  UserFaucetRepository */
     private $userFaucetRepository;
 
+    private $userRepository;
+
     private $faucetFunctions;
 
-    public function __construct(UserFaucetRepository $userFaucetRepo, Faucets $faucetFunctions)
+    /**
+     * UserFaucetsController constructor.
+     * @param UserFaucetRepository $userFaucetRepo
+     * @param UserRepository $userRepository
+     * @param Faucets $faucetFunctions
+     */
+    public function __construct(
+        UserFaucetRepository $userFaucetRepo,
+        UserRepository $userRepository,
+        Faucets $faucetFunctions
+    )
     {
         $this->userFaucetRepository = $userFaucetRepo;
         $this->faucetFunctions = $faucetFunctions;
@@ -47,9 +60,30 @@ class UserFaucetsController extends Controller
     public function index($userSlug, Request $request)
     {
         $this->userFaucetRepository->pushCriteria(new RequestCriteria($request));
-        $user = User::where('slug', $userSlug)->first();
+        $user = null;
+
+        // If the entered slug is 'admin', and if the current user is authenticated, and not an admin, or the user is not logged in...
+        // Get the one and only admin user in the system, else retrieve the user with entered slug.
+        if($userSlug == 'admin' && ((Auth::user() != null && !Auth::user()->isAnAdmin()) || Auth::guest())) {
+            $user = User::where('is_admin', true)->first();
+        } else {
+            $user = User::where('slug', $userSlug)->first();
+        }
+
+        // If the assigned user doesn't exist, redirect to users listing instead, with 'not found' flash message.
         if (empty($user)) {
-            abort(404);
+            LaracastsFlash::error('User not found');
+            return redirect(route('users.index'));
+        }
+
+        // If the assigned user is an admin, the current user is authenticated and not an admin, or the user is not logged in...
+        if($user->isAnAdmin() && ((Auth::user() != null && !Auth::user()->isAnAdmin()) || Auth::guest())) {
+            // If the assigned admin user's slug matches the entered slug,
+            // Redirect to users listing instead, with 'not found' flash message.
+            if($user->slug == $userSlug) {
+                LaracastsFlash::error('User not found');
+                return redirect(route('users.index'));
+            }
         }
 
         if (Auth::guest() == true) {
@@ -82,7 +116,7 @@ class UserFaucetsController extends Controller
         $userFaucets = null;
 
         $user = User::where('slug', $userSlug)->first();
-        if (Auth::user()->hasRole('user') || Auth::user()->hasRole('owner')) {
+        if (Auth::user()->hasRole('user') || Auth::user()->isAnAdmin()) {
             $userFaucets = $this->faucetFunctions->getUserFaucets($user, true);
         } else {
             $userFaucets = $this->faucetFunctions->getUserFaucets($user, false);
@@ -90,7 +124,7 @@ class UserFaucetsController extends Controller
 
         $availableFaucets = $faucets->except($userFaucets->modelKeys());
 
-        if ($user->is_admin == true && $user->hasRole('owner')) {
+        if ($user->isAnAdmin()) {
             return redirect(route('faucets.create'))
                 ->with('paymentProcessors', $paymentProcessors)
                 ->with('faucetPaymentProcessorIds', $faucetPaymentProcessorIds)
@@ -114,7 +148,7 @@ class UserFaucetsController extends Controller
      */
     public function store($userSlug, CreateUserFaucetRequest $request)
     {
-        if (Auth::user()->hasRole('owner') || Auth::user()) {
+        if (Auth::user()->isAnAdmin() || Auth::user()) {
             $input = $request->except('_token', 'payment_processor');
             $user = User::where('slug', $userSlug)->first();
 
@@ -157,7 +191,15 @@ class UserFaucetsController extends Controller
      */
     public function show($userSlug, $faucetSlug)
     {
-        $user = User::where('slug', $userSlug)->first();
+        $user = null;
+        // If the slug value is 'admin', return admin user with their real slug.
+        // We don't want to show the real admin user's user name.
+        if($userSlug == 'admin') {
+            $user = $this->userRepository->findByField('is_admin', true)->first();
+            //dd($user);
+        } else {
+            $user = $this->userRepository->findByField('slug', $userSlug)->first();
+        }
         $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
 
         $mainFaucet = Faucet::where('slug', $faucetSlug)->withTrashed()->first();
@@ -201,7 +243,7 @@ class UserFaucetsController extends Controller
         // If the user's faucet exists, and main admin faucet is soft-deleted.
         elseif (!empty($faucet) && $faucet->isDeleted()) {
             //If the authenticated user is an owner or standard user, or the faucet's user is currently authenticated.
-            if ((Auth::user()->hasRole('owner') || Auth::user()->hasRole('user')) || $user === Auth::user()) {
+            if ((Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) || $user === Auth::user()) {
                 if (Auth::user()->hasRole('user')) {
                     $message = 'The owner of this rotator has deleted the faucet you requested. You can contact them if you would like it to be restored.';
                 } elseif (Auth::user()->hasRole('owner')) {
@@ -220,7 +262,7 @@ class UserFaucetsController extends Controller
 
         // If user faucet exists, and the user's faucet is soft-deleted.
         elseif (!empty($faucet) && $faucet->pivot->deleted_at != null) {
-            if (!Auth::guest() && (Auth::user()->hasRole('owner') || Auth::user()->hasRole('user')) && $user == Auth::user()) {
+            if (!Auth::guest() && (Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) && $user == Auth::user()) {
                 if (Auth::user()->hasRole('user')) {
                     $message = 'You have deleted the faucet that was requested; however, you are able to restore this faucet.';
                 } elseif (Auth::user()->hasRole('owner')) {

@@ -1,5 +1,5 @@
 @if(Auth::user() != null)
-    @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
+    @if(Auth::user()->isAnAdmin())
         <!-- Id Field -->
         <div class="form-group">
             {!! Form::label('id', 'Id:') !!}
@@ -21,7 +21,7 @@
 </div>
 
 @if(Auth::user() != null)
-    @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
+    @if(Auth::user()->isAnAdmin())
         <!-- Referral Code Field -->
         <div class="form-group">
             {!! Form::label('referral_code', 'Referral Code:') !!}

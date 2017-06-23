@@ -2,13 +2,13 @@
 <table class="table table-striped bordered tablesorter" id="faucets-table">
     <thead>
         @if(Auth::user() != null)
-            @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner') || Auth::user() == $user)
+            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                 <th>Id</th>
             @endif
         @endif
         <th>Name</th>
         @if(Auth::user() != null)
-            @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner') || Auth::user() == $user)
+            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                 <th>Referral Code</th>
             @endif
         @endif
@@ -17,7 +17,7 @@
         <th>Max. Payout</th>
         <th>Payment Processors</th>
         @if(Auth::user() != null)
-            @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner') || Auth::user() == $user)
+            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                 @if(Route::currentRouteName() != 'users.faucets.create')
                     <th>Has Been Deleted</th>
                     <th>Action</th>
@@ -29,14 +29,14 @@
     @foreach($faucets as $faucet)
         <tr>
             @if(Auth::user() != null)
-                @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner') || Auth::user() == $user)
+                @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                     <td>{!! $faucet->id !!}</td>
                 @endif
             @endif
-            <td>{!! link_to(route('users.faucets.show', [$user->slug, $faucet->slug]), $faucet->name, ['target' => 'blank', 'title' => $faucet->name]) !!}</td>
+            <td>{!! link_to(route('users.faucets.show', [$user->userSlug(), $faucet->slug]), $faucet->name, ['target' => 'blank', 'title' => $faucet->name]) !!}</td>
 
             @if(Auth::user() != null)
-                @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner') || Auth::user() == $user)
+                @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                     @if(!empty($faucet))
                         <td>
                             @if($faucet->pivot == null)
@@ -65,13 +65,13 @@
                 </ul>
             </td>
             @if(Auth::user() != null)
-                @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner') || Auth::user() == $user)
+                @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                     @if(Route::getCurrentRoute() != 'users.faucets.create' || Route::getCurrentRoute() == 'users.faucets')
                         @if(!empty($faucet) && $faucet->pivot != null)
                             <td>{!! $faucet->pivot->deleted_at != null ? "Yes" : "No" !!}</td>
                             <td>
                                 @if($faucet->pivot->deleted_at != null)
-                                    @if(Auth::user()->hasRole('owner') || Auth::user() == $user)
+                                    @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                                         @if(
                                             Auth::user()->hasPermission('permanent-delete-faucets') ||
                                             $user->hasPermission('permanent-delete-user-faucets')
@@ -79,12 +79,9 @@
                                             {!! Form::open(['route' => ['users.faucets.delete-permanently', $user->slug, $faucet->slug], 'method' => 'delete']) !!}
                                             {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"]) !!}
                                             {!! Form::close() !!}
-                                            @else
-                                            fart
-
                                         @endif
                                     @endif
-                                    @if(Auth::user()->hasRole('owner') || Auth::user() == $user)
+                                    @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                                         @if(
                                             Auth::user()->hasPermission('restore-faucets') ||
                                             Auth::user()->hasPermission('restore-user-faucets')
@@ -95,7 +92,7 @@
                                         @endif
                                     @endif
                                 @else
-                                    @if(Auth::user()->hasRole('owner') || Auth::user() == $user)
+                                    @if(Auth::user()->isAnAdmin())
                                         @if(
                                             Auth::user()->hasPermission('soft-delete-faucets') ||
                                             Auth::user()->hasPermission('soft-delete-user-faucets')

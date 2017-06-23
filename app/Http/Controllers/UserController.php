@@ -42,8 +42,8 @@ class UserController extends AppBaseController
         $this->userRepository->pushCriteria(new RequestCriteria($request));
         $users = null;
         if (Auth::guest() || Auth::user()->hasRole('user')) {
-            $users = $this->userRepository->findByField('is_admin', false);
-        } elseif (Auth::user()->hasRole('owner')) {
+            $users = $this->userRepository->all();
+        } elseif (Auth::user()->isAnAdmin()) {
             $users = $this->userRepository->withTrashed()->get();
         }
 
@@ -59,7 +59,7 @@ class UserController extends AppBaseController
     public function create()
     {
         $user = null;
-        if (Auth::user()->hasRole('owner')) {
+        if (Auth::user()->isAnAdmin()) {
             return view('users.create')->with('user');
         } else {
             abort(403);
@@ -74,7 +74,7 @@ class UserController extends AppBaseController
      */
     public function store(CreateUserRequest $request)
     {
-        if (Auth::user()->hasRole('owner')) {
+        if (Auth::user()->isAnAdmin()) {
             $input = $request->all();
 
             $this->userFunctions->createStoreUser($input);
@@ -95,10 +95,38 @@ class UserController extends AppBaseController
      */
     public function show($slug)
     {
-        $user = $this->userRepository->findByField('slug', $slug)->first();
+        $user = null;
+        // If the slug value is 'admin', return admin user with their real slug.
+        // We don't want to show the real admin user's user name.
+        $adminUser = $this->userRepository->findByField('is_admin', true)->first();
+        if($slug == 'admin') {
+            if($adminUser->isAnAdmin()) {
+                $user = $adminUser;
+            }
+        } else {
+            $user = $this->userRepository->findByField('slug', $slug)->first();
+        }
+        if($adminUser->slug == $slug){
+            if(Auth::user() != null && Auth::user()->isAnAdmin()){
+                return view('users.show')
+                    ->with('user', $user);
+            }
+            LaracastsFlash::error('User not found');
+            return redirect(route('users.index'));
+        }
+        if(Auth::guest()){
+            if(!empty($user)){
+                return view('users.show')
+                    ->with('user', $user);
+            } else {
+                LaracastsFlash::error('User not found');
+                return redirect(route('users.index'));
+            }
+        }
+
         $message = null;
 
-        if (Auth::guest() && !empty($user) && $user->isDeleted()) { // If the visitor is a guest, user exists, and user is soft-deleted
+        if (Auth::guest() && !empty($user) && $user->isDeleted()) { // If the visitor is a guest, user doesn't exist, and user is soft-deleted
             LaracastsFlash::error('User not found');
             return redirect(route('users.index'));
         } elseif (
@@ -108,14 +136,14 @@ class UserController extends AppBaseController
         ) {
             LaracastsFlash::error('User not found');
             return redirect(route('users.index'));
-        } elseif ((Auth::guest() || Auth::user()->hasRole('user')) && $user->hasRole('owner')) {
+        } elseif ((Auth::guest() || Auth::user()->hasRole('user')) && $user->isAnAdmin()) {
             LaracastsFlash::error('User not found');
             return redirect(route('users.index'));
         } else {
             if (
                 !empty($user) && // If the user exists,
                 $user->isDeleted() && // If the user is soft-deleted,
-                Auth::user()->role()->first()->name == 'owner' // If the currently authenticated user has 'owner' role,
+                Auth::user()->isAnAdmin() // If the currently authenticated user is an admin,
             ) {
                 $message = 'The user has been temporarily deleted. You can restore the user or permanently delete them.';
 
@@ -143,12 +171,12 @@ class UserController extends AppBaseController
     public function edit($slug)
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
-        if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->hasRole('owner') && $user->isDeleted() == true)) {
+        if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->isAnAdmin() && $user->isDeleted() == true)) {
             LaracastsFlash::error('User not found');
 
             return redirect(route('users.index'));
         } else {
-            if (($user == Auth::user() || Auth::user()->hasRole('owner')) || ($user->isDeleted() == true && Auth::user()->hasRole('owner'))) {
+            if (($user == Auth::user() || Auth::user()->isAnAdmin()) || ($user->isDeleted() == true && Auth::user()->isAnAdmin())) {
                 return view('users.edit')
                     ->with('user', $user)
                     ->with('slug', $slug);
@@ -186,8 +214,8 @@ class UserController extends AppBaseController
             ['user' => $user, 'slug' => $slug]
         );
 
-        if ($user->hasRole('owner')) {
-            LaracastsFlash::error('An owner-user cannot be soft-deleted.');
+        if ($user->isAnAdmin()) {
+            LaracastsFlash::error('An owner-admin-user cannot be soft-deleted.');
 
             return redirect(route('users.index'));
         }
@@ -215,8 +243,8 @@ class UserController extends AppBaseController
         );
 
 
-        if ($user->hasRole('owner')) {
-            LaracastsFlash::error('An owner-user cannot be permanently deleted.');
+        if ($user->isAnAdmin()) {
+            LaracastsFlash::error('An owner-admin-user cannot be permanently deleted.');
 
             return redirect(route('users.index'));
         }

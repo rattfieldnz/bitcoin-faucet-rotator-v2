@@ -2,7 +2,7 @@
 <table class="table table-striped bordered tablesorter" id="faucets-table">
     <thead>
         @if(Auth::user() != null)
-            @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
+            @if(Auth::user()->isAnAdmin())
                 <th>Id</th>
             @endif
         @endif
@@ -11,7 +11,7 @@
         <th>Interval Minutes</th>
         <th>Payment Processors</th>
         @if(Auth::user() != null)
-            @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
+            @if(Auth::user()->isAnAdmin())
                 <th>Has Been Deleted</th>
             @endif
         @endif
@@ -21,7 +21,7 @@
     @foreach($faucets as $faucet)
         <tr>
             @if(Auth::user() != null)
-                @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
+                @if(Auth::user()->isAnAdmin())
                     <td>{!! $faucet->id !!}</td>
                 @endif
             @endif
@@ -36,7 +36,7 @@
                 </ul>
             </td>
             @if(Auth::user() != null)
-                @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
+                @if(Auth::user()->isAnAdmin())
                     <td>{!! $faucet->isDeleted() == true ? "Yes" : "No" !!}</td>
                 @endif
             @endif
@@ -44,7 +44,7 @@
                 <div class='btn-group'>
                     <a href="{!! route('faucets.show', ['slug' => $faucet->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                     @if(Auth::user() != null)
-                        @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
+                        @if(Auth::user()->isAnAdmin())
                             <a href="{!! route('faucets.edit', ['slug' => $faucet->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                             @if($faucet->isDeleted())
                                 {!! Form::open(['route' => ['faucets.delete-permanently', $faucet->slug], 'method' => 'delete']) !!}

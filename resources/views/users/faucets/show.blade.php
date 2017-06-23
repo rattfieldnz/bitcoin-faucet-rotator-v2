@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
-                    <a href="{!! route('users.faucets', $user->slug) !!}" class="btn btn-default">Back</a>
+                    <a href="{!! route('users.faucets', $user->userSlug()) !!}" class="btn btn-default">Back</a>
 
 
                     <div id="faucet-info" class="table table-responsive">
@@ -73,13 +73,13 @@
                     @else
                         <p>This faucet has been paused from showing in rotation.</p>
 
-                        @if(Auth::user() && $user == Auth::user() || Auth::user()->hasRole('owner'))
-                            <p>You can {!! link_to('/users/' . $user->slug . '/faucets/' . $faucet->slug . '/edit', 'edit this faucet') !!} to re-enable it in rotation.</p>
+                        @if(Auth::user() && $user == Auth::user() || Auth::user()->isAnAdmin())
+                            <p>You can {!! link_to('/users/' . $user->userSlug() . '/faucets/' . $faucet->slug . '/edit', 'edit this faucet') !!} to re-enable it in rotation.</p>
                         @else
                             <p>Please contact the administrator if you would like this faucet re-enabled.</p>
                         @endif
                     @endif
-                    <a href="{!! route('users.faucets', $user->slug) !!}" class="btn btn-default">Back</a>
+                    <a href="{!! route('users.faucets', $user->userSlug()) !!}" class="btn btn-default">Back</a>
                 </div>
             </div>
         </div>

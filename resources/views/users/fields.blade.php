@@ -85,19 +85,23 @@
 </div>
 
 <!-- Is Admin Field -->
-@if(Auth::user()->is_admin == true)
-<div class="form-group col-sm-6 has-feedback{{ $errors->has('is_admin') ? ' has-error' : '' }}">
-    {!! Form::label('is_admin', 'Set user as an admin?:') !!}
+@if(Auth::user()->isAnAdmin())
+    @if(!empty($user))
+        @if(!$user->isAnAdmin())
+            <div class="form-group col-sm-6 has-feedback{{ $errors->has('is_admin') ? ' has-error' : '' }}">
+                {!! Form::label('is_admin', 'Set user as an admin?:') !!}
 
-    {!! Form::label('is_admin', 'Yes') !!}    {!! Form::radio('is_admin', 1) !!}
-    {!! Form::label('is_admin', 'No') !!}    {!! Form::radio('is_admin', 0) !!}
+                {!! Form::label('is_admin', 'Yes') !!}    {!! Form::radio('is_admin', 1) !!}
+                {!! Form::label('is_admin', 'No') !!}    {!! Form::radio('is_admin', 0) !!}
 
-    @if ($errors->has('is_admin'))
-        <span class="help-block">
-		    <strong>{{ $errors->first('is_admin') }}</strong>
-		</span>
+                @if ($errors->has('is_admin'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('is_admin') }}</strong>
+                    </span>
+                @endif
+            </div>
+        @endif
     @endif
-</div>
 @endif
 
 <!-- Submit Field -->
