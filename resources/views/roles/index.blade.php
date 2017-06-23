@@ -13,7 +13,7 @@
         @include('layouts.breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">
-                    @include('roles.table')
+                @include('roles.table')
             </div>
         </div>
     </div>

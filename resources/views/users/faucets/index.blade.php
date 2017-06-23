@@ -16,7 +16,6 @@
     </section>
     <div class="content">
         <div class="clearfix"></div>
-        @include('flash::message')
         @if(session('message'))
             <div class="alert alert-info">
                 {!! session('message') !!}
@@ -26,7 +25,7 @@
         @include('layouts.breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">
-                    @include('users.faucets.table')
+                @include('users.faucets.table')
             </div>
         </div>
     </div>

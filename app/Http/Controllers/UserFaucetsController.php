@@ -11,15 +11,11 @@ use App\Models\User;
 use App\Repositories\UserFaucetRepository;
 use App\Repositories\UserRepository;
 use Carbon\Carbon;
-use Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Route;
-use Laracasts\Flash\Flash as LaracastsFlash;
 use Mews\Purifier\Facades\Purifier;
 use Prettus\Repository\Criteria\RequestCriteria;
 
@@ -72,7 +68,7 @@ class UserFaucetsController extends Controller
 
         // If the assigned user doesn't exist, redirect to users listing instead, with 'not found' flash message.
         if (empty($user)) {
-            LaracastsFlash::error('User not found');
+            flash('User not found.')->error();
             return redirect(route('users.index'));
         }
 
@@ -81,7 +77,7 @@ class UserFaucetsController extends Controller
             // If the assigned admin user's slug matches the entered slug,
             // Redirect to users listing instead, with 'not found' flash message.
             if($user->slug == $userSlug) {
-                LaracastsFlash::error('User not found');
+                flash('User not found.')->error();
                 return redirect(route('users.index'));
             }
         }
@@ -176,7 +172,7 @@ class UserFaucetsController extends Controller
                 );
             }
 
-            LaracastsFlash::success('Faucet saved successfully.');
+            flash('Faucet saved successfully.')->success();
 
             return redirect($redirectRoute);
         }
@@ -210,13 +206,13 @@ class UserFaucetsController extends Controller
         if (empty($user)) {
             abort(404);
         } elseif ((Auth::guest() || Auth::user()->hasRole('user')) && $user->hasRole('owner')) {
-            LaracastsFlash::error('User not found');
+            flash('User not found')->error();
             return redirect(route('users.index'));
         }
 
         // If the visitor isn't authenticated, the user's faucet is soft-deleted, and main admin faucet exists.
         elseif (Auth::guest() && ($mainFaucet != null && $faucet->pivot->deleted_at != null)) {
-            LaracastsFlash::error('The faucet was not found');
+            flash('The faucet was not found')->error();
             return redirect(route('users.faucets', $user->slug));
         }
 
@@ -224,7 +220,7 @@ class UserFaucetsController extends Controller
         elseif ($mainFaucet != null && $faucet->pivot->deleted_at != null) {
             //If the visitor isn't authenticated.
             if (Auth::guest()) {
-                LaracastsFlash::error('The faucet was not found');
+                flash('The faucet was not found')->error();
                 return redirect(route('users.faucets', $user->slug));
             }
             //If the authenticated user is an owner or standard user.
@@ -255,7 +251,7 @@ class UserFaucetsController extends Controller
                     ->with('faucet', $faucet)
                     ->with('message', $message);
             } else {
-                LaracastsFlash::error('The faucet was not found');
+                flash('The faucet was not found')->error();
                 return redirect(route('users.faucets', $user->slug));
             }
         }
@@ -282,7 +278,7 @@ class UserFaucetsController extends Controller
                     ->with('faucet', $faucet)
                     ->with('message', $message);
             } else {
-                LaracastsFlash::error('The faucet was not found');
+                flash('The faucet was not found')->error();
                 return redirect(route('users.faucets', $user->slug));
             }
         }
@@ -309,7 +305,7 @@ class UserFaucetsController extends Controller
         $redirectRoute = route('users.faucets', $user->slug);
 
         if (empty($faucet)) {
-            LaracastsFlash::error('Faucet not found');
+            flash('The faucet was not found')->error();
 
             return redirect(route('users.faucets', $user->slug));
         }
@@ -330,7 +326,7 @@ class UserFaucetsController extends Controller
 
         $this->userFaucetRepository->update($input, $user->id);
 
-        LaracastsFlash::success('Faucet updated successfully.');
+        flash('Faucet updated successfully')->success();
 
         return redirect($redirectRoute);
     }
@@ -352,7 +348,7 @@ class UserFaucetsController extends Controller
         }
 
         if (empty($paymentProcessors)) {
-            LaracastsFlash::error('No payment processors were found.');
+            flash('No payment processors were found.')->error();
             return redirect(route('users.payment-processors', $user->slug));
         }
     }
@@ -376,19 +372,23 @@ class UserFaucetsController extends Controller
         $redirectRoute = route('users.faucets', $user->slug);
 
         if (empty($faucet)) {
-            LaracastsFlash::error('Faucet not found');
+            flash('Faucet not found.')->error();
 
             return redirect($redirectRoute);
         }
 
         if (!empty($faucet) && $faucet->isDeleted()) {
-            LaracastsFlash::error('The owner has temporarily deleted this faucet, and you are not able to restore it. You can ask the owner if the faucet can be restored.');
+            flash(
+                'The owner has temporarily deleted this faucet, 
+                and you are not able to restore it. You can ask 
+                the owner if the faucet can be restored.'
+            )->error();
 
             return redirect($redirectRoute);
         }
 
         if (!empty($faucet) && $faucet->pivot->deleted_at != null) {
-            LaracastsFlash::error('The faucet has already been soft-deleted.');
+            flash('The faucet has already been soft-deleted.')->error();
 
             return redirect($redirectRoute);
         }
@@ -413,7 +413,7 @@ class UserFaucetsController extends Controller
             ->where('faucet_id', $faucet->id)
             ->update(['deleted_at' => Carbon::now()]);
 
-        LaracastsFlash::success('The faucet has successfully been soft-deleted!');
+        flash('The faucet has successfully been soft-deleted!')->success();
 
         return redirect($redirectRoute);
     }
@@ -438,7 +438,7 @@ class UserFaucetsController extends Controller
         $redirectRoute = route('users.faucets', $user->slug);
 
         if (empty($faucet)) {
-            LaracastsFlash::error('The faucet was not found, or has already been permanently deleted.');
+            flash('The faucet was not found, or has already been permanently deleted.')->error();
 
             return redirect($redirectRoute);
         }
@@ -463,7 +463,7 @@ class UserFaucetsController extends Controller
             );
         }
 
-        LaracastsFlash::success('The faucet was permanently deleted!');
+        flash('The faucet was permanently deleted!')->success();
 
         return redirect($redirectRoute);
     }
@@ -471,6 +471,7 @@ class UserFaucetsController extends Controller
     /**
      * @param $userSlug
      * @param $faucetSlug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function restoreDeleted($userSlug, $faucetSlug)
     {
@@ -484,19 +485,23 @@ class UserFaucetsController extends Controller
         $redirectRoute = route('users.faucets', $user->slug);
 
         if (empty($faucet)) {
-            LaracastsFlash::error('The faucet was not found, or has been permanently deleted.');
+            flash('The faucet was not found, or has been permanently deleted.')->error();
 
             return redirect(route('users.faucets', $user->slug));
         }
 
         if (!empty($faucet) && $faucet->isDeleted()) {
-            LaracastsFlash::error('The owner has temporarily deleted this faucet, and you are not able to restore it. You can ask the owner if the faucet can be restored.');
+            flash(
+                'The owner has temporarily deleted this faucet, 
+                and you are not able to restore it. You can 
+                ask the owner if the faucet can be restored.'
+            )->error();
 
             return redirect($redirectRoute);
         }
 
         if ($faucet->pivot->deleted_at == null) {
-            LaracastsFlash::error('The faucet is already active, and hasn\'t been deleted.');
+            flash('The faucet is already active, and hasn\'t been deleted.')->error();
 
             return redirect($redirectRoute);
         }
@@ -521,7 +526,7 @@ class UserFaucetsController extends Controller
             ->where('faucet_id', $faucet->id)
             ->update(['deleted_at' => null]);
 
-        LaracastsFlash::success('The faucet was successfully restored!');
+        flash('The faucet was successfully restored!')->success();
 
         return redirect($redirectRoute);
     }

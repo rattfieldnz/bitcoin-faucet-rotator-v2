@@ -74,13 +74,11 @@ class Users
         $user = $this->userRepository->findByField('slug', $slug)->first();
 
         if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->hasRole('owner') && $user->isDeleted() == true)) {
-            LaracastsFlash::error('User not found');
 
             return redirect(route('users.index'));
         }
 
         if ($user->hasRole('owner') == true) {
-            LaracastsFlash::error('An owner-user cannot be deleted.');
 
             return redirect(route('users.index'));
         }
@@ -102,7 +100,6 @@ class Users
         $user = $this->userRepository->findByField('slug', $slug)->first();
 
         if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->hasRole('owner') && $user->isDeleted() == true)) {
-            LaracastsFlash::error('User not found');
 
             return redirect(route('users.index'));
         }
@@ -134,8 +131,6 @@ class Users
                     $updateRequestData,
                     $user->slug
                 );
-
-                LaracastsFlash::success('User updated successfully.');
 
                 return redirect(route('users.index'));
             }

@@ -6,9 +6,7 @@ use App\Helpers\Functions;
 use App\Http\Requests\CreateTwitterConfigRequest;
 use App\Http\Requests\UpdateTwitterConfigRequest;
 use App\Repositories\TwitterConfigRepository;
-use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
-use Flash;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
@@ -72,7 +70,7 @@ class TwitterConfigController extends AppBaseController
 
         $this->twitterConfigRepository->create($input);
 
-        Flash::success('Twitter Config saved successfully.');
+        flash('Twitter Config saved successfully.')->success();
 
         return redirect(route('twitter-config.index'));
     }
@@ -90,7 +88,7 @@ class TwitterConfigController extends AppBaseController
         $twitterConfig = $this->twitterConfigRepository->findWithoutFail($id);
 
         if (empty($twitterConfig)) {
-            Flash::error('Twitter Config not found');
+            flash('Twitter Config not found.')->error();
 
             return redirect(route('twitter-config.index'));
         }
@@ -112,14 +110,14 @@ class TwitterConfigController extends AppBaseController
         $twitterConfig = $this->twitterConfigRepository->findWithoutFail($id);
 
         if (empty($twitterConfig)) {
-            Flash::error('Twitter Config not found');
+            flash('Twitter Config not found.')->error();
 
             return redirect(route('twitter-config.index'));
         }
 
         $this->twitterConfigRepository->update($request->all(), $id);
 
-        Flash::success('Twitter Config updated successfully.');
+        flash('Twitter Config updated successfully.')->success();
 
         return redirect(route('twitter-config.index'));
     }
@@ -137,14 +135,14 @@ class TwitterConfigController extends AppBaseController
         $twitterConfig = $this->twitterConfigRepository->findWithoutFail($id);
 
         if (empty($twitterConfig)) {
-            Flash::error('Twitter Config not found');
+            flash('Twitter Config not found.')->error();
 
             return redirect(route('twitterConfigs.index'));
         }
 
         $this->twitterConfigRepository->delete($id);
 
-        Flash::success('Twitter Config deleted successfully.');
+        flash('Twitter Config deleted successfully')->success();
 
         return redirect(route('twitter-config.index'));
     }

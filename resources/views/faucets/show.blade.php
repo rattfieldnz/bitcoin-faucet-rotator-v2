@@ -15,10 +15,6 @@
             </div>
         @endif
         <div class="clearfix"></div>
-
-        @include('flash::message')
-
-        <div class="clearfix"></div>
         @include('layouts.breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">

@@ -72,7 +72,7 @@ class AdBlockController extends AppBaseController
 
         $this->adBlockRepository->create($input);
 
-        Flash::success('Ad Block saved successfully.');
+        flash('Ad Block saved successfully.')->success();
 
         return redirect(route('ad-block.index'));
     }
@@ -90,7 +90,7 @@ class AdBlockController extends AppBaseController
         $adBlock = $this->adBlockRepository->findWithoutFail($id);
 
         if (empty($adBlock)) {
-            Flash::error('Ad Block not found');
+            flash('Ad Block not found')->error();
 
             return redirect(route('ad-block.index'));
         }
@@ -112,14 +112,14 @@ class AdBlockController extends AppBaseController
         $adBlock = $this->adBlockRepository->findWithoutFail($id);
 
         if (empty($adBlock)) {
-            Flash::error('Ad Block not found');
+            flash('Ad Block not found')->error();
 
             return redirect(route('ad-block.index'));
         }
 
         $this->adBlockRepository->update($request->all(), $id);
 
-        Flash::success('Ad Block updated successfully.');
+        flash('Ad Block updated successfully.')->success();
 
         return redirect(route('ad-block.index'));
     }
@@ -137,14 +137,14 @@ class AdBlockController extends AppBaseController
         $adBlock = $this->adBlockRepository->findWithoutFail($id);
 
         if (empty($adBlock)) {
-            Flash::error('Ad Block not found');
+            flash('Ad Block not found')->error();
 
             return redirect(route('ad-block.index'));
         }
 
         $this->adBlockRepository->delete($id);
 
-        Flash::success('Ad Block deleted successfully.');
+        flash('Ad Block deleted successfully.')->success();
 
         return redirect(route('ad-block.index'));
     }

@@ -83,7 +83,7 @@ class RoleController extends AppBaseController
         $role = $this->roleRepository->findByField('slug', $slug)->first();
 
         if (empty($role)) {
-            Flash::error('Role not found');
+            flash('Role not found.')->error();
 
             return redirect(route('roles.index'));
         }
@@ -104,7 +104,7 @@ class RoleController extends AppBaseController
         $role = $this->roleRepository->findByField('slug', $slug)->first();
 
         if (empty($role)) {
-            Flash::error('Role not found');
+            flash('Role not found.')->error();
 
             return redirect(route('roles.index'));
         }
@@ -126,14 +126,14 @@ class RoleController extends AppBaseController
         $role = $this->roleRepository->findByField('slug', $slug)->first();
 
         if (empty($role)) {
-            Flash::error('Role not found');
+            flash('Role not found.')->error();
 
             return redirect(route('roles.index'));
         }
 
         $this->roleRepository->update($request->all(), $role->id);
 
-        Flash::success('Role updated successfully.');
+        flash('Role updated successfully.')->success();
 
         return redirect(route('roles.index'));
     }

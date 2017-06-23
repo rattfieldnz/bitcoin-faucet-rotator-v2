@@ -71,7 +71,7 @@ class PaymentProcessorController extends AppBaseController
 
         $paymentProcessor = $this->paymentProcessorRepository->create($input);
 
-        Flash::success('Payment Processor saved successfully.');
+        flash('Payment Processor saved successfully.')->success();
 
         return redirect(route('payment-processors.index'));
     }
@@ -88,7 +88,7 @@ class PaymentProcessorController extends AppBaseController
         $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
 
         if (empty($paymentProcessor)) {
-            Flash::error('Payment Processor not found');
+            flash('Payment Processor not found.')->error();
 
             return redirect(route('payment-processors.index'));
         }
@@ -102,7 +102,7 @@ class PaymentProcessorController extends AppBaseController
         $faucets = null;
 
         if (empty($paymentProcessor)) {
-            Flash::error('Payment Processor not found');
+            flash('Payment Processor not found.')->error();
 
             return redirect(route('payment-processors.index'));
         }
@@ -120,8 +120,9 @@ class PaymentProcessorController extends AppBaseController
 
     /**
      * [userPaymentProcessors description]
-     * @param  [type] $userSlug [description]
-     * @return [type]           [description]
+     * @param $userSlug
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @internal param $ [type] $userSlug [description]
      */
     public function userPaymentProcessors($userSlug)
     {
@@ -130,7 +131,7 @@ class PaymentProcessorController extends AppBaseController
         if (empty($user)) {
             abort(404);
         } elseif ((Auth::guest() || Auth::user()->hasRole('user')) && $user->hasRole('owner')) {
-            LaracastsFlash::error('User not found');
+            flash('User not found.')->error();
             return redirect(route('users.index'));
         }
 
@@ -149,7 +150,7 @@ class PaymentProcessorController extends AppBaseController
         $faucets = null;
 
         if ((Auth::guest() || Auth::user()->hasRole('user')) && $user->hasRole('owner')) {
-            LaracastsFlash::error('User not found');
+            flash('User not found.')->success();
             return redirect(route('users.index'));
         } elseif (Auth::guest()) {
             $faucets = $this->userFunctions->getPaymentProcessorFaucets($user, $paymentProcessor, false);
@@ -176,7 +177,7 @@ class PaymentProcessorController extends AppBaseController
         $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
 
         if (empty($paymentProcessor)) {
-            Flash::error('Payment Processor not found');
+            flash('Payment Processor not found.')->error();
 
             return redirect(route('paymentProcessors.index'));
         }
@@ -197,14 +198,14 @@ class PaymentProcessorController extends AppBaseController
         Functions::userCanAccessArea(Auth::user(), 'payment-processors.update', ['slug' => $slug], ['slug' => $slug]);
         $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
         if (empty($paymentProcessor)) {
-            Flash::error('Payment Processor not found');
+            flash('Payment Processor not found.')->error();
 
             return redirect(route('payment-processors.index'));
         }
 
         $this->paymentProcessorRepository->update($request->all(), $paymentProcessor->id);
 
-        Flash::success('Payment Processor updated successfully.');
+        flash('Payment Processor updated successfully.')->success();
 
         return redirect(route('payment-processors.index'));
     }
@@ -222,14 +223,14 @@ class PaymentProcessorController extends AppBaseController
         $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
 
         if (empty($paymentProcessor)) {
-            Flash::error('Payment Processor not found');
+            flash('Payment Processor not found.')->error();
 
             return redirect(route('payment-processors.index'));
         }
 
         $this->paymentProcessorRepository->deleteWhere(['slug' => $slug]);
 
-        Flash::success('Payment Processor deleted successfully.');
+        flash('Payment Processor deleted successfully.')->success();
 
         return redirect(route('payment-processors.index'));
     }
@@ -253,13 +254,14 @@ class PaymentProcessorController extends AppBaseController
 
         if (empty($paymentProcessor)) {
             Flash::error('Payment Processor not found');
+            flash('Payment Processor not found.')->error();
 
             return redirect(route('payment-processors.index'));
         }
 
         $paymentProcessor->forceDelete();
 
-        Flash::success('Payment Processor was permanently deleted!');
+        flash('Payment Processor was permanently deleted!')->success();
 
         return redirect(route('payment-processors.index'));
     }
@@ -283,13 +285,14 @@ class PaymentProcessorController extends AppBaseController
 
         if (empty($paymentProcessor)) {
             Flash::error('Payment Processor not found');
+            flash('Payment Processor not found.')->error();
 
             return redirect(route('payment-processors.index'));
         }
 
         $this->paymentProcessorRepository->restoreDeleted($slug);
 
-        Flash::success('Payment Processor was successfully restored!');
+        flash('Payment Processor was successfully restored')->success();
 
         return redirect(route('payment-processors.index'));
     }

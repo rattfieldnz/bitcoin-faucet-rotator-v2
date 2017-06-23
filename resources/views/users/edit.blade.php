@@ -8,16 +8,11 @@
    </section>
    <div class="content">
        @include('adminlte-templates::common.errors')
-       <div class="clearfix"></div>
-
-       @include('flash::message')
-
-       <div class="clearfix"></div>
        @include('layouts.breadcrumbs')
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($user, ['route' => ['users.update', $user->userSlug()], 'method' => 'patch']) !!}
+                   {!! Form::model($user, ['route' => ['users.update', $user->slug], 'method' => 'patch']) !!}
 
                         @include('users.fields')
 

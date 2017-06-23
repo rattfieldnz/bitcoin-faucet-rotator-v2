@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Helpers\Functions\Faucets;
 use App\Http\Requests\CreateFaucetRequest;
 use App\Http\Requests\UpdateFaucetRequest;
-use App\Models\Faucet;
 use App\Models\PaymentProcessor;
 use App\Repositories\FaucetRepository;
 use Helpers\Functions\Users;
@@ -13,8 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
-use Laracasts\Flash\Flash as LaracastsFlash;
-use Laracasts\Flash\Flash;
 use Mews\Purifier\Facades\Purifier;
 use Prettus\Repository\Criteria\RequestCriteria;
 
@@ -103,7 +100,7 @@ class FaucetController extends AppBaseController
         Users::userCanAccessArea(Auth::user(), 'faucets.store', [], []);
         $this->faucetFunctions->createStoreFaucet($request);
 
-        LaracastsFlash::success('Faucet saved successfully.');
+        flash('Faucet added successfully.')->success();
 
         return redirect(route('faucets.index'));
     }
@@ -122,7 +119,7 @@ class FaucetController extends AppBaseController
         $referralCode = null;
 
         if (Auth::guest() && !empty($faucet) && $faucet->isDeleted()) { // If the visitor is a guest, faucet exists, and faucet is soft-deleted
-            LaracastsFlash::error('Faucet not found');
+            flash('Faucet not found')->error();
             return redirect(route('faucets.index'));
         } elseif (
             !Auth::guest() && // If the visitor isn't a guest visitor,
@@ -130,7 +127,7 @@ class FaucetController extends AppBaseController
             !Auth::user()->isAnAdmin() && // If the visitor is an authenticated user, but without 'owner' role,
             $faucet->isDeleted() // If the faucet has been soft-deleted
         ) {
-            LaracastsFlash::error('Faucet not found');
+            flash('Faucet not found')->error();
             return redirect(route('faucets.index'));
         } else {
             if (
@@ -159,7 +156,7 @@ class FaucetController extends AppBaseController
                     ->with('message', $message)
                     ->with('referralCode', $referralCode);
             } else {
-                LaracastsFlash::error('Faucet not found');
+                flash('Faucet not found')->error();
                 return redirect(route('faucets.index'));
             }
         }
@@ -185,7 +182,7 @@ class FaucetController extends AppBaseController
         }
 
         if (empty($faucet)) {
-            Flash::error('Faucet not found');
+            flash('Faucet not found')->error();
 
             return redirect(route('faucets.index'));
         }
@@ -210,7 +207,7 @@ class FaucetController extends AppBaseController
 
         $this->faucetFunctions->updateFaucet($slug, $request);
 
-        LaracastsFlash::success('Faucet updated successfully.');
+        flash('Faucet updated successfully.')->success();
 
         return redirect(route('faucets.index'));
     }

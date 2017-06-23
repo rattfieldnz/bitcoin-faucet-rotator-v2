@@ -67,7 +67,7 @@ class MainMetaController extends AppBaseController
 
         $this->mainMetaRepository->create($input);
 
-        Flash::success('Main Meta saved successfully.');
+        flash('Main Meta updated successfully.')->success();
 
         return redirect(route('main-meta.index'));
     }
@@ -85,7 +85,7 @@ class MainMetaController extends AppBaseController
         $mainMeta = $this->mainMetaRepository->findWithoutFail($id);
 
         if (empty($mainMeta)) {
-            Flash::error('Main Meta not found');
+            flash('Main Meta not found.')->error();
 
             return redirect(route('main-metas.index'));
         }
@@ -107,7 +107,7 @@ class MainMetaController extends AppBaseController
         $mainMeta = $this->mainMetaRepository->findWithoutFail($id);
 
         if (empty($mainMeta)) {
-            Flash::error('Main Meta not found');
+            flash('Main Meta not found.')->error();
 
             return redirect(route('main-metas.index'));
         }
@@ -116,7 +116,7 @@ class MainMetaController extends AppBaseController
 
         $this->mainMetaRepository->update($input, $id);
 
-        Flash::success('Main Meta updated successfully.');
+        flash('Main Meta updated successfully.')->success();
 
         return redirect(route('main-meta.index'));
     }
@@ -134,14 +134,14 @@ class MainMetaController extends AppBaseController
         $mainMeta = $this->mainMetaRepository->findWithoutFail($id);
 
         if (empty($mainMeta)) {
-            Flash::error('Main Meta not found');
+            flash('Main Meta not found.')->success();
 
             return redirect(route('main-metas.index'));
         }
 
         $this->mainMetaRepository->delete($id);
 
-        Flash::success('Main Meta deleted successfully.');
+        flash('Main meta deleted successfully.')->success();
 
         return redirect(route('main-metas.index'));
     }

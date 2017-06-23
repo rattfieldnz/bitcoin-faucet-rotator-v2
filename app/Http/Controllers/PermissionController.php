@@ -83,7 +83,7 @@ class PermissionController extends AppBaseController
         $permission = $this->permissionRepository->findByField('slug', $slug)->first();
 
         if (empty($permission)) {
-            Flash::error('Permission not found');
+            flash('Permission not found.')->error();
 
             return redirect(route('permissions.index'));
         }
@@ -104,7 +104,7 @@ class PermissionController extends AppBaseController
         $permission = $this->permissionRepository->findByField('slug', $slug)->first();
 
         if (empty($permission)) {
-            Flash::error('Permission not found');
+            flash('Permission not found.')->error();
 
             return redirect(route('permissions.index'));
         }
@@ -127,13 +127,14 @@ class PermissionController extends AppBaseController
 
         if (empty($permission)) {
             Flash::error('Permission not found');
+            flash('Permission not found.')->error();
 
             return redirect(route('permissions.index'));
         }
 
         $this->permissionRepository->update($request->all(), $permission->id);
 
-        Flash::success('Permission updated successfully.');
+        flash('Permission updated successfully.')->success();
 
         return redirect(route('permissions.index'));
     }

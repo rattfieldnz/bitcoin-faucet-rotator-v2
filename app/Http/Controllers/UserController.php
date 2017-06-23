@@ -9,7 +9,6 @@ use App\Repositories\UserRepository;
 use Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Laracasts\Flash\Flash as LaracastsFlash;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 
@@ -79,7 +78,7 @@ class UserController extends AppBaseController
 
             $this->userFunctions->createStoreUser($input);
 
-            LaracastsFlash::success('User saved successfully.');
+            flash('User saved successfully.')->success();
 
             return redirect(route('users.index'));
         } else {
@@ -111,7 +110,7 @@ class UserController extends AppBaseController
                 return view('users.show')
                     ->with('user', $user);
             }
-            LaracastsFlash::error('User not found');
+            flash('User not found')->error();
             return redirect(route('users.index'));
         }
         if(Auth::guest()){
@@ -119,7 +118,7 @@ class UserController extends AppBaseController
                 return view('users.show')
                     ->with('user', $user);
             } else {
-                LaracastsFlash::error('User not found');
+                flash('User not found')->error();
                 return redirect(route('users.index'));
             }
         }
@@ -127,17 +126,17 @@ class UserController extends AppBaseController
         $message = null;
 
         if (Auth::guest() && !empty($user) && $user->isDeleted()) { // If the visitor is a guest, user doesn't exist, and user is soft-deleted
-            LaracastsFlash::error('User not found');
+            flash('User not found')->error();
             return redirect(route('users.index'));
         } elseif (
             !Auth::guest() && // If the visitor isn't a guest visitor,
             Auth::user()->hasRole('user') && // If the visitor is an authenticated user with 'user' role
             $user->isDeleted() // If the requested user has been soft-deleted
         ) {
-            LaracastsFlash::error('User not found');
+            flash('User not found')->error();
             return redirect(route('users.index'));
         } elseif ((Auth::guest() || Auth::user()->hasRole('user')) && $user->isAnAdmin()) {
-            LaracastsFlash::error('User not found');
+            flash('User not found')->error();
             return redirect(route('users.index'));
         } else {
             if (
@@ -156,7 +155,7 @@ class UserController extends AppBaseController
                 return view('users.show')
                     ->with('user', $user);
             } else {
-                LaracastsFlash::error('User not found');
+                flash('User not found')->error();
                 return redirect(route('users.index'));
             }
         }
@@ -172,7 +171,7 @@ class UserController extends AppBaseController
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
         if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->isAnAdmin() && $user->isDeleted() == true)) {
-            LaracastsFlash::error('User not found');
+            flash('User not found')->error();
 
             return redirect(route('users.index'));
         } else {
@@ -195,6 +194,9 @@ class UserController extends AppBaseController
     public function update($slug, UpdateUserRequest $request)
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
+
+        flash('User updated successfully.')->success();
+        //dd($request->session()->get('flash_notification'));
         return $this->userFunctions->updateUser($user->slug, $request);
     }
 
@@ -215,13 +217,13 @@ class UserController extends AppBaseController
         );
 
         if ($user->isAnAdmin()) {
-            LaracastsFlash::error('An owner-admin-user cannot be soft-deleted.');
+            flash('An owner-admin-user cannot be soft-deleted.')->error();
 
             return redirect(route('users.index'));
         }
         $this->userFunctions->destroyUser($user->slug, false);
 
-        LaracastsFlash::success('User deleted successfully.');
+        flash('User deleted successfully.')->success();
 
         return redirect(route('users.index'));
     }
@@ -242,14 +244,15 @@ class UserController extends AppBaseController
             ['user' => $user, 'slug' => $slug]
         );
 
-
         if ($user->isAnAdmin()) {
-            LaracastsFlash::error('An owner-admin-user cannot be permanently deleted.');
+
+            flash('An owner-admin-user cannot be permanently deleted.')->error();
 
             return redirect(route('users.index'));
         }
         if (empty($user)) {
-            LaracastsFlash::error('User not found.');
+
+            flash('User not found.')->error();
 
             return redirect(route('users.index'));
         }
@@ -258,7 +261,7 @@ class UserController extends AppBaseController
             ->where('user_id', $user->id)
             ->delete();
 
-        LaracastsFlash::success('User was permanently deleted!');
+        flash('User was permanently deleted!')->success();
 
         return redirect(route('users.index'));
     }
@@ -281,7 +284,7 @@ class UserController extends AppBaseController
 
         $this->userFunctions->restoreUser($user->slug);
 
-        LaracastsFlash::success('User was successfully restored!');
+        flash('User was successfully restored!')->success();
 
         return redirect(route('users.index'));
     }
