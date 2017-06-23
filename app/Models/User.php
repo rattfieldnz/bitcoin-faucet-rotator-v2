@@ -185,38 +185,38 @@ class User extends Authenticatable
         return false;
     }
 
-    public function userName() {
-        if($this->hasRole('owner') && $this->is_admin == true) {
+    public function userName()
+    {
+        if ($this->hasRole('owner') && $this->is_admin == true) {
             return 'admin';
-        }
-        else {
+        } else {
             return $this->user_name;
         }
     }
 
-    public function userSlug(){
-        if($this->hasRole('owner') && $this->is_admin == true) {
+    public function userSlug()
+    {
+        if ($this->hasRole('owner') && $this->is_admin == true) {
             return 'admin';
-        }
-        else {
+        } else {
             return $this->slug;
         }
     }
 
-    public function userFirstName(){
-        if($this->hasRole('owner') && $this->is_admin == true) {
+    public function userFirstName()
+    {
+        if ($this->hasRole('owner') && $this->is_admin == true) {
             return 'Admin';
-        }
-        else {
+        } else {
             return $this->first_name;
         }
     }
 
-    public function userLastName(){
-        if($this->hasRole('owner') && $this->is_admin == true) {
+    public function userLastName()
+    {
+        if ($this->hasRole('owner') && $this->is_admin == true) {
             return 'Admin';
-        }
-        else {
+        } else {
             return $this->last_name;
         }
     }

@@ -74,12 +74,10 @@ class Users
         $user = $this->userRepository->findByField('slug', $slug)->first();
 
         if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->hasRole('owner') && $user->isDeleted() == true)) {
-
             return redirect(route('users.index'));
         }
 
         if ($user->hasRole('owner') == true) {
-
             return redirect(route('users.index'));
         }
 
@@ -100,7 +98,6 @@ class Users
         $user = $this->userRepository->findByField('slug', $slug)->first();
 
         if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->hasRole('owner') && $user->isDeleted() == true)) {
-
             return redirect(route('users.index'));
         }
 

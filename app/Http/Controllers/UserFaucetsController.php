@@ -38,8 +38,7 @@ class UserFaucetsController extends Controller
         UserFaucetRepository $userFaucetRepo,
         UserRepository $userRepository,
         Faucets $faucetFunctions
-    )
-    {
+    ) {
         $this->userFaucetRepository = $userFaucetRepo;
         $this->faucetFunctions = $faucetFunctions;
         $this->middleware('auth', ['except' => ['index', 'show']]);
@@ -60,7 +59,7 @@ class UserFaucetsController extends Controller
 
         // If the entered slug is 'admin', and if the current user is authenticated, and not an admin, or the user is not logged in...
         // Get the one and only admin user in the system, else retrieve the user with entered slug.
-        if($userSlug == 'admin' && ((Auth::user() != null && !Auth::user()->isAnAdmin()) || Auth::guest())) {
+        if ($userSlug == 'admin' && ((Auth::user() != null && !Auth::user()->isAnAdmin()) || Auth::guest())) {
             $user = User::where('is_admin', true)->first();
         } else {
             $user = User::where('slug', $userSlug)->first();
@@ -73,10 +72,10 @@ class UserFaucetsController extends Controller
         }
 
         // If the assigned user is an admin, the current user is authenticated and not an admin, or the user is not logged in...
-        if($user->isAnAdmin() && ((Auth::user() != null && !Auth::user()->isAnAdmin()) || Auth::guest())) {
+        if ($user->isAnAdmin() && ((Auth::user() != null && !Auth::user()->isAnAdmin()) || Auth::guest())) {
             // If the assigned admin user's slug matches the entered slug,
             // Redirect to users listing instead, with 'not found' flash message.
-            if($user->slug == $userSlug) {
+            if ($user->slug == $userSlug) {
                 flash('User not found.')->error();
                 return redirect(route('users.index'));
             }
@@ -190,7 +189,7 @@ class UserFaucetsController extends Controller
         $user = null;
         // If the slug value is 'admin', return admin user with their real slug.
         // We don't want to show the real admin user's user name.
-        if($userSlug == 'admin') {
+        if ($userSlug == 'admin') {
             $user = $this->userRepository->findByField('is_admin', true)->first();
             //dd($user);
         } else {

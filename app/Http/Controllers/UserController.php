@@ -98,23 +98,23 @@ class UserController extends AppBaseController
         // If the slug value is 'admin', return admin user with their real slug.
         // We don't want to show the real admin user's user name.
         $adminUser = $this->userRepository->findByField('is_admin', true)->first();
-        if($slug == 'admin') {
-            if($adminUser->isAnAdmin()) {
+        if ($slug == 'admin') {
+            if ($adminUser->isAnAdmin()) {
                 $user = $adminUser;
             }
         } else {
             $user = $this->userRepository->findByField('slug', $slug)->first();
         }
-        if($adminUser->slug == $slug){
-            if(Auth::user() != null && Auth::user()->isAnAdmin()){
+        if ($adminUser->slug == $slug) {
+            if (Auth::user() != null && Auth::user()->isAnAdmin()) {
                 return view('users.show')
                     ->with('user', $user);
             }
             flash('User not found')->error();
             return redirect(route('users.index'));
         }
-        if(Auth::guest()){
-            if(!empty($user)){
+        if (Auth::guest()) {
+            if (!empty($user)) {
                 return view('users.show')
                     ->with('user', $user);
             } else {
@@ -245,13 +245,11 @@ class UserController extends AppBaseController
         );
 
         if ($user->isAnAdmin()) {
-
             flash('An owner-admin-user cannot be permanently deleted.')->error();
 
             return redirect(route('users.index'));
         }
         if (empty($user)) {
-
             flash('User not found.')->error();
 
             return redirect(route('users.index'));
