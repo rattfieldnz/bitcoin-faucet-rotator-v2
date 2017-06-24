@@ -20,10 +20,10 @@
             @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                 @if(Route::currentRouteName() != 'users.faucets.create')
                     <th>Has Been Deleted</th>
-                    <th>Action</th>
                 @endif
             @endif
         @endif
+        <th>Action</th>
     </thead>
     <tbody>
     @foreach($faucets as $faucet)
@@ -92,7 +92,7 @@
                                         @endif
                                     @endif
                                 @else
-                                    @if(Auth::user()->isAnAdmin())
+                                    @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                                         @if(
                                             Auth::user()->hasPermission('soft-delete-faucets') ||
                                             Auth::user()->hasPermission('soft-delete-user-faucets')
