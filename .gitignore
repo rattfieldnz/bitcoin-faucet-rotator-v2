@@ -21,3 +21,6 @@ _ide_helper_models.php
 
 # PHP CS Fixer
 .php_cs.cache
+
+# Custom script for clearing caches
+/clearcompiledcache

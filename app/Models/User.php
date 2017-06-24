@@ -125,7 +125,7 @@ class User extends Authenticatable
      * @var array
      */
     public static $rules = [
-        'user_name' => 'min:5|max:15|required|unique:users,user_name',
+        'user_name' => 'min:5|max:15|required|unique:users,user_name|not_in:admin,administrator,owner,manager|valid_user_name',
         'first_name' => 'required|min:1|max:50',
         'last_name' => 'required|min:1|max:50',
         'email' => 'required|email|unique:users,email',

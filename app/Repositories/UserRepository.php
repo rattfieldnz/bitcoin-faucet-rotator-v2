@@ -53,7 +53,7 @@ class UserRepository extends Repository implements IRepository
     /**
      * Update user data,
      * @param array $data
-     * @param $id
+     * @param $slug
      * @return mixed
      */
     public function update(array $data, $slug)
