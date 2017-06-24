@@ -63,7 +63,7 @@
         <!-- Is Admin Field -->
         <div class="form-group">
             {!! Form::label('is_admin', 'Is Admin:') !!}
-            <p>{!! $user->isAnAdmin() !!}</p>
+            <p>{!! $user->isAnAdmin() == true ? "Yes" : "No" !!}</p>
         </div>
 
         <!-- Created At Field -->
