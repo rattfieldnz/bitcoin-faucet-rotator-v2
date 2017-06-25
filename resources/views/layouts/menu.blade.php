@@ -17,7 +17,7 @@
         </li>
 
         <li class="{{ Request::is('ad-block*') ? 'active' : '' }}">
-            <a href="{!! route('ad-block.index') !!}"><i class="fa fa-edit"></i><span>Ad Blocks</span></a>
+            <a href="{!! route('ad-block.index') !!}"><i class="fa fa-edit"></i><span>Ad Block</span></a>
         </li>
 
         <li class="{{ Request::is('twitter-config*') ? 'active' : '' }}">

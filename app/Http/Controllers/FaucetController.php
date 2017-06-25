@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Functions\Faucets;
 use App\Http\Requests\CreateFaucetRequest;
 use App\Http\Requests\UpdateFaucetRequest;
+use App\Models\Faucet;
 use App\Models\PaymentProcessor;
 use App\Repositories\FaucetRepository;
 use Helpers\Functions\Users;
@@ -139,10 +140,6 @@ class FaucetController extends AppBaseController
                 Auth::user()->isAnAdmin() // If the currently authenticated user has 'owner' role,
             ) {
                 $message = 'The faucet has been temporarily deleted. You can restore the faucet or permanently delete it.';
-
-                if (!empty($faucet->users()->where('is_admin', true)->first())) {
-                    $referralCode = $faucet->users()->where('is_admin', true)->first()->pivot->referral_code;
-                }
 
                 return view('faucets.show')
                     ->with('adminReferralCode', Faucets::getUserFaucetRefCode($adminUser, $faucet))
