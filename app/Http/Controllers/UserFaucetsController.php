@@ -40,6 +40,7 @@ class UserFaucetsController extends Controller
         Faucets $faucetFunctions
     ) {
         $this->userFaucetRepository = $userFaucetRepo;
+        $this->userRepository = $userRepository;
         $this->faucetFunctions = $faucetFunctions;
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
@@ -57,13 +58,7 @@ class UserFaucetsController extends Controller
         $this->userFaucetRepository->pushCriteria(new RequestCriteria($request));
         $user = null;
 
-        // If the entered slug is 'admin', and if the current user is authenticated, and not an admin, or the user is not logged in...
-        // Get the one and only admin user in the system, else retrieve the user with entered slug.
-        if ($userSlug == 'admin' && ((Auth::user() != null && !Auth::user()->isAnAdmin()) || Auth::guest())) {
-            $user = User::where('is_admin', true)->first();
-        } else {
-            $user = User::where('slug', $userSlug)->first();
-        }
+        $user = User::where('slug', $userSlug)->first();
 
         // If the assigned user doesn't exist, redirect to users listing instead, with 'not found' flash message.
         if (empty($user)) {
@@ -71,14 +66,8 @@ class UserFaucetsController extends Controller
             return redirect(route('users.index'));
         }
 
-        // If the assigned user is an admin, the current user is authenticated and not an admin, or the user is not logged in...
-        if ($user->isAnAdmin() && ((Auth::user() != null && !Auth::user()->isAnAdmin()) || Auth::guest())) {
-            // If the assigned admin user's slug matches the entered slug,
-            // Redirect to users listing instead, with 'not found' flash message.
-            if ($user->slug == $userSlug) {
-                flash('User not found.')->error();
-                return redirect(route('users.index'));
-            }
+        if ($user->isAnAdmin()) {
+            return redirect(route('faucets.index'));
         }
 
         if (Auth::guest() == true) {
@@ -111,6 +100,17 @@ class UserFaucetsController extends Controller
         $userFaucets = null;
 
         $user = User::where('slug', $userSlug)->first();
+
+        // If the assigned user doesn't exist, redirect to users listing instead, with 'not found' flash message.
+        if (empty($user)) {
+            flash('User not found.')->error();
+            return redirect(route('users.index'));
+        }
+
+        if ($user->isAnAdmin()) {
+            return redirect(route('faucets.create'));
+        }
+
         if (Auth::user()->hasRole('user') || Auth::user()->isAnAdmin()) {
             $userFaucets = $this->faucetFunctions->getUserFaucets($user, true);
         } else {
@@ -118,14 +118,6 @@ class UserFaucetsController extends Controller
         }
 
         $availableFaucets = $faucets->except($userFaucets->modelKeys());
-
-        if ($user->isAnAdmin()) {
-            return redirect(route('faucets.create'))
-                ->with('paymentProcessors', $paymentProcessors)
-                ->with('faucetPaymentProcessorIds', $faucetPaymentProcessorIds)
-                ->with('faucet', $faucet)
-                ->with('user', $user);
-        }
 
         return view('users.faucets.create')
             ->with('paymentProcessors', $paymentProcessors)
@@ -147,9 +139,9 @@ class UserFaucetsController extends Controller
             $input = $request->except('_token', 'payment_processor');
             $user = User::where('slug', $userSlug)->first();
 
-            //If there is no such user, about to 404 page.
             if (empty($user)) {
-                abort(404);
+                flash('User not found.')->error();
+                return redirect(route('users.index'));
             }
 
             $redirectRoute = route('users.faucets', $user->slug);
@@ -186,46 +178,40 @@ class UserFaucetsController extends Controller
      */
     public function show($userSlug, $faucetSlug)
     {
-        $user = null;
-        // If the slug value is 'admin', return admin user with their real slug.
-        // We don't want to show the real admin user's user name.
-        if ($userSlug == 'admin') {
-            $user = $this->userRepository->findByField('is_admin', true)->first();
-            //dd($user);
+        $user = $this->userRepository->findByField('slug', $userSlug)->first();
+
+        //If there is no such user, about to 404 page.
+        if (empty($user) || ($user->isDeleted() && Auth::guest() || !Auth::user()->isAnAdmin())) {
+            flash('User not found')->error();
+            return redirect(route('users.index'));
         } else {
-            $user = $this->userRepository->findByField('slug', $userSlug)->first();
+            //dd($this->userRepository->findByField('slug', $userSlug)->first()->withTrashed()->first());
+            $user = $this->userRepository->findByField('slug', $userSlug)->first()->withTrashed()->first();
         }
+
         $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
 
         $mainFaucet = Faucet::where('slug', $faucetSlug)->withTrashed()->first();
 
         $message = null;
 
-        //If there is no such user, about to 404 page.
-        if (empty($user)) {
-            abort(404);
-        } elseif ((Auth::guest() || Auth::user()->hasRole('user')) && $user->hasRole('owner')) {
-            flash('User not found')->error();
-            return redirect(route('users.index'));
-        }
-
         // If the visitor isn't authenticated, the user's faucet is soft-deleted, and main admin faucet exists.
-        elseif (Auth::guest() && ($mainFaucet != null && $faucet->pivot->deleted_at != null)) {
+        if (Auth::guest() && ($mainFaucet != null && $faucet->pivot->deleted_at != null)) {
             flash('The faucet was not found')->error();
             return redirect(route('users.faucets', $user->slug));
         }
 
         // If the main admin faucet exists, and the user's faucet is soft-deleted.
-        elseif ($mainFaucet != null && $faucet->pivot->deleted_at != null) {
+        if ($mainFaucet != null && $faucet->pivot->deleted_at != null) {
             //If the visitor isn't authenticated.
             if (Auth::guest()) {
                 flash('The faucet was not found')->error();
                 return redirect(route('users.faucets', $user->slug));
             }
             //If the authenticated user is an owner or standard user.
-            if ((Auth::user()->hasRole('owner') || Auth::user()->hasRole('user')) || $user === Auth::user()) {
+            if ((Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) || $user === Auth::user()) {
                 $message = null;
-                if (Auth::user()->hasRole('owner')) {
+                if (Auth::user()->isAnAdmin()) {
                     $message = 'The faucet has been temporarily deleted by it\'s user. You can restore the faucet or permanently delete it.';
                 } elseif (Auth::user()->hasRole('user')) {
                     $message = 'You have deleted the faucet that was requested; however, you are able to restore this faucet.';
@@ -241,7 +227,7 @@ class UserFaucetsController extends Controller
             if ((Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) || $user === Auth::user()) {
                 if (Auth::user()->hasRole('user')) {
                     $message = 'The owner of this rotator has deleted the faucet you requested. You can contact them if you would like it to be restored.';
-                } elseif (Auth::user()->hasRole('owner')) {
+                } elseif (Auth::user()->isAnAdmin()) {
                     $message = 'The faucet has been temporarily deleted by it\'s user. You can restore the faucet or permanently delete it.';
                 }
 
@@ -272,6 +258,9 @@ class UserFaucetsController extends Controller
         } else {
             //If user faucet exists
             if (!empty($faucet)) {
+                if ($user->isAnAdmin()) {
+                    return redirect(route('faucets.show', $faucet->slug));
+                }
                 return view('users.faucets.show')
                     ->with('user', $user)
                     ->with('faucet', $faucet)
@@ -297,8 +286,12 @@ class UserFaucetsController extends Controller
         $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
         $input = $request->except('_token', '_method');
 
-        if (empty($user)) {
-            abort(404);
+        //If there is no such user, about to 404 page.
+        if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
+            flash('User not found')->error();
+            return redirect(route('users.index'));
+        } else {
+            $user = $this->userRepository->findByField('slug', $userSlug)->withTrashed()->first();
         }
 
         $redirectRoute = route('users.faucets', $user->slug);
@@ -332,8 +325,7 @@ class UserFaucetsController extends Controller
 
     /**
      * [paymentProcessorFaucets description]
-     * @param  string $userSlug             The user's slug.
-     * @param  string $paymentProcessorSlug The payment processor's slug.
+     * @param  string $userSlug The user's slug.
      * @return Response
      */
     public function paymentProcessors($userSlug)
@@ -362,11 +354,17 @@ class UserFaucetsController extends Controller
     public function destroy($userSlug, $faucetSlug)
     {
         $user = User::where('slug', $userSlug)->first();
-        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->withTrashed()->first();
 
-        if (empty($user)) {
-            abort(404);
+        //If there is no such user, about to 404 page.
+        if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
+            flash('User not found')->error();
+            return redirect(route('users.index'));
+        } else {
+            $user = $this->userRepository->findByField('slug', $userSlug)->withTrashed()->first();
         }
+
+        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->withTrashed()->first();
+        $mainFaucet = Faucet::where('slug', $faucetSlug)->first();
 
         $redirectRoute = route('users.faucets', $user->slug);
 
@@ -376,7 +374,7 @@ class UserFaucetsController extends Controller
             return redirect($redirectRoute);
         }
 
-        if (!empty($faucet) && $faucet->isDeleted()) {
+        if (!empty($faucet) && $mainFaucet->isDeleted()) {
             flash(
                 'The owner has temporarily deleted this faucet, 
                 and you are not able to restore it. You can ask 
@@ -428,11 +426,16 @@ class UserFaucetsController extends Controller
     public function destroyPermanently($userSlug, $faucetSlug)
     {
         $user = User::where('slug', $userSlug)->first();
-        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
 
-        if (empty($user)) {
-            abort(404);
+        //If there is no such user, about to 404 page.
+        if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
+            flash('User not found')->error();
+            return redirect(route('users.index'));
+        } else {
+            $user = $this->userRepository->findByField('slug', $userSlug)->withTrashed()->first();
         }
+
+        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
 
         $redirectRoute = route('users.faucets', $user->slug);
 
@@ -475,11 +478,16 @@ class UserFaucetsController extends Controller
     public function restoreDeleted($userSlug, $faucetSlug)
     {
         $user = User::where('slug', $userSlug)->first();
-        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->withTrashed()->first();
 
-        if (empty($user)) {
-            abort(404);
+        //If there is no such user, about to 404 page.
+        if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
+            flash('User not found')->error();
+            return redirect(route('users.index'));
+        } else {
+            $user = $this->userRepository->findByField('slug', $userSlug)->withTrashed()->first();
         }
+
+        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->withTrashed()->first();
 
         $redirectRoute = route('users.faucets', $user->slug);
 

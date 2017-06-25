@@ -2,9 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1>
-            Main Meta
-        </h1>
+        <h1>Main Meta</h1>
    </section>
    <div class="content">
        @include('adminlte-templates::common.errors')

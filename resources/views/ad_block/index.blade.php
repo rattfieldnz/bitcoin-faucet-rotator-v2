@@ -16,7 +16,7 @@
         @include('layouts.breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">
-                    @include('ad_block.table')
+                @include('ad_block.table')
             </div>
         </div>
     </div>

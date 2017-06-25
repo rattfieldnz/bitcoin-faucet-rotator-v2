@@ -18,17 +18,6 @@
 
         <div class="clearfix"></div>
         @include('layouts.breadcrumbs')
-        @if(Auth::user() != null && Auth::user()->isAnAdmin())
-        <div class="alert alert-info">
-            <p>
-                <i class="fa fa-info-circle fa-2x space-right"></i>
-                Your user-name is displayed to other non-admin and guest users as
-                '<a href="{!! route('users.show', ['slug' => 'admin']) !!}" target="_blank">admin</a>'.
-                Your first and last names are also both masked as 'Admin'. Your login name is still
-                '{!! Auth::user()->user_name !!}'.
-            </p>
-        </div>
-        @endif
         <div class="box box-primary">
             <div class="box-body">
                     @include('users.table')

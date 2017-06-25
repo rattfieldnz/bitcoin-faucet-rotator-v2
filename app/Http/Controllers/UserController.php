@@ -94,36 +94,13 @@ class UserController extends AppBaseController
      */
     public function show($slug)
     {
-        $user = null;
-        // If the slug value is 'admin', return admin user with their real slug.
-        // We don't want to show the real admin user's user name.
-        $adminUser = $this->userRepository->findByField('is_admin', true)->first();
-        if ($slug == 'admin') {
-            if ($adminUser->isAnAdmin()) {
-                $user = $adminUser;
-            }
-        } else {
-            $user = $this->userRepository->findByField('slug', $slug)->first();
-        }
-        if ($adminUser->slug == $slug) {
-            if (Auth::user() != null && Auth::user()->isAnAdmin()) {
-                return view('users.show')
-                    ->with('user', $user);
-            }
+        $user = $this->userRepository->findByField('slug', $slug)->first();
+        $message = null;
+
+        if (empty($user) && (Auth::guest() || Auth::user() != null && !Auth::user()->isAnAdmin())) {
             flash('User not found')->error();
             return redirect(route('users.index'));
         }
-        if (Auth::guest()) {
-            if (!empty($user)) {
-                return view('users.show')
-                    ->with('user', $user);
-            } else {
-                flash('User not found')->error();
-                return redirect(route('users.index'));
-            }
-        }
-
-        $message = null;
 
         if (Auth::guest() && !empty($user) && $user->isDeleted()) { // If the visitor is a guest, user doesn't exist, and user is soft-deleted
             flash('User not found')->error();
@@ -133,9 +110,6 @@ class UserController extends AppBaseController
             Auth::user()->hasRole('user') && // If the visitor is an authenticated user with 'user' role
             $user->isDeleted() // If the requested user has been soft-deleted
         ) {
-            flash('User not found')->error();
-            return redirect(route('users.index'));
-        } elseif ((Auth::guest() || Auth::user()->hasRole('user')) && $user->isAnAdmin()) {
             flash('User not found')->error();
             return redirect(route('users.index'));
         } else {
@@ -195,9 +169,18 @@ class UserController extends AppBaseController
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
 
-        flash('User updated successfully.')->success();
-        //dd($request->session()->get('flash_notification'));
-        return $this->userFunctions->updateUser($user->slug, $request);
+        if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->isAnAdmin() && $user->isDeleted() == true)) {
+            flash('User not found')->error();
+
+            return redirect(route('users.index'));
+        } else {
+            if (($user == Auth::user() || Auth::user()->isAnAdmin()) || ($user->isDeleted() == true && Auth::user()->isAnAdmin())) {
+                flash('User updated successfully.')->success();
+                //dd($request->session()->get('flash_notification'));
+                return $this->userFunctions->updateUser($user->slug, $request);
+            }
+            abort(403);
+        }
     }
 
     /**

@@ -2,9 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1>
-            Permission
-        </h1>
+        <h1>Permission</h1>
     </section>
     <div class="content">
         @include('adminlte-templates::common.errors')

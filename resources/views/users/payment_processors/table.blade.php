@@ -21,7 +21,7 @@
             <td>{!! $paymentProcessor->name !!}</td>
             <td>{!! $paymentProcessor->url !!}</td>
             <td>
-                <a href="{!! route('users.payment-processors.faucets', ['userSlug' => $user->userSlug(), 'paymentProcessorSlug' => $paymentProcessor->slug]) !!}">View Faucets</a>
+                <a href="{!! route('users.payment-processors.faucets', ['userSlug' => $user->slug, 'paymentProcessorSlug' => $paymentProcessor->slug]) !!}">View Faucets</a>
                 </td>
         </tr>
     @endforeach

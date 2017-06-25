@@ -8,6 +8,7 @@
 
 namespace Helpers\Functions;
 
+use App\Helpers\Constants;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Faucet;
 use App\Models\Permission;
@@ -144,7 +145,7 @@ class Users
      */
     public static function userCanAccessArea(User $user, $routeName, array $routeParameters, array $dataParameters = [])
     {
-        if ($user->is_admin == false || !$user->hasRole('owner')) {
+        if (!$user->isAnAdmin()) {
             abort(403);
         }
         $currentRoute = route($routeName, $routeParameters);
@@ -173,5 +174,12 @@ class Users
         $userFaucets = $faucets->whereIn('id', $paymentProcessorFaucets)->all();
 
         return $userFaucets;
+    }
+
+    public function adminUser()
+    {
+        $user = $this->userRepository->findByField('slug', Constants::ADMIN_SLUG);
+        $user = $user->where('is_admin', 'true')->first();
+        return $user->isAnAdmin() ? $user : null;
     }
 }

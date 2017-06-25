@@ -16,7 +16,7 @@
         @include('layouts.breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">
-                    @include('main_meta.table')
+                @include('main_meta.table')
             </div>
         </div>
     </div>

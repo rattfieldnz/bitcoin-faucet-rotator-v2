@@ -115,6 +115,9 @@ class FaucetController extends AppBaseController
     public function show($slug)
     {
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
+
+        $adminUser = $this->userFunctions->adminUser();
+
         $message = null;
         $referralCode = null;
 
@@ -142,19 +145,15 @@ class FaucetController extends AppBaseController
                 }
 
                 return view('faucets.show')
+                    ->with('adminReferralCode', Faucets::getUserFaucetRefCode($adminUser, $faucet))
                     ->with('faucet', $faucet)
-                    ->with('message', $message)
-                    ->with('referralCode', $referralCode);
+                    ->with('message', $message);
             }
             if (!empty($faucet) && !$faucet->isDeleted()) { // If the faucet exists and isn't soft-deleted
-                if (!empty($faucet->users()->where('is_admin', true)->first())) {
-                    $referralCode = $faucet->users()->where('is_admin', true)->first()->pivot->referral_code;
-                }
-
                 return view('faucets.show')
+                    ->with('adminReferralCode', Faucets::getUserFaucetRefCode($adminUser, $faucet))
                     ->with('faucet', $faucet)
-                    ->with('message', $message)
-                    ->with('referralCode', $referralCode);
+                    ->with('message', $message);
             } else {
                 flash('Faucet not found')->error();
                 return redirect(route('faucets.index'));
@@ -247,7 +246,7 @@ class FaucetController extends AppBaseController
 
         $this->faucetFunctions->destroyFaucet($slug, false);
 
-        Flash::success('Faucet deleted successfully.');
+        flash('Faucet deleted successfully.')->success();
 
         return redirect($redirectRoute);
     }
@@ -285,7 +284,7 @@ class FaucetController extends AppBaseController
         $this->faucetFunctions->destroyUserFaucet(Auth::user(), $faucet);
         $faucet->forceDelete();
 
-        Flash::success('Faucet was permanently deleted!');
+        flash('Faucet was permanently deleted!')->success();
 
         return redirect($redirectRoute);
     }
@@ -317,7 +316,7 @@ class FaucetController extends AppBaseController
             );
         }
 
-        Flash::success('Faucet was successfully restored!');
+        flash('Faucet was successfully restored!')->success();
 
         return redirect($redirectRoute);
     }

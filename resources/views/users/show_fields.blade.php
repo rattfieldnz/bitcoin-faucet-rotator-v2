@@ -11,33 +11,19 @@
 <!-- User Name Field -->
 <div class="form-group">
     {!! Form::label('user_name', 'User Name:') !!}
-    @if((Auth::user() != null && Auth::user()->isAnAdmin()) && $user->isAnAdmin())
-        <p>{!! $user->user_name !!}</p>
-    @else
-        <p>{!! $user->userName() !!}</p>
-    @endif
+    <p>{!! $user->user_name !!}</p>
 </div>
 
 <!-- First Name Field -->
 <div class="form-group">
     {!! Form::label('first_name', 'First Name:') !!}
-
-    @if((Auth::user() != null && Auth::user()->isAnAdmin()) && $user->isAnAdmin())
-        <p>{!! $user->first_name !!}</p>
-    @else
-        <p>{!! $user->userFirstName() !!}</p>
-    @endif
+    <p>{!! $user->first_name !!}</p>
 </div>
 
 <!-- Last Name Field -->
 <div class="form-group">
     {!! Form::label('last_name', 'Last Name:') !!}
-
-    @if((Auth::user() != null && Auth::user()->isAnAdmin()) && $user->isAnAdmin())
-        <p>{!! $user->last_name !!}</p>
-    @else
-        <p>{!! $user->userLastName() !!}</p>
-    @endif
+    <p>{!! $user->last_name !!}</p>
 </div>
 
 @if(Auth::user() != null)
@@ -84,7 +70,6 @@
         <div class="form-group">
             {!! Form::label('roles', 'Role:') !!}
             @if(!empty($user))
-
                 <ul>
                     @foreach ($user->roles()->get() as $role)
                         <li>{!! ucfirst($role->name) !!}</li>

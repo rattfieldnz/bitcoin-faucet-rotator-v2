@@ -15,7 +15,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Validator::extend('valid_user_name', function ($attribute, $value, $parameters, $validator) {
-
             $barredUserNamesLowerCase = ['admin','owner', 'manager'];
 
             foreach ($barredUserNamesLowerCase as $element) {
