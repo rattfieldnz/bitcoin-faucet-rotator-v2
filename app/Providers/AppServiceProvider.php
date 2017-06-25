@@ -2,11 +2,14 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Validator;
+use App\Models\User;
+use Helpers\Functions\Users;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
+
     /**
      * Bootstrap any application services.
      *
@@ -14,8 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Validator::extend('valid_user_name', function ($attribute, $value, $parameters, $validator) {
-            $barredUserNamesLowerCase = ['admin','owner', 'manager'];
+        /*Validator::extend('valid_user_name', function($attribute, $value, $parameters, $validator) {
+
+            $barredUserNamesLowerCase = ['admin', 'owner', 'manager'];
 
             foreach ($barredUserNamesLowerCase as $element) {
                 if (strpos($element, strtolower($value) !== true)) {
@@ -23,8 +27,9 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
             return true;
-        });
+        });*/
     }
+
 
     /**
      * Register any application services.

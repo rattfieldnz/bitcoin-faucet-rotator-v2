@@ -1,9 +1,13 @@
 <!-- Used in updating user. -->
-{!! Form::hidden('id', $user != null ? $user->id : null) !!}
+{!! Form::hidden('id', !empty($user) ? $user->id : null) !!}
 <!-- User Name Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('user_name') ? ' has-error' : '' }}">
     {!! Form::label('user_name', 'User Name:') !!}
-    {!! Form::text('user_name', null, ['class' => 'form-control', 'placeholder' => "User Name (e.g. BitcoinIsAwesome)"]) !!}
+    {!! Form::text(
+        'user_name', null,
+        ['class' => 'form-control', 'placeholder' => "User Name (e.g. BitcoinIsAwesome)", !empty($user) ? 'readonly' : '']
+        )
+    !!}
     <span class="glyphicon glyphicon-user form-control-feedback"></span>
     @if ($errors->has('user_name'))
         <span class="help-block">

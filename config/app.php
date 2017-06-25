@@ -162,6 +162,7 @@ return [
         Laratrust\LaratrustServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         SquareBoat\Sneaker\SneakerServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -169,6 +170,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\Validation\ValidationServiceProvider::class,
 
     ],
 

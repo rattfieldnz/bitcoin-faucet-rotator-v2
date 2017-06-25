@@ -80,6 +80,9 @@ return [
     'unique'               => 'The :attribute has already been taken.',
     'url'                  => 'The :attribute format is invalid.',
     'valid_user_name'      => 'The user name is invalid, taken, or barred from being used.',
+    'not_start_with_number' => 'The :attribute must not start with a number.',
+    'no_punctuation' => 'The :attribute must not contain punctuation.',
+    'no_numbers' => 'The :attribute must not contain numbers.',
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
