@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Constants;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -185,47 +186,15 @@ class User extends Authenticatable
         return false;
     }
 
-    public function userName()
-    {
-        if ($this->hasRole('owner') && $this->is_admin == true) {
-            return 'admin';
-        } else {
-            return $this->user_name;
-        }
-    }
-
-    public function userSlug()
-    {
-        if ($this->hasRole('owner') && $this->is_admin == true) {
-            return 'admin';
-        } else {
-            return $this->slug;
-        }
-    }
-
-    public function userFirstName()
-    {
-        if ($this->hasRole('owner') && $this->is_admin == true) {
-            return 'Admin';
-        } else {
-            return $this->first_name;
-        }
-    }
-
-    public function userLastName()
-    {
-        if ($this->hasRole('owner') && $this->is_admin == true) {
-            return 'Admin';
-        } else {
-            return $this->last_name;
-        }
-    }
-
     public function isDeleted()
     {
         if ($this->attributes['deleted_at']) {
             return true;
         }
         return false;
+    }
+
+    private function excludeAdminNameRule(){
+        return $this->user_name != Constants::ADMIN_SLUG ? 'valid_user_name|' : '';
     }
 }

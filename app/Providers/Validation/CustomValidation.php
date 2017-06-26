@@ -28,7 +28,7 @@ class CustomValidation extends Validator
         $barredUserNamesLowerCase = ['admin','owner', 'manager'];
 
         foreach($barredUserNamesLowerCase as $a) {
-            if (stripos($value,$a) !== false) return false;
+            if (stripos(strtolower($value),$a) !== false) return false;
         }
         return true;
     }
@@ -46,8 +46,7 @@ class CustomValidation extends Validator
      */
     public function validateNotStartWithNumber($attribute, $value, $parameters, $validator)
     {
-        //dd(intval(mb_substr($value, 0, 1, 'utf-8')) != true);
-        return is_numeric(mb_substr($value, 0, 1, 'utf-8'))!= true;
+        return is_numeric(substr($value, 0, 1))=== false;
     }
 
     /**
@@ -63,7 +62,7 @@ class CustomValidation extends Validator
      */
     public function validateNoNumbers($attribute, $value, $parameters, $validator)
     {
-        return preg_match("/[^0-9]/i", $value) != true;
+        return preg_match("/^([^0-9]+)$/", $value) == true;
     }
 
     /**

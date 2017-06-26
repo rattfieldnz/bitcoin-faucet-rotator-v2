@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Helpers\Constants;
 use App\Http\Requests\Request;
 use App\Models\User;
 
@@ -26,6 +27,11 @@ class UpdateUserRequest extends Request
     public function rules()
     {
         $rules = User::$rules;
+
+        // Allow the admin to update their profile while leaving their user-name unchanged (can't anyway).
+        if(strtolower($this->user_name) == Constants::ADMIN_SLUG){
+            $rules['user_name'] = 'min:5|max:15|required|not_start_with_number|no_punctuation|unique:users,user_name';
+        }
 
         $rules['user_name'] = $rules['user_name'] . ', '. $this->id;
         $rules['email'] = $rules['email'] . ', '. $this->id;
