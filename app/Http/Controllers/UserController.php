@@ -94,7 +94,7 @@ class UserController extends AppBaseController
      */
     public function show($slug)
     {
-        $user = $this->userRepository->findByField('slug', $slug)->first()->withTrashed()->first();
+        $user = $this->userRepository->findByField('slug', $slug)->first();
         $message = null;
 
         if (empty($user) && (Auth::guest() || Auth::user() != null && !Auth::user()->isAnAdmin())) {
