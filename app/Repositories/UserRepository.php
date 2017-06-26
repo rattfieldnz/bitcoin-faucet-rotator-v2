@@ -59,9 +59,9 @@ class UserRepository extends Repository implements IRepository
     public function update(array $data, $slug)
     {
         // Have to skip presenter to get a model not some data
-        $user = User::where('slug', $slug)->withTrashed()->first();
         $temporarySkipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
+        $user = User::where('slug', $slug)->withTrashed()->first();
         $userData = self::cleanInput($data);
         $user = $user->fill($userData);
         $this->skipPresenter($temporarySkipPresenter);

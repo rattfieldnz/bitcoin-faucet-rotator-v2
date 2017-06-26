@@ -168,7 +168,7 @@ class FaucetController extends AppBaseController
     public function edit($slug)
     {
         Users::userCanAccessArea(Auth::user(), 'faucets.edit', ['slug' => $slug], ['slug' => $slug]);
-        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
+        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first()->withTrashed()->first();
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->get();
 
         $paymentProcessorIds = [];
@@ -200,10 +200,17 @@ class FaucetController extends AppBaseController
     public function update($slug, UpdateFaucetRequest $request)
     {
         Users::userCanAccessArea(Auth::user(), 'faucets.update', ['slug' => $slug], ['slug' => $slug]);
+        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first()->withTrashed()->first();
+
+        if (empty($faucet)) {
+            flash('Faucet not found')->error();
+
+            return redirect(route('faucets.index'));
+        }
 
         $this->faucetFunctions->updateFaucet($slug, $request);
 
-        flash('Faucet updated successfully.')->success();
+        flash('The \''. $faucet->name .'\' faucet was updated successfully!')->success();
 
         return redirect(route('faucets.index'));
     }
@@ -222,6 +229,13 @@ class FaucetController extends AppBaseController
             ['slug' => $slug],
             ['slug' => $slug]
         );
+        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first()->withTrashed()->first();
+
+        if(empty($faucet)) {
+            flash('Faucet not found')->error();
+
+            return redirect(route('faucets.index'));
+        }
 
         $redirectRoute = route('faucets.index');
 
@@ -243,7 +257,7 @@ class FaucetController extends AppBaseController
 
         $this->faucetFunctions->destroyFaucet($slug, false);
 
-        flash('Faucet deleted successfully.')->success();
+        flash('The \''. $faucet->name .'\' faucet was archived/deleted successfully.')->success();
 
         return redirect($redirectRoute);
     }
@@ -257,7 +271,15 @@ class FaucetController extends AppBaseController
     public function destroyPermanently($slug)
     {
         Users::userCanAccessArea(Auth::user(), 'faucets.delete-permanently', ['slug' => $slug], ['slug' => $slug]);
-        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
+        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first()->withTrashed()->first();
+
+        if (empty($faucet)) {
+            flash('Faucet not found')->error();
+
+            return redirect(route('faucets.index'));
+        }
+
+        $faucetName = $faucet->name;
 
         $redirectRoute = route('faucets.index');
 
@@ -281,7 +303,7 @@ class FaucetController extends AppBaseController
         $this->faucetFunctions->destroyUserFaucet(Auth::user(), $faucet);
         $faucet->forceDelete();
 
-        flash('Faucet was permanently deleted!')->success();
+        flash('The \''. $faucetName .'\' faucet was permanently deleted!')->success();
 
         return redirect($redirectRoute);
     }
@@ -295,6 +317,14 @@ class FaucetController extends AppBaseController
     public function restoreDeleted($slug)
     {
         Users::userCanAccessArea(Auth::user(), 'faucets.restore', ['slug' => $slug], ['slug' => $slug]);
+        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first()->withTrashed()->first();
+
+        if (empty($faucet)) {
+            flash('Faucet not found')->error();
+
+            return redirect(route('faucets.index'));
+        }
+
         $redirectRoute = route('faucets.index');
 
         $this->faucetFunctions->restoreFaucet($slug);
@@ -313,7 +343,7 @@ class FaucetController extends AppBaseController
             );
         }
 
-        flash('Faucet was successfully restored!')->success();
+        flash('The \''. $faucet->name .'\' faucet was successfully restored!')->success();
 
         return redirect($redirectRoute);
     }

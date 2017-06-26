@@ -30,11 +30,7 @@
                     <td>{!! $user->id !!}</td>
                 @endif
             @endif
-            @if(Auth::guest() || !Auth::user()->isAnAdmin())
-                <td>{!! $user->userName() !!}</td>
-            @else
-                <td>{!! $user->user_name !!}</td>
-            @endif
+            <td>{!! $user->user_name !!}</td>
             @if(Auth::user() != null)
                 <td>
                     <ul>
@@ -55,15 +51,7 @@
             <td>
                 <div class='btn-group'>
 
-                    @if(Auth::user() != null)
-                        @if(Auth::user()->isAnAdmin())
-                            <a href="{!! route('users.show', ['slug' => $user->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                        @else
-                            <a href="{!! route('users.show', ['slug' => $user->userSlug()]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                        @endif
-                    @else
-                        <a href="{!! route('users.show', ['slug' => $user->userSlug()]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    @endif
+                    <a href="{!! route('users.show', ['slug' => $user->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                     @if(Auth::user() != null)
                         @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                             <a href="{!! route('users.edit', ['slug' => $user->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>

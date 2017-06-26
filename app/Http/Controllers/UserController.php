@@ -94,7 +94,7 @@ class UserController extends AppBaseController
      */
     public function show($slug)
     {
-        $user = $this->userRepository->findByField('slug', $slug)->first();
+        $user = $this->userRepository->findByField('slug', $slug)->first()->withTrashed()->first();
         $message = null;
 
         if (empty($user) && (Auth::guest() || Auth::user() != null && !Auth::user()->isAnAdmin())) {
@@ -169,17 +169,23 @@ class UserController extends AppBaseController
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
 
-        if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->isAnAdmin() && $user->isDeleted() == true)) {
+        if (empty($user)) {
             flash('User not found')->error();
 
             return redirect(route('users.index'));
-        } else {
-            if (($user == Auth::user() || Auth::user()->isAnAdmin()) || ($user->isDeleted() == true && Auth::user()->isAnAdmin())) {
-                flash('User updated successfully.')->success();
-                //dd($request->session()->get('flash_notification'));
-                return $this->userFunctions->updateUser($user->slug, $request);
+        }
+        if ($user == Auth::user() || Auth::user()->isAnAdmin()) {
+
+            $this->userFunctions->updateUser($user->slug, $request);
+
+            if($user == Auth::user()) {
+                flash('You have successfully updated your profile!')->success();
             }
-            abort(403);
+            else if (Auth::user()->isAnAdmin()) {
+                flash('The user profile for \''. $user->user_name . '\' was successfully updated!')->success();
+            }
+
+            return redirect(route('users.index'));
         }
     }
 
@@ -192,6 +198,7 @@ class UserController extends AppBaseController
     public function destroy($slug)
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
+        $userName = $user->user_name;
         Functions::userCanAccessArea(
             Auth::user(),
             'users.destroy',
@@ -206,7 +213,7 @@ class UserController extends AppBaseController
         }
         $this->userFunctions->destroyUser($user->slug, false);
 
-        flash('User deleted successfully.')->success();
+        flash('The user \'' . $userName . '\' was successfully archived/deleted!')->success();
 
         return redirect(route('users.index'));
     }
@@ -220,6 +227,7 @@ class UserController extends AppBaseController
     public function destroyPermanently($slug)
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
+        $userName = $user->user_name;
         Functions::userCanAccessArea(
             Auth::user(),
             'users.delete-permanently',
@@ -242,7 +250,7 @@ class UserController extends AppBaseController
             ->where('user_id', $user->id)
             ->delete();
 
-        flash('User was permanently deleted!')->success();
+        flash('The user \'' . $userName . '\' was permanently deleted!')->success();
 
         return redirect(route('users.index'));
     }
@@ -256,6 +264,7 @@ class UserController extends AppBaseController
     public function restoreDeleted($slug)
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
+        $userName = $user->user_name;
         Functions::userCanAccessArea(
             Auth::user(),
             'users.restore',
@@ -265,7 +274,7 @@ class UserController extends AppBaseController
 
         $this->userFunctions->restoreUser($user->slug);
 
-        flash('User was successfully restored!')->success();
+        flash('The user \'' . $userName . '\' was successfully restored!')->success();
 
         return redirect(route('users.index'));
     }

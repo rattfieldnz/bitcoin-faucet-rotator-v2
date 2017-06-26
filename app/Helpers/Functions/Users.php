@@ -68,70 +68,68 @@ class Users
      * Delete a user.
      * @param $slug
      * @param bool $permanentlyDelete True if user permanently deleted, false for soft-delete.
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return bool|int
      */
     public function destroyUser($slug, bool $permanentlyDelete = false)
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
 
         if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->hasRole('owner') && $user->isDeleted() == true)) {
-            return redirect(route('users.index'));
+            return false;
         }
-
-        if ($user->hasRole('owner') == true) {
-            return redirect(route('users.index'));
-        }
-
-        if ($permanentlyDelete == false) {
-            $this->userRepository->deleteWhere(['slug' => $slug]);
+        if ($user == Auth::user() || Auth::user()->isAnAdmin()) {
+            return $this->userRepository->deleteWhere(['slug' => $slug], $permanentlyDelete);
         } else {
-            $this->userRepository->deleteWhere(['slug' => $slug], true);
+            return false;
         }
     }
 
     /**
      * Resore a soft-deleted user.
      * @param $slug
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return bool|mixed
      */
     public function restoreUser($slug)
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
 
-        if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->hasRole('owner') && $user->isDeleted() == true)) {
-            return redirect(route('users.index'));
+        if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && $user->isDeleted() == true)) {
+            return false;
         }
+        if ($user == Auth::user() || Auth::user()->isAnAdmin()) {
 
-        $this->userRepository->restoreDeleted($slug);
+            return $this->userRepository->restoreDeleted($slug);
+
+        } else {
+            return false;
+        }
     }
 
     /**
      * Update a specified user.
      * @param $slug
      * @param UpdateUserRequest $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return bool|mixed
      */
     public function updateUser($slug, UpdateUserRequest $request)
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
+
         if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && $user->isDeleted() == true)) {
-            LaracastsFlash::error('User not found');
+            return false;
+        }
+        if ($user == Auth::user() || Auth::user()->isAnAdmin()) {
+            $updateRequestData = $request->has('password') &&
+            $request->has('password_confirmation') ?
+                $request->all() :
+                $request->except(['password','password_confirmation']);
 
-            return redirect(route('users.index'));
+            return $this->userRepository->update(
+                $updateRequestData,
+                $user->slug
+            );
         } else {
-            if (($user == Auth::user() || Auth::user()->hasRole('owner')) || ($user->isDeleted() == true && Auth::user()->hasRole('owner'))) {
-                $updateRequestData = $request->has('password') &&
-                $request->has('password_confirmation') ?
-                    $request->all() :
-                    $request->except(['password','password_confirmation']);
-
-                $user = $this->userRepository->update(
-                    $updateRequestData,
-                    $user->slug
-                );
-
-                return redirect(route('users.index'));
-            }
+            return false;
         }
     }
 
@@ -155,6 +153,13 @@ class Users
         return redirect($currentRoute)->with($dataParameters);
     }
 
+    /**
+     * Retrieve faucets associated with a payment processor.
+     * @param User $user
+     * @param PaymentProcessor $paymentProcessor
+     * @param bool $trashed
+     * @return array
+     */
     public function getPaymentProcessorFaucets(User $user, PaymentProcessor $paymentProcessor, $trashed = false)
     {
         if (empty($user) || empty($paymentProcessor)) {

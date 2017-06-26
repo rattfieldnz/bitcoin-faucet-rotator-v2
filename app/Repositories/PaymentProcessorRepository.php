@@ -51,8 +51,9 @@ class PaymentProcessorRepository extends Repository implements IRepository
         // Have to skip presenter to get a model not some data
         $temporarySkipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
+        $paymentProcessor = PaymentProcessor::where('id', '=', $id)->withTrashed()->first();
         $paymentProcessorData = self::cleanInput($data);
-        $paymentProcessor = parent::update($paymentProcessorData, $id);
+        $paymentProcessor = $paymentProcessor->fill($paymentProcessorData);
         $this->skipPresenter($temporarySkipPresenter);
         $paymentProcessor = $this->updateRelations($paymentProcessor, $paymentProcessorData);
         $paymentProcessor->save();

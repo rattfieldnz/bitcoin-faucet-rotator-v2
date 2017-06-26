@@ -85,7 +85,12 @@ class PaymentProcessorController extends AppBaseController
      */
     public function show($slug)
     {
-        $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
+        $paymentProcessor = null;
+        if(Auth::user()->isAnAdmin()){
+            $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first()->withTrashed()->first();
+        } else{
+            $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
+        }
 
         if (empty($paymentProcessor)) {
             flash('Payment Processor not found.')->error();
@@ -174,7 +179,7 @@ class PaymentProcessorController extends AppBaseController
     public function edit($slug)
     {
         Functions::userCanAccessArea(Auth::user(), 'payment-processors.edit', ['slug' => $slug], ['slug' => $slug]);
-        $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
+        $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first()->withTrashed()->first();
 
         if (empty($paymentProcessor)) {
             flash('Payment Processor not found.')->error();
@@ -196,7 +201,8 @@ class PaymentProcessorController extends AppBaseController
     public function update($slug, UpdatePaymentProcessorRequest $request)
     {
         Functions::userCanAccessArea(Auth::user(), 'payment-processors.update', ['slug' => $slug], ['slug' => $slug]);
-        $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
+        $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first()->withTrashed()->first();
+
         if (empty($paymentProcessor)) {
             flash('Payment Processor not found.')->error();
 
@@ -205,9 +211,10 @@ class PaymentProcessorController extends AppBaseController
 
         $this->paymentProcessorRepository->update($request->all(), $paymentProcessor->id);
 
-        flash('Payment Processor updated successfully.')->success();
+        flash('The \'' . $paymentProcessor->name . '\' payment processor was updated successfully!')->success();
 
         return redirect(route('payment-processors.index'));
+
     }
 
     /**
@@ -230,7 +237,7 @@ class PaymentProcessorController extends AppBaseController
 
         $this->paymentProcessorRepository->deleteWhere(['slug' => $slug]);
 
-        flash('Payment Processor deleted successfully.')->success();
+        flash('The \'' . $paymentProcessor->name . '\' payment processor was archived/deleted successfully!')->success();
 
         return redirect(route('payment-processors.index'));
     }
@@ -241,7 +248,7 @@ class PaymentProcessorController extends AppBaseController
      */
     public function destroyPermanently($slug)
     {
-        $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
+        $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first()->withTrashed()->first();
         Functions::userCanAccessArea(
             Auth::user(),
             'payment-processors.delete-permanently',
@@ -259,9 +266,11 @@ class PaymentProcessorController extends AppBaseController
             return redirect(route('payment-processors.index'));
         }
 
+        $paymentProcessorName = $paymentProcessor->name;
+
         $paymentProcessor->forceDelete();
 
-        flash('Payment Processor was permanently deleted!')->success();
+        flash('The \'' . $paymentProcessorName . '\' payment processor was permanently deleted!')->success();
 
         return redirect(route('payment-processors.index'));
     }
@@ -272,7 +281,7 @@ class PaymentProcessorController extends AppBaseController
      */
     public function restoreDeleted($slug)
     {
-        $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
+        $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first()->withTrashed()->first();
         Functions::userCanAccessArea(
             Auth::user(),
             'payment-processors.restore',
@@ -292,7 +301,7 @@ class PaymentProcessorController extends AppBaseController
 
         $this->paymentProcessorRepository->restoreDeleted($slug);
 
-        flash('Payment Processor was successfully restored')->success();
+        flash('The \'' . $paymentProcessor->name . '\' payment processor was successfully restored!')->success();
 
         return redirect(route('payment-processors.index'));
     }
