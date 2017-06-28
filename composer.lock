@@ -3509,16 +3509,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v7.8.0",
+            "version": "v7.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "2f6e17a63eec8a329fb034e45157aea1f6681c5b"
+                "reference": "03a06201ab128724b3953731752038475920fd25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/2f6e17a63eec8a329fb034e45157aea1f6681c5b",
-                "reference": "2f6e17a63eec8a329fb034e45157aea1f6681c5b",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/03a06201ab128724b3953731752038475920fd25",
+                "reference": "03a06201ab128724b3953731752038475920fd25",
                 "shasum": ""
             },
             "require": {
@@ -3566,7 +3566,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2017-06-23T08:18:29+00:00"
+            "time": "2017-06-27T13:52:09+00:00"
         },
         {
             "name": "zircote/swagger-php",
