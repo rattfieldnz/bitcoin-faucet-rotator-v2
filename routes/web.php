@@ -47,6 +47,8 @@ Route::patch('users/{userSlug}/faucets/{faucetSlug}/restore', ['as' => 'users.fa
 
 Route::resource('faucets', 'FaucetController');
 
+Route::get('/users/{userSlug}/panel', ['as' => 'users.panel', 'uses' => 'UserPanelController@show']);
+
 Route::delete(
     'payment-processors/{slug}/delete-permanently',
     [

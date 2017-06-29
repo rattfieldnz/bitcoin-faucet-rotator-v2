@@ -39,6 +39,9 @@
 
     <!-- /.login-logo -->
     <div class="login-box-body">
+        <div class="clearfix"></div>
+        @include('flash::message')
+        <div class="clearfix"></div>
         <p class="login-box-msg">Sign in to start your session</p>
 
         <form method="post" action="{{ url('/login') }}">
