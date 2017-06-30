@@ -39,7 +39,7 @@ class UserPanelController extends Controller
             dd("No such user");
         }
 
-        if($user != Auth::user() || !Auth::user()->isAnAdmin()) {
+        if($user != Auth::user() && !Auth::user()->isAnAdmin()) {
             dd("You are not allowed to access another user's panel.");
         }
 
