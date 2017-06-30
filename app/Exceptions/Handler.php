@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Session\TokenMismatchException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -34,6 +35,7 @@ class Handler extends ExceptionHandler
     public function report(Exception $e)
     {
         app('sneaker')->captureException($e);
+
         parent::report($e);
     }
 
@@ -42,10 +44,14 @@ class Handler extends ExceptionHandler
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $e
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
      */
     public function render($request, Exception $e)
     {
+        if($e instanceof TokenMismatchException){
+            flash("The login form has expired, please try again.")->error();
+            return redirect(route('login'));
+        }
         return parent::render($request, $e);
     }
 }
