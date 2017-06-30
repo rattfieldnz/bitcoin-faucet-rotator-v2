@@ -29,18 +29,43 @@ class UserPanelController extends Controller
     {
 
         $user = null;
+
+        // Let admin show user panel if that user was suspended or not.
+        // Otherwise if not an admin, retrieve user details from requested slug.
         if(Auth::user()->isAnAdmin()) {
             $user = $this->userRepository->findByField('slug', $userSlug, true)->first();
         } else if(Auth::user()) {
             $user = $this->userRepository->findByField('slug', $userSlug)->first();
         }
 
+        // Below conditional covers if the user account was suspended or completely removed,
+        // while they were already logged in.
         if(empty($user)) {
-            dd("No such user");
+
+            if(Auth::user()->isAnAdmin()) {
+
+                flash("Sorry, there is no matching user, 
+                or the user has recently been suspended.")
+                    ->error();
+
+                return redirect(route('users.index'));
+            }
+
+            flash("Sorry, your account was recently suspended or permanently deleted. 
+                Please contact admin for further information.")
+                ->error();
+
+            return redirect(route('login'));
         }
 
+        // This conditional prevents users from viewing other user's panels,
+        // where only admin can see any user panel.
         if($user != Auth::user() && !Auth::user()->isAnAdmin()) {
-            dd("You are not allowed to access another user's panel.");
+
+            flash("Sorry, you are not allowed to access another user's panel.")
+                ->error();
+
+            return redirect(route('users.index'));
         }
 
         return view('users.panel.show')
