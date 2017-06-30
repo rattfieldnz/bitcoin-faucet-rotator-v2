@@ -3509,16 +3509,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v7.9.0",
+            "version": "v7.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "a013adf038e94a0f0ba81db82f889941c95184d9"
+                "reference": "f044610b64e70b63c1cc3831e687e071bed11afb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/a013adf038e94a0f0ba81db82f889941c95184d9",
-                "reference": "a013adf038e94a0f0ba81db82f889941c95184d9",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/f044610b64e70b63c1cc3831e687e071bed11afb",
+                "reference": "f044610b64e70b63c1cc3831e687e071bed11afb",
                 "shasum": ""
             },
             "require": {
@@ -3566,7 +3566,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2017-06-29T07:31:31+00:00"
+            "time": "2017-06-30T09:59:25+00:00"
         },
         {
             "name": "zircote/swagger-php",
@@ -4639,16 +4639,16 @@
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "4.0.1",
+            "version": "4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "eabce450df194817a7d7e27e19013569a903a2bf"
+                "reference": "d8833b396dce9162bb2eb5d59aee5a3ab3cfa5b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/eabce450df194817a7d7e27e19013569a903a2bf",
-                "reference": "eabce450df194817a7d7e27e19013569a903a2bf",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/d8833b396dce9162bb2eb5d59aee5a3ab3cfa5b4",
+                "reference": "d8833b396dce9162bb2eb5d59aee5a3ab3cfa5b4",
                 "shasum": ""
             },
             "require": {
@@ -4694,7 +4694,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2017-03-03T06:30:20+00:00"
+            "time": "2017-06-30T08:15:21+00:00"
         },
         {
             "name": "psr/container",
