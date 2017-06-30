@@ -399,8 +399,8 @@ class Curler
      *
      * @access public
      * @param  Integer $death . (default: 404) HTTP code that should kill the
-     *         request (eg. don't return the response); if false, will
-     *         continue always
+     *                        request (eg. don't return the response); if false, will
+     *                        continue always
      */
     public function __construct($death = 404)
     {
@@ -417,10 +417,12 @@ class Curler
         $this->cookie = __DIR__ . '/cookies.txt';
 
         // set the request headers
-        $this->setHeaders([
+        $this->setHeaders(
+            [
             'Connection' => 'keep-alive',
             'Accept-Language' => 'en-us,en;q=0.5'
-        ]);
+            ]
+        );
 
         // set timeout in seconds
         $this->setTimeout(5);
@@ -432,12 +434,14 @@ class Curler
         );
 
         // Set default curl options
-        $this->setCurlOptions([
+        $this->setCurlOptions(
+            [
             'CURLOPT_SSL_VERIFYPEER' => false,
             'CURLOPT_SSL_VERIFYHOST' => 2,
             'CURLOPT_FOLLOWLOCATION' => true,
             'CURLOPT_MAXREDIRS' => 10,
-        ]);
+            ]
+        );
     }
 
     /**
@@ -495,9 +499,9 @@ class Curler
      * Creates a curl resource, set's it up, and returns it's reference.
      *
      * @access protected
-     * @param  String $url
+     * @param  String  $url
      * @param  Boolean $head . (default: false) whether or not this is a HEAD
-     *         request, in which case no response-body is returned
+     *                       request, in which case no response-body is returned
      * @return Resource curl resource reference
      */
     protected function getResource($url, $head = false)
@@ -917,11 +921,11 @@ class Curler
     /**
      * post
      *
-     * @access public
-     * @param  String $url
-     * @param array $data
-     * @param  boolean $buildQuery (default: true)
-     * @return array|false
+     * @access   public
+     * @param    String  $url
+     * @param    array   $data
+     * @param    boolean $buildQuery (default: true)
+     * @return   array|false
      * @internal param Array $array
      */
     public function post($url, array $data = [], $buildQuery = true)
@@ -1126,6 +1130,7 @@ class Curler
 
     /**
      * Set path to file for curl to store cookies. File must be writable
+     *
      * @param string $cookie
      */
     public function setCookieFile($cookie)

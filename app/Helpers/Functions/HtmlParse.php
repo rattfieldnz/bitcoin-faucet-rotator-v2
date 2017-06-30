@@ -9,7 +9,7 @@ use RattfieldNz\UrlValidation\UrlValidation;
  *
  * A class used to handle HTML parsing of a URL.
  *
- * @author Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Helpers\Functions
  */
 class HtmlParse
@@ -18,7 +18,8 @@ class HtmlParse
 
     /**
      * HtmlParse constructor.
-     * @param $url
+     *
+     * @param  $url
      * @throws Exception
      */
     public function __construct($url)
@@ -48,7 +49,9 @@ class HtmlParse
         curl_close($ch);
 
         $doc = new DOMDocument();
-        /** @var DOMDocument $doc */
+        /**
+ * @var DOMDocument $doc 
+*/
         @$doc->loadHTML($data);
 
         return $doc;

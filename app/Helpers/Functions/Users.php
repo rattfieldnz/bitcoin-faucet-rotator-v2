@@ -33,7 +33,8 @@ class Users
 
     /**
      * Create a user with form data.
-     * @param array $data
+     *
+     * @param  array $data
      * @return User
      */
     public function createStoreUser(array $data)
@@ -66,8 +67,9 @@ class Users
 
     /**
      * Delete a user.
-     * @param $slug
-     * @param bool $permanentlyDelete True if user permanently deleted, false for soft-delete.
+     *
+     * @param  $slug
+     * @param  bool $permanentlyDelete True if user permanently deleted, false for soft-delete.
      * @return bool|int
      */
     public function destroyUser($slug, bool $permanentlyDelete = false)
@@ -86,7 +88,8 @@ class Users
 
     /**
      * Resore a soft-deleted user.
-     * @param $slug
+     *
+     * @param  $slug
      * @return bool|mixed
      */
     public function restoreUser($slug)
@@ -105,8 +108,9 @@ class Users
 
     /**
      * Update a specified user.
-     * @param $slug
-     * @param UpdateUserRequest $request
+     *
+     * @param  $slug
+     * @param  UpdateUserRequest $request
      * @return bool|mixed
      */
     public function updateUser($slug, UpdateUserRequest $request)
@@ -133,10 +137,11 @@ class Users
 
     /**
      * Checks if a user is authorised to access a route.
-     * @param User $user
-     * @param $routeName
-     * @param array $routeParameters
-     * @param array|null $dataParameters
+     *
+     * @param  User       $user
+     * @param  $routeName
+     * @param  array      $routeParameters
+     * @param  array|null $dataParameters
      * @return \Illuminate\Http\RedirectResponse
      */
     public static function userCanAccessArea(User $user, $routeName, array $routeParameters, array $dataParameters = [])
@@ -153,9 +158,10 @@ class Users
 
     /**
      * Retrieve faucets associated with a payment processor.
-     * @param User $user
-     * @param PaymentProcessor $paymentProcessor
-     * @param bool $trashed
+     *
+     * @param  User             $user
+     * @param  PaymentProcessor $paymentProcessor
+     * @param  bool             $trashed
      * @return array
      */
     public function getPaymentProcessorFaucets(User $user, PaymentProcessor $paymentProcessor, $trashed = false)

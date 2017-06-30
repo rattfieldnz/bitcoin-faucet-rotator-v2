@@ -30,10 +30,12 @@ class ValidationServiceProvider extends ServiceProvider
         // Tell Laravel to use our custom created validator class. This class will extend the
         // normal validation class, so you can add methods and override methods.
 
-        Validator::resolver(function ($translator, $data, $rules, $messages) {
+        Validator::resolver(
+            function ($translator, $data, $rules, $messages) {
 
-            // We create our own validation class here, we will create that after this
-            return new CustomValidation($translator, $data, $rules, $messages);
-        });
+                // We create our own validation class here, we will create that after this
+                return new CustomValidation($translator, $data, $rules, $messages);
+            }
+        );
     }
 }

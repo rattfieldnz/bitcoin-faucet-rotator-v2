@@ -10,7 +10,7 @@ use RattfieldNz\UrlValidation\UrlValidation;
  * A class to handle retrieval of a given URL's
  * website meta details
  *
- * @author Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Helpers\WebsiteMeta
  */
 class WebsiteMeta
@@ -21,7 +21,8 @@ class WebsiteMeta
 
     /**
      * WebsiteMeta constructor.
-     * @param $url
+     *
+     * @param  $url
      * @throws Exception
      */
     public function __construct($url)
@@ -78,6 +79,7 @@ class WebsiteMeta
 
     /**
      * Returns search engine verification ids.
+     *
      * @return array
      */
     public static function seVerificationIds()
@@ -90,6 +92,7 @@ class WebsiteMeta
 
     /**
      * Returns the AddThis id.
+     *
      * @return mixed
      */
     public static function addThisId()
@@ -109,6 +112,7 @@ class WebsiteMeta
 
     /**
      * Returns the Feedburner feed URL.
+     *
      * @return mixed
      */
     public static function feedburnerFeedUrl()

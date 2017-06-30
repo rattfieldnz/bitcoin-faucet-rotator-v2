@@ -17,7 +17,7 @@ use Mews\Purifier\Facades\Purifier;
  * A helper class to handle extra funtionality
  * related to currently stored faucets.
  *
- * @author Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Helpers\Functions
  */
 class Faucets
@@ -30,6 +30,7 @@ class Faucets
 
     /**
      * Create and store a new faucet.
+     *
      * @param CreateFaucetRequest $request
      */
     public function createStoreFaucet(CreateFaucetRequest $request)
@@ -59,8 +60,9 @@ class Faucets
 
     /**
      * Update the specified faucet.
-     * @param $slug
-     * @param UpdateFaucetRequest $request
+     *
+     * @param  $slug
+     * @param  UpdateFaucetRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function updateFaucet($slug, UpdateFaucetRequest $request)
@@ -105,8 +107,9 @@ class Faucets
 
     /**
      * Soft-delete or permanently delete a faucet.
-     * @param $slug
-     * @param bool $permanentlyDelete
+     *
+     * @param  $slug
+     * @param  bool $permanentlyDelete
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroyFaucet($slug, $permanentlyDelete = false)
@@ -134,7 +137,8 @@ class Faucets
 
     /**
      * Restore a specified soft-deleted faucet.
-     * @param $slug
+     *
+     * @param  $slug
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function restoreFaucet($slug)
@@ -158,7 +162,7 @@ class Faucets
 
 
     /**
-     * @param User $user
+     * @param User   $user
      * @param Faucet $faucet
      * @return string
      */
@@ -181,7 +185,7 @@ class Faucets
     }
 
     /**
-     * @param User $user
+     * @param User   $user
      * @param Faucet $faucet
      * @param string $refCode
      * @return null
@@ -220,8 +224,8 @@ class Faucets
     /**
      * Retrieve the faucets of a specified user.
      *
-     * @param User $user
-     * @param bool $isDeleted
+     * @param  User $user
+     * @param  bool $isDeleted
      * @return \Illuminate\Support\Collection
      */
     public function getUserFaucets(User $user, bool $isDeleted = false)
@@ -240,8 +244,8 @@ class Faucets
     /**
      * Retrieve faucet ids matching with specified user.
      *
-     * @param User $user
-     * @param bool $isDeleted
+     * @param  User $user
+     * @param  bool $isDeleted
      * @return \Illuminate\Support\Collection
      */
     private function getUserFaucetIds(User $user, bool $isDeleted = false)
@@ -265,8 +269,9 @@ class Faucets
 
     /**
      * Permanently delete user-faucet data from pivot table.
-     * @param User $user
-     * @param Faucet $faucet
+     *
+     * @param  User   $user
+     * @param  Faucet $faucet
      * @return int
      */
     public function destroyUserFaucet(User $user, Faucet $faucet)

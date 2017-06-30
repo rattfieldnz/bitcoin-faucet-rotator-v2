@@ -5,7 +5,7 @@
  *
  * A class to handle Laravel-specific cron jobs.
  *
- * @author Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Helpers\Functions
  */
 class LaravelCron
@@ -15,7 +15,7 @@ class LaravelCron
      * A function to check whether a cron job for the
      * specific command exists.
      *
-     * @param $command
+     * @param  $command
      * @return bool
      */
     public static function cronExists($command)

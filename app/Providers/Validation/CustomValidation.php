@@ -18,9 +18,9 @@ class CustomValidation extends Validator
      * Use it like so
      * 'user_name' => 'valid_user_name'
      *
-     * @param $attribute
-     * @param $value
-     * @param $parameters
+     * @param  $attribute
+     * @param  $value
+     * @param  $parameters
      * @return mixed
      */
     public function validateValidUserName($attribute, $value, $parameters, $validator)
@@ -41,9 +41,9 @@ class CustomValidation extends Validator
      * Use it like so
      * 'user_name' => 'not_start_with_number'
      *
-     * @param $attribute
-     * @param $value
-     * @param $parameters
+     * @param  $attribute
+     * @param  $value
+     * @param  $parameters
      * @return mixed
      */
     public function validateNotStartWithNumber($attribute, $value, $parameters, $validator)
@@ -57,9 +57,9 @@ class CustomValidation extends Validator
      * Use it like so
      * 'user_name' => 'no_numbers'
      *
-     * @param $attribute
-     * @param $value
-     * @param $parameters
+     * @param  $attribute
+     * @param  $value
+     * @param  $parameters
      * @return mixed
      */
     public function validateNoNumbers($attribute, $value, $parameters, $validator)
@@ -73,9 +73,9 @@ class CustomValidation extends Validator
      * Use it like so
      * 'user_name' => 'no_punctuation'
      *
-     * @param $attribute
-     * @param $value
-     * @param $parameters
+     * @param  $attribute
+     * @param  $value
+     * @param  $parameters
      * @return mixed
      */
     public function validateNoPunctuation($attribute, $value, $parameters, $validator)

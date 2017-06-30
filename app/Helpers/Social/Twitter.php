@@ -9,8 +9,8 @@ use \App\User;
  *
  * A class to handle Twitter-related functionality.
  *
- * @author Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
- * @todo Abstract Twitter tweeting functions into another class.
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @todo    Abstract Twitter tweeting functions into another class.
  * @package App\Helpers\Social
  */
 class Twitter
@@ -20,6 +20,7 @@ class Twitter
 
     /**
      * Twitter constructor.
+     *
      * @param User $user
      */
     public function __construct(User $user)

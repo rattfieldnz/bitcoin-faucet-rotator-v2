@@ -355,7 +355,7 @@ class MetaParser
      *
      * @access protected
      * @param  string $value
-     * @param string $attr
+     * @param  string $attr
      * @return false|string
      */
     protected function parseMetaTag($value, $attr = 'name')

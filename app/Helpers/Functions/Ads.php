@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
  * A class to handle functionality specific to the
  * site-wide ad block.
  *
- * @author Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package Helpers\Functions
  */
 class Ads
