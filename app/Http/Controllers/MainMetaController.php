@@ -13,7 +13,9 @@ use Prettus\Repository\Criteria\RequestCriteria;
 
 class MainMetaController extends AppBaseController
 {
-    /** @var  MainMetaRepository */
+    /**
+ * @var  MainMetaRepository 
+*/
     private $mainMetaRepository;
 
     public function __construct(MainMetaRepository $mainMetaRepo)
@@ -25,7 +27,7 @@ class MainMetaController extends AppBaseController
     /**
      * Display a listing of the MainMeta.
      *
-     * @param Request $request
+     * @param  Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
@@ -56,7 +58,7 @@ class MainMetaController extends AppBaseController
     /**
      * Store a newly created MainMeta in storage.
      *
-     * @param CreateMainMetaRequest $request
+     * @param  CreateMainMetaRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(CreateMainMetaRequest $request)
@@ -94,8 +96,8 @@ class MainMetaController extends AppBaseController
     /**
      * Update the specified MainMeta in storage.
      *
-     * @param  int $id
-     * @param UpdateMainMetaRequest $request
+     * @param  int                   $id
+     * @param  UpdateMainMetaRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update($id, UpdateMainMetaRequest $request)

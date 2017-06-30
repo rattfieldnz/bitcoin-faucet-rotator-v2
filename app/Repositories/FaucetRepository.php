@@ -38,7 +38,7 @@ class FaucetRepository extends Repository implements IRepository
     /**
      * Create a new faucet.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return Faucet
      */
     public function create(array $data)

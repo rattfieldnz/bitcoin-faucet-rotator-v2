@@ -51,12 +51,14 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
-        Route::group([
+        Route::group(
+            [
             'middleware' => 'web',
             'namespace' => $this->namespace,
-        ], function ($router) {
-            require base_path('routes/web.php');
-        });
+            ], function ($router) {
+                include base_path('routes/web.php');
+            }
+        );
     }
 
     /**
@@ -68,12 +70,14 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
-        Route::group([
+        Route::group(
+            [
             'middleware' => 'api',
             'namespace' => $this->namespace,
             'prefix' => 'api',
-        ], function ($router) {
-            require base_path('routes/api.php');
-        });
+            ], function ($router) {
+                include base_path('routes/api.php');
+            }
+        );
     }
 }

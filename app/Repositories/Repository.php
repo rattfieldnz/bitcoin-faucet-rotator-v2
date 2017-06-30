@@ -17,8 +17,8 @@ abstract class Repository extends BaseRepository
     /**
      * Find data by field and value
      *
-     * @param       $field
-     * @param       $value
+     * @param $field
+     * @param $value
      * @param array $columns
      *
      * @return mixed
@@ -44,7 +44,7 @@ abstract class Repository extends BaseRepository
      *
      * @param array $where
      *
-     * @param bool $permanent
+     * @param  bool  $permanent
      * @return int
      */
     public function deleteWhere(array $where)

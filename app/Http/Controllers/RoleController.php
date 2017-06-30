@@ -15,7 +15,9 @@ use Response;
 
 class RoleController extends AppBaseController
 {
-    /** @var  RoleRepository */
+    /**
+ * @var  RoleRepository 
+*/
     private $roleRepository;
 
     public function __construct(RoleRepository $roleRepo)
@@ -27,7 +29,7 @@ class RoleController extends AppBaseController
     /**
      * Display a listing of the Role.
      *
-     * @param Request $request
+     * @param  Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
@@ -73,7 +75,7 @@ class RoleController extends AppBaseController
     /**
      * Display the specified Role.
      *
-     * @param  string $slug
+     * @param string $slug
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -94,7 +96,7 @@ class RoleController extends AppBaseController
     /**
      * Show the form for editing the specified Role.
      *
-     * @param  string $slug
+     * @param string $slug
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -115,7 +117,7 @@ class RoleController extends AppBaseController
     /**
      * Update the specified Role in storage.
      *
-     * @param  string             $slug
+     * @param string            $slug
      * @param UpdateRoleRequest $request
      *
      * @return Response
@@ -141,7 +143,7 @@ class RoleController extends AppBaseController
     /**
      * Remove the specified Role from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */

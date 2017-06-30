@@ -19,7 +19,9 @@ use Laracasts\Flash\Flash as LaracastsFlash;
 
 class PaymentProcessorController extends AppBaseController
 {
-    /** @var  PaymentProcessorRepository */
+    /**
+     * @var  PaymentProcessorRepository
+     */
     private $paymentProcessorRepository;
     private $userFunctions;
 
@@ -33,7 +35,7 @@ class PaymentProcessorController extends AppBaseController
     /**
      * Display a listing of the PaymentProcessor.
      *
-     * @param Request $request
+     * @param  Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
@@ -104,7 +106,7 @@ class PaymentProcessorController extends AppBaseController
     /**
      * Show main faucets associated with a payment processor.
      *
-     * @param $slug
+     * @param  $slug
      * @return PaymentProcessorController|\Illuminate\View\View
      */
     public function faucets($slug)
@@ -131,7 +133,8 @@ class PaymentProcessorController extends AppBaseController
 
     /**
      * [userPaymentProcessors description]
-     * @param $userSlug
+     *
+     * @param  $userSlug
      * @return \Illuminate\View\View
      */
     public function userPaymentProcessors($userSlug)
@@ -160,8 +163,8 @@ class PaymentProcessorController extends AppBaseController
     /**
      * Gets standard user faucets associated with a particular payment processor.
      *
-     * @param $userSlug
-     * @param $paymentProcessorSlug
+     * @param  $userSlug
+     * @param  $paymentProcessorSlug
      * @return \Illuminate\View\View
      */
     public function userPaymentProcessorFaucets($userSlug, $paymentProcessorSlug)
@@ -224,7 +227,7 @@ class PaymentProcessorController extends AppBaseController
     /**
      * Update the specified PaymentProcessor in storage.
      *
-     * @param string $slug
+     * @param string                        $slug
      * @param UpdatePaymentProcessorRequest $request
      *
      * @return Response
@@ -275,7 +278,7 @@ class PaymentProcessorController extends AppBaseController
     /**
      * Destroys a payment processor permanently.
      *
-     * @param $slug
+     * @param  $slug
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroyPermanently($slug)
@@ -310,7 +313,7 @@ class PaymentProcessorController extends AppBaseController
     /**
      * Restore a soft-deleted payment processor.
      *
-     * @param $slug
+     * @param  $slug
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function restoreDeleted($slug)

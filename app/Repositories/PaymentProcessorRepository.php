@@ -30,7 +30,7 @@ class PaymentProcessorRepository extends Repository implements IRepository
     /**
      * Create a new payment processor.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return PaymentProcessor
      */
     public function create(array $data)

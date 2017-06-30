@@ -21,7 +21,7 @@ class UserController extends AppBaseController
      * UserController constructor.
      *
      * @param UserRepository $userRepo
-     * @param Users $userFunctions
+     * @param Users          $userFunctions
      */
     public function __construct(UserRepository $userRepo, Users $userFunctions)
     {
@@ -33,7 +33,7 @@ class UserController extends AppBaseController
     /**
      * Display a listing of the User.
      *
-     * @param Request $request
+     * @param  Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
@@ -68,7 +68,7 @@ class UserController extends AppBaseController
     /**
      * Store a newly created User in storage.
      *
-     * @param CreateUserRequest $request
+     * @param  CreateUserRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(CreateUserRequest $request)
@@ -89,7 +89,7 @@ class UserController extends AppBaseController
     /**
      * Display the specified User.
      *
-     * @param $slug
+     * @param  $slug
      * @return \Illuminate\View\View
      */
     public function show($slug)
@@ -105,18 +105,16 @@ class UserController extends AppBaseController
         if (Auth::guest() && !empty($user) && $user->isDeleted()) { // If the visitor is a guest, user doesn't exist, and user is soft-deleted
             flash('User not found')->error();
             return redirect(route('users.index'));
-        } elseif (
-            !Auth::guest() && // If the visitor isn't a guest visitor,
-            Auth::user()->hasRole('user') && // If the visitor is an authenticated user with 'user' role
-            $user->isDeleted() // If the requested user has been soft-deleted
+        } elseif (!Auth::guest()  // If the visitor isn't a guest visitor,
+            && Auth::user()->hasRole('user')  // If the visitor is an authenticated user with 'user' role
+            && $user->isDeleted() // If the requested user has been soft-deleted
         ) {
             flash('User not found')->error();
             return redirect(route('users.index'));
         } else {
-            if (
-                !empty($user) && // If the user exists,
-                $user->isDeleted() && // If the user is soft-deleted,
-                Auth::user()->isAnAdmin() // If the currently authenticated user is an admin,
+            if (!empty($user)  // If the user exists,
+                && $user->isDeleted()  // If the user is soft-deleted,
+                && Auth::user()->isAnAdmin() // If the currently authenticated user is an admin,
             ) {
                 $message = 'The user has been temporarily deleted. You can restore the user or permanently delete them.';
 
@@ -138,7 +136,7 @@ class UserController extends AppBaseController
     /**
      * Show the form for editing the specified User.
      *
-     * @param $slug
+     * @param  $slug
      * @return \Illuminate\View\View
      */
     public function edit($slug)
@@ -161,8 +159,8 @@ class UserController extends AppBaseController
     /**
      * Update the specified User in storage.
      *
-     * @param $slug
-     * @param UpdateUserRequest $request
+     * @param  $slug
+     * @param  UpdateUserRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update($slug, UpdateUserRequest $request)
@@ -190,7 +188,7 @@ class UserController extends AppBaseController
     /**
      * Remove the specified User from storage.
      *
-     * @param $slug
+     * @param  $slug
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($slug)
@@ -219,7 +217,7 @@ class UserController extends AppBaseController
     /**
      * Permanently delete the specified user.
      *
-     * @param $slug
+     * @param  $slug
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroyPermanently($slug)
@@ -256,7 +254,7 @@ class UserController extends AppBaseController
     /**
      * Restore the specified soft-deleted user.
      *
-     * @param $slug
+     * @param  $slug
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function restoreDeleted($slug)

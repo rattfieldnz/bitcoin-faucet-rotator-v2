@@ -34,7 +34,7 @@ class UserRepository extends Repository implements IRepository
      *
      * NOTE: New users cannot register as an admin.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return User
      */
     public function create(array $data)
@@ -52,8 +52,9 @@ class UserRepository extends Repository implements IRepository
 
     /**
      * Update user data,
-     * @param array $data
-     * @param $slug
+     *
+     * @param  array $data
+     * @param  $slug
      * @return mixed
      */
     public function update(array $data, $slug)

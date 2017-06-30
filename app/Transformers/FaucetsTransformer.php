@@ -11,6 +11,7 @@ use League\Fractal\TransformerAbstract;
 
 /**
  * Class FaucetsTransformer
+ *
  * @package namespace App\Transformers;
  */
 class FaucetsTransformer extends TransformerAbstract
@@ -19,7 +20,7 @@ class FaucetsTransformer extends TransformerAbstract
     /**
      * Transform the Faucet entity
      *
-     * @param Faucet $model
+     * @param  Faucet $model
      * @return array
      */
     public function transform(Faucet $model, $addPaymentProcessors = false)

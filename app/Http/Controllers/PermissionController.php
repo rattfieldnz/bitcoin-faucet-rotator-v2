@@ -15,7 +15,9 @@ use Response;
 
 class PermissionController extends AppBaseController
 {
-    /** @var  PermissionRepository */
+    /**
+ * @var  PermissionRepository 
+*/
     private $permissionRepository;
 
     public function __construct(PermissionRepository $permissionRepo)
@@ -27,7 +29,7 @@ class PermissionController extends AppBaseController
     /**
      * Display a listing of the Permission.
      *
-     * @param Request $request
+     * @param  Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
@@ -73,7 +75,7 @@ class PermissionController extends AppBaseController
     /**
      * Display the specified Permission.
      *
-     * @param  string $slug
+     * @param string $slug
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -94,7 +96,7 @@ class PermissionController extends AppBaseController
     /**
      * Show the form for editing the specified Permission.
      *
-     * @param  string $slug
+     * @param string $slug
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -115,7 +117,7 @@ class PermissionController extends AppBaseController
     /**
      * Update the specified Permission in storage.
      *
-     * @param string $slug
+     * @param string                  $slug
      * @param UpdatePermissionRequest $request
      *
      * @return Response
@@ -142,7 +144,7 @@ class PermissionController extends AppBaseController
     /**
      * Remove the specified Permission from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */

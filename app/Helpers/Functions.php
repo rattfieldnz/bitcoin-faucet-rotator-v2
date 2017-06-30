@@ -29,7 +29,7 @@ class Functions
     }
 
     /**
-     * @param User $user
+     * @param User   $user
      * @param Faucet $faucet
      * @return string
      */
@@ -52,7 +52,7 @@ class Functions
     }
 
     /**
-     * @param User $user
+     * @param User   $user
      * @param Faucet $faucet
      * @param string $refCode
      * @return null

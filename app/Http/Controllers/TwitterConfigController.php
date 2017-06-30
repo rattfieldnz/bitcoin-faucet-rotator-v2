@@ -13,7 +13,9 @@ use Response;
 
 class TwitterConfigController extends AppBaseController
 {
-    /** @var  TwitterConfigRepository */
+    /**
+ * @var  TwitterConfigRepository 
+*/
     private $twitterConfigRepository;
 
     public function __construct(TwitterConfigRepository $twitterConfigRepo)
@@ -25,7 +27,7 @@ class TwitterConfigController extends AppBaseController
     /**
      * Display a listing of the TwitterConfig.
      *
-     * @param Request $request
+     * @param  Request $request
      * @return \Illuminate\View\View
      */
     public function index(Request $request)
@@ -78,7 +80,7 @@ class TwitterConfigController extends AppBaseController
     /**
      * Show the form for editing the specified TwitterConfig.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -99,7 +101,7 @@ class TwitterConfigController extends AppBaseController
     /**
      * Update the specified TwitterConfig in storage.
      *
-     * @param  int              $id
+     * @param int                        $id
      * @param UpdateTwitterConfigRequest $request
      *
      * @return Response
@@ -125,7 +127,7 @@ class TwitterConfigController extends AppBaseController
     /**
      * Remove the specified TwitterConfig from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */

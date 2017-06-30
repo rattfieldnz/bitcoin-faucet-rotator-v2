@@ -8,6 +8,7 @@ use League\Fractal\TransformerAbstract;
 
 /**
  * Class PaymentProcessorsTransformer
+ *
  * @package namespace App\Transformers;
  */
 class PaymentProcessorsTransformer extends TransformerAbstract
@@ -15,6 +16,7 @@ class PaymentProcessorsTransformer extends TransformerAbstract
 
     /**
      * Transform the \PaymentProcessor entity
+     *
      * @param PaymentProcessor $model
      *
      * @return array

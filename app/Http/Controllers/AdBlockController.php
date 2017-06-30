@@ -14,7 +14,9 @@ use Prettus\Repository\Criteria\RequestCriteria;
 
 class AdBlockController extends AppBaseController
 {
-    /** @var  AdBlockRepository */
+    /**
+ * @var  AdBlockRepository 
+*/
     private $adBlockRepository;
 
     public function __construct(AdBlockRepository $adBlockRepo)
@@ -26,7 +28,7 @@ class AdBlockController extends AppBaseController
     /**
      * Display a listing of the AdBlock.
      *
-     * @param Request $request
+     * @param  Request $request
      * @return \Illuminate\View\View
      */
     public function index(Request $request)
@@ -61,7 +63,7 @@ class AdBlockController extends AppBaseController
     /**
      * Store a newly created AdBlock in storage.
      *
-     * @param CreateAdBlockRequest $request
+     * @param  CreateAdBlockRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(CreateAdBlockRequest $request)
@@ -99,8 +101,8 @@ class AdBlockController extends AppBaseController
     /**
      * Update the specified AdBlock in storage.
      *
-     * @param  int $id
-     * @param UpdateAdBlockRequest $request
+     * @param  int                  $id
+     * @param  UpdateAdBlockRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update($id, UpdateAdBlockRequest $request)

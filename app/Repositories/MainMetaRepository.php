@@ -38,7 +38,7 @@ class MainMetaRepository extends BaseRepository implements IRepository
     /**
      * Create main meta data.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return MainMeta
      */
     public function create(array $data)
@@ -57,8 +57,9 @@ class MainMetaRepository extends BaseRepository implements IRepository
 
     /**
      * Update main meta data,
-     * @param array $data
-     * @param $id
+     *
+     * @param  array $data
+     * @param  $id
      * @return mixed
      */
     public function update(array $data, $id)

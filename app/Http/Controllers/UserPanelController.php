@@ -16,7 +16,7 @@ class UserPanelController extends Controller
      * UserPanelController constructor.
      *
      * @param UserRepository $userRepo
-     * @param Users $userFunctions
+     * @param Users          $userFunctions
      */
     public function __construct(UserRepository $userRepo, Users $userFunctions)
     {
@@ -28,7 +28,8 @@ class UserPanelController extends Controller
     /**
      * Show a user's panel.
      * TODO: Fill page with useful data - possibly using tabbed interface, charts, etc.
-     * @param $userSlug
+     *
+     * @param  $userSlug
      * @return UserPanelController|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($userSlug)
@@ -47,16 +48,18 @@ class UserPanelController extends Controller
         // while they were already logged in.
         if (empty($user)) {
             if (Auth::user()->isAnAdmin()) {
-                flash("Sorry, there is no matching user, 
-                or the user has recently been suspended.")
-                    ->error();
+                flash(
+                    "Sorry, there is no matching user, 
+                    or the user has recently been suspended."
+                )->error();
 
                 return redirect(route('users.index'));
             }
 
-            flash("Sorry, your account was recently suspended or permanently deleted. 
-                Please contact admin for further information.")
-                ->error();
+            flash(
+                "Sorry, your account was recently suspended or permanently deleted. 
+                Please contact admin for further information."
+            )->error();
 
             return redirect(route('login'));
         }

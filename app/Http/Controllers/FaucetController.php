@@ -26,8 +26,8 @@ class FaucetController extends AppBaseController
      * FaucetController constructor.
      *
      * @param FaucetRepository $faucetRepo
-     * @param Users $userFunctions
-     * @param Faucets $faucetFunctions
+     * @param Users            $userFunctions
+     * @param Faucets          $faucetFunctions
      */
     public function __construct(FaucetRepository $faucetRepo, Users $userFunctions, Faucets $faucetFunctions)
     {
@@ -40,7 +40,7 @@ class FaucetController extends AppBaseController
     /**
      * Display a listing of the Faucet.
      *
-     * @param Request $request
+     * @param  Request $request
      * @return \Illuminate\View\View
      */
     public function index(Request $request)
@@ -125,19 +125,17 @@ class FaucetController extends AppBaseController
         if (Auth::guest() && !empty($faucet) && $faucet->isDeleted()) { // If the visitor is a guest, faucet exists, and faucet is soft-deleted
             flash('Faucet not found')->error();
             return redirect(route('faucets.index'));
-        } elseif (
-            !Auth::guest() && // If the visitor isn't a guest visitor,
-            Auth::user()->hasRole('user') && // If the visitor is an authenticated user with 'user' role
-            !Auth::user()->isAnAdmin() && // If the visitor is an authenticated user, but without 'owner' role,
-            $faucet->isDeleted() // If the faucet has been soft-deleted
+        } elseif (!Auth::guest()  // If the visitor isn't a guest visitor,
+            && Auth::user()->hasRole('user')  // If the visitor is an authenticated user with 'user' role
+            && !Auth::user()->isAnAdmin()  // If the visitor is an authenticated user, but without 'owner' role,
+            && $faucet->isDeleted() // If the faucet has been soft-deleted
         ) {
             flash('Faucet not found')->error();
             return redirect(route('faucets.index'));
         } else {
-            if (
-                !empty($faucet) && // If the faucet exists,
-                $faucet->isDeleted() && // If the faucet is soft-deleted,
-                Auth::user()->isAnAdmin() // If the currently authenticated user has 'owner' role,
+            if (!empty($faucet)  // If the faucet exists,
+                && $faucet->isDeleted()  // If the faucet is soft-deleted,
+                && Auth::user()->isAnAdmin() // If the currently authenticated user has 'owner' role,
             ) {
                 $message = 'The faucet has been temporarily deleted. You can restore the faucet or permanently delete it.';
 
@@ -192,7 +190,7 @@ class FaucetController extends AppBaseController
     /**
      * Update the specified Faucet in storage.
      *
-     * @param string $slug
+     * @param string              $slug
      * @param UpdateFaucetRequest $request
      *
      * @return Response
@@ -265,7 +263,7 @@ class FaucetController extends AppBaseController
     /**
      * Permanently remove the specified Faucet from storage.
      *
-     * @param $slug
+     * @param  $slug
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroyPermanently($slug)
@@ -311,7 +309,7 @@ class FaucetController extends AppBaseController
     /**
      * Restore a soft-deleted faucet.
      *
-     * @param $slug
+     * @param  $slug
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function restoreDeleted($slug)

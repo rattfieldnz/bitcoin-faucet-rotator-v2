@@ -221,6 +221,7 @@ class Faucet extends Model
      * A method to tell user if a faucet
      * has a referral program or not, in
      * a readable format.
+     *
      * @return string
      */
     public function hasRefProgram()
@@ -234,6 +235,7 @@ class Faucet extends Model
      * A method to tell user if a faucet
      * is paused or not, in
      * a readable format.
+     *
      * @return string
      */
     public function status()

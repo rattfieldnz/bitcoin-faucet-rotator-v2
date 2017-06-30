@@ -21,7 +21,9 @@ use Prettus\Repository\Criteria\RequestCriteria;
 
 class UserFaucetsController extends Controller
 {
-    /** @var  UserFaucetRepository */
+    /**
+ * @var  UserFaucetRepository 
+*/
     private $userFaucetRepository;
 
     private $userRepository;
@@ -30,9 +32,10 @@ class UserFaucetsController extends Controller
 
     /**
      * UserFaucetsController constructor.
+     *
      * @param UserFaucetRepository $userFaucetRepo
-     * @param UserRepository $userRepository
-     * @param Faucets $faucetFunctions
+     * @param UserRepository       $userRepository
+     * @param Faucets              $faucetFunctions
      */
     public function __construct(
         UserFaucetRepository $userFaucetRepo,
@@ -49,8 +52,8 @@ class UserFaucetsController extends Controller
     /**
      * Display a listing of the Faucet.
      *
-     * @param $userSlug
-     * @param Request $request
+     * @param  $userSlug
+     * @param  Request  $request
      * @return \Illuminate\View\View
      */
     public function index($userSlug, Request $request)
@@ -87,7 +90,7 @@ class UserFaucetsController extends Controller
     /**
      * Show the form for creating a new Faucet.
      *
-     * @param $userSlug
+     * @param  $userSlug
      * @return \Illuminate\View\View
      */
     public function create($userSlug)
@@ -129,8 +132,8 @@ class UserFaucetsController extends Controller
     /**
      * Store a newly created Faucet in storage.
      *
-     * @param $userSlug
-     * @param CreateUserFaucetRequest $request
+     * @param  $userSlug
+     * @param  CreateUserFaucetRequest $request
      * @return Response
      */
     public function store($userSlug, CreateUserFaucetRequest $request)
@@ -175,8 +178,8 @@ class UserFaucetsController extends Controller
     /**
      * Display the specified Faucet.
      *
-     * @param $userSlug
-     * @param $faucetSlug
+     * @param  $userSlug
+     * @param  $faucetSlug
      * @return \Illuminate\View\View
      */
     public function show($userSlug, $faucetSlug)
@@ -277,9 +280,9 @@ class UserFaucetsController extends Controller
     /**
      * Update the specified Faucet in storage.
      *
-     * @param $userSlug
-     * @param $faucetSlug
-     * @param UpdateUserFaucetRequest $request
+     * @param  $userSlug
+     * @param  $faucetSlug
+     * @param  UpdateUserFaucetRequest $request
      * @return Response
      */
     public function update($userSlug, $faucetSlug, UpdateUserFaucetRequest $request)
@@ -326,6 +329,7 @@ class UserFaucetsController extends Controller
 
     /**
      * [paymentProcessorFaucets description]
+     *
      * @param  string $userSlug The user's slug.
      * @return Response
      */
@@ -348,8 +352,8 @@ class UserFaucetsController extends Controller
     /**
      * Soft-delete the specified Faucet from storage.
      *
-     * @param $userSlug
-     * @param $faucetSlug
+     * @param  $userSlug
+     * @param  $faucetSlug
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($userSlug, $faucetSlug)
@@ -397,7 +401,7 @@ class UserFaucetsController extends Controller
         if (!empty($user) && !empty($faucet) && !empty($paymentProcessor)) {
             $redirectRoute = route(
                 'users.payment-processors.faucets',
-                    [
+                [
                         'userSlug' => $user->slug,
                         'paymentProcessorSlug' => $paymentProcessor->slug
                     ]

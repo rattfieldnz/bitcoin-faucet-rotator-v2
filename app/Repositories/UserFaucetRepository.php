@@ -12,6 +12,7 @@ use Mews\Purifier\Facades\Purifier;
 
 /**
  * Class UserFaucetRepository
+ *
  * @package namespace App\Repositories;
  */
 class UserFaucetRepository extends Repository implements IRepository
