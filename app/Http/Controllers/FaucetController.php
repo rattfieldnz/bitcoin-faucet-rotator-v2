@@ -231,7 +231,7 @@ class FaucetController extends AppBaseController
         );
         $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
 
-        if(empty($faucet)) {
+        if (empty($faucet)) {
             flash('Faucet not found')->error();
 
             return redirect(route('faucets.index'));

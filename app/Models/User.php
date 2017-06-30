@@ -194,7 +194,8 @@ class User extends Authenticatable
         return false;
     }
 
-    private function excludeAdminNameRule(){
+    private function excludeAdminNameRule()
+    {
         return $this->user_name != Constants::ADMIN_SLUG ? 'valid_user_name|' : '';
     }
 }

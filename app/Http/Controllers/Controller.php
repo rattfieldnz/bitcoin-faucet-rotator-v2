@@ -16,7 +16,8 @@ class Controller extends BaseController
     /**
      * Custom function to logout users.
      */
-    protected function logoutAuth(){
+    protected function logoutAuth()
+    {
         $this->guard()->logout();
         Auth::logout();
     }
@@ -27,7 +28,8 @@ class Controller extends BaseController
      *
      * @param Request $request
      */
-    protected function clearSessions(Request $request) {
+    protected function clearSessions(Request $request)
+    {
         $request->session()->flush();
         $request->session()->regenerate();
     }

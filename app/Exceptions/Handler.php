@@ -48,7 +48,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if($e instanceof TokenMismatchException){
+        if ($e instanceof TokenMismatchException) {
             flash("The login form has expired, please try again.")->error();
             return redirect(route('login'));
         }

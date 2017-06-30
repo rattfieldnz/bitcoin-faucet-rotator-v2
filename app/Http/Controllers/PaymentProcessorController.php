@@ -86,9 +86,9 @@ class PaymentProcessorController extends AppBaseController
     public function show($slug)
     {
         $paymentProcessor = null;
-        if(Auth::user()->isAnAdmin()){
+        if (Auth::user()->isAnAdmin()) {
             $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first()->withTrashed()->first();
-        } else{
+        } else {
             $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
         }
 
@@ -139,7 +139,7 @@ class PaymentProcessorController extends AppBaseController
         $user = null;
         $paymentProcessors = null;
 
-        if(Auth::user() != null && Auth::user()->isAnAdmin()) {
+        if (Auth::user() != null && Auth::user()->isAnAdmin()) {
             $user = User::withTrashed()->where('slug', $userSlug)->first();
             $paymentProcessors = $this->paymentProcessorRepository->withTrashed()->get();
         } else {
@@ -170,7 +170,7 @@ class PaymentProcessorController extends AppBaseController
         $faucets = null;
         $paymentProcessor = null;
 
-        if(Auth::user() != null && Auth::user()->isAnAdmin()) {
+        if (Auth::user() != null && Auth::user()->isAnAdmin()) {
             $user = User::withTrashed()->where('slug', $userSlug)->first();
             $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $paymentProcessorSlug, true)->first();
         } else {
@@ -178,12 +178,12 @@ class PaymentProcessorController extends AppBaseController
             $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $paymentProcessorSlug)->first();
         }
 
-        if(empty($user)) {
+        if (empty($user)) {
             flash('That user not found.')->error();
             return redirect(route('users.index'));
         }
 
-        if(empty($paymentProcessor)) {
+        if (empty($paymentProcessor)) {
             flash("The payment processor was not found.")->error();
             return redirect(route('users.payment-processors', $user->slug));
         }
@@ -245,7 +245,6 @@ class PaymentProcessorController extends AppBaseController
         flash('The \'' . $paymentProcessor->name . '\' payment processor was updated successfully!')->success();
 
         return redirect(route('payment-processors.index'));
-
     }
 
     /**

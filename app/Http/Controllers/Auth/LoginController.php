@@ -50,7 +50,7 @@ class LoginController extends Controller
      */
     public function authenticated(Request $request, $user)
     {
-        if(empty($user)){
+        if (empty($user)) {
             return redirect(route('login'));
         }
         $this->setRedirectedTo(route('users.panel', ['userSlug' => $user->slug]));
@@ -70,14 +70,13 @@ class LoginController extends Controller
     {
         $user = User::withTrashed()->where('email', $request->get('email'))->first();
 
-        if($user->isDeleted()) {
+        if ($user->isDeleted()) {
             flash("Your account has been suspended/cancelled. Please contact
                   admin for further information, and possible account restoration.")->error();
 
             $this->logoutAuth();
 
             return redirect(route('login'));
-
         }
 
         return $this->guard()->attempt(
@@ -113,7 +112,8 @@ class LoginController extends Controller
      *
      * @param $redirectTo
      */
-    private function setRedirectedTo($redirectTo) {
+    private function setRedirectedTo($redirectTo)
+    {
         $this->redirectTo = $redirectTo;
     }
 }

@@ -8,7 +8,6 @@
 
 namespace App\Providers\Validation;
 
-
 use Illuminate\Support\ServiceProvider;
 use Validator;
 
@@ -19,7 +18,9 @@ class ValidationServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register() {}
+    public function register()
+    {
+    }
 
     /**
      * Boot the service provider.

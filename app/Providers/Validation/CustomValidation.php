@@ -27,8 +27,10 @@ class CustomValidation extends Validator
     {
         $barredUserNamesLowerCase = ['admin','owner', 'manager'];
 
-        foreach($barredUserNamesLowerCase as $a) {
-            if (stripos(strtolower($value),$a) !== false) return false;
+        foreach ($barredUserNamesLowerCase as $a) {
+            if (stripos(strtolower($value), $a) !== false) {
+                return false;
+            }
         }
         return true;
     }

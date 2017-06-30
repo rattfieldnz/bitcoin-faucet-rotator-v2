@@ -97,9 +97,7 @@ class Users
             return false;
         }
         if ($user == Auth::user() || Auth::user()->isAnAdmin()) {
-
             return $this->userRepository->restoreDeleted($slug);
-
         } else {
             return false;
         }

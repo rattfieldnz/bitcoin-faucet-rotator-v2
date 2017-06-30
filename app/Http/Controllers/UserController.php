@@ -175,13 +175,11 @@ class UserController extends AppBaseController
             return redirect(route('users.index'));
         }
         if ($user == Auth::user() || Auth::user()->isAnAdmin()) {
-
             $this->userFunctions->updateUser($user->slug, $request);
 
-            if($user == Auth::user()) {
+            if ($user == Auth::user()) {
                 flash('You have successfully updated your profile!')->success();
-            }
-            else if (Auth::user()->isAnAdmin()) {
+            } elseif (Auth::user()->isAnAdmin()) {
                 flash('The user profile for \''. $user->user_name . '\' was successfully updated!')->success();
             }
 

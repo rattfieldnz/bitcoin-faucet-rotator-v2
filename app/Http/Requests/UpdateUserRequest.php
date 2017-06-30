@@ -29,7 +29,7 @@ class UpdateUserRequest extends Request
         $rules = User::$rules;
 
         // Allow the admin to update their profile while leaving their user-name unchanged (can't anyway).
-        if(strtolower($this->user_name) == Constants::ADMIN_SLUG){
+        if (strtolower($this->user_name) == Constants::ADMIN_SLUG) {
             $rules['user_name'] = 'min:5|max:15|required|not_start_with_number|no_punctuation|unique:users,user_name';
         }
 

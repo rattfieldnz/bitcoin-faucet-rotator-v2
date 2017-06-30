@@ -182,7 +182,7 @@ class UserFaucetsController extends Controller
     public function show($userSlug, $faucetSlug)
     {
         $user = null;
-        if(Auth::user()->isAnAdmin()) {
+        if (Auth::user()->isAnAdmin()) {
             $user = $this->userRepository->findByField('slug', $userSlug, true)->first();
         } else {
             $user = $this->userRepository->findByField('slug', $userSlug)->first();
@@ -263,7 +263,6 @@ class UserFaucetsController extends Controller
         } else {
             //If user faucet exists
             if (!empty($faucet)) {
-
                 return view('users.faucets.show')
                     ->with('user', $user)
                     ->with('faucet', $faucet)
