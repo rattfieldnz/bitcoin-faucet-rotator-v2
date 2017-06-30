@@ -26,7 +26,7 @@ class TwitterConfigController extends AppBaseController
      * Display a listing of the TwitterConfig.
      *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -80,7 +80,7 @@ class TwitterConfigController extends AppBaseController
      *
      * @param  int $id
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {

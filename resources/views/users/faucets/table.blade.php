@@ -33,7 +33,7 @@
                     <td>{!! $faucet->id !!}</td>
                 @endif
             @endif
-            <td>{!! link_to(route('users.faucets.show', [$user->userSlug(), $faucet->slug]), $faucet->name, ['target' => 'blank', 'title' => $faucet->name]) !!}</td>
+            <td>{!! link_to(route('users.faucets.show', [$user->slug, $faucet->slug]), $faucet->name, ['target' => 'blank', 'title' => $faucet->name]) !!}</td>
 
             @if(Auth::user() != null)
                 @if(Auth::user()->isAnAdmin() || Auth::user() == $user)

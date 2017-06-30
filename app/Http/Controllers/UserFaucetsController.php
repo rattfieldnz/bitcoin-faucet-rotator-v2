@@ -51,7 +51,7 @@ class UserFaucetsController extends Controller
      *
      * @param $userSlug
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function index($userSlug, Request $request)
     {
@@ -88,7 +88,7 @@ class UserFaucetsController extends Controller
      * Show the form for creating a new Faucet.
      *
      * @param $userSlug
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function create($userSlug)
     {
@@ -135,14 +135,15 @@ class UserFaucetsController extends Controller
      */
     public function store($userSlug, CreateUserFaucetRequest $request)
     {
-        if (Auth::user()->isAnAdmin() || Auth::user()) {
-            $input = $request->except('_token', 'payment_processor');
-            $user = User::where('slug', $userSlug)->first();
+        $user = $this->userRepository->findByField('slug', $userSlug)->first();
 
-            if (empty($user)) {
-                flash('User not found.')->error();
-                return redirect(route('users.index'));
-            }
+        if (empty($user)) {
+            flash('User not found.')->error();
+            return redirect(route('users.index'));
+        }
+
+        if (Auth::user()->isAnAdmin() || Auth::user() == $user) {
+            $input = $request->except('_token', 'payment_processor');
 
             $redirectRoute = route('users.faucets', $user->slug);
 
@@ -166,6 +167,8 @@ class UserFaucetsController extends Controller
             flash('Faucet saved successfully.')->success();
 
             return redirect($redirectRoute);
+        } else {
+            return abort(403);
         }
     }
 
@@ -174,19 +177,21 @@ class UserFaucetsController extends Controller
      *
      * @param $userSlug
      * @param $faucetSlug
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function show($userSlug, $faucetSlug)
     {
-        $user = $this->userRepository->findByField('slug', $userSlug)->first();
+        $user = null;
+        if(Auth::user()->isAnAdmin()) {
+            $user = $this->userRepository->findByField('slug', $userSlug, true)->first();
+        } else {
+            $user = $this->userRepository->findByField('slug', $userSlug)->first();
+        }
 
         //If there is no such user, about to 404 page.
-        if (empty($user) || ($user->isDeleted() && Auth::guest() || !Auth::user()->isAnAdmin())) {
+        if (empty($user)) {
             flash('User not found')->error();
             return redirect(route('users.index'));
-        } else {
-            //dd($this->userRepository->findByField('slug', $userSlug)->first()->withTrashed()->first());
-            $user = $this->userRepository->findByField('slug', $userSlug)->first()->withTrashed()->first();
         }
 
         $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
@@ -258,9 +263,7 @@ class UserFaucetsController extends Controller
         } else {
             //If user faucet exists
             if (!empty($faucet)) {
-                if ($user->isAnAdmin()) {
-                    return redirect(route('faucets.show', $faucet->slug));
-                }
+
                 return view('users.faucets.show')
                     ->with('user', $user)
                     ->with('faucet', $faucet)
@@ -282,18 +285,17 @@ class UserFaucetsController extends Controller
      */
     public function update($userSlug, $faucetSlug, UpdateUserFaucetRequest $request)
     {
-        $user = User::where('slug', $userSlug)->first();
-        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
+        $user = $this->userRepository->findByField('slug', $userSlug, true)->first();
+
         $input = $request->except('_token', '_method');
 
         //If there is no such user, about to 404 page.
         if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
             flash('User not found')->error();
             return redirect(route('users.index'));
-        } else {
-            $user = $this->userRepository->findByField('slug', $userSlug)->withTrashed()->first();
         }
 
+        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
         $redirectRoute = route('users.faucets', $user->slug);
 
         if (empty($faucet)) {
@@ -318,7 +320,7 @@ class UserFaucetsController extends Controller
 
         $this->userFaucetRepository->update($input, $user->id);
 
-        flash('Faucet updated successfully')->success();
+        flash('The faucet \'' . $faucet->name . '\' was updated successfully!')->success();
 
         return redirect($redirectRoute);
     }
@@ -353,17 +355,15 @@ class UserFaucetsController extends Controller
      */
     public function destroy($userSlug, $faucetSlug)
     {
-        $user = User::where('slug', $userSlug)->first();
+        $user = $this->userRepository->findByField('slug', $userSlug, true)->first();
 
         //If there is no such user, about to 404 page.
         if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
             flash('User not found')->error();
             return redirect(route('users.index'));
-        } else {
-            $user = $this->userRepository->findByField('slug', $userSlug)->withTrashed()->first();
         }
 
-        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->withTrashed()->first();
+        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
         $mainFaucet = Faucet::where('slug', $faucetSlug)->first();
 
         $redirectRoute = route('users.faucets', $user->slug);
@@ -405,12 +405,14 @@ class UserFaucetsController extends Controller
             );
         }
 
+        $faucetName = $faucet->name;
+
         DB::table('referral_info')
             ->where('user_id', $user->id)
             ->where('faucet_id', $faucet->id)
             ->update(['deleted_at' => Carbon::now()]);
 
-        flash('The faucet has successfully been soft-deleted!')->success();
+        flash('The faucet \'' . $faucetName . '\' has successfully been archived/deleted! You are able to restore your faucet.')->success();
 
         return redirect($redirectRoute);
     }
@@ -425,14 +427,12 @@ class UserFaucetsController extends Controller
      */
     public function destroyPermanently($userSlug, $faucetSlug)
     {
-        $user = User::where('slug', $userSlug)->first();
+        $user = $this->userRepository->findByField('slug', $userSlug, true)->first();
 
         //If there is no such user, about to 404 page.
         if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
             flash('User not found')->error();
             return redirect(route('users.index'));
-        } else {
-            $user = $this->userRepository->findByField('slug', $userSlug)->withTrashed()->first();
         }
 
         $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
@@ -444,6 +444,8 @@ class UserFaucetsController extends Controller
 
             return redirect($redirectRoute);
         }
+
+        $faucetName = $faucet->name;
 
         DB::table('referral_info')
             ->where('user_id', $user->id)
@@ -465,7 +467,7 @@ class UserFaucetsController extends Controller
             );
         }
 
-        flash('The faucet was permanently deleted!')->success();
+        flash('The faucet \'' . $faucetName . '\' was permanently deleted!')->success();
 
         return redirect($redirectRoute);
     }
@@ -477,14 +479,12 @@ class UserFaucetsController extends Controller
      */
     public function restoreDeleted($userSlug, $faucetSlug)
     {
-        $user = User::where('slug', $userSlug)->first();
+        $user = $this->userRepository->findByField('slug', $userSlug, true)->first();
 
         //If there is no such user, about to 404 page.
         if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
             flash('User not found')->error();
             return redirect(route('users.index'));
-        } else {
-            $user = $this->userRepository->findByField('slug', $userSlug)->withTrashed()->first();
         }
 
         $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->withTrashed()->first();
@@ -528,12 +528,14 @@ class UserFaucetsController extends Controller
             );
         }
 
+        $faucetName = $faucet->name;
+
         DB::table('referral_info')
             ->where('user_id', $user->id)
             ->where('faucet_id', $faucet->id)
             ->update(['deleted_at' => null]);
 
-        flash('The faucet was successfully restored!')->success();
+        flash('The faucet \'' . $faucetName . '\' was successfully restored!')->success();
 
         return redirect($redirectRoute);
     }

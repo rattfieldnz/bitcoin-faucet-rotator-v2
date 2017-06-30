@@ -27,7 +27,7 @@ class AdBlockController extends AppBaseController
      * Display a listing of the AdBlock.
      *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -50,7 +50,7 @@ class AdBlockController extends AppBaseController
     /**
      * Show the form for creating a new AdBlock.
      *
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -62,8 +62,7 @@ class AdBlockController extends AppBaseController
      * Store a newly created AdBlock in storage.
      *
      * @param CreateAdBlockRequest $request
-     *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(CreateAdBlockRequest $request)
     {
@@ -81,8 +80,7 @@ class AdBlockController extends AppBaseController
      * Show the form for editing the specified AdBlock.
      *
      * @param  int $id
-     *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
@@ -101,10 +99,9 @@ class AdBlockController extends AppBaseController
     /**
      * Update the specified AdBlock in storage.
      *
-     * @param  int              $id
+     * @param  int $id
      * @param UpdateAdBlockRequest $request
-     *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update($id, UpdateAdBlockRequest $request)
     {
@@ -128,8 +125,7 @@ class AdBlockController extends AppBaseController
      * Remove the specified AdBlock from storage.
      *
      * @param  int $id
-     *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {

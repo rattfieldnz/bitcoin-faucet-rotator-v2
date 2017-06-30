@@ -28,7 +28,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
-                    <a href="{!! route('users.faucets', $user->userSlug()) !!}" class="btn btn-default">Back</a>
+                    <a href="{!! route('users.faucets', $user->slug) !!}" class="btn btn-default">Back</a>
 
 
                     <div id="faucet-info" class="table table-responsive">
@@ -87,7 +87,7 @@
                             <p>Please contact the administrator if you would like this faucet re-enabled.</p>
                         @endif
                     @endif
-                    <a href="{!! route('users.faucets', $user->userSlug()) !!}" class="btn btn-default">Back</a>
+                    <a href="{!! route('users.faucets', $user->slug) !!}" class="btn btn-default">Back</a>
                 </div>
             </div>
         </div>

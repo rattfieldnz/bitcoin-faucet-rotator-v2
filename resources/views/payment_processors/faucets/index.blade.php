@@ -13,7 +13,11 @@
         @include('layouts.breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">
+                @if(count($faucets) > 0)
                     @include('payment_processors.faucets.table')
+                @else
+                    <p>There are currently no faucets that use this payment processor.</p>
+                @endif
             </div>
         </div>
     </div>

@@ -28,7 +28,7 @@ class PermissionController extends AppBaseController
      * Display a listing of the Permission.
      *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -75,7 +75,7 @@ class PermissionController extends AppBaseController
      *
      * @param  string $slug
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($slug)
     {
@@ -96,7 +96,7 @@ class PermissionController extends AppBaseController
      *
      * @param  string $slug
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($slug)
     {

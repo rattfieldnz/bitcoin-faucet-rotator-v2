@@ -25,6 +25,12 @@ class UserPanelController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * Show a user's panel.
+     * TODO: Fill page with useful data - possibly using tabbed interface, charts, etc.
+     * @param $userSlug
+     * @return UserPanelController|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show($userSlug)
     {
 

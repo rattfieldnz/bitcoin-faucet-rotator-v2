@@ -2,7 +2,9 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">{!! link_to_route('payment-processors.show', $paymentProcessor->name, $paymentProcessor->slug) !!} Faucets</h1>
+        <h1 class="pull-left">
+           {{ $user->user_name }}'s {!! link_to_route('payment-processors.show', $paymentProcessor->name, $paymentProcessor->slug, ["target" => "_blank"]) !!} Faucets
+        </h1>
         @if(Auth::user() != null)
             @if(
             Auth::user()->isAnAdmin() ||
@@ -23,7 +25,11 @@
         @include('layouts.breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">
-                    @include('users.payment_processors.faucets.table')
+                @if(count($faucets) > 0)
+                @include('users.payment_processors.faucets.table')
+                @else
+                    <p>That user has no faucets with this payment processor.</p>
+                @endif
             </div>
         </div>
     </div>

@@ -68,7 +68,6 @@ class LoginController extends Controller
      */
     protected function attemptLogin(Request $request)
     {
-        //dd("Email: " . $request->get('email') . ", Password: " . $request->get('password'));
         $user = User::withTrashed()->where('email', $request->get('email'))->first();
 
         if($user->isDeleted()) {
@@ -86,28 +85,34 @@ class LoginController extends Controller
         );
     }
 
+    /**
+     * Over-riding function to handle users logging out.
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout(Request $request)
     {
         $this->logoutAuth();
-
-        $request->session()->flush();
-
-        $request->session()->regenerate();
-        Session::flush();
+        $this->clearSessions($request);
 
         return redirect(route('login'));
     }
 
-    private function logoutAuth(){
-        $this->guard()->logout();
-        Auth::logout();
-    }
-
+    /**
+     * Retrieve redirect path.
+     *
+     * @return string
+     */
     protected function redirectTo()
     {
         return $this->redirectTo;
     }
 
+    /**
+     * Set the redirect path.
+     *
+     * @param $redirectTo
+     */
     private function setRedirectedTo($redirectTo) {
         $this->redirectTo = $redirectTo;
     }

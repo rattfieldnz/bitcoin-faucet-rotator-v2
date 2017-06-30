@@ -35,16 +35,16 @@
                     <td>{!! $faucet->id !!}</td>
                 @endif
             @endif
-            <td>{!! link_to(route('users.faucets.show', [$user->userSlug(), $faucet->slug]), $faucet->name, ['target' => 'blank', 'title' => $faucet->name]) !!}</td>
+            <td>{!! link_to(route('users.faucets.show', [$user->slug, $faucet->slug]), $faucet->name, ['target' => 'blank', 'title' => $faucet->name]) !!}</td>
 
             @if(Auth::user() != null)
                 @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                     @if(!empty($faucet))
                         <td>
                             @if($faucet->pivot == null)
-                                {!! Form::open(['route' => ['users.faucets.store', $user->userSlug()], 'method' => 'POST', 'class' => 'form-inline']) !!}
+                                {!! Form::open(['route' => ['users.faucets.store', $user->slug], 'method' => 'POST', 'class' => 'form-inline']) !!}
                             @else
-                                {!! Form::open(['route' => ['users.faucets.update', $user->userSlug(), $faucet->slug], 'method' => 'POST', 'class' => 'form-inline']) !!}
+                                {!! Form::open(['route' => ['users.faucets.update', $user->slug, $faucet->slug], 'method' => 'POST', 'class' => 'form-inline']) !!}
                                 {!! Form::hidden('_method', 'PATCH') !!}
                             @endif
                             {!! Form::hidden('user_id', $user->id) !!}

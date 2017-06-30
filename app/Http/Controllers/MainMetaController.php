@@ -26,7 +26,7 @@ class MainMetaController extends AppBaseController
      * Display a listing of the MainMeta.
      *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -45,7 +45,7 @@ class MainMetaController extends AppBaseController
     /**
      * Show the form for creating a new MainMeta.
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -57,8 +57,7 @@ class MainMetaController extends AppBaseController
      * Store a newly created MainMeta in storage.
      *
      * @param CreateMainMetaRequest $request
-     *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(CreateMainMetaRequest $request)
     {
@@ -76,8 +75,7 @@ class MainMetaController extends AppBaseController
      * Show the form for editing the specified MainMeta.
      *
      * @param  int $id
-     *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
@@ -96,10 +94,9 @@ class MainMetaController extends AppBaseController
     /**
      * Update the specified MainMeta in storage.
      *
-     * @param  int              $id
+     * @param  int $id
      * @param UpdateMainMetaRequest $request
-     *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update($id, UpdateMainMetaRequest $request)
     {
@@ -125,8 +122,7 @@ class MainMetaController extends AppBaseController
      * Remove the specified MainMeta from storage.
      *
      * @param  int $id
-     *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {

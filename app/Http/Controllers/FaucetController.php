@@ -41,7 +41,7 @@ class FaucetController extends AppBaseController
      * Display a listing of the Faucet.
      *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -64,7 +64,7 @@ class FaucetController extends AppBaseController
     /**
      * Show the form for creating a new Faucet.
      *
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -111,7 +111,7 @@ class FaucetController extends AppBaseController
      *
      * @param string $slug
      *
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function show($slug)
     {
@@ -163,12 +163,12 @@ class FaucetController extends AppBaseController
      *
      * @param string $slug
      *
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function edit($slug)
     {
         Users::userCanAccessArea(Auth::user(), 'faucets.edit', ['slug' => $slug], ['slug' => $slug]);
-        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first()->withTrashed()->first();
+        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->get();
 
         $paymentProcessorIds = [];
@@ -200,7 +200,7 @@ class FaucetController extends AppBaseController
     public function update($slug, UpdateFaucetRequest $request)
     {
         Users::userCanAccessArea(Auth::user(), 'faucets.update', ['slug' => $slug], ['slug' => $slug]);
-        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first()->withTrashed()->first();
+        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
 
         if (empty($faucet)) {
             flash('Faucet not found')->error();
@@ -229,7 +229,7 @@ class FaucetController extends AppBaseController
             ['slug' => $slug],
             ['slug' => $slug]
         );
-        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first()->withTrashed()->first();
+        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
 
         if(empty($faucet)) {
             flash('Faucet not found')->error();
@@ -271,7 +271,7 @@ class FaucetController extends AppBaseController
     public function destroyPermanently($slug)
     {
         Users::userCanAccessArea(Auth::user(), 'faucets.delete-permanently', ['slug' => $slug], ['slug' => $slug]);
-        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first()->withTrashed()->first();
+        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
 
         if (empty($faucet)) {
             flash('Faucet not found')->error();
@@ -317,7 +317,7 @@ class FaucetController extends AppBaseController
     public function restoreDeleted($slug)
     {
         Users::userCanAccessArea(Auth::user(), 'faucets.restore', ['slug' => $slug], ['slug' => $slug]);
-        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first()->withTrashed()->first();
+        $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
 
         if (empty($faucet)) {
             flash('Faucet not found')->error();

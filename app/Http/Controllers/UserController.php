@@ -34,7 +34,7 @@ class UserController extends AppBaseController
      * Display a listing of the User.
      *
      * @param Request $request
-     * @return $this
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -61,7 +61,7 @@ class UserController extends AppBaseController
         if (Auth::user()->isAnAdmin()) {
             return view('users.create')->with('user');
         } else {
-            abort(403);
+            return abort(403);
         }
     }
 
@@ -82,7 +82,7 @@ class UserController extends AppBaseController
 
             return redirect(route('users.index'));
         } else {
-            abort(403);
+            return abort(403);
         }
     }
 
@@ -90,7 +90,7 @@ class UserController extends AppBaseController
      * Display the specified User.
      *
      * @param $slug
-     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\View\View
      */
     public function show($slug)
     {
@@ -139,7 +139,7 @@ class UserController extends AppBaseController
      * Show the form for editing the specified User.
      *
      * @param $slug
-     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\View\View
      */
     public function edit($slug)
     {
@@ -154,7 +154,7 @@ class UserController extends AppBaseController
                     ->with('user', $user)
                     ->with('slug', $slug);
             }
-            abort(403);
+            return abort(403);
         }
     }
 

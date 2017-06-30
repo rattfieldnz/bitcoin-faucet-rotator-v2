@@ -15,17 +15,20 @@
         @endif
     </section>
     <div class="content">
+        @include('adminlte-templates::common.errors')
         <div class="clearfix"></div>
-        @if(session('message'))
-            <div class="alert alert-info">
-                {!! session('message') !!}
-            </div>
-        @endif
+
+        @include('flash::message')
+
         <div class="clearfix"></div>
         @include('layouts.breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">
+                @if(count($faucets) > 0)
                 @include('users.faucets.table')
+                @else
+                    <p>That user has not added any faucets yet.</p>
+                @endif
             </div>
         </div>
     </div>
