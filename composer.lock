@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "abraham/twitteroauth",
-            "version": "0.7.3",
+            "version": "0.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/abraham/twitteroauth.git",
-                "reference": "78ece83edd58933ec0a5b5aad906a1d34a694634"
+                "reference": "c6f9e692552dd037b2324ed0dfa28a4e60875acf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/abraham/twitteroauth/zipball/78ece83edd58933ec0a5b5aad906a1d34a694634",
-                "reference": "78ece83edd58933ec0a5b5aad906a1d34a694634",
+                "url": "https://api.github.com/repos/abraham/twitteroauth/zipball/c6f9e692552dd037b2324ed0dfa28a4e60875acf",
+                "reference": "c6f9e692552dd037b2324ed0dfa28a4e60875acf",
                 "shasum": ""
             },
             "require": {
@@ -25,9 +25,9 @@
                 "php": "^5.6 || ^7.0"
             },
             "require-dev": {
-                "phpmd/phpmd": "~2.4",
-                "phpunit/phpunit": "~5.6",
-                "squizlabs/php_codesniffer": "~2.7"
+                "phpmd/phpmd": "~2.6",
+                "phpunit/phpunit": "~5.7",
+                "squizlabs/php_codesniffer": "~3.0"
             },
             "type": "library",
             "autoload": {
@@ -58,7 +58,7 @@
                 "social",
                 "twitter"
             ],
-            "time": "2017-06-01T00:28:10+00:00"
+            "time": "2017-06-30T22:02:01+00:00"
         },
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -1178,16 +1178,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.4.27",
+            "version": "v5.4.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "66f5e1b37cbd66e730ea18850ded6dc0ad570404"
+                "reference": "442511fc62121085d184355e4f964c88942bbecb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/66f5e1b37cbd66e730ea18850ded6dc0ad570404",
-                "reference": "66f5e1b37cbd66e730ea18850ded6dc0ad570404",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/442511fc62121085d184355e4f964c88942bbecb",
+                "reference": "442511fc62121085d184355e4f964c88942bbecb",
                 "shasum": ""
             },
             "require": {
@@ -1303,7 +1303,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-06-15T19:08:25+00:00"
+            "time": "2017-06-30T13:43:07+00:00"
         },
         {
             "name": "laravelcollective/html",
