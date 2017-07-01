@@ -13,13 +13,21 @@ use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
+/**
+ * Class PermissionController
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Http\Controllers
+ */
 class PermissionController extends AppBaseController
 {
-    /**
- * @var  PermissionRepository 
-*/
     private $permissionRepository;
 
+    /**
+     * PermissionController constructor.
+     *
+     * @param \App\Repositories\PermissionRepository $permissionRepo
+     */
     public function __construct(PermissionRepository $permissionRepo)
     {
         $this->permissionRepository = $permissionRepo;

@@ -5,6 +5,12 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Laratrust\LaratrustRole;
 
+/**
+ * Class Role
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Models
+ */
 class Role extends LaratrustRole
 {
     use Sluggable;

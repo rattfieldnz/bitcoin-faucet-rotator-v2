@@ -11,6 +11,12 @@ namespace App\Providers\Validation;
 use Illuminate\Support\ServiceProvider;
 use Validator;
 
+/**
+ * Class ValidationServiceProvider
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Providers\Validation
+ */
 class ValidationServiceProvider extends ServiceProvider
 {
     /**

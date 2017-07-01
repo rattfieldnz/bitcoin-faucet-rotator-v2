@@ -6,42 +6,10 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @SWG\Definition(
- *      definition="TwitterConfig",
- *      required={""},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="consumer_key",
- *          description="consumer_key",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="consumer_key_secret",
- *          description="consumer_key_secret",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="access_token",
- *          description="access_token",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="access_token_secret",
- *          description="access_token_secret",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="user_id",
- *          description="user_id",
- *          type="integer",
- *          format="int32"
- *      )
- * )
+ * Class TwitterConfig
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Models
  */
 class TwitterConfig extends Model
 {

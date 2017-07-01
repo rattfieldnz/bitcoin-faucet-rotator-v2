@@ -5,6 +5,12 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Role;
 
+/**
+ * Class CreateRoleRequest
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Http\Requests
+ */
 class CreateRoleRequest extends FormRequest
 {
 

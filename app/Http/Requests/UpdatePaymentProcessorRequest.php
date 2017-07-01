@@ -5,6 +5,12 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use App\Models\PaymentProcessor;
 
+/**
+ * Class UpdatePaymentProcessorRequest
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Http\Requests
+ */
 class UpdatePaymentProcessorRequest extends Request
 {
 

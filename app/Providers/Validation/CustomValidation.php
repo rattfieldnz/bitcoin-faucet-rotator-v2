@@ -10,6 +10,12 @@ namespace App\Providers\Validation;
 
 use Illuminate\Validation\Validator;
 
+/**
+ * Class CustomValidation
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Providers\Validation
+ */
 class CustomValidation extends Validator
 {
     /**

@@ -6,11 +6,14 @@ use App\Models\MainMeta;
 use InfyOm\Generator\Common\BaseRepository;
 use Mews\Purifier\Facades\Purifier;
 
+/**
+ * Class MainMetaRepository
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Repositories
+ */
 class MainMetaRepository extends BaseRepository implements IRepository
 {
-    /**
-     * @var array
-     */
     protected $fieldSearchable = [
         'title',
         'description',
@@ -76,6 +79,8 @@ class MainMetaRepository extends BaseRepository implements IRepository
     }
 
     /**
+     * Sanitize inout for main meta.
+     *
      * @param array $input
      * @return array
      */

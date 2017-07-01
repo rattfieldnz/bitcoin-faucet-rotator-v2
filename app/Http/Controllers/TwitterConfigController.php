@@ -11,13 +11,21 @@ use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
+/**
+ * Class TwitterConfigController
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Http\Controllers
+ */
 class TwitterConfigController extends AppBaseController
 {
-    /**
- * @var  TwitterConfigRepository 
-*/
     private $twitterConfigRepository;
 
+    /**
+     * TwitterConfigController constructor.
+     *
+     * @param \App\Repositories\TwitterConfigRepository $twitterConfigRepo
+     */
     public function __construct(TwitterConfigRepository $twitterConfigRepo)
     {
         $this->twitterConfigRepository = $twitterConfigRepo;

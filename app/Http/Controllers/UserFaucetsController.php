@@ -19,11 +19,14 @@ use Illuminate\Support\Facades\Response;
 use Mews\Purifier\Facades\Purifier;
 use Prettus\Repository\Criteria\RequestCriteria;
 
+/**
+ * Class UserFaucetsController
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Http\Controllers
+ */
 class UserFaucetsController extends Controller
 {
-    /**
- * @var  UserFaucetRepository 
-*/
     private $userFaucetRepository;
 
     private $userRepository;

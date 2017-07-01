@@ -12,13 +12,21 @@ use Illuminate\Support\Facades\Auth;
 use Laracasts\Flash\Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 
+/**
+ * Class AdBlockController
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Http\Controllers
+ */
 class AdBlockController extends AppBaseController
 {
-    /**
- * @var  AdBlockRepository 
-*/
     private $adBlockRepository;
 
+    /**
+     * AdBlockController constructor.
+     *
+     * @param \App\Repositories\AdBlockRepository $adBlockRepo
+     */
     public function __construct(AdBlockRepository $adBlockRepo)
     {
         $this->adBlockRepository = $adBlockRepo;

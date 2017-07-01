@@ -4,6 +4,12 @@ namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
 
+/**
+ * Class Job
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Jobs
+ */
 abstract class Job
 {
     /*

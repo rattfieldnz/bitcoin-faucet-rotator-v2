@@ -6,11 +6,14 @@ use App\Models\Role;
 use InfyOm\Generator\Common\BaseRepository;
 use Mews\Purifier\Facades\Purifier;
 
+/**
+ * Class RoleRepository
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Repositories
+ */
 class RoleRepository extends BaseRepository implements IRepository
 {
-    /**
-     * @var array
-     */
     protected $fieldSearchable = [
         'name',
         'display_name',
@@ -25,6 +28,14 @@ class RoleRepository extends BaseRepository implements IRepository
         return Role::class;
     }
 
+    /**
+     * Update the specified role.
+     *
+     * @param array $data
+     * @param       $id
+     *
+     * @return mixed
+     */
     public function update(array $data, $id)
     {
         // Have to skip presenter to get a model not some data
@@ -38,6 +49,13 @@ class RoleRepository extends BaseRepository implements IRepository
         return $this->parserResult($role);
     }
 
+    /**
+     * Sanitize role data.
+     *
+     * @param array $data
+     *
+     * @return array
+     */
     public static function cleanInput(array $data)
     {
         return [

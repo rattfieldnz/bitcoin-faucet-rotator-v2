@@ -5,6 +5,12 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Laratrust\LaratrustPermission;
 
+/**
+ * Class Permission
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Models
+ */
 class Permission extends LaratrustPermission
 {
     use Sluggable;

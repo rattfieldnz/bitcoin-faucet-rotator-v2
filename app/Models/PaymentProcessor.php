@@ -7,46 +7,10 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @SWG\Definition(
- *      definition="PaymentProcessor",
- *      required={""},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="name",
- *          description="name",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="url",
- *          description="url",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="slug",
- *          description="slug",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="meta_title",
- *          description="meta_title",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="meta_description",
- *          description="meta_description",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="meta_keywords",
- *          description="meta_keywords",
- *          type="string"
- *      )
- * )
+ * Class PaymentProcessor
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Models
  */
 class PaymentProcessor extends Model
 {

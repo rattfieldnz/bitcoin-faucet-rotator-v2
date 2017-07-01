@@ -5,11 +5,14 @@ namespace App\Repositories;
 use App\Models\PaymentProcessor;
 use Mews\Purifier\Facades\Purifier;
 
+/**
+ * Class PaymentProcessorRepository
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Repositories
+ */
 class PaymentProcessorRepository extends Repository implements IRepository
 {
-    /**
-     * @var array
-     */
     protected $fieldSearchable = [
         'name',
         'url',
@@ -46,6 +49,14 @@ class PaymentProcessorRepository extends Repository implements IRepository
         return $this->parserResult($paymentProcessor);
     }
 
+    /**
+     * Update a payment processor.
+     *
+     * @param array $data
+     * @param       $id
+     *
+     * @return mixed
+     */
     public function update(array $data, $id)
     {
         // Have to skip presenter to get a model not some data
@@ -60,6 +71,13 @@ class PaymentProcessorRepository extends Repository implements IRepository
         return $this->parserResult($paymentProcessor);
     }
 
+    /**
+     * Santize payment processor data.
+     *
+     * @param array $data
+     *
+     * @return array
+     */
     public static function cleanInput(array $data)
     {
         return [

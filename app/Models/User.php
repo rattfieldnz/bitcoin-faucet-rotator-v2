@@ -12,61 +12,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Laratrust\Traits\LaratrustUserTrait;
 
 /**
- * @SWG\Definition(
- *      definition="User",
- *      required={""},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="user_name",
- *          description="user_name",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="first_name",
- *          description="first_name",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="last_name",
- *          description="last_name",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="email",
- *          description="email",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="password",
- *          description="password",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="bitcoin_address",
- *          description="bitcoin_address",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="is_admin",
- *          description="is_admin",
- *          type="boolean"
- *      ),
- *      @SWG\Property(
- *          property="remember_token",
- *          description="remember_token",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="slug",
- *          description="slug",
- *          type="string"
- *      )
- * )
+ * Class User
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Models
  */
 class User extends Authenticatable
 {

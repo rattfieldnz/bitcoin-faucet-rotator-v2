@@ -6,81 +6,10 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @SWG\Definition(
- *      definition="MainMeta",
- *      required={""},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="title",
- *          description="title",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="description",
- *          description="description",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="keywords",
- *          description="keywords",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="google_analytics_id",
- *          description="google_analytics_id",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="yandex_verification",
- *          description="yandex_verification",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="bing_verification",
- *          description="bing_verification",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="page_main_title",
- *          description="page_main_title",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="page_main_content",
- *          description="page_main_content",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="addthisid",
- *          description="addthisid",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="twitter_username",
- *          description="twitter_username",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="feedburner_feed_url",
- *          description="feedburner_feed_url",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="disqus_shortname",
- *          description="disqus_shortname",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="prevent_adblock_blocking",
- *          description="prevent_adblock_blocking",
- *          type="boolean"
- *      )
- * )
+ * Class MainMeta
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Models
  */
 class MainMeta extends Model
 {

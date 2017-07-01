@@ -14,8 +14,24 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class Functions
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Helpers
+ */
 class Functions
 {
+    /**
+     * Function to see if user can access route/area.
+     *
+     * @param \App\Models\User $user
+     * @param                  $routeName
+     * @param array            $routeParameters
+     * @param array|null       $dataParameters
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public static function userCanAccessArea(User $user, $routeName, array $routeParameters, array $dataParameters = null)
     {
         if ($user->is_admin == false || !$user->hasRole('owner')) {
@@ -29,6 +45,8 @@ class Functions
     }
 
     /**
+     * Get user's faucet referral code.
+     *
      * @param User   $user
      * @param Faucet $faucet
      * @return string
@@ -52,6 +70,8 @@ class Functions
     }
 
     /**
+     * Set user's faucet referral code.
+     *
      * @param User   $user
      * @param Faucet $faucet
      * @param string $refCode

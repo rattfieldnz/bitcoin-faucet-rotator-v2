@@ -17,14 +17,23 @@ use Response;
 use Helpers\Functions\Users;
 use Laracasts\Flash\Flash as LaracastsFlash;
 
+/**
+ * Class PaymentProcessorController
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Http\Controllers
+ */
 class PaymentProcessorController extends AppBaseController
 {
-    /**
-     * @var  PaymentProcessorRepository
-     */
     private $paymentProcessorRepository;
     private $userFunctions;
 
+    /**
+     * PaymentProcessorController constructor.
+     *
+     * @param \App\Repositories\PaymentProcessorRepository $paymentProcessorRepo
+     * @param \Helpers\Functions\Users                     $userFunctions
+     */
     public function __construct(PaymentProcessorRepository $paymentProcessorRepo, Users $userFunctions)
     {
         $this->paymentProcessorRepository = $paymentProcessorRepo;

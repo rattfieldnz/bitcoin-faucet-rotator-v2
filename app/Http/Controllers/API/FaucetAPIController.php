@@ -15,6 +15,8 @@ use Response;
 
 /**
  * Class FaucetController
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Http\Controllers\API
  */
 
@@ -74,44 +76,6 @@ class FaucetAPIController extends AppBaseController
         return $this->sendResponse($faucets, 'Faucets retrieved successfully');
     }
 
-    /**
-     * @param CreateFaucetAPIRequest $request
-     * @return Response
-     *
-     * @SWG\Post(
-     *      path="/faucets",
-     *      summary="Store a newly created Faucet in storage",
-     *      tags={"Faucet"},
-     *      description="Store Faucet",
-     *      produces={"application/json"},
-     *      @SWG\Parameter(
-     *          name="body",
-     *          in="body",
-     *          description="Faucet that should be stored",
-     *          required=false,
-     *          @SWG\Schema(ref="#/definitions/Faucet")
-     *      ),
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  ref="#/definitions/Faucet"
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
     /*public function store(CreateFaucetAPIRequest $request)
     {
         $input = $request->all();
@@ -121,44 +85,6 @@ class FaucetAPIController extends AppBaseController
         return $this->sendResponse($faucets->toArray(), 'Faucet saved successfully');
     }*/
 
-    /**
-     * @param $slug
-     * @return Response
-     *
-     * @SWG\Get(
-     *      path="/faucets/{slug}",
-     *      summary="Display the specified Faucet",
-     *      tags={"Faucet"},
-     *      description="Get Faucet",
-     *      produces={"application/json"},
-     *      @SWG\Parameter(
-     *          name="slug",
-     *          description="slug of Faucet",
-     *          type="string",
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  ref="#/definitions/Faucet"
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
     public function show($slug)
     {
         /** @var Faucet $faucet */
@@ -171,52 +97,6 @@ class FaucetAPIController extends AppBaseController
         return $this->sendResponse((new FaucetsTransformer)->transform($faucet, true), 'Faucet retrieved successfully');
     }
 
-    /**
-     * @param int $id
-     * @param UpdateFaucetAPIRequest $request
-     * @return Response
-     *
-     * @SWG\Put(
-     *      path="/faucets/{id}",
-     *      summary="Update the specified Faucet in storage",
-     *      tags={"Faucet"},
-     *      description="Update Faucet",
-     *      produces={"application/json"},
-     *      @SWG\Parameter(
-     *          name="id",
-     *          description="id of Faucet",
-     *          type="integer",
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @SWG\Parameter(
-     *          name="body",
-     *          in="body",
-     *          description="Faucet that should be updated",
-     *          required=false,
-     *          @SWG\Schema(ref="#/definitions/Faucet")
-     *      ),
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  ref="#/definitions/Faucet"
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
     /*public function update($id, UpdateFaucetAPIRequest $request)
     {
         $input = $request->all();
@@ -232,44 +112,6 @@ class FaucetAPIController extends AppBaseController
         return $this->sendResponse($faucet->toArray(), 'Faucet updated successfully');
     }*/
 
-    /**
-     * @param int $id
-     * @return Response
-     *
-     * @SWG\Delete(
-     *      path="/faucets/{id}",
-     *      summary="Remove the specified Faucet from storage",
-     *      tags={"Faucet"},
-     *      description="Delete Faucet",
-     *      produces={"application/json"},
-     *      @SWG\Parameter(
-     *          name="id",
-     *          description="id of Faucet",
-     *          type="integer",
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  type="string"
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
     /*public function destroy($id)
     {
         $faucet = $this->faucetRepository->findWithoutFail($id);

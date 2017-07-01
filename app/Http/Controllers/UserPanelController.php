@@ -7,6 +7,12 @@ use Helpers\Functions\Users;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Class UserPanelController
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Http\Controllers
+ */
 class UserPanelController extends Controller
 {
     private $userRepository;

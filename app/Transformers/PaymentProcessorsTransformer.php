@@ -9,6 +9,7 @@ use League\Fractal\TransformerAbstract;
 /**
  * Class PaymentProcessorsTransformer
  *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package namespace App\Transformers;
  */
 class PaymentProcessorsTransformer extends TransformerAbstract

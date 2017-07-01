@@ -5,6 +5,12 @@ namespace App\Repositories;
 use App\Models\Faucet;
 use Mews\Purifier\Facades\Purifier;
 
+/**
+ * Class FaucetRepository
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Repositories
+ */
 class FaucetRepository extends Repository implements IRepository
 {
     /**
@@ -54,6 +60,14 @@ class FaucetRepository extends Repository implements IRepository
         return $this->parserResult($faucet);
     }
 
+    /**
+     * Update the specified faucet.
+     *
+     * @param array $data
+     * @param       $id
+     *
+     * @return mixed
+     */
     public function update(array $data, $id)
     {
         // Have to skip presenter to get a model not some data
@@ -68,6 +82,13 @@ class FaucetRepository extends Repository implements IRepository
         return $this->parserResult($updatedFaucet);
     }
 
+    /**
+     * Sanitize input / faucet data.
+     *
+     * @param array $data
+     *
+     * @return array
+     */
     public static function cleanInput(array $data)
     {
         return [

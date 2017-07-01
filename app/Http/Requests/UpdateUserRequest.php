@@ -6,6 +6,12 @@ use App\Helpers\Constants;
 use App\Http\Requests\Request;
 use App\Models\User;
 
+/**
+ * Class UpdateUserRequest
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Http\Requests
+ */
 class UpdateUserRequest extends Request
 {
 

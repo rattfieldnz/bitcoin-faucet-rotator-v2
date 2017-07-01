@@ -7,6 +7,12 @@ use Helpers\Functions\Users;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Class AppServiceProvider
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Providers
+ */
 class AppServiceProvider extends ServiceProvider
 {
 
@@ -17,17 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /*Validator::extend('valid_user_name', function($attribute, $value, $parameters, $validator) {
 
-            $barredUserNamesLowerCase = ['admin', 'owner', 'manager'];
-
-            foreach ($barredUserNamesLowerCase as $element) {
-                if (strpos($element, strtolower($value) !== true)) {
-                    return false;
-                }
-            }
-            return true;
-        });*/
     }
 
 

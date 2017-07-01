@@ -6,11 +6,14 @@ use App\Models\Permission;
 use InfyOm\Generator\Common\BaseRepository;
 use Mews\Purifier\Facades\Purifier;
 
+/**
+ * Class PermissionRepository
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Repositories
+ */
 class PermissionRepository extends BaseRepository implements IRepository
 {
-    /**
-     * @var array
-     */
     protected $fieldSearchable = [
         'name',
         'display_name',
@@ -25,6 +28,13 @@ class PermissionRepository extends BaseRepository implements IRepository
         return Permission::class;
     }
 
+    /**
+     * Sanitize permission data.
+     *
+     * @param array $data
+     *
+     * @return array
+     */
     public static function cleanInput(array $data)
     {
         return [

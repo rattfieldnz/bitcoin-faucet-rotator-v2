@@ -5,6 +5,12 @@ namespace App\Repositories;
 use App\Models\User;
 use Mews\Purifier\Facades\Purifier;
 
+/**
+ * Class UserRepository
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Repositories
+ */
 class UserRepository extends Repository implements IRepository
 {
     /**
@@ -71,6 +77,13 @@ class UserRepository extends Repository implements IRepository
         return $this->parserResult($user);
     }
 
+    /**
+     * Sanitize user data.
+     *
+     * @param array $data
+     *
+     * @return array
+     */
     public static function cleanInput(array $data)
     {
         $data['user_name'] = Purifier::clean($data['user_name'], 'generalFields');

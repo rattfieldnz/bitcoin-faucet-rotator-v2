@@ -7,90 +7,10 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @SWG\Definition(
- *      definition="Faucet",
- *      required={""},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="name",
- *          description="name",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="url",
- *          description="url",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="interval_minutes",
- *          description="interval_minutes",
- *          type="integer",
- *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="min_payout",
- *          description="min_payout",
- *          type="integer",
- *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="max_payout",
- *          description="max_payout",
- *          type="integer",
- *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="has_ref_program",
- *          description="has_ref_program",
- *          type="boolean"
- *      ),
- *      @SWG\Property(
- *          property="ref_payout_percent",
- *          description="ref_payout_percent",
- *          type="integer",
- *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="comments",
- *          description="comments",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="is_paused",
- *          description="is_paused",
- *          type="boolean"
- *      ),
- *      @SWG\Property(
- *          property="slug",
- *          description="slug",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="meta_title",
- *          description="meta_title",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="meta_description",
- *          description="meta_description",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="meta_keywords",
- *          description="meta_keywords",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="has_low_balance",
- *          description="has_low_balance",
- *          type="boolean"
- *      )
- * )
+ * Class Faucet
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Models
  */
 class Faucet extends Model
 {

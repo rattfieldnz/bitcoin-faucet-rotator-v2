@@ -6,11 +6,14 @@ use App\Models\TwitterConfig;
 use InfyOm\Generator\Common\BaseRepository;
 use Mews\Purifier\Facades\Purifier;
 
+/**
+ * Class TwitterConfigRepository
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Repositories
+ */
 class TwitterConfigRepository extends BaseRepository implements IRepository
 {
-    /**
-     * @var array
-     */
     protected $fieldSearchable = [
         'consumer_key',
         'consumer_key_secret',
@@ -28,7 +31,7 @@ class TwitterConfigRepository extends BaseRepository implements IRepository
     }
 
     /**
-     * Create main meta data.
+     * Create Twitter config data.
      *
      * @param  array $data
      * @return TwitterConfig
@@ -48,7 +51,7 @@ class TwitterConfigRepository extends BaseRepository implements IRepository
 
 
     /**
-     * Update main meta data,
+     * Update Twitter config data.
      *
      * @param  array $data
      * @param  $id
@@ -67,6 +70,13 @@ class TwitterConfigRepository extends BaseRepository implements IRepository
         return $this->parserResult($twitterConfig);
     }
 
+    /**
+     * Sanitize Twitter config data.
+     *
+     * @param array $input
+     *
+     * @return array
+     */
     public static function cleanInput(array $input)
     {
         $input['consumer_key'] = Purifier::clean($input['consumer_key'], 'generalFields');

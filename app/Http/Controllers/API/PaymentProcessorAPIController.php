@@ -15,50 +15,31 @@ use Response;
 
 /**
  * Class PaymentProcessorController
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Http\Controllers\API
  */
 
 class PaymentProcessorAPIController extends AppBaseController
 {
-    /** @var  PaymentProcessorRepository */
     private $paymentProcessorRepository;
 
+    /**
+     * PaymentProcessorAPIController constructor.
+     *
+     * @param \App\Repositories\PaymentProcessorRepository $paymentProcessorRepo
+     */
     public function __construct(PaymentProcessorRepository $paymentProcessorRepo)
     {
         $this->paymentProcessorRepository = $paymentProcessorRepo;
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse|Response
+     * Return JSON with payment processors and associated faucets.
      *
-     * @SWG\Get(
-     *      path="/paymentProcessors",
-     *      summary="Get a listing of the PaymentProcessors.",
-     *      tags={"PaymentProcessor"},
-     *      description="Get all PaymentProcessors",
-     *      produces={"application/json"},
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/PaymentProcessor")
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
@@ -122,42 +103,11 @@ class PaymentProcessorAPIController extends AppBaseController
     }*/
 
     /**
-     * @param int $id
-     * @return Response
+     * Get a payment processor as JSON.
      *
-     * @SWG\Get(
-     *      path="/paymentProcessors/{id}",
-     *      summary="Display the specified PaymentProcessor",
-     *      tags={"PaymentProcessor"},
-     *      description="Get PaymentProcessor",
-     *      produces={"application/json"},
-     *      @SWG\Parameter(
-     *          name="id",
-     *          description="id of PaymentProcessor",
-     *          type="integer",
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  ref="#/definitions/PaymentProcessor"
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
@@ -170,52 +120,6 @@ class PaymentProcessorAPIController extends AppBaseController
         return $this->sendResponse($paymentProcessor->toArray(), 'Payment Processor retrieved successfully');
     }
 
-    /**
-     * @param int $id
-     * @param UpdatePaymentProcessorAPIRequest $request
-     * @return Response
-     *
-     * @SWG\Put(
-     *      path="/paymentProcessors/{id}",
-     *      summary="Update the specified PaymentProcessor in storage",
-     *      tags={"PaymentProcessor"},
-     *      description="Update PaymentProcessor",
-     *      produces={"application/json"},
-     *      @SWG\Parameter(
-     *          name="id",
-     *          description="id of PaymentProcessor",
-     *          type="integer",
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @SWG\Parameter(
-     *          name="body",
-     *          in="body",
-     *          description="PaymentProcessor that should be updated",
-     *          required=false,
-     *          @SWG\Schema(ref="#/definitions/PaymentProcessor")
-     *      ),
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  ref="#/definitions/PaymentProcessor"
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
     /*public function update($id, UpdatePaymentProcessorAPIRequest $request)
     {
         $input = $request->all();
@@ -231,44 +135,6 @@ class PaymentProcessorAPIController extends AppBaseController
         return $this->sendResponse($paymentProcessor->toArray(), 'PaymentProcessor updated successfully');
     }*/
 
-    /**
-     * @param int $id
-     * @return Response
-     *
-     * @SWG\Delete(
-     *      path="/paymentProcessors/{id}",
-     *      summary="Remove the specified PaymentProcessor from storage",
-     *      tags={"PaymentProcessor"},
-     *      description="Delete PaymentProcessor",
-     *      produces={"application/json"},
-     *      @SWG\Parameter(
-     *          name="id",
-     *          description="id of PaymentProcessor",
-     *          type="integer",
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  type="string"
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
     /*public function destroy($id)
     {
         $paymentProcessor = $this->paymentProcessorRepository->findWithoutFail($id);

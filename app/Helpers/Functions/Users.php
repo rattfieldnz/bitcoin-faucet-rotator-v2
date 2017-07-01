@@ -21,10 +21,23 @@ use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash as LaracastsFlash;
 use App\Helpers\Functions\Faucets;
 
+/**
+ * Class Users
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package Helpers\Functions
+ */
 class Users
 {
     private $userRepository;
     private $faucetFunctions;
+
+    /**
+     * Users constructor.
+     *
+     * @param \App\Repositories\UserRepository $userRepository
+     * @param \App\Helpers\Functions\Faucets   $faucetFunctions
+     */
     public function __construct(UserRepository $userRepository, Faucets $faucetFunctions)
     {
         $this->userRepository = $userRepository;

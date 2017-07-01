@@ -5,6 +5,12 @@ namespace App\Http\Requests\API;
 use App\Models\PaymentProcessor;
 use InfyOm\Generator\Request\APIRequest;
 
+/**
+ * Class UpdatePaymentProcessorAPIRequest
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Http\Requests\API
+ */
 class UpdatePaymentProcessorAPIRequest extends APIRequest
 {
     /**

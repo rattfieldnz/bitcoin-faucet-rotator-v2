@@ -16,6 +16,12 @@ use Illuminate\Support\Facades\Response;
 use Mews\Purifier\Facades\Purifier;
 use Prettus\Repository\Criteria\RequestCriteria;
 
+/**
+ * Class FaucetController
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Http\Controllers
+ */
 class FaucetController extends AppBaseController
 {
     private $faucetRepository;

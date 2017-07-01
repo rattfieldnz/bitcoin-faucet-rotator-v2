@@ -6,6 +6,12 @@ use App\Models\AdBlock;
 use InfyOm\Generator\Common\BaseRepository;
 use Mews\Purifier\Facades\Purifier;
 
+/**
+ * Class AdBlockRepository
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Repositories
+ */
 class AdBlockRepository extends BaseRepository implements IRepository
 {
     /**

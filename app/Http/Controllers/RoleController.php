@@ -13,13 +13,21 @@ use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
+/**
+ * Class RoleController
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Http\Controllers
+ */
 class RoleController extends AppBaseController
 {
-    /**
- * @var  RoleRepository 
-*/
     private $roleRepository;
 
+    /**
+     * RoleController constructor.
+     *
+     * @param \App\Repositories\RoleRepository $roleRepo
+     */
     public function __construct(RoleRepository $roleRepo)
     {
         $this->roleRepository = $roleRepo;

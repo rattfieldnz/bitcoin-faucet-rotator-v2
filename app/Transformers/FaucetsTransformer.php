@@ -21,6 +21,8 @@ class FaucetsTransformer extends TransformerAbstract
      * Transform the Faucet entity
      *
      * @param  Faucet $model
+     * @param bool    $addPaymentProcessors
+     *
      * @return array
      */
     public function transform(Faucet $model, $addPaymentProcessors = false)

@@ -11,13 +11,21 @@ use Illuminate\Support\Facades\Auth;
 use Laracasts\Flash\Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 
+/**
+ * Class MainMetaController
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Http\Controllers
+ */
 class MainMetaController extends AppBaseController
 {
-    /**
- * @var  MainMetaRepository 
-*/
     private $mainMetaRepository;
 
+    /**
+     * MainMetaController constructor.
+     *
+     * @param \App\Repositories\MainMetaRepository $mainMetaRepo
+     */
     public function __construct(MainMetaRepository $mainMetaRepo)
     {
         $this->mainMetaRepository = $mainMetaRepo;

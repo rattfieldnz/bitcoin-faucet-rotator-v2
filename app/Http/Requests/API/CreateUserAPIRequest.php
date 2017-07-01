@@ -5,6 +5,12 @@ namespace App\Http\Requests\API;
 use App\Models\User;
 use InfyOm\Generator\Request\APIRequest;
 
+/**
+ * Class CreateUserAPIRequest
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Http\Requests\API
+ */
 class CreateUserAPIRequest extends APIRequest
 {
     /**

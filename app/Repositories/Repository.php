@@ -11,6 +11,12 @@ namespace App\Repositories;
 use InfyOm\Generator\Common\BaseRepository;
 use Prettus\Repository\Events\RepositoryEntityDeleted;
 
+/**
+ * Class Repository
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Repositories
+ */
 abstract class Repository extends BaseRepository
 {
 
@@ -44,8 +50,8 @@ abstract class Repository extends BaseRepository
      *
      * @param array $where
      *
-     * @param  bool  $permanent
      * @return int
+     * @internal param bool $permanent
      */
     public function deleteWhere(array $where)
     {
@@ -67,6 +73,13 @@ abstract class Repository extends BaseRepository
         return $deleted;
     }
 
+    /**
+     * Restore a soft-deleted model.
+     *
+     * @param $slug
+     *
+     * @return mixed
+     */
     public function restoreDeleted($slug)
     {
         $model = $this->model->onlyTrashed()->where('slug', $slug)->first();
@@ -78,6 +91,11 @@ abstract class Repository extends BaseRepository
         return $this->parserResult($restoredModel);
     }
 
+    /**
+     * Retrieve trashed / soft-deleted models.
+     *
+     * @return mixed
+     */
     public function withTrashed()
     {
         return $this->model->withTrashed();

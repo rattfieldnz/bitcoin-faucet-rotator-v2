@@ -1,8 +1,8 @@
 <?php namespace App\Helpers\Social;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
-use App\Faucet;
-use \App\User;
+use App\Models\Faucet;
+use App\Models\User;
 
 /**
  * Class Twitter

@@ -14,7 +14,7 @@ use Mews\Purifier\Facades\Purifier;
 /**
  * Class Faucets
  *
- * A helper class to handle extra funtionality
+ * A helper class to handle extra functionality
  * related to currently stored faucets.
  *
  * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
@@ -23,6 +23,12 @@ use Mews\Purifier\Facades\Purifier;
 class Faucets
 {
     private $faucetRepository;
+
+    /**
+     * Faucets constructor.
+     *
+     * @param \App\Repositories\FaucetRepository $faucetRepository
+     */
     public function __construct(FaucetRepository $faucetRepository)
     {
         $this->faucetRepository = $faucetRepository;
