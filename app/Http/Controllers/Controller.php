@@ -25,7 +25,6 @@ class Controller extends BaseController
     protected function logoutAuth()
     {
         $this->guard()->logout();
-        Auth::logout();
     }
 
     /**

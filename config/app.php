@@ -162,7 +162,6 @@ return [
         Laratrust\LaratrustServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         SquareBoat\Sneaker\SneakerServiceProvider::class,
-
         /*
          * Application Service Providers...
          */

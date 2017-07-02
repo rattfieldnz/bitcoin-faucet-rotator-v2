@@ -42,6 +42,9 @@ class User extends Authenticatable
         'bitcoin_address',
         'is_admin',
         'remember_token',
+        'last_login_at',
+        'last_logout_at',
+        'last_login_ip'
     ];
 
     //protected $hidden = ['password'];
@@ -63,6 +66,9 @@ class User extends Authenticatable
         'bitcoin_address' => 'string',
         'is_admin' => 'boolean',
         'remember_token' => 'string',
+        'last_login_at' => 'string',
+        'last_login_ip' => 'last_login_ip',
+        'last_logout_at',
         'slug' => 'string'
     ];
 

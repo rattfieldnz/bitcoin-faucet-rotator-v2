@@ -28,7 +28,8 @@
         "santigarcor/laratrust": "3.2.*",
         "league/fractal": "^0.16.0",
         "phpoffice/phpexcel": "^1.8",
-        "squareboat/sneaker": "^2.0"
+        "squareboat/sneaker": "^2.0",
+        "spatie/laravel-activitylog": "^1.15"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.6",
