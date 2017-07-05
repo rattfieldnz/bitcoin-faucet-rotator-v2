@@ -32,7 +32,7 @@ class RoleRepository extends BaseRepository implements IRepository
      * Update the specified role.
      *
      * @param array $data
-     * @param       $id
+     * @param $id
      *
      * @return mixed
      */

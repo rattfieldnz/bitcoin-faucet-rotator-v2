@@ -50,7 +50,7 @@ abstract class Repository extends BaseRepository
      *
      * @param array $where
      *
-     * @return int
+     * @return   int
      * @internal param bool $permanent
      */
     public function deleteWhere(array $where)

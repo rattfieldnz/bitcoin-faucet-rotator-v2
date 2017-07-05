@@ -29,8 +29,8 @@ class AppBaseController extends Controller
     /**
      * Send a JSON error response.
      *
-     * @param     $error
-     * @param int $code
+     * @param $error
+     * @param int   $code
      *
      * @return \Illuminate\Http\JsonResponse
      */

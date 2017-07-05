@@ -58,8 +58,8 @@ class UserFaucetRepository extends Repository implements IRepository
     /**
      * Update user data via pivot table.
      *
-     * @param array $data
-     * @param       $userId
+     * @param array  $data
+     * @param $userId
      *
      * @return mixed|void
      */

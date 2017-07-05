@@ -26,7 +26,7 @@ class Functions
      * Function to see if user can access route/area.
      *
      * @param \App\Models\User $user
-     * @param                  $routeName
+     * @param $routeName
      * @param array            $routeParameters
      * @param array|null       $dataParameters
      *
@@ -47,8 +47,8 @@ class Functions
     /**
      * Get user's faucet referral code.
      *
-     * @param User   $user
-     * @param Faucet $faucet
+     * @param  User   $user
+     * @param  Faucet $faucet
      * @return string
      */
     public static function getUserFaucetRefCode(User $user, Faucet $faucet)
@@ -72,9 +72,9 @@ class Functions
     /**
      * Set user's faucet referral code.
      *
-     * @param User   $user
-     * @param Faucet $faucet
-     * @param string $refCode
+     * @param  User   $user
+     * @param  Faucet $faucet
+     * @param  string $refCode
      * @return null
      */
     public static function setUserFaucetRefCode(User $user, Faucet $faucet, $refCode = null)

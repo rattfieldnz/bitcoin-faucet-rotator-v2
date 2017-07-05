@@ -64,7 +64,7 @@ class FaucetRepository extends Repository implements IRepository
      * Update the specified faucet.
      *
      * @param array $data
-     * @param       $id
+     * @param $id
      *
      * @return mixed
      */

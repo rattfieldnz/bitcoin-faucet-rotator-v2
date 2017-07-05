@@ -53,7 +53,7 @@ class PaymentProcessorRepository extends Repository implements IRepository
      * Update a payment processor.
      *
      * @param array $data
-     * @param       $id
+     * @param $id
      *
      * @return mixed
      */

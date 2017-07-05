@@ -81,7 +81,7 @@ class MainMetaRepository extends BaseRepository implements IRepository
     /**
      * Sanitize inout for main meta.
      *
-     * @param array $input
+     * @param  array $input
      * @return array
      */
     public static function cleanInput(array $input)

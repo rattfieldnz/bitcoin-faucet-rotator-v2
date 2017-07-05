@@ -25,10 +25,10 @@ class LogEvent extends Event
     /**
      * LogEvent constructor.
      *
-     * @param                  $user
-     * @param                  $subject
-     * @param                  $description
-     * @param                  $ipAddress
+     * @param $user
+     * @param $subject
+     * @param $description
+     * @param $ipAddress
      */
     public function __construct($user, $subject, $description, $ipAddress)
     {
@@ -41,7 +41,8 @@ class LogEvent extends Event
     /**
      * @return array
      */
-    public function broadcastOn() {
+    public function broadcastOn() 
+    {
 
         return [];
     }

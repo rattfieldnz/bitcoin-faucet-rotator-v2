@@ -15,7 +15,6 @@ class LogEventListener
 
     /**
      * LogEventListener constructor.
-     *
      */
     public function __construct()
     {
@@ -25,10 +24,11 @@ class LogEventListener
     /**
      * Handle the event.
      *
-     * @param \App\Events\LogEvent $event
+     * @param  \App\Events\LogEvent $event
      * @return void
      */
-    public function handle(LogEvent $event) {
+    public function handle(LogEvent $event) 
+    {
 
         activity()
             ->causedBy($event->user)
