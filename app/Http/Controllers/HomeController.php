@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class HomeController
@@ -28,6 +29,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = Auth::user();
+
+        if (empty($user)) {
+
+            flash(
+                "Sorry, your account was recently suspended or permanently deleted. 
+                Please contact admin for further information."
+            )->error();
+
+            return redirect(route('login'));
+        }
+
+        return redirect(route('users.panel', ['userSlug' => $user->slug]));
     }
 }

@@ -65,7 +65,7 @@ class LoginController extends Controller
 
         flash('Welcome back ' . $user->first_name . "! Glad you have returned :).")->success();
 
-        return redirect()->intended($this->redirectPath());
+        return redirect()->intended(route('users.panel', ['userSlug' => $user->slug]));
     }
 
     /**
