@@ -52,7 +52,7 @@ class LoginController extends Controller
      * The user has been authenticated.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  mixed                   $user
+     * @param mixed                    $user
      *
      * @return mixed
      */
@@ -71,7 +71,7 @@ class LoginController extends Controller
     /**
      * Attempt to log the user into the application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return bool
      */
     protected function attemptLogin(Request $request)
@@ -79,8 +79,10 @@ class LoginController extends Controller
         $user = User::withTrashed()->where('email', $request->get('email'))->first();
 
         if ($user->isDeleted()) {
-            flash("Your account has been suspended/cancelled. Please contact
-                  admin for further information, and possible account restoration.")->error();
+            flash(
+                "Your account has been suspended/cancelled. Please contact
+                  admin for further information, and possible account restoration."
+            )->error();
 
             $this->logoutAuth();
 
@@ -94,7 +96,8 @@ class LoginController extends Controller
 
     /**
      * Over-riding function to handle users logging out.
-     * @param Request $request
+     *
+     * @param  Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function logout(Request $request)
