@@ -75,6 +75,17 @@ class Users
             $newUser->attachPermission($permission);
         }
 
+        if(Auth::user()->isAnAdmin()) {
+            $logMessage = "The user ':subject.user_name' was created by :causer.user_name";
+        } else {
+            $logMessage = "User ':subject.user_name' has successfully registered.";
+        }
+
+        activity()
+            ->performedOn($user)
+            ->causedBy(Auth::user())
+            ->log($logMessage);
+
         return $user;
     }
 
@@ -88,11 +99,30 @@ class Users
     public function destroyUser($slug, bool $permanentlyDelete = false)
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
+        $logMessage = null;
 
         if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && !$user->hasRole('owner') && $user->isDeleted() == true)) {
             return false;
         }
         if ($user == Auth::user() || Auth::user()->isAnAdmin()) {
+
+            if($permanentlyDelete == false) {
+                if(Auth::user()->isAnAdmin()) {
+                    $logMessage = "The user ':subject.user_name' was suspended by ':causer.user_name'";
+                } else {
+                    $logMessage = "User ':subject.user_name' has deleted their account";
+                }
+            } else {
+                if(Auth::user()->isAnAdmin()) {
+                    $logMessage = "The user ':subject.user_name' was permanently deleted by ':causer.user_name'";
+                }
+            }
+
+            activity()
+                ->performedOn($user)
+                ->causedBy(Auth::user())
+                ->log($logMessage);
+
             return $this->userRepository->deleteWhere(['slug' => $slug], $permanentlyDelete);
         } else {
             return false;
@@ -100,7 +130,7 @@ class Users
     }
 
     /**
-     * Resore a soft-deleted user.
+     * Restore a soft-deleted user.
      *
      * @param  $slug
      * @return bool|mixed
@@ -113,6 +143,12 @@ class Users
             return false;
         }
         if ($user == Auth::user() || Auth::user()->isAnAdmin()) {
+
+            activity()
+                ->performedOn($user)
+                ->causedBy(Auth::user())
+                ->log("The user ':subject.user_name' was restored by :causer.user_name");
+
             return $this->userRepository->restoreDeleted($slug);
         } else {
             return false;
@@ -129,6 +165,7 @@ class Users
     public function updateUser($slug, UpdateUserRequest $request)
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
+        $logMessage = null;
 
         if (empty($user) || ($user == Auth::user() && $user->hasRole('user') && $user->isDeleted() == true)) {
             return false;
@@ -138,6 +175,22 @@ class Users
             $request->has('password_confirmation') ?
                 $request->all() :
                 $request->except(['password','password_confirmation']);
+
+            if(Auth::user()->isAnAdmin()) {
+
+                if($user == Auth::user()) {
+                    $logMessage = "The ':subject.user_name' has updated their profile";
+                } else {
+                    $logMessage = "The user ':subject.user_name' was updated by :causer.user_name";
+                }
+            } else {
+                $logMessage = "':subject.user_name' has updated their profile";
+            }
+
+            activity()
+                ->performedOn($user)
+                ->causedBy(Auth::user())
+                ->log($logMessage);
 
             return $this->userRepository->update(
                 $updateRequestData,
