@@ -43,7 +43,7 @@ class UpdateLastLoggedOutAt
                 ->causedBy($user)
                 ->performedOn($user)
                 ->withProperty('ip_address', $this->request->getClientIp())
-                ->log($user->user_name . " successfully logged out.");
+                ->log("User '" . $user->user_name . "' successfully logged out.");
         }
     }
 }

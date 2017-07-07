@@ -4,12 +4,13 @@ namespace App\Models;
 
 use App\Helpers\Constants;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
-use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laratrust\Traits\LaratrustUserTrait;
+use Spatie\Activitylog\ActivitylogServiceProvider;
+use Spatie\Activitylog\Traits\CausesActivity;
 
 /**
  * Class User
@@ -23,6 +24,7 @@ class User extends Authenticatable
     use SoftDeletes;
     use Notifiable;
     use Sluggable;
+    use CausesActivity;
 
     public $table = 'users';
     
@@ -95,6 +97,10 @@ class User extends Authenticatable
         'bitcoin_address' => 'required|string|min:26|max:35|unique:users,bitcoin_address',
     ];
 
+    protected static $logAttributes = ['user_name', 'first_name', 'last_name', 'email', 'bitcoin_address'];
+
+    protected static $logOnlyDirty = true;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      **/
@@ -147,6 +153,11 @@ class User extends Authenticatable
             return true;
         }
         return false;
+    }
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "User '" . $this->user_name . "' has {$eventName} their profile.";
     }
 
     private function excludeAdminNameRule()

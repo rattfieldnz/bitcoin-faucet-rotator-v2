@@ -276,6 +276,7 @@ class FaucetController extends AppBaseController
     {
         Users::userCanAccessArea(Auth::user(), 'faucets.delete-permanently', ['slug' => $slug], ['slug' => $slug]);
         $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
+        $logFaucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
 
         if (empty($faucet)) {
             flash('Faucet not found')->error();

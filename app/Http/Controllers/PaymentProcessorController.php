@@ -84,6 +84,11 @@ class PaymentProcessorController extends AppBaseController
 
         flash('Payment Processor saved successfully.')->success();
 
+        activity()
+            ->performedOn($paymentProcessor)
+            ->causedBy(Auth::user())
+            ->log("The payment processor ':subject.name' was added to the collection by :causer.user_name");
+
         return redirect(route('payment-processors.index'));
     }
 
@@ -256,6 +261,11 @@ class PaymentProcessorController extends AppBaseController
 
         flash('The \'' . $paymentProcessor->name . '\' payment processor was updated successfully!')->success();
 
+        activity()
+            ->performedOn($paymentProcessor)
+            ->causedBy(Auth::user())
+            ->log("The payment processor ':subject.name' was updated by :causer.user_name");
+
         return redirect(route('payment-processors.index'));
     }
 
@@ -270,6 +280,7 @@ class PaymentProcessorController extends AppBaseController
     {
         Functions::userCanAccessArea(Auth::user(), 'payment-processors.destroy', ['slug' => $slug], ['slug' => $slug]);
         $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
+        //$logPaymentProcessor
 
         if (empty($paymentProcessor)) {
             flash('Payment Processor not found.')->error();
@@ -280,6 +291,11 @@ class PaymentProcessorController extends AppBaseController
         $this->paymentProcessorRepository->deleteWhere(['slug' => $slug]);
 
         flash('The \'' . $paymentProcessor->name . '\' payment processor was archived/deleted successfully!')->success();
+
+        activity()
+            ->performedOn($paymentProcessor)
+            ->causedBy(Auth::user())
+            ->log("The payment processor ':subject.name' was archived/deleted by :causer.user_name");
 
         return redirect(route('payment-processors.index'));
     }
@@ -316,6 +332,11 @@ class PaymentProcessorController extends AppBaseController
 
         flash('The \'' . $paymentProcessorName . '\' payment processor was permanently deleted!')->success();
 
+        activity()
+            ->performedOn($paymentProcessor)
+            ->causedBy(Auth::user())
+            ->log("The payment processor ':subject.name' was deleted permanently by :causer.user_name");
+
         return redirect(route('payment-processors.index'));
     }
 
@@ -348,6 +369,11 @@ class PaymentProcessorController extends AppBaseController
         $this->paymentProcessorRepository->restoreDeleted($slug);
 
         flash('The \'' . $paymentProcessor->name . '\' payment processor was successfully restored!')->success();
+
+        activity()
+            ->performedOn($paymentProcessor)
+            ->causedBy(Auth::user())
+            ->log("The payment processor ':subject.name' was restored by :causer.user_name");
 
         return redirect(route('payment-processors.index'));
     }

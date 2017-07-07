@@ -97,6 +97,25 @@ class Faucet extends Model
         'has_low_balance' => 'required|boolean'
     ];
 
+    protected static $logAttributes = [
+        'name',
+        'url',
+        'interval_minutes',
+        'min_payout',
+        'max_payout',
+        'payment_processors',
+        'has_ref_program',
+        'ref_payout_percent',
+        'comments',
+        'is_paused',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+        'has_low_balance'
+    ];
+
+    protected static $logOnlyDirty = true;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      **/

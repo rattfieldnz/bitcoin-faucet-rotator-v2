@@ -62,6 +62,11 @@ class Faucets
         }
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
+        activity()
+            ->performedOn($faucet)
+            ->causedBy(Auth::user())
+            ->log("The faucet ':subject.name' was added to the collection by :causer.user_name");
     }
 
     /**
@@ -109,6 +114,11 @@ class Faucets
         if (Auth::user()->hasRole('owner')) {
             $faucet->users()->sync([Auth::user()->id => ['faucet_id' => $faucet->id, 'referral_code' => $referralCode]]);
         }
+
+        activity()
+            ->performedOn($faucet)
+            ->causedBy(Auth::user())
+            ->log("The faucet ':subject.name' was updated by :causer.user_name");
     }
 
     /**
@@ -121,6 +131,8 @@ class Faucets
     public function destroyFaucet($slug, $permanentlyDelete = false)
     {
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
+        $logFaucet = $this->faucetRepository->findByField('slug', $slug)->first();
+        $logMessage = null;
 
         if (empty($faucet)) {
             LaracastsFlash::error('Faucet not found');
@@ -135,10 +147,18 @@ class Faucets
         }
 
         if ($permanentlyDelete == true) {
+            $logMessage = "The faucet ':subject.name' was permanently deleted by :causer.user_name";
             $faucet->forceDelete();
+
         } else {
             $this->faucetRepository->deleteWhere(['slug' => $slug]);
+            $logMessage = "The faucet ':subject.name' was archived/deleted by :causer.user_name";
         }
+
+        activity()
+            ->performedOn($logFaucet)
+            ->causedBy(Auth::user())
+            ->log($logMessage);
     }
 
     /**
@@ -150,6 +170,7 @@ class Faucets
     public function restoreFaucet($slug)
     {
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
+        $logFaucet = $this->faucetRepository->findByField('slug', $slug)->first();
 
         if (empty($faucet)) {
             LaracastsFlash::error('Faucet not found');
@@ -164,6 +185,11 @@ class Faucets
         }
 
         $this->faucetRepository->restoreDeleted($slug);
+
+        activity()
+            ->performedOn($logFaucet)
+            ->causedBy(Auth::user())
+            ->log("The faucet ':subject.name' was restored by :causer.user_name");
     }
 
 

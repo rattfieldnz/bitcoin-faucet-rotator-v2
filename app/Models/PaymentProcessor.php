@@ -59,6 +59,7 @@ class PaymentProcessor extends Model
         'url' => [
             'required',
             'url',
+            'active_url',
             'unique:payment_processors,url',
             'max:150',
             'regex:/^((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)$/' //URL must be http or https
@@ -67,6 +68,10 @@ class PaymentProcessor extends Model
         'meta_description' => 'string|max:160',
         'meta_keywords' => 'string|max:255'
     ];
+
+    protected static $logAttributes = ['name', 'url', 'meta_title', 'meta_description', 'meta_keywords'];
+
+    protected static $logOnlyDirty = true;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
