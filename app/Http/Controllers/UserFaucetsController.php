@@ -413,10 +413,7 @@ class UserFaucetsController extends Controller
 
         $faucetName = $faucet->name;
 
-        DB::table('referral_info')
-            ->where('user_id', $user->id)
-            ->where('faucet_id', $faucet->id)
-            ->update(['deleted_at' => Carbon::now()]);
+        $this->userFaucetRepository->deleteUserFaucet($user, $faucet, false);
 
         flash('The faucet \'' . $faucetName . '\' has successfully been archived/deleted! You are able to restore your faucet.')->success();
 
@@ -453,10 +450,7 @@ class UserFaucetsController extends Controller
 
         $faucetName = $faucet->name;
 
-        DB::table('referral_info')
-            ->where('user_id', $user->id)
-            ->where('faucet_id', $faucet->id)
-            ->delete();
+        $this->userFaucetRepository->deleteUserFaucet($user, $faucet, true);
 
         $input = Input::all();
         if (!empty($input['payment_processor'])) {

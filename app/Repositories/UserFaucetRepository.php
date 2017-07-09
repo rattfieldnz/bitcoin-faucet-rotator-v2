@@ -6,6 +6,7 @@ use App\Helpers\Functions;
 use App\Helpers\Functions\Faucets;
 use App\Models\Faucet;
 use App\Models\User;
+use Carbon\Carbon;
 use Helpers\Functions\Users;
 use Illuminate\Support\Facades\DB;
 use Mews\Purifier\Facades\Purifier;
@@ -73,6 +74,33 @@ class UserFaucetRepository extends Repository implements IRepository
         $faucet = Faucet::where('id', $faucetId)->first();
 
         Faucets::setUserFaucetRefCode($user, $faucet, $referralCode);
+    }
+
+    /**
+     * Soft-delete or permanently delete a user's faucet and referral information.
+     *
+     * @param \App\Models\User   $user
+     * @param \App\Models\Faucet $faucet
+     * @param bool               $permanentlyDelete
+     *
+     * @return bool|int
+     */
+    public function deleteUserFaucet(User $user, Faucet $faucet, bool $permanentlyDelete = false) {
+        if(empty($user) || empty($faucet)) {
+            return false;
+        }
+
+        if($permanentlyDelete == false) {
+            return DB::table('referral_info')
+                 ->where('user_id', $user->id)
+                 ->where('faucet_id', $faucet->id)
+                 ->update(['deleted_at' => Carbon::now()]);
+        } else {
+            return DB::table('referral_info')
+                ->where('user_id', $user->id)
+                ->where('faucet_id', $faucet->id)
+                ->delete();
+        }
     }
 
     /**
