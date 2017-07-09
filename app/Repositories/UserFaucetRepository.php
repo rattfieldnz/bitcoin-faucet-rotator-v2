@@ -86,21 +86,8 @@ class UserFaucetRepository extends Repository implements IRepository
      * @return bool|int
      */
     public function deleteUserFaucet(User $user, Faucet $faucet, bool $permanentlyDelete = false) {
-        if(empty($user) || empty($faucet)) {
-            return false;
-        }
 
-        if($permanentlyDelete == false) {
-            return DB::table('referral_info')
-                 ->where('user_id', $user->id)
-                 ->where('faucet_id', $faucet->id)
-                 ->update(['deleted_at' => Carbon::now()]);
-        } else {
-            return DB::table('referral_info')
-                ->where('user_id', $user->id)
-                ->where('faucet_id', $faucet->id)
-                ->delete();
-        }
+        return (new Faucets())->destroyUserFaucet($user, $faucet, $permanentlyDelete);
     }
 
     /**

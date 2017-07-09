@@ -162,6 +162,33 @@ class Faucets
     }
 
     /**
+     * Soft-delete or permanently delete a user's faucet and referral information.
+     *
+     * @param \App\Models\User   $user
+     * @param \App\Models\Faucet $faucet
+     * @param bool               $permanentlyDelete
+     *
+     * @return bool|int
+     */
+    public function destroyUserFaucet(User $user, Faucet $faucet, bool $permanentlyDelete = false) {
+        if(empty($user) || empty($faucet)) {
+            return false;
+        }
+
+        if($permanentlyDelete == false) {
+            return DB::table('referral_info')
+                ->where('user_id', $user->id)
+                ->where('faucet_id', $faucet->id)
+                ->update(['deleted_at' => Carbon::now()]);
+        } else {
+            return DB::table('referral_info')
+                ->where('user_id', $user->id)
+                ->where('faucet_id', $faucet->id)
+                ->delete();
+        }
+    }
+
+    /**
      * Restore a specified soft-deleted faucet.
      *
      * @param  $slug
@@ -297,25 +324,5 @@ class Faucets
             );
         }
         return $userFaucetIds->get()->pluck('faucet_id');
-    }
-
-    /**
-     * Permanently delete user-faucet data from pivot table.
-     *
-     * @param  User   $user
-     * @param  Faucet $faucet
-     * @return int
-     */
-    public function destroyUserFaucet(User $user, Faucet $faucet)
-    {
-        if (empty($faucet) || empty($user)) {
-            abort(404);
-        }
-        return DB::table('referral_info')->where(
-            [
-                ['faucet_id', '=', $faucet->id],
-                ['user_id', '=', $user->id]
-            ]
-        )->delete();
     }
 }
