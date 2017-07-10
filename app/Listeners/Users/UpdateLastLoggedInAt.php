@@ -34,7 +34,7 @@ class UpdateLastLoggedInAt
      */
     public function handle(Login $event)
     {
-        if(!empty($event->user)) {
+        if (!empty($event->user)) {
             $user = $event->user;
             $user->last_login_at = Carbon::now();
             $user->last_login_ip = $this->request->getClientIp();

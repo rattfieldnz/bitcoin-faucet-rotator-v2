@@ -27,7 +27,7 @@ class LogEventListener
      * @param  \App\Events\LogEvent $event
      * @return void
      */
-    public function handle(LogEvent $event) 
+    public function handle(LogEvent $event)
     {
 
         activity()

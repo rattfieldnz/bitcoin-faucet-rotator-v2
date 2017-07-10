@@ -34,7 +34,7 @@ class UpdateLastLoggedOutAt
      */
     public function handle(Logout $event)
     {
-        if(!empty($event->user)) {
+        if (!empty($event->user)) {
             $user = $event->user;
             $user->last_logout_at = Carbon::now();
             $user->save();

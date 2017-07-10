@@ -32,7 +32,6 @@ class HomeController extends Controller
         $user = Auth::user();
 
         if (empty($user)) {
-
             flash(
                 "Sorry, your account was recently suspended or permanently deleted. 
                 Please contact admin for further information."

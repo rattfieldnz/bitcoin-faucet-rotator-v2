@@ -96,7 +96,7 @@ class UserFaucetRepository extends Repository implements IRepository
      *
      * @return bool|int
      */
-    public function deleteUserFaucet(User $user, Faucet $faucet, bool $permanentlyDelete = false) 
+    public function deleteUserFaucet(User $user, Faucet $faucet, bool $permanentlyDelete = false)
     {
         
         return Faucets::destroyUserFaucet($user, $faucet, $permanentlyDelete);

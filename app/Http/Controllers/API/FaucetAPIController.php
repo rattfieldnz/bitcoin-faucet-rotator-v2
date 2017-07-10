@@ -23,7 +23,7 @@ use Response;
 class FaucetAPIController extends AppBaseController
 {
     /**
- * @var  FaucetRepository 
+ * @var  FaucetRepository
 */
     private $faucetRepository;
 
@@ -90,7 +90,7 @@ class FaucetAPIController extends AppBaseController
     public function show($slug)
     {
         /**
- * @var Faucet $faucet 
+ * @var Faucet $faucet
 */
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
 

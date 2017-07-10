@@ -230,9 +230,7 @@ class UserFaucetsController extends Controller
 
                 return redirect(route('users.faucets', $user->slug))->with('message', $message);
             }
-        }
-
-        // If the user's faucet exists, and main admin faucet is soft-deleted.
+        } // If the user's faucet exists, and main admin faucet is soft-deleted.
         elseif (!empty($faucet) && $faucet->isDeleted()) {
             //If the authenticated user is an owner or standard user, or the faucet's user is currently authenticated.
             if ((Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) || $user === Auth::user()) {
@@ -250,9 +248,7 @@ class UserFaucetsController extends Controller
                 flash('The faucet was not found')->error();
                 return redirect(route('users.faucets', $user->slug));
             }
-        }
-
-        // If user faucet exists, and the user's faucet is soft-deleted.
+        } // If user faucet exists, and the user's faucet is soft-deleted.
         elseif (!empty($faucet) && $faucet->pivot->deleted_at != null) {
             if (!Auth::guest() && (Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) && $user == Auth::user()) {
                 if (Auth::user()->hasRole('user')) {

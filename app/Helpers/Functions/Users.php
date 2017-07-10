@@ -75,7 +75,7 @@ class Users
             $newUser->attachPermission($permission);
         }
 
-        if(Auth::user()->isAnAdmin()) {
+        if (Auth::user()->isAnAdmin()) {
             $logMessage = "The user ':subject.user_name' was created by :causer.user_name";
         } else {
             $logMessage = "User ':subject.user_name' has successfully registered.";
@@ -105,15 +105,14 @@ class Users
             return false;
         }
         if ($user == Auth::user() || Auth::user()->isAnAdmin()) {
-
-            if($permanentlyDelete == false) {
-                if(Auth::user()->isAnAdmin()) {
+            if ($permanentlyDelete == false) {
+                if (Auth::user()->isAnAdmin()) {
                     $logMessage = "The user ':subject.user_name' was suspended by ':causer.user_name'";
                 } else {
                     $logMessage = "User ':subject.user_name' has deleted their account";
                 }
             } else {
-                if(Auth::user()->isAnAdmin()) {
+                if (Auth::user()->isAnAdmin()) {
                     $logMessage = "The user ':subject.user_name' was permanently deleted by ':causer.user_name'";
                 }
             }
@@ -143,7 +142,6 @@ class Users
             return false;
         }
         if ($user == Auth::user() || Auth::user()->isAnAdmin()) {
-
             activity()
                 ->performedOn($user)
                 ->causedBy(Auth::user())
@@ -176,9 +174,8 @@ class Users
                 $request->all() :
                 $request->except(['password','password_confirmation']);
 
-            if(Auth::user()->isAnAdmin()) {
-
-                if($user == Auth::user()) {
+            if (Auth::user()->isAnAdmin()) {
+                if ($user == Auth::user()) {
                     $logMessage = "The ':subject.user_name' has updated their profile";
                 } else {
                     $logMessage = "The user ':subject.user_name' was updated by :causer.user_name";

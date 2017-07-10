@@ -152,7 +152,6 @@ class Faucets
         if ($permanentlyDelete == true) {
             $logMessage = "The faucet ':subject.name' was permanently deleted by :causer.user_name";
             $faucet->forceDelete();
-
         } else {
             $this->faucetRepository->deleteWhere(['slug' => $slug]);
             $logMessage = "The faucet ':subject.name' was archived/deleted by :causer.user_name";
@@ -173,14 +172,13 @@ class Faucets
      *
      * @return bool
      */
-    public static function destroyUserFaucet(User $user, Faucet $faucet, bool $permanentlyDelete = false) 
+    public static function destroyUserFaucet(User $user, Faucet $faucet, bool $permanentlyDelete = false)
     {
-        if(empty($user) || empty($faucet)) {
+        if (empty($user) || empty($faucet)) {
             return false;
         }
 
-        if($permanentlyDelete == false) {
-
+        if ($permanentlyDelete == false) {
             DB::table('referral_info')
                 ->where('user_id', $user->id)
                 ->where('faucet_id', $faucet->id)
@@ -191,7 +189,6 @@ class Faucets
                 ->causedBy(Auth::user())
                 ->log("The faucet ':subject.name' in '" . $user->user_name . "'s' collection was archived/deleted by :causer.user_name");
         } else {
-
             DB::table('referral_info')
                 ->where('user_id', $user->id)
                 ->where('faucet_id', $faucet->id)
@@ -244,10 +241,10 @@ class Faucets
      *
      * @return bool
      */
-    public static function restoreUserFaucet(User $user, Faucet $faucet) 
+    public static function restoreUserFaucet(User $user, Faucet $faucet)
     {
 
-        if(empty($user) || empty($faucet)) {
+        if (empty($user) || empty($faucet)) {
             return false;
         }
 
@@ -263,7 +260,6 @@ class Faucets
 
         return true;
     }
-
 
     /**
      * @param User   $user

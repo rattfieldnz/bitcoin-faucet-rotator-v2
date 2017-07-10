@@ -41,7 +41,7 @@ class LogEvent extends Event
     /**
      * @return array
      */
-    public function broadcastOn() 
+    public function broadcastOn()
     {
 
         return [];

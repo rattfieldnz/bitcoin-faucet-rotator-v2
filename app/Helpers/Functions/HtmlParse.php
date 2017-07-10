@@ -50,7 +50,7 @@ class HtmlParse
 
         $doc = new DOMDocument();
         /**
- * @var DOMDocument $doc 
+ * @var DOMDocument $doc
 */
         @$doc->loadHTML($data);
 
