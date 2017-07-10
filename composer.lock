@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9baed552b4e3aea5b252bd8154e903cc",
+    "content-hash": "a513fe59b4e63304c8195d04b946059e",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1619,6 +1619,57 @@
                 "rest"
             ],
             "time": "2017-03-12T01:28:43+00:00"
+        },
+        {
+            "name": "matthewbdaly/laravel-etag-middleware",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/matthewbdaly/laravel-etag-middleware.git",
+                "reference": "f75528f61e15984a4d8798a86171f58e1134e11b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/matthewbdaly/laravel-etag-middleware/zipball/f75528f61e15984a4d8798a86171f58e1134e11b",
+                "reference": "f75528f61e15984a4d8798a86171f58e1134e11b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "5.1.x|5.2.x|5.3.x|5.4.x",
+                "illuminate/support": "5.1.x|5.2.x|5.3.x|5.4.x",
+                "symfony/http-foundation": "~2.7|~3.0",
+                "symfony/http-kernel": "~2.7|~3.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.7",
+                "phpunit/phpunit": "^4.8|^5.2",
+                "squizlabs/php_codesniffer": "^2.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Matthewbdaly\\ETagMiddleware\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matthew Daly",
+                    "email": "matthewbdaly@gmail.com"
+                }
+            ],
+            "description": "A Laravel middleware for adding ETags to HTTP requests to improve response times",
+            "keywords": [
+                "ETags",
+                "Etag",
+                "http",
+                "laravel",
+                "middleware"
+            ],
+            "time": "2017-03-15T22:37:35+00:00"
         },
         {
             "name": "mews/purifier",
