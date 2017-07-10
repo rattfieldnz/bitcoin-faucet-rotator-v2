@@ -8,6 +8,7 @@ use App\Models\Faucet;
 use App\Models\User;
 use Carbon\Carbon;
 use Helpers\Functions\Users;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Mews\Purifier\Facades\Purifier;
 
@@ -54,6 +55,11 @@ class UserFaucetRepository extends Repository implements IRepository
         $faucet = Faucet::where('id', $faucetId)->first();
 
         Faucets::setUserFaucetRefCode($user, $faucet, $referralCode);
+
+        activity()
+            ->performedOn($faucet)
+            ->causedBy(Auth::user())
+            ->log("The faucet ':subject.name' was added to '" . $user->user_name . "'s' collection by :causer.user_name");
     }
 
     /**
@@ -74,6 +80,11 @@ class UserFaucetRepository extends Repository implements IRepository
         $faucet = Faucet::where('id', $faucetId)->first();
 
         Faucets::setUserFaucetRefCode($user, $faucet, $referralCode);
+
+        activity()
+            ->performedOn($faucet)
+            ->causedBy(Auth::user())
+            ->log("The faucet ':subject.name' in '" . $user->user_name . "'s' collection was updated by :causer.user_name");
     }
 
     /**
@@ -85,9 +96,10 @@ class UserFaucetRepository extends Repository implements IRepository
      *
      * @return bool|int
      */
-    public function deleteUserFaucet(User $user, Faucet $faucet, bool $permanentlyDelete = false) {
-
-        return (new Faucets())->destroyUserFaucet($user, $faucet, $permanentlyDelete);
+    public function deleteUserFaucet(User $user, Faucet $faucet, bool $permanentlyDelete = false) 
+    {
+        
+        return Faucets::destroyUserFaucet($user, $faucet, $permanentlyDelete);
     }
 
     /**

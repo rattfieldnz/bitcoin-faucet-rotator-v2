@@ -44,7 +44,7 @@ class UpdateLastLoggedInAt
                 ->causedBy($user)
                 ->performedOn($user)
                 ->withProperty('ip_address', $user->last_login_ip)
-                ->log("User '" . $user->user_name . "'' successfully logged in");
+                ->log("User '" . $user->user_name . "' successfully logged in");
         }
     }
 }

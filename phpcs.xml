@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<ruleset name="PHP_CodeSniffer">
+    <description>The coding standard for our project.</description>
+    <file>app</file>
+    <file>tests</file>
+    <exclude-pattern>*/migrations/*</exclude-pattern>
+    <arg value="np"/>
+    <rule ref="PSR2"/>
+</ruleset>

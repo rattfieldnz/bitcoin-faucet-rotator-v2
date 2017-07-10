@@ -305,7 +305,7 @@ class FaucetController extends AppBaseController
             );
         }
 
-        $this->faucetFunctions->destroyUserFaucet(Auth::user(), $faucet, true);
+        Faucets::destroyUserFaucet(Auth::user(), $faucet, true);
         $faucet->forceDelete();
 
         flash('The \''. $faucetName .'\' faucet was permanently deleted!')->success();

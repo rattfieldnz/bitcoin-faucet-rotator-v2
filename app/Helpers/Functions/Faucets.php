@@ -4,6 +4,7 @@ use App\Http\Requests\CreateFaucetRequest;
 use App\Http\Requests\UpdateFaucetRequest;
 use App\Models\Faucet;
 use App\Models\User;
+use Carbon\Carbon;
 use Laracasts\Flash\Flash as LaracastsFlash;
 use App\Models\PaymentProcessor;
 use App\Repositories\FaucetRepository;
@@ -99,16 +100,16 @@ class Faucets
             return redirect(route('faucets.index'));
         }
 
-        $toAddPaymentProcressorIds = [];
+        $toAddPaymentProcessorIds = [];
 
         foreach ($paymentProcessors->pluck('id')->toArray() as $key => $value) {
-            array_push($toAddPaymentProcressorIds, (int)$value);
+            array_push($toAddPaymentProcessorIds, (int)$value);
         }
 
-        if (count($toAddPaymentProcressorIds) > 1) {
-            $faucet->paymentProcessors()->sync($toAddPaymentProcressorIds);
-        } elseif (count($toAddPaymentProcressorIds) == 1) {
-            $faucet->paymentProcessors()->sync([$toAddPaymentProcressorIds[0]]);
+        if (count($toAddPaymentProcessorIds) > 1) {
+            $faucet->paymentProcessors()->sync($toAddPaymentProcessorIds);
+        } elseif (count($toAddPaymentProcessorIds) == 1) {
+            $faucet->paymentProcessors()->sync([$toAddPaymentProcessorIds[0]]);
         }
 
         if (Auth::user()->hasRole('owner')) {
@@ -120,6 +121,8 @@ class Faucets
             ->causedBy(Auth::user())
             ->log("The faucet ':subject.name' was updated by :causer.user_name");
     }
+
+
 
     /**
      * Soft-delete or permanently delete a faucet.
@@ -168,30 +171,44 @@ class Faucets
      * @param \App\Models\Faucet $faucet
      * @param bool               $permanentlyDelete
      *
-     * @return bool|int
+     * @return bool
      */
-    public function destroyUserFaucet(User $user, Faucet $faucet, bool $permanentlyDelete = false) {
+    public static function destroyUserFaucet(User $user, Faucet $faucet, bool $permanentlyDelete = false) 
+    {
         if(empty($user) || empty($faucet)) {
             return false;
         }
 
         if($permanentlyDelete == false) {
-            return DB::table('referral_info')
+
+            DB::table('referral_info')
                 ->where('user_id', $user->id)
                 ->where('faucet_id', $faucet->id)
                 ->update(['deleted_at' => Carbon::now()]);
+
+            activity()
+                ->performedOn($faucet)
+                ->causedBy(Auth::user())
+                ->log("The faucet ':subject.name' in '" . $user->user_name . "'s' collection was archived/deleted by :causer.user_name");
         } else {
-            return DB::table('referral_info')
+
+            DB::table('referral_info')
                 ->where('user_id', $user->id)
                 ->where('faucet_id', $faucet->id)
                 ->delete();
+
+            activity()
+                ->performedOn($faucet)
+                ->causedBy(Auth::user())
+                ->log("The faucet ':subject.name' in '" . $user->user_name . "'s' collection was permanently deleted by :causer.user_name");
         }
     }
 
     /**
      * Restore a specified soft-deleted faucet.
      *
-     * @param  $slug
+     * @param $slug
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function restoreFaucet($slug)
@@ -217,6 +234,34 @@ class Faucets
             ->performedOn($logFaucet)
             ->causedBy(Auth::user())
             ->log("The faucet ':subject.name' was restored by :causer.user_name");
+    }
+
+    /**
+     * Restore a user's faucet via pivot table.
+     *
+     * @param \App\Models\User   $user
+     * @param \App\Models\Faucet $faucet
+     *
+     * @return bool
+     */
+    public static function restoreUserFaucet(User $user, Faucet $faucet) 
+    {
+
+        if(empty($user) || empty($faucet)) {
+            return false;
+        }
+
+        DB::table('referral_info')
+            ->where('user_id', $user->id)
+            ->where('faucet_id', $faucet->id)
+            ->update(['deleted_at' => null]);
+
+        activity()
+            ->performedOn($faucet)
+            ->causedBy(Auth::user())
+            ->log("The faucet ':subject.name' in '" . $user->user_name . "'s' collection was restored by :causer.user_name");
+
+        return true;
     }
 
 

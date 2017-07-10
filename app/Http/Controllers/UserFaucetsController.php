@@ -415,7 +415,7 @@ class UserFaucetsController extends Controller
 
         $this->userFaucetRepository->deleteUserFaucet($user, $faucet, false);
 
-        flash('The faucet \'' . $faucetName . '\' has successfully been archived/deleted! You are able to restore your faucet.')->success();
+        flash('The faucet \'' . $faucetName . '\' has successfully been archived/deleted! You are able to restore the faucet.')->success();
 
         return redirect($redirectRoute);
     }
@@ -530,10 +530,7 @@ class UserFaucetsController extends Controller
 
         $faucetName = $faucet->name;
 
-        DB::table('referral_info')
-            ->where('user_id', $user->id)
-            ->where('faucet_id', $faucet->id)
-            ->update(['deleted_at' => null]);
+        Faucets::restoreUserFaucet($user, $faucet);
 
         flash('The faucet \'' . $faucetName . '\' was successfully restored!')->success();
 
