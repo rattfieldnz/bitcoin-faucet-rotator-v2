@@ -10,7 +10,7 @@ return [
     | Should we email error traces?
     |
     */
-    'silent' => env('SNEAKER_SILENT', true),
+    'silent' => env('SNEAKER_SILENT'),
 
     /*
     |--------------------------------------------------------------------------

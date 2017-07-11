@@ -162,6 +162,7 @@ return [
         Laratrust\LaratrustServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         SquareBoat\Sneaker\SneakerServiceProvider::class,
+        Bepsvpt\SecureHeaders\SecureHeadersServiceProvider::class,
         /*
          * Application Service Providers...
          */

@@ -35,7 +35,8 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
-            \Matthewbdaly\ETagMiddleware\ETag::class
+            \Matthewbdaly\ETagMiddleware\ETag::class,
+            \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
         ],
 
         'api' => [

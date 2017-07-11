@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**

@@ -11,6 +11,7 @@ use App\Repositories\FaucetRepository;
 use Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Mews\Purifier\Facades\Purifier;
@@ -119,7 +120,7 @@ class FaucetController extends AppBaseController
      *
      * @return \Illuminate\View\View
      */
-    public function show($slug)
+    public function show(Response $response, $slug)
     {
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
 
@@ -145,15 +146,24 @@ class FaucetController extends AppBaseController
             ) {
                 $message = 'The faucet has been temporarily deleted. You can restore the faucet or permanently delete it.';
 
+                $faucetUrl = $faucet->url . Faucets::getUserFaucetRefCode($adminUser, $faucet);
+
+                $this->faucetFunctions->setSecureFaucetIframe($adminUser, $faucet);
+
                 return view('faucets.show')
-                    ->with('adminReferralCode', Faucets::getUserFaucetRefCode($adminUser, $faucet))
                     ->with('faucet', $faucet)
+                    ->with('faucetUrl', $faucetUrl)
                     ->with('message', $message);
             }
             if (!empty($faucet) && !$faucet->isDeleted()) { // If the faucet exists and isn't soft-deleted
-                return view('faucets.show')
-                    ->with('adminReferralCode', Faucets::getUserFaucetRefCode($adminUser, $faucet))
+
+                $faucetUrl = $faucet->url . Faucets::getUserFaucetRefCode($adminUser, $faucet);
+
+                $this->faucetFunctions->setSecureFaucetIframe($adminUser, $faucet);
+
+                return view('faucets.show', ['faucet' => $faucet, 'faucetUrl' => $faucetUrl, 'message' => $message])
                     ->with('faucet', $faucet)
+                    ->with('faucetUrl', $faucetUrl)
                     ->with('message', $message);
             } else {
                 flash('Faucet not found')->error();

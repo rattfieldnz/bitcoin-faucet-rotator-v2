@@ -17,11 +17,7 @@
     <div class="content">
         <div class="clearfix"></div>
         @include('flash::message')
-        @if(!empty($message))
-            <div class="alert alert-info">
-                {!! $message !!}
-            </div>
-        @endif
+        @include('partials.faucet-message-info')
         <div class="clearfix"></div>
         @include('layouts.breadcrumbs')
 

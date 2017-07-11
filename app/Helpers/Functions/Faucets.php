@@ -5,6 +5,7 @@ use App\Http\Requests\UpdateFaucetRequest;
 use App\Models\Faucet;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Config;
 use Laracasts\Flash\Flash as LaracastsFlash;
 use App\Models\PaymentProcessor;
 use App\Repositories\FaucetRepository;
@@ -339,6 +340,23 @@ class Faucets
         $faucets = $user->faucets()->whereIn('id', $userFaucetIds)->get();
 
         return $faucets;
+    }
+
+    /**
+     * Set CSP secure iframe rules for faucet.
+     * I.E: https://content-security-policy.com/.
+     *
+     * @param \App\Models\User   $user
+     * @param \App\Models\Faucet $faucet
+     * @return void
+     */
+    public function setSecureFaucetIframe(User $user, Faucet $faucet)
+    {
+
+        if (!empty($user) && !empty($faucet)) {
+            $faucetUrl = $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet);
+            Config::set('secure-headers.csp.child-src.allow', [parse_url($faucetUrl)['host']]);
+        }
     }
 
     /**

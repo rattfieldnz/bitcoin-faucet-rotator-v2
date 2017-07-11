@@ -30,7 +30,9 @@
         "phpoffice/phpexcel": "^1.8",
         "squareboat/sneaker": "^2.0",
         "spatie/laravel-activitylog": "^1.15",
-        "matthewbdaly/laravel-etag-middleware": "^1.0"
+        "matthewbdaly/laravel-etag-middleware": "^1.0",
+        "bepsvpt/secure-headers": "^3.0",
+        "psr/http-message": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.6",

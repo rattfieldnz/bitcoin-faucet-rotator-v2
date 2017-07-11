@@ -27,11 +27,7 @@
     <div class="content">
         <div class="clearfix"></div>
         @include('flash::message')
-        @if(!empty($message))
-            <div class="alert alert-info">
-                {!! $message !!}
-            </div>
-        @endif
+        @include('partials.faucet-message-info')
         <div class="clearfix"></div>
         @include('layouts.breadcrumbs')
 
@@ -58,7 +54,7 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    {!! link_to($faucet->url . $adminReferralCode, $faucet->name, ['target' => 'blank', 'title' => $faucet->name]) !!}
+                                    {!! link_to($faucetUrl, $faucet->name, ['target' => 'blank', 'title' => $faucet->name]) !!}
                                 </td>
                                 <td>{{ $faucet->interval_minutes }}</td>
                                 <td>{{ $faucet->min_payout }}</td>
@@ -87,7 +83,7 @@
                         </table>
                     </div>
                     @if($faucet->is_paused == false)
-                        <iframe sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin" src="{{ $faucet->url }}" id="faucet-iframe"></iframe>
+                        <iframe sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin" src="{{ $faucetUrl }}" id="faucet-iframe"></iframe>
                     @else
                         <p>This faucet has been paused from showing in rotation.</p>
 
