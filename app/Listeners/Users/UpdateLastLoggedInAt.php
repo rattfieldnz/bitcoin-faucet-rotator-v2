@@ -2,6 +2,7 @@
 
 namespace App\Listeners\Users;
 
+use App\Helpers\Constants;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
@@ -40,7 +41,7 @@ class UpdateLastLoggedInAt
             $user->last_login_ip = $this->request->getClientIp();
             $user->save();
 
-            activity()
+            activity(Constants::AUTH_LOGIN_LOG_NAME)
                 ->causedBy($user)
                 ->performedOn($user)
                 ->withProperty('ip_address', $user->last_login_ip)

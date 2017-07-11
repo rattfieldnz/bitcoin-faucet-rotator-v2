@@ -76,12 +76,12 @@ class Users
         }
 
         if (Auth::user()->isAnAdmin()) {
-            $logMessage = "The user ':subject.user_name' was created by :causer.user_name";
+            $logMessage = "The user ':subject.user_name' was added by :causer.user_name";
         } else {
             $logMessage = "User ':subject.user_name' has successfully registered.";
         }
 
-        activity()
+        activity(self::userLogName())
             ->performedOn($user)
             ->causedBy(Auth::user())
             ->log($logMessage);
@@ -117,7 +117,7 @@ class Users
                 }
             }
 
-            activity()
+            activity(self::userLogName())
                 ->performedOn($user)
                 ->causedBy(Auth::user())
                 ->log($logMessage);
@@ -142,7 +142,7 @@ class Users
             return false;
         }
         if ($user == Auth::user() || Auth::user()->isAnAdmin()) {
-            activity()
+            activity(self::userLogName())
                 ->performedOn($user)
                 ->causedBy(Auth::user())
                 ->log("The user ':subject.user_name' was restored by :causer.user_name");
@@ -184,7 +184,7 @@ class Users
                 $logMessage = "':subject.user_name' has updated their profile";
             }
 
-            activity()
+            activity(self::userLogName())
                 ->performedOn($user)
                 ->causedBy(Auth::user())
                 ->log($logMessage);
@@ -246,6 +246,16 @@ class Users
         $userFaucets = $faucets->whereIn('id', $paymentProcessorFaucets)->all();
 
         return $userFaucets;
+    }
+
+    public function userLogName(): string
+    {
+
+        if (Auth::user()->isAnAdmin()) {
+            return Constants::ADMIN_USER_MANAGEMENT_LOG;
+        } else {
+            return Constants::USER_MANAGEMENT_LOG;
+        }
     }
 
     public function adminUser()

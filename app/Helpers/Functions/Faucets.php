@@ -1,5 +1,6 @@
 <?php namespace App\Helpers\Functions;
 
+use App\Helpers\Constants;
 use App\Http\Requests\CreateFaucetRequest;
 use App\Http\Requests\UpdateFaucetRequest;
 use App\Models\Faucet;
@@ -65,10 +66,100 @@ class Faucets
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
-        activity()
+        activity(self::faucetLogName())
             ->performedOn($faucet)
             ->causedBy(Auth::user())
             ->log("The faucet ':subject.name' was added to the collection by :causer.user_name");
+    }
+
+    /**
+     * Create a user faucet via pivot table.
+     *
+     * @param array $data
+     * @return void
+     */
+    public static function createStoreUserFaucet(array $data)
+    {
+        if (key_exists('user_id', $data) &&
+            key_exists('faucet_id', $data) &&
+            key_exists('referral_code', $data)
+        ) {
+            $userFaucetData = self::cleanUserFaucetInput($data);
+            $userId = $userFaucetData['user_id'];
+            $faucetId = $userFaucetData['faucet_id'];
+            $referralCode = $userFaucetData['referral_code'];
+
+            $user = User::where('id', $userId)->first();
+            $faucet = Faucet::where('id', $faucetId)->first();
+
+            if (!empty($user) && !empty($faucet)) {
+                self::setUserFaucetRefCode($user, $faucet, $referralCode);
+
+                activity(Faucets::faucetLogName())
+                    ->performedOn($faucet)
+                    ->causedBy(Auth::user())
+                    ->log("The faucet ':subject.name' was added to '" . $user->user_name . "'s' collection by :causer.user_name");
+            }
+        }
+    }
+
+    /**
+     * Update a user faucet via pivot table.
+     *
+     * @param array $data
+     * @param       $userId
+     * @return void
+     */
+    public static function updateUserFaucet(array $data, $userId)
+    {
+
+        if (key_exists('user_id', $data) &&
+            key_exists('faucet_id', $data) &&
+            key_exists('referral_code', $data)
+        ) {
+            $userFaucetData = self::cleanUserFaucetInput($data);
+            $faucetId = $userFaucetData['faucet_id'];
+            $referralCode = $userFaucetData['referral_code'];
+
+            $user = User::where('id', $userId)->first();
+            $faucet = Faucet::where('id', $faucetId)->first();
+
+            if (!empty($user) && !empty($faucet)) {
+                self::setUserFaucetRefCode($user, $faucet, $referralCode);
+
+                activity(self::faucetLogName())
+                    ->performedOn($faucet)
+                    ->causedBy(Auth::user())
+                    ->log("The faucet ':subject.name' in '" . $user->user_name . "'s' collection was updated by :causer.user_name");
+            }
+        }
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
+    public static function cleanInput(array $data)
+    {
+        $data['payment_processor'] = Purifier::clean($data['payment_processor'], 'generalFields');
+        return $data;
+    }
+
+    /**
+     * Sanitize user faucet data via pivot table.
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+    public static function cleanUserFaucetInput(array $data)
+    {
+        return [
+            'user_id' => Purifier::clean($data['user_id'], 'generalFields'),
+            'faucet_id' => Purifier::clean($data['faucet_id'], 'generalFields'),
+            'referral_code' => Purifier::clean($data['referral_code'], 'generalFields'),
+        ];
     }
 
     /**
@@ -117,13 +208,11 @@ class Faucets
             $faucet->users()->sync([Auth::user()->id => ['faucet_id' => $faucet->id, 'referral_code' => $referralCode]]);
         }
 
-        activity()
+        activity(self::faucetLogName())
             ->performedOn($faucet)
             ->causedBy(Auth::user())
             ->log("The faucet ':subject.name' was updated by :causer.user_name");
     }
-
-
 
     /**
      * Soft-delete or permanently delete a faucet.
@@ -158,7 +247,7 @@ class Faucets
             $logMessage = "The faucet ':subject.name' was archived/deleted by :causer.user_name";
         }
 
-        activity()
+        activity(self::faucetLogName())
             ->performedOn($logFaucet)
             ->causedBy(Auth::user())
             ->log($logMessage);
@@ -185,7 +274,7 @@ class Faucets
                 ->where('faucet_id', $faucet->id)
                 ->update(['deleted_at' => Carbon::now()]);
 
-            activity()
+            activity(self::faucetLogName())
                 ->performedOn($faucet)
                 ->causedBy(Auth::user())
                 ->log("The faucet ':subject.name' in '" . $user->user_name . "'s' collection was archived/deleted by :causer.user_name");
@@ -195,7 +284,7 @@ class Faucets
                 ->where('faucet_id', $faucet->id)
                 ->delete();
 
-            activity()
+            activity(self::faucetLogName())
                 ->performedOn($faucet)
                 ->causedBy(Auth::user())
                 ->log("The faucet ':subject.name' in '" . $user->user_name . "'s' collection was permanently deleted by :causer.user_name");
@@ -228,7 +317,7 @@ class Faucets
 
         $this->faucetRepository->restoreDeleted($slug);
 
-        activity()
+        activity(self::faucetLogName())
             ->performedOn($logFaucet)
             ->causedBy(Auth::user())
             ->log("The faucet ':subject.name' was restored by :causer.user_name");
@@ -254,7 +343,7 @@ class Faucets
             ->where('faucet_id', $faucet->id)
             ->update(['deleted_at' => null]);
 
-        activity()
+        activity(self::faucetLogName())
             ->performedOn($faucet)
             ->causedBy(Auth::user())
             ->log("The faucet ':subject.name' in '" . $user->user_name . "'s' collection was restored by :causer.user_name");
@@ -356,6 +445,21 @@ class Faucets
         if (!empty($user) && !empty($faucet)) {
             $faucetUrl = $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet);
             Config::set('secure-headers.csp.child-src.allow', [parse_url($faucetUrl)['host']]);
+        }
+    }
+
+    /**
+     * Get faucets logging name.
+     *
+     * @return string
+     */
+    public static function faucetLogName(): string
+    {
+
+        if (Auth::user()->isAnAdmin()) {
+            return Constants::ADMIN_FAUCET_LOG_NAME;
+        } else {
+            return Constants::USER_FAUCET_LOG_NAME;
         }
     }
 

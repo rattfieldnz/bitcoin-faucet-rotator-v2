@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Constants;
 use App\Helpers\Functions;
 use App\Http\Requests\CreatePaymentProcessorRequest;
 use App\Http\Requests\UpdatePaymentProcessorRequest;
@@ -84,7 +85,7 @@ class PaymentProcessorController extends AppBaseController
 
         flash('Payment Processor saved successfully.')->success();
 
-        activity()
+        activity(Constants::ADMIN_PAYMENT_PROCESSOR_LOG)
             ->performedOn($paymentProcessor)
             ->causedBy(Auth::user())
             ->log("The payment processor ':subject.name' was added to the collection by :causer.user_name");
@@ -261,7 +262,7 @@ class PaymentProcessorController extends AppBaseController
 
         flash('The \'' . $paymentProcessor->name . '\' payment processor was updated successfully!')->success();
 
-        activity()
+        activity(Constants::ADMIN_PAYMENT_PROCESSOR_LOG)
             ->performedOn($paymentProcessor)
             ->causedBy(Auth::user())
             ->log("The payment processor ':subject.name' was updated by :causer.user_name");
@@ -292,7 +293,7 @@ class PaymentProcessorController extends AppBaseController
 
         flash('The \'' . $paymentProcessor->name . '\' payment processor was archived/deleted successfully!')->success();
 
-        activity()
+        activity(Constants::ADMIN_PAYMENT_PROCESSOR_LOG)
             ->performedOn($paymentProcessor)
             ->causedBy(Auth::user())
             ->log("The payment processor ':subject.name' was archived/deleted by :causer.user_name");
@@ -332,7 +333,7 @@ class PaymentProcessorController extends AppBaseController
 
         flash('The \'' . $paymentProcessorName . '\' payment processor was permanently deleted!')->success();
 
-        activity()
+        activity(Constants::ADMIN_PAYMENT_PROCESSOR_LOG)
             ->performedOn($paymentProcessor)
             ->causedBy(Auth::user())
             ->log("The payment processor ':subject.name' was deleted permanently by :causer.user_name");
@@ -370,7 +371,7 @@ class PaymentProcessorController extends AppBaseController
 
         flash('The \'' . $paymentProcessor->name . '\' payment processor was successfully restored!')->success();
 
-        activity()
+        activity(Constants::ADMIN_PAYMENT_PROCESSOR_LOG)
             ->performedOn($paymentProcessor)
             ->causedBy(Auth::user())
             ->log("The payment processor ':subject.name' was restored by :causer.user_name");

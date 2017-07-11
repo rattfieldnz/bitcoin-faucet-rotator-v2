@@ -120,7 +120,7 @@ class FaucetController extends AppBaseController
      *
      * @return \Illuminate\View\View
      */
-    public function show(Response $response, $slug)
+    public function show($slug)
     {
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
 
@@ -161,7 +161,7 @@ class FaucetController extends AppBaseController
 
                 $this->faucetFunctions->setSecureFaucetIframe($adminUser, $faucet);
 
-                return view('faucets.show', ['faucet' => $faucet, 'faucetUrl' => $faucetUrl, 'message' => $message])
+                return view('faucets.show')
                     ->with('faucet', $faucet)
                     ->with('faucetUrl', $faucetUrl)
                     ->with('message', $message);
@@ -286,7 +286,6 @@ class FaucetController extends AppBaseController
     {
         Users::userCanAccessArea(Auth::user(), 'faucets.delete-permanently', ['slug' => $slug], ['slug' => $slug]);
         $faucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
-        $logFaucet = $this->faucetRepository->findByField('slug', $slug, true)->first();
 
         if (empty($faucet)) {
             flash('Faucet not found')->error();

@@ -2,6 +2,7 @@
 
 namespace App\Listeners\Users;
 
+use App\Helpers\Constants;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class UpdateLastLoggedOutAt
             $user->last_logout_at = Carbon::now();
             $user->save();
 
-            activity()
+            activity(Constants::AUTH_LOGOUT_LOG_NAME)
                 ->causedBy($user)
                 ->performedOn($user)
                 ->withProperty('ip_address', $this->request->getClientIp())
