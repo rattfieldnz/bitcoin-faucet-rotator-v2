@@ -8,8 +8,10 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 /**
  * Class LoginController
@@ -116,6 +118,21 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         return $this->redirectTo;
+    }
+
+    /**
+     * Get the throttle key for the given request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return string
+     */
+    public function throttleKey(Request $request)
+    {
+        if (Config::get('auth.throttle_key') == 'ip') {
+            return $request->ip();
+        } else {
+            return Str::lower($request->input($this->username())).'|'.$request->ip();
+        }
     }
 
     /**
