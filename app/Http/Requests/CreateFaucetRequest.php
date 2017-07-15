@@ -21,7 +21,7 @@ class CreateFaucetRequest extends Request
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->isAnAdmin();
     }
 
     /**

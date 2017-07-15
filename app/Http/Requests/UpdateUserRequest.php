@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Helpers\Constants;
 use App\Http\Requests\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class UpdateUserRequest
@@ -22,7 +23,7 @@ class UpdateUserRequest extends Request
      */
     public function authorize()
     {
-        return true;
+        return !empty(Auth::user()) && ($this->user()->isAnAdmin() || $this->user()->hasRole('user'));
     }
 
     /**

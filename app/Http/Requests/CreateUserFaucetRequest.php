@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class CreateUserFaucetRequest
@@ -19,7 +20,7 @@ class CreateUserFaucetRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return !empty(Auth::user()) && ($this->user()->isAnAdmin() || $this->user()->hasRole('user'));
     }
 
     /**
