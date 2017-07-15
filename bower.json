@@ -1,0 +1,22 @@
+{
+  "name": "faucet-rotator",
+  "version": "0.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.7",
+    "font-awesome": "~4.7.0",
+    "select2": "~4.0.3",
+    "admin-lte": "~2.3.11",
+    "ionicons": "~2.0.1",
+    "datatables": "~1.10.15",
+    "jquery": "~3.2.1",
+    "iCheck": "~1.0.2"
+  }
+}
