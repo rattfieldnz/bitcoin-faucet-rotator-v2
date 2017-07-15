@@ -30,3 +30,7 @@
     height: 50em;
     border: 2px solid #ddd;
 }
+
+.wrapper{
+    height: auto !important;
+}
