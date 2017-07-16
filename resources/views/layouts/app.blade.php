@@ -137,19 +137,11 @@
     </div>
     @endif
 
-    <!-- jQuery 2.1.4 -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
-
-    <!-- AdminLTE App -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.3/js/app.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-
-    <script src="/assets/js/jquery.tablesorter.js?{{ rand()}}"></script>
-    <script src="/assets/js/tablesorter_custom_code.js?{{ rand()}}"></script>
-    <script src="/assets/js/custom.js?{{ rand()}}"></script>
+    @if(env('APP_ENV') == 'local')
+    <script src="/assets/js/mainScripts.js?{{ rand()}}"></script>
+    @elseif(env('APP_ENV') == 'production')
+    <script src="/assets/js/mainScripts.min.js?{{ rand()}}"></script>
+    @endif
 
     @yield('scripts')
 </body>

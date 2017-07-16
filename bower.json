@@ -17,6 +17,8 @@
     "ionicons": "~2.0.1",
     "datatables": "~1.10.15",
     "jquery": "~3.2.1",
-    "iCheck": "~1.0.2"
+    "iCheck": "~1.0.2",
+    "jquery-ui": "^1.12.1",
+    "blockadblock": "^3.2.0"
   }
 }

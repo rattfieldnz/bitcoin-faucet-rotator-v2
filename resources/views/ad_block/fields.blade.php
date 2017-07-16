@@ -19,8 +19,8 @@
     <a href="{!! route('ad-block.index') !!}" class="btn btn-default">Cancel</a>
 </div>
 @section('scripts')
-    <script src="/assets/js/ckeditor/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace( 'ad_content');
-    </script>
+<script src="/assets/js/ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace( 'ad_content');
+</script>
 @endsection
