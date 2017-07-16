@@ -1,8 +1,7 @@
 <?php namespace App\Helpers\WebsiteMeta;
 
-use App\MainMeta;
+use App\Models\MainMeta;
 use Exception;
-use RattfieldNz\UrlValidation\UrlValidation;
 
 /**
  * Class WebsiteMeta

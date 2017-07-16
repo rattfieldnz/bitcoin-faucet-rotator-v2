@@ -88,7 +88,7 @@ gulp.task("copyfiles", function() {
 
     // BlockAdBlock //
     gulp.src("vendor/bower_components/blockadblock/blockadblock.js")
-        .pipe(gulp.dest("resources/assets/js/blockadblock"));
+        .pipe(gulp.dest("public/assets/js/blockadblock"));
 
 });
 
@@ -109,8 +109,7 @@ elixir(function(mix) {
             'js/custom/jquery.doubleScroll.js',
             'js/custom/jquery.livepreview.js',
             'js/custom/jquery.tablesorter.js',
-            'js/custom/tablesorter_custom_code.js',
-            'js/blockadblock/blockadblock.js'
+            'js/custom/tablesorter_custom_code.js'
         ],
         'public/assets/js/mainScripts.js',
         'resources/assets/'

@@ -173,7 +173,7 @@
 </div>
 
 @section('scripts')
-    <script src="/assets/js/ckeditor/ckeditor.js"></script>
+    <script src="/assets/js/ckeditor/ckeditor.js?{{ rand()}}"></script>
     <script>
         CKEDITOR.replace( 'page_main_content');
     </script>
