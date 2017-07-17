@@ -150,7 +150,7 @@
     @endif
 
     @if(\App\Helpers\WebsiteMeta\WebsiteMeta::activatedAdBlockBlocking() == true)
-        <script src="/assets/js/blockadblock/blockadblock.js?{{ rand()}}"></script>
+        <script src="/assets/js/blockadblock/custom.blockadblock.js?{{ rand()}}"></script>
     @endif
     @yield('scripts')
 </body>
