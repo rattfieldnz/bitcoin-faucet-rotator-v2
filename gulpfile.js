@@ -33,14 +33,14 @@ gulp.task("copyfiles", function() {
         .pipe(gulp.dest("resources/assets/js/bootstrap"));
 
     gulp.src("vendor/bower_components/bootstrap/dist/fonts/**")
-        .pipe(gulp.dest("resources/assets/fonts/bootstrap"));
+        .pipe(gulp.dest("public/assets/css/fonts"));
 
     // Font Awesome //
     gulp.src("vendor/bower_components/font-awesome/css/font-awesome.css")
-        .pipe(gulp.dest("resources/assets/css/font-awesome/"));
+        .pipe(gulp.dest("resources/assets/css/fonts/"));
 
     gulp.src("vendor/bower_components/font-awesome/fonts/**")
-        .pipe(gulp.dest("resources/assets/fonts/font-awesome"));
+        .pipe(gulp.dest("public/assets/css/fonts"));
 
     // AdminLTE
     gulp.src("vendor/bower_components/admin-lte/dist/css/**/*.css")
@@ -115,12 +115,12 @@ elixir(function(mix) {
         'resources/assets/'
     );
 
-    // Combine CSS
-    //gulp.src('resources/assets/css/**/*.css')
-    //    .pipe(sourcemaps.init())
-    //    .pipe(concatCSS("mainStyles.css"))
-    //    .pipe(sourcemaps.write())
-    //    .pipe(gulp.dest('public/assets/css/'));
+    // Combine CSS //
+    gulp.src('resources/assets/css/**/*.css')
+        .pipe(sourcemaps.init())
+        .pipe(concatCSS("mainStyles.css"))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('public/assets/css/'));
 
 });
 
