@@ -37,7 +37,7 @@ gulp.task("copyfiles", function() {
 
     // Font Awesome //
     gulp.src("vendor/bower_components/font-awesome/css/font-awesome.css")
-        .pipe(gulp.dest("resources/assets/css/fonts/"));
+        .pipe(gulp.dest("resources/assets/css/font-awesome"));
 
     gulp.src("vendor/bower_components/font-awesome/fonts/**")
         .pipe(gulp.dest("public/assets/css/fonts"));
@@ -88,7 +88,7 @@ gulp.task("copyfiles", function() {
 
     // BlockAdBlock //
     gulp.src("vendor/bower_components/blockadblock/blockadblock.js")
-        .pipe(gulp.dest("public/assets/js/blockadblock"));
+        .pipe(gulp.dest("resources/assets/js/blockadblock"));
 
 });
 
@@ -109,7 +109,8 @@ elixir(function(mix) {
             'js/custom/jquery.doubleScroll.js',
             'js/custom/jquery.livepreview.js',
             'js/custom/jquery.tablesorter.js',
-            'js/custom/tablesorter_custom_code.js'
+            'js/custom/tablesorter_custom_code.js',
+            'js/blockadblock/blockadblock.js'
         ],
         'public/assets/js/mainScripts.js',
         'resources/assets/'
