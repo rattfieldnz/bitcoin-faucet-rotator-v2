@@ -1,6 +1,28 @@
 vendor/
 node_modules/
 
+resources/assets/css/admin-lte
+resources/assets/css/bootstrap
+resources/assets/css/datatables
+resources/assets/css/font-awesome
+resources/assets/css/fonts
+resources/assets/css/iCheck
+resources/assets/css/ionicons
+resources/assets/css/select2
+
+resources/assets/fonts
+
+resources/assets/img
+
+resources/assets/js/admin-lte
+resources/assets/js/blockadblock
+resources/assets/js/bootstrap
+resources/assets/js/datatables
+resources/assets/js/iCheck
+resources/assets/js/jquery
+resources/assets/js/jquery-ui
+resources/assets/js/select2
+
 # Laravel 4 specific
 bootstrap/compiled.php
 app/storage/
