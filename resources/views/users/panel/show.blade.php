@@ -46,7 +46,6 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style>
         .ui-state-active,
         .ui-widget-content .ui-state-active,
@@ -63,7 +62,6 @@
 @endsection
 
 @section('scripts')
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $( function() {
             $( "#tabs" ).tabs();

@@ -25,6 +25,12 @@ gulp.task("copyfiles", function() {
     gulp.src("vendor/bower_components/jquery-ui/jquery-ui.js")
         .pipe(gulp.dest("resources/assets/js/jquery-ui"));
 
+    gulp.src("vendor/bower_components/jquery-ui/themes/base/*.css")
+        .pipe(gulp.dest("resources/assets/css/jquery-ui"));
+
+    gulp.src("vendor/bower_components/jquery-ui/themes/base/images")
+        .pipe(gulp.dest("public/assets/images"));
+
     // Bootstrap //
     gulp.src("vendor/bower_components/bootstrap/dist/css/bootstrap.css")
         .pipe(gulp.dest("resources/assets/css/bootstrap"));
