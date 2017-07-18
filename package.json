@@ -2,14 +2,15 @@
   "private": true,
   "scripts": {
     "prod": "gulp --production",
-    "dev": "gulp watch"
+    "watch": "gulp watch",
+    "copyfiles": "gulp copyfiles",
+    "minifycss": "gulp minifycss",
+    "minifyjs": "gulp minifyjs"
   },
   "devDependencies": {
-    "bootstrap-sass": "^3.0.0",
+    "bower": "^1.8.0",
     "gulp": "^3.9.1",
-    "laravel-elixir": "^5.0.0"
-  },
-  "dependencies": {
+    "laravel-elixir": "^6.0.0-15",
     "gulp-concat-css": "^2.3.0",
     "gulp-minify-css": "^1.2.4",
     "gulp-rename": "^1.2.2",

@@ -80,7 +80,7 @@ gulp.task("copyfiles", function() {
         .pipe(gulp.dest("resources/assets/css/ionicons"));
 
     gulp.src("vendor/bower_components/ionicons/fonts/**")
-        .pipe(gulp.dest("resources/assets/fonts/ionicons"));
+        .pipe(gulp.dest("resources/assets/fonts"));
 
     gulp.src("vendor/bower_components/ionicons/png/**/*")
         .pipe(gulp.dest("resources/assets/img/ionicons"));
@@ -91,10 +91,6 @@ gulp.task("copyfiles", function() {
 
     gulp.src("vendor/bower_components/select2/dist/js/**/*.js")
         .pipe(gulp.dest("resources/assets/js/select2"));
-
-    // BlockAdBlock //
-    gulp.src("vendor/bower_components/blockadblock/blockadblock.js")
-        .pipe(gulp.dest("resources/assets/js/blockadblock"));
 
 });
 
@@ -116,7 +112,7 @@ elixir(function(mix) {
             'js/custom/jquery.livepreview.js',
             'js/custom/jquery.tablesorter.js',
             'js/custom/tablesorter_custom_code.js',
-            'js/blockadblock/blockadblock.js'
+            'js/custom/custom.js'
         ],
         'public/assets/js/mainScripts.js',
         'resources/assets/'
