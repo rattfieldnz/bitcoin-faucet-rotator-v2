@@ -148,7 +148,9 @@ return [
                 'ajax.googleapis.com',
                 'maxcdn.bootstrapcdn.com',
                 'oss.maxcdn.com',
-                'code.jquery.com'
+                'code.jquery.com',
+                'www.google-analytics.com',
+                'google-analytics.com'
             ],
 
             'hashes' => [
@@ -189,7 +191,9 @@ return [
             'allow' => [
                 env('APP_URL') . ":8080",
                 env('APP_URL'),
-                'infyom.com'
+                'infyom.com',
+                'www.google-analytics.com',
+                'google-analytics.com'
             ],
 
             'types' => [

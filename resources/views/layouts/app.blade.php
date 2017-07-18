@@ -141,5 +141,6 @@
         <script src="/assets/js/blockadblock/custom.blockadblock.js?{{ rand()}}"></script>
     @endif
     @yield('scripts')
+    @yield('google-analytics')
 </body>
 </html>

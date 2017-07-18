@@ -30,3 +30,6 @@
     </div>
 @endsection
 
+@section('google-analytics')
+    @include('partials.google_analytics')
+@endsection
