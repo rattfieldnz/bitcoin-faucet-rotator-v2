@@ -1,42 +1,34 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    @yield('title')
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+<html lang="en">
+    <head>
+    @include('partials.meta-tags-data')
     @if(env('APP_ENV') == 'local')
-        <link rel="stylesheet" href="/assets/css/mainStyles.css?{{ rand()}}">
+    <link rel="stylesheet" href="/assets/css/mainStyles.css?{{ rand()}}">
     @elseif(env('APP_ENV') == 'production')
-        <link rel="stylesheet" href="/assets/css/mainStyles.min.css?{{ rand()}}">
+    <link rel="stylesheet" href="/assets/css/mainStyles.min.css?{{ rand()}}">
     @endif
-
     @yield('css')
-</head>
-
-<body class="skin-blue sidebar-mini">
-@if (!Auth::guest())
-    <div class="wrapper">
-        <!-- Main Header -->
-        <header class="main-header">
-
-            <!-- Logo -->
-            <a href="#" class="logo">
-                <b>InfyOm</b>
-            </a>
-
-            <!-- Header Navbar -->
-            <nav class="navbar navbar-static-top" role="navigation">
-                <!-- Sidebar toggle button-->
-                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
+    </head>
+    <body class="skin-blue sidebar-mini">
+    @if (!Auth::guest())
+        <div class="wrapper">
+            <!-- Main Header -->
+            <header class="main-header">
+                <!-- Logo -->
+                <a href="#" class="logo">
+                    <b>InfyOm</b>
                 </a>
-                <!-- Navbar Right Menu -->
-                <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                        <!-- User Account Menu -->
-                        <li class="dropdown user user-menu">
+                <!-- Header Navbar -->
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                    <!-- Navbar Right Menu -->
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <!-- User Account Menu -->
+                            <li class="dropdown user user-menu">
                             <!-- Menu Toggle Button -->
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <!-- The user image in the navbar-->
@@ -70,25 +62,21 @@
                 </div>
             </nav>
         </header>
-
         <!-- Left side column. contains the logo and sidebar -->
         @include('layouts.sidebar')
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             @yield('content')
         </div>
-
         <!-- Main Footer -->
         <footer class="main-footer" style="max-height: 100px;text-align: center">
             <strong>Copyright © 2016 <a href="#">Company</a>.</strong> All rights reserved.
         </footer>
-
     </div>
 @else
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
-
                 <!-- Collapsed Hamburger -->
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                         data-target="#app-navbar-collapse">
@@ -97,19 +85,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{!! url('/') !!}">
                     InfyOm Generator
                 </a>
             </div>
-
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{!! url('/') !!}">Home</a></li>
                 </ul>
-
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
@@ -119,7 +104,6 @@
             </div>
         </div>
     </nav>
-
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
@@ -130,13 +114,11 @@
         </div>
     </div>
     @endif
-
     @if(env('APP_ENV') == 'local')
     <script src="/assets/js/mainScripts.js?{{ rand()}}"></script>
     @elseif(env('APP_ENV') == 'production')
     <script src="/assets/js/mainScripts.min.js?{{ rand()}}"></script>
     @endif
-
     @if(\App\Helpers\WebsiteMeta\WebsiteMeta::activatedAdBlockBlocking() == true)
         <script src="/assets/js/blockadblock/custom.blockadblock.js?{{ rand()}}"></script>
     @endif
