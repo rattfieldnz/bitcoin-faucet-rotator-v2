@@ -1,11 +1,11 @@
-var gulp = require('gulp');
-var sass = require('gulp-ruby-sass');
-var rename = require('gulp-rename');
-var elixir = require('laravel-elixir');
-var concatCSS = require('gulp-concat-css');
-var minifyCSS = require('gulp-minify-css');
-var sourcemaps = require('gulp-sourcemaps');
-var uglify = require('gulp-uglify');
+let gulp = require('gulp');
+let sass = require('gulp-ruby-sass');
+let rename = require('gulp-rename');
+let elixir = require('laravel-elixir');
+let concatCSS = require('gulp-concat-css');
+let minifyCSS = require('gulp-minify-css');
+let sourcemaps = require('gulp-sourcemaps');
+let uglify = require('gulp-uglify');
 
 /**
  * Copy any needed files.
