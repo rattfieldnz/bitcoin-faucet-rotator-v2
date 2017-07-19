@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ \App\Models\MainMeta::first()->language()->first()->isoCode() }}">
     <head>
     @include('partials.meta-tags-data')
     @if(env('APP_ENV') == 'local')

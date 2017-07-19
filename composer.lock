@@ -227,16 +227,16 @@
         },
         {
             "name": "bepsvpt/secure-headers",
-            "version": "3.0.7",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BePsvPT/secure-headers.git",
-                "reference": "921471c6646c141b292afd131c456ceae686ddc6"
+                "reference": "3d2d82bad167992bc8e0addaf479e5a5d7bfff6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BePsvPT/secure-headers/zipball/921471c6646c141b292afd131c456ceae686ddc6",
-                "reference": "921471c6646c141b292afd131c456ceae686ddc6",
+                "url": "https://api.github.com/repos/BePsvPT/secure-headers/zipball/3d2d82bad167992bc8e0addaf479e5a5d7bfff6d",
+                "reference": "3d2d82bad167992bc8e0addaf479e5a5d7bfff6d",
                 "shasum": ""
             },
             "require": {
@@ -276,7 +276,7 @@
                 "https",
                 "laravel"
             ],
-            "time": "2017-05-16T01:27:33+00:00"
+            "time": "2017-07-18T08:37:05+00:00"
         },
         {
             "name": "cocur/slugify",
@@ -2900,23 +2900,23 @@
         },
         {
             "name": "santigarcor/laratrust",
-            "version": "4.0.1",
+            "version": "4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/santigarcor/laratrust.git",
-                "reference": "941f7761e9a813fd6ae7d189712a541a47977847"
+                "reference": "82c850ddc21a912c345a82e6d9c2c120d6fe8720"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/941f7761e9a813fd6ae7d189712a541a47977847",
-                "reference": "941f7761e9a813fd6ae7d189712a541a47977847",
+                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/82c850ddc21a912c345a82e6d9c2c120d6fe8720",
+                "reference": "82c850ddc21a912c345a82e6d9c2c120d6fe8720",
                 "shasum": ""
             },
             "require": {
-                "illuminate/cache": "~5.2",
-                "illuminate/console": "~5.2",
-                "illuminate/database": "~5.2",
-                "illuminate/support": "~5.2",
+                "illuminate/cache": "~5.1",
+                "illuminate/console": "~5.1",
+                "illuminate/database": "~5.1",
+                "illuminate/support": "^5.1.40",
                 "kkszymanowski/traitor": "^0.2.0",
                 "php": ">=5.5.9"
             },
@@ -2964,7 +2964,7 @@
                 "rbac",
                 "roles"
             ],
-            "time": "2017-07-11T17:37:04+00:00"
+            "time": "2017-07-18T18:23:10+00:00"
         },
         {
             "name": "spatie/laravel-activitylog",
@@ -5937,16 +5937,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "f9eaf037edf22fdfccf04cb0ab57ebcb1e166219"
+                "reference": "c7594a88ae75401e8f8d0bd4deb8431b39045c51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/f9eaf037edf22fdfccf04cb0ab57ebcb1e166219",
-                "reference": "f9eaf037edf22fdfccf04cb0ab57ebcb1e166219",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/c7594a88ae75401e8f8d0bd4deb8431b39045c51",
+                "reference": "c7594a88ae75401e8f8d0bd4deb8431b39045c51",
                 "shasum": ""
             },
             "require": {
@@ -5984,7 +5984,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-06-14T01:23:49+00:00"
+            "time": "2017-07-18T01:12:32+00:00"
         },
         {
             "name": "symfony/config",

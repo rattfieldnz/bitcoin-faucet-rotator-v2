@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Functions;
 use App\Http\Requests\CreateMainMetaRequest;
 use App\Http\Requests\UpdateMainMetaRequest;
+use App\Models\Language;
 use App\Repositories\MainMetaRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +21,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 class MainMetaController extends AppBaseController
 {
     private $mainMetaRepository;
+    private $languageCodes;
 
     /**
      * MainMetaController constructor.
@@ -29,6 +31,8 @@ class MainMetaController extends AppBaseController
     public function __construct(MainMetaRepository $mainMetaRepo)
     {
         $this->mainMetaRepository = $mainMetaRepo;
+        $this->languageCodes = Language::orderBy('name')->pluck('name', 'iso_code');
+
         $this->middleware('auth');
     }
 
@@ -49,7 +53,8 @@ class MainMetaController extends AppBaseController
         }
         $mainMeta = $this->mainMetaRepository->first();
         return view('main_meta.edit')
-            ->with('mainMeta', $mainMeta);
+            ->with('mainMeta', $mainMeta)
+            ->with('languageCodes', $this->languageCodes);
     }
 
     /**
@@ -60,7 +65,8 @@ class MainMetaController extends AppBaseController
     public function create()
     {
         Functions::userCanAccessArea(Auth::user(), 'main-meta.create', [], []);
-        return view('main_meta.create');
+        return view('main_meta.create')
+            ->with('languageCodes', $this->languageCodes);
     }
 
     /**
@@ -98,7 +104,9 @@ class MainMetaController extends AppBaseController
             return redirect(route('main-metas.index'));
         }
 
-        return view('main_meta.edit')->with('mainMeta', $mainMeta);
+        return view('main_meta.edit')
+            ->with('mainMeta', $mainMeta)
+            ->with('languageCodes', $this->languageCodes);
     }
 
     /**

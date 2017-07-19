@@ -37,7 +37,8 @@ class MainMeta extends Model
         'twitter_username',
         'feedburner_feed_url',
         'disqus_shortname',
-        'prevent_adblock_blocking'
+        'prevent_adblock_blocking',
+        'language_code'
     ];
 
     /**
@@ -59,7 +60,8 @@ class MainMeta extends Model
         'twitter_username' => 'string',
         'feedburner_feed_url' => 'string',
         'disqus_shortname' => 'string',
-        'prevent_adblock_blocking' => 'boolean'
+        'prevent_adblock_blocking' => 'boolean',
+        'language_code' => 'string'
     ];
 
     /**
@@ -79,6 +81,11 @@ class MainMeta extends Model
         'feedburner_feed_url' => 'max:255',
         'disqus_shortname' => 'max:100',
         'page_main_title' => 'required|min:15|max:100',
-        'prevent_adblock_blocking' => 'min:0|max:1'
+        'prevent_adblock_blocking' => 'min:0|max:1',
+        'language_code' => 'sometimes|required|exists:languages,iso_code'
     ];
+
+    public function language() {
+        return $this->hasOne(Language::class, 'iso_code', 'language_code');
+    }
 }

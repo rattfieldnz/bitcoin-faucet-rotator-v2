@@ -10,6 +10,18 @@
     @endif
 </div>
 
+<!-- Page Main Title Field -->
+<div class="form-group col-sm-6 has-feedback{{ $errors->has('page_main_title') ? ' has-error' : '' }}">
+    {!! Form::label('page_main_title', 'Page Main Title:') !!}
+    {!! Form::text('page_main_title', null, ['class' => 'form-control', 'placeholder' => "This appears at the top of the main content, on the page itself."]) !!}
+    <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
+    @if ($errors->has('page_main_title'))
+        <span class="help-block">
+            <strong>{{ $errors->first('page_main_title') }}</strong>
+        </span>
+    @endif
+</div>
+
 <!-- Description Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('description') ? ' has-error' : '' }}">
     {!! Form::label('description', 'Description:') !!}
@@ -31,6 +43,20 @@
         <span class="help-block">
             <strong>{{ $errors->first('keywords') }}</strong>
         </span>
+    @endif
+</div>
+
+<!-- Language Code Field -->
+<div class="form-group col-sm-6 has-feedback{{ $errors->has('payment_processors') ? ' has-error' : '' }}">
+    {!! Form::label('language_code', 'Primary Language:') !!}<br />
+    {!! Form::select('language_code', $languageCodes,
+        null,
+        ['class' => 'form-control'])
+    !!}
+    @if ($errors->has('language_code'))
+        <span class="help-block">
+		    <strong>{{ $errors->first('language_code') }}</strong>
+		</span>
     @endif
 </div>
 
@@ -66,18 +92,6 @@
     @if ($errors->has('bing_verification'))
         <span class="help-block">
             <strong>{{ $errors->first('bing_verification') }}</strong>
-        </span>
-    @endif
-</div>
-
-<!-- Page Main Title Field -->
-<div class="form-group col-sm-6 has-feedback{{ $errors->has('page_main_title') ? ' has-error' : '' }}">
-    {!! Form::label('page_main_title', 'Page Main Title:') !!}
-    {!! Form::text('page_main_title', null, ['class' => 'form-control', 'placeholder' => "This appears at the top of the main content, on the page itself."]) !!}
-    <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
-    @if ($errors->has('page_main_title'))
-        <span class="help-block">
-            <strong>{{ $errors->first('page_main_title') }}</strong>
         </span>
     @endif
 </div>

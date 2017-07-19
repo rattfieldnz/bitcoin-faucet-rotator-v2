@@ -27,7 +27,8 @@ class MainMetaRepository extends BaseRepository implements IRepository
         'twitter_username',
         'feedburner_feed_url',
         'disqus_shortname',
-        'prevent_adblock_blocking'
+        'prevent_adblock_blocking',
+        'language_code'
     ];
 
     /**
@@ -99,6 +100,7 @@ class MainMetaRepository extends BaseRepository implements IRepository
         $input['prevent_adblock_blocking'] = Purifier::clean($input['prevent_adblock_blocking'], 'generalFields');
         $input['page_main_title'] = Purifier::clean($input['page_main_title'], 'generalFields');
         $input['page_main_content'] = Purifier::clean($input['page_main_content']);
+        $input['language_code'] = Purifier::clean($input['language_code'], 'generalFields');
 
         return $input;
     }
