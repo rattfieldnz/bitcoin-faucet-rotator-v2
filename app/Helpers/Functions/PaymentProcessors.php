@@ -38,7 +38,7 @@ class PaymentProcessors
             $modifiedTime = $paymentProcessor->updated_at->toW3CString();
             $author = $user->fullName();
             $currentUrl = env('APP_URL') . '/' . $paymentProcessor->slug;
-            $image = env('APP_URL') . '/images/og/bitcoin.png';
+            $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
 
             SEOMeta::setTitle($title)
                 ->setTitleSeparator('|')
