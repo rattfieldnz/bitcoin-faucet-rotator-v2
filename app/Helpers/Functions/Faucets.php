@@ -4,7 +4,11 @@ use App\Helpers\Constants;
 use App\Http\Requests\CreateFaucetRequest;
 use App\Http\Requests\UpdateFaucetRequest;
 use App\Models\Faucet;
+use App\Models\MainMeta;
 use App\Models\User;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\TwitterCard;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Config;
 use Laracasts\Flash\Flash as LaracastsFlash;
@@ -455,11 +459,66 @@ class Faucets
      */
     public static function faucetLogName(): string
     {
-
         if (Auth::user()->isAnAdmin()) {
             return Constants::ADMIN_FAUCET_LOG_NAME;
         } else {
             return Constants::USER_FAUCET_LOG_NAME;
+        }
+    }
+
+    /**
+     * Function to set meta data properties for SEO.
+     *
+     * @param \App\Models\Faucet $faucet
+     * @param \App\Models\User   $user
+     * @return void
+     */
+    public static function setMeta(Faucet $faucet, User $user)
+    {
+        if(!empty($faucet) && !empty($user)) {
+
+            $title = $faucet->meta_title;
+            $description = $faucet->meta_description;
+            $keywords = array_map('trim', explode(',', $faucet->meta_keywords));
+            $publishedTime = $faucet->created_at->toW3CString();
+            $modifiedTime = $faucet->updated_at->toW3CString();
+            $author = $user->fullName();
+            $currentUrl = env('APP_URL') . '/' . $faucet->slug;
+            $image = env('APP_URL') . '/images/og/bitcoin.png';
+
+            SEOMeta::setTitle($title)
+                ->setTitleSeparator('|')
+                ->setDescription($description)
+                ->setKeywords($keywords)
+                ->addMeta('author', $author, 'name')
+                ->addMeta('revised', $modifiedTime, 'name')
+                ->addMeta('name', $title, 'itemprop')
+                ->addMeta('description', $description, 'itemprop')
+                ->addMeta('image', $image, 'itemprop')
+                ->addMeta('fb:admins', "871754942861947", 'property')
+                ->setCanonical($currentUrl);
+
+            OpenGraph::setTitle($title)
+                ->setUrl($currentUrl)
+                ->setSiteName(MainMeta::first()->page_main_title)
+                ->addProperty("locale", MainMeta::first()->language()->first()->isoCode())
+                ->setDescription($description)
+                ->setType('article')
+                ->addImage($image)
+                ->setArticle([
+                    'author' => $author,
+                    'published_time' => $publishedTime,
+                    'modified_time' => $modifiedTime,
+                    'section' => 'Crypto Faucets',
+                    'tag' => $keywords
+                ]);
+
+            TwitterCard::setType('summary')
+                ->addImage($image)
+                ->setTitle($title)
+                ->setDescription($description)
+                ->setUrl($currentUrl)
+                ->setSite(MainMeta::first()->twitter_username);
         }
     }
 

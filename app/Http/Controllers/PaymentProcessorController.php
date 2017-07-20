@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Constants;
 use App\Helpers\Functions;
+use App\Helpers\Functions\PaymentProcessors;
 use App\Http\Requests\CreatePaymentProcessorRequest;
 use App\Http\Requests\UpdatePaymentProcessorRequest;
 use App\Repositories\PaymentProcessorRepository;
@@ -114,6 +115,8 @@ class PaymentProcessorController extends AppBaseController
 
             return redirect(route('payment-processors.index'));
         }
+
+        PaymentProcessors::setMeta($paymentProcessor, Users::adminUser());
 
         return view('payment_processors.show')->with('paymentProcessor', $paymentProcessor);
     }

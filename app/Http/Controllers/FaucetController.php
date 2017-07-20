@@ -124,7 +124,7 @@ class FaucetController extends AppBaseController
     {
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
 
-        $adminUser = $this->userFunctions->adminUser();
+        $adminUser = $this->userFunctions::adminUser();
 
         $message = null;
         $referralCode = null;
@@ -150,6 +150,8 @@ class FaucetController extends AppBaseController
 
                 $this->faucetFunctions->setSecureFaucetIframe($adminUser, $faucet);
 
+                $this->faucetFunctions::setMeta($faucet, $adminUser);
+
                 return view('faucets.show')
                     ->with('faucet', $faucet)
                     ->with('faucetUrl', $faucetUrl)
@@ -160,6 +162,8 @@ class FaucetController extends AppBaseController
                 $faucetUrl = $faucet->url . Faucets::getUserFaucetRefCode($adminUser, $faucet);
 
                 $this->faucetFunctions->setSecureFaucetIframe($adminUser, $faucet);
+
+                $this->faucetFunctions::setMeta($faucet, $adminUser);
 
                 return view('faucets.show')
                     ->with('faucet', $faucet)

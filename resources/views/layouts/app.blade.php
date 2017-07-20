@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ \App\Models\MainMeta::first()->language()->first()->isoCode() }}">
     <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     @include('partials.meta-tags-data')
     @if(env('APP_ENV') == 'local')
     <link rel="stylesheet" href="/assets/css/mainStyles.css?{{ rand()}}">

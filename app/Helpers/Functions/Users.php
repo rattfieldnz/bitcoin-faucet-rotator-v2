@@ -258,10 +258,11 @@ class Users
         }
     }
 
-    public function adminUser()
+    public static function adminUser()
     {
-        $user = $this->userRepository->findByField('slug', Constants::ADMIN_SLUG);
-        $user = $user->where('is_admin', 'true')->first();
+        $user = User::where('slug', '=', Constants::ADMIN_SLUG)
+                    ->where('is_admin', '=', true)
+                    ->first();
         return $user->isAnAdmin() ? $user : null;
     }
 }
