@@ -483,7 +483,7 @@ class Faucets
             $publishedTime = $faucet->created_at->toW3CString();
             $modifiedTime = $faucet->updated_at->toW3CString();
             $author = $user->fullName();
-            $currentUrl = env('APP_URL') . '/' . $faucet->slug;
+            $currentUrl = route('faucets.show', ['slug' => $faucet->slug]);
             $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
 
             SEOMeta::setTitle($title)

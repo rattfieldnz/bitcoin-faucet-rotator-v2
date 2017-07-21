@@ -37,7 +37,7 @@ class PaymentProcessors
             $publishedTime = $paymentProcessor->created_at->toW3CString();
             $modifiedTime = $paymentProcessor->updated_at->toW3CString();
             $author = $user->fullName();
-            $currentUrl = env('APP_URL') . '/' . $paymentProcessor->slug;
+            $currentUrl = route('payment-processors.show', ['slug' => $paymentProcessor->slug]);
             $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
 
             SEOMeta::setTitle($title)
