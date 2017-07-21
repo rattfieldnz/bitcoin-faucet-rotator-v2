@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Functions\Faucets;
+use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreateFaucetRequest;
 use App\Http\Requests\UpdateFaucetRequest;
 use App\Models\Faucet;
 use App\Models\PaymentProcessor;
 use App\Repositories\FaucetRepository;
+use Carbon\Carbon;
 use Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,12 +58,24 @@ class FaucetController extends AppBaseController
         $faucets = null;
 
         if (Auth::guest() || Auth::user()->hasRole('user') && !Auth::user()->isAnAdmin()) {
-            $faucets = $this->faucetRepository->all();
+            $faucets = $this->faucetRepository->get();
         } else {
             $faucets = $this->faucetRepository->withTrashed()->get();
         }
 
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->pluck('name', 'id');
+
+        $title = "List of Available Bitcoin Faucets (" . count($faucets) . ")";
+        $description = "This page shows all the bitcoin faucets that are currently available. There are a total of " .
+            count($faucets) . "in the faucet rotator.";
+        $keywords = ["Crypto Faucets", "Bitcoin Faucets", "List of Crypto Faucets", "List of Bitcoin Faucets", "Free Bitcoins", "Get Free Bitcoins", "Satoshis"];
+        $publishedTime = Carbon::now()->toW3cString();
+        $modifiedTime = Carbon::now()->toW3cString();
+        $author = Users::adminUser()->fullName();
+        $currentUrl = route('faucets.index');
+        $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $categoryDescription = "Crypto Faucets";
+        WebsiteMeta::setCustomMeta($title, $description, $keywords, $publishedTime, $modifiedTime, $author, $currentUrl, $image, $categoryDescription);
 
         return view('faucets.index')
             ->with('faucets', $faucets)
