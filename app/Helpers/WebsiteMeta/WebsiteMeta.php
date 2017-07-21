@@ -1,6 +1,10 @@
 <?php namespace App\Helpers\WebsiteMeta;
 
 use App\Models\MainMeta;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\TwitterCard;
+use Carbon\Carbon;
 use Exception;
 
 /**
@@ -127,6 +131,53 @@ class WebsiteMeta
     public static function activatedAdBlockBlocking()
     {
         return MainMeta::firstOrFail()->prevent_adblock_blocking;
+    }
+
+    public static function setCustomMeta(
+        $title = '',
+        $description = '',
+        array $keywords = [],
+        $publishedTime = '',
+        $modifiedTime = '',
+        $authorName = '',
+        $currentUrl = '',
+        $imagePath = '',
+        $categoryDescription = ''
+    ){
+
+        SEOMeta::setTitle($title)
+            ->setTitleSeparator('|')
+            ->setDescription($description)
+            ->setKeywords($keywords)
+            ->addMeta('author', $authorName, 'name')
+            ->addMeta('revised', $modifiedTime, 'name')
+            ->addMeta('name', $title, 'itemprop')
+            ->addMeta('description', $description, 'itemprop')
+            ->addMeta('image', $imagePath, 'itemprop')
+            ->addMeta('fb:admins', "871754942861947", 'property')
+            ->setCanonical($currentUrl);
+
+        OpenGraph::setTitle($title)
+            ->setUrl($currentUrl)
+            ->setSiteName(MainMeta::first()->page_main_title)
+            ->addProperty("locale", MainMeta::first()->language()->first()->isoCode())
+            ->setDescription($description)
+            ->setType('article')
+            ->addImage($imagePath)
+            ->setArticle([
+                'author' => $authorName,
+                'published_time' => $publishedTime,
+                'modified_time' => $modifiedTime,
+                'section' => $categoryDescription,
+                'tag' => $keywords
+            ]);
+
+        TwitterCard::setType('summary')
+            ->addImage($imagePath)
+            ->setTitle($title)
+            ->setDescription($description)
+            ->setUrl($currentUrl)
+            ->setSite(MainMeta::first()->twitter_username);
     }
 
     private function getUrlContents($url)

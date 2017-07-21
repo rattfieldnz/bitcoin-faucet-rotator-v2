@@ -5,19 +5,18 @@ namespace App\Http\Controllers;
 use App\Helpers\Constants;
 use App\Helpers\Functions;
 use App\Helpers\Functions\PaymentProcessors;
+use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreatePaymentProcessorRequest;
 use App\Http\Requests\UpdatePaymentProcessorRequest;
 use App\Repositories\PaymentProcessorRepository;
-use App\Http\Controllers\AppBaseController;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\PaymentProcessor;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use Helpers\Functions\Users;
-use Laracasts\Flash\Flash as LaracastsFlash;
 
 /**
  * Class PaymentProcessorController
@@ -52,7 +51,25 @@ class PaymentProcessorController extends AppBaseController
     public function index(Request $request)
     {
         $this->paymentProcessorRepository->pushCriteria(new RequestCriteria($request));
-        $paymentProcessors = $this->paymentProcessorRepository->withTrashed()->get();
+
+        $paymentProcessors = null;
+        if (Auth::user()->isAnAdmin()) {
+            $paymentProcessors = $this->paymentProcessorRepository->withTrashed()->get();
+        } else {
+            $paymentProcessors = $this->paymentProcessorRepository->get();
+        }
+
+        $title = "Listing of faucet payment processors (" . count($paymentProcessors) . ")";
+        $description = "This page shows a list of payment processors which are currently in use in the system. There are " .
+            count($paymentProcessors) . " payment processors.";
+        $publishedTime = Carbon::now()->toW3cString();
+        $modifiedTime = Carbon::now()->toW3cString();
+        $author = Users::adminUser()->fullName();
+        $currentUrl = route('payment-processors.index');
+        $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $categoryDescription = 'Crypto Payment Processors';
+
+        WebsiteMeta::setCustomMeta($title, $description, [], $publishedTime, $modifiedTime, $author, $currentUrl, $image, $categoryDescription);
 
         return view('payment_processors.index')
             ->with('paymentProcessors', $paymentProcessors);
@@ -105,9 +122,9 @@ class PaymentProcessorController extends AppBaseController
     {
         $paymentProcessor = null;
         if (Auth::user()->isAnAdmin()) {
-            $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first()->withTrashed()->first();
+            $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug, true)->first();
         } else {
-            $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
+            $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug, false)->first();
         }
 
         if (empty($paymentProcessor)) {
@@ -129,7 +146,13 @@ class PaymentProcessorController extends AppBaseController
      */
     public function faucets($slug)
     {
-        $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug)->first();
+        $paymentProcessor = null;
+        if (Auth::user()->isAnAdmin()) {
+            $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug, true)->first();
+        } else {
+            $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug, false)->first();
+        }
+
         $faucets = null;
 
         if (empty($paymentProcessor)) {
@@ -143,6 +166,19 @@ class PaymentProcessorController extends AppBaseController
         } elseif (Auth::user()->hasRole('owner')) {
             $faucets = $paymentProcessor->faucets()->withTrashed()->get();
         }
+
+        $title = $paymentProcessor->name . " payment processor faucets (" . count($faucets) . ")";
+        $description = "This page shows a list of faucets which use " . $paymentProcessor->name .
+            " as a payment processor. There are currently " .
+            count($faucets) . " faucets for this payment processor.";
+        $publishedTime = Carbon::now()->toW3cString();
+        $modifiedTime = Carbon::now()->toW3cString();
+        $author = Users::adminUser()->fullName();
+        $currentUrl = route('payment-processors.faucets', ['slug' => $paymentProcessor->slug]);
+        $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $categoryDescription = 'Crypto Payment Processor Faucets';
+
+        WebsiteMeta::setCustomMeta($title, $description, [], $publishedTime, $modifiedTime, $author, $currentUrl, $image, $categoryDescription);
 
         return view('payment_processors.faucets.index')
             ->with('faucets', $faucets)
@@ -172,6 +208,19 @@ class PaymentProcessorController extends AppBaseController
             flash('That user was not found.')->error();
             return redirect(route('users.index'));
         }
+
+        $title = "Crypto payment processors for " . $user->user_name;
+
+        $description = "Here are " . $user->user_name . "'s faucets linked by system payment processors.";
+
+        $publishedTime = Carbon::now()->toW3CString();
+        $modifiedTime = Carbon::now()->toW3CString();
+        $author = $user->fullName();
+        $currentUrl = route('users.payment-processors', ['userSlug' =>  $userSlug]);
+        $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $categoryDescription = 'Crypto Payment Processors';
+
+        WebsiteMeta::setCustomMeta($title, $description, [], $publishedTime, $modifiedTime, $author, $currentUrl, $image, $categoryDescription);
 
         return view('users.payment_processors.index')
             ->with('paymentProcessors', $paymentProcessors)
@@ -214,6 +263,22 @@ class PaymentProcessorController extends AppBaseController
         } elseif (Auth::user() != null && (Auth::user()->isAnAdmin() || $user == Auth::user())) {
             $faucets = $this->userFunctions->getPaymentProcessorFaucets($user, $paymentProcessor, true);
         }
+
+        $title = $paymentProcessor->name . " faucets for " . $user->user_name . " (". count($faucets) . ")";
+
+        $description = "Here are " . $user->user_name . "'s " . $paymentProcessor->name .
+            " faucets. Right now, they have " . count($faucets) . " " .
+            $paymentProcessor->name . " faucets.";
+
+        $keywords = array_map('trim', explode(',', $paymentProcessor->meta_keywords));
+        $publishedTime = Carbon::now()->toW3CString();
+        $modifiedTime = Carbon::now()->toW3CString();
+        $author = $user->fullName();
+        $currentUrl = route('users.payment-processors.faucets', ['userSlug' =>  $userSlug, 'paymentProcessorSlug' => $paymentProcessorSlug]);
+        $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $categoryDescription = 'Crypto Payment Processor Faucets';
+
+        WebsiteMeta::setCustomMeta($title, $description, $keywords, $publishedTime, $modifiedTime, $author, $currentUrl, $image, $categoryDescription);
 
         return view('users.payment_processors.faucets.index')
             ->with('user', $user)
