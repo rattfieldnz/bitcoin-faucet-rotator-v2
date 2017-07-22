@@ -71,11 +71,11 @@
         <div class="content-wrapper">
             @yield('content')
         </div>
-        <!-- Main Footer -->
-        <footer class="main-footer" style="max-height: 100px;text-align: center">
-            <strong>Copyright © 2016 <a href="#">Company</a>.</strong> All rights reserved.
-        </footer>
     </div>
+    <!-- Main Footer -->
+    <footer class="main-footer" style="max-height: 100px;text-align: center">
+        @include('partials.footer_text')
+    </footer>
 @else
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
@@ -116,6 +116,10 @@
             </div>
         </div>
     </div>
+    <!-- Main Footer -->
+    <footer style="max-height: 100px;text-align: center">
+        @include('partials.footer_text')
+    </footer>
     @endif
     @if(env('APP_ENV') == 'local')
     <script src="/assets/js/mainScripts.js?{{ rand()}}"></script>
