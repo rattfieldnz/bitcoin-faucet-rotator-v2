@@ -53,10 +53,10 @@ class PaymentProcessorController extends AppBaseController
         $this->paymentProcessorRepository->pushCriteria(new RequestCriteria($request));
 
         $paymentProcessors = null;
-        if (Auth::user()->isAnAdmin()) {
+        if (!empty(Auth::user()) && Auth::user()->isAnAdmin()) {
             $paymentProcessors = $this->paymentProcessorRepository->withTrashed()->get();
         } else {
-            $paymentProcessors = $this->paymentProcessorRepository->get();
+            $paymentProcessors = $this->paymentProcessorRepository->all();
         }
 
         $title = "Listing of faucet payment processors (" . count($paymentProcessors) . ")";
