@@ -7,21 +7,11 @@
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-    <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-
-    <!-- Theme style -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.3/css/AdminLTE.min.css">
-
-    <!-- iCheck -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.3/css/skins/_all-skins.min.css">
+    @if(env('APP_ENV') == 'local')
+        <link rel="stylesheet" href="/assets/css/mainStyles.css?{{ rand()}}">
+    @elseif(env('APP_ENV') == 'production')
+        <link rel="stylesheet" href="/assets/css/mainStyles.min.css?{{ rand()}}">
+    @endif
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -69,10 +59,9 @@
             </div>
             <div class="row">
                 <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox" name="remember"> Remember Me
-                        </label>
+                    <div id="remember-me-checkbox" class="checkbox icheck">
+                        <label for="checkbox" id="checkbox-label">Remember Me</label>
+                        <input id="checkbox" type="checkbox" name="remember">
                     </div>
                 </div>
                 <!-- /.col -->
@@ -90,16 +79,17 @@
     <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
-
-<!-- AdminLTE App -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.3/js/app.min.js"></script>
+@if(env('APP_ENV') == 'local')
+    <script src="/assets/js/mainScripts.js?{{ rand()}}"></script>
+@elseif(env('APP_ENV') == 'production')
+    <script src="/assets/js/mainScripts.min.js?{{ rand()}}"></script>
+@endif
+@if(\App\Helpers\WebsiteMeta\WebsiteMeta::activatedAdBlockBlocking() == true)
+    <script src="/assets/js/blockadblock/custom.blockadblock.js?{{ rand()}}"></script>
+@endif
 <script>
     $(function () {
-        $('input').iCheck({
+        $('#remember-me-checkbox input').iCheck({
             checkboxClass: 'icheckbox_square-blue',
             radioClass: 'iradio_square-blue',
             increaseArea: '20%' // optional
