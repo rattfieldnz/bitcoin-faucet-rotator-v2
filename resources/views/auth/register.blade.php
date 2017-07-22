@@ -1,30 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ \App\Models\MainMeta::first()->language()->first()->isoCode() }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>InfyOm Laravel Generator | Registration Page</title>
-
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-    <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-
-    <!-- Theme style -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.3/css/AdminLTE.min.css">
-
-    <!-- iCheck -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.3/css/skins/_all-skins.min.css">
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <title>Bitcoin Faucet Rotator Registration Page</title>
+    @if(env('APP_ENV') == 'local')
+        <link rel="stylesheet" href="/assets/css/mainStyles.css?{{ rand()}}">
+    @elseif(env('APP_ENV') == 'production')
+        <link rel="stylesheet" href="/assets/css/mainStyles.min.css?{{ rand()}}">
+    @endif
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,17 +21,12 @@
 <body class="hold-transition register-page">
 <div class="register-box">
     <div class="register-logo">
-        <a href="{{ url('/home') }}"><b>InfyOm </b>Generator</a>
+        <a href="{{ url('/home') }}"><b>Bitcoin </b>Faucet Rotator</a>
     </div>
-
     <div class="register-box-body">
         <p class="login-box-msg">Register a new membership</p>
-
         <form method="post" action="{{ url('/register') }}">
-
             {!! csrf_field() !!}
-            {!! Form::hidden('is_admin', 0) !!}
-
             <!-- User Name Field -->
                 <div class="form-group has-feedback{{ $errors->has('user_name') ? ' has-error' : '' }}">
                     {!! Form::label('user_name', 'User Name:') !!}
@@ -149,12 +129,11 @@
 </div>
 <!-- /.register-box -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
-
-<!-- AdminLTE App -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.3/js/app.min.js"></script>
+@if(env('APP_ENV') == 'local')
+    <script src="/assets/js/mainScripts.js?{{ rand()}}"></script>
+@elseif(env('APP_ENV') == 'production')
+    <script src="/assets/js/mainScripts.min.js?{{ rand()}}"></script>
+@endif
 
 <script>
     $(function () {

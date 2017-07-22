@@ -48,6 +48,7 @@ class UserRepository extends Repository implements IRepository
         // Have to skip presenter to get a model not some data
         $temporarySkipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
+        $data['is_admin'] = 0; // Set is_admin to false, cannot add new admins for now.
         $userData = self::cleanInput($data);
         $user = User::create($userData);
         $this->skipPresenter($temporarySkipPresenter);
