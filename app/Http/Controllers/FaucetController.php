@@ -58,7 +58,7 @@ class FaucetController extends AppBaseController
         $faucets = null;
 
         if (Auth::guest() || Auth::user()->hasRole('user') && !Auth::user()->isAnAdmin()) {
-            $faucets = $this->faucetRepository->get();
+            $faucets = $this->faucetRepository->all();
         } else {
             $faucets = $this->faucetRepository->withTrashed()->get();
         }

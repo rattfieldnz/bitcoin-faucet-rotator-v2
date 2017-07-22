@@ -141,7 +141,6 @@ return [
 
         'script-src' => [
             'allow' => [
-                env('APP_URL') . ":8080",
                 env('APP_URL'),
                 'cdnjs.cloudflare.com',
                 'cdn.datatables.net',
@@ -170,7 +169,6 @@ return [
 
         'style-src' => [
             'allow' => [
-                env('APP_URL') . ":8080",
                 env('APP_URL'),
                 'cdnjs.cloudflare.com',
                 'cdn.datatables.net',
@@ -189,7 +187,6 @@ return [
 
         'img-src' => [
             'allow' => [
-                env('APP_URL') . ":8080",
                 env('APP_URL'),
                 'infyom.com',
                 'www.google-analytics.com',
@@ -213,7 +210,6 @@ return [
 
         'font-src' => [
             'allow' => [
-                env('APP_URL') . ":8080",
                 env('APP_URL'),
                 'cdnjs.cloudflare.com',
                 'cdn.datatables.net',
@@ -231,7 +227,6 @@ return [
 
         'form-action' => [
             'allow' => [
-                env('APP_URL') . ":8080",
                 env('APP_URL'),
             ],
         ],

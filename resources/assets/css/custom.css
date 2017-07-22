@@ -6,15 +6,59 @@
 }
 
 #faucets-table thead th, #payment-processors-table thead th {
-    padding-bottom: 1.25em !important;
+    padding-bottom: 0.25em !important;
 }
 
 #faucets-table thead th .headerSortDown, #payment-processors-table thead th .headerSortDown {
-    background-image: url("table_sorter_themes/blue/desc.gif");
+    background-image: url("../images/table-sorter/table-sorter-desc.gif");
 }
 
 #faucets-table thead th .headerSortUp, #payment-processors-table thead th .headerSortUp {
-    background-image: url("table_sorter_themes/blue/asc.gif");
+    background-image: url("../images/table-sorter/table-sorter-asc.gif");
+}
+
+.icheckbox_square,
+.iradio_square {
+    background: url("../images/iCheck/square/square.png") no-repeat !important;
+}
+
+.icheckbox_square-red,
+.iradio_square-red {
+    background: url("../images/iCheck/red.png") no-repeat !important;
+}
+
+.icheckbox_square-green,
+.iradio_square-green {
+    background: url("../images/iCheck/green.png") no-repeat !important;
+}
+
+.icheckbox_square-blue,
+.iradio_square-blue {
+    background: url("../images/iCheck/blue.png") no-repeat !important;
+}
+
+.icheckbox_square-aero,
+.iradio_square-aero {
+    background: url("../images/iCheck/aero.png") no-repeat !important;
+}
+
+.icheckbox_square-grey,
+.iradio_square-grey {
+    background: url("../images/iCheck/grey.png") no-repeat !important;
+}
+
+.icheckbox_square-orange,
+.iradio_square-orange {
+    background: url("../images/iCheck/orange.png") no-repeat !important;
+}
+
+.icheckbox_square-yellow,
+.iradio_square-yellow {
+    background: url("../images/iCheck/yellow.png") no-repeat !important;
+}
+.icheckbox_square-pink,
+.iradio_square-pink {
+    background: url("../images/iCheck/pink.png") no-repeat !important;
 }
 
 .form-control-feedback{
@@ -33,4 +77,41 @@
 
 .wrapper{
     height: auto !important;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+    .icheckbox_square,
+    .iradio_square {
+        background-image: url("../images/iCheck/square/square@2x.png") !important;
+    }
+    .icheckbox_square-red,
+    .iradio_square-red {
+        background-image: url("../images/iCheck/red@2x.png") !important;
+    }
+    .icheckbox_square-green,
+    .iradio_square-green {
+        background-image: url("../images/iCheck/green@2x.png") !important;
+    }
+    .icheckbox_square-blue,
+    .iradio_square-blue {
+        background-image: url("../images/iCheck/blue@2x.png") !important;
+    }
+    .icheckbox_square-aero,
+    .iradio_square-aero {
+        background-image: url("../images/iCheck/aero@2x.png") !important;
+    }
+    .icheckbox_square-grey,
+    .iradio_square-grey {
+        background-image: url("../images/iCheck/grey@2x.png") !important;
+    }
+    .icheckbox_square-orange,
+    .iradio_square-orange {
+        background-image: url("../images/iCheck/orange@2x.png");
+    }
+    .icheckbox_square-yellow,
+    .iradio_square-yellow {
+        background-image: url("../images/iCheck/yellow@2x.png");
+    }
+
 }

@@ -16,81 +16,92 @@ gulp.task("copyfiles", function() {
 
     // Copy jQuery
     gulp.src("vendor/bower_components/jquery/dist/jquery.js")
-        .pipe(gulp.dest("resources/assets/js/jquery"));
+        .pipe(gulp.dest("resources/assets/js/jquery/"));
 
     // JQuery UI //
     gulp.src("vendor/bower_components/jquery-ui/ui/**")
         .pipe(gulp.dest("resources/assets/js/jquery-ui/"));
 
     gulp.src("vendor/bower_components/jquery-ui/jquery-ui.js")
-        .pipe(gulp.dest("resources/assets/js/jquery-ui"));
+        .pipe(gulp.dest("resources/assets/js/jquery-ui/"));
 
-    gulp.src("vendor/bower_components/jquery-ui/themes/base/*.css")
-        .pipe(gulp.dest("resources/assets/css/jquery-ui"));
+    gulp.src("vendor/bower_components/jquery-ui/themes/base/jquery-ui.css")
+        .pipe(gulp.dest("resources/assets/css/jquery-ui/"));
 
-    gulp.src("vendor/bower_components/jquery-ui/themes/base/images")
-        .pipe(gulp.dest("public/assets/images"));
+    gulp.src("vendor/bower_components/jquery-ui/themes/base/images/*")
+        .pipe(gulp.dest("public/assets/images/jquery-ui/"));
 
     // Bootstrap //
     gulp.src("vendor/bower_components/bootstrap/dist/css/bootstrap.css")
-        .pipe(gulp.dest("resources/assets/css/bootstrap"));
+        .pipe(gulp.dest("resources/assets/css/bootstrap/"));
 
     gulp.src("vendor/bower_components/bootstrap/dist/js/bootstrap.js")
-        .pipe(gulp.dest("resources/assets/js/bootstrap"));
+        .pipe(gulp.dest("resources/assets/js/bootstrap/"));
 
     gulp.src("vendor/bower_components/bootstrap/dist/fonts/**")
-        .pipe(gulp.dest("public/assets/css/fonts"));
+        .pipe(gulp.dest("public/assets/fonts/"));
 
     // Font Awesome //
     gulp.src("vendor/bower_components/font-awesome/css/font-awesome.css")
         .pipe(gulp.dest("resources/assets/css/font-awesome"));
 
     gulp.src("vendor/bower_components/font-awesome/fonts/**")
-        .pipe(gulp.dest("public/assets/css/fonts"));
+        .pipe(gulp.dest("public/assets/fonts/"));
 
     // AdminLTE
     gulp.src("vendor/bower_components/admin-lte/dist/css/**/*.css")
-        .pipe(gulp.dest("resources/assets/css/admin-lte"));
+        .pipe(gulp.dest("resources/assets/css/admin-lte/"));
 
     gulp.src("vendor/bower_components/admin-lte/dist/img/**/*")
-        .pipe(gulp.dest("resources/assets/img/admin-lte"));
+        .pipe(gulp.dest("resources/assets/img/admin-lte/"));
 
     gulp.src("vendor/bower_components/admin-lte/dist/js/app.js")
-        .pipe(gulp.dest("resources/assets/js/admin-lte"));
+        .pipe(gulp.dest("resources/assets/js/admin-lte/"));
 
     // DataTables //
     gulp.src("vendor/bower_components/datatables/media/css/*.css")
-        .pipe(gulp.dest("resources/assets/css/datatables"));
+        .pipe(gulp.dest("resources/assets/css/datatables/"));
 
     gulp.src("vendor/bower_components/datatables/media/images/**")
-        .pipe(gulp.dest("resources/assets/img/datatables"));
+        .pipe(gulp.dest("resources/assets/img/datatables/"));
 
     gulp.src("vendor/bower_components/datatables/media/js/*.js")
-        .pipe(gulp.dest("resources/assets/js/datatables"));
+        .pipe(gulp.dest("resources/assets/js/datatables/"));
 
     // iCheck //
-    gulp.src("vendor/bower_components/iCheck/skins/**/*")
-        .pipe(gulp.dest("resources/assets/css/iCheck/skins"));
+    gulp.src("vendor/bower_components/iCheck/skins/**/*.css")
+        .pipe(gulp.dest("resources/assets/css/iCheck/skins/"));
+
+    gulp.src("vendor/bower_components/iCheck/skins/**/*.png")
+        .pipe(gulp.dest("public/assets/images/iCheck/"));
+
+    gulp.src("vendor/bower_components/iCheck/skins/*.png")
+        .pipe(gulp.dest("public/assets/images/iCheck/"));
 
     gulp.src("vendor/bower_components/iCheck/icheck.js")
-        .pipe(gulp.dest("resources/assets/js/iCheck"));
+        .pipe(gulp.dest("resources/assets/js/iCheck/"));
 
     // ionicons //
     gulp.src("vendor/bower_components/ionicons/css/*.css")
-        .pipe(gulp.dest("resources/assets/css/ionicons"));
+        .pipe(gulp.dest("resources/assets/css/ionicons/"));
 
     gulp.src("vendor/bower_components/ionicons/fonts/**")
-        .pipe(gulp.dest("resources/assets/fonts"));
+        .pipe(gulp.dest("resources/assets/fonts/"));
 
     gulp.src("vendor/bower_components/ionicons/png/**/*")
-        .pipe(gulp.dest("resources/assets/img/ionicons"));
+        .pipe(gulp.dest("resources/assets/img/ionicons/"));
 
     // select2 //
     gulp.src("vendor/bower_components/select2/dist/css/*.css")
-        .pipe(gulp.dest("resources/assets/css/select2"));
+        .pipe(gulp.dest("resources/assets/css/select2/"));
 
     gulp.src("vendor/bower_components/select2/dist/js/**/*.js")
-        .pipe(gulp.dest("resources/assets/js/select2"));
+        .pipe(gulp.dest("resources/assets/js/select2/"));
+
+    // Table sorter theme //
+    gulp.src("resources/assets/css/table_sorter_themes/images/**")
+        .pipe(gulp.dest("public/assets/images/table-sorter/"));
+
 
 });
 
@@ -119,11 +130,25 @@ elixir(function(mix) {
     );
 
     // Combine CSS //
-    gulp.src('resources/assets/css/**/*.css')
-        .pipe(sourcemaps.init())
-        .pipe(concatCSS("mainStyles.css"))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('public/assets/css/'));
+    gulp.src([
+            'resources/assets/css/bootstrap/bootstrap.css',
+            'resources/assets/css/font-awesome/font-awesome.css',
+            'resources/assets/css/jquery-ui/jquery-ui.css',
+            'resources/assets/select2/select2.css',
+            'resources/assets/css/iCheck/skins/_all.css',
+            'resources/assets/css/datatables/dataTables.*.css',
+            'resources/assets/css/ionicons/ionicons.css',
+            'resources/assets/css/admin-lte/_all-skins.css',
+            'resources/assets/css/admin-lte/AdminLTE.css',
+            'resources/assets/css/admin-lte/AdminLTE-*.css',
+            'resources/assets/css/table_sorter_themes/style.css',
+            'resources/assets/css/custom.css'
+        ]
+    )
+    .pipe(sourcemaps.init())
+    .pipe(concatCSS("mainStyles.css"))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('public/assets/css/'));
 
 });
 
