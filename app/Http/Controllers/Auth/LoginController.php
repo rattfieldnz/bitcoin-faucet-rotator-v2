@@ -80,7 +80,7 @@ class LoginController extends Controller
     {
         $user = User::withTrashed()->where('email', $request->get('email'))->first();
 
-        if ($user->isDeleted()) {
+        if (!empty($user) && $user->isDeleted()) {
             flash(
                 "Your account has been suspended/cancelled. Please contact
                   admin for further information, and possible account restoration."

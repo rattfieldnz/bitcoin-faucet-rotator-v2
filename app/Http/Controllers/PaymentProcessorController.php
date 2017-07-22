@@ -121,7 +121,7 @@ class PaymentProcessorController extends AppBaseController
     public function show($slug)
     {
         $paymentProcessor = null;
-        if (Auth::user()->isAnAdmin()) {
+        if (!empty(Auth::user()) && Auth::user()->isAnAdmin()) {
             $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug, true)->first();
         } else {
             $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug, false)->first();
@@ -147,7 +147,7 @@ class PaymentProcessorController extends AppBaseController
     public function faucets($slug)
     {
         $paymentProcessor = null;
-        if (Auth::user()->isAnAdmin()) {
+        if (!empty(Auth::user()) && Auth::user()->isAnAdmin()) {
             $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug, true)->first();
         } else {
             $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug, false)->first();
@@ -209,6 +209,12 @@ class PaymentProcessorController extends AppBaseController
             return redirect(route('users.index'));
         }
 
+        if($user->isAnAdmin()) {
+            return redirect(route('payment-processors.index'));
+        }
+
+        //dd(PaymentProcessors::countUserPaymentProcessorFaucets($user, $paymentProcessors->where('id', 7)->first()));
+
         $title = "Crypto payment processors for " . $user->user_name;
 
         $description = "Here are " . $user->user_name . "'s faucets linked by system payment processors.";
@@ -262,6 +268,10 @@ class PaymentProcessorController extends AppBaseController
             $faucets = $this->userFunctions->getPaymentProcessorFaucets($user, $paymentProcessor, false);
         } elseif (Auth::user() != null && (Auth::user()->isAnAdmin() || $user == Auth::user())) {
             $faucets = $this->userFunctions->getPaymentProcessorFaucets($user, $paymentProcessor, true);
+        }
+
+        if($user->isAnAdmin()) {
+            return redirect(route('payment-processors.faucets', ['slug' => $paymentProcessor->slug]));
         }
 
         $title = $paymentProcessor->name . " faucets for " . $user->user_name . " (". count($faucets) . ")";

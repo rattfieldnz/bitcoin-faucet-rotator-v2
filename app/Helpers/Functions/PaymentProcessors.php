@@ -75,4 +75,34 @@ class PaymentProcessors
                 ->setSite(MainMeta::first()->twitter_username);
         }
     }
+
+    public static function countUserPaymentProcessorFaucets(User $user, PaymentProcessor $paymentProcessor) {
+        if(empty($user) || empty($paymentProcessor)) {
+            return 0;
+        }
+
+        $userFaucets = User::where('id', '=', $user->id)
+            ->first()
+            ->faucets()->select('id')->pluck('id')->toArray();
+
+        $paymentProcessorFaucets = $paymentProcessor->faucets()->get()->whereIn('id', $userFaucets);
+
+
+        return count($paymentProcessorFaucets);
+    }
+
+    public static function userPaymentProcessorFaucets(User $user, PaymentProcessor $paymentProcessor) {
+        if(empty($user) || empty($paymentProcessor)) {
+            return 0;
+        }
+
+        $userFaucets = User::where('id', '=', $user->id)
+            ->first()
+            ->faucets()->select('id')->pluck('id')->toArray();
+
+        $paymentProcessorFaucets = $paymentProcessor->faucets()->get()->whereIn('id', $userFaucets);
+
+
+        return $paymentProcessorFaucets;
+    }
 }

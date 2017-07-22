@@ -27,6 +27,7 @@ class AddLanguageCodeToMainMeta extends Migration
     public function down()
     {
         Schema::table('main_meta', function (Blueprint $table) {
+            $table->dropForeign('main_meta_language_code_foreign');
             $table->dropColumn('language_code');
         });
     }

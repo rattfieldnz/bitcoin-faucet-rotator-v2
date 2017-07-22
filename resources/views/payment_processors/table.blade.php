@@ -2,7 +2,7 @@
 <table class="table table-striped bordered tablesorter" id="payment-processors-table">
     <thead>
         @if(Auth::user() != null)
-            @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
+            @if(Auth::user()->isAnAdmin())
                 <th>Id</th>
             @endif
         @endif

@@ -18,7 +18,7 @@
         <th>Payment Processors</th>
         @if(Auth::user() != null)
             @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                <th>Has Been Deleted</th>
+                <th>Deleted?</th>
             @endif
         @endif
         @if(Auth::user() != null)

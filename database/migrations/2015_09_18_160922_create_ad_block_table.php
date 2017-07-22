@@ -29,6 +29,8 @@ class CreateAdBlockTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::drop('ad_block');
+        Schema::enableForeignKeyConstraints();
     }
 }

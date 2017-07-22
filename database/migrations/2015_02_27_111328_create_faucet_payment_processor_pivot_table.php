@@ -16,9 +16,9 @@ class CreateFaucetPaymentProcessorPivotTable extends Migration
     {
         Schema::create('faucet_payment_processor', function (Blueprint $table) {
             $table->integer('faucet_id')->unsigned()->index();
-            $table->foreign('faucet_id')->references('id')->on('faucets')->onDelete('cascade');
+            $table->foreign('faucet_id')->references('id')->on('faucets');
             $table->integer('payment_processor_id')->unsigned()->index();
-            $table->foreign('payment_processor_id')->references('id')->on('payment_processors')->onDelete('cascade');
+            $table->foreign('payment_processor_id')->references('id')->on('payment_processors');
         });
     }
 

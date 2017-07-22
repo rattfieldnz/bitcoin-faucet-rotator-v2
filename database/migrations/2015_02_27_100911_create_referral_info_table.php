@@ -15,9 +15,9 @@ class CreateReferralInfoTable extends Migration
     {
         Schema::create('referral_info', function (Blueprint $table) {
             $table->integer('faucet_id')->unsigned()->index();
-            $table->foreign('faucet_id')->references('id')->on('faucets')->onDelete('cascade');
+            $table->foreign('faucet_id')->references('id')->on('faucets');
             $table->integer('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -89,14 +89,18 @@
                     <span class="icon-bar"></span>
                 </button>
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{!! url('/') !!}">
-                    InfyOm Generator
-                </a>
+                <p style="margin-top: -0.5em;">
+                    <a class="navbar-brand" href="{!! url('/') !!}">
+                        <i class="fa fa-2x fa-bitcoin"></i>itcoin Faucet Rotator
+                    </a>
+                </p>
             </div>
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{!! url('/') !!}">Home</a></li>
+                    <li>{!!  link_to_route('faucets.index', "Faucets") !!}</li>
+                    <li>{!!  link_to_route('payment-processors.index', "Payment Processors") !!}</li>
+                    <li>{!!  link_to_route('users.index', "Current Users") !!}</li>
                 </ul>
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">

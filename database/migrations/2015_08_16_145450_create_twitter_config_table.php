@@ -33,6 +33,8 @@ class CreateTwitterConfigTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::drop('twitter_config');
+        Schema::enableForeignKeyConstraints();
     }
 }
