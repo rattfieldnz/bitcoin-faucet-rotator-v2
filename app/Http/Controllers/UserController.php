@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Functions;
+use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\MainMeta;
 use App\Repositories\UserRepository;
+use Carbon\Carbon;
 use Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -51,6 +54,19 @@ class UserController extends AppBaseController
         } elseif (Auth::user()->isAnAdmin()) {
             $users = $this->userRepository->withTrashed()->get();
         }
+
+        $title = "List of Current Users (" . count($users) . ")";
+        $description = "View all users currently active/registered on the Bitcoin faucet rotator. There are " .
+            count($users) . " users registered, including the admin user.";
+        $keywords = ['Users', 'Bitcoin Faucet Rotator users', 'List of Users'];
+        $publishedTime = Carbon::now()->toW3cString();
+        $modifiedTime = Carbon::now()->toW3cString();
+        $author = Users::adminUser()->fullName();
+        $currentUrl = route('users.index');
+        $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $categoryDescription = "List of Users";
+
+        WebsiteMeta::setCustomMeta($title, $description, $keywords, $publishedTime, $modifiedTime, $author, $currentUrl, $image, $categoryDescription);
 
         return view('users.index')
             ->with('users', $users);
@@ -124,11 +140,15 @@ class UserController extends AppBaseController
             ) {
                 $message = 'The user has been temporarily deleted. You can restore the user or permanently delete them.';
 
+                Users::setMeta($user);
+
                 return view('users.show')
                     ->with('user', $user)
                     ->with('message', $message);
             }
             if (!empty($user) && !$user->isDeleted()) { // If the user exists and isn't soft-deleted
+
+                Users::setMeta($user);
 
                 return view('users.show')
                     ->with('user', $user);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Functions\Faucets;
+use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreateUserFaucetRequest;
 use App\Http\Requests\UpdateUserFaucetRequest;
 use App\Models\Faucet;
@@ -83,6 +84,20 @@ class UserFaucetsController extends Controller
         }
 
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->pluck('name', 'id');
+
+        $title = $user->user_name . "'s list of faucets (" . count($showFaucets) . ")";
+        $description = "View " . $user->user_name .
+            "'s list of faucets and claim some free Bitcoin! They currently have " .
+            count($showFaucets) . " faucets.";
+        $keywords = [$user->user_name, 'List of Faucets', $user->user_name . "'s faucets", "Bitcoin Faucets", "Get Free Bitcoin"];
+        $publishedTime = Carbon::now()->toW3cString();
+        $modifiedTime = Carbon::now()->toW3cString();
+        $author = $user->fullName();
+        $currentUrl = route('users.faucets', ['userSlug' => $user->slug]);
+        $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $categoryDescription = "List of Faucets";
+
+        WebsiteMeta::setCustomMeta($title, $description, $keywords, $publishedTime, $modifiedTime, $author, $currentUrl, $image, $categoryDescription);
 
         return view('users.faucets.index')
             ->with('user', $user)
@@ -240,6 +255,8 @@ class UserFaucetsController extends Controller
                     $message = 'The faucet has been temporarily deleted by it\'s user. You can restore the faucet or permanently delete it.';
                 }
 
+                Faucets::setMeta($faucet, $user);
+
                 return view('users.faucets.show')
                     ->with('user', $user)
                     ->with('faucet', $faucet)
@@ -257,6 +274,8 @@ class UserFaucetsController extends Controller
                     $message = 'The faucet has been temporarily deleted by the user. You can restore the faucet or permanently delete it.';
                 }
 
+                Faucets::setMeta($faucet, $user);
+
                 return view('users.faucets.show')
                     ->with('user', $user)
                     ->with('faucet', $faucet)
@@ -265,6 +284,9 @@ class UserFaucetsController extends Controller
         } else {
             //If user faucet exists
             if (!empty($faucet)) {
+
+                Faucets::setMeta($faucet, $user);
+
                 return view('users.faucets.show')
                     ->with('user', $user)
                     ->with('faucet', $faucet)
@@ -324,28 +346,6 @@ class UserFaucetsController extends Controller
         flash('The faucet \'' . $faucet->name . '\' was updated successfully!')->success();
 
         return redirect($redirectRoute);
-    }
-
-    /**
-     * [paymentProcessorFaucets description]
-     *
-     * @param  string $userSlug The user's slug.
-     * @return Response
-     */
-    public function paymentProcessors($userSlug)
-    {
-        $user = User::where('slug', $userSlug)->first();
-
-        $paymentProcessors = PaymentProcessor::all();
-
-        if (empty($user)) {
-            abort(404);
-        }
-
-        if (empty($paymentProcessors)) {
-            flash('No payment processors were found.')->error();
-            return redirect(route('users.payment-processors', $user->slug));
-        }
     }
 
     /**

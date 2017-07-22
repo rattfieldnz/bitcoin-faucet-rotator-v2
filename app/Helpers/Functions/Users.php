@@ -11,11 +11,15 @@ namespace Helpers\Functions;
 use App\Helpers\Constants;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Faucet;
+use App\Models\MainMeta;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\PaymentProcessor;
 use App\Repositories\UserRepository;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\TwitterCard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash as LaracastsFlash;
@@ -264,5 +268,62 @@ class Users
                     ->where('is_admin', '=', true)
                     ->first();
         return $user->isAnAdmin() ? $user : null;
+    }
+
+    /**
+     * Function to set meta data properties for SEO.
+     *
+     * @param \App\Models\User $user
+     * @return void
+     */
+    public static function setMeta(User $user)
+    {
+        if(!empty($user)) {
+            $title = "User '" . $user->user_name . "'s Profile";
+            $description = "View the user profile for '" . $user->user_name .
+                "' on this page. They currently have " . count($user->faucets()->get()) . " faucets.";
+            $keywords = [$user->fullName(), $user->user_name, "User Profile", "User Faucets", "Show User Profile"];
+            $publishedTime = $user->created_at->toW3CString();
+            $modifiedTime = $user->updated_at->toW3CString();
+            $author = $user->fullName();
+            $currentUrl = route('users.show', ['slug' => $user->slug]);
+            $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
+            $categoryDescription = "User Profile";
+
+            SEOMeta::setTitle($title)
+                ->setTitleSeparator('|')
+                ->setDescription($description)
+                ->setKeywords($keywords)
+                ->addMeta('author', $author, 'name')
+                ->addMeta('revised', $modifiedTime, 'name')
+                ->addMeta('name', $title, 'itemprop')
+                ->addMeta('description', $description, 'itemprop')
+                ->addMeta('image', $image, 'itemprop')
+                ->addMeta('fb:admins', "871754942861947", 'property')
+                ->setCanonical($currentUrl);
+
+            OpenGraph::setTitle($title)
+                ->setUrl($currentUrl)
+                ->setSiteName(MainMeta::first()->page_main_title)
+                ->addProperty("locale", MainMeta::first()->language()->first()->isoCode())
+                ->setDescription($description)
+                ->setType('article')
+                ->addImage($image)
+                ->setArticle([
+                    'author' => $author,
+                    'published_time' => $publishedTime,
+                    'modified_time' => $modifiedTime,
+                    'section' => $categoryDescription,
+                    'tag' => $keywords
+                ]);
+
+            TwitterCard::setType('summary')
+                ->addImage($image)
+                ->setTitle($title)
+                ->setDescription($description)
+                ->setUrl($currentUrl)
+                ->setSite(MainMeta::first()->twitter_username);
+
+        }
     }
 }
