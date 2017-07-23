@@ -6,8 +6,8 @@
         @if(Auth::user() != null)
             @if(Auth::user()->isAnAdmin())
                 <p class="pull-right">
-                    <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px;margin-left:10px;" href="{!! route('payment-processors.create') !!}">Add New</a>
-                    <a class="btn btn-default pull-right" style="margin-top: -10px;margin-bottom: 5px;margin-left:10px;" href="{!! route('payment-processors.edit', ['slug' => $paymentProcessor->slug]) !!}">Edit</a>
+                    <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px;margin-left:10px;" href="{!! route('payment-processors.edit', ['slug' => $paymentProcessor->slug]) !!}">Edit Current Payment Processor</a>
+                    <a class="btn btn-primary btn-success pull-right" style="margin-top: -10px;margin-bottom: 5px;margin-left:10px;" href="{!! route('payment-processors.create') !!}">Add New Payment Processor</a>
                     @if($paymentProcessor->isDeleted())
                         {!! Form::open(['route' => ['payment-processors.delete-permanently', $paymentProcessor->slug], 'method' => 'delete', 'class' => 'form-inline pull-right']) !!}
                         {!! Form::button('Permanently Delete', ['type' => 'submit', 'class' => 'btn btn-danger', 'style' => 'margin-top:-10px;margin-bottom: 5px;', 'onclick' => "return confirm('Are you sure? The payment processor will be PERMANENTLY deleted!')"]) !!}

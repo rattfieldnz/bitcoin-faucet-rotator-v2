@@ -85,7 +85,8 @@ class MainMeta extends Model
         'language_code' => 'sometimes|required|exists:languages,iso_code'
     ];
 
-    public function language() {
+    public function language()
+    {
         return $this->hasOne(Language::class, 'iso_code', 'language_code');
     }
 }

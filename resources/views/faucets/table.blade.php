@@ -31,7 +31,7 @@
                 @endif
             @endif
             <td>
-                {!! link_to_route('faucets.show',$faucet->name,['slug' => $faucet->slug]) !!}
+                {!! link_to_route('faucets.show',$faucet->name,['slug' => $faucet->slug],['style' => 'text-decoration:underline;']) !!}
             </td>
             <td>{!! $faucet->interval_minutes !!}</td>
             <td>{!! $faucet->min_payout !!}</td>
@@ -40,7 +40,7 @@
                 <ul>
                 @foreach($faucet->paymentProcessors as $p)
                     <li>
-                        {!! link_to_route('payment-processors.show', $p->name, ['slug' => $p->slug]) !!}
+                        {!! link_to_route('payment-processors.show', $p->name, ['slug' => $p->slug],['style' => 'text-decoration:underline;']) !!}
                     </li>
                 @endforeach
                 </ul>

@@ -285,7 +285,6 @@ class UserFaucetsController extends Controller
         } else {
             //If user faucet exists
             if (!empty($faucet)) {
-
                 Faucets::setMeta($faucet, $user);
 
                 return view('users.faucets.show')
@@ -350,7 +349,8 @@ class UserFaucetsController extends Controller
         return redirect($redirectRoute);
     }
 
-    public function updateMultiple($userSlug, Request $request) {
+    public function updateMultiple($userSlug, Request $request)
+    {
         $user = $this->userRepository->findByField('slug', $userSlug, true)->first();
         $authUser = Auth::user();
 
@@ -366,7 +366,7 @@ class UserFaucetsController extends Controller
         $userFaucetIds = $input['faucet_id'];
         $referralCodes = $input['referral_code'];
 
-        for($i = 0; $i < count($userFaucetIds); $i++) {
+        for ($i = 0; $i < count($userFaucetIds); $i++) {
             $referralCode = !empty($referralCodes[$i]) ? $referralCodes[$i] : null;
 
             $faucet = Faucet::where('id', '=', intval($userFaucetIds[$i]))->first();
@@ -394,7 +394,6 @@ class UserFaucetsController extends Controller
         flash('The referral codes for the selected faucets were successfully updated!')->success();
 
         return redirect($redirectRoute);
-
     }
 
     /**

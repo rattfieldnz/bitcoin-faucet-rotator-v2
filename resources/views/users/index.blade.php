@@ -6,7 +6,7 @@
         @if(Auth::user() != null)
             @if(Auth::user()->isAnAdmin())
             <h1 class="pull-right">
-               <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('users.create') !!}">Add New</a>
+               <a class="btn btn-primary btn-success pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('users.create') !!}">Add New User</a>
             </h1>
             @endif
         @endif

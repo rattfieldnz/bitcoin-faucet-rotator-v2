@@ -74,6 +74,4 @@ class RegisterController extends Controller
     {
         return $this->userFunctions->createStoreUser($data);
     }
-
-
 }

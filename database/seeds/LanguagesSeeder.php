@@ -18,7 +18,7 @@ class LanguagesSeeder extends BaseSeeder
         $data = $this->csv_to_array(base_path() . '/database/seeds/csv_files/languages.csv', ';');
 
         try {
-            foreach($data as $d){
+            foreach ($data as $d) {
                 $language = new Language([
                     'name' => Purifier::clean($d['name'], 'generalFields'),
                     'iso_code' => Purifier::clean($d['code'], 'generalFields')
@@ -27,7 +27,6 @@ class LanguagesSeeder extends BaseSeeder
                 $this->command->info(
                     "Seeding Language => Name: " . $language->name() . ", ISO Code: " . $language->isoCode());
             }
-
         } catch (Exception $e) {
             error_log($e->getMessage());
         }

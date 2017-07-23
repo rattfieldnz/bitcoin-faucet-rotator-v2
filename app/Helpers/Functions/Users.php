@@ -280,7 +280,7 @@ class Users
      */
     public static function setMeta(User $user)
     {
-        if(!empty($user)) {
+        if (!empty($user)) {
             $title = "User '" . $user->user_name . "'s Profile";
             $description = "View the user profile for '" . $user->user_name .
                 "' on this page. They currently have " . count($user->faucets()->get()) . " faucets.";
@@ -325,7 +325,6 @@ class Users
                 ->setDescription($description)
                 ->setUrl($currentUrl)
                 ->setSite(MainMeta::first()->twitter_username);
-
         }
     }
 }

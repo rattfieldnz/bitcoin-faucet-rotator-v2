@@ -41,11 +41,13 @@ class Language extends Model
         'iso_code' => 'min:2|max:10|required|unique:languages,name',
     ];
 
-    public function name(){
+    public function name()
+    {
         return $this->attributes['name'];
     }
 
-    public function isoCode(){
+    public function isoCode()
+    {
         return $this->attributes['iso_code'];
     }
 }

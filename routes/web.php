@@ -43,6 +43,9 @@ Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}', functio
     return redirect(route('users.payment-processors.faucets', ['userSlug' =>  $userSlug, 'paymentProcessorSlug' => $paymentProcessorSlug]));
 });
 Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}/faucets', ['as' => 'users.payment-processors.faucets', 'uses' => 'PaymentProcessorController@userPaymentProcessorFaucets']);
+Route::get('users/{userSlug}/faucets/{faucetSlug}/edit', function ($userSlug) {
+    return redirect(route('users.faucets', ['userSlug' =>  $userSlug]));
+});
 Route::patch('users/{userSlug}/faucets/{faucetSlug}/update', ['as' => 'users.faucets.update', 'uses' => 'UserFaucetsController@update']);
 Route::get('users/{userSlug}/faucets/{faucetSlug}/destroy', ['as' => 'users.faucets.destroy', 'uses' => 'UserFaucetsController@destroy']);
 Route::get('users/{userSlug}/faucets/{faucetSlug}/delete-permanently', ['as' => 'users.faucets.delete-permanently', 'uses' => 'UserFaucetsController@destroyPermanently']);

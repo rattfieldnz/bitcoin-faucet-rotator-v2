@@ -484,8 +484,7 @@ class Faucets
      */
     public static function setMeta(Faucet $faucet, User $user)
     {
-        if(!empty($faucet) && !empty($user)) {
-
+        if (!empty($faucet) && !empty($user)) {
             $title = $faucet->meta_title;
             $description = $faucet->meta_description;
             $keywords = array_map('trim', explode(',', $faucet->meta_keywords));

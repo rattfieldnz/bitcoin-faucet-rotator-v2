@@ -143,7 +143,7 @@ class WebsiteMeta
         $currentUrl = '',
         $imagePath = '',
         $categoryDescription = ''
-    ){
+    ) {
 
         SEOMeta::setTitle($title)
             ->setTitleSeparator('|')

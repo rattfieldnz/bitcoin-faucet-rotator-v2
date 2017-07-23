@@ -209,7 +209,7 @@ class PaymentProcessorController extends AppBaseController
             return redirect(route('users.index'));
         }
 
-        if($user->isAnAdmin()) {
+        if ($user->isAnAdmin()) {
             return redirect(route('payment-processors.index'));
         }
 
@@ -270,7 +270,7 @@ class PaymentProcessorController extends AppBaseController
             $faucets = $this->userFunctions->getPaymentProcessorFaucets($user, $paymentProcessor, true);
         }
 
-        if($user->isAnAdmin()) {
+        if ($user->isAnAdmin()) {
             return redirect(route('payment-processors.faucets', ['slug' => $paymentProcessor->slug]));
         }
 

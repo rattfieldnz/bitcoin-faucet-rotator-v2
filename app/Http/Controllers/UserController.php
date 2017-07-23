@@ -140,18 +140,24 @@ class UserController extends AppBaseController
             ) {
                 $message = 'The user has been temporarily deleted. You can restore the user or permanently delete them.';
 
+                $userFaucets = $user->faucets()->withTrashed()->get();
+
                 Users::setMeta($user);
 
                 return view('users.show')
                     ->with('user', $user)
+                    ->with('faucets', $userFaucets)
                     ->with('message', $message);
             }
             if (!empty($user) && !$user->isDeleted()) { // If the user exists and isn't soft-deleted
 
+                $userFaucets = $user->faucets()->get();
+
                 Users::setMeta($user);
 
                 return view('users.show')
-                    ->with('user', $user);
+                    ->with('user', $user)
+                    ->with('faucets', $userFaucets);
             } else {
                 flash('User not found')->error();
                 return redirect(route('users.index'));

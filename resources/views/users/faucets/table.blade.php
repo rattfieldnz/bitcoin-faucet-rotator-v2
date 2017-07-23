@@ -20,8 +20,8 @@
             @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                 @if(Route::currentRouteName() != 'users.faucets.create')
                     <th>Deleted?</th>
+                    <th>Action</th>
                 @endif
-                <th>Action</th>
             @endif
         @endif
     </thead>
@@ -38,7 +38,16 @@
                     <td>{!! $faucet->id !!}</td>
                 @endif
             @endif
-            <td>{!! link_to(route('users.faucets.show', [$user->slug, $faucet->slug]), $faucet->name, ['target' => 'blank', 'title' => $faucet->name]) !!}</td>
+            <td>
+                {!!
+                    link_to_route(
+                        'users.faucets.show',
+                        $faucet->name,
+                        ['userSlug' => $user->slug,'faucetSlug' =>  $faucet->slug],
+                        ['title' => $faucet->name, 'style' => 'text-decoration:underline;']
+                    )
+                !!}
+            </td>
 
             @if(Auth::user() != null)
                 @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
@@ -56,7 +65,16 @@
             <td>
                 <ul>
                 @foreach($faucet->paymentProcessors as $p)
-                    <li>{!! link_to(route('payment-processors.show', $p->slug), $p->name, ['target' => 'blank', 'title' => $p->name]) !!}</li>
+                    <li>
+                        {!!
+                            link_to_route(
+                                'users.payment-processors.faucets',
+                                $p->name,
+                                ['userSlug' => $user->slug,'paymentProcessorSlug' =>  $p->slug],
+                                ['title' => $user->user_name . "'s " . $p->name . " faucets", 'style' => 'text-decoration:underline;']
+                            )
+                        !!}
+                    </li>
                 @endforeach
                 </ul>
             </td>
@@ -118,8 +136,11 @@
             @endif
         </tr>
     @endforeach
-    @if(Auth::user() != null && (Auth::user()->isAnAdmin() || Auth::user() == $user))
+    @if(Auth::user() != null && (Auth::user()->isAnAdmin() || (Auth::user() == $user && $user->hasPermission('create-user-faucets'))))
     {!! Form::submit('Save Referral Codes', ['class' => 'btn btn-primary']) !!}
+    @if(\Illuminate\Support\Facades\Route::currentRouteName() != 'users.faucets.create')
+    <a class="btn btn-primary btn-success" style="margin-left: 1em; color: white;" href="{!! route('users.faucets.create', $user->slug) !!}">Add New Faucet</a>
+    @endif
     {!! Form::close() !!}
     @endif
     </tbody>

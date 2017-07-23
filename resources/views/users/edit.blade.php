@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            User
+            Edit {{ $user->user_name }}'s Profile
         </h1>
    </section>
    <div class="content">

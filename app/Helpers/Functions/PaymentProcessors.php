@@ -27,10 +27,10 @@ class PaymentProcessors
      * @param \App\Models\User             $user
      * @return void
      */
-    public static function setMeta(PaymentProcessor $paymentProcessor, User $user) {
+    public static function setMeta(PaymentProcessor $paymentProcessor, User $user)
+    {
 
-        if(!empty($paymentProcessor) && !empty($user)) {
-
+        if (!empty($paymentProcessor) && !empty($user)) {
             $title = $paymentProcessor->meta_title;
             $description = $paymentProcessor->meta_description;
             $keywords = array_map('trim', explode(',', $paymentProcessor->meta_keywords));
@@ -76,8 +76,9 @@ class PaymentProcessors
         }
     }
 
-    public static function countUserPaymentProcessorFaucets(User $user, PaymentProcessor $paymentProcessor) {
-        if(empty($user) || empty($paymentProcessor)) {
+    public static function countUserPaymentProcessorFaucets(User $user, PaymentProcessor $paymentProcessor)
+    {
+        if (empty($user) || empty($paymentProcessor)) {
             return 0;
         }
 
@@ -91,8 +92,9 @@ class PaymentProcessors
         return count($paymentProcessorFaucets);
     }
 
-    public static function userPaymentProcessorFaucets(User $user, PaymentProcessor $paymentProcessor) {
-        if(empty($user) || empty($paymentProcessor)) {
+    public static function userPaymentProcessorFaucets(User $user, PaymentProcessor $paymentProcessor)
+    {
+        if (empty($user) || empty($paymentProcessor)) {
             return 0;
         }
 

@@ -3,16 +3,6 @@
 @section('content')
     <section class="content-header">
         <h1 class="pull-left">{{ $user->user_name }}'s Faucets</h1>
-        @if(Auth::user() != null)
-            @if(
-            Auth::user()->isAnAdmin() ||
-            ($user == Auth::user() && $user->hasPermission('create-user-faucets'))
-            )
-            <h1 class="pull-right">
-                <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('users.faucets.create', $user->slug) !!}">Add New</a>
-            </h1>
-            @endif
-        @endif
     </section>
     <div class="content">
         @include('adminlte-templates::common.errors')

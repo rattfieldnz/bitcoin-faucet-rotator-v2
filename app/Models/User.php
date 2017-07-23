@@ -160,7 +160,8 @@ class User extends Authenticatable
         return "User '" . $this->user_name . "' has {$eventName} their profile.";
     }
 
-    public function fullName(){
+    public function fullName()
+    {
         return $this->attributes['first_name'] . ' ' .
             $this->attributes['last_name'];
     }
