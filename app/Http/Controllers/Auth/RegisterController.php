@@ -57,7 +57,9 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, User::$rules);
+        $rules = User::$rules;
+        $rules['g-recaptcha-response'] = 'required|recaptcha';
+        return Validator::make($data, $rules);
     }
 
     /**
@@ -72,4 +74,6 @@ class RegisterController extends Controller
     {
         return $this->userFunctions->createStoreUser($data);
     }
+
+
 }

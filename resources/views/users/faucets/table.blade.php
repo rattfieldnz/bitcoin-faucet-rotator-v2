@@ -19,7 +19,7 @@
         @if(Auth::user() != null)
             @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                 @if(Route::currentRouteName() != 'users.faucets.create')
-                    <th>Has Been Deleted</th>
+                    <th>Deleted?</th>
                 @endif
             @endif
         @endif

@@ -111,6 +111,15 @@
                     @endif
                 </div>
 
+                <div class="form-group has-feedback{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
+                    {!! Recaptcha::render([ 'lang' => \App\Models\MainMeta::first()->language()->first()->isoCode() ]) !!}
+                    @if ($errors->has('g-recaptcha-response'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
                 <!-- Submit Field -->
                 <div class="row">
                     <div class="col-xs-8">

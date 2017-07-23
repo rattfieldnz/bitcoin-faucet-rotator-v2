@@ -177,6 +177,9 @@ return [
             'required' => 'A valid bitcoin address is required for registration. Bitcoin addresses are between 26 and 35 alpha-numeric characters in length.',
             'min' => 'The bitcoin address must have at least 26 alpha-numeric characters.',
             'max' => 'The bitcoin address must have less than or equal to 35 alpha-numeric characters.'
+        ],
+        'g-recaptcha-response' => [
+            'required' => 'A valid captcha response is required.'
         ]
     ],
 

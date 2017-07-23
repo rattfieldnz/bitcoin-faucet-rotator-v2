@@ -136,6 +136,7 @@ return [
 
         'child-src' => [
             'allow' => [
+                'www.google.com'
             ],
         ],
 
@@ -149,7 +150,9 @@ return [
                 'oss.maxcdn.com',
                 'code.jquery.com',
                 'www.google-analytics.com',
-                'google-analytics.com'
+                'google-analytics.com',
+                'www.google.com',
+                'www.gstatic.com'
             ],
 
             'hashes' => [

@@ -2,41 +2,34 @@
 <table class="table table-striped bordered tablesorter" id="users-table">
     <thead>
         @if(Auth::user() != null)
-            @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
+            @if(Auth::user()->isAnAdmin())
                 <th>Id</th>
             @endif
         @endif
         <th>User Name</th>
 
-        @if(Auth::user() != null)
+        @if(Auth::user() != null && Auth::user()->isAnAdmin())
             <th>Role</th>
-        @endif
-
-        @if(Auth::user() != null)
-            @if(Auth::user()->is_admin == true && Auth::user()->hasRole('owner'))
-                <th>Is Admin</th>
-                <th>Has Been Deleted</th>
-            @endif
+            <th>Is Admin</th>
+            <th>Deleted?</th>
         @endif
         <th>Faucets</th>
         <th>No. of Faucets</th>
         <th>Payment Processors</th>
         @if(Auth::user() != null)
-            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
         <th colspan="3">Action</th>
-            @endif
         @endif
     </thead>
     <tbody>
     @foreach($users as $user)
         <tr>
             @if(Auth::user() != null)
-                @if(Auth::user()->isAnAdmin() == true)
+                @if(Auth::user()->isAnAdmin())
                     <td>{!! $user->id !!}</td>
                 @endif
             @endif
             <td>{!! link_to_route('users.show', $user->user_name, ['slug' => $user->slug]) !!}</td>
-            @if(Auth::user() != null)
+            @if(Auth::user() != null && Auth::user()->isAnAdmin())
                 <td>
                     <ul>
                         @foreach ($user->roles()->get() as $role)
@@ -55,10 +48,11 @@
             <td>{{ count($user->faucets()->get()) }}</td>
             <td>{!! link_to_route('users.payment-processors', "View " . $user->user_name . "'s Faucets Grouped by Payment Processors", ['userSlug' => $user->slug]) !!}</td>
             @if(Auth::user() != null)
-                @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
             <td>
                 <div class='btn-group'>
+                    @if($user == Auth::user() || Auth::user()->isAnAdmin())
                     <a href="{!! route('users.edit', ['slug' => $user->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                    @endif
                     @if(Auth::user()->isAnAdmin())
                         @if(!$user->isAnAdmin())
                             @if($user->isDeleted())
@@ -77,7 +71,6 @@
                     @endif
                 </div>
             </td>
-                @endif
             @endif
         </tr>
     @endforeach

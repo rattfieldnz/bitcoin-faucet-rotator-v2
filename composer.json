@@ -34,7 +34,8 @@
         "bepsvpt/secure-headers": "^3.0",
         "psr/http-message": "^1.0",
         "dougsisk/laravel-block-referral-spam": "^1.0",
-        "artesaos/seotools": "^0.10.0"
+        "artesaos/seotools": "^0.10.0",
+        "greggilbert/recaptcha": "^2.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.6",

@@ -164,6 +164,7 @@ return [
         SquareBoat\Sneaker\SneakerServiceProvider::class,
         Bepsvpt\SecureHeaders\SecureHeadersServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -226,7 +227,8 @@ return [
         'SEOMeta'   => Artesaos\SEOTools\Facades\SEOMeta::class,
         'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
         'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
-        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class
+        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
+        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class
     ],
 
 ];

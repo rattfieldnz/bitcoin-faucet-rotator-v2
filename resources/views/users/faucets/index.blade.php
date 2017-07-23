@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Faucets</h1>
+        <h1 class="pull-left">{{ $user->user_name }}'s Faucets</h1>
         @if(Auth::user() != null)
             @if(
             Auth::user()->isAnAdmin() ||
@@ -27,7 +27,7 @@
                 @if(count($faucets) > 0)
                 @include('users.faucets.table')
                 @else
-                    <p>That user has not added any faucets yet.</p>
+                    <p>{{ $user->user_name }} has not added any faucets yet.</p>
                 @endif
             </div>
         </div>

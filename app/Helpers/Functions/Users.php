@@ -79,15 +79,17 @@ class Users
             $newUser->attachPermission($permission);
         }
 
-        if (Auth::user()->isAnAdmin()) {
+        if (!empty(Auth::user()) && Auth::user()->isAnAdmin()) {
             $logMessage = "The user ':subject.user_name' was added by :causer.user_name";
+            $causedBy = Auth::user();
         } else {
             $logMessage = "User ':subject.user_name' has successfully registered.";
+            $causedBy = $user;
         }
 
         activity(self::userLogName())
             ->performedOn($user)
-            ->causedBy(Auth::user())
+            ->causedBy($causedBy)
             ->log($logMessage);
 
         return $user;
@@ -255,7 +257,7 @@ class Users
     public function userLogName(): string
     {
 
-        if (Auth::user()->isAnAdmin()) {
+        if (!empty(Auth::user()) && Auth::user()->isAnAdmin()) {
             return Constants::ADMIN_USER_MANAGEMENT_LOG;
         } else {
             return Constants::USER_MANAGEMENT_LOG;
