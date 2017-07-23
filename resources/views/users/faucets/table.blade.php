@@ -21,11 +21,16 @@
                 @if(Route::currentRouteName() != 'users.faucets.create')
                     <th>Deleted?</th>
                 @endif
+                <th>Action</th>
             @endif
         @endif
-        <th>Action</th>
     </thead>
     <tbody>
+    @if(Auth::user() != null && (Auth::user()->isAnAdmin() || Auth::user() == $user))
+    {!! Form::open(['route' => ['users.faucets.update-multiple', $user->slug], 'method' => 'POST', 'class' => 'form-inline']) !!}
+    {!! Form::hidden('_method', 'PATCH') !!}
+    {!! Form::hidden('user_id', $user->id) !!}
+    @endif
     @foreach($faucets as $faucet)
         <tr>
             @if(Auth::user() != null)
@@ -39,17 +44,8 @@
                 @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                     @if(!empty($faucet))
                         <td>
-                            @if($faucet->pivot == null)
-                                {!! Form::open(['route' => ['users.faucets.store', $user->slug], 'method' => 'POST', 'class' => 'form-inline']) !!}
-                            @else
-                                {!! Form::open(['route' => ['users.faucets.update', $user->slug, $faucet->slug], 'method' => 'POST', 'class' => 'form-inline']) !!}
-                                {!! Form::hidden('_method', 'PATCH') !!}
-                            @endif
-                            {!! Form::hidden('user_id', $user->id) !!}
-                            {!! Form::hidden('faucet_id', $faucet->id) !!}
-                            {!! Form::text('referral_code', \App\Helpers\Functions\Faucets::getUserFaucetRefCode($user, $faucet), ['class' => 'form-control', 'placeholder' => 'ABCDEF123456']) !!}
-                            {!! Form::submit('Save Ref Code', ['class' => 'btn btn-primary']) !!}
-                            {!! Form::close() !!}
+                            {!! Form::hidden('faucet_id[]', $faucet->id) !!}
+                            {!! Form::text('referral_code[]', \App\Helpers\Functions\Faucets::getUserFaucetRefCode($user, $faucet), ['class' => 'form-control', 'placeholder' => 'ABCDEF123456']) !!}
                         </td>
                      @endif
                 @endif
@@ -76,9 +72,13 @@
                                             Auth::user()->hasPermission('permanent-delete-faucets') ||
                                             $user->hasPermission('permanent-delete-user-faucets')
                                         )
-                                            {!! Form::open(['route' => ['users.faucets.delete-permanently', $user->slug, $faucet->slug], 'method' => 'delete']) !!}
-                                            {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"]) !!}
-                                            {!! Form::close() !!}
+                                            {!! link_to_route(
+                                                'users.faucets.delete-permanently',
+                                                '',
+                                                ['userSlug' => $user->slug, 'faucetSlug' => $faucet->slug],
+                                                ['class' => 'btn btn-danger btn-xs glyphicon glyphicon-trash', 'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"]
+                                                )
+                                            !!}
                                         @endif
                                     @endif
                                     @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
@@ -86,9 +86,13 @@
                                             Auth::user()->hasPermission('restore-faucets') ||
                                             Auth::user()->hasPermission('restore-user-faucets')
                                         )
-                                            {!! Form::open(['route' => ['users.faucets.restore', $user->slug, $faucet->slug], 'method' => 'patch']) !!}
-                                            {!! Form::button('<i class="glyphicon glyphicon-refresh"></i>', ['type' => 'submit', 'class' => 'btn btn-info btn-xs', 'onclick' => "return confirm('Are you sure you want to restore this deleted faucet?')"]) !!}
-                                            {!! Form::close() !!}
+                                            {!! link_to_route(
+                                                'users.faucets.restore',
+                                                '',
+                                                ['userSlug' => $user->slug, 'faucetSlug' => $faucet->slug],
+                                                ['class' => 'btn btn-info btn-xs glyphicon glyphicon-refresh', 'onclick' => "return confirm('Are you sure you want to restore this deleted faucet?')"]
+                                                )
+                                            !!}
                                         @endif
                                     @endif
                                 @else
@@ -97,9 +101,13 @@
                                             Auth::user()->hasPermission('soft-delete-faucets') ||
                                             Auth::user()->hasPermission('soft-delete-user-faucets')
                                         )
-                                            {!! Form::open(['route' => ['users.faucets.destroy', $user->slug, $faucet->slug], 'method' => 'delete']) !!}
-                                            {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-warning btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                                            {!! Form::close() !!}
+                                            {!! link_to_route(
+                                                'users.faucets.destroy',
+                                                '',
+                                                ['userSlug' => $user->slug, 'faucetSlug' => $faucet->slug],
+                                                ['class' => 'btn btn-warning btn-xs glyphicon glyphicon-trash', 'onclick' => "return confirm('Are you sure you want to archive/delete this faucet?')"]
+                                                )
+                                            !!}
                                         @endif
                                     @endif
                                 @endif
@@ -110,6 +118,10 @@
             @endif
         </tr>
     @endforeach
+    @if(Auth::user() != null && (Auth::user()->isAnAdmin() || Auth::user() == $user))
+    {!! Form::submit('Save Referral Codes', ['class' => 'btn btn-primary']) !!}
+    {!! Form::close() !!}
+    @endif
     </tbody>
 </table>
 </div>

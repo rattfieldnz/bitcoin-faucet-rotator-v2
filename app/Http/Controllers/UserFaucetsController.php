@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Repositories\UserFaucetRepository;
 use App\Repositories\UserRepository;
 use Carbon\Carbon;
+use Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -170,9 +171,9 @@ class UserFaucetsController extends Controller
 
             $this->userFaucetRepository->create($input);
 
-            if (!empty($request->get('payment_processor'))) {
-                $input = $request->except('_token');
-                $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
+            if (!empty(request('payment-processor'))) {
+                $slug = Purifier::clean(request('payment-processor'), 'generalFields');
+                $paymentProcessor = PaymentProcessor::where('slug', $slug)->first();
             }
 
             if (!empty($user) && !empty($paymentProcessor)) {
@@ -203,7 +204,7 @@ class UserFaucetsController extends Controller
     public function show($userSlug, $faucetSlug)
     {
         $user = null;
-        if (Auth::user()->isAnAdmin()) {
+        if (!empty(Auth::user()) && Auth::user()->isAnAdmin()) {
             $user = $this->userRepository->findByField('slug', $userSlug, true)->first();
         } else {
             $user = $this->userRepository->findByField('slug', $userSlug)->first();
@@ -235,7 +236,7 @@ class UserFaucetsController extends Controller
                 return redirect(route('users.faucets', $user->slug));
             }
             //If the authenticated user is an owner or standard user.
-            if ((Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) || $user === Auth::user()) {
+            if (!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) || $user === Auth::user()) {
                 $message = null;
                 if (Auth::user()->isAnAdmin()) {
                     $message = 'The faucet has been temporarily deleted by it\'s user. You can restore the faucet or permanently delete it.';
@@ -248,7 +249,7 @@ class UserFaucetsController extends Controller
         } // If the user's faucet exists, and main admin faucet is soft-deleted.
         elseif (!empty($faucet) && $faucet->isDeleted()) {
             //If the authenticated user is an owner or standard user, or the faucet's user is currently authenticated.
-            if ((Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) || $user === Auth::user()) {
+            if (!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) || $user === Auth::user()) {
                 if (Auth::user()->hasRole('user')) {
                     $message = 'The owner of this rotator has deleted the faucet you requested. You can contact them if you would like it to be restored.';
                 } elseif (Auth::user()->isAnAdmin()) {
@@ -270,7 +271,7 @@ class UserFaucetsController extends Controller
             if (!Auth::guest() && (Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) && $user == Auth::user()) {
                 if (Auth::user()->hasRole('user')) {
                     $message = 'You have deleted the faucet that was requested; however, you are able to restore this faucet.';
-                } elseif (Auth::user()->hasRole('owner')) {
+                } elseif (Auth::user()->isAnAdmin()) {
                     $message = 'The faucet has been temporarily deleted by the user. You can restore the faucet or permanently delete it.';
                 }
 
@@ -327,8 +328,9 @@ class UserFaucetsController extends Controller
             return redirect(route('users.faucets', $user->slug));
         }
 
-        if (!empty($input['payment_processor'])) {
-            $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
+        if (!empty(request('payment-processor'))) {
+            $slug = Purifier::clean(request('payment-processor'), 'generalFields');
+            $paymentProcessor = PaymentProcessor::where('slug', $slug)->first();
         }
 
         if (!empty($user) && !empty($faucet) && !empty($paymentProcessor)) {
@@ -346,6 +348,53 @@ class UserFaucetsController extends Controller
         flash('The faucet \'' . $faucet->name . '\' was updated successfully!')->success();
 
         return redirect($redirectRoute);
+    }
+
+    public function updateMultiple($userSlug, Request $request) {
+        $user = $this->userRepository->findByField('slug', $userSlug, true)->first();
+        $authUser = Auth::user();
+
+        $input = $request->except('_token', '_method');
+
+        //If there is no such user, about to 404 page.
+        if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
+            flash('User not found')->error();
+            return redirect(route('users.index'));
+        }
+
+        $redirectRoute = route('users.faucets', $user->slug);
+        $userFaucetIds = $input['faucet_id'];
+        $referralCodes = $input['referral_code'];
+
+        for($i = 0; $i < count($userFaucetIds); $i++) {
+            $referralCode = !empty($referralCodes[$i]) ? $referralCodes[$i] : null;
+
+            $faucet = Faucet::where('id', '=', intval($userFaucetIds[$i]))->first();
+
+            if (!empty($faucet)) {
+                Faucets::setUserFaucetRefCode($user, $faucet, $referralCode);
+            }
+
+            if (!empty(request('payment-processor'))) {
+                $slug = Purifier::clean(request('payment-processor'), 'generalFields');
+                $paymentProcessor = PaymentProcessor::where('slug', $slug)->first();
+            }
+
+            if (!empty($user) && !empty($paymentProcessor)) {
+                $redirectRoute = route(
+                    'users.payment-processors.faucets',
+                    [
+                        'userSlug' => $user->slug,
+                        'paymentProcessorSlug' => $paymentProcessor->slug
+                    ]
+                );
+            }
+        }
+
+        flash('The referral codes for the selected faucets were successfully updated!')->success();
+
+        return redirect($redirectRoute);
+
     }
 
     /**
@@ -392,9 +441,9 @@ class UserFaucetsController extends Controller
             return redirect($redirectRoute);
         }
 
-        $input = Input::all();
-        if (!empty($input['payment_processor'])) {
-            $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
+        if (!empty(request('payment-processor'))) {
+            $slug = Purifier::clean(request('payment-processor'), 'generalFields');
+            $paymentProcessor = PaymentProcessor::where('slug', $slug)->first();
         }
 
         if (!empty($user) && !empty($faucet) && !empty($paymentProcessor)) {
@@ -448,9 +497,9 @@ class UserFaucetsController extends Controller
 
         $this->userFaucetRepository->deleteUserFaucet($user, $faucet, true);
 
-        $input = Input::all();
-        if (!empty($input['payment_processor'])) {
-            $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
+        if (!empty(request('payment-processor'))) {
+            $slug = Purifier::clean(request('payment-processor'), 'generalFields');
+            $paymentProcessor = PaymentProcessor::where('slug', $slug)->first();
         }
 
         if (!empty($user) && !empty($paymentProcessor)) {
@@ -509,9 +558,9 @@ class UserFaucetsController extends Controller
             return redirect($redirectRoute);
         }
 
-        $input = Input::all();
-        if (!empty($input['payment_processor'])) {
-            $paymentProcessor = PaymentProcessor::where('slug', self::cleanInput($input)['payment_processor'])->first();
+        if (!empty(request('payment-processor'))) {
+            $slug = Purifier::clean(request('payment-processor'), 'generalFields');
+            $paymentProcessor = PaymentProcessor::where('slug', $slug)->first();
         }
 
         if (!empty($user) && !empty($faucet) && !empty($paymentProcessor)) {
@@ -531,11 +580,5 @@ class UserFaucetsController extends Controller
         flash('The faucet \'' . $faucetName . '\' was successfully restored!')->success();
 
         return redirect($redirectRoute);
-    }
-
-    private static function cleanInput(array $data)
-    {
-        $data['payment_processor'] = Purifier::clean($data['payment_processor'], 'generalFields');
-        return $data;
     }
 }

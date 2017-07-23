@@ -44,9 +44,10 @@ Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}', functio
 });
 Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}/faucets', ['as' => 'users.payment-processors.faucets', 'uses' => 'PaymentProcessorController@userPaymentProcessorFaucets']);
 Route::patch('users/{userSlug}/faucets/{faucetSlug}/update', ['as' => 'users.faucets.update', 'uses' => 'UserFaucetsController@update']);
-Route::delete('users/{userSlug}/faucets/{faucetSlug}/destroy', ['as' => 'users.faucets.destroy', 'uses' => 'UserFaucetsController@destroy']);
-Route::delete('users/{userSlug}/faucets/{faucetSlug}/delete-permanently', ['as' => 'users.faucets.delete-permanently', 'uses' => 'UserFaucetsController@destroyPermanently']);
-Route::patch('users/{userSlug}/faucets/{faucetSlug}/restore', ['as' => 'users.faucets.restore', 'uses' => 'UserFaucetsController@restoreDeleted']);
+Route::get('users/{userSlug}/faucets/{faucetSlug}/destroy', ['as' => 'users.faucets.destroy', 'uses' => 'UserFaucetsController@destroy']);
+Route::get('users/{userSlug}/faucets/{faucetSlug}/delete-permanently', ['as' => 'users.faucets.delete-permanently', 'uses' => 'UserFaucetsController@destroyPermanently']);
+Route::get('users/{userSlug}/faucets/{faucetSlug}/restore', ['as' => 'users.faucets.restore', 'uses' => 'UserFaucetsController@restoreDeleted']);
+Route::patch('users/{userSlug}/faucets/update-multiple', ['as' => 'users.faucets.update-multiple', 'uses' => 'UserFaucetsController@updateMultiple']);
 
 Route::resource('faucets', 'FaucetController');
 
