@@ -69,6 +69,10 @@
             @endif
         </tr>
     @endforeach
+
+    @if(Route::currentRouteName() != 'faucets.index')
+        <a class="btn btn-primary btn-success" style="color: white;" href="{!! route('faucets.create') !!}">Add New Faucet</a>
+    @endif
     </tbody>
 </table>
 </div>

@@ -138,7 +138,7 @@
     @endforeach
     @if(Auth::user() != null && (Auth::user()->isAnAdmin() || (Auth::user() == $user && $user->hasPermission('create-user-faucets'))))
     {!! Form::submit('Save Referral Codes', ['class' => 'btn btn-primary']) !!}
-    @if(\Illuminate\Support\Facades\Route::currentRouteName() != 'users.faucets.create')
+    @if(Route::currentRouteName() != 'users.faucets.create')
     <a class="btn btn-primary btn-success" style="margin-left: 1em; color: white;" href="{!! route('users.faucets.create', $user->slug) !!}">Add New Faucet</a>
     @endif
     {!! Form::close() !!}

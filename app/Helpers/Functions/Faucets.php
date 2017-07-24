@@ -364,7 +364,14 @@ class Faucets
     {
 
         // Check if the user and faucet exists.
-        if (empty($user) || empty($faucet)) {
+
+        if ((empty($user) || $user->isDeleted() && !Auth::user()->isAnAdmin())) {
+            flash('User not found')->error();
+            return null;
+        }
+
+        if (empty($faucet) || $faucet->isDeleted() && !Auth::user()->isAnAdmin()) {
+            flash('Faucet not found')->error();
             return null;
         }
 
@@ -388,7 +395,19 @@ class Faucets
     {
 
         // Check if the user and faucet exists.
-        if (empty($user) || empty($faucet)) {
+        /**if (empty($user) || empty($faucet)) {
+            return null;
+        }**/
+        $user = User::where('slug', $user->slug)->withTrashed()->first();
+
+        //If there is no such user, about to 404 page.
+        if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
+            flash('User not found')->error();
+            return redirect(route('users.index'));
+        }
+
+        if (empty($faucet) && ($faucet->isDeleted() && !Auth::user()->isAnAdmin())) {
+            flash('Faucet not found')->error();
             return null;
         }
 
@@ -403,8 +422,6 @@ class Faucets
             ]
         )->select()->get();
 
-        //dd($test);
-
         // If there is no matching ref code, add record to database.
         if (count($test) == 0 && (!empty($refCode) && strlen($refCode) > 0)) {
             DB::table('referral_info')->insert(
@@ -415,6 +432,7 @@ class Faucets
                 ]
             );
         } else {
+            //dd($user);
             DB::table('referral_info')->where(
                 [
                     ['faucet_id', '=', $faucet->id],

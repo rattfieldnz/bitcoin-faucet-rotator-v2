@@ -1,9 +1,9 @@
-(function( $ ) {
+(function ( $ ) {
 
     var table = $('#faucets-table')
         .DataTable(
             {
-                "fnInitComplete": function(){
+                "fnInitComplete": function () {
                     // Disable TBODY scoll bars
                     $('.dataTables_scrollBody').css({
                         'overflow': 'hidden',
@@ -30,8 +30,7 @@
                 "colResize": {
                     "tableWidthFixed": false,
                     //"handleWidth": 10,
-                    "resizeCallback": function(column)
-                    {
+                    "resizeCallback": function (column) {
 
                     }
                 },

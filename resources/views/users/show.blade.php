@@ -2,30 +2,34 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">{{ $user->user_name }}'s Profile</h1>
-        @if(Auth::user() != null)
-            <p class="pull-right">
-                @if(Auth::user() == $user ||Auth::user()->isAnAdmin())
-                <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px;margin-left:10px;" href="{!! route('users.edit', ['slug' => $user->slug]) !!}">Edit Current User</a>
-                @endif
-
-                @if(Auth::user()->isAnAdmin())
-                    <a class="btn btn-primary btn-success pull-right" style="margin-top: -10px;margin-bottom: 5px;margin-left:10px;" href="{!! route('users.create') !!}">Add New User</a>
-                    @if($user->isDeleted())
-                        {!! Form::open(['route' => ['users.delete-permanently', $user->slug], 'method' => 'delete', 'class' => 'form-inline pull-right']) !!}
-                        {!! Form::button('Permanently Delete', ['type' => 'submit', 'class' => 'btn btn-danger', 'style' => 'margin-top:-10px;margin-bottom: 5px;', 'onclick' => "return confirm('Are you sure? The user will be PERMANENTLY deleted!')"]) !!}
-                        {!! Form::close() !!}
-                        {!! Form::open(['route' => ['users.restore', $user->slug], 'method' => 'patch', 'class' => 'form-inline pull-right']) !!}
-                        {!! Form::button('Restore', ['type' => 'submit', 'class' => 'btn btn-info', 'style' => 'margin-top: -10px;margin-bottom:5px;margin-right:10px;', 'onclick' => "return confirm('Are you sure you want to restore this archived user?')"]) !!}
-                        {!! Form::close() !!}
-                    @else
-                        {!! Form::open(['route' => ['users.destroy', 'slug' => $user->slug], 'method' => 'delete', 'class' => 'form-inline pull-right']) !!}
-                        {!! Form::button('Archive/Delete Current User', ['type' => 'submit', 'class' => 'btn btn-warning', 'style' => 'margin-top: -10px;margin-bottom: 5px;', 'onclick' => "return confirm('Are you sure you want to archive this user?')"]) !!}
-                        {!! Form::close() !!}
+        <div class="row" style="margin:0 0 0 0;">
+            <h1 class="pull-left">{{ $user->user_name }}'s Profile</h1>
+        </div>
+        <div class="row" style="margin:0 0 0 0;">
+            @if(Auth::user() != null)
+                    @if(Auth::user() == $user ||Auth::user()->isAnAdmin())
+                        <a class="btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12" style="margin:0.25em 0.5em 0 0; min-width:11em;" href="{!! route('users.edit', ['slug' => $user->slug]) !!}"><i class="fa fa-edit"></i> Edit Current User</a>
                     @endif
-                @endif
-            </p>
-        @endif
+
+                    @if(Auth::user()->isAnAdmin())
+                        <a class="btn btn-primary btn-success col-lg-2 col-md-2 col-sm-3 col-xs-12" style="margin:0.25em 0.5em 0 0; min-width:11em;" href="{!! route('users.create') !!}"><i class="fa fa-plus"></i> Add New User</a>
+                        @if($user->isDeleted())
+                            {!! Form::open(['route' => ['users.delete-permanently', $user->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
+                            {!! Form::button('<i class="fa fa-trash"></i> Permanently Delete', ['type' => 'submit', 'class' => 'btn btn-danger col-lg-2 col-md-2 col-sm-3 col-xs-12', 'style' => 'margin:0.25em 0.5em 0 0; min-width:11em;', 'onclick' => "return confirm('Are you sure? The user will be PERMANENTLY deleted!')"]) !!}
+                            {!! Form::close() !!}
+                            {!! Form::open(['route' => ['users.restore', $user->slug], 'method' => 'patch', 'class' => 'form-inline']) !!}
+                            {!! Form::button('<i class="fa fa-refresh"></i> Restore User', ['type' => 'submit', 'class' => 'btn btn-info col-lg-2 col-md-2 col-sm-3 col-xs-12', 'style' => 'margin:0.25em 0.5em 0 0; min-width:11em;', 'onclick' => "return confirm('Are you sure you want to restore this archived user?')"]) !!}
+                            {!! Form::close() !!}
+                        @else
+                            @if(!$user->isAnAdmin())
+                            {!! Form::open(['route' => ['users.destroy', 'slug' => $user->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
+                            {!! Form::button('<i class="fa fa-trash"></i> Archive Current User', ['type' => 'submit', 'class' => 'btn btn-warning col-lg-2 col-md-2 col-sm-3 col-xs-12', 'style' => 'margin:0.25em 0.5em 0 0; min-width:11em;', 'onclick' => "return confirm('Are you sure you want to archive this user?')"]) !!}
+                            {!! Form::close() !!}
+                            @endif
+                        @endif
+                    @endif
+            @endif
+        </div>
     </section>
     <div class="content">
         <div class="clearfix"></div>

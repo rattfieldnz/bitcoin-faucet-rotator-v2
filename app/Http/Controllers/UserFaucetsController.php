@@ -66,12 +66,17 @@ class UserFaucetsController extends Controller
         $this->userFaucetRepository->pushCriteria(new RequestCriteria($request));
         $user = null;
 
-        $user = User::where('slug', $userSlug)->first();
+        $user = User::where('slug', $userSlug)->withTrashed()->first();
 
         // If the assigned user doesn't exist, redirect to users listing instead, with 'not found' flash message.
-        if (empty($user)) {
-            flash('User not found.')->error();
+        if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
+            flash('User not found')->error();
             return redirect(route('users.index'));
+        }
+
+        $message = null;
+        if ($user->isDeleted()) {
+            $message = 'The user has been temporarily deleted. You can restore the user or permanently delete them.';
         }
 
         if ($user->isAnAdmin()) {
@@ -103,7 +108,8 @@ class UserFaucetsController extends Controller
         return view('users.faucets.index')
             ->with('user', $user)
             ->with('faucets', $showFaucets)
-            ->with('paymentProcessors', $paymentProcessors);
+            ->with('paymentProcessors', $paymentProcessors)
+            ->with('message', $message);
     }
 
     /**
@@ -121,10 +127,10 @@ class UserFaucetsController extends Controller
         $faucets = Faucet::distinct()->orderBy('name', 'asc')->get();
         $userFaucets = null;
 
-        $user = User::where('slug', $userSlug)->first();
+        $user = User::where('slug', $userSlug)->withTrashed()->first();
 
         // If the assigned user doesn't exist, redirect to users listing instead, with 'not found' flash message.
-        if (empty($user)) {
+        if (empty($user) || $user->isDeleted() && !Auth::user()->isAnAdmin()) {
             flash('User not found.')->error();
             return redirect(route('users.index'));
         }
@@ -351,8 +357,7 @@ class UserFaucetsController extends Controller
 
     public function updateMultiple($userSlug, Request $request)
     {
-        $user = $this->userRepository->findByField('slug', $userSlug, true)->first();
-        $authUser = Auth::user();
+        $user = User::where('slug', $userSlug)->withTrashed()->first();
 
         $input = $request->except('_token', '_method');
 
@@ -363,6 +368,7 @@ class UserFaucetsController extends Controller
         }
 
         $redirectRoute = route('users.faucets', $user->slug);
+
         $userFaucetIds = $input['faucet_id'];
         $referralCodes = $input['referral_code'];
 

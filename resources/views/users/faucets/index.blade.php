@@ -7,9 +7,12 @@
     <div class="content">
         @include('adminlte-templates::common.errors')
         <div class="clearfix"></div>
-
         @include('flash::message')
-
+        @if(!empty($message))
+            <div class="alert alert-info">
+                {!! $message !!}
+            </div>
+        @endif
         <div class="clearfix"></div>
         @include('layouts.breadcrumbs')
         <div class="box box-primary">
