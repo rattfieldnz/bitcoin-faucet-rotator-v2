@@ -27,9 +27,9 @@
     <div class="content">
         <div class="clearfix"></div>
         @include('flash::message')
-        @include('partials.faucet-message-info')
+        @include('faucets.partials._message-info')
         <div class="clearfix"></div>
-        @include('layouts.breadcrumbs')
+        @include('layouts.partials.navigation._breadcrumbs')
 
         <div class="box box-primary">
             <div class="box-body">
@@ -100,6 +100,6 @@
     </div>
 @endsection
 
-@section('google-analytics')
-    @include('partials.google_analytics')
-@endsection
+@push('google-analytics')
+    @include('layouts.partials.tracking._google_analytics')
+@endpush

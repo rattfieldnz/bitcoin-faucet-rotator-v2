@@ -37,13 +37,19 @@
             <td>{!! $faucet->min_payout !!}</td>
             <td>{!! $faucet->max_payout !!}</td>
             <td>
-                <ul>
-                @foreach($faucet->paymentProcessors as $p)
-                    <li>
-                        {!! link_to_route('payment-processors.show', $p->name, ['slug' => $p->slug],['style' => 'text-decoration:underline;']) !!}
-                    </li>
-                @endforeach
-                </ul>
+                @if($faucet->paymentProcessors)
+                    @if(count($faucet->paymentProcessors) == 0)
+                        None. Please add one (or more) for this faucet
+                    @else
+                        <ul>
+                            @foreach($faucet->paymentProcessors as $p)
+                                <li>
+                                    {!! link_to_route('payment-processors.show', $p->name, ['slug' => $p->slug],['style' => 'text-decoration:underline;']) !!}
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
+                @endif
             </td>
             @if(Auth::user() != null)
                 @if(Auth::user()->isAnAdmin())

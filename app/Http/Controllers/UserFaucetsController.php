@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Route;
 use Mews\Purifier\Facades\Purifier;
 use Prettus\Repository\Criteria\RequestCriteria;
 
@@ -293,6 +294,8 @@ class UserFaucetsController extends Controller
             if (!empty($faucet)) {
                 Faucets::setMeta($faucet, $user);
 
+                Faucets::setSecureFaucetIframe($user, $faucet);
+
                 return view('users.faucets.show')
                     ->with('user', $user)
                     ->with('faucet', $faucet)
@@ -369,6 +372,8 @@ class UserFaucetsController extends Controller
 
         $redirectRoute = route('users.faucets', $user->slug);
 
+        //dd($input['current_route_name']);
+
         $userFaucetIds = $input['faucet_id'];
         $referralCodes = $input['referral_code'];
 
@@ -380,13 +385,13 @@ class UserFaucetsController extends Controller
             if (!empty($faucet)) {
                 Faucets::setUserFaucetRefCode($user, $faucet, $referralCode);
             }
+        }
 
-            if (!empty(request('payment-processor'))) {
-                $slug = Purifier::clean(request('payment-processor'), 'generalFields');
-                $paymentProcessor = PaymentProcessor::where('slug', $slug)->first();
-            }
+        if (!empty(request('payment_processor'))) {
+            $slug = Purifier::clean(request('payment_processor'), 'generalFields');
+            $paymentProcessor = PaymentProcessor::where('slug', $slug)->first();
 
-            if (!empty($user) && !empty($paymentProcessor)) {
+            if (!empty($paymentProcessor)) {
                 $redirectRoute = route(
                     'users.payment-processors.faucets',
                     [
@@ -394,6 +399,14 @@ class UserFaucetsController extends Controller
                         'paymentProcessorSlug' => $paymentProcessor->slug
                     ]
                 );
+            }
+        }
+
+        if(!empty(request('current_route_name'))){
+            $currentRouteName = Purifier::clean(request('current_route_name'), 'generalFields');
+
+            if($currentRouteName == 'users.show'){
+                $redirectRoute = route('users.show', ['slug' => $user->slug]) . "#faucets";
             }
         }
 

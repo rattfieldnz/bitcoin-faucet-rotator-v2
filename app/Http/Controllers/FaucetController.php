@@ -162,9 +162,9 @@ class FaucetController extends AppBaseController
 
                 $faucetUrl = $faucet->url . Faucets::getUserFaucetRefCode($adminUser, $faucet);
 
-                $this->faucetFunctions->setSecureFaucetIframe($adminUser, $faucet);
+                Faucets::setSecureFaucetIframe($adminUser, $faucet);
 
-                $this->faucetFunctions::setMeta($faucet, $adminUser);
+                Faucets::setMeta($faucet, $adminUser);
 
                 return view('faucets.show')
                     ->with('faucet', $faucet)
@@ -175,9 +175,9 @@ class FaucetController extends AppBaseController
 
                 $faucetUrl = $faucet->url . Faucets::getUserFaucetRefCode($adminUser, $faucet);
 
-                $this->faucetFunctions->setSecureFaucetIframe($adminUser, $faucet);
+                Faucets::setSecureFaucetIframe($adminUser, $faucet);
 
-                $this->faucetFunctions::setMeta($faucet, $adminUser);
+                Faucets::setMeta($faucet, $adminUser);
 
                 return view('faucets.show')
                     ->with('faucet', $faucet)

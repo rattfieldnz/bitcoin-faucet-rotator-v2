@@ -30,6 +30,8 @@
             {!! Form::open(['route' => ['users.faucets.update-multiple', $user->slug], 'method' => 'POST', 'class' => 'form-inline']) !!}
             {!! Form::hidden('_method', 'PATCH') !!}
             {!! Form::hidden('user_id', $user->id) !!}
+            {!! Form::hidden('payment_processor', $paymentProcessor->slug) !!}
+            {!! Form::hidden('current_route_name', Route::currentRouteName())!!}
         @endif
         @foreach($faucets as $faucet)
             <tr>
@@ -140,8 +142,24 @@
             </tr>
         @endforeach
         @if(Auth::user() != null && (Auth::user()->isAnAdmin() || Auth::user() == $user))
-            {!! Form::submit('Save Referral Codes', ['class' => 'btn btn-primary']) !!}
+            {!! Form::button(
+                '<i class="fa fa-floppy-o" style="vertical-align: middle; margin-right:0.25em;"></i>Save Referral Codes',
+                [
+                    'type' => 'submit',
+                    'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                    'style' => 'margin:0.25em 0.25em 0 0; color: white; min-width:12em;'
+                ])
+            !!}
             {!! Form::close() !!}
+            {!! Form::button(
+                '<i class="fa fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Add New Faucet',
+                [
+                    'type' => 'button',
+                    'onClick' => "location.href='" . route('users.faucets.create', $user->slug) . "'",
+                    'class' => 'btn btn-success col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                    'style' => 'margin:0.25em 0 0.25em 0; color: white; min-width:12em;'
+                ])
+            !!}
         @endif
         </tbody>
     </table>

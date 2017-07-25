@@ -470,7 +470,7 @@ class Faucets
      * @param \App\Models\Faucet $faucet
      * @return void
      */
-    public function setSecureFaucetIframe(User $user, Faucet $faucet)
+    public static function setSecureFaucetIframe(User $user, Faucet $faucet)
     {
 
         if (!empty($user) && !empty($faucet)) {

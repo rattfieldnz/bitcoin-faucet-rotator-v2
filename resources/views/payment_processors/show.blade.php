@@ -2,35 +2,83 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">{!! $paymentProcessor->name !!} Payment Processor</h1>
-        @if(Auth::user() != null)
-            @if(Auth::user()->isAnAdmin())
-                <p class="pull-right">
-                    <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px;margin-left:10px;" href="{!! route('payment-processors.edit', ['slug' => $paymentProcessor->slug]) !!}">Edit Current Payment Processor</a>
-                    <a class="btn btn-primary btn-success pull-right" style="margin-top: -10px;margin-bottom: 5px;margin-left:10px;" href="{!! route('payment-processors.create') !!}">Add New Payment Processor</a>
+        <div class="row" style="margin:0 0 0 0;">
+            <h1 class="pull-left">{!! $paymentProcessor->name !!} Payment Processor</h1>
+        </div>
+        <div class="row" style="margin:0 0 0 0;">
+            @if(Auth::user() != null)
+                @if(Auth::user()->isAnAdmin())
+
+                    {!! Form::button(
+                        '<i class="fa fa-2x fa-edit" style="vertical-align: middle; margin-right:0.25em;"></i>Edit Payment Processor',
+                        [
+                            'type' => 'button',
+                            'onClick' => "location.href='" . route('payment-processors.edit', ['slug' => $paymentProcessor->slug]) . "'",
+                            'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                            'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:16em;'
+                        ])
+                    !!}
+
+                    {!! Form::button(
+                        '<i class="fa fa-2x fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Add New Payment Processor',
+                        [
+                            'type' => 'button',
+                            'onClick' => "location.href='" . route('payment-processors.create') . "'",
+                            'class' => 'btn btn-success col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                            'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:16em;'
+                        ])
+                    !!}
+
                     @if($paymentProcessor->isDeleted())
-                        {!! Form::open(['route' => ['payment-processors.delete-permanently', $paymentProcessor->slug], 'method' => 'delete', 'class' => 'form-inline pull-right']) !!}
-                        {!! Form::button('Permanently Delete', ['type' => 'submit', 'class' => 'btn btn-danger', 'style' => 'margin-top:-10px;margin-bottom: 5px;', 'onclick' => "return confirm('Are you sure? The payment processor will be PERMANENTLY deleted!')"]) !!}
+                        {!! Form::open(['route' => ['payment-processors.delete-permanently', $paymentProcessor->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
+                        {!! Form::button(
+                            '<i class="fa fa-2x fa-trash" style="vertical-align: middle; margin-right:0.25em;"></i>Permanently Delete',
+                            [
+                                'type' => 'submit',
+                                'class' => 'btn btn-danger col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                                'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:16em;',
+                                'onclick' => "return confirm('Are you sure? The payment processor will be PERMANENTLY deleted!')"
+                            ])
+                        !!}
                         {!! Form::close() !!}
-                        {!! Form::open(['route' => ['payment-processors.restore', $paymentProcessor->slug], 'method' => 'patch', 'class' => 'form-inline pull-right']) !!}
-                        {!! Form::button('Restore', ['type' => 'submit', 'class' => 'btn btn-info', 'style' => 'margin-top: -10px;margin-bottom:5px;margin-right:10px;', 'onclick' => "return confirm('Are you sure you want to restore this archived payment processor?')"]) !!}
+                        {!! Form::open(['route' => ['payment-processors.restore', $paymentProcessor->slug], 'method' => 'patch', 'class' => 'form-inline']) !!}
+                        {!! Form::button(
+                            '<i class="fa fa-2x fa-refresh" style="vertical-align: middle; margin-right:0.25em;"></i>Restore',
+                            [
+                                'type' => 'submit',
+                                'class' => 'btn btn-info col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                                'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:16em;',
+                                'onclick' => "return confirm('Are you sure you want to restore this archived payment processor?')"
+                            ])
+                        !!}
                         {!! Form::close() !!}
                     @else
-                        {!! Form::open(['route' => ['payment-processors.destroy', 'slug' => $paymentProcessor->slug], 'method' => 'delete', 'class' => 'form-inline pull-right']) !!}
-                        {!! Form::button('Archive/Delete', ['type' => 'submit', 'class' => 'btn btn-warning', 'style' => 'margin-top: -10px;margin-bottom: 5px;', 'onclick' => "return confirm('Are you sure you want to archive this payment processor?')"]) !!}
+                        {!! Form::open(['route' => ['payment-processors.destroy', 'slug' => $paymentProcessor->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
+                        {!! Form::button(
+                            '<i class="fa fa-2x fa-trash" style="vertical-align: middle; margin-right:0.25em;"></i>Archive/Delete',
+                            [
+                                'type' => 'submit',
+                                'class' => 'btn btn-warning col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                                'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:16em;',
+                                'onclick' => "return confirm('Are you sure you want to archive this payment processor?')"
+                            ])
+                        !!}
                         {!! Form::close() !!}
                     @endif
-                </p>
+                @endif
             @endif
-        @endif
+        </div>
     </section>
     <div class="content">
         <div class="clearfix"></div>
-
         @include('flash::message')
-
+        @if(!empty($message))
+            <div class="alert alert-info">
+                {!! $message !!}
+            </div>
+        @endif
         <div class="clearfix"></div>
-        @include('layouts.breadcrumbs')
+        @include('layouts.partials.navigation._breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
@@ -42,6 +90,6 @@
     </div>
 @endsection
 
-@section('google-analytics')
-    @include('partials.google_analytics')
-@endsection
+@push('google-analytics')
+    @include('layouts.partials.tracking._google_analytics')
+@endpush

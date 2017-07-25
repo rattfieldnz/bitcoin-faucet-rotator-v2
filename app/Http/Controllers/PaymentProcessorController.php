@@ -8,6 +8,7 @@ use App\Helpers\Functions\PaymentProcessors;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreatePaymentProcessorRequest;
 use App\Http\Requests\UpdatePaymentProcessorRequest;
+use App\Models\PaymentProcessor;
 use App\Repositories\PaymentProcessorRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -148,9 +149,9 @@ class PaymentProcessorController extends AppBaseController
     {
         $paymentProcessor = null;
         if (!empty(Auth::user()) && Auth::user()->isAnAdmin()) {
-            $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug, true)->first();
+            $paymentProcessor = PaymentProcessor::where('slug', '=', $slug)->withTrashed()->first();
         } else {
-            $paymentProcessor = $this->paymentProcessorRepository->findByField('slug', $slug, false)->first();
+            $paymentProcessor = PaymentProcessor::where('slug', '=', $slug)->first();
         }
 
         $faucets = null;
@@ -161,10 +162,15 @@ class PaymentProcessorController extends AppBaseController
             return redirect(route('payment-processors.index'));
         }
 
-        if (Auth::guest() || Auth::user()->hasRole('user')) {
+        $faucets = collect();
+
+        if(!$paymentProcessor->isDeleted()){
             $faucets = $paymentProcessor->faucets()->get();
-        } elseif (Auth::user()->hasRole('owner')) {
-            $faucets = $paymentProcessor->faucets()->withTrashed()->get();
+        }
+
+        $message = null;
+        if($paymentProcessor->isDeleted()){
+            $message = "The payment processor has been temporarily deleted. Any associated faucets will show again once this payment processor has been restored.";
         }
 
         $title = $paymentProcessor->name . " payment processor faucets (" . count($faucets) . ")";
@@ -182,7 +188,8 @@ class PaymentProcessorController extends AppBaseController
 
         return view('payment_processors.faucets.index')
             ->with('faucets', $faucets)
-            ->with('paymentProcessor', $paymentProcessor);
+            ->with('paymentProcessor', $paymentProcessor)
+            ->with('message', $message);
     }
 
     /**

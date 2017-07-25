@@ -1,6 +1,6 @@
 <div class="table-responsive" style="margin:0.5em !important;">
 <table class="table table-striped bordered tablesorter" id="faucets-table">
-    <thead>
+    <thead class="row">
         @if(Auth::user() != null)
             @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                 <th>Id</th>
@@ -25,11 +25,12 @@
             @endif
         @endif
     </thead>
-    <tbody>
+    <tbody class="row">
     @if(Auth::user() != null && (Auth::user()->isAnAdmin() || Auth::user() == $user))
     {!! Form::open(['route' => ['users.faucets.update-multiple', $user->slug], 'method' => 'POST', 'class' => 'form-inline']) !!}
     {!! Form::hidden('_method', 'PATCH') !!}
     {!! Form::hidden('user_id', $user->id) !!}
+    {!! Form::hidden('current_route_name', Route::currentRouteName())!!}
     @endif
     @foreach($faucets as $faucet)
         <tr>
@@ -63,20 +64,26 @@
             <td>{!! $faucet->min_payout !!}</td>
             <td>{!! $faucet->max_payout !!}</td>
             <td>
-                <ul>
-                @foreach($faucet->paymentProcessors as $p)
-                    <li>
-                        {!!
-                            link_to_route(
-                                'users.payment-processors.faucets',
-                                $p->name,
-                                ['userSlug' => $user->slug,'paymentProcessorSlug' =>  $p->slug],
-                                ['title' => $user->user_name . "'s " . $p->name . " faucets", 'style' => 'text-decoration:underline;']
-                            )
-                        !!}
-                    </li>
-                @endforeach
-                </ul>
+                @if($faucet->paymentProcessors)
+                    @if(count($faucet->paymentProcessors) == 0)
+                        None. Please add one (or more) for this faucet
+                    @else
+                        <ul>
+                            @foreach($faucet->paymentProcessors as $p)
+                                <li>
+                                    {!!
+                                        link_to_route(
+                                            'users.payment-processors.faucets',
+                                            $p->name,
+                                            ['userSlug' => $user->slug,'paymentProcessorSlug' =>  $p->slug],
+                                            ['title' => $user->user_name . "'s " . $p->name . " faucets", 'style' => 'text-decoration:underline;']
+                                        )
+                                    !!}
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
+                @endif
             </td>
             @if(Auth::user() != null)
                 @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
@@ -137,11 +144,38 @@
         </tr>
     @endforeach
     @if(Auth::user() != null && (Auth::user()->isAnAdmin() || (Auth::user() == $user && $user->hasPermission('create-user-faucets'))))
-    {!! Form::submit('Save Referral Codes', ['class' => 'btn btn-primary']) !!}
-    @if(Route::currentRouteName() != 'users.faucets.create')
-    <a class="btn btn-primary btn-success" style="margin-left: 1em; color: white;" href="{!! route('users.faucets.create', $user->slug) !!}">Add New Faucet</a>
-    @endif
-    {!! Form::close() !!}
+
+        {!! Form::button(
+            '<i class="fa fa-floppy-o" style="vertical-align: middle; margin-right:0.25em;"> </i> Save Referral Codes',
+            [
+                'type' => 'submit',
+                'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                'style' => 'margin:0.25em 0.25em 0 0; min-width:12em;'
+            ])
+        !!}
+        @if(Route::currentRouteName() != 'users.faucets.create')
+            {!! Form::button(
+                '<i class="fa fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Add New Faucet',
+                [
+                    'type' => 'button',
+                    'onClick' => "location.href='" . route('users.faucets.create', $user->slug) . "'",
+                    'class' => 'btn btn-primary btn-success col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                    'style' => 'margin:0.25em 0.25em 0.25em 0; color: white; min-width:12em;'
+                ])
+            !!}
+        @endif
+        @if(Route::currentRouteName() != 'users.faucets')
+            {!! Form::button(
+                '<i class="fa fa-external-link" style="vertical-align: middle; margin-right:0.25em;"></i>View on New Page',
+                [
+                    'type' => 'button',
+                    'onClick' => "window.open('" . route('users.faucets', $user->slug) . "', '_blank')",
+                    'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                    'style' => 'margin:0.25em 0 0.25em 0; color: white; min-width:12em;'
+                ])
+            !!}
+        @endif
+        {!! Form::close() !!}
     @endif
     </tbody>
 </table>

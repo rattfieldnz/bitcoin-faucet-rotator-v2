@@ -33,7 +33,7 @@
         <!-- Sidebar Menu -->
 
         <ul class="sidebar-menu">
-            @include('layouts.menu')
+            @include('layouts.partials.navigation._menu')
         </ul>
         <!-- /.sidebar-menu -->
     </section>

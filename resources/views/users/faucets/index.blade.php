@@ -2,7 +2,9 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">{{ $user->user_name }}'s Faucets</h1>
+        <div class="row" style="margin:0 0 0 0;">
+            <h1 class="pull-left">{{ $user->user_name }}'s Faucets</h1>
+        </div>
     </section>
     <div class="content">
         @include('adminlte-templates::common.errors')
@@ -14,7 +16,7 @@
             </div>
         @endif
         <div class="clearfix"></div>
-        @include('layouts.breadcrumbs')
+        @include('layouts.partials.navigation._breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">
                 @if(count($faucets) > 0)
@@ -27,7 +29,7 @@
     </div>
 @endsection
 
-@section('google-analytics')
-    @include('partials.google_analytics')
-@endsection
+@push('google-analytics')
+    @include('layouts.partials.tracking._google_analytics')
+@endpush
 

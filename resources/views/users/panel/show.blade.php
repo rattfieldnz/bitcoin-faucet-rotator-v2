@@ -14,7 +14,7 @@
             </div>
         @endif
         <div class="clearfix"></div>
-        @include('layouts.breadcrumbs')
+        @include('layouts.partials.navigation._breadcrumbs')
         @if(!empty($bob))
         <p>{{ $bob }}</p>
         @endif
@@ -70,5 +70,5 @@
 @endsection
 
 @section('google-analytics')
-    @include('partials.google_analytics')
+    @include('layouts.partials.tracking._google_analytics')
 @endsection

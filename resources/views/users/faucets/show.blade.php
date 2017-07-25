@@ -2,24 +2,34 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Faucet - {!! $faucet->name !!}</h1>
+        <div class="row" style="margin:0 0 0 0;">
+            <h1 class="pull-left">Faucet - {!! $faucet->name !!}</h1>
+        </div>
+        <div class="row" style="margin:0 0 0 0;">
         @if(Auth::user() != null)
             @if(
             Auth::user()->isAnAdmin() ||
             ($user == Auth::user() && $user->hasPermission('create-user-faucets'))
             )
-                <h1 class="pull-right">
-                    <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('users.faucets.create', $user->slug) !!}">Add New</a>
-                </h1>
+                {!! Form::button(
+                    '<i class="fa fa-2x fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Add New Faucet',
+                    [
+                        'type' => 'button',
+                        'onClick' => "location.href='" . route('users.faucets.create', $user->slug) . "'",
+                        'class' => 'btn btn-primary btn-success col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                        'style' => 'margin:0.25em 0.25em 0 0; color: white; min-width:12em;'
+                    ])
+                !!}
             @endif
         @endif
+        </div>
     </section>
     <div class="content">
         <div class="clearfix"></div>
         @include('flash::message')
-        @include('partials.faucet-message-info')
+        @include('faucets.partials._message-info')
         <div class="clearfix"></div>
-        @include('layouts.breadcrumbs')
+        @include('layouts.partials.navigation._breadcrumbs')
 
         <div class="box box-primary">
             <div class="box-body">
@@ -54,14 +64,22 @@
                                         @if(count($faucet->paymentProcessors) == 0)
                                             None. Please add one (or more) for this faucet
                                         @else
-                                            <ul class="faucet-payment-processors">
-                                                @foreach($faucet->paymentProcessors as $paymentProcessor)
-                                                    <li>{!! link_to(route('payment-processors.show', $paymentProcessor->slug), $paymentProcessor->name, ['target' => 'blank', 'title' => $paymentProcessor->name]) !!}</li>
+                                            <ul>
+                                                @foreach($faucet->paymentProcessors as $p)
+                                                    <li>
+                                                        {!!
+                                                            link_to_route(
+                                                                'users.payment-processors.faucets',
+                                                                $p->name,
+                                                                ['userSlug' => $user->slug,'paymentProcessorSlug' =>  $p->slug],
+                                                                ['title' => $user->user_name . "'s " . $p->name . " faucets", 'style' => 'text-decoration:underline;']
+                                                            )
+                                                        !!}
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         @endif
                                     @endif
-
                                 </td>
                                 <td>{{ $faucet->hasRefProgram() }}</td>
                                 <td>{{ $faucet->ref_payout_percent }}</td>
@@ -90,6 +108,6 @@
     </div>
 @endsection
 
-@section('google-analytics')
-    @include('partials.google_analytics')
-@endsection
+@push('google-analytics')
+    @include('layouts.partials.tracking._google_analytics')
+@endpush

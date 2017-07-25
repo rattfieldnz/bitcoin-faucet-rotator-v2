@@ -5,16 +5,6 @@
         <h1 class="pull-left">
            {{ $user->user_name }}'s {!! link_to_route('payment-processors.show', $paymentProcessor->name, $paymentProcessor->slug, ["target" => "_blank"]) !!} Faucets
         </h1>
-        @if(Auth::user() != null)
-            @if(
-            Auth::user()->isAnAdmin() ||
-            ($user == Auth::user() && $user->hasPermission('create-user-faucets'))
-            )
-            <h1 class="pull-right">
-                <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('users.faucets.create', $user->slug) !!}">Add New</a>
-            </h1>
-            @endif
-        @endif
     </section>
     <div class="content">
         <div class="clearfix"></div>
@@ -22,7 +12,7 @@
         @include('flash::message')
 
         <div class="clearfix"></div>
-        @include('layouts.breadcrumbs')
+        @include('layouts.partials.navigation._breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">
                 @if(count($faucets) > 0)
@@ -35,6 +25,6 @@
     </div>
 @endsection
 
-@section('google-analytics')
-    @include('partials.google_analytics')
-@endsection
+@push('google-analytics')
+    @include('layouts.partials.tracking._google_analytics')
+@endpush

@@ -7,27 +7,76 @@
         </div>
         <div class="row" style="margin:0 0 0 0;">
             @if(Auth::user() != null)
-                    @if(Auth::user() == $user ||Auth::user()->isAnAdmin())
-                        <a class="btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12" style="margin:0.25em 0.5em 0 0; min-width:11em;" href="{!! route('users.edit', ['slug' => $user->slug]) !!}"><i class="fa fa-edit"></i> Edit Current User</a>
-                    @endif
+                @if(Auth::user() == $user ||Auth::user()->isAnAdmin())
+                    <?php
+                        if(!Auth::user()->isAnAdmin()) {
+                            $buttonText = "Edit Your Profile";
+                        } else {
+                            $buttonText = "Edit Current User";
+                        }
+                    ?>
+                    {!! Form::button(
+                        '<i class="fa fa-2x fa-edit" style="vertical-align: middle; margin-right:0.25em;"></i>' . $buttonText,
+                        [
+                            'type' => 'button',
+                            'onClick' => "location.href='" . route('users.edit', ['slug' => $user->slug]) . "'",
+                            'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                            'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;'
+                        ])
+                    !!}
+                @endif
 
-                    @if(Auth::user()->isAnAdmin())
-                        <a class="btn btn-primary btn-success col-lg-2 col-md-2 col-sm-3 col-xs-12" style="margin:0.25em 0.5em 0 0; min-width:11em;" href="{!! route('users.create') !!}"><i class="fa fa-plus"></i> Add New User</a>
-                        @if($user->isDeleted())
-                            {!! Form::open(['route' => ['users.delete-permanently', $user->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
-                            {!! Form::button('<i class="fa fa-trash"></i> Permanently Delete', ['type' => 'submit', 'class' => 'btn btn-danger col-lg-2 col-md-2 col-sm-3 col-xs-12', 'style' => 'margin:0.25em 0.5em 0 0; min-width:11em;', 'onclick' => "return confirm('Are you sure? The user will be PERMANENTLY deleted!')"]) !!}
-                            {!! Form::close() !!}
-                            {!! Form::open(['route' => ['users.restore', $user->slug], 'method' => 'patch', 'class' => 'form-inline']) !!}
-                            {!! Form::button('<i class="fa fa-refresh"></i> Restore User', ['type' => 'submit', 'class' => 'btn btn-info col-lg-2 col-md-2 col-sm-3 col-xs-12', 'style' => 'margin:0.25em 0.5em 0 0; min-width:11em;', 'onclick' => "return confirm('Are you sure you want to restore this archived user?')"]) !!}
-                            {!! Form::close() !!}
-                        @else
-                            @if(!$user->isAnAdmin())
-                            {!! Form::open(['route' => ['users.destroy', 'slug' => $user->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
-                            {!! Form::button('<i class="fa fa-trash"></i> Archive Current User', ['type' => 'submit', 'class' => 'btn btn-warning col-lg-2 col-md-2 col-sm-3 col-xs-12', 'style' => 'margin:0.25em 0.5em 0 0; min-width:11em;', 'onclick' => "return confirm('Are you sure you want to archive this user?')"]) !!}
-                            {!! Form::close() !!}
-                            @endif
+                @if(Auth::user()->isAnAdmin())
+
+                    {!! Form::button(
+                        '<i class="fa fa-2x fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Add New User',
+                        [
+                            'type' => 'button',
+                            'onClick' => "location.href='" . route('users.create') . "'",
+                            'class' => 'btn btn-success col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                            'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;'
+                        ])
+                    !!}
+
+                    @if($user->isDeleted())
+                        {!! Form::open(['route' => ['users.delete-permanently', $user->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
+                        {!! Form::button(
+                            '<i class="fa fa-2x fa-trash" style="vertical-align: middle; margin-right:0.25em;"> </i> Permanently Delete',
+                            [
+                                'type' => 'submit',
+                                'class' => 'btn btn-danger col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                                'style' => 'margin:0.25em 0.5em 0 0; min-width:12em;',
+                                'onclick' => "return confirm('Are you sure? The user will be PERMANENTLY deleted!')"
+                            ])
+                        !!}
+                        {!! Form::close() !!}
+                        {!! Form::open(['route' => ['users.restore', $user->slug], 'method' => 'patch', 'class' => 'form-inline']) !!}
+                        {!! Form::button(
+                            '<i class="fa fa-2x fa-refresh" style="vertical-align: middle; margin-right:0.25em;"> </i> Restore User',
+                            [
+                                'type' => 'submit',
+                                'class' => 'btn btn-info col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                                'style' => 'margin:0.25em 0.5em 0 0; min-width:12em;',
+                                'onclick' => "return confirm('Are you sure you want to restore this archived user?')"
+                            ])
+                        !!}
+                        {!! Form::close() !!}
+                    @else
+                        @if(!$user->isAnAdmin())
+                        {!! Form::open(['route' => ['users.destroy', 'slug' => $user->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
+                        {!! Form::button(
+                            '<i class="fa fa-2x fa-trash" style="vertical-align: middle; margin-right:0.25em;"> </i> Archive Current User',
+                            [
+                                'type' => 'submit',
+                                'class' => 'btn btn-warning col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                                'style' => 'margin:0.25em 0.5em 0 0; min-width:12em;',
+                                'onclick' => "return confirm('Are you sure you want to archive this user?')"
+                            ])
+                        !!}
+                        {!! Form::close() !!}
                         @endif
                     @endif
+                @endif
             @endif
         </div>
     </section>
@@ -40,7 +89,7 @@
             </div>
         @endif
         <div class="clearfix"></div>
-        @include('layouts.breadcrumbs')
+        @include('layouts.partials.navigation._breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row" style="padding-left: 1em; padding-right: 1em;">
@@ -91,6 +140,6 @@
     </script>
 @endsection
 
-@section('google-analytics')
-    @include('partials.google_analytics')
-@endsection
+@push('google-analytics')
+    @include('layouts.partials.tracking._google_analytics')
+@endpush
