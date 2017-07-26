@@ -34,22 +34,19 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
-                    <a href="{!! route('users.faucets', $user->slug) !!}" class="btn btn-default">Back</a>
-
-
+                    <p><strong>*</strong> Payout amounts are in Satoshis</p>
                     <div id="faucet-info" class="table table-responsive">
-                        <table class="table table-striped table bordered">
+                        <table class="table table-striped table bordered show-table-header">
                             <thead>
-                            <th>Faucet URL</th>
-                            <th>Interval (minutes)</th>
-                            <th>Minimum Payout (satoshis)</th>
-                            <th>Maximum Payout (satoshis)</th>
+                            <th>URL</th>
+                            <th>Interval Minutes</th>
+                            <th>Min. Payout*</th>
+                            <th>Max. Payout*</th>
                             <th>Payment Processor/s</th>
-                            <th>Referral Program?</th>
-                            <th>Ref. Payout %</th>
+                            <th>Ref. Program?</th>
+                            <th>Ref. %</th>
                             <th>Comments</th>
                             <th>Status</th>
-                            <th>Low Balance <br><small>(less than 10,000 SAT)</small></th>
                             </thead>
                             <tbody>
                             <tr>
@@ -85,7 +82,6 @@
                                 <td>{{ $faucet->ref_payout_percent }}</td>
                                 <td>{{ $faucet->comments }}</td>
                                 <td>{{ $faucet->status() }}</td>
-                                <td>{{ $faucet->lowBalanceStatus() }}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -101,7 +97,6 @@
                             <p>Please contact the administrator if you would like this faucet re-enabled.</p>
                         @endif
                     @endif
-                    <a href="{!! route('users.faucets', $user->slug) !!}" class="btn btn-default">Back</a>
                 </div>
             </div>
         </div>

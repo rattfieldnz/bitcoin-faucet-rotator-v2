@@ -1,3 +1,4 @@
+<p><strong>*</strong> Payout amounts are in Satoshis</p>
 <div class="table-responsive" style="margin:0.5em !important;">
 <table class="table table-striped bordered tablesorter" id="faucets-table">
     <thead class="row">
@@ -13,8 +14,8 @@
             @endif
         @endif
         <th>Interval Minutes</th>
-        <th>Min. Payout</th>
-        <th>Max. Payout</th>
+        <th>Min. Payout*</th>
+        <th>Max. Payout*</th>
         <th>Payment Processors</th>
         @if(Auth::user() != null)
             @if(Auth::user()->isAnAdmin() || Auth::user() == $user)

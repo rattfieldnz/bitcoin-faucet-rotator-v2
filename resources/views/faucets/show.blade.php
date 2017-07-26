@@ -2,27 +2,72 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Faucet - {!! $faucet->name !!}</h1>
+        <div class="row" style="margin:0 0 0 0;">
+            <h1 class="pull-left">Faucet - {!! $faucet->name !!}</h1>
+        </div>
+        <div class="row" style="margin:0 0 0 0;">
         @if(Auth::user() != null)
             @if(Auth::user()->isAnAdmin())
-                <p class="pull-right">
-                    <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px;margin-left:10px;" href="{!! route('faucets.edit', ['slug' => $faucet->slug]) !!}">Edit Current Faucet</a>
-                    <a class="btn btn-primary btn-success pull-right" style="margin-top: -10px;margin-bottom: 5px;margin-left:10px;" href="{!! route('faucets.create') !!}">Add New Faucet</a>
-                    @if($faucet->isDeleted())
-                        {!! Form::open(['route' => ['faucets.delete-permanently', $faucet->slug], 'method' => 'delete', 'class' => 'form-inline pull-right']) !!}
-                        {!! Form::button('Permanently Delete Current Faucet', ['type' => 'submit', 'class' => 'btn btn-danger', 'style' => 'margin-top:-10px;margin-bottom: 5px;', 'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"]) !!}
-                        {!! Form::close() !!}
-                        {!! Form::open(['route' => ['faucets.restore', $faucet->slug], 'method' => 'patch', 'class' => 'form-inline pull-right']) !!}
-                        {!! Form::button('Restore Current Faucet', ['type' => 'submit', 'class' => 'btn btn-info', 'style' => 'margin-top: -10px;margin-bottom:5px;margin-right:10px;', 'onclick' => "return confirm('Are you sure you want to restore this archived faucet?')"]) !!}
-                        {!! Form::close() !!}
-                    @else
-                        {!! Form::open(['route' => ['faucets.destroy', 'slug' => $faucet->slug], 'method' => 'delete', 'class' => 'form-inline pull-right']) !!}
-                        {!! Form::button('Archive/Delete Current Faucet', ['type' => 'submit', 'class' => 'btn btn-warning', 'style' => 'margin-top: -10px;margin-bottom: 5px;', 'onclick' => "return confirm('Are you sure you want to archive this faucet?')"]) !!}
-                        {!! Form::close() !!}
-                    @endif
-                </p>
+
+                {!! Form::button(
+                    '<i class="fa fa-2x fa-edit" style="vertical-align: middle; margin-right:0.25em;"></i>Edit Current Faucet',
+                    [
+                        'type' => 'button',
+                        'onClick' => "location.href='" . route('faucets.edit', ['slug' => $faucet->slug]) . "'",
+                        'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-2 col-xs-12',
+                        'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;'
+                    ])
+                !!}
+
+                {!! Form::button(
+                    '<i class="fa fa-2x fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Add New Faucet',
+                    [
+                        'type' => 'button',
+                        'onClick' => "location.href='" . route('faucets.create') . "'",
+                        'class' => 'btn btn-success col-lg-2 col-md-2 col-sm-2 col-xs-12',
+                        'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;'
+                    ])
+                !!}
+
+                @if($faucet->isDeleted())
+                    {!! Form::open(['route' => ['faucets.delete-permanently', $faucet->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
+                    {!! Form::button(
+                        '<i class="fa fa-2x fa-trash" style="vertical-align: middle; margin-right:0.25em;"></i>Permanently Delete',
+                        [
+                            'type' => 'submit',
+                            'class' => 'btn btn-danger col-lg-2 col-md-2 col-sm-2 col-xs-12',
+                            'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;',
+                            'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"
+                        ])
+                    !!}
+                    {!! Form::close() !!}
+                    {!! Form::open(['route' => ['faucets.restore', $faucet->slug], 'method' => 'patch', 'class' => 'form-inline']) !!}
+                    {!! Form::button(
+                        '<i class="fa fa-2x fa-refresh" style="vertical-align: middle; margin-right:0.25em;"></i>Restore Current Faucet',
+                        [
+                            'type' => 'submit',
+                            'class' => 'btn btn-info col-lg-2 col-md-2 col-sm-2 col-xs-12',
+                            'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;',
+                            'onclick' => "return confirm('Are you sure you want to restore this archived faucet?')"
+                        ])
+                    !!}
+                    {!! Form::close() !!}
+                @else
+                    {!! Form::open(['route' => ['faucets.destroy', 'slug' => $faucet->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
+                    {!! Form::button(
+                        '<i class="fa fa-2x fa-trash" style="vertical-align: middle; margin-right:0.25em;"></i>Archive Faucet',
+                        [
+                            'type' => 'submit',
+                            'class' => 'btn btn-warning col-lg-2 col-md-2 col-sm-2 col-xs-12',
+                            'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;',
+                            'onclick' => "return confirm('Are you sure you want to archive this faucet?')"
+                        ])
+                    !!}
+                    {!! Form::close() !!}
+                @endif
             @endif
         @endif
+        </div>
     </section>
     <div class="content">
         <div class="clearfix"></div>
@@ -34,22 +79,20 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
-                    <a href="{!! route('faucets.index') !!}" class="btn btn-default">Back</a>
-
+                    <p><strong>*</strong> Payout amounts are in Satoshis</p>
 
                     <div id="faucet-info" class="table table-responsive">
-                        <table class="table table-striped table bordered">
+                        <table class="table table-striped table bordered show-table-header">
                             <thead>
-                            <th>Faucet URL</th>
-                            <th>Interval (minutes)</th>
-                            <th>Minimum Payout (satoshis)</th>
-                            <th>Maximum Payout (satoshis)</th>
+                            <th>URL</th>
+                            <th>Interval Minutes</th>
+                            <th>Min. Payout*</th>
+                            <th>Max. Payout*</th>
                             <th>Payment Processor/s</th>
-                            <th>Referral Program?</th>
-                            <th>Ref. Payout %</th>
+                            <th>Ref. Program?</th>
+                            <th>Ref. %</th>
                             <th>Comments</th>
                             <th>Status</th>
-                            <th>Low Balance <br><small>(less than 10,000 SAT)</small></th>
                             </thead>
                             <tbody>
                             <tr>
@@ -77,7 +120,6 @@
                                 <td>{{ $faucet->ref_payout_percent }}</td>
                                 <td>{{ $faucet->comments }}</td>
                                 <td>{{ $faucet->status() }}</td>
-                                <td>{{ $faucet->lowBalanceStatus() }}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -93,7 +135,6 @@
                             <p>Please contact the administrator if you would like this faucet re-enabled.</p>
                         @endif
                     @endif
-                    <a href="{!! route('faucets.index') !!}" class="btn btn-default">Back</a>
                 </div>
             </div>
         </div>

@@ -85,9 +85,9 @@ class UserFaucetsController extends Controller
         }
 
         if (Auth::guest() == true) {
-            $showFaucets = $this->faucetFunctions->getUserFaucets($user, false);
+            $showFaucets = $user->faucets()->get();
         } else {
-            $showFaucets = $this->faucetFunctions->getUserFaucets($user, true);
+            $showFaucets = $user->faucets()->withTrashed()->get();
         }
 
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->pluck('name', 'id');
@@ -223,47 +223,65 @@ class UserFaucetsController extends Controller
             return redirect(route('users.index'));
         }
 
-        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
+        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->withTrashed()->first();
 
         $mainFaucet = Faucet::where('slug', $faucetSlug)->withTrashed()->first();
 
         $message = null;
 
+       // dd($faucet);
+
         // If the visitor isn't authenticated, the user's faucet is soft-deleted, and main admin faucet exists.
-        if (Auth::guest() && ($mainFaucet != null && $faucet->pivot->deleted_at != null)) {
+        if (Auth::guest() && (!empty($mainFaucet) && !empty($faucet->pivot->deleted_at))) {
             flash('The faucet was not found')->error();
             return redirect(route('users.faucets', $user->slug));
         }
 
         // If the main admin faucet exists, and the user's faucet is soft-deleted.
-        if ($mainFaucet != null && $faucet->pivot->deleted_at != null) {
+        if (!empty($mainFaucet) && (!empty($faucet) && $faucet->pivot->deleted_at)) {
             //If the visitor isn't authenticated.
             if (Auth::guest()) {
                 flash('The faucet was not found')->error();
                 return redirect(route('users.faucets', $user->slug));
             }
             //If the authenticated user is an owner or standard user.
-            if (!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) || $user === Auth::user()) {
-                $message = null;
+            if (!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) || $user->id == Auth::user()->id) {
                 if (Auth::user()->isAnAdmin()) {
-                    $message = 'The faucet has been temporarily deleted by it\'s user. You can restore the faucet or permanently delete it.';
-                } elseif (Auth::user()->hasRole('user')) {
+                    $message = 'The faucet has been temporarily deleted by it\'s user; however, you are able to restore this faucet.';
+                } elseif (Auth::user()->id == $user->id) {
                     $message = 'You have deleted the faucet that was requested; however, you are able to restore this faucet.';
                 }
+                Faucets::setMeta($faucet, $user);
 
-                return redirect(route('users.faucets', $user->slug))->with('message', $message);
+                Faucets::setSecureFaucetIframe($user, $faucet);
+
+                return view('users.faucets.show')
+                    ->with('user', $user)
+                    ->with('faucet', $faucet)
+                    ->with('message', $message);
             }
         } // If the user's faucet exists, and main admin faucet is soft-deleted.
-        elseif (!empty($faucet) && $faucet->isDeleted()) {
+        elseif (!empty($faucet) && $mainFaucet->isDeleted()) {
             //If the authenticated user is an owner or standard user, or the faucet's user is currently authenticated.
             if (!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) || $user === Auth::user()) {
-                if (Auth::user()->hasRole('user')) {
+                if (Auth::user()->id == $user->id) {
                     $message = 'The owner of this rotator has deleted the faucet you requested. You can contact them if you would like it to be restored.';
                 } elseif (Auth::user()->isAnAdmin()) {
-                    $message = 'The faucet has been temporarily deleted by it\'s user. You can restore the faucet or permanently delete it.';
-                }
 
+                    $mainFaucetLink = link_to_route(
+                        'faucets.show',
+                        'restore that faucet',
+                        ['slug' => $mainFaucet->slug],
+                        ['target' => '_blank', 'title' => 'Restore the main faucet, as created by admin.']
+                    );
+
+                    $message = 'You have deleted the main faucet this user has used as their faucet. You can ' .
+                        $mainFaucetLink . ' or permanently delete it.';
+                }
+                //dd($faucet);
                 Faucets::setMeta($faucet, $user);
+
+                Faucets::setSecureFaucetIframe($user, $faucet);
 
                 return view('users.faucets.show')
                     ->with('user', $user)
@@ -281,8 +299,10 @@ class UserFaucetsController extends Controller
                 } elseif (Auth::user()->isAnAdmin()) {
                     $message = 'The faucet has been temporarily deleted by the user. You can restore the faucet or permanently delete it.';
                 }
-
+                //dd($faucet);
                 Faucets::setMeta($faucet, $user);
+
+                Faucets::setSecureFaucetIframe($user, $faucet);
 
                 return view('users.faucets.show')
                     ->with('user', $user)
@@ -292,6 +312,7 @@ class UserFaucetsController extends Controller
         } else {
             //If user faucet exists
             if (!empty($faucet)) {
+                //dd($faucet);
                 Faucets::setMeta($faucet, $user);
 
                 Faucets::setSecureFaucetIframe($user, $faucet);

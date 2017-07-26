@@ -271,11 +271,13 @@ class PaymentProcessorController extends AppBaseController
             return redirect(route('users.payment-processors', $user->slug));
         }
 
-        if (Auth::guest()) {
+        /**if (Auth::guest()) {
             $faucets = $this->userFunctions->getPaymentProcessorFaucets($user, $paymentProcessor, false);
         } elseif (Auth::user() != null && (Auth::user()->isAnAdmin() || $user == Auth::user())) {
             $faucets = $this->userFunctions->getPaymentProcessorFaucets($user, $paymentProcessor, true);
-        }
+        }**/
+
+        $faucets = PaymentProcessors::userPaymentProcessorFaucets($user,$paymentProcessor);
 
         if ($user->isAnAdmin()) {
             return redirect(route('payment-processors.faucets', ['slug' => $paymentProcessor->slug]));

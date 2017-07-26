@@ -40812,6 +40812,14 @@ table.tablesorter thead tr .header {
   background-image: url("../../images/table-sorter/table-sorter-asc.gif");
 }
 
+table.show-table-header thead tr th {
+  background-color: #3c8dbc;
+  color: white;
+  padding: 0.25em;
+  font-size: 1.3em;
+  font-weight: normal;
+}
+
 .icheckbox_square,
 .iradio_square {
   background: url("/assets/images/iCheck/square/square.png") no-repeat !important;

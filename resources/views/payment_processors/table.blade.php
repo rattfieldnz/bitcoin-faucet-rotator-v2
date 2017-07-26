@@ -1,6 +1,6 @@
 <div class="table-responsive">
 <table class="table table-striped bordered tablesorter" id="payment-processors-table">
-    <thead>
+    <thead class="row">
         @if(Auth::user() != null)
             @if(Auth::user()->isAnAdmin())
                 <th>Id</th>
@@ -18,7 +18,7 @@
             @endif
         @endif
     </thead>
-    <tbody>
+    <tbody class="row">
     @foreach($paymentProcessors as $paymentProcessor)
         <tr>
             @if(Auth::user() != null)
@@ -30,13 +30,31 @@
                 {!! link_to_route('payment-processors.show', $paymentProcessor->name, ['slug' => $paymentProcessor->slug]) !!}
             </td>
             <td>{!! link_to_route('payment-processors.faucets', $paymentProcessor->name . " Faucets", ['slug' => $paymentProcessor->slug]) !!}</td>
-            <td>{{ count($paymentProcessor->faucets()->get()) }}</td>
-            <td>{{ $paymentProcessor->faucets()->sum('min_payout') }} Satoshis every {{ $paymentProcessor->faucets()->sum('interval_minutes') }} minutes</td>
-            <td>{{ $paymentProcessor->faucets()->sum('max_payout') }} Satoshis every {{ $paymentProcessor->faucets()->sum('interval_minutes') }} minutes</td>
+            <td>
+                @if(!empty(Auth::user()) && Auth::user()->isAnAdmin())
+                    {{ count($paymentProcessor->faucets()->withTrashed()->get()) }}
+                @else
+                    {{ count($paymentProcessor->faucets()->get()) }}
+                @endif
+            </td>
+
+            @if(count($paymentProcessor->faucets()->get()) != 0))
+                <td>
+                    {{ $paymentProcessor->faucets()->sum('min_payout') }}
+                    Satoshis every {{ $paymentProcessor->faucets()->sum('interval_minutes') }} minutes
+                </td>
+                <td>
+                    {{ $paymentProcessor->faucets()->sum('max_payout') }}
+                    Satoshis every {{ $paymentProcessor->faucets()->sum('interval_minutes') }} minutes
+                </td>
+            @else
+                <td>N/A</td>
+                <td>N/A</td>
+            @endif
 
             @if(Auth::user() != null)
                 @if(Auth::user()->isAnAdmin())
-            <td>
+                <td>
                 <div class='btn-group'>
                     <a href="{!! route('payment-processors.edit', ['slug' => $paymentProcessor->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                     @if($paymentProcessor->isDeleted())

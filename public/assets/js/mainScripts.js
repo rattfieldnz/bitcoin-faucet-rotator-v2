@@ -54418,116 +54418,113 @@ S2.define('jquery.select2',[
  * Usage:
  * https://github.com/avianey/jqDoubleScroll
  */
- (function( $ ) {
- 	
- 	jQuery.fn.doubleScroll = function(userOptions) {
-	
-		// Default options
-		var options = {
-			contentElement: undefined, // Widest element, if not specified first child element will be used
-			scrollCss: {                
-				'overflow-x': 'auto',
-				'overflow-y': 'hidden'
-			},
-			contentCss: {
-				'overflow-x': 'auto',
-				'overflow-y': 'hidden'
-			},
-			onlyIfScroll: true, // top scrollbar is not shown if the bottom one is not present
-			resetOnWindowResize: false, // recompute the top ScrollBar requirements when the window is resized
-			timeToWaitForResize: 30 // wait for the last update event (usefull when browser fire resize event constantly during ressing)
-		};
-	
-		$.extend(true, options, userOptions);
-	
-		// do not modify
-		// internal stuff
-		$.extend(options, {
-			topScrollBarMarkup: '<div class="doubleScroll-scroll-wrapper" style="height: 20px;"><div class="doubleScroll-scroll" style="height: 20px;"></div></div>',
-			topScrollBarWrapperSelector: '.doubleScroll-scroll-wrapper',
-			topScrollBarInnerSelector: '.doubleScroll-scroll'
-		});
+ (function ( $ ) {
+    
+    jQuery.fn.doubleScroll = function (userOptions) {
+    
+        // Default options
+        var options = {
+            contentElement: undefined, // Widest element, if not specified first child element will be used
+            scrollCss: {
+                'overflow-x': 'auto',
+                'overflow-y': 'hidden'
+            },
+            contentCss: {
+                'overflow-x': 'auto',
+                'overflow-y': 'hidden'
+            },
+            onlyIfScroll: true, // top scrollbar is not shown if the bottom one is not present
+            resetOnWindowResize: false, // recompute the top ScrollBar requirements when the window is resized
+            timeToWaitForResize: 30 // wait for the last update event (usefull when browser fire resize event constantly during ressing)
+        };
+    
+        $.extend(true, options, userOptions);
+    
+        // do not modify
+        // internal stuff
+        $.extend(options, {
+            topScrollBarMarkup: '<div class="doubleScroll-scroll-wrapper" style="height: 20px;"><div class="doubleScroll-scroll" style="height: 20px;"></div></div>',
+            topScrollBarWrapperSelector: '.doubleScroll-scroll-wrapper',
+            topScrollBarInnerSelector: '.doubleScroll-scroll'
+        });
 
-		var _showScrollBar = function($self, options) {
+        var _showScrollBar = function ($self, options) {
 
-			if (options.onlyIfScroll && $self.get(0).scrollWidth <= $self.width()) {
-				// content doesn't scroll
-				// remove any existing occurrence...
-				$self.prev(options.topScrollBarWrapperSelector).remove();
-				return;
-			}
-		
-			// add div that will act as an upper scroll only if not already added to the DOM
-			var $topScrollBar = $self.prev(options.topScrollBarWrapperSelector);
-			
-			if ($topScrollBar.length == 0) {
-				
-				// creating the scrollbar
-				// added before in the DOM
-				$topScrollBar = $(options.topScrollBarMarkup);
-				$self.before($topScrollBar);
+            if (options.onlyIfScroll && $self.get(0).scrollWidth <= $self.width()) {
+                // content doesn't scroll
+                // remove any existing occurrence...
+                $self.prev(options.topScrollBarWrapperSelector).remove();
+                return;
+            }
+        
+            // add div that will act as an upper scroll only if not already added to the DOM
+            var $topScrollBar = $self.prev(options.topScrollBarWrapperSelector);
+            
+            if ($topScrollBar.length == 0) {
+                // creating the scrollbar
+                // added before in the DOM
+                $topScrollBar = $(options.topScrollBarMarkup);
+                $self.before($topScrollBar);
 
-				// apply the css
-				$topScrollBar.css(options.scrollCss);
-				$self.css(options.contentCss);
+                // apply the css
+                $topScrollBar.css(options.scrollCss);
+                $self.css(options.contentCss);
 
-				// bind upper scroll to bottom scroll
-				$topScrollBar.bind('scroll.doubleScroll', function() {
-					$self.scrollLeft($topScrollBar.scrollLeft());
-				});
+                // bind upper scroll to bottom scroll
+                $topScrollBar.bind('scroll.doubleScroll', function () {
+                    $self.scrollLeft($topScrollBar.scrollLeft());
+                });
 
-				// bind bottom scroll to upper scroll
-				var selfScrollHandler = function() {
-					$topScrollBar.scrollLeft($self.scrollLeft());
-				};
-				$self.bind('scroll.doubleScroll', selfScrollHandler);
-			}
+                // bind bottom scroll to upper scroll
+                var selfScrollHandler = function () {
+                    $topScrollBar.scrollLeft($self.scrollLeft());
+                };
+                $self.bind('scroll.doubleScroll', selfScrollHandler);
+            }
 
-			// find the content element (should be the widest one)	
-			var $contentElement;		
-			
-			if (options.contentElement !== undefined && $self.find(options.contentElement).length !== 0) {
-				$contentElement = $self.find(options.contentElement);
-			} else {
-				$contentElement = $self.find('>:first-child');
-			}
-			
-			// set the width of the wrappers
-			$(options.topScrollBarInnerSelector, $topScrollBar).width($contentElement.outerWidth());
-			$topScrollBar.width($self.width());
-			$topScrollBar.scrollLeft($self.scrollLeft());
-			
-		}
-	
-		return this.each(function() {
-			
-			var $self = $(this);
-			
-			_showScrollBar($self, options);
-			
-			// bind the resize handler 
-			// do it once
-			if (options.resetOnWindowResize) {
-			
-				var id;
-				var handler = function(e) {
-					_showScrollBar($self, options);
-				};
-			
-				$(window).bind('resize.doubleScroll', function() {
-					// adding/removing/replacing the scrollbar might resize the window
-					// so the resizing flag will avoid the infinite loop here...
-					clearTimeout(id);
-					id = setTimeout(handler, options.timeToWaitForResize);
-				});
+            // find the content element (should be the widest one)
+            var $contentElement;
+            
+            if (options.contentElement !== undefined && $self.find(options.contentElement).length !== 0) {
+                $contentElement = $self.find(options.contentElement);
+            } else {
+                $contentElement = $self.find('>:first-child');
+            }
+            
+            // set the width of the wrappers
+            $(options.topScrollBarInnerSelector, $topScrollBar).width($contentElement.outerWidth());
+            $topScrollBar.width($self.width());
+            $topScrollBar.scrollLeft($self.scrollLeft());
+            
+        }
+    
+        return this.each(function () {
+            
+            var $self = $(this);
+            
+            _showScrollBar($self, options);
+            
+            // bind the resize handler
+            // do it once
+            if (options.resetOnWindowResize) {
+                var id;
+                var handler = function (e) {
+                    _showScrollBar($self, options);
+                };
+            
+                $(window).bind('resize.doubleScroll', function () {
+                    // adding/removing/replacing the scrollbar might resize the window
+                    // so the resizing flag will avoid the infinite loop here...
+                    clearTimeout(id);
+                    id = setTimeout(handler, options.timeToWaitForResize);
+                });
+            }
 
-			}
+        });
 
-		});
+    }
 
-	}
-
-}( jQuery ));
+ }( jQuery ));
 
 /*
  * LivePreview jQuery Plugin v1.0
@@ -54535,29 +54532,29 @@ S2.define('jquery.select2',[
  * Copyright (c) 2009 Phil Haack, http://haacked.com/
  * Licensed under the MIT license.
  */
-(function(c) {
-    c.fn.livePreview = function(f) {
+(function (c) {
+    c.fn.livePreview = function (f) {
         var d = c.extend({}, c.fn.livePreview.defaults, f),
             g = d.previewElement.length - 1,
             h = new RegExp("&lt;(/?(" + d.allowedTags.join("|") + ")(\\s+.*?)?)&gt;", "g");
-        return this.each(function(i) {
+        return this.each(function (i) {
             var b = c(this),
                 e = c(d.previewElement[Math.min(i, g)]);
-            b.handleKeyUp = function() {
+            b.handleKeyUp = function () {
                 b.unbind("keyup", b.handleKeyUp);
                 if (!e.updatingPreview) {
                     e.updatingPreview = true;
-                    window.setTimeout(function() {
+                    window.setTimeout(function () {
                         b.reloadPreview()
                     }, d.interval)
                 }
                 return false
             };
-            b.htmlUnencode = function(a) {
+            b.htmlUnencode = function (a) {
                 return a.replace(/&/g, "&amp;").replace(/</g,
                     "&lt;").replace(/>/g, "&gt;")
             };
-            b.reloadPreview = function() {
+            b.reloadPreview = function () {
                 var a = this.val();
                 if (a.length > 0) {
                     a = this.htmlUnencode(a);
@@ -54580,8 +54577,8 @@ S2.define('jquery.select2',[
         paraRegExp: new RegExp("(.*)\n\n([^#*\n\n].*)", "g"),
         lineBreakRegExp: new RegExp("(.*)\n([^#*\n].*)",
             "g"),
-        allowedTags: ["a", "b", "strong", "blockquote", "p", "i", "em", "u", "strike", "super", "sub", "code"],
-        interval: 80
+    allowedTags: ["a", "b", "strong", "blockquote", "p", "i", "em", "u", "strike", "super", "sub", "code"],
+    interval: 80
     }
 })(jQuery);
 /*
@@ -54598,92 +54595,92 @@ S2.define('jquery.select2',[
  * 
  */
 /**
- * 
+ *
  * @description Create a sortable table with multi-column sorting capabilitys
- * 
+ *
  * @example $('table').tablesorter();
  * @desc Create a simple tablesorter interface.
- * 
+ *
  * @example $('table').tablesorter({ sortList:[[0,0],[1,0]] });
  * @desc Create a tablesorter interface and sort on the first and secound column column headers.
- * 
+ *
  * @example $('table').tablesorter({ headers: { 0: { sorter: false}, 1: {sorter: false} } });
- *          
+ *
  * @desc Create a tablesorter interface and disableing the first and second  column headers.
- *      
- * 
+ *
+ *
  * @example $('table').tablesorter({ headers: { 0: {sorter:"integer"}, 1: {sorter:"currency"} } });
- * 
+ *
  * @desc Create a tablesorter interface and set a column parser for the first
  *       and second column.
- * 
- * 
+ *
+ *
  * @param Object
  *            settings An object literal containing key/value pairs to provide
  *            optional settings.
- * 
- * 
+ *
+ *
  * @option String cssHeader (optional) A string of the class name to be appended
  *         to sortable tr elements in the thead of the table. Default value:
  *         "header"
- * 
+ *
  * @option String cssAsc (optional) A string of the class name to be appended to
  *         sortable tr elements in the thead on a ascending sort. Default value:
  *         "headerSortUp"
- * 
+ *
  * @option String cssDesc (optional) A string of the class name to be appended
  *         to sortable tr elements in the thead on a descending sort. Default
  *         value: "headerSortDown"
- * 
+ *
  * @option String sortInitialOrder (optional) A string of the inital sorting
  *         order can be asc or desc. Default value: "asc"
- * 
+ *
  * @option String sortMultisortKey (optional) A string of the multi-column sort
  *         key. Default value: "shiftKey"
- * 
+ *
  * @option String textExtraction (optional) A string of the text-extraction
  *         method to use. For complex html structures inside td cell set this
  *         option to "complex", on large tables the complex option can be slow.
  *         Default value: "simple"
- * 
+ *
  * @option Object headers (optional) An array containing the forces sorting
  *         rules. This option let's you specify a default sorting rule. Default
  *         value: null
- * 
+ *
  * @option Array sortList (optional) An array containing the forces sorting
  *         rules. This option let's you specify a default sorting rule. Default
  *         value: null
- * 
+ *
  * @option Array sortForce (optional) An array containing forced sorting rules.
  *         This option let's you specify a default sorting rule, which is
  *         prepended to user-selected rules. Default value: null
- * 
+ *
  * @option Boolean sortLocaleCompare (optional) Boolean flag indicating whatever
  *         to use String.localeCampare method or not. Default set to true.
- * 
- * 
+ *
+ *
  * @option Array sortAppend (optional) An array containing forced sorting rules.
  *         This option let's you specify a default sorting rule, which is
  *         appended to user-selected rules. Default value: null
- * 
+ *
  * @option Boolean widthFixed (optional) Boolean flag indicating if tablesorter
  *         should apply fixed widths to the table columns. This is usefull when
  *         using the pager companion plugin. This options requires the dimension
  *         jquery plugin. Default value: false
- * 
+ *
  * @option Boolean cancelSelection (optional) Boolean flag indicating if
  *         tablesorter should cancel selection of the table headers text.
  *         Default value: true
- * 
+ *
  * @option Boolean debug (optional) Boolean flag indicating if tablesorter
  *         should display debuging information usefull for development.
- * 
+ *
  * @type jQuery
- * 
+ *
  * @name tablesorter
- * 
+ *
  * @cat Plugins/Tablesorter
- * 
+ *
  * @author Christian Bach/christian.bach@polyester.se
  */
 
@@ -54722,13 +54719,15 @@ S2.define('jquery.select2',[
 
             /* debuging utils */
 
-            function benchmark(s, d) {
+            function benchmark(s, d)
+            {
                 log(s + "," + (new Date().getTime() - d.getTime()) + "ms");
             }
 
             this.benchmark = benchmark;
 
-            function log(s) {
+            function log(s)
+            {
                 if (typeof console != "undefined" && typeof console.debug != "undefined") {
                     console.log(s);
                 } else {
@@ -54738,35 +54737,32 @@ S2.define('jquery.select2',[
 
             /* parsers utils */
 
-            function buildParserCache(table, $headers) {
+            function buildParserCache(table, $headers)
+            {
 
                 if (table.config.debug) {
                     var parsersDebug = "";
                 }
 
-                if (table.tBodies.length == 0) return; // In the case of empty tables
+                if (table.tBodies.length == 0) {
+                    return; // In the case of empty tables
+                }
                 var rows = table.tBodies[0].rows;
 
                 if (rows[0]) {
-
                     var list = [],
                         cells = rows[0].cells,
                         l = cells.length;
 
                     for (var i = 0; i < l; i++) {
-
                         var p = false;
 
                         if ($.metadata && ($($headers[i]).metadata() && $($headers[i]).metadata().sorter)) {
-
                             p = getParserById($($headers[i]).metadata().sorter);
-
                         } else if ((table.config.headers[i] && table.config.headers[i].sorter)) {
-
                             p = getParserById(table.config.headers[i].sorter);
                         }
                         if (!p) {
-
                             p = detectParserForColumn(table, rows, -1, i);
                         }
 
@@ -54785,7 +54781,8 @@ S2.define('jquery.select2',[
                 return list;
             };
 
-            function detectParserForColumn(table, rows, rowIndex, cellIndex) {
+            function detectParserForColumn(table, rows, rowIndex, cellIndex)
+            {
                 var l = parsers.length,
                     node = false,
                     nodeValue = false,
@@ -54811,15 +54808,18 @@ S2.define('jquery.select2',[
                 return parsers[0];
             }
 
-            function getNodeFromRowAndCellIndex(rows, rowIndex, cellIndex) {
+            function getNodeFromRowAndCellIndex(rows, rowIndex, cellIndex)
+            {
                 return rows[rowIndex].cells[cellIndex];
             }
 
-            function trimAndGetNodeText(config, node) {
+            function trimAndGetNodeText(config, node)
+            {
                 return $.trim(getElementText(config, node));
             }
 
-            function getParserById(name) {
+            function getParserById(name)
+            {
                 var l = parsers.length;
                 for (var i = 0; i < l; i++) {
                     if (parsers[i].id.toLowerCase() == name.toLowerCase()) {
@@ -54831,7 +54831,8 @@ S2.define('jquery.select2',[
 
             /* utils */
 
-            function buildCache(table) {
+            function buildCache(table)
+            {
 
                 if (table.config.debug) {
                     var cacheTime = new Date();
@@ -54843,7 +54844,7 @@ S2.define('jquery.select2',[
                     cache = {
                         row: [],
                         normalized: []
-                    };
+                };
 
                 for (var i = 0; i < totalRows; ++i) {
 
@@ -54877,13 +54878,18 @@ S2.define('jquery.select2',[
                 return cache;
             };
 
-            function getElementText(config, node) {
+            function getElementText(config, node)
+            {
 
                 var text = "";
 
-                if (!node) return "";
+                if (!node) {
+                    return "";
+                }
 
-                if (!config.supportsTextContent) config.supportsTextContent = node.textContent || false;
+                if (!config.supportsTextContent) {
+                    config.supportsTextContent = node.textContent || false;
+                }
 
                 if (config.textExtraction == "simple") {
                     if (config.supportsTextContent) {
@@ -54905,7 +54911,8 @@ S2.define('jquery.select2',[
                 return text;
             }
 
-            function appendToTable(table, cache) {
+            function appendToTable(table, cache)
+            {
 
                 if (table.config.debug) {
                     var appendTime = new Date()
@@ -54926,21 +54933,19 @@ S2.define('jquery.select2',[
                     rows.push(r[pos]);
 
                     if (!table.config.appender) {
-
                         //var o = ;
                         var l = r[pos].length;
                         for (var j = 0; j < l; j++) {
                             tableBody[0].appendChild(r[pos][j]);
                         }
 
-                        // 
+                        //
                     }
                 }
 
 
 
                 if (table.config.appender) {
-
                     table.config.appender(table, rows);
                 }
 
@@ -54960,7 +54965,8 @@ S2.define('jquery.select2',[
 
             };
 
-            function buildHeaders(table) {
+            function buildHeaders(table)
+            {
 
                 if (table.config.debug) {
                     var time = new Date();
@@ -54976,15 +54982,21 @@ S2.define('jquery.select2',[
                     // this.column = index;
                     this.order = formatSortingOrder(table.config.sortInitialOrder);
                     
-					
-					this.count = this.order;
+                    
+                    this.count = this.order;
 
-                    if (checkHeaderMetadata(this) || checkHeaderOptions(table, index)) this.sortDisabled = true;
-					if (checkHeaderOptionsSortingLocked(table, index)) this.order = this.lockedOrder = checkHeaderOptionsSortingLocked(table, index);
+                    if (checkHeaderMetadata(this) || checkHeaderOptions(table, index)) {
+                        this.sortDisabled = true;
+                    }
+                    if (checkHeaderOptionsSortingLocked(table, index)) {
+                        this.order = this.lockedOrder = checkHeaderOptionsSortingLocked(table, index);
+                    }
 
                     if (!this.sortDisabled) {
                         var $th = $(this).addClass(table.config.cssHeader);
-                        if (table.config.onRenderHeader) table.config.onRenderHeader.apply($th);
+                        if (table.config.onRenderHeader) {
+                            table.config.onRenderHeader.apply($th);
+                        }
                     }
 
                     // add cell to headerList
@@ -55005,7 +55017,8 @@ S2.define('jquery.select2',[
             // http://www.javascripttoolbox.com/temp/table_cellindex.html
 
 
-            function computeTableHeaderCellIndexes(t) {
+            function computeTableHeaderCellIndexes(t)
+            {
                 var matrix = [];
                 var lookup = {};
                 var thead = t.getElementsByTagName('THEAD')[0];
@@ -55046,7 +55059,8 @@ S2.define('jquery.select2',[
                 return lookup;
             }
 
-            function checkCellColSpan(table, rows, row) {
+            function checkCellColSpan(table, rows, row)
+            {
                 var arr = [],
                     r = table.tHead.rows,
                     c = r[row].cells;
@@ -55066,36 +55080,42 @@ S2.define('jquery.select2',[
                 return arr;
             };
 
-            function checkHeaderMetadata(cell) {
+            function checkHeaderMetadata(cell)
+            {
                 if (($.metadata) && ($(cell).metadata().sorter === false)) {
                     return true;
                 };
                 return false;
             }
 
-            function checkHeaderOptions(table, i) {
+            function checkHeaderOptions(table, i)
+            {
                 if ((table.config.headers[i]) && (table.config.headers[i].sorter === false)) {
                     return true;
                 };
                 return false;
             }
-			
-			 function checkHeaderOptionsSortingLocked(table, i) {
-                if ((table.config.headers[i]) && (table.config.headers[i].lockedOrder)) return table.config.headers[i].lockedOrder;
+            
+            function checkHeaderOptionsSortingLocked(table, i)
+            {
+                if ((table.config.headers[i]) && (table.config.headers[i].lockedOrder)) {
+                    return table.config.headers[i].lockedOrder;
+                }
                 return false;
             }
-			
-            function applyWidget(table) {
+            
+            function applyWidget(table)
+            {
                 var c = table.config.widgets;
                 var l = c.length;
                 for (var i = 0; i < l; i++) {
-
                     getWidgetById(c[i]).format(table);
                 }
 
             }
 
-            function getWidgetById(name) {
+            function getWidgetById(name)
+            {
                 var l = widgets.length;
                 for (var i = 0; i < l; i++) {
                     if (widgets[i].id.toLowerCase() == name.toLowerCase()) {
@@ -55104,7 +55124,8 @@ S2.define('jquery.select2',[
                 }
             };
 
-            function formatSortingOrder(v) {
+            function formatSortingOrder(v)
+            {
                 if (typeof(v) != "Number") {
                     return (v.toLowerCase() == "desc") ? 1 : 0;
                 } else {
@@ -55112,7 +55133,8 @@ S2.define('jquery.select2',[
                 }
             }
 
-            function isValueInArray(v, a) {
+            function isValueInArray(v, a)
+            {
                 var l = a.length;
                 for (var i = 0; i < l; i++) {
                     if (a[i][0] == v) {
@@ -55122,7 +55144,8 @@ S2.define('jquery.select2',[
                 return false;
             }
 
-            function setHeadersCss(table, $headers, list, css) {
+            function setHeadersCss(table, $headers, list, css)
+            {
                 // remove all header information
                 $headers.removeClass(css[0]).removeClass(css[1]);
 
@@ -55139,7 +55162,8 @@ S2.define('jquery.select2',[
                 }
             }
 
-            function fixColumnWidth(table, $headers) {
+            function fixColumnWidth(table, $headers)
+            {
                 var c = table.config;
                 if (c.widthFixed) {
                     var colgroup = $('<colgroup>');
@@ -55150,7 +55174,8 @@ S2.define('jquery.select2',[
                 };
             }
 
-            function updateHeaderSortCount(table, sortList) {
+            function updateHeaderSortCount(table, sortList)
+            {
                 var c = table.config,
                     l = sortList.length;
                 for (var i = 0; i < l; i++) {
@@ -55163,7 +55188,8 @@ S2.define('jquery.select2',[
 
             /* sorting methods */
 
-            function multisort(table, sortList, cache) {
+            function multisort(table, sortList, cache)
+            {
 
                 if (table.config.debug) {
                     var sortTime = new Date();
@@ -55174,7 +55200,6 @@ S2.define('jquery.select2',[
 
                 // TODO: inline functions.
                 for (var i = 0; i < l; i++) {
-
                     var c = sortList[i][0];
                     var order = sortList[i][1];
                     // var s = (getCachedSortType(table.config.parsers,c) == "text") ?
@@ -55190,7 +55215,6 @@ S2.define('jquery.select2',[
                     // + "]); ";
                     dynamicExp += "if(" + e + ") { return " + e + "; } ";
                     dynamicExp += "else { ";
-
                 }
 
                 // if value is the same keep orignal order
@@ -55219,7 +55243,8 @@ S2.define('jquery.select2',[
                 return cache;
             };
 
-            function makeSortFunction(type, direction, index) {
+            function makeSortFunction(type, direction, index)
+            {
                 var a = "a[" + index + "]",
                     b = "b[" + index + "]";
                 if (type == 'text' && direction == 'asc') {
@@ -55233,47 +55258,62 @@ S2.define('jquery.select2',[
                 }
             };
 
-            function makeSortText(i) {
+            function makeSortText(i)
+            {
                 return "((a[" + i + "] < b[" + i + "]) ? -1 : ((a[" + i + "] > b[" + i + "]) ? 1 : 0));";
             };
 
-            function makeSortTextDesc(i) {
+            function makeSortTextDesc(i)
+            {
                 return "((b[" + i + "] < a[" + i + "]) ? -1 : ((b[" + i + "] > a[" + i + "]) ? 1 : 0));";
             };
 
-            function makeSortNumeric(i) {
+            function makeSortNumeric(i)
+            {
                 return "a[" + i + "]-b[" + i + "];";
             };
 
-            function makeSortNumericDesc(i) {
+            function makeSortNumericDesc(i)
+            {
                 return "b[" + i + "]-a[" + i + "];";
             };
 
-            function sortText(a, b) {
-                if (table.config.sortLocaleCompare) return a.localeCompare(b);
+            function sortText(a, b)
+            {
+                if (table.config.sortLocaleCompare) {
+                    return a.localeCompare(b);
+                }
                 return ((a < b) ? -1 : ((a > b) ? 1 : 0));
             };
 
-            function sortTextDesc(a, b) {
-                if (table.config.sortLocaleCompare) return b.localeCompare(a);
+            function sortTextDesc(a, b)
+            {
+                if (table.config.sortLocaleCompare) {
+                    return b.localeCompare(a);
+                }
                 return ((b < a) ? -1 : ((b > a) ? 1 : 0));
             };
 
-            function sortNumeric(a, b) {
+            function sortNumeric(a, b)
+            {
                 return a - b;
             };
 
-            function sortNumericDesc(a, b) {
+            function sortNumericDesc(a, b)
+            {
                 return b - a;
             };
 
-            function getCachedSortType(parsers, i) {
+            function getCachedSortType(parsers, i)
+            {
                 return parsers[i].type;
             }; /* public methods */
             this.construct = function (settings) {
                 return this.each(function () {
                     // if no thead or tbody quit.
-                    if (!this.tHead || !this.tBodies) return;
+                    if (!this.tHead || !this.tBodies) {
+                        return;
+                    }
                     // declare
                     var $this, $document, $headers, cache, config, shiftDown = 0,
                         sortOrder;
@@ -55311,10 +55351,12 @@ S2.define('jquery.select2',[
                             var i = this.column;
                             // get current column sort order
                             this.order = this.count++ % 2;
-							// always sort on the locked order.
-							if(this.lockedOrder) this.order = this.lockedOrder;
-							
-							// user only whants to sort on one
+                            // always sort on the locked order.
+                            if (this.lockedOrder) {
+                                this.order = this.lockedOrder;
+                            }
+                            
+                            // user only whants to sort on one
                             // column
                             if (!e[config.sortMultiSortKey]) {
                                 // flush the sort list
@@ -55354,9 +55396,9 @@ S2.define('jquery.select2',[
                                 // set css for headers
                                 setHeadersCss($this[0], $headers, config.sortList, sortCSS);
                                 appendToTable(
-	                                $this[0], multisort(
-	                                $this[0], config.sortList, cache)
-								);
+                                    $this[0], multisort(
+                                    $this[0], config.sortList, cache)
+                                );
                             }, 1);
                             // stop normal event by returning false
                             return false;
@@ -55446,9 +55488,11 @@ S2.define('jquery.select2',[
             };
             this.clearTableBody = function (table) {
                 if ($.browser.msie) {
-                    function empty() {
-                        while (this.firstChild)
-                        this.removeChild(this.firstChild);
+                    function empty()
+                    {
+                        while (this.firstChild) {
+                            this.removeChild(this.firstChild);
+                        }
                     }
                     empty.apply(table.tBodies[0]);
                 } else {
@@ -55603,7 +55647,9 @@ S2.define('jquery.select2',[
                 $tr = $(this);
                 // style children rows the same way the parent
                 // row was styled
-                if (!$tr.hasClass(table.config.cssChildRow)) row++;
+                if (!$tr.hasClass(table.config.cssChildRow)) {
+                    row++;
+                }
                 odd = (row % 2 == 0);
                 $tr.removeClass(
                 table.config.widgetZebra.css[odd ? 0 : 1]).addClass(
@@ -55615,22 +55661,21 @@ S2.define('jquery.select2',[
         }
     });
 })(jQuery);
-$(document).ready(function()
-    {
+$(document).ready(function () {
         $("#faucets-table").tablesorter();
         $("#users-table").tablesorter();
         $("#payment-processors-table").tablesorter();
         $('#mainMetas-table').tablesorter();
         $('#ad-blocks-table').tablesorter();
         $('#twitterConfigs-table').tablesorter();
-    }
+}
 );
-(function( $ ) {
+(function ( $ ) {
 
     var table = $('#faucets-table')
         .DataTable(
             {
-                "fnInitComplete": function(){
+                "fnInitComplete": function () {
                     // Disable TBODY scoll bars
                     $('.dataTables_scrollBody').css({
                         'overflow': 'hidden',
@@ -55657,8 +55702,7 @@ $(document).ready(function()
                 "colResize": {
                     "tableWidthFixed": false,
                     //"handleWidth": 10,
-                    "resizeCallback": function(column)
-                    {
+                    "resizeCallback": function (column) {
 
                     }
                 },

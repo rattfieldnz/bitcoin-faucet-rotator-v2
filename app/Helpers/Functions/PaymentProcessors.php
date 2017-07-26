@@ -2,12 +2,14 @@
 
 namespace App\Helpers\Functions;
 
+use App\Models\Faucet;
 use App\Models\MainMeta;
 use App\Models\PaymentProcessor;
 use App\Models\User;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\TwitterCard;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class PaymentProcessors
@@ -84,12 +86,28 @@ class PaymentProcessors
 
         $userFaucets = User::where('id', '=', $user->id)
             ->first()
-            ->faucets()->select('id')->pluck('id')->toArray();
+            ->faucets();
 
-        $paymentProcessorFaucets = $paymentProcessor->faucets()->get()->whereIn('id', $userFaucets);
+        $paymentProcessorFaucets = $paymentProcessor
+            ->faucets()
+            ->get()
+            ->whereIn('id', $userFaucets->select('id')->pluck('id')->toArray());
+
+        $count = count($paymentProcessorFaucets);
+
+        if(!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)){
+
+            foreach($userFaucets as $f){
+                $mainFaucet = Faucet::where('id', '=', $f->id)->withTrashed()->first();
+
+                if($mainFaucet->isDeleted()){
+                    $count += 1;
+                }
+            }
+        }
 
 
-        return count($paymentProcessorFaucets);
+        return $count;
     }
 
     public static function userPaymentProcessorFaucets(User $user, PaymentProcessor $paymentProcessor)
@@ -100,9 +118,15 @@ class PaymentProcessors
 
         $userFaucets = User::where('id', '=', $user->id)
             ->first()
-            ->faucets()->select('id')->pluck('id')->toArray();
+            ->faucets();
 
-        $paymentProcessorFaucets = $paymentProcessor->faucets()->get()->whereIn('id', $userFaucets);
+        if(!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)){
+            $userFaucets = $userFaucets->withTrashed()->get()->pluck('id')->toArray();
+        } else {
+            $userFaucets = $userFaucets->get()->pluck('id')->toArray();
+        }
+
+        $paymentProcessorFaucets = $paymentProcessor->faucets()->withTrashed()->get()->whereIn('id', $userFaucets);
 
 
         return $paymentProcessorFaucets;

@@ -45,7 +45,13 @@
                 @endif
             @endif
             <td>{!! link_to_route('users.faucets', "View " . $user->user_name . "'s Faucets",['slug' => $user->slug]) !!}</td>
-            <td>{{ count($user->faucets()->get()) }}</td>
+            <td>
+                @if(!empty(Auth::user()) && Auth::user()->isAnAdmin())
+                    {{ count($user->faucets()->withTrashed()->get()) }}
+                @else
+                    {{ count($user->faucets()->get()) }}
+                @endif
+            </td>
             <td>{!! link_to_route('users.payment-processors', "View " . $user->user_name . "'s Faucets Grouped by Payment Processors", ['userSlug' => $user->slug]) !!}</td>
             @if(Auth::user() != null)
             <td>

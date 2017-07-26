@@ -158,7 +158,7 @@ class FaucetController extends AppBaseController
                 && $faucet->isDeleted()  // If the faucet is soft-deleted,
                 && Auth::user()->isAnAdmin() // If the currently authenticated user has 'owner' role,
             ) {
-                $message = 'The faucet has been temporarily deleted. You can restore the faucet or permanently delete it.';
+                $message = 'This faucet has been temporarily deleted/archived. You can restore the faucet or permanently delete it.';
 
                 $faucetUrl = $faucet->url . Faucets::getUserFaucetRefCode($adminUser, $faucet);
 

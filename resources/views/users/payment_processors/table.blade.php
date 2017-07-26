@@ -27,7 +27,14 @@
                 {{ $paymentProcessor->name }}
             </td>
             <td>{!! link_to_route('users.payment-processors.faucets', $paymentProcessor->name . " Faucets", ['userSlug' => $user->slug, 'paymentProcessorSlug' => $paymentProcessor->slug]) !!}</td>
-            <td>{{ count($paymentProcessorFaucets) }}</td>
+            <td>
+                @if(!empty(Auth::user()) && Auth::user()->isAnAdmin())
+                    {{ count($paymentProcessorFaucets) }}
+                @else
+                    {{ count($paymentProcessorFaucets) }}
+                @endif
+            </td>
+            @if(count($paymentProcessorFaucets) != 0)
             <td>
                 {{ $paymentProcessorFaucets->sum('min_payout') }}
                 Satoshis every {{ $paymentProcessorFaucets->sum('interval_minutes') }} minutes
@@ -36,6 +43,10 @@
                 {{ $paymentProcessorFaucets->sum('max_payout') }}
                 Satoshis every {{ $paymentProcessorFaucets->sum('interval_minutes') }} minutes
             </td>
+            @else
+                <td>N/A</td>
+                <td>N/A</td>
+            @endif
         </tr>
     @endforeach
     </tbody>
