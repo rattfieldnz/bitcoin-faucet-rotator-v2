@@ -164,12 +164,12 @@ class PaymentProcessorController extends AppBaseController
 
         $faucets = collect();
 
-        if(!$paymentProcessor->isDeleted()){
+        if (!$paymentProcessor->isDeleted()) {
             $faucets = $paymentProcessor->faucets()->get();
         }
 
         $message = null;
-        if($paymentProcessor->isDeleted()){
+        if ($paymentProcessor->isDeleted()) {
             $message = "The payment processor has been temporarily deleted. Any associated faucets will show again once this payment processor has been restored.";
         }
 
@@ -277,7 +277,7 @@ class PaymentProcessorController extends AppBaseController
             $faucets = $this->userFunctions->getPaymentProcessorFaucets($user, $paymentProcessor, true);
         }**/
 
-        $faucets = PaymentProcessors::userPaymentProcessorFaucets($user,$paymentProcessor);
+        $faucets = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor);
 
         if ($user->isAnAdmin()) {
             return redirect(route('payment-processors.faucets', ['slug' => $paymentProcessor->slug]));

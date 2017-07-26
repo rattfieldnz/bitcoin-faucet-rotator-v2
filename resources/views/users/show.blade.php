@@ -9,11 +9,11 @@
             @if(Auth::user() != null)
                 @if(Auth::user() == $user ||Auth::user()->isAnAdmin())
                     <?php
-                        if(!Auth::user()->isAnAdmin()) {
-                            $buttonText = "Edit Your Profile";
-                        } else {
-                            $buttonText = "Edit Current User";
-                        }
+                    if (!Auth::user()->isAnAdmin()) {
+                        $buttonText = "Edit Your Profile";
+                    } else {
+                        $buttonText = "Edit Current User";
+                    }
                     ?>
                     {!! Form::button(
                         '<i class="fa fa-2x fa-edit" style="vertical-align: middle; margin-right:0.25em;"></i>' . $buttonText,

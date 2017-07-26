@@ -38,7 +38,7 @@
                 @endif
             </td>
 
-            @if(count($paymentProcessor->faucets()->get()) != 0))
+            @if(count($paymentProcessor->faucets()->get()) != 0)
                 <td>
                     {{ $paymentProcessor->faucets()->sum('min_payout') }}
                     Satoshis every {{ $paymentProcessor->faucets()->sum('interval_minutes') }} minutes

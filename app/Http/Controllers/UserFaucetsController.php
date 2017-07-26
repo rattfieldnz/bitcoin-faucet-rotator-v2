@@ -267,7 +267,6 @@ class UserFaucetsController extends Controller
                 if (Auth::user()->id == $user->id) {
                     $message = 'The owner of this rotator has deleted the faucet you requested. You can contact them if you would like it to be restored.';
                 } elseif (Auth::user()->isAnAdmin()) {
-
                     $mainFaucetLink = link_to_route(
                         'faucets.show',
                         'restore that faucet',
@@ -423,10 +422,10 @@ class UserFaucetsController extends Controller
             }
         }
 
-        if(!empty(request('current_route_name'))){
+        if (!empty(request('current_route_name'))) {
             $currentRouteName = Purifier::clean(request('current_route_name'), 'generalFields');
 
-            if($currentRouteName == 'users.show'){
+            if ($currentRouteName == 'users.show') {
                 $redirectRoute = route('users.show', ['slug' => $user->slug]) . "#faucets";
             }
         }

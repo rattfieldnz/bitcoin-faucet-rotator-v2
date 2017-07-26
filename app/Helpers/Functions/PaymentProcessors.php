@@ -95,12 +95,11 @@ class PaymentProcessors
 
         $count = count($paymentProcessorFaucets);
 
-        if(!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)){
-
-            foreach($userFaucets as $f){
+        if (!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)) {
+            foreach ($userFaucets as $f) {
                 $mainFaucet = Faucet::where('id', '=', $f->id)->withTrashed()->first();
 
-                if($mainFaucet->isDeleted()){
+                if ($mainFaucet->isDeleted()) {
                     $count += 1;
                 }
             }
@@ -120,7 +119,7 @@ class PaymentProcessors
             ->first()
             ->faucets();
 
-        if(!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)){
+        if (!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)) {
             $userFaucets = $userFaucets->withTrashed()->get()->pluck('id')->toArray();
         } else {
             $userFaucets = $userFaucets->get()->pluck('id')->toArray();

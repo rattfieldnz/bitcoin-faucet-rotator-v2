@@ -30,7 +30,7 @@
         @include('layouts.partials.navigation._breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">
-                    @include('payment_processors.table')
+                @include('payment_processors.table')
             </div>
         </div>
     </div>
