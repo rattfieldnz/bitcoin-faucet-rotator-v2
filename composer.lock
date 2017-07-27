@@ -665,16 +665,16 @@
         },
         {
             "name": "doctrine/common",
-            "version": "v2.7.3",
+            "version": "v2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "4acb8f89626baafede6ee5475bc5844096eba8a9"
+                "reference": "ed349f953d443963c590b008b37b864b8a3c4b21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/4acb8f89626baafede6ee5475bc5844096eba8a9",
-                "reference": "4acb8f89626baafede6ee5475bc5844096eba8a9",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/ed349f953d443963c590b008b37b864b8a3c4b21",
+                "reference": "ed349f953d443963c590b008b37b864b8a3c4b21",
                 "shasum": ""
             },
             "require": {
@@ -683,15 +683,15 @@
                 "doctrine/collections": "1.*",
                 "doctrine/inflector": "1.*",
                 "doctrine/lexer": "1.*",
-                "php": "~5.6|~7.0"
+                "php": "~7.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.4.6"
+                "phpunit/phpunit": "^5.7"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.7.x-dev"
+                    "dev-master": "2.8.x-dev"
                 }
             },
             "autoload": {
@@ -734,28 +734,30 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2017-07-22T08:35:12+00:00"
+            "time": "2017-07-22T09:01:43+00:00"
         },
         {
             "name": "doctrine/dbal",
-            "version": "v2.5.12",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "7b9e911f9d8b30d43b96853dab26898c710d8f44"
+                "reference": "498760e55195ccaf08076cb9100a2972ba74c001"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/7b9e911f9d8b30d43b96853dab26898c710d8f44",
-                "reference": "7b9e911f9d8b30d43b96853dab26898c710d8f44",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/498760e55195ccaf08076cb9100a2972ba74c001",
+                "reference": "498760e55195ccaf08076cb9100a2972ba74c001",
                 "shasum": ""
             },
             "require": {
-                "doctrine/common": ">=2.4,<2.8-dev",
-                "php": ">=5.3.2"
+                "doctrine/common": "^2.7.1",
+                "ext-pdo": "*",
+                "php": "^7.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.*",
+                "phpunit/phpunit": "^5.4.6",
+                "phpunit/phpunit-mock-objects": "!=3.2.4,!=3.2.5",
                 "symfony/console": "2.*||^3.0"
             },
             "suggest": {
@@ -767,7 +769,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5.x-dev"
+                    "dev-master": "2.6.x-dev"
                 }
             },
             "autoload": {
@@ -805,7 +807,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2017-02-08T12:53:47+00:00"
+            "time": "2017-07-23T01:02:22+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -2287,25 +2289,26 @@
         },
         {
             "name": "paragonie/csp-builder",
-            "version": "v2.0.1",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/csp-builder.git",
-                "reference": "61006a0b79891fd521363e043071ed5cb836db23"
+                "reference": "56573b0b8bdd3aab92259d3625d3d3ad3e517488"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/csp-builder/zipball/61006a0b79891fd521363e043071ed5cb836db23",
-                "reference": "61006a0b79891fd521363e043071ed5cb836db23",
+                "url": "https://api.github.com/repos/paragonie/csp-builder/zipball/56573b0b8bdd3aab92259d3625d3d3ad3e517488",
+                "reference": "56573b0b8bdd3aab92259d3625d3d3ad3e517488",
                 "shasum": ""
             },
             "require": {
-                "paragonie/constant_time_encoding": "^2.0",
-                "php": "^7.0"
+                "paragonie/constant_time_encoding": "^2",
+                "php": "^7"
             },
             "require-dev": {
                 "phpunit/phpunit": "4.*|5.*",
-                "psr/http-message": "^1"
+                "psr/http-message": "^1",
+                "vimeo/psalm": "^0.3"
             },
             "suggest": {
                 "psr/http-message": "For CSPBuilder::injectCSPHeader()"
@@ -2337,7 +2340,7 @@
                 "security",
                 "xss"
             ],
-            "time": "2016-11-01T17:55:36+00:00"
+            "time": "2017-07-24T20:04:59+00:00"
         },
         {
             "name": "paragonie/hpkp-builder",
@@ -2631,16 +2634,16 @@
         },
         {
             "name": "prettus/l5-repository",
-            "version": "2.6.18",
+            "version": "2.6.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/andersao/l5-repository.git",
-                "reference": "5fbab77b9f295f0c3d2bb1f8b1e42f6ff0affad7"
+                "reference": "41fd976226fe5c95ce693a1aeb2d29bbfdea58d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andersao/l5-repository/zipball/5fbab77b9f295f0c3d2bb1f8b1e42f6ff0affad7",
-                "reference": "5fbab77b9f295f0c3d2bb1f8b1e42f6ff0affad7",
+                "url": "https://api.github.com/repos/andersao/l5-repository/zipball/41fd976226fe5c95ce693a1aeb2d29bbfdea58d3",
+                "reference": "41fd976226fe5c95ce693a1aeb2d29bbfdea58d3",
                 "shasum": ""
             },
             "require": {
@@ -2687,7 +2690,7 @@
                 "model",
                 "repository"
             ],
-            "time": "2017-03-29T10:49:41+00:00"
+            "time": "2017-07-25T20:52:44+00:00"
         },
         {
             "name": "prettus/laravel-validation",
@@ -3009,16 +3012,16 @@
         },
         {
             "name": "santigarcor/laratrust",
-            "version": "4.0.2",
+            "version": "4.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/santigarcor/laratrust.git",
-                "reference": "82c850ddc21a912c345a82e6d9c2c120d6fe8720"
+                "reference": "5a029a4f4a5c3a4171a8ee1a8b06e466a3cf6d0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/82c850ddc21a912c345a82e6d9c2c120d6fe8720",
-                "reference": "82c850ddc21a912c345a82e6d9c2c120d6fe8720",
+                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/5a029a4f4a5c3a4171a8ee1a8b06e466a3cf6d0b",
+                "reference": "5a029a4f4a5c3a4171a8ee1a8b06e466a3cf6d0b",
                 "shasum": ""
             },
             "require": {
@@ -3073,7 +3076,7 @@
                 "rbac",
                 "roles"
             ],
-            "time": "2017-07-18T18:23:10+00:00"
+            "time": "2017-07-26T16:52:20+00:00"
         },
         {
             "name": "spatie/laravel-activitylog",
