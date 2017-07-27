@@ -33,3 +33,11 @@
         </li>
     @endif
 @endif
+
+<li class="{{ Request::is('privacy-policy*') ? 'active' : '' }}">
+    <a href="{!! route('privacy-policy.index') !!}"><i class="fa fa-edit"></i><span>Privacy Policy</span></a>
+</li>
+
+<li class="{{ Request::is('terms-and-conditions*') ? 'active' : '' }}">
+    <a href="{!! route('terms-and-conditions.index') !!}"><i class="fa fa-edit"></i><span>Terms &amp; Conditions</span></a>
+</li>

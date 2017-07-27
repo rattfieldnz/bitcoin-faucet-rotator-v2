@@ -1,11 +1,14 @@
-@if(!empty(Auth::user()))
-    <footer class="main-footer row" style="max-height: 4em !important;text-align: center">
-@else
-    <footer class="main-footer row" style="max-height: 4em !important;text-align: center">
-@endif
-    <p {{ !empty(Auth::user()) ? 'style=margin-left:-14.375em!important;' : '' }}>
-        <strong>Copyright © <a href="https://www.robertattfield.com" title="Rob Attfield Web Developer">Robert Attfield</a>
-            2016 to {{ \Carbon\Carbon::now()->year }}.</strong> All rights reserved.
-        <strong><a href="http://freebtc.website" title="Bitcoin Faucet Rotator">View the original Bitcoin Faucet Rotator</a></strong>.
+<footer id="footer-custom" class="main-footer row">
+    <p>
+        Copyright © <a href="https://www.robertattfield.com" title="Rob Attfield Web Developer">Robert Attfield</a>
+        2016 to {{ \Carbon\Carbon::now()->year }}. All rights reserved.
+    </p>
+    <p>
+        View our
+        <strong>{!! link_to_route('privacy-policy.index', 'Privacy Policy') !!}</strong>, and
+        <strong>{!! link_to_route('terms-and-conditions.index', 'Terms and Conditions') !!}</strong>.
+    </p>
+    <p>
+        View the original <strong><a href="http://freebtc.website" title="Bitcoin Faucet Rotator">Bitcoin Faucet Rotator</a></strong>.
     </p>
 </footer>

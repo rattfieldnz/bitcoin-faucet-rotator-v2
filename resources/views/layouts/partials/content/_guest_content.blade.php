@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-default navbar-static-top navbar-top-fixed">
     <div class="container">
         <div class="navbar-header">
             <!-- Collapsed Hamburger -->
@@ -32,7 +32,7 @@
         </div>
     </div>
 </nav>
-<div id="content-wrapper">
+<div id="content-wrapper" style="padding-top:3em;">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">

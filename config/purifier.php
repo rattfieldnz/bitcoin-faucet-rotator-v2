@@ -28,6 +28,7 @@ return [
                 .',p[style],br,span[style],img[width|height|alt|src],'
                 . 'iframe[src|scrolling|style],h1,h2,h3,h4,h5,h6,'
                 . 'dt,dl',
+            'Attr.AllowedFrameTargets' => ['_blank'],
             "HTML.SafeIframe" => 'true',
             "URI.SafeIframeRegexp" => "%^(http://|https://|//)(mellowads.com|coinurl.com|a-ads.com|ad.a-ads.com|bee-ads.com)%",
         ],

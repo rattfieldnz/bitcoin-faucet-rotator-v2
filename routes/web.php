@@ -109,3 +109,11 @@ Route::resource('twitter-config', 'TwitterConfigController');
 Route::resource('roles', 'RoleController');
 
 Route::resource('permissions', 'PermissionController');
+
+Route::get('privacy-policy/edit', ['as' => 'privacy-policy.edit', 'uses' => 'PrivacyPolicyController@edit']);
+
+Route::resource('privacy-policy', 'PrivacyPolicyController');
+
+Route::get('terms-and-conditions/edit', ['as' => 'terms-and-conditions.edit', 'uses' => 'TermsAndConditionsController@edit']);
+
+Route::resource('terms-and-conditions', 'TermsAndConditionsController');

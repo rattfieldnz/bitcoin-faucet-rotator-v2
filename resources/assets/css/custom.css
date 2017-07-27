@@ -23,6 +23,20 @@ table.show-table-header thead tr th{
     font-weight: normal;
 }
 
+.sidebar-fixed, .navbar-top-fixed{
+    position: fixed;
+    top:0;
+    z-index:100;
+}
+
+.footer-custom{
+    max-height: 4em !important;
+    text-align: center;
+}
+.footer-custom p{
+    margin-left:-14.375em!important;
+}
+
 .icheckbox_square,
 .iradio_square {
     background: url("/assets/images/iCheck/square/square.png") no-repeat !important;
@@ -121,6 +135,11 @@ table.show-table-header thead tr th{
 
 .wrapper{
     height: auto !important;
+}
+
+#footer-custom p{
+    line-height: 1em;
+    text-align: center;
 }
 
 /* HiDPI support */
