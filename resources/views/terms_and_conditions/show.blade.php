@@ -47,3 +47,7 @@
         </div>
     </div>
 @endsection
+
+@push('google-analytics')
+    @include('layouts.partials.tracking._google_analytics')
+@endpush

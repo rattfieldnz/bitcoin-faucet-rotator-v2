@@ -102,6 +102,14 @@ gulp.task("copyfiles", function() {
     gulp.src("resources/assets/css/table_sorter_themes/images/**")
         .pipe(gulp.dest("public/assets/images/table-sorter/"));
 
+    // Cookie Consent //
+    gulp.src("vendor/bower_components/cookieconsent/src/styles/**/*.css")
+        .pipe(gulp.dest("resources/assets/css/cookieconsent/"));
+
+    gulp.src("vendor/bower_components/cookieconsent/src/cookieconsent.js")
+        .pipe(gulp.dest("resources/assets/js/cookieconsent/"));
+
+
 
 });
 
@@ -123,6 +131,7 @@ elixir(function(mix) {
             'js/custom/jquery.livepreview.js',
             'js/custom/jquery.tablesorter.js',
             'js/custom/tablesorter_custom_code.js',
+            'js/cookieconsent/cookieconsent.js',
             'js/custom/custom.js'
         ],
         'public/assets/js/mainScripts.js',
@@ -142,6 +151,7 @@ elixir(function(mix) {
             'resources/assets/css/admin-lte/AdminLTE.css',
             'resources/assets/css/admin-lte/AdminLTE-*.css',
             'resources/assets/css/table_sorter_themes/style.css',
+            'resources/assets/css/cookieconsent/**/*.css',
             'resources/assets/css/custom.css'
         ]
     )
