@@ -23,7 +23,7 @@ table.show-table-header thead tr th{
     font-weight: normal;
 }
 
-.sidebar-fixed, .navbar-top-fixed{
+.navbar-top-fixed{
     position: fixed;
     top:0;
     z-index:100;
@@ -140,6 +140,33 @@ table.show-table-header thead tr th{
 #footer-custom p{
     line-height: 1em;
     text-align: center;
+}
+
+.user-panel{
+    height:auto !important;
+    padding: 0 !important;
+}
+
+.user-panel .info{
+    padding: 0 0 0 0;
+    position: inherit;
+    left:0;
+    margin: 2.5em 0 0 2.5em;
+}
+
+.user-panel .info figure figcaption{
+    margin:1em 0 0 -3.5em !important;
+    text-align:center !important;
+}
+
+.main-sidebar, .sidebar-fixed, #sidebar-wrapper{
+    width: 230px;
+}
+@media screen and (max-height: 45em) and (min-height: 0em) {
+    .main-sidebar, .sidebar-fixed, #sidebar-wrapper{
+        height: 100%;
+        overflow-y: scroll;
+    }
 }
 
 /* HiDPI support */
