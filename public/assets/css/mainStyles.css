@@ -41232,11 +41232,20 @@ table.show-table-header thead tr th {
 
 .footer-custom {
   max-height: 4em !important;
+  width: 100%;
   text-align: center;
 }
 
-.footer-custom p {
-  margin-left: -14.375em!important;
+.footer-custom-guest {
+  border-top: 0 !important;
+}
+
+.footer-custom-guest p {
+  padding-right: 14.375em!important;
+}
+
+.content-guest {
+  border-bottom: 1px solid #d2d6de;
 }
 
 .icheckbox_square,

@@ -1,4 +1,4 @@
-<footer id="footer-custom" class="main-footer row">
+<footer id="footer-custom" class="main-footer {{ empty(Auth::user()) ? 'footer-custom-guest' : '' }} row">
     <p>
         Copyright © <a href="https://www.robertattfield.com" title="Rob Attfield Web Developer">Robert Attfield</a>
         2016 to {{ \Carbon\Carbon::now()->year }}. All rights reserved.
