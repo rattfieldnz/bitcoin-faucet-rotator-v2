@@ -41362,20 +41362,48 @@ table.show-table-header thead tr th {
 }
 
 .user-panel {
-  height: auto !important;
   padding: 0 !important;
+  margin: 0 0 0 0 !important;
+  border-bottom: 1px solid #ecf0f5;
 }
 
 .user-panel .info {
   padding: 0 0 0 0;
   position: inherit;
   left: 0;
-  margin: 2.5em 0 0 2.5em;
+  margin: 1em 0 0 2.25em;
 }
 
-.user-panel .info figure figcaption {
-  margin: 1em 0 0 -3.5em !important;
-  text-align: center !important;
+.user-panel .info figure figcaption #username {
+  margin-top: 1.25em;
+  margin-left: 1.5em;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.user-panel .info figure figcaption #status {
+  margin-left: 1.25em;
+}
+
+.user-panel .info figure #userdialog {
+  margin-bottom: 1em;
+}
+
+.user-panel .info figure #userdialog #membersince {
+  margin-top: 1em;
+}
+
+#sidebar-wrapper {
+  position: fixed !important;
+}
+
+.sidebar #menuheader {
+  margin: 0.5em 0 0 0.75em;
+  color: white;
+}
+
+.user-panel .info figure img {
+  margin-left: -1em;
 }
 
 .main-sidebar,
@@ -41390,6 +41418,10 @@ table.show-table-header thead tr th {
   #sidebar-wrapper {
     height: 100%;
     overflow-y: scroll;
+  }
+
+  .user-panel .info figure img {
+    margin: 0 0 0 0 !important;
   }
 }
 

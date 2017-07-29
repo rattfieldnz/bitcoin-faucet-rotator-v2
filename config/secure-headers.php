@@ -193,7 +193,8 @@ return [
                 env('APP_URL'),
                 'infyom.com',
                 'www.google-analytics.com',
-                'google-analytics.com'
+                'google-analytics.com',
+                'secure.gravatar.com'
             ],
 
             'types' => [

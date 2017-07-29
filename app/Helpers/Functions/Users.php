@@ -20,6 +20,7 @@ use App\Repositories\UserRepository;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\TwitterCard;
+use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash as LaracastsFlash;
@@ -326,5 +327,18 @@ class Users
                 ->setUrl($currentUrl)
                 ->setSite(MainMeta::first()->twitter_username);
         }
+    }
+
+    /**
+     * @param \App\Models\User $user
+     *
+     * @return string
+     */
+    public static function getGravatar(User $user){
+        if(empty($user)){
+            return null;
+        }
+       return Gravatar::get($user->email);
+
     }
 }
