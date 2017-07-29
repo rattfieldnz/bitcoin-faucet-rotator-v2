@@ -165,6 +165,7 @@ return [
         Bepsvpt\SecureHeaders\SecureHeadersServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
+        Creativeorange\Gravatar\GravatarServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -228,7 +229,8 @@ return [
         'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
         'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
-        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class
+        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
+        'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class
     ],
 
 ];
