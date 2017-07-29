@@ -41381,6 +41381,16 @@ table.show-table-header thead tr th {
   white-space: normal;
 }
 
+.circle-letter {
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  padding-top: 0.4em;
+  border: 0.125em solid #3c8dbc;
+  color: #3c8dbc;
+  text-align: center;
+}
+
 .user-panel .info figure figcaption #status {
   margin-left: 1.25em;
 }
@@ -41400,6 +41410,10 @@ table.show-table-header thead tr th {
 .sidebar #menuheader {
   margin: 0.5em 0 0 0.75em;
   color: white;
+}
+
+.img-circle {
+  margin-left: -1em !important;
 }
 
 .user-panel .info figure img {

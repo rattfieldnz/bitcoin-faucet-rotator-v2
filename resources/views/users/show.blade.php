@@ -9,7 +9,7 @@
             @if(Auth::user() != null)
                 @if(Auth::user() == $user ||Auth::user()->isAnAdmin())
                     <?php
-                    if (!Auth::user()->isAnAdmin()) {
+                    if (Auth::user() == $user) {
                         $buttonText = "Edit Your Profile";
                     } else {
                         $buttonText = "Edit Current User";
@@ -100,7 +100,7 @@
                             <li><a href="#tabs-3">Aenean lacinia</a></li>
                         </ul>
                         <div id="profile">
-                            @include('users.panel._profile')
+                            @include('users.panel.test')
                         </div>
                         <div id="faucets">
                             @include('users.panel._faucets')

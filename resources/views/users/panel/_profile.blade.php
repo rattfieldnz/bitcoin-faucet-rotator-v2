@@ -1,11 +1,8 @@
-@if(Auth::user() != null)
-    @if(Auth::user()->isAnAdmin())
-        <!-- Id Field -->
-        <div class="form-group">
-            {!! Form::label('id', 'Id:') !!} <span id="id">{!! $user->id !!}</span>
-        </div>
-    @endif
-@endif
+<section>
+
+</section>
+
+
 
 <!-- User Name Field -->
 <div class="form-group">
