@@ -1,7 +1,7 @@
 <section itemtype="http://schema.org/ProfilePage" itemscope>
     <div itemprop="about" itemscope itemtype="http://schema.org/Person">
         <div class="row" style="display:inline-block;">
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="vertical-align: middle;">
                 <img itemprop="image" src="{{ \Helpers\Functions\Users::getGravatar($user) }}" class="img-circle" alt="User Image"/>
             </div>
             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9" style="vertical-align: middle;">
@@ -13,15 +13,15 @@
         </div>
         <div class="vcard-details row">
             @if(!empty(Auth::user()) && (Auth::user() == $user || Auth::user()->isAnAdmin()))
-            <dl title="Email" style="margin-bottom: 0em">
-                <dd style="line-height: 3em; vertical-align: middle;">
+            <dl title="Email" style="margin-bottom: 0; vertical-align: middle;word-wrap: break-word;white-space: normal;">
+                <dd style="line-height: 3em; vertical-align: middle;word-wrap: break-word;white-space: normal;">
                     <i class="fa fa-bitcoin circle-letter" style="margin-right: 0.5em;"></i>
                     User Email: <a class="email" data-email="{{ $user->email }}" href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                 </dd>
             </dl>
             @endif
             <dl title="List of Faucets">
-                <dd style="line-height: 3em; vertical-align: middle;">
+                <dd style="line-height: 3em; vertical-align: middle;word-wrap: break-word;white-space: normal;">
                     <i class="fa fa-bitcoin circle-letter" style="margin-right: 0.5em;"></i>
                     {!!
                         link_to_route(
@@ -44,7 +44,7 @@
                 </dd>
             </dl>
             <dl title="List of Faucets, Organised by Payment Processors" style="margin-top: -1.5em;">
-                <dd style="line-height: 3em; vertical-align: middle;">
+                <dd style="line-height: 3em; vertical-align: middle;word-wrap: break-word;white-space: normal;">
                     <i class="fa fa-bitcoin circle-letter" style="margin-right: 0.5em;"></i>
                     {!!
                         link_to_route(
@@ -85,13 +85,13 @@
                 </dd>
             </dl>
             <dl title="Registered Date" style="margin-top: -1.5em;">
-                <dd style="line-height: 3em; vertical-align: middle;">
+                <dd style="line-height: 3em; vertical-align: middle;word-wrap: break-word;white-space: normal;">
                     <i class="fa fa-bitcoin circle-letter" style="margin-right: 0.5em;"></i>
                     Joined on {{ date('l jS \of F Y\, \a\t H:i:s A T', strtotime($user->created_at)) }}
                 </dd>
             </dl>
             <dl title="Profile Last Updated" style="margin-top: -1.5em;">
-                <dd style="line-height: 3em; vertical-align: middle;">
+                <dd style="line-height: 3em; vertical-align: middle;word-wrap: break-word;white-space: normal;">
                     <i class="fa fa-bitcoin circle-letter" style="margin-right: 0.5em;"></i>
                     Updated profile on {{ date('l jS \of F Y\, \a\t H:i:s A T', strtotime($user->updated_at)) }}
                 </dd>

@@ -145,7 +145,7 @@
         </tr>
     @endforeach
     @if(Auth::user() != null && (Auth::user()->isAnAdmin() || (Auth::user() == $user && $user->hasPermission('create-user-faucets'))))
-
+    <div id="user-faucets-buttons">
         {!! Form::button(
             '<i class="fa fa-floppy-o" style="vertical-align: middle; margin-right:0.25em;"> </i> Save Referral Codes',
             [
@@ -176,6 +176,7 @@
                 ])
             !!}
         @endif
+    </div>
         {!! Form::close() !!}
     @endif
     </tbody>

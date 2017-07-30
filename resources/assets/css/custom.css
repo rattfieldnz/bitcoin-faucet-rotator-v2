@@ -1,3 +1,6 @@
+body{
+    min-width: 20em !important;
+}
 #faucets-table thead, #payment-processors-table thead {
     border: 1px solid #ddd;
     width:calc(100% - 1.5em);
@@ -43,8 +46,42 @@ table.show-table-header thead tr th{
     padding-right:14.375em!important;
 }
 
+#content-wrapper{
+    padding-top:3em;
+}
+
+#auth-content-bg{
+    background-color: #222d32;
+}
+
+#auth-content-logo{
+    font-size: 1em;
+}
+
+#auth-header{
+    position:fixed; width:100%;
+}
+
 .content-guest{
     border-bottom:1px solid #d2d6de;
+}
+
+#navigation, #navigation-right{
+    text-align: center;
+}
+
+#navigation li, #navigation-right li{
+    display: block;
+    width:11em;
+}
+
+#navigation li:hover, #navigation-right li:hover{
+    background-color: #3c8dbc;
+}
+
+#navigation li a:hover, #navigation-right li a:hover{
+    color: whitesmoke;
+    font-weight: 600;
 }
 
 .icheckbox_square,
@@ -202,6 +239,8 @@ table.show-table-header thead tr th{
 
 .sidebar #menuheader{
     margin: 0.5em 0 0 0.75em;
+    word-wrap: break-word;
+    white-space: normal;
     color: white;
 }
 
@@ -213,9 +252,40 @@ table.show-table-header thead tr th{
     margin-left:-1em;
 }
 
+.user-profile-main-heading{
+    margin-top:0;
+}
+
+.user-profile-main-heading h1{
+    margin-left:0.35em;
+}
+
 .main-sidebar, .sidebar-fixed, #sidebar-wrapper{
     width: 230px;
 }
+
+.login-logo,
+.register-logo {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 0.5em;
+    font-weight: 500;
+}
+
+.login-logo a,
+.register-logo a {
+    color: #444;
+}
+
+#navbar-guest{
+    background-color: transparent;
+    border:0;
+}
+
+#guest-bg{
+    background-color:#d2d6de;
+}
+
 @media screen and (max-height: 45em) and (min-height: 0em) {
     .main-sidebar, .sidebar-fixed, #sidebar-wrapper{
         height: 100%;
@@ -223,6 +293,40 @@ table.show-table-header thead tr th{
     }
     .user-panel .info figure img{
         margin:0 0 0 0 !important;
+    }
+}
+
+@media screen and (min-width: 0em) and (max-width: 47.875em){
+
+    .user-profile-main-heading{
+        margin-top:3em;
+    }
+
+    #navigation li, #navigation-right li{
+        display: block;
+        width:100%;
+    }
+}
+
+@media screen and (min-width:48em) and (max-width: 61.937em) {
+    #navigation li{
+        width:7em;
+    }
+    #branding-text{
+        visibility: hidden;
+        display: none;
+    }
+}
+
+@media screen and (min-width:61.938em) and (max-width:71.188em) {
+    #navigation li{
+        width:7em;
+    }
+}
+
+@media screen and (min-width:71.188em) and (max-width:71.250em) {
+    #navigation li{
+        width:6.5em;
     }
 }
 

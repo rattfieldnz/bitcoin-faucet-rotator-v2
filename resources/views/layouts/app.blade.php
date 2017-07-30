@@ -13,7 +13,7 @@
         @include('layouts.partials.styles._css')
         <!-- END Site Styles -->
     </head>
-    <body class="skin-blue sidebar-mini" style="min-width: 30em;">
+    <body class="skin-blue sidebar-mini" id="{{ empty(Auth::user()) ? 'guest-bg' : 'auth-bg' }}">
         <!-- START Main Content -->
         @include('layouts.partials._main_content')
         <!-- END Main Content -->

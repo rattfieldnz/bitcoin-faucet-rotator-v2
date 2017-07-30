@@ -19,9 +19,44 @@
     <![endif]-->
 </head>
 <body class="hold-transition register-page">
+<nav id="navbar-guest" class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <!-- Collapsed Hamburger -->
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#app-navbar-collapse">
+                <span class="sr-only">Toggle Navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- Branding Image -->
+            <p style="margin-top: -0.5em;">
+                <a class="navbar-brand" href="{!! url('/') !!}">
+                    <i class="fa fa-2x fa-bitcoin"></i>itcoin Faucet Rotator
+                </a>
+            </p>
+        </div>
+        <div class="collapse navbar-collapse" id="app-navbar-collapse">
+            <!-- Left Side Of Navbar -->
+            <ul id="navigation" class="nav navbar-nav">
+                <li>{!! link_to_route('faucets.index', "Faucets") !!}</li>
+                <li>{!! link_to_route('payment-processors.index', "Payment Processors") !!}</li>
+                <li>{!! link_to_route('users.index', "Current Users") !!}</li>
+                <li>{!! link_to_route('privacy-policy.index', "Privacy Policy") !!}</li>
+                <li>{!! link_to_route('terms-and-conditions.index', "Terms &amp; Conditions") !!}</li>
+            </ul>
+            <!-- Right Side Of Navbar -->
+            <ul id="navigation-right" class="nav navbar-nav navbar-right">
+                <!-- Authentication Links -->
+                <li><a href="{!! url('/login') !!}">Login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div class="register-box">
     <div class="register-logo">
-        <a href="{{ url('/home') }}"><b>Bitcoin </b>Faucet Rotator</a>
+        <strong><i class="fa fa-2x fa-bitcoin"></i>itcoin Faucet Rotator</strong>
     </div>
     <div class="register-box-body">
         <p class="login-box-msg">Register a new membership</p>
@@ -123,7 +158,7 @@
                 <!-- Submit Field -->
                 <div class="row">
                     <div class="col-xs-8">
-                        <p>By registering, I fully agree to the <a href="#">terms and conditions</a>.</p>
+                        <p>By registering, you accept the {!! link_to_route('privacy-policy.index', "Privacy Policy") !!} and {!! link_to_route('terms-and-conditions.index', "Terms &amp; Conditions") !!}.</p>
                     </div>
                     <div class="col-xs-4">
                         {!! Form::submit('Register', ['class' => 'btn btn-primary']) !!}
@@ -132,7 +167,8 @@
                 </div>
         </form>
 
-        <a href="{{ url('/login') }}" class="text-center">I already have a membership</a>
+        <p><a href="{{ url('/login') }}" class="text-center">I already have an account</a>.</p>
+
     </div>
     <!-- /.form-box -->
 </div>

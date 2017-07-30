@@ -1,8 +1,8 @@
-<div style="background-color: #222d32;">
+<div id="auth-content-bg">
     <!-- Main Header -->
-    <header class="main-header" style="position:fixed; width:100%;">
+    <header id="auth-header" class="main-header">
         <!-- Logo -->
-        <a href="#" class="logo" style="font-size: 1em;">
+        <a id="auth-content-logo" href="{!! url('/') !!}" class="logo">
             <strong>Bitcoin Faucet Rotator</strong>
         </a>
         <!-- Header Navbar -->
@@ -16,7 +16,7 @@
     <!-- Left side column. contains the logo and sidebar -->
     @include('layouts.partials.navigation._sidebar')
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="padding-top:3em;">
+    <div class="content-wrapper">
         @yield('content')
     </div>
 </div>
