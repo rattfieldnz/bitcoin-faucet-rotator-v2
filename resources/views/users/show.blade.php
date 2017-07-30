@@ -5,7 +5,7 @@
         <div class="row user-profile-main-heading">
             <h1 class="pull-left">{{ $user->user_name }}'s Profile</h1>
         </div>
-        <div class="row" style="margin:0 0 0 0;">
+        <div class="row zero-margin">
             @if(Auth::user() != null)
                 @if(Auth::user() == $user ||Auth::user()->isAnAdmin())
                     <?php
@@ -92,7 +92,7 @@
         @include('layouts.partials.navigation._breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">
-                <div class="row" style="padding-left: 1em; padding-right: 1em;">
+                <div class="row profile-padding">
                     <div id="tabs">
                         <ul>
                             <li><a href="#profile">Profile</a></li>
@@ -100,7 +100,7 @@
                             <li><a href="#tabs-3">Aenean lacinia</a></li>
                         </ul>
                         <div id="profile">
-                            @include('users.panel.test')
+                            @include('users.panel._profile')
                         </div>
                         <div id="faucets">
                             @include('users.panel._faucets')

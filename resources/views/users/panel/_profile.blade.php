@@ -1,80 +1,133 @@
-<section>
-
+<section itemtype="http://schema.org/ProfilePage" itemscope>
+    <div itemprop="about" itemscope itemtype="http://schema.org/Person">
+        <div class="row" style="display:inline-block;">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="vertical-align: middle;">
+                <img itemprop="image" src="{{ \Helpers\Functions\Users::getGravatar($user) }}" class="img-circle" alt="User Image"/>
+            </div>
+            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9" style="vertical-align: middle;">
+                <h2 style="margin: 0 0 0 0.5em;word-wrap: break-word;white-space: normal;">
+                    <span itemprop="name" class="user-name">{{ $user->fullName() }}</span>
+                </h2>
+                <h3 style="margin: 0 0 0 0.5em;word-wrap: break-word;white-space: normal;"><small>(<em itemprop="additionalName" class="user-nick">{{ $user->user_name }}</em>)</small></h3>
+            </div>
+        </div>
+        <div class="vcard-details row">
+            @if(!empty(Auth::user()) && (Auth::user() == $user || Auth::user()->isAnAdmin()))
+                <dl title="Email" style="margin-bottom: 0; vertical-align: middle;word-wrap: break-word;white-space: normal;">
+                    <dd style="line-height: 3em; vertical-align: middle;word-wrap: break-word;white-space: normal;">
+                        <i class="fa fa-bitcoin circle-letter" style="margin-right: 0.5em;"></i>
+                        User Email: <a class="email" data-email="{{ $user->email }}" href="mailto:{{ $user->email }}">{{ $user->email }}</a>
+                    </dd>
+                </dl>
+            @endif
+            <dl title="List of Faucets">
+                <dd style="line-height: 3em; vertical-align: middle;word-wrap: break-word;white-space: normal;">
+                    <i class="fa fa-bitcoin circle-letter" style="margin-right: 0.5em;"></i>
+                    {!!
+                        link_to_route(
+                            'users.faucets',
+                            $user->user_name . "'s Faucets",
+                            ['userSlug' => $user->slug],
+                            ['itemprop' => 'url', 'target' => '_blank', 'title' => $user->user_name . "'s Faucets."]
+                        )
+                    !!}
+                    <small>(in a new page)</small>
+                    {!! Html::decode(
+                            link_to_route(
+                                'users.faucets',
+                                '<i class="fa fa-external-link" style="color: #3c8dbc;"></i>',
+                                ['userSlug' => $user->slug],
+                                ['itemprop' => 'url', 'target' => '_blank', 'title' => $user->user_name . "'s Faucets."]
+                            )
+                        )
+                    !!}
+                </dd>
+            </dl>
+            <dl title="List of Faucets, Organised by Payment Processors" style="margin-top: -1.5em;">
+                <dd style="line-height: 3em; vertical-align: middle;word-wrap: break-word;white-space: normal;">
+                    <i class="fa fa-bitcoin circle-letter" style="margin-right: 0.5em;"></i>
+                    {!!
+                        link_to_route(
+                            'users.payment-processors',
+                            $user->user_name . "'s Faucets",
+                            ['userSlug' => $user->slug],
+                            [
+                                'itemprop' => 'url', 'target' => '_blank',
+                                'title' => $user->user_name . "'s Faucets, organised by payment processors."
+                            ]
+                        )
+                    !!} <small>(organised by payment processors, in a new page)</small>
+                    {!! Html::decode(
+                            link_to_route(
+                            'users.payment-processors',
+                            '<i class="fa fa-external-link" style="color: #3c8dbc;"></i>',
+                            ['userSlug' => $user->slug],
+                            [
+                                'itemprop' => 'url', 'target' => '_blank',
+                                'title' => $user->user_name . "'s Faucets, organised by payment processors."
+                            ]
+                        )
+                        )
+                    !!}
+                </dd>
+            </dl>
+            <dl title="Bitcoin Address" style="margin-top: -1.5em;">
+                <dd style="line-height: 3em; vertical-align: middle;">
+                    <i class="fa fa-bitcoin circle-letter" style="margin-right: 0.5em;"></i>
+                    <a
+                            href="https://blockchain.info/address/{{ $user->bitcoin_address }}"
+                            target="_blank" title="{{ $user->user_name }}'s Bitcoin Address"
+                    >Bitcoin Address</a>
+                    <a
+                            href="https://blockchain.info/address/{{ $user->bitcoin_address }}"
+                            target="_blank" title="{{ $user->user_name }}'s Bitcoin Address"
+                    ><i class="fa fa-external-link" style="color: #3c8dbc;"></i></a>
+                </dd>
+            </dl>
+            <dl title="Registered Date" style="margin-top: -1.5em;">
+                <dd style="line-height: 3em; vertical-align: middle;word-wrap: break-word;white-space: normal;">
+                    <i class="fa fa-bitcoin circle-letter" style="margin-right: 0.5em;"></i>
+                    Joined on {{ date('l jS \of F Y\, \a\t H:i:s A T', strtotime($user->created_at)) }}
+                </dd>
+            </dl>
+            <dl title="Profile Last Updated" style="margin-top: -1.5em;">
+                <dd style="line-height: 3em; vertical-align: middle;word-wrap: break-word;white-space: normal;">
+                    <i class="fa fa-bitcoin circle-letter" style="margin-right: 0.5em;"></i>
+                    Updated profile on {{ date('l jS \of F Y\, \a\t H:i:s A T', strtotime($user->updated_at)) }}
+                </dd>
+            </dl>
+            @if(!empty(Auth::user()) && Auth::user()->isAnAdmin())
+                <p>{{ $user->user_name }} is
+                    @if(!$user->isAnAdmin())
+                        not
+                    @else
+                        an
+                    @endif admin/owner.</p>
+                <dl title="User Roles">
+                    <p><i class="fa fa-bitcoin circle-letter" style="margin-right: 0.5em;"></i>User Roles: </p>
+                    <dd class="roles">
+                        <ul>
+                            @if(!empty($user))
+                                @foreach ($user->roles()->get() as $role)
+                                    <li>{!! ucfirst($role->name) !!}</li>
+                                @endforeach
+                            @endif
+                        </ul>
+                    </dd>
+                </dl>
+                <dl title="User Privileges">
+                    <p><i class="fa fa-bitcoin circle-letter" style="margin-right: 0.5em;"></i>User Privileges: </p>
+                    @if(!empty($user) && count($user->permissions) > 0)
+                        <dd class="privileges">
+                            <ul>
+                                @foreach($user->permissions as $permission)
+                                    <li>{!! $permission->display_name !!}</li>
+                                @endforeach
+                            </ul>
+                        </dd>
+                    @endif
+                </dl>
+            @endif
+        </div>
+    </div>
 </section>
-
-
-
-<!-- User Name Field -->
-<div class="form-group">
-    {!! Form::label('user_name', 'User Name:') !!} <span id="user_name">{!! $user->user_name !!}</span>
-</div>
-
-<!-- First Name Field -->
-<div class="form-group">
-    {!! Form::label('first_name', 'First Name:') !!} <span id="first_name">{!! $user->first_name !!}</span>
-</div>
-
-<!-- Last Name Field -->
-<div class="form-group">
-    {!! Form::label('last_name', 'Last Name:') !!} <span id="last_name">{!! $user->last_name !!}</span>
-</div>
-
-@if(Auth::user() != null)
-    @if(Auth::user()->isAnAdmin() || $user == Auth::user())
-        <!-- Email Field -->
-        <div class="form-group">
-            {!! Form::label('email', 'Email:') !!} <span id="email">{!! $user->email !!}</span>
-        </div>
-
-        <!-- Password Field -->
-        <div class="form-group">
-            {!! Form::label('password', 'Password:') !!} <span id="password">***************</span>
-        </div>
-
-        <!-- Is Admin Field -->
-        <div class="form-group">
-            {!! Form::label('is_admin', 'Is Admin:') !!}  <span id="is_admin">{!! $user->isAnAdmin() == true ? "Yes" : "No" !!}</span>
-        </div>
-    @endif
-    @if(Auth::user()->isAnAdmin())
-
-        <!-- Roles -->
-        <div class="form-group">
-            {!! Form::label('roles', 'Role:') !!}
-            @if(!empty($user))
-                <ul>
-                    @foreach ($user->roles()->get() as $role)
-                        <li>{!! ucfirst($role->name) !!}</li>
-                    @endforeach
-                </ul>
-            @endif
-        </div>
-
-        <!-- Permissions -->
-        <div class="form-group">
-            {!! Form::label('roles', 'Permissions:') !!}
-            @if(count($user->permissions) > 0)
-                <ul>
-                    @foreach($user->permissions as $permission)
-                        <li>{!! $permission->display_name !!}</li>
-                    @endforeach
-                </ul>
-            @endif
-        </div>
-    @endif
-@endif
-
-<!-- Bitcoin Address Field -->
-<div class="form-group">
-    {!! Form::label('bitcoin_address', 'Bitcoin Address:') !!} <span id="bitcoin_address">{!! $user->bitcoin_address !!}</span>
-</div>
-
-<!-- Created At Field -->
-<div class="form-group">
-    {!! Form::label('created_at', 'Registered:') !!} <span id="created_at">{!! $user->created_at !!}</span>
-</div>
-
-<!-- Updated At Field -->
-<div class="form-group">
-    {!! Form::label('updated_at', 'Last Updated:') !!} <span id="updated_at">{!! $user->updated_at !!}</span>
-</div>
