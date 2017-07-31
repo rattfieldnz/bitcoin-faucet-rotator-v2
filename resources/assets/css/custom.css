@@ -29,12 +29,15 @@ table.show-table-header thead tr th{
     z-index:100;
 }
 
+.word-wrap-white-space{
+    word-wrap: break-word;
+    white-space: normal;
+}
+
 .footer-custom{
     max-height: 4em !important;
     width:100%;
     text-align: center;
-    word-wrap: break-word;
-    white-space: normal;
 }
 
 .footer-custom-guest{
@@ -46,6 +49,24 @@ table.show-table-header thead tr th{
 .footer-custom-guest p{
     word-wrap: break-word;
     white-space: normal;
+}
+
+.right-margin-half-em{
+    margin-right: 0.5em;
+}
+
+.user-email-dl-list{
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.user-profile-heading-h2, .user-profile-heading-h3{
+    margin: 0 0 0 0.5em;
+}
+
+.user-profile-dd-list{
+    line-height: 3em;
+    vertical-align: middle;
 }
 
 #content-wrapper{
