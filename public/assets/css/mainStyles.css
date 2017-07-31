@@ -41195,10 +41195,6 @@ and (max-device-width : 480px) {
 .cc-floating.cc-theme-edgeless .cc-btn +.cc-btn {
   margin-left: 0;
 }
-body {
-  min-width: 20em !important;
-}
-
 #faucets-table thead,
 #payment-processors-table thead {
   border: 1px solid #ddd;
@@ -41238,14 +41234,19 @@ table.show-table-header thead tr th {
   max-height: 4em !important;
   width: 100%;
   text-align: center;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
 .footer-custom-guest {
   border-top: 0 !important;
+  width: 100%;
+  margin-left: 0;
 }
 
 .footer-custom-guest p {
-  padding-right: 14.375em!important;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
 #content-wrapper {
@@ -41469,7 +41470,15 @@ table.show-table-header thead tr th {
   margin-top: 2em;
 }
 
+.guest-user-profile-main-heading {
+  margin-top: -5em;
+}
+
 .user-profile-main-heading h1 {
+  margin-left: 0.35em;
+}
+
+.guest-user-profile-main-heading h1 {
   margin-left: 0.35em;
 }
 
@@ -41506,6 +41515,11 @@ table.show-table-header thead tr th {
   border: 0;
 }
 
+#guest-bg,
+#auth-bg {
+  min-width: 20em !important;
+}
+
 #guest-bg {
   background-color: #d2d6de;
 }
@@ -41532,6 +41546,10 @@ table.show-table-header thead tr th {
   #navigation-right li {
     display: block;
     width: 100%;
+  }
+
+  .footer-custom-guest p {
+    padding-right: 0 !important;
   }
 }
 
