@@ -41248,8 +41248,7 @@ table.show-table-header thead tr th {
 }
 
 .footer-custom-guest p {
-  word-wrap: break-word;
-  white-space: normal;
+  text-align: center;
 }
 
 .right-margin-half-em {
@@ -41269,6 +41268,30 @@ table.show-table-header thead tr th {
 .user-profile-dd-list {
   line-height: 3em;
   vertical-align: middle;
+}
+
+#footer-alternate-menu {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  text-align: center;
+}
+
+#footer-alternate-menu li {
+  display: inline-block;
+  list-style-type: none;
+  font-size: 1.25em;
+  padding: 0.125em;
+  border: 0;
+}
+
+#footer-alternate-menu li + li:before {
+  content: "|";
+}
+
+#footer-alternate-menu li + li:after {
+  content: "";
 }
 
 #content-wrapper {
@@ -41312,77 +41335,6 @@ table.show-table-header thead tr th {
 #navigation-right li a:hover {
   color: whitesmoke;
   font-weight: 600;
-}
-
-.icheckbox_square,
-.iradio_square {
-  background: url("/assets/images/iCheck/square/square.png") no-repeat !important;
-}
-
-.icheckbox_square-red,
-.iradio_square-red {
-  background: url("/assets/images/iCheck/square/red.png") no-repeat !important;
-}
-
-.icheckbox_square-green,
-.iradio_square-green {
-  background: url("/assets/images/iCheck/square/green.png") no-repeat !important;
-}
-
-.icheckbox_square-blue,
-.iradio_square-blue {
-  background: url("/assets/images/iCheck/square/blue.png") no-repeat !important;
-}
-
-.icheckbox_square-blue {
-  background-position: 0 0 !important;
-}
-
-.icheckbox_square-blue.hover {
-  background-position: -24px 0 !important;
-}
-
-.icheckbox_square-blue.checked {
-  background-position: -48px 0 !important;
-}
-
-.icheckbox_square-blue.disabled {
-  background-position: -72px 0 !important;
-  cursor: default;
-}
-
-.icheckbox_square-blue.checked.disabled {
-  background-position: -96px 0 !important;
-}
-
-.icheckbox_square-aero,
-.iradio_square-aero {
-  background: url("/assets/images/iCheck/square/aero.png") no-repeat !important;
-}
-
-.icheckbox_square-grey,
-.iradio_square-grey {
-  background: url("/assets/images/iCheck/square/grey.png") no-repeat !important;
-}
-
-.icheckbox_square-orange,
-.iradio_square-orange {
-  background: url("/assets/images/iCheck/square/orange.png") no-repeat !important;
-}
-
-.icheckbox_square-yellow,
-.iradio_square-yellow {
-  background: url("/assets/images/iCheck/square/yellow.png") no-repeat !important;
-}
-
-.icheckbox_square-pink,
-.iradio_square-pink {
-  background: url("/assets/images/iCheck/square/pink.png") no-repeat !important;
-}
-
-.icheckbox_square-purple,
-.iradio_square-purple {
-  background: url("/assets/images/iCheck/square/purple.png") no-repeat !important;
 }
 
 #remember-me-checkbox #checkbox {
@@ -41546,6 +41498,77 @@ table.show-table-header thead tr th {
   background-color: #d2d6de;
 }
 
+.icheckbox_square,
+.iradio_square {
+  background: url("/assets/images/iCheck/square/square.png") no-repeat !important;
+}
+
+.icheckbox_square-red,
+.iradio_square-red {
+  background: url("/assets/images/iCheck/square/red.png") no-repeat !important;
+}
+
+.icheckbox_square-green,
+.iradio_square-green {
+  background: url("/assets/images/iCheck/square/green.png") no-repeat !important;
+}
+
+.icheckbox_square-blue,
+.iradio_square-blue {
+  background: url("/assets/images/iCheck/square/blue.png") no-repeat !important;
+}
+
+.icheckbox_square-blue {
+  background-position: 0 0 !important;
+}
+
+.icheckbox_square-blue.hover {
+  background-position: -24px 0 !important;
+}
+
+.icheckbox_square-blue.checked {
+  background-position: -48px 0 !important;
+}
+
+.icheckbox_square-blue.disabled {
+  background-position: -72px 0 !important;
+  cursor: default;
+}
+
+.icheckbox_square-blue.checked.disabled {
+  background-position: -96px 0 !important;
+}
+
+.icheckbox_square-aero,
+.iradio_square-aero {
+  background: url("/assets/images/iCheck/square/aero.png") no-repeat !important;
+}
+
+.icheckbox_square-grey,
+.iradio_square-grey {
+  background: url("/assets/images/iCheck/square/grey.png") no-repeat !important;
+}
+
+.icheckbox_square-orange,
+.iradio_square-orange {
+  background: url("/assets/images/iCheck/square/orange.png") no-repeat !important;
+}
+
+.icheckbox_square-yellow,
+.iradio_square-yellow {
+  background: url("/assets/images/iCheck/square/yellow.png") no-repeat !important;
+}
+
+.icheckbox_square-pink,
+.iradio_square-pink {
+  background: url("/assets/images/iCheck/square/pink.png") no-repeat !important;
+}
+
+.icheckbox_square-purple,
+.iradio_square-purple {
+  background: url("/assets/images/iCheck/square/purple.png") no-repeat !important;
+}
+
 @media screen and (max-height: 45em) and (min-height: 0em) {
   .main-sidebar,
   .sidebar-fixed,
@@ -41565,13 +41588,34 @@ table.show-table-header thead tr th {
   }
 
   #navigation li,
-  #navigation-right li {
-    display: block;
+  #navigation-right li,
+  #footer-alternate-menu li {
+    line-height: 3em;
     width: 100%;
+    display: block;
+    border: 0;
   }
 
   .footer-custom-guest p {
     padding-right: 0 !important;
+  }
+
+  #footer-alternate-menu li + li:before {
+    content: "";
+  }
+
+  #footer-alternate-menu li + li:after {
+    content: "";
+  }
+
+  #footer-alternate-menu li:hover {
+    background-color: #367fa9;
+  }
+
+  #footer-alternate-menu li:hover a,
+  #footer-alternate-menu li a:hover {
+    display: block;
+    color: whitesmoke;
   }
 }
 

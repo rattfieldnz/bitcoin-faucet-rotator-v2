@@ -19,6 +19,7 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul id="navigation" class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
                 <li>{!! link_to_route('faucets.index', "Faucets") !!}</li>
                 <li>{!! link_to_route('payment-processors.index', "Payment Processors") !!}</li>
                 <li>{!! link_to_route('users.index', "Current Users") !!}</li>
