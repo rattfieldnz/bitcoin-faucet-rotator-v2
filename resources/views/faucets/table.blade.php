@@ -78,7 +78,18 @@
     @endforeach
 
     @if(Route::currentRouteName() != 'faucets.index')
-        <a class="btn btn-primary btn-success" style="color: white;" href="{!! route('faucets.create') !!}">Add New Faucet</a>
+        @if(!empty(Auth::user() && Auth::user()->isAnAdmin()))
+
+            {!! Form::button(
+                '<i class="fa fa-2x fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Add New Faucet',
+                [
+                    'type' => 'button',
+                    'onClick' => "location.href='" . route('faucets.create') . "'",
+                    'class' => 'btn btn-success col-lg-2 col-md-2 col-sm-2 col-xs-12',
+                    'style' => 'margin:0.25em 0 0.25em 0; color: white; min-width:12em;'
+                ])
+            !!}
+        @endif
     @endif
     </tbody>
 </table>
