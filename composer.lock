@@ -1175,12 +1175,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/adminlte-templates.git",
-                "reference": "c135ef4ea41dd6fc71b755d095b0879063aaec12"
+                "reference": "d3f6141a77c289f04c7ab1c242e1edf3174d349e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/c135ef4ea41dd6fc71b755d095b0879063aaec12",
-                "reference": "c135ef4ea41dd6fc71b755d095b0879063aaec12",
+                "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/d3f6141a77c289f04c7ab1c242e1edf3174d349e",
+                "reference": "d3f6141a77c289f04c7ab1c242e1edf3174d349e",
                 "shasum": ""
             },
             "require": {
@@ -1212,7 +1212,7 @@
                 "laravel",
                 "templates"
             ],
-            "time": "2017-05-20T10:43:21+00:00"
+            "time": "2017-07-30T07:03:42+00:00"
         },
         {
             "name": "infyomlabs/laravel-generator",
@@ -1220,12 +1220,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/laravel-generator.git",
-                "reference": "07e832dfd5c1670b6fb7b272659531e42bd2c370"
+                "reference": "c483a2f78231de990f49cd851c821293136d0d9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/07e832dfd5c1670b6fb7b272659531e42bd2c370",
-                "reference": "07e832dfd5c1670b6fb7b272659531e42bd2c370",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/c483a2f78231de990f49cd851c821293136d0d9f",
+                "reference": "c483a2f78231de990f49cd851c821293136d0d9f",
                 "shasum": ""
             },
             "require": {
@@ -1271,7 +1271,7 @@
                 "test",
                 "view"
             ],
-            "time": "2017-05-20T11:13:13+00:00"
+            "time": "2017-07-30T07:56:03+00:00"
         },
         {
             "name": "infyomlabs/swagger-generator",
