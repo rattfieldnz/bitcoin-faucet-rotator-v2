@@ -168,6 +168,7 @@ return [
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
         Creativeorange\Gravatar\GravatarServiceProvider::class,
         GrahamCampbell\HTMLMin\HTMLMinServiceProvider::class,
+        Spatie\Analytics\AnalyticsServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -234,6 +235,7 @@ return [
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
         'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
         'HTMLMin' => GrahamCampbell\HTMLMin\Facades\HTMLMin::class,
+        'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
     ],
 
 ];
