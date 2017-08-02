@@ -2,9 +2,9 @@
 
 @section('content')
     <section class="content-header">
-        <h1>
-            Faucet
-        </h1>
+        <div class="row auth-page-title">
+            <h1>Create a Faucet</h1>
+        </div>
     </section>
     <div class="content">
         @include('adminlte-templates::common.errors')

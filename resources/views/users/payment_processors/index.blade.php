@@ -2,8 +2,10 @@
 
 @section('content')
     <section class="content-header">
-        <div class="row" style="margin:0 0 0 0;">
-            <h1 class="pull-left">{{ $user->user_name }}'s Payment Processors</h1>
+        <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
+            <h1>
+                {{ $user->user_name }}'s Payment Processors
+            </h1>
         </div>
         <div class="row" style="margin:0 0 0 0;">
             @if(Auth::user() != null)

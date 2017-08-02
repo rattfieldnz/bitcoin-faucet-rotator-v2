@@ -41236,14 +41236,21 @@ table.show-table-header thead tr th {
 }
 
 .footer-custom {
-  max-height: 4em !important;
+  margin: 0 !important;
   width: 100%;
+  height: auto;
   text-align: center;
+}
+
+#main-wrapper {
+  min-height: 100%;
+  height: auto !important;
 }
 
 .footer-custom-guest {
   border-top: 0 !important;
   width: 100%;
+  height: auto;
   margin-left: 0;
 }
 
@@ -41444,6 +41451,14 @@ table.show-table-header thead tr th {
   margin-top: 2em;
 }
 
+.auth-page-title {
+  margin: 2em 0 0 -0.25em;
+}
+
+.guest-page-title {
+  margin: -6em 0 0 -0.25em;
+}
+
 .guest-user-profile-main-heading {
   margin-top: -5em;
 }
@@ -41496,6 +41511,10 @@ table.show-table-header thead tr th {
 
 #guest-bg {
   background-color: #d2d6de;
+}
+
+#auth-bg {
+  background-color: #ecf0f5;
 }
 
 .icheckbox_square,

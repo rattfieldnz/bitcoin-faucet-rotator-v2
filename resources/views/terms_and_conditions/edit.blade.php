@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="content-header">
-        <div class="row" style="margin:0 0 0 0;">
+   <section class="content-header">
+        <div class="row auth-page-title">
             <h1>Edit Terms And Conditions</h1>
         </div>
    </section>

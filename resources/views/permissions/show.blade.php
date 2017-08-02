@@ -2,9 +2,9 @@
 
 @section('content')
     <section class="content-header">
-        <h1>
-            Permission
-        </h1>
+        <div class="row auth-page-title">
+            <h1>Permission '{{ $permission->name }}'</h1>
+        </div>
     </section>
     <div class="content">
         <div class="clearfix"></div>

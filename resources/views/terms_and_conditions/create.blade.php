@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <div class="row" style="margin:0 0 0 0;">
+        <div class="row auth-page-title">
             <h1>Terms And Conditions</h1>
         </div>
     </section>

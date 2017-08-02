@@ -2,9 +2,11 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">
-           {{ $user->user_name }}'s {!! link_to_route('payment-processors.show', $paymentProcessor->name, $paymentProcessor->slug, ["target" => "_blank"]) !!} Faucets
-        </h1>
+        <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
+            <h1>
+               {{ $user->user_name }}'s {!! link_to_route('payment-processors.show', $paymentProcessor->name, $paymentProcessor->slug, ["target" => "_blank"]) !!} Faucets
+            </h1>
+        </div>
     </section>
     <div class="content">
         <div class="clearfix"></div>

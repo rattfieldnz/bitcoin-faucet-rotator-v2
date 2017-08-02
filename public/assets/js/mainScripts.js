@@ -57166,7 +57166,7 @@ $(document).ready(function () {
 
 }(window.cookieconsent || {}));
 
-(function ( $ ) {
+(function ($) {
 
     var table = $('#faucets-table')
         .DataTable(
@@ -57202,14 +57202,32 @@ $(document).ready(function () {
 
                     }
                 },
-                "searching":   false,
-                "paging":   false,
-                "info":     false,
+                "searching": false,
+                "paging": false,
+                "info": false,
                 "deferRender": true,
                 "sScrollX": "190%"
             });
 
 });
+
+
+jQuery(document).ready(function() {
+    footerReset();
+});
+
+jQuery(window).resize(function() {
+    footerReset();
+});
+
+function footerReset(){
+    var contentHeight = jQuery(window).height();
+    var footerHeight = jQuery('#footer-custom').height();
+    var footerTop = jQuery('#footer-custom').position().top + footerHeight;
+    if (footerTop < contentHeight) {
+        jQuery('#footer-custom').css('margin-top', (contentHeight - (footerTop) - 32) + 'px');
+    }
+}
 
 window.addEventListener("load", function(){
     window.cookieconsent.initialise({

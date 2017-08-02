@@ -2,9 +2,9 @@
 
 @section('content')
     <section class="content-header">
-        <h1>
-            Edit '{{ $paymentProcessor->name }}' Payment Processor
-        </h1>
+        <div class="row auth-page-title">
+            <h1>Edit '{{ $paymentProcessor->name }}' Payment Processor</h1>
+        </div>
    </section>
    <div class="content">
        @include('adminlte-templates::common.errors')

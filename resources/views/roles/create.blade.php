@@ -2,9 +2,9 @@
 
 @section('content')
     <section class="content-header">
-        <h1>
-            Role
-        </h1>
+        <div class="row auth-page-title">
+            <h1>Create a Role</h1>
+        </div>
     </section>
     <div class="content">
         @include('adminlte-templates::common.errors')

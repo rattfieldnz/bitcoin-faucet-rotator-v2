@@ -2,10 +2,9 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Main Meta</h1>
-        <h1 class="pull-right">
-           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('main-meta.create') !!}">Add New</a>
-        </h1>
+        <div class="row auth-page-title">
+            <h1>Manage Main Meta</h1>
+        </div>
     </section>
     <div class="content">
         <div class="clearfix"></div>

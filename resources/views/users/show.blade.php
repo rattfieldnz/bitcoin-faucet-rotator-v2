@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <div class="row {{ !empty(Auth::user()) ? 'user-profile-main-heading' : 'guest-user-profile-main-heading' }}">
-            <h1 class="pull-left">{{ $user->user_name }}'s Profile</h1>
+            <h1>{{ $user->user_name }}'s Profile</h1>
         </div>
         <div class="row zero-margin">
             @if(Auth::user() != null)

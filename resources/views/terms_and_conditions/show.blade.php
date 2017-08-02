@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <div class="row" style="margin:0 0 0 0;">
+        <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
             <h1>Terms and Conditions</h1>
         </div>
         <div class="row" style="margin: 0 0 0 0;">

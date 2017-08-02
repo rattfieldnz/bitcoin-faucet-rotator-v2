@@ -2,7 +2,9 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Roles</h1>
+        <div class="row auth-page-title">
+            <h1>Roles</h1>
+        </div>
     </section>
     <div class="content">
         <div class="clearfix"></div>

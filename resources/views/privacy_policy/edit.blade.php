@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <div class="row" style="margin:0 0 0 0;">
+        <div class="row auth-page-title">
             <h1>Edit Privacy Policy</h1>
         </div>
    </section>

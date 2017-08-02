@@ -2,8 +2,8 @@
 
 @section('content')
     <section class="content-header">
-        <div class="row" style="margin:0 0 0 0;">
-            <h1>Privacy Policy</h1>
+        <div class="row auth-page-title">
+            <h1>Create Privacy Policy</h1>
         </div>
     </section>
     <div class="content">

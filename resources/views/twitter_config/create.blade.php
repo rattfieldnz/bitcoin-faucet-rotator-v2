@@ -2,9 +2,9 @@
 
 @section('content')
     <section class="content-header">
-        <h1>
-            Twitter Config
-        </h1>
+        <div class="row auth-page-title">
+            <h1>Twitter Configuration</h1>
+        </div>
     </section>
     <div class="content">
         @include('adminlte-templates::common.errors')
