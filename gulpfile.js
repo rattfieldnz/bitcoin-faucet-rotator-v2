@@ -6,6 +6,7 @@ let concatCSS = require('gulp-concat-css');
 let minifyCSS = require('gulp-minify-css');
 let sourcemaps = require('gulp-sourcemaps');
 let uglify = require('gulp-uglify');
+let htmlmin = require('gulp-htmlmin');
 
 /**
  * Copy any needed files.
@@ -165,6 +166,19 @@ elixir(function(mix) {
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('public/assets/css/'));
 
+});
+
+gulp.task('compress', function() {
+    let opts = {
+        collapseWhitespace: true,
+        removeAttributeQuotes: true,
+        removeComments: true,
+        minifyJS: true
+    };
+
+    return gulp.src('./storage/framework/views/**/*')
+        .pipe(htmlmin(opts))
+        .pipe(gulp.dest('./storage/framework/views/'));
 });
 
 gulp.task('minifycss', function(){

@@ -67,7 +67,7 @@ class FaucetController extends AppBaseController
 
         $title = "List of Available Bitcoin Faucets (" . count($faucets) . ")";
         $description = "This page shows all the bitcoin faucets that are currently available. There are a total of " .
-            count($faucets) . "in the faucet rotator.";
+            count($faucets) . " in the faucet rotator.";
         $keywords = ["Crypto Faucets", "Bitcoin Faucets", "List of Crypto Faucets", "List of Bitcoin Faucets", "Free Bitcoins", "Get Free Bitcoins", "Satoshis"];
         $publishedTime = Carbon::now()->toW3cString();
         $modifiedTime = Carbon::now()->toW3cString();

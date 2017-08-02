@@ -37,7 +37,8 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Matthewbdaly\ETagMiddleware\ETag::class,
             \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
-            \DougSisk\BlockReferralSpam\Middleware\BlockReferralSpam::class
+            \DougSisk\BlockReferralSpam\Middleware\BlockReferralSpam::class,
+            /**\GrahamCampbell\HTMLMin\Http\Middleware\MinifyMiddleware::class**/
         ],
 
         'api' => [

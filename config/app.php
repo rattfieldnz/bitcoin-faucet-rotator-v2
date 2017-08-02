@@ -1,5 +1,7 @@
 <?php
 
+use GrahamCampbell\HTMLMin\Facades\HTMLMin;
+
 return [
 
     /*
@@ -160,12 +162,12 @@ return [
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
         Laratrust\LaratrustServiceProvider::class,
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         SquareBoat\Sneaker\SneakerServiceProvider::class,
         Bepsvpt\SecureHeaders\SecureHeadersServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
         Creativeorange\Gravatar\GravatarServiceProvider::class,
+        GrahamCampbell\HTMLMin\HTMLMinServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -230,7 +232,8 @@ return [
         'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
-        'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class
+        'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
+        'HTMLMin' => GrahamCampbell\HTMLMin\Facades\HTMLMin::class,
     ],
 
 ];
