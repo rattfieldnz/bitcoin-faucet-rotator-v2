@@ -41,6 +41,10 @@ gulp.task("copyfiles", function() {
     gulp.src("vendor/bower_components/bootstrap/dist/fonts/**")
         .pipe(gulp.dest("public/assets/fonts/"));
 
+    // Local Forage //
+    gulp.src("vendor/bower_components/localforage/dist/localforage.js")
+        .pipe(gulp.dest("resources/assets/js/localforage/"));
+
     // Font Awesome //
     gulp.src("vendor/bower_components/font-awesome/css/font-awesome.css")
         .pipe(gulp.dest("resources/assets/css/font-awesome"));
@@ -123,6 +127,7 @@ elixir(function(mix) {
             'js/jquery/jquery.js',
             'js/jquery-ui/jquery-ui.js',
             'js/bootstrap/bootstrap.js',
+            'js/localforage/localforage.js',
             'js/admin-lte/app.js',
             'js/datatables/jquery.dataTables.js',
             'js/iCheck/icheck.js',
