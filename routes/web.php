@@ -117,3 +117,5 @@ Route::resource('privacy-policy', 'PrivacyPolicyController');
 Route::get('terms-and-conditions/edit', ['as' => 'terms-and-conditions.edit', 'uses' => 'TermsAndConditionsController@edit']);
 
 Route::resource('terms-and-conditions', 'TermsAndConditionsController');
+
+Route::get('stats', ['as' => 'stats.index', 'uses' => 'StatsController@index']);

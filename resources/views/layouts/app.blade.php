@@ -12,6 +12,9 @@
         <!-- START Site Styles -->
         @include('layouts.partials.styles._css')
         <!-- END Site Styles -->
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.min.js"></script>
     </head>
     <body class="skin-blue sidebar-mini" id="{{ empty(Auth::user()) ? 'guest-bg' : 'auth-bg' }}">
         <div id="main-wrapper">
