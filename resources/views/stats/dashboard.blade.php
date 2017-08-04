@@ -79,6 +79,32 @@
                     <!-- /.col (RIGHT) -->
                 </div>
                 <!-- /.row -->
+                <div class="row">
+                    <!-- /.col (LEFT) -->
+                    <div class="col-md-12">
+                        <!-- LINE CHART -->
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Most Popular Pages</h3>
+
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="chart">
+                                    <div id="visitorsTable"></div>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+
+                    </div>
+                    <!-- /.col (RIGHT) -->
+                </div>
+                <!-- /.row -->
 
             </div>
         </div>
@@ -104,7 +130,7 @@
         var areaChart = new Chart(areaChartCanvas);
 
         var areaChartData = {
-            labels: {!! json_encode($dates->map(function($date) { return $date->format('d/m'); })) !!},
+            labels: {!! json_encode($dates->map(function($date) { return $date->format('d/m/y'); })) !!},
 
             datasets: [
                 {
@@ -163,75 +189,145 @@
             datasetFill: true,
             //String - A legend template
             legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
-      //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-      maintainAspectRatio: true,
-      //Boolean - whether to make the chart responsive to window resizing
-      responsive: true
-    };
+            //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+            maintainAspectRatio: true,
+            //Boolean - whether to make the chart responsive to window resizing
+            responsive: true
+        };
 
-    //Create the line chart
-    areaChart.Line(areaChartData, areaChartOptions);
+        //Create the line chart
+        areaChart.Line(areaChartData, areaChartOptions);
 
-    //-------------
-    //- LINE CHART -
-    //--------------
-    var lineChartData = {
-    labels:  {!! json_encode($country) !!} ,
+        //-------------
+        //- LINE CHART -
+        //--------------
+        var lineChartData = {
+            labels:  {!! json_encode($country) !!} ,
 
-      datasets: [
-        {
-          label: "Visitors",
-          fillColor: "rgba(60,141,188,0.9)",
-          strokeColor: "rgba(60,141,188,0.8)",
-          pointColor: "#3b8bba",
-          pointStrokeColor: "rgba(60,141,188,1)",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(60,141,188,1)",
-          data: {!! json_encode($country_sessions) !!}
-        }
-      ]
-    };
+            datasets: [
+                {
+                    label: "Visitors",
+                    fillColor: "rgba(60,141,188,0.9)",
+                    strokeColor: "rgba(60,141,188,0.8)",
+                    pointColor: "#3b8bba",
+                    pointStrokeColor: "rgba(60,141,188,1)",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(60,141,188,1)",
+                    data: {!! json_encode($country_sessions) !!}
+                }
+            ]
+        };
 
-    var lineChartCanvas = $("#lineChart").get(0).getContext("2d");
-    var lineChart = new Chart(lineChartCanvas);
-    var lineChartOptions = areaChartOptions;
-    lineChartOptions.datasetFill = false;
-    lineChart.Line(lineChartData, lineChartOptions);
+        var lineChartCanvas = $("#lineChart").get(0).getContext("2d");
+        var lineChart = new Chart(lineChartCanvas);
+        var lineChartOptions = areaChartOptions;
+        lineChartOptions.datasetFill = false;
+        lineChart.Line(lineChartData, lineChartOptions);
 
-    //-------------
-    //- PIE CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
-    var pieChart = new Chart(pieChartCanvas);
-    var PieData = {!! $browserjson !!};
-    var pieOptions = {
-      //Boolean - Whether we should show a stroke on each segment
-      segmentShowStroke: true,
-      //String - The colour of each segment stroke
-      segmentStrokeColor: "#fff",
-      //Number - The width of each segment stroke
-      segmentStrokeWidth: 2,
-      //Number - The percentage of the chart that we cut out of the middle
-      percentageInnerCutout: 50, // This is 0 for Pie charts
-      //Number - Amount of animation steps
-      animationSteps: 100,
-      //String - Animation easing effect
-      animationEasing: "easeOutBounce",
-      //Boolean - Whether we animate the rotation of the Doughnut
-      animateRotate: true,
-      //Boolean - Whether we animate scaling the Doughnut from the centre
-      animateScale: false,
-      //Boolean - whether to make the chart responsive to window resizing
-      responsive: true,
-      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-      maintainAspectRatio: true,
-      //String - A legend template
-      legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-    };
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    pieChart.Doughnut(PieData, pieOptions);
+        //-------------
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
+        var pieChart = new Chart(pieChartCanvas);
+        var PieData = {!! $browserjson !!};
+        var pieOptions = {
+            //Boolean - Whether we should show a stroke on each segment
+            segmentShowStroke: true,
+            //String - The colour of each segment stroke
+            segmentStrokeColor: "#fff",
+            //Number - The width of each segment stroke
+            segmentStrokeWidth: 2,
+            //Number - The percentage of the chart that we cut out of the middle
+            percentageInnerCutout: 50, // This is 0 for Pie charts
+            //Number - Amount of animation steps
+            animationSteps: 100,
+            //String - Animation easing effect
+            animationEasing: "easeOutBounce",
+            //Boolean - Whether we animate the rotation of the Doughnut
+            animateRotate: true,
+            //Boolean - Whether we animate scaling the Doughnut from the centre
+            animateScale: false,
+            //Boolean - whether to make the chart responsive to window resizing
+            responsive: true,
+            // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+            maintainAspectRatio: true,
+            //String - A legend template
+            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+        };
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        pieChart.Doughnut(PieData, pieOptions);
+
+        // VISITORS TABLE BELOW
+        var dataToTable = function (dataset) {
+
+            var getItem = function(dataset, index){
+                return dataset.data[index];
+            }
+
+            var html = '<table><thead><tr>';
+
+            var columnCount = 0;
+            jQuery.each(dataset.datasets, function (idx, item) {
+                html += '<th style="background-color:' + item.fillColor + ';">' + item.label + '</th>';
+                columnCount += 1;
+            });
+
+            html += '</tr></thead><tbody>';
+            console.log(dataset.datasets[0].data.length);
+
+            for(var i = 0; i < dataset.datasets[0].data.length; i++){
+                html += '<tr>';
+                html += '<td>' + getItem(dataset.datasets[0], i) + '</td>';
+                html += '<td>' + getItem(dataset.datasets[1], i) + '</td>';
+                html += '<td>' + getItem(dataset.datasets[2], i) + '</td>';
+                html += '</tr>';
+            }
+
+            html += '</tbody></table>';
+
+            return html;
+        };
+
+        var data = {
+            labels: [],
+            datasets: [
+                {
+                    label: "URL",
+                    fillColor: "rgba(220,220,220,0.2)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: {!! $three_url->toJson() !!}
+                },
+                {
+                    label: "Page Title",
+                    fillColor: "rgba(151,187,205,0.2)",
+                    strokeColor: "rgba(151,187,205,1)",
+                    pointColor: "rgba(151,187,205,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(151,187,205,1)",
+                    data: {!! $three_pageTitle->toJson() !!}
+                },
+                {
+                    label: "Page Views",
+                    fillColor: "rgba(151,187,205,0.2)",
+                    strokeColor: "rgba(151,187,205,1)",
+                    pointColor: "rgba(151,187,205,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(151,187,205,1)",
+                    data: {!! $three_pageViews->toJson() !!}
+                }
+            ]
+        };
+
+        jQuery('#visitorsTable').html(dataToTable(data));
+
   });
 </script>
 @endpush
