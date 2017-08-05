@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Analytics;
+use App\Helpers\Functions\Dates;
 use App\Libraries\Google\Analytics\GoogleAnalytics;
 use Illuminate\Http\Request;
 use Spatie\Analytics\Period;
@@ -12,8 +13,7 @@ class StatsController extends Controller
     private $data = [];
     public function index()
     {
-        //$data = GoogleAnalytics::visitors_and_pageviews();
-        //dd($data);exit;
+
         $analyticsData_one = Analytics::fetchTotalVisitorsAndPageViews(Period::days(14));
         $this->data['dates'] = $analyticsData_one->pluck('date');
         $this->data['visitors'] = $analyticsData_one->pluck('visitors');
