@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: robattfield
- * Date: 3/08/2017
- * Time: 19:27
- */
 
 namespace App\Libraries\Google\Analytics;
 

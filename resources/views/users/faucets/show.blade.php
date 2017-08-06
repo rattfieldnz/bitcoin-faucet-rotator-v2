@@ -89,7 +89,18 @@
                         </table>
                     </div>
                     @if($faucet->is_paused == false)
-                        <iframe sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin" src="{{ $faucet->url }}" id="faucet-iframe"></iframe>
+                        @if($canShowInIframe == true)
+                        <iframe sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin" src="{{ $faucetUrl }}" id="faucet-iframe"></iframe>
+                        @else
+                            <h3 style="font-size: 3em;">Sorry!</h3>
+
+                            <p>This faucet cannot be shown in iframes. Please
+                                {!!  link_to(
+                                    $faucetUrl,
+                                    'visit ' . $faucet->name . ' in a new window/tab',
+                                    ['target' => '_blank']) !!}.
+                            </p>
+                        @endif
                     @else
                         <p>This faucet has been paused from showing in rotation.</p>
 

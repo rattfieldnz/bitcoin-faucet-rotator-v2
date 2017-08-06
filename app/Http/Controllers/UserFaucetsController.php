@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Functions\Faucets;
+use App\Helpers\Functions\Http;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreateUserFaucetRequest;
 use App\Http\Requests\UpdateUserFaucetRequest;
@@ -258,7 +259,9 @@ class UserFaucetsController extends Controller
                 return view('users.faucets.show')
                     ->with('user', $user)
                     ->with('faucet', $faucet)
-                    ->with('message', $message);
+                    ->with('faucetUrl', $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet))
+                    ->with('message', $message)
+                    ->with('canShowInIframe', Http::canShowInIframes($faucet->url));
             }
         } // If the user's faucet exists, and main admin faucet is soft-deleted.
         elseif (!empty($faucet) && $mainFaucet->isDeleted()) {
@@ -277,7 +280,7 @@ class UserFaucetsController extends Controller
                     $message = 'You have deleted the main faucet this user has used as their faucet. You can ' .
                         $mainFaucetLink . ' or permanently delete it.';
                 }
-                //dd($faucet);
+
                 Faucets::setMeta($faucet, $user);
 
                 Faucets::setSecureFaucetIframe($user, $faucet);
@@ -285,7 +288,9 @@ class UserFaucetsController extends Controller
                 return view('users.faucets.show')
                     ->with('user', $user)
                     ->with('faucet', $faucet)
-                    ->with('message', $message);
+                    ->with('faucetUrl', $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet))
+                    ->with('message', $message)
+                    ->with('canShowInIframe', Http::canShowInIframes($faucet->url));
             } else {
                 flash('The faucet was not found')->error();
                 return redirect(route('users.faucets', $user->slug));
@@ -306,7 +311,9 @@ class UserFaucetsController extends Controller
                 return view('users.faucets.show')
                     ->with('user', $user)
                     ->with('faucet', $faucet)
-                    ->with('message', $message);
+                    ->with('faucetUrl', $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet))
+                    ->with('message', $message)
+                    ->with('canShowInIframe', Http::canShowInIframes($faucet->url));
             }
         } else {
             //If user faucet exists
@@ -319,7 +326,8 @@ class UserFaucetsController extends Controller
                 return view('users.faucets.show')
                     ->with('user', $user)
                     ->with('faucet', $faucet)
-                    ->with('message', $message);
+                    ->with('message', $message)
+                    ->with('canShowInIframe', Http::canShowInIframes($faucet->url));
             } else {
                 flash('The faucet was not found')->error();
                 return redirect(route('users.faucets', $user->slug));

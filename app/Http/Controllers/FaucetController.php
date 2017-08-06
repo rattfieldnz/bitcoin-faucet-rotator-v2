@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Functions\Faucets;
+use App\Helpers\Functions\Http;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreateFaucetRequest;
 use App\Http\Requests\UpdateFaucetRequest;
@@ -169,7 +170,8 @@ class FaucetController extends AppBaseController
                 return view('faucets.show')
                     ->with('faucet', $faucet)
                     ->with('faucetUrl', $faucetUrl)
-                    ->with('message', $message);
+                    ->with('message', $message)
+                    ->with('canShowInIframe', Http::canShowInIframes($faucetUrl));
             }
             if (!empty($faucet) && !$faucet->isDeleted()) { // If the faucet exists and isn't soft-deleted
 
@@ -182,7 +184,8 @@ class FaucetController extends AppBaseController
                 return view('faucets.show')
                     ->with('faucet', $faucet)
                     ->with('faucetUrl', $faucetUrl)
-                    ->with('message', $message);
+                    ->with('message', $message)
+                    ->with('canShowInIframe', Http::canShowInIframes($faucetUrl));
             } else {
                 flash('Faucet not found')->error();
                 return redirect(route('faucets.index'));
