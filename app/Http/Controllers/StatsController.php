@@ -29,9 +29,9 @@ class StatsController extends Controller
         $this->data['three_pageTitle'] = $analyticsData_three->pluck('pageTitle');
         $this->data['three_pageViews'] = $analyticsData_three->pluck('pageViews');
 
-        $this->data['browserjson'] = GoogleAnalytics::topbrowsers();
+        $this->data['browserjson'] = GoogleAnalytics::topbrowsers(14);
 
-        $result = GoogleAnalytics::country();
+        $result = GoogleAnalytics::countries(14);
         $this->data['country'] = $result->pluck('country');
         $this->data['country_sessions'] = $result->pluck('sessions');
 

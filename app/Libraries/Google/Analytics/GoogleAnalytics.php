@@ -4,6 +4,7 @@ namespace App\Libraries\Google\Analytics;
 
 use Analytics;
 use App\Helpers\Functions\Dates;
+use Illuminate\Support\Collection;
 use Spatie\Analytics\Period;
 use Carbon\Carbon;
 
@@ -16,22 +17,37 @@ use Carbon\Carbon;
  */
 class GoogleAnalytics{
 
-    static function country() {
-    $country = Analytics::performQuery(Period::days(14),'ga:sessions',  ['dimensions'=>'ga:country','sort'=>'-ga:sessions']);
-    $result= collect($country['rows'] ?? [])->map(function (array $dateRow) {
-        return [
-            'country' =>  $dateRow[0],
-            'sessions' => (int) $dateRow[1],
-        ];
-    });
-    /* $data['country'] = $result->pluck('country'); */
-    /* $data['country_sessions'] = $result->pluck('sessions'); */
-    return $result;
-}
+    /**
+     * Get list of countries and number of sessions for given number of days.
+     *
+     * @param int $numberOfDays
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public static function countries(int $numberOfDays = 1) : Collection {
+        $country = Analytics::performQuery(Period::days($numberOfDays),'ga:sessions',  ['dimensions'=>'ga:country','sort'=>'-ga:sessions']);
+        $result= collect($country['rows'] ?? [])->map(function (array $dateRow) {
+            return [
+                'country' =>  $dateRow[0],
+                'sessions' => (int) $dateRow[1],
+            ];
+        });
+        /* $data['country'] = $result->pluck('country'); */
+        /* $data['country_sessions'] = $result->pluck('sessions'); */
+        return $result;
+    }
 
-    static function topbrowsers()
+    /**
+     * Get JSON-formatted string data of top browsers and quantity of visitors for
+     * a given number of days.
+     *
+     * @param int $numberOfDays
+     *
+     * @return string
+     */
+    public static function topbrowsers(int $numberOfDays = 1)
     {
-        $analyticsData = Analytics::fetchTopBrowsers(Period::days(14));
+        $analyticsData = Analytics::fetchTopBrowsers(Period::days($numberOfDays));
         $array = $analyticsData->toArray();
         foreach ($array as $k=>$v)
         {
@@ -68,7 +84,7 @@ class GoogleAnalytics{
      *
      * @return \Illuminate\Support\Collection
      */
-    static function topPagesBetweenTwoDates($startDate, $endDate, $count = 20){
+    public static function topPagesBetweenTwoDates($startDate, $endDate, $count = 20){
         $startDateValue = Dates::createDateTime($startDate);
         $endDateValue = Dates::createDateTime($endDate);
 
@@ -133,7 +149,20 @@ class GoogleAnalytics{
         }
     }
 
-    public static function getNoOfCountries(Period $period, $urlPath){
+    /**
+     * Get number of countries which have visited a URL
+     * for a specific period.
+     *
+     * A period can be created with two dates.
+     * @see \Spatie\Analytics\Period
+     * @see https://github.com/spatie/laravel-analytics
+     *
+     * @param \Spatie\Analytics\Period $period
+     * @param                          $urlPath
+     *
+     * @return int
+     */
+    public static function getNoOfCountries(Period $period, $urlPath) : int{
         if(!empty($period)){
             $results = Analytics::performQuery(
                 $period,
