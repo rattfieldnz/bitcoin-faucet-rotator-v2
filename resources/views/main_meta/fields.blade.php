@@ -105,6 +105,7 @@
             null,
             [
                 'class' => 'form-control',
+                'id' => 'page_main_content',
                 'placeholder' =>
                 "Tonight on Campbell Live -. We go together, kinda like mince n cheese ya know, this hard yakka kai moana is as primo as a hammered holden. Mean while, in a waka, Manus Morissette and Mrs Falani were up to no good with a bunch of tip-top pavlovas. (http://kiwipsum.com)."
             ]
@@ -186,9 +187,9 @@
     <a href="{!! route('main-meta.index') !!}" class="btn btn-default">Cancel</a>
 </div>
 
-@section('scripts')
-    <script src="/assets/js/ckeditor/ckeditor.js?{{ rand()}}"></script>
-    <script>
-        CKEDITOR.replace( 'page_main_content');
-    </script>
-@endsection
+@push('scripts')
+<script src="/assets/js/ckeditor/ckeditor.js?{{ rand()}}"></script>
+<script>
+    CKEDITOR.replace('page_main_content');
+</script>
+@endpush

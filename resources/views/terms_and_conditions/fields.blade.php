@@ -25,7 +25,7 @@
 <!-- Content Field -->
 <div class="form-group col-sm-12 col-lg-12 has-feedback{{ $errors->has('content') ? ' has-error' : '' }}">
     {!! Form::label('content', 'Privacy Policy Content:') !!}
-    {!! Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => 'This is where your terms and conditions content goes.']) !!}
+    {!! Form::textarea('content', null, ['id' => 'main_content', 'class' => 'form-control', 'placeholder' => 'This is where your terms and conditions content goes.']) !!}
     <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
     @if ($errors->has('content'))
         <span class="help-block">
@@ -52,9 +52,9 @@
     <a href="{!! route('terms-and-conditions.index') !!}" class="btn btn-default">Cancel</a>
 </div>
 
-@section('scripts')
+@push('scripts')
     <script src="/assets/js/ckeditor/ckeditor.js?{{ rand()}}"></script>
     <script>
-        CKEDITOR.replace('content');
+        CKEDITOR.replace('main_content');
     </script>
-@endsection
+@endpush

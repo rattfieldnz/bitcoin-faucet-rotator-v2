@@ -15,7 +15,7 @@
                             'type' => 'button',
                             'onClick' => "location.href='terms-and-conditions/edit'",
                             'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-2 col-xs-12',
-                            'style' => 'margin:0.25em 0 0 0; color: white; min-width:12em;'
+                            'style' => 'margin:0.25em 0 0 0; color: white; min-width:14em;'
                         ])
                     !!}
                 @endif
