@@ -11,6 +11,7 @@ resources/assets/css/ionicons
 resources/assets/css/select2
 resources/assets/css/jquery-ui
 resources/assets/css/cookieconsent
+resources/assets/css/datatables.net
 
 resources/assets/fonts
 
@@ -25,6 +26,8 @@ resources/assets/js/jquery
 resources/assets/js/jquery-ui
 resources/assets/js/select2
 resources/assets/js/cookieconsent
+resources/assets/js/datatables.net
+resources/assets/js/localforage
 
 # Laravel 4 specific
 bootstrap/compiled.php

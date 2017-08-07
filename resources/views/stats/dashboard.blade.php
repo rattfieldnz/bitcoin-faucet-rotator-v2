@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="/assets/css/datatables.net/datatables.min.css?{{ rand() }}" type="text/css">
+@endsection
+
 @section('content')
     <section class="content-header">
         <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
@@ -112,6 +116,7 @@
 @endsection
 
 @push('scripts')
+<script src="/assets/js/datatables.net/datatables.min.js?{{ rand() }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.min.js"></script>
 <script>
     $(function () {
