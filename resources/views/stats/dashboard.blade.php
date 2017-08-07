@@ -117,7 +117,7 @@
 
 @push('scripts')
 <script src="/assets/js/datatables.net/datatables.min.js?{{ rand() }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.min.js"></script>
+<script src="/assets/js/chart.js/Chart.min.js"></script>
 <script>
     $(function () {
         /* ChartJS
@@ -130,9 +130,11 @@
         //--------------
 
         // Get context with jQuery - using jQuery's .get() method.
-        var areaChartCanvas = $("#areaChart").get(0).getContext("2d");
+        var areaChartCanvas = document.getElementById("areaChart");
+        var areaChartContext = areaChartCanvas.getContext("2d");
+
         // This will get the first returned node in the jQuery collection.
-        var areaChart = new Chart(areaChartCanvas);
+        //var areaChart = new Chart(areaChartCanvas);
 
         var areaChartData = {
             labels: {!! json_encode($dates->map(function($date) { return $date->format('d/m/y'); })) !!},
@@ -201,7 +203,13 @@
         };
 
         //Create the line chart
-        areaChart.Line(areaChartData, areaChartOptions);
+        //areaChart.Line(areaChartData, areaChartOptions);
+
+        var areaChart = new Chart(areaChartContext, {
+            type: "line",
+            data: areaChartData,
+            options: areaChartOptions
+        });
 
         //-------------
         //- LINE CHART -
@@ -223,20 +231,24 @@
             ]
         };
 
-        var lineChartCanvas = $("#lineChart").get(0).getContext("2d");
-        var lineChart = new Chart(lineChartCanvas);
+        var lineChartCanvas = document.getElementById('lineChart');
+		var lineChartContext = lineChartCanvas.getContext("2d");
         var lineChartOptions = areaChartOptions;
         lineChartOptions.datasetFill = false;
-        lineChart.Line(lineChartData, lineChartOptions);
+        var lineChart = new Chart(
+		    lineChartContext, {
+			    type: 'line',
+				data: lineChartData,
+				options: lineChartOptions
+			}
+		);
 
         //-------------
         //- PIE CHART -
         //-------------
-        // Get context with jQuery - using jQuery's .get() method.
-        var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
-        var pieChart = new Chart(pieChartCanvas);
-        var PieData = {!! $browserjson !!};
-        var pieOptions = {
+		var pieChartCanvas = document.getElementById('pieChart');
+		var pieChartContext = pieChartCanvas.getContext("2d");
+		var pieChartOptions = {
             //Boolean - Whether we should show a stroke on each segment
             segmentShowStroke: true,
             //String - The colour of each segment stroke
@@ -260,9 +272,19 @@
             //String - A legend template
             legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
         };
-        //Create pie or douhnut chart
-        // You can switch between pie and douhnut using the method below.
-        pieChart.Doughnut(PieData, pieOptions);
+
+		var pieChart = new Chart(
+		    pieChartContext, {
+			    type: 'doughnut',
+			    data: {
+				    labels: {!! json_encode($browserjson['labels']) !!},
+				    datasets: [{
+				        backgroundColor: {!! json_encode($browserjson['datasets']['backgroundColor']) !!},
+				        data: {!! json_encode($browserjson['datasets']['data']) !!}
+				    }],
+			        options: pieChartOptions
+			    }
+		});
 
         // VISITORS TABLE BELOW
         var dataToTable = function (dataset) {
@@ -280,7 +302,6 @@
             });
 
             html += '</tr></thead><tbody>';
-            console.log(dataset.datasets[0].data.length);
 
             for(var i = 0; i < dataset.datasets[0].data.length; i++){
                 html += '<tr>';

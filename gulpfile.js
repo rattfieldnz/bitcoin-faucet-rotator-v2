@@ -125,6 +125,10 @@ gulp.task("copyfiles", function() {
     gulp.src("vendor/bower_components/datatables.net-bs/js/dataTables.bootstrap.js")
         .pipe(gulp.dest("resources/assets/js/datatables.net/"));
 
+    // ChartJS
+    gulp.src("vendor/bower_components/chart.js/dist/Chart.js")
+        .pipe(gulp.dest("resources/assets/js/chart.js/"));
+
 });
 
 /**
@@ -162,6 +166,10 @@ elixir(function(mix) {
         'public/assets/js/datatables.net/datatables.js',
         'resources/assets/'
     );
+
+
+    gulp.src("resources/assets/js/chart.js/Chart.js")
+        .pipe(gulp.dest("public/assets/js/chart.js/"));
 
     gulp.src([
         'resources/assets/css/datatables.net/dataTables.bootstrap.css'
@@ -221,6 +229,7 @@ gulp.task('minifycss', function(){
 
 gulp.task('minifyjs', function(){
     compressDataTablesJs();
+    compressChartJsScripts();
     compressMainJS();
     //compressMainRotator();
     //compressPaymentProcessorRotator();
@@ -245,6 +254,13 @@ function compressDataTablesCss(){
         .pipe(minifyCSS())
         .pipe(rename('datatables.min.css'))
         .pipe(gulp.dest('public/assets/css/datatables.net/'));
+}
+
+function compressChartJsScripts(){
+    return gulp.src('public/assets/js/chart.js/Chart.js')
+        .pipe(uglify())
+        .pipe(rename("Chart.min.js"))
+        .pipe(gulp.dest('public/assets/js/chart.js/'));
 }
 
 function compressMainRotator(){
