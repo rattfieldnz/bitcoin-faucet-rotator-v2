@@ -14,24 +14,24 @@ class StatsController extends Controller
     public function index()
     {
 
-        $analyticsData_one = Analytics::fetchTotalVisitorsAndPageViews(Period::days(14));
+        $analyticsData_one = Analytics::fetchTotalVisitorsAndPageViews(Period::days(7));
         $this->data['dates'] = $analyticsData_one->pluck('date');
         $this->data['visitors'] = $analyticsData_one->pluck('visitors');
         $this->data['pageViews'] = $analyticsData_one->pluck('pageViews');
 
-        $analyticsData_two = Analytics::fetchVisitorsAndPageViews(Period::days(14));
+        $analyticsData_two = Analytics::fetchVisitorsAndPageViews(Period::days(7));
         $this->data['two_dates'] = $analyticsData_two->pluck('date');
         $this->data['two_visitors'] = $analyticsData_two->pluck('visitors')->count();
         $this->data['two_pageTitle'] = $analyticsData_two->pluck('pageTitle')->count();
 
-        $analyticsData_three = Analytics::fetchMostVisitedPages(Period::days(14));
+        $analyticsData_three = Analytics::fetchMostVisitedPages(Period::days(7));
         $this->data['three_url'] = $analyticsData_three->pluck('url');
         $this->data['three_pageTitle'] = $analyticsData_three->pluck('pageTitle');
         $this->data['three_pageViews'] = $analyticsData_three->pluck('pageViews');
 
-        $this->data['browserjson'] = GoogleAnalytics::topbrowsers(14);
+        $this->data['browserjson'] = GoogleAnalytics::topbrowsers(7);
 
-        $result = GoogleAnalytics::countries(14);
+        $result = GoogleAnalytics::countries(7);
         $this->data['country'] = $result->pluck('country');
         $this->data['country_sessions'] = $result->pluck('sessions');
 

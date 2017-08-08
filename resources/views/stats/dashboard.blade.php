@@ -56,56 +56,46 @@
                     </div>
                     <!-- /.box -->
                 </div>
-                <div class="row">
-                    <!-- /.col (LEFT) -->
-                    <div class="col-md-12">
-                        <!-- LINE CHART -->
-                        <div class="box box-info">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Country</h3>
-
-                                <div class="box-tools pull-right">
-                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                </div>
-                            </div>
-                            <div class="box-body">
-                                <div class="chart">
-                                    <canvas id="lineChart"></canvas>
-                                </div>
-                            </div>
-                            <!-- /.box-body -->
-                        </div>
-                        <!-- /.box -->
-
-                    </div>
-                    <!-- /.col (RIGHT) -->
-                </div>
                 <!-- /.row -->
-                <div class="row">
+                <div class="row" style="margin: 0 0 0 0;">
                     <!-- /.col (LEFT) -->
-                    <div class="col-md-12">
-                        <!-- LINE CHART -->
-                        <div class="box box-info">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Most Popular Pages</h3>
+                    <!-- VISITORS TABLE -->
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Most Popular Pages</h3>
 
-                                <div class="box-tools pull-right">
-                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                    </button>
-                                </div>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                </button>
                             </div>
-                            <div class="box-body">
-                                <div class="chart">
-                                    <div id="visitorsTable"></div>
-                                </div>
-                            </div>
-                            <!-- /.box-body -->
                         </div>
-                        <!-- /.box -->
-
+                        <div class="box-body">
+                            <div class="chart">
+                                <div id="visitorsTable"></div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
                     </div>
+                    <!-- /.box -->
+                </div>
+
+                <div class="row" style="margin: 0 0 0 0;">
+                    <!-- COUNTRIES DONUT CHART -->
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Countries</h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <canvas id="countriesPieChart" style="height:250px"></canvas>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
                     <!-- /.col (RIGHT) -->
                 </div>
                 <!-- /.row -->
@@ -120,6 +110,32 @@
 <script src="/assets/js/chart.js/Chart.min.js"></script>
 <script>
     $(function () {
+
+        function getRandomRgb() {
+            var num = Math.round(0xffffff * Math.random());
+            return {
+                r: num >> 16,
+                g: num >> 8 & 255,
+                b: num & 255
+            }
+        }
+
+        function rgbaString(r, g, b, a = 1){
+            if(typeof r !== 'undefined' && typeof g !== 'undefined' && typeof b !== 'undefined'){
+                return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+            } else {
+                return null;
+            }
+        }
+
+        function getRandomHexColor() {
+            var length = 6;
+            var chars = '0123456789ABCDEF';
+            var hex = '#';
+            while(length--) hex += chars[(Math.random() * 16) | 0];
+            return hex;
+        }
+
         /* ChartJS
          * -------
          * Here we will create a few charts using ChartJS
@@ -129,126 +145,88 @@
         //- AREA CHART -
         //--------------
 
-        // Get context with jQuery - using jQuery's .get() method.
-        var areaChartCanvas = document.getElementById("areaChart");
-        var areaChartContext = areaChartCanvas.getContext("2d");
+        let areaChartContext = document.getElementById("areaChart").getContext("2d");
 
-        // This will get the first returned node in the jQuery collection.
-        //var areaChart = new Chart(areaChartCanvas);
+        let visitorsRGB = getRandomRgb();
+        let pageViewsRGB = getRandomRgb();
 
-        var areaChartData = {
-            labels: {!! json_encode($dates->map(function($date) { return $date->format('d/m/y'); })) !!},
-
-            datasets: [
-                {
-                    label: "Page views",
-                    fillColor: "rgba(210, 214, 222, 1)",
-                    strokeColor: "rgba(210, 214, 222, 1)",
-                    pointColor: "rgba(210, 214, 222, 1)",
-                    pointStrokeColor: "#c1c7d1",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: {!! json_encode($pageViews) !!}
-                },
-                {
-                    label: "Visitors",
-                    fillColor: "rgba(60,141,188,0.9)",
-                    strokeColor: "rgba(60,141,188,0.8)",
-                    pointColor: "#3b8bba",
-                    pointStrokeColor: "rgba(60,141,188,1)",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(60,141,188,1)",
-                    data: {!! json_encode($visitors) !!}
+        let config = {
+            type: 'line',
+            data: {
+                labels: {!! json_encode($dates->map(function($date) { return $date->format('d/m/Y'); })) !!},
+                datasets: [
+                    {
+                        label: "Visitors",
+                        borderColor: rgbaString(visitorsRGB.r, visitorsRGB.g, visitorsRGB.b),
+                        backgroundColor: rgbaString(visitorsRGB.r, visitorsRGB.g, visitorsRGB.b, 0.5),
+                        data: {!! json_encode($visitors) !!}
+                    },
+                    {
+                        label: "Page views",
+                        borderColor: rgbaString(pageViewsRGB.r, pageViewsRGB.g, pageViewsRGB.b),
+                        backgroundColor: rgbaString(pageViewsRGB.r, pageViewsRGB.g, pageViewsRGB.b, 0.5),
+                        data: {!! json_encode($pageViews) !!}
+                    }
+                ]
+            },
+            options: {
+                //Boolean - If we should show the scale at all
+                showScale: true,
+                //Boolean - Whether grid lines are shown across the chart
+                scaleShowGridLines: true,
+                //String - Colour of the grid lines
+                scaleGridLineColor: "rgba(0,0,0,.05)",
+                //Number - Width of the grid lines
+                scaleGridLineWidth: 1,
+                //Boolean - Whether to show horizontal lines (except X axis)
+                scaleShowHorizontalLines: true,
+                //Boolean - Whether to show vertical lines (except Y axis)
+                scaleShowVerticalLines: true,
+                //Boolean - Whether the line is curved between points
+                bezierCurve: true,
+                //Number - Tension of the bezier curve between points
+                bezierCurveTension: 0.8,
+                //Boolean - Whether to show a dot for each point
+                pointDot: false,
+                //Number - Radius of each point dot in pixels
+                pointDotRadius: 4,
+                //Number - Pixel width of point dot stroke
+                pointDotStrokeWidth: 1,
+                //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+                pointHitDetectionRadius: 20,
+                //Boolean - Whether to show a stroke for datasets
+                datasetStroke: true,
+                //Number - Pixel width of dataset stroke
+                datasetStrokeWidth: 2,
+                //Boolean - Whether to fill the dataset with a color
+                datasetFill: true,
+                //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+                maintainAspectRatio: true,
+                //Boolean - whether to make the chart responsive to window resizing
+                responsive: true,
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                    callbacks: {
+                        label: function (t, d) {
+                            if (t.datasetIndex === 0) {
+                                return "Visitors: " + t.yLabel.toString();
+                            } else if (t.datasetIndex === 1) {
+                                return "Page Views: " + t.yLabel.toString();
+                            }
+                        }
+                    }
                 }
-            ]
+            }
         };
-
-        var areaChartOptions = {
-            //Boolean - If we should show the scale at all
-            showScale: true,
-            //Boolean - Whether grid lines are shown across the chart
-            scaleShowGridLines: false,
-            //String - Colour of the grid lines
-            scaleGridLineColor: "rgba(0,0,0,.05)",
-            //Number - Width of the grid lines
-            scaleGridLineWidth: 1,
-            //Boolean - Whether to show horizontal lines (except X axis)
-            scaleShowHorizontalLines: true,
-            //Boolean - Whether to show vertical lines (except Y axis)
-            scaleShowVerticalLines: true,
-            //Boolean - Whether the line is curved between points
-            bezierCurve: true,
-            //Number - Tension of the bezier curve between points
-            bezierCurveTension: 0.3,
-            //Boolean - Whether to show a dot for each point
-            pointDot: false,
-            //Number - Radius of each point dot in pixels
-            pointDotRadius: 4,
-            //Number - Pixel width of point dot stroke
-            pointDotStrokeWidth: 1,
-            //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-            pointHitDetectionRadius: 20,
-            //Boolean - Whether to show a stroke for datasets
-            datasetStroke: true,
-            //Number - Pixel width of dataset stroke
-            datasetStrokeWidth: 2,
-            //Boolean - Whether to fill the dataset with a color
-            datasetFill: true,
-            //String - A legend template
-            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
-            //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-            maintainAspectRatio: true,
-            //Boolean - whether to make the chart responsive to window resizing
-            responsive: true
-        };
-
-        //Create the line chart
-        //areaChart.Line(areaChartData, areaChartOptions);
-
-        var areaChart = new Chart(areaChartContext, {
-            type: "line",
-            data: areaChartData,
-            options: areaChartOptions
-        });
-
-        //-------------
-        //- LINE CHART -
-        //--------------
-        var lineChartData = {
-            labels:  {!! json_encode($country) !!} ,
-
-            datasets: [
-                {
-                    label: "Visitors",
-                    fillColor: "rgba(60,141,188,0.9)",
-                    strokeColor: "rgba(60,141,188,0.8)",
-                    pointColor: "#3b8bba",
-                    pointStrokeColor: "rgba(60,141,188,1)",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(60,141,188,1)",
-                    data: {!! json_encode($country_sessions) !!}
-                }
-            ]
-        };
-
-        var lineChartCanvas = document.getElementById('lineChart');
-		var lineChartContext = lineChartCanvas.getContext("2d");
-        var lineChartOptions = areaChartOptions;
-        lineChartOptions.datasetFill = false;
-        var lineChart = new Chart(
-		    lineChartContext, {
-			    type: 'line',
-				data: lineChartData,
-				options: lineChartOptions
-			}
-		);
+        let areaChart = new Chart(areaChartContext, config);
 
         //-------------
         //- PIE CHART -
         //-------------
-		var pieChartCanvas = document.getElementById('pieChart');
-		var pieChartContext = pieChartCanvas.getContext("2d");
-		var pieChartOptions = {
+		let pieChartCanvas = document.getElementById('pieChart');
+		let pieChartContext = pieChartCanvas.getContext("2d");
+		let pieChartOptions = {
             //Boolean - Whether we should show a stroke on each segment
             segmentShowStroke: true,
             //String - The colour of each segment stroke
@@ -268,34 +246,88 @@
             //Boolean - whether to make the chart responsive to window resizing
             responsive: true,
             // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-            maintainAspectRatio: true,
-            //String - A legend template
-            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+            maintainAspectRatio: true
         };
 
-		var pieChart = new Chart(
+		let backgroundColors = [];
+		let dataCount = {!! count($browserjson['datasets']['data']) !!}
+		for(let i = 0; i < dataCount; i++){
+		    backgroundColors.push(getRandomHexColor());
+        }
+
+		let pieChart = new Chart(
 		    pieChartContext, {
 			    type: 'doughnut',
 			    data: {
 				    labels: {!! json_encode($browserjson['labels']) !!},
 				    datasets: [{
-				        backgroundColor: {!! json_encode($browserjson['datasets']['backgroundColor']) !!},
+				        backgroundColor: backgroundColors,
 				        data: {!! json_encode($browserjson['datasets']['data']) !!}
 				    }],
 			        options: pieChartOptions
 			    }
-		});
+		}
+		);
+
+        //-----------------------
+        //- COUNTRIES PIE CHART -
+        //-----------------------
+        let countriesPieChartContext = document.getElementById('countriesPieChart').getContext("2d");
+        let countriesPieChartOptions = {
+            //Boolean - Whether we should show a stroke on each segment
+            segmentShowStroke: true,
+            //String - The colour of each segment stroke
+            segmentStrokeColor: "#fff",
+            //Number - The width of each segment stroke
+            segmentStrokeWidth: 2,
+            //Number - The percentage of the chart that we cut out of the middle
+            percentageInnerCutout: 50, // This is 0 for Pie charts
+            //Number - Amount of animation steps
+            animationSteps: 100,
+            //String - Animation easing effect
+            animationEasing: "easeOutBounce",
+            //Boolean - Whether we animate the rotation of the Doughnut
+            animateRotate: true,
+            //Boolean - Whether we animate scaling the Doughnut from the centre
+            animateScale: false,
+            //Boolean - whether to make the chart responsive to window resizing
+            responsive: true,
+            // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+            maintainAspectRatio: true
+        };
+
+        let countriesPieChartBgColors = [];
+        let countriesPieChartDataCount = {!! count($country_sessions) !!}
+        for(let i = 0; i < countriesPieChartDataCount; i++){
+            countriesPieChartBgColors.push(getRandomHexColor());
+        }
+
+        let countriesPieChart = new Chart(
+            countriesPieChartContext, {
+                type: 'doughnut',
+                data: {
+                    labels: {!! json_encode($country) !!},
+                    datasets: [{
+                        backgroundColor: countriesPieChartBgColors,
+                        data: {!! json_encode($country_sessions) !!}
+                    }],
+                    options: countriesPieChartOptions
+                }
+            }
+        );
+
+
 
         // VISITORS TABLE BELOW
-        var dataToTable = function (dataset) {
+        let dataToTable = function (dataset) {
 
-            var getItem = function(dataset, index){
+            let getItem = function(dataset, index){
                 return dataset.data[index];
-            }
+            };
 
-            var html = '<table><thead><tr>';
+            let html = '<table><thead><tr>';
 
-            var columnCount = 0;
+            let columnCount = 0;
             jQuery.each(dataset.datasets, function (idx, item) {
                 html += '<th style="background-color:' + item.fillColor + ';">' + item.label + '</th>';
                 columnCount += 1;
@@ -303,7 +335,7 @@
 
             html += '</tr></thead><tbody>';
 
-            for(var i = 0; i < dataset.datasets[0].data.length; i++){
+            for(let i = 0; i < dataset.datasets[0].data.length; i++){
                 html += '<tr>';
                 html += '<td>' + getItem(dataset.datasets[0], i) + '</td>';
                 html += '<td>' + getItem(dataset.datasets[1], i) + '</td>';
@@ -316,7 +348,7 @@
             return html;
         };
 
-        var data = {
+        let data = {
             labels: [],
             datasets: [
                 {

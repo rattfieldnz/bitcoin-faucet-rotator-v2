@@ -53,20 +53,10 @@ class GoogleAnalytics{
         $dataSets['labels'] = [];
         $dataSets['datasets'] = [];
         $dataSets['datasets']['data'] = [];
-        $dataSets['datasets']['backgroundColor'] = [];
         foreach ($array as $k=>$v)
         {
-            //$array[$k] ['label'] = $array[$k] ['browser'];
             array_push($dataSets['labels'], $array[$k] ['browser']);
-            unset($array[$k]['browser']);
-            array_push(
-                $dataSets['datasets']['backgroundColor'],
-                '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT)
-            );
-            //$array[$k] ['value'] = $array[$k] ['sessions'];
             array_push($dataSets['datasets']['data'], $array[$k] ['sessions']);
-            unset($array[$k]['sessions']);
-            //$array[$k]['color'] = $array[$k]['highlight'] = '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
         }
 
         return $dataSets;
