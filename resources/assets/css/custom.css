@@ -267,6 +267,7 @@ table.show-table-header thead tr th{
 
 .main-sidebar, .sidebar-fixed, #sidebar-wrapper{
     width: 230px;
+    margin-right:1em;
 }
 
 .login-logo,

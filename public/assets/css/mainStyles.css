@@ -41475,6 +41475,7 @@ table.show-table-header thead tr th {
 .sidebar-fixed,
 #sidebar-wrapper {
   width: 230px;
+  margin-right: 1em;
 }
 
 .login-logo,

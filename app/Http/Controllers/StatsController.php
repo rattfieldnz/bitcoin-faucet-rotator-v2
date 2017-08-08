@@ -32,11 +32,9 @@ class StatsController extends Controller
         $this->data['browserjson'] = GoogleAnalytics::topbrowsers(7);
 
         $result = GoogleAnalytics::countries(7);
-        $this->data['country'] = $result->pluck('country');
-        $this->data['country_sessions'] = $result->pluck('sessions');
+        $this->data['countries'] = $result;
 
         $this->data['title'] = "Stats"; // set the page title
-        //dd($this->data);
         return view('stats.dashboard', $this->data);
     }
 }

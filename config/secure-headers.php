@@ -152,7 +152,8 @@ return [
                 'www.google-analytics.com',
                 'google-analytics.com',
                 'www.google.com',
-                'www.gstatic.com'
+                'www.gstatic.com',
+                'maps.googleapis.com'
             ],
 
             'hashes' => [
@@ -181,6 +182,8 @@ return [
                 'fonts.gstatic.com',
                 'code.ionicframework.com',
                 'code.jquery.com',
+                'www.google.com',
+                'www.gstatic.com'
             ],
 
             'self' => false,
@@ -194,7 +197,8 @@ return [
                 'infyom.com',
                 'www.google-analytics.com',
                 'google-analytics.com',
-                'secure.gravatar.com'
+                'secure.gravatar.com',
+                'csi.gstatic.com'
             ],
 
             'types' => [

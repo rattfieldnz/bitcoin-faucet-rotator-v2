@@ -91,7 +91,7 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <canvas id="countriesPieChart" style="height:250px"></canvas>
+                            <div id="regions_div" style="width: 100%; height: auto;"></div>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -107,7 +107,8 @@
 
 @push('scripts')
 <script src="/assets/js/datatables.net/datatables.min.js?{{ rand() }}"></script>
-<script src="/assets/js/chart.js/Chart.min.js"></script>
+<script src="/assets/js/chart.js/Chart.min.js?{{ rand() }}"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
     $(function () {
 
@@ -270,52 +271,54 @@
 		);
 
         //-----------------------
-        //- COUNTRIES PIE CHART -
+        //- COUNTRIES MAP -------
         //-----------------------
-        let countriesPieChartContext = document.getElementById('countriesPieChart').getContext("2d");
-        let countriesPieChartOptions = {
-            //Boolean - Whether we should show a stroke on each segment
-            segmentShowStroke: true,
-            //String - The colour of each segment stroke
-            segmentStrokeColor: "#fff",
-            //Number - The width of each segment stroke
-            segmentStrokeWidth: 2,
-            //Number - The percentage of the chart that we cut out of the middle
-            percentageInnerCutout: 50, // This is 0 for Pie charts
-            //Number - Amount of animation steps
-            animationSteps: 100,
-            //String - Animation easing effect
-            animationEasing: "easeOutBounce",
-            //Boolean - Whether we animate the rotation of the Doughnut
-            animateRotate: true,
-            //Boolean - Whether we animate scaling the Doughnut from the centre
-            animateScale: false,
-            //Boolean - whether to make the chart responsive to window resizing
-            responsive: true,
-            // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-            maintainAspectRatio: true
-        };
 
-        let countriesPieChartBgColors = [];
-        let countriesPieChartDataCount = {!! count($country_sessions) !!}
-        for(let i = 0; i < countriesPieChartDataCount; i++){
-            countriesPieChartBgColors.push(getRandomHexColor());
+        google.charts.load('current', {
+            'packages':['geochart'],
+            // Note: you will need to get a mapsApiKey for your project.
+            // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+            'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+        });
+        google.charts.setOnLoadCallback(drawRegionsMap);
+        var countriesData = {!! json_encode($countries) !!};
+
+        for(var i = 0; i < countriesData.length; i++){
+            if(!isNaN(countriesData[i][1])){
+                countriesData[i][1] = parseInt(countriesData[i][1]);
+            }
         }
 
-        let countriesPieChart = new Chart(
-            countriesPieChartContext, {
-                type: 'doughnut',
-                data: {
-                    labels: {!! json_encode($country) !!},
-                    datasets: [{
-                        backgroundColor: countriesPieChartBgColors,
-                        data: {!! json_encode($country_sessions) !!}
-                    }],
-                    options: countriesPieChartOptions
-                }
-            }
-        );
+        function drawRegionsMap() {
+            var data = google.visualization.arrayToDataTable(countriesData);
 
+            var options = {};
+            options.width = '90%';
+            options.showLegend = true;
+            options.showZoomOut = true;
+            options.zoomOutLabel = 'Zoom Out';
+
+            var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+            chart.draw(data, options);
+        }
+
+        var windowResizeTimer;
+
+        jQuery(window).on('resize', function () {
+            clearTimeout(windowResizeTimer);
+            windowResizeTimer = setTimeout(function(){
+                drawRegionsMap();
+                console.log(jQuery('#regions_div').outerHeight(true));
+            }, 250);
+        });
+
+        jQuery(window).on('reload', function () {
+            clearTimeout(windowResizeTimer);
+            windowResizeTimer = setTimeout(function(){
+                drawRegionsMap();
+            }, 250);
+        });
 
 
         // VISITORS TABLE BELOW

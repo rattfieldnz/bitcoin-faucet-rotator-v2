@@ -26,14 +26,14 @@ class GoogleAnalytics{
      */
     public static function countries(int $numberOfDays = 1) : Collection {
         $country = Analytics::performQuery(Period::days($numberOfDays),'ga:sessions',  ['dimensions'=>'ga:country','sort'=>'-ga:sessions']);
-        $result= collect($country['rows'] ?? [])->map(function (array $dateRow) {
+        $data = $country['rows'];
+        array_unshift($data, ['Country', 'Visitors']);
+        $result= collect($data ?? [])->map(function (array $dataRow) {
             return [
-                'country' =>  $dateRow[0],
-                'sessions' => (int) $dateRow[1],
+                $dataRow[0],
+                is_int($dataRow[1]) ? intval($dataRow[1]) : $dataRow[1],
             ];
         });
-        /* $data['country'] = $result->pluck('country'); */
-        /* $data['country_sessions'] = $result->pluck('sessions'); */
         return $result;
     }
 
