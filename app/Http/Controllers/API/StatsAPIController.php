@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\AppBaseController;
 use App\Libraries\Google\Analytics\GoogleAnalytics;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Facades\Datatables;
 
 class StatsAPIController extends AppBaseController
 {
@@ -29,7 +30,10 @@ class StatsAPIController extends AppBaseController
         $fromDateInput = urldecode($dateFrom);
         $toDateInput = urldecode($dateTo);
         $quantity = intval($quantity);
+        $data = GoogleAnalytics::topPagesBetweenTwoDates($fromDateInput, $toDateInput, $quantity);
 
-        return GoogleAnalytics::topPagesBetweenTwoDates($fromDateInput, $toDateInput, $quantity);
+        //$dataTables = Datatables::collection($data)->make(true);
+
+        return $data;
     }
 }

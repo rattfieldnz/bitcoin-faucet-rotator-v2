@@ -54,7 +54,7 @@
                         </div>
                         <div class="box-body">
                             <div class="chart">
-                                <div id="visitorsTable"></div>
+                                <table id="visitorsTable"></table>
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -264,6 +264,7 @@
         //- COUNTRIES MAP -------
         //-----------------------
 
+        var mapElement = $('#regions_div');
         google.charts.load('current', {
             'packages':['geochart'],
             // Note: you will need to get a mapsApiKey for your project.
@@ -280,17 +281,22 @@
         }
 
         function drawRegionsMap() {
-            var data = google.visualization.arrayToDataTable(countriesData);
+            mapElement.empty();
+            if(countriesData.length > 0){
+                var data = google.visualization.arrayToDataTable(countriesData);
 
-            var options = {};
-            options.width = '90%';
-            options.showLegend = true;
-            options.showZoomOut = true;
-            options.zoomOutLabel = 'Zoom Out';
+                var options = {};
+                options.width = '90%';
+                options.showLegend = true;
+                options.showZoomOut = true;
+                options.zoomOutLabel = 'Zoom Out';
 
-            var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+                var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
 
-            chart.draw(data, options);
+                chart.draw(data, options);
+            } else {
+                mapElement.append('<p style="font-size:2em;">Sorry, there is no data to show on this map.</p>');
+            }
         }
 
         var windowResizeTimer;
@@ -299,7 +305,6 @@
             clearTimeout(windowResizeTimer);
             windowResizeTimer = setTimeout(function(){
                 drawRegionsMap();
-                console.log(jQuery('#regions_div').outerHeight(true));
             }, 250);
         });
 
@@ -310,74 +315,30 @@
             }, 250);
         });
 
+        // DATATABLES EXAMPLE FOR SHOWING VISITORS //
 
-        // VISITORS TABLE BELOW
-        let dataToTable = function (dataset) {
+        var data = $.map({!! json_encode($dataTables) !!}, function(value) {
+            return [value];
+        });
 
-            let getItem = function(dataset, index){
-                return dataset.data[index];
-            };
+        var dataTablesData = $.map(data[1].data, function(value) {
+            return [value];
+        });
 
-            let html = '<table><thead><tr>';
-
-            let columnCount = 0;
-            jQuery.each(dataset.datasets, function (idx, item) {
-                html += '<th style="background-color:' + item.fillColor + ';">' + item.label + '</th>';
-                columnCount += 1;
-            });
-
-            html += '</tr></thead><tbody>';
-
-            for(let i = 0; i < dataset.datasets[0].data.length; i++){
-                html += '<tr>';
-                html += '<td>' + getItem(dataset.datasets[0], i) + '</td>';
-                html += '<td>' + getItem(dataset.datasets[1], i) + '</td>';
-                html += '<td>' + getItem(dataset.datasets[2], i) + '</td>';
-                html += '</tr>';
-            }
-
-            html += '</tbody></table>';
-
-            return html;
-        };
-
-        let data = {
-            labels: [],
-            datasets: [
-                {
-                    label: "URL",
-                    fillColor: "rgba(220,220,220,0.2)",
-                    strokeColor: "rgba(220,220,220,1)",
-                    pointColor: "rgba(220,220,220,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: {!! $three_url->toJson() !!}
-                },
-                {
-                    label: "Page Title",
-                    fillColor: "rgba(151,187,205,0.2)",
-                    strokeColor: "rgba(151,187,205,1)",
-                    pointColor: "rgba(151,187,205,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(151,187,205,1)",
-                    data: {!! $three_pageTitle->toJson() !!}
-                },
-                {
-                    label: "Page Views",
-                    fillColor: "rgba(151,187,205,0.2)",
-                    strokeColor: "rgba(151,187,205,1)",
-                    pointColor: "rgba(151,187,205,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(151,187,205,1)",
-                    data: {!! $three_pageViews->toJson() !!}
-                }
+        $('#visitorsTable').DataTable( {
+            data: dataTablesData,
+            columns: [
+                { title: "URL" },
+                { title: "Page Title" },
+                { title: "Unique Visitors" },
+                { title: "Page Views" },
+                { title: "Unique Page Views" },
+                { title: "Average Session Duration" },
+                { title: "Average Time on Page" },
+                { title: "Number of Bounces" },
+                { title: "Number of Countries" }
             ]
-        };
-
-        jQuery('#visitorsTable').html(dataToTable(data));
+        } );
 
   });
 

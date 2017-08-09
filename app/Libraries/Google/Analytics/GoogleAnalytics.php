@@ -27,14 +27,7 @@ class GoogleAnalytics{
     public static function countries(int $numberOfDays = 1) : Collection {
         $country = Analytics::performQuery(Period::days($numberOfDays),'ga:sessions',  ['dimensions'=>'ga:country','sort'=>'-ga:sessions']);
         $data = $country['rows'];
-        array_unshift($data, ['Country', 'Visitors']);
-        $result= collect($data ?? [])->map(function (array $dataRow) {
-            return [
-                $dataRow[0],
-                is_int($dataRow[1]) ? intval($dataRow[1]) : $dataRow[1],
-            ];
-        });
-        return $result;
+        return self::getCountryData($data);
     }
 
     /**
@@ -86,7 +79,7 @@ class GoogleAnalytics{
      *
      * @return \Illuminate\Support\Collection
      */
-    public static function topPagesBetweenTwoDates($startDate, $endDate, $count = 20){
+    public static function topPagesBetweenTwoDates($startDate, $endDate, int $count = null){
         $startDateValue = Dates::createDateTime($startDate);
         $endDateValue = Dates::createDateTime($endDate);
 
@@ -116,37 +109,48 @@ class GoogleAnalytics{
             $dimensions =
                 [
                     'dimensions' => 'ga:pagePath,ga:pageTitle',
-                    'sort' => '-ga:visitors,-ga:uniquePageviews,-ga:avgSessionDuration,-ga:avgTimeOnPage,-ga:bounces',
-                    'max-results' => $count,
+                    'sort' => 'ga:visitors,ga:pageViews,ga:uniquePageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounces',
                 ];
+
+            if(!empty($count)){
+                $dimensions['max-results'] = $count;
+            }
 
             $results = Analytics::performQuery($period,$metrics,$dimensions);
-            $data = array_values($results['rows']);
 
-            foreach($data as $key => $value){
-                array_push($data[$key], self::getNoOfCountries($period, $data[$key][0]));
+            if(!empty($results['rows'])){
+
+                $data = array_values($results['rows']);
+
+                foreach($data as $key => $value){
+                    array_push($data[$key], self::getNoOfCountries($period, $data[$key][0]));
+                }
+
+                foreach($data as $key => $value){
+                    array_push($data[$key], $startDateValue);
+                    array_push($data[$key], $endDateValue);
+                }
+
+                //$date = Carbon::now()->toTimeString()
+
+                return collect($data ?? [])->map(function (array $pageRow) {
+                    return [
+                        $pageRow[0], // url
+                        $pageRow[1], // pageTitle
+                        (int) $pageRow[2], // uniqueVisitors
+                        (int) $pageRow[3], // pageViews
+                        (int) $pageRow[4], // uniquePageViews
+                        floatval($pageRow[5]), // aveSessionDuration
+                        floatval($pageRow[6]), // aveTimeOnPage
+                        (int) $pageRow[7], // noOfBounces
+                        (int) $pageRow[8], // noOfCountries
+                        $pageRow[9]->toDateString() . ' ' . $pageRow[9]->toTimeString(), // start
+                        $pageRow[10]->toDateString() . ' ' . $pageRow[10]->toTimeString() // end
+                    ];
+                });
+            } else{
+                return collect();
             }
-
-            foreach($data as $key => $value){
-                array_push($data[$key], $startDateValue);
-                array_push($data[$key], $endDateValue);
-            }
-
-            return collect($data ?? [])->map(function (array $pageRow) {
-                return [
-                    'url' => $pageRow[0],
-                    'pageTitle' => $pageRow[1],
-                    'uniqueVisitors' => (int) $pageRow[2],
-                    'pageViews' => (int) $pageRow[3],
-                    'uniquePageViews' => (int) $pageRow[4],
-                    'aveSessionDuration' => floatval($pageRow[5]),
-                    'aveTimeOnPage' => floatval($pageRow[6]),
-                    'noOfBounces' => (int) $pageRow[7],
-                    'noOfCountries' => (int) $pageRow[8],
-                    'start' => $pageRow[9],
-                    'end' => $pageRow[10]
-                ];
-            });
         } else {
             return collect();
         }
@@ -175,6 +179,31 @@ class GoogleAnalytics{
             return count($results['rows']);
         } else {
             return 0;
+        }
+    }
+
+    /**
+     * A function to format country-visitors data.
+     *
+     * @param $data
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    private static function getCountryData(array $data): Collection{
+        if(!empty($data)){
+            array_unshift($data, ['Country', 'Visitors']);
+            $result= collect($data ?? [])->map(function (array $dataRow) {
+                return [
+                    $dataRow[0],
+                    is_int($dataRow[1]) ? intval($dataRow[1]) : $dataRow[1],
+                ];
+            });
+            return $result;
+        } else{
+            $data = collect();
+            $data->push(['Country', 'Visitors'])
+                ->push(['New Zealand', 0]); // Set default country and number of visitors.
+            return $data;
         }
     }
 }
