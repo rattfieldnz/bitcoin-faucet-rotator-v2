@@ -21,9 +21,9 @@
             <div class="box-body">
                 <div class="row" style="margin: 0 0 0 0;">
                     <!-- AREA CHART -->
-                    <div class="box box-primary col-md-6">
+                    <div class="box box-primary col-md-12">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Visitor and Page View</h3>
+                            <h3 class="box-title">Visitors and Page Views</h3>
 
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -38,29 +38,12 @@
                         <!-- /.box-body -->
                     </div>
                     <!-- /.box -->
-
-                    <!-- DONUT CHART -->
-                    <div class="box box-danger col-md-6">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Browser</h3>
-
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="box-body">
-                            <canvas id="pieChart" style="height:250px"></canvas>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.box -->
                 </div>
                 <!-- /.row -->
                 <div class="row" style="margin: 0 0 0 0;">
                     <!-- /.col (LEFT) -->
                     <!-- VISITORS TABLE -->
-                    <div class="box box-info">
+                    <div class="box box-info col-md-12">
                         <div class="box-header with-border">
                             <h3 class="box-title">Most Popular Pages</h3>
 
@@ -80,10 +63,10 @@
                 </div>
 
                 <div class="row" style="margin: 0 0 0 0;">
-                    <!-- COUNTRIES DONUT CHART -->
-                    <div class="box box-info">
+                    <!-- COUNTRIES MAP -->
+                    <div class="box box-info col-md-12">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Countries</h3>
+                            <h3 class="box-title">Visitor Countries</h3>
 
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -98,6 +81,24 @@
                     <!-- /.box -->
                     <!-- /.col (RIGHT) -->
                 </div>
+                <div class="row" style="margin: 0 0 0 0;">
+                    <!-- DONUT CHART -->
+                    <div class="box box-danger col-md-12">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Browser Usage (by visits)</h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <canvas id="pieChart" style="height:250px"></canvas>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
                 <!-- /.row -->
 
             </div>
@@ -108,34 +109,9 @@
 @push('scripts')
 <script src="/assets/js/datatables.net/datatables.min.js?{{ rand() }}"></script>
 <script src="/assets/js/chart.js/Chart.min.js?{{ rand() }}"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
     $(function () {
-
-        function getRandomRgb() {
-            var num = Math.round(0xffffff * Math.random());
-            return {
-                r: num >> 16,
-                g: num >> 8 & 255,
-                b: num & 255
-            }
-        }
-
-        function rgbaString(r, g, b, a = 1){
-            if(typeof r !== 'undefined' && typeof g !== 'undefined' && typeof b !== 'undefined'){
-                return "rgba(" + r + "," + g + "," + b + "," + a + ")";
-            } else {
-                return null;
-            }
-        }
-
-        function getRandomHexColor() {
-            var length = 6;
-            var chars = '0123456789ABCDEF';
-            var hex = '#';
-            while(length--) hex += chars[(Math.random() * 16) | 0];
-            return hex;
-        }
 
         /* ChartJS
          * -------
@@ -217,6 +193,20 @@
                             }
                         }
                     }
+                },
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of Visitors / Page Views'
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Date'
+                        }
+                    }]
                 }
             }
         };
@@ -390,6 +380,31 @@
         jQuery('#visitorsTable').html(dataToTable(data));
 
   });
+
+    function getRandomRgb() {
+        var num = Math.round(0xffffff * Math.random());
+        return {
+            r: num >> 16,
+            g: num >> 8 & 255,
+            b: num & 255
+        }
+    }
+
+    function rgbaString(r, g, b, a = 1){
+        if(typeof r !== 'undefined' && typeof g !== 'undefined' && typeof b !== 'undefined'){
+            return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+        } else {
+            return null;
+        }
+    }
+
+    function getRandomHexColor() {
+        var length = 6;
+        var chars = '0123456789ABCDEF';
+        var hex = '#';
+        while(length--) hex += chars[(Math.random() * 16) | 0];
+        return hex;
+    }
 </script>
 @endpush
 

@@ -112,11 +112,11 @@ class GoogleAnalytics{
             }
 
             $period = Period::create($startDateValue, $endDateValue);
-            $metrics = 'ga:pageviews,ga:uniquePageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounces';
+            $metrics = 'ga:visitors,ga:pageViews,ga:uniquePageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounces';
             $dimensions =
                 [
                     'dimensions' => 'ga:pagePath,ga:pageTitle',
-                    'sort' => '-ga:pageviews,-ga:uniquePageviews,-ga:avgSessionDuration,-ga:avgTimeOnPage,-ga:bounces',
+                    'sort' => '-ga:visitors,-ga:uniquePageviews,-ga:avgSessionDuration,-ga:avgTimeOnPage,-ga:bounces',
                     'max-results' => $count,
                 ];
 
@@ -136,14 +136,15 @@ class GoogleAnalytics{
                 return [
                     'url' => $pageRow[0],
                     'pageTitle' => $pageRow[1],
-                    'pageViews' => (int) $pageRow[2],
-                    'uniquePageViews' => (int) $pageRow[3],
-                    'aveSessionDuration' => floatval($pageRow[4]),
-                    'aveTimeOnPage' => floatval($pageRow[5]),
-                    'noOfBounces' => (int) $pageRow[6],
-                    'noOfCountries' => (int) $pageRow[7],
-                    'start' => $pageRow[8],
-                    'end' => $pageRow[9]
+                    'uniqueVisitors' => (int) $pageRow[2],
+                    'pageViews' => (int) $pageRow[3],
+                    'uniquePageViews' => (int) $pageRow[4],
+                    'aveSessionDuration' => floatval($pageRow[5]),
+                    'aveTimeOnPage' => floatval($pageRow[6]),
+                    'noOfBounces' => (int) $pageRow[7],
+                    'noOfCountries' => (int) $pageRow[8],
+                    'start' => $pageRow[9],
+                    'end' => $pageRow[10]
                 ];
             });
         } else {
