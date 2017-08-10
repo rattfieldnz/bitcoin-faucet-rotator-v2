@@ -135,17 +135,17 @@ class GoogleAnalytics{
 
                 return collect($data ?? [])->map(function (array $pageRow) {
                     return [
-                        $pageRow[0], // url
-                        $pageRow[1], // pageTitle
-                        (int) $pageRow[2], // uniqueVisitors
-                        (int) $pageRow[3], // pageViews
-                        (int) $pageRow[4], // uniquePageViews
-                        floatval($pageRow[5]), // aveSessionDuration
-                        floatval($pageRow[6]), // aveTimeOnPage
-                        (int) $pageRow[7], // noOfBounces
-                        (int) $pageRow[8], // noOfCountries
-                        $pageRow[9]->toDateString() . ' ' . $pageRow[9]->toTimeString(), // start
-                        $pageRow[10]->toDateString() . ' ' . $pageRow[10]->toTimeString() // end
+                        'url' => $pageRow[0], // url
+                        'pageTitle' => $pageRow[1], // pageTitle
+                        'uniqueVisitors' => (int) $pageRow[2], // uniqueVisitors
+                        'pageViews' => (int) $pageRow[3], // pageViews
+                        'uniquePageViews' => (int) $pageRow[4], // uniquePageViews
+                        'aveSessionDuration' => floatval($pageRow[5]), // aveSessionDuration
+                        'aveTimeOnPage' => floatval($pageRow[6]), // aveTimeOnPage
+                        'noOfBounces' => (int) $pageRow[7], // noOfBounces
+                        'noOfCountries' => (int) $pageRow[8], // noOfCountries
+                        'start' => $pageRow[9]->toDateString() . ' ' . $pageRow[9]->toTimeString(), // start
+                        'end' => $pageRow[10]->toDateString() . ' ' . $pageRow[10]->toTimeString() // end
                     ];
                 });
             } else{

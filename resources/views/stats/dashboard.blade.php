@@ -54,7 +54,34 @@
                         </div>
                         <div class="box-body">
                             <div class="chart">
-                                <table id="visitorsTable"></table>
+                                <table id="visitorsTable" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>URL</th>
+                                            <th>Page Title</th>
+                                            <th>Unique Visitors</th>
+                                            <th>Page Views</th>
+                                            <th>Unique Page Views</th>
+                                            <th>Ave. Session Duration</th>
+                                            <th>Ave. Time on Page</th>
+                                            <th>Bounces</th>
+                                            <th>No. of Countries</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>URL</th>
+                                            <th>Page Title</th>
+                                            <th>Unique Visitors</th>
+                                            <th>Page Views</th>
+                                            <th>Unique Page Views</th>
+                                            <th>Ave. Session Duration</th>
+                                            <th>Ave. Time on Page</th>
+                                            <th>Bounces</th>
+                                            <th>No. of Countries</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -215,9 +242,9 @@
         //-------------
         //- PIE CHART -
         //-------------
-		let pieChartCanvas = document.getElementById('pieChart');
-		let pieChartContext = pieChartCanvas.getContext("2d");
-		let pieChartOptions = {
+        let pieChartCanvas = document.getElementById('pieChart');
+        let pieChartContext = pieChartCanvas.getContext("2d");
+        let pieChartOptions = {
             //Boolean - Whether we should show a stroke on each segment
             segmentShowStroke: true,
             //String - The colour of each segment stroke
@@ -240,25 +267,26 @@
             maintainAspectRatio: true
         };
 
-		let backgroundColors = [];
-		let dataCount = {!! count($browserjson['datasets']['data']) !!}
-		for(let i = 0; i < dataCount; i++){
-		    backgroundColors.push(getRandomHexColor());
+        let backgroundColors = [];
+        let dataCount =
+                {!! count($browserjson['datasets']['data']) !!}
+        for (let i = 0; i < dataCount; i++) {
+            backgroundColors.push(getRandomHexColor());
         }
 
-		let pieChart = new Chart(
-		    pieChartContext, {
-			    type: 'doughnut',
-			    data: {
-				    labels: {!! json_encode($browserjson['labels']) !!},
-				    datasets: [{
-				        backgroundColor: backgroundColors,
-				        data: {!! json_encode($browserjson['datasets']['data']) !!}
-				    }],
-			        options: pieChartOptions
-			    }
-		}
-		);
+        let pieChart = new Chart(
+            pieChartContext, {
+                type: 'doughnut',
+                data: {
+                    labels: {!! json_encode($browserjson['labels']) !!},
+                    datasets: [{
+                        backgroundColor: backgroundColors,
+                        data: {!! json_encode($browserjson['datasets']['data']) !!}
+                    }],
+                    options: pieChartOptions
+                }
+            }
+        );
 
         //-----------------------
         //- COUNTRIES MAP -------
@@ -266,7 +294,7 @@
 
         var mapElement = $('#regions_div');
         google.charts.load('current', {
-            'packages':['geochart'],
+            'packages': ['geochart'],
             // Note: you will need to get a mapsApiKey for your project.
             // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
             'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
@@ -274,15 +302,15 @@
         google.charts.setOnLoadCallback(drawRegionsMap);
         var countriesData = {!! json_encode($countries) !!};
 
-        for(var i = 0; i < countriesData.length; i++){
-            if(!isNaN(countriesData[i][1])){
+        for (var i = 0; i < countriesData.length; i++) {
+            if (!isNaN(countriesData[i][1])) {
                 countriesData[i][1] = parseInt(countriesData[i][1]);
             }
         }
 
         function drawRegionsMap() {
             mapElement.empty();
-            if(countriesData.length > 0){
+            if (countriesData.length > 0) {
                 var data = google.visualization.arrayToDataTable(countriesData);
 
                 var options = {};
@@ -303,69 +331,93 @@
 
         jQuery(window).on('resize', function () {
             clearTimeout(windowResizeTimer);
-            windowResizeTimer = setTimeout(function(){
+            windowResizeTimer = setTimeout(function () {
                 drawRegionsMap();
             }, 250);
         });
 
         jQuery(window).on('reload', function () {
             clearTimeout(windowResizeTimer);
-            windowResizeTimer = setTimeout(function(){
+            windowResizeTimer = setTimeout(function () {
                 drawRegionsMap();
             }, 250);
         });
 
         // DATATABLES EXAMPLE FOR SHOWING VISITORS //
 
-        var data = $.map({!! json_encode($dataTables) !!}, function(value) {
+        //console.log(secondsToTime(3660));
+
+        var data = $.map({!! json_encode($dataTables) !!}, function (value) {
             return [value];
         });
 
-        var dataTablesData = $.map(data[1].data, function(value) {
+        var dataTablesData = $.map(data[1].data, function (value) {
             return [value];
         });
+        $.each(dataTablesData, function(i, d) {
+            d.sessionDuration = d.aveSessionDuration;
+            d.timeOnPage = d.aveTimeOnPage;
+        });
 
-        $('#visitorsTable').DataTable( {
+        $('#visitorsTable').DataTable({
             data: dataTablesData,
+            order: [[2, "desc"], [3, "desc"], [4, "desc"], [5,"desc"], [6, "desc"], [7, "desc"], [8, "desc"]],
             columns: [
-                { title: "URL" },
-                { title: "Page Title" },
-                { title: "Unique Visitors" },
-                { title: "Page Views" },
-                { title: "Unique Page Views" },
-                { title: "Average Session Duration" },
-                { title: "Average Time on Page" },
-                { title: "Number of Bounces" },
-                { title: "Number of Countries" }
-            ]
-        } );
+                {"data": "url"},
+                {"data": "pageTitle"},
+                {"data": "uniqueVisitors"},
+                {"data": "pageViews"},
+                {"data": "uniquePageViews"},
+                {
+                    "data": "aveSessionDuration", render: function (data) {
+                    return secondsToTime(data)
+                }
+                },
+                {
+                    "data": "aveTimeOnPage", render: function (data) {
+                    return secondsToTime(data)
+                }
+                },
+                {"data": "noOfBounces"},
+                {"data": "noOfCountries"}
+            ],
+            responsive: true
+        });
 
-  });
-
-    function getRandomRgb() {
-        var num = Math.round(0xffffff * Math.random());
-        return {
-            r: num >> 16,
-            g: num >> 8 & 255,
-            b: num & 255
+        function getRandomRgb() {
+            var num = Math.round(0xffffff * Math.random());
+            return {
+                r: num >> 16,
+                g: num >> 8 & 255,
+                b: num & 255
+            }
         }
-    }
 
-    function rgbaString(r, g, b, a = 1){
-        if(typeof r !== 'undefined' && typeof g !== 'undefined' && typeof b !== 'undefined'){
-            return "rgba(" + r + "," + g + "," + b + "," + a + ")";
-        } else {
-            return null;
+        function rgbaString(r, g, b, a = 1) {
+            if (typeof r !== 'undefined' && typeof g !== 'undefined' && typeof b !== 'undefined') {
+                return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+            } else {
+                return null;
+            }
         }
-    }
 
-    function getRandomHexColor() {
-        var length = 6;
-        var chars = '0123456789ABCDEF';
-        var hex = '#';
-        while(length--) hex += chars[(Math.random() * 16) | 0];
-        return hex;
-    }
+        function getRandomHexColor() {
+            var length = 6;
+            var chars = '0123456789ABCDEF';
+            var hex = '#';
+            while (length--) hex += chars[(Math.random() * 16) | 0];
+            return hex;
+        }
+
+        function secondsToTime(seconds) {
+            if (typeof seconds !== 'undefined' && !isNaN(seconds)){
+                return Math.ceil(seconds);
+            } else{
+                return 'unknown';
+            }
+
+        }
+    });
 </script>
 @endpush
 

@@ -198,7 +198,10 @@ return [
                 'www.google-analytics.com',
                 'google-analytics.com',
                 'secure.gravatar.com',
-                'csi.gstatic.com'
+                'csi.gstatic.com',
+                'stats.g.doubleclick.net',
+                'www.google.com',
+                'www.google.co.nz'
             ],
 
             'types' => [
