@@ -140,8 +140,14 @@ class GoogleAnalytics{
                         'uniqueVisitors' => (int) $pageRow[2], // uniqueVisitors
                         'pageViews' => (int) $pageRow[3], // pageViews
                         'uniquePageViews' => (int) $pageRow[4], // uniquePageViews
-                        'aveSessionDuration' => floatval($pageRow[5]), // aveSessionDuration
-                        'aveTimeOnPage' => floatval($pageRow[6]), // aveTimeOnPage
+                        'aveSessionDuration' => [
+                            'display' => Dates::seconds2human(ceil(floatval($pageRow[5]))),
+                            'original' => ceil(floatval($pageRow[5]))
+                        ],
+                        'aveTimeOnPage' => [
+                            'display' => Dates::seconds2human(ceil(floatval($pageRow[6]))),
+                            'original' => ceil(floatval($pageRow[6]))
+                        ],
                         'noOfBounces' => (int) $pageRow[7], // noOfBounces
                         'noOfCountries' => (int) $pageRow[8], // noOfCountries
                         'start' => $pageRow[9]->toDateString() . ' ' . $pageRow[9]->toTimeString(), // start

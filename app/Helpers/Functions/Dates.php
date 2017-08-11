@@ -11,6 +11,7 @@ namespace App\Helpers\Functions;
 use App\Helpers\Constants;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Str;
 use Log;
 
 /**
@@ -137,5 +138,43 @@ class Dates
             Log::error($e->getMessage());
             return null;
         }
+    }
+
+    /**
+     * A function to convert integer value into time format.
+     *
+     * @param int $seconds
+     * @see https://hotexamples.com/examples/-/str/plural/php-str-plural-method-examples.html#0xfd94e5b6f9adef5dabe503c775a6487431286414882b2c35ff1b40bc398ace51-58,,93,
+     *
+     * @return string
+     */
+    public static function seconds2human(int $seconds): string{
+        if($seconds == 0){
+            return $seconds . ' seconds';
+        }
+        list($years, $months, $days, $hours, $minutes, $seconds) = explode(":", gmdate("Y:n:j:G:i:s", $seconds));
+        $years -= 1970;
+        $months--;
+        $days--;
+        $parts = array();
+        if ($years > 0) {
+            $parts[] = $years . " " . str::plural("year", $years);
+        }
+        if ($months > 0) {
+            $parts[] = $months . " " . str::plural("month", $months);
+        }
+        if ($days > 0) {
+            $parts[] = $days . " " . str::plural("day", $days);
+        }
+        if ($hours > 0) {
+            $parts[] = $hours . " " . str::plural("hour", $hours);
+        }
+        if ($minutes > 0) {
+            $parts[] = sprintf("%d", $minutes) . " " . str::plural("minute", $minutes);
+        }
+        if ($seconds > 0) {
+            $parts[] = sprintf("%d", $seconds) . " " . str::plural("second", $seconds);
+        }
+        return implode(", ", $parts);
     }
 }

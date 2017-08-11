@@ -354,32 +354,34 @@
         var dataTablesData = $.map(data[1].data, function (value) {
             return [value];
         });
-        $.each(dataTablesData, function(i, d) {
-            d.sessionDuration = d.aveSessionDuration;
-            d.timeOnPage = d.aveTimeOnPage;
-        });
 
         $('#visitorsTable').DataTable({
             data: dataTablesData,
-            order: [[2, "desc"], [3, "desc"], [4, "desc"], [5,"desc"], [6, "desc"], [7, "desc"], [8, "desc"]],
+            order: [[2, "desc"], [3, "desc"], [4, "desc"], [5,"desc"], [6, "desc"], [7, "asc"], [8, "desc"]],
             columns: [
-                {"data": "url"},
-                {"data": "pageTitle"},
-                {"data": "uniqueVisitors"},
-                {"data": "pageViews"},
-                {"data": "uniquePageViews"},
+                {data: "url"},
+                {data: "pageTitle"},
+                {data: "uniqueVisitors"},
+                {data: "pageViews"},
+                {data: "uniquePageViews"},
                 {
-                    "data": "aveSessionDuration", render: function (data) {
-                    return secondsToTime(data)
-                }
+                    data: 'aveSessionDuration',
+                    type: 'num',
+                    render: {
+                        _: 'display',
+                        sort: 'original'
+                    }
                 },
                 {
-                    "data": "aveTimeOnPage", render: function (data) {
-                    return secondsToTime(data)
-                }
+                    data: 'aveTimeOnPage',
+                    type: 'num',
+                    render: {
+                        _: 'display',
+                        sort: 'original'
+                    }
                 },
-                {"data": "noOfBounces"},
-                {"data": "noOfCountries"}
+                {data: "noOfBounces"},
+                {data: "noOfCountries"}
             ],
             responsive: true
         });
