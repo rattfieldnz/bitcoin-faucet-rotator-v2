@@ -361,9 +361,30 @@
             columns: [
                 {data: "url"},
                 {data: "pageTitle"},
-                {data: "uniqueVisitors"},
-                {data: "pageViews"},
-                {data: "uniquePageViews"},
+                {
+                    data: "uniqueVisitors",
+                    type: 'num',
+                    render: {
+                        _: 'display',
+                        sort: 'original'
+                    }
+                },
+                {
+                    data: "pageViews",
+                    type: 'num',
+                    render: {
+                        _: 'display',
+                        sort: 'original'
+                    }
+                },
+                {
+                    data: "uniquePageViews",
+                    type: 'num',
+                    render: {
+                        _: 'display',
+                        sort: 'original'
+                    }
+                },
                 {
                     data: 'aveSessionDuration',
                     type: 'num',
@@ -380,7 +401,14 @@
                         sort: 'original'
                     }
                 },
-                {data: "noOfBounces"},
+                {
+                    data: "noOfBounces",
+                    type: 'num',
+                    render: {
+                        _: 'display',
+                        sort: 'original'
+                    }
+                },
                 {data: "noOfCountries"}
             ],
             responsive: true

@@ -137,9 +137,18 @@ class GoogleAnalytics{
                     return [
                         'url' => $pageRow[0], // url
                         'pageTitle' => $pageRow[1], // pageTitle
-                        'uniqueVisitors' => (int) $pageRow[2], // uniqueVisitors
-                        'pageViews' => (int) $pageRow[3], // pageViews
-                        'uniquePageViews' => (int) $pageRow[4], // uniquePageViews
+                        'uniqueVisitors' => [
+                            'display' => number_format((int) $pageRow[2]),
+                            'original' => (int) $pageRow[2]
+                        ],
+                        'pageViews' => [
+                            'display' => number_format((int) $pageRow[3]),
+                            'original' => (int) $pageRow[3]
+                        ],
+                        'uniquePageViews' => [
+                            'display' => number_format((int) $pageRow[4]),
+                            'original' => (int) $pageRow[4]
+                        ],
                         'aveSessionDuration' => [
                             'display' => Dates::seconds2human(ceil(floatval($pageRow[5]))),
                             'original' => ceil(floatval($pageRow[5]))
@@ -148,7 +157,10 @@ class GoogleAnalytics{
                             'display' => Dates::seconds2human(ceil(floatval($pageRow[6]))),
                             'original' => ceil(floatval($pageRow[6]))
                         ],
-                        'noOfBounces' => (int) $pageRow[7], // noOfBounces
+                        'noOfBounces' => [
+                            'display' => number_format((int) $pageRow[7]),
+                            'original' => (int) $pageRow[7]
+                        ],
                         'noOfCountries' => (int) $pageRow[8], // noOfCountries
                         'start' => $pageRow[9]->toDateString() . ' ' . $pageRow[9]->toTimeString(), // start
                         'end' => $pageRow[10]->toDateString() . ' ' . $pageRow[10]->toTimeString() // end
