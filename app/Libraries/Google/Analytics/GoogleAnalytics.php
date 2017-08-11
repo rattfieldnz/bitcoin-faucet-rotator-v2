@@ -151,11 +151,11 @@ class GoogleAnalytics{
                         ],
                         'aveSessionDuration' => [
                             'display' => Dates::seconds2human(ceil(floatval($pageRow[5]))),
-                            'original' => ceil(floatval($pageRow[5]))
+                            'original' => floatval($pageRow[5])
                         ],
                         'aveTimeOnPage' => [
                             'display' => Dates::seconds2human(ceil(floatval($pageRow[6]))),
-                            'original' => ceil(floatval($pageRow[6]))
+                            'original' => floatval($pageRow[6])
                         ],
                         'noOfBounces' => [
                             'display' => number_format((int) $pageRow[7]),
