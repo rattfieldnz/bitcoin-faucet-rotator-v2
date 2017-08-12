@@ -30,7 +30,7 @@ class StatsController extends Controller
         $result = GoogleAnalytics::countries(1);
         $this->data['countries'] = $result;
 
-        $dataTablesData = GoogleAnalytics::topPagesBetweenTwoDates('11-08-2017', '11-08-2017');
+        $dataTablesData = GoogleAnalytics::topPagesBetweenTwoDates('12-08-2017', '12-08-2017');
         $this->data['dataTables'] = Datatables::collection($dataTablesData)->make(true);
 
         //dd(json_encode($this->data['dataTables']));

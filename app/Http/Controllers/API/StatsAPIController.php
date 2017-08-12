@@ -20,9 +20,10 @@ class StatsAPIController extends AppBaseController
      * @param string $dateFrom
      * @param string $dateTo
      * @param int    $quantity
+     *
      * @see \App\Libraries\Google\Analytics\GoogleAnalytics::topPagesBetweenTwoDates()
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Http\JsonResponse
      */
     public function getPagesVisited(string $dateFrom, string $dateTo, int $quantity = 20)
     {
@@ -34,6 +35,6 @@ class StatsAPIController extends AppBaseController
 
         //$dataTables = Datatables::collection($data)->make(true);
 
-        return $data;
+        return Datatables::collection($data)->make(true);;
     }
 }
