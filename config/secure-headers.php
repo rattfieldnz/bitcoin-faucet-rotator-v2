@@ -233,7 +233,7 @@ return [
         ],
 
         'connect-src' => [
-            //
+            'allow' => [env('APP_URL')]
         ],
 
         'form-action' => [

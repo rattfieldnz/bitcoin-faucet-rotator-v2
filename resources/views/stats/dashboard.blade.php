@@ -345,73 +345,74 @@
 
         // DATATABLES EXAMPLE FOR SHOWING VISITORS //
 
-        //console.log(secondsToTime(3660));
+        var dateFrom = '12-08-2017';
+        var dateTo = '12-08-2017';
+        var quantity = 1000;
 
-        var data = $.map({!! json_encode($dataTables) !!}, function (value) {
-            return [value];
-        });
+        var jsonURL = '/api/v1/top-pages/from/' +
+            dateFrom + '/to/' +
+            dateTo + '/quantity/' +
+            quantity;
 
-        var dataTablesData = $.map(data[1].data, function (value) {
-            return [value];
-        });
-
-        $('#visitorsTable').DataTable({
-            data: dataTablesData,
-            order: [[2, "desc"], [3, "desc"], [4, "desc"], [5,"desc"], [6, "desc"], [7, "asc"], [8, "desc"]],
-            columns: [
-                {data: "url"},
-                {data: "pageTitle"},
-                {
-                    data: "uniqueVisitors",
-                    type: 'num',
-                    render: {
-                        _: 'display',
-                        sort: 'original'
-                    }
-                },
-                {
-                    data: "pageViews",
-                    type: 'num',
-                    render: {
-                        _: 'display',
-                        sort: 'original'
-                    }
-                },
-                {
-                    data: "uniquePageViews",
-                    type: 'num',
-                    render: {
-                        _: 'display',
-                        sort: 'original'
-                    }
-                },
-                {
-                    data: 'aveSessionDuration',
-                    type: 'num',
-                    render: {
-                        _: 'display',
-                        sort: 'original'
-                    }
-                },
-                {
-                    data: 'aveTimeOnPage',
-                    type: 'num',
-                    render: {
-                        _: 'display',
-                        sort: 'original'
-                    }
-                },
-                {
-                    data: "noOfBounces",
-                    type: 'num',
-                    render: {
-                        _: 'display',
-                        sort: 'original'
-                    }
-                },
-                {data: "noOfCountries"}
-            ],
-            responsive: true
+        $.getJSON(jsonURL, function(response) {
+            $('#visitorsTable').DataTable({
+                data: response.data,
+                order: [[2, "desc"], [3, "desc"], [4, "desc"], [5,"desc"], [6, "desc"], [7, "asc"], [8, "desc"]],
+                columns: [
+                    {data: "url"},
+                    {data: "pageTitle"},
+                    {
+                        data: "uniqueVisitors",
+                        type: 'num',
+                        render: {
+                            _: 'display',
+                            sort: 'original'
+                        }
+                    },
+                    {
+                        data: "pageViews",
+                        type: 'num',
+                        render: {
+                            _: 'display',
+                            sort: 'original'
+                        }
+                    },
+                    {
+                        data: "uniquePageViews",
+                        type: 'num',
+                        render: {
+                            _: 'display',
+                            sort: 'original'
+                        }
+                    },
+                    {
+                        data: 'aveSessionDuration',
+                        type: 'num',
+                        render: {
+                            _: 'display',
+                            sort: 'original'
+                        }
+                    },
+                    {
+                        data: 'aveTimeOnPage',
+                        type: 'num',
+                        render: {
+                            _: 'display',
+                            sort: 'original'
+                        }
+                    },
+                    {
+                        data: "noOfBounces",
+                        type: 'num',
+                        render: {
+                            _: 'display',
+                            sort: 'original'
+                        }
+                    },
+                    {data: "noOfCountries"}
+                ],
+                responsive: true
+            });
         });
 
         function getRandomRgb() {
