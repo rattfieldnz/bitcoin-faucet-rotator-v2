@@ -349,20 +349,6 @@
         var dateTo = '12-08-2017';
         var quantity = 1000;
 
-        function getVisitorsDataAjax(apiUrlSegment, dateFrom, dateTo, quantity = 10){
-
-            if(typeof apiUrlSegment !== 'undefined' && typeof dateFrom !== 'undefined' && typeof dateTo !== 'undefined'){
-                var jsonURL = '/api/v1/' + apiUrlSegment + '/from/' +
-                    dateFrom + '/to/' +
-                    dateTo + '/quantity/' +
-                    quantity;
-
-                return $.get(jsonURL, function(response){
-                    return response.data;
-                }).promise();
-            }
-        }
-
         var visitorsData = getVisitorsDataAjax('top-pages', dateFrom, dateTo, quantity);
 
         $.when(visitorsData).then(function(response){
@@ -429,6 +415,20 @@
                     ],
                     responsive: true
                 });
+            }
+        }
+
+        function getVisitorsDataAjax(apiUrlSegment, dateFrom, dateTo, quantity = 10){
+
+            if(typeof apiUrlSegment !== 'undefined' && typeof dateFrom !== 'undefined' && typeof dateTo !== 'undefined'){
+                var jsonURL = '/api/v1/' + apiUrlSegment + '/from/' +
+                    dateFrom + '/to/' +
+                    dateTo + '/quantity/' +
+                    quantity;
+
+                return $.get(jsonURL, function(response){
+                    return response.data;
+                }).promise();
             }
         }
 
