@@ -349,78 +349,88 @@
         var dateTo = '12-08-2017';
         var quantity = 1000;
 
-        function getVisitorsDataAjax(dateFrom, dateTo, quantity = 10){
+        function getVisitorsDataAjax(apiUrlSegment, dateFrom, dateTo, quantity = 10){
 
-            var jsonURL = '/api/v1/top-pages/from/' +
-                dateFrom + '/to/' +
-                dateTo + '/quantity/' +
-                quantity;
+            if(typeof apiUrlSegment !== 'undefined' && typeof dateFrom !== 'undefined' && typeof dateTo !== 'undefined'){
+                var jsonURL = '/api/v1/' + apiUrlSegment + '/from/' +
+                    dateFrom + '/to/' +
+                    dateTo + '/quantity/' +
+                    quantity;
 
-            return $.get(jsonURL, function(response){
-                return response.data;
-            }).promise();
+                return $.get(jsonURL, function(response){
+                    return response.data;
+                }).promise();
+            }
         }
 
-        $.when(getVisitorsDataAjax(dateFrom,dateTo,quantity)).then(function(response){
-            $('#visitorsTable').DataTable({
-                data: response.data,
-                order: [[2, "desc"], [3, "desc"], [4, "desc"], [5,"desc"], [6, "desc"], [7, "asc"], [8, "desc"]],
-                columns: [
-                    {data: "url"},
-                    {data: "pageTitle"},
-                    {
-                        data: "uniqueVisitors",
-                        type: 'num',
-                        render: {
-                            _: 'display',
-                            sort: 'original'
-                        }
-                    },
-                    {
-                        data: "pageViews",
-                        type: 'num',
-                        render: {
-                            _: 'display',
-                            sort: 'original'
-                        }
-                    },
-                    {
-                        data: "uniquePageViews",
-                        type: 'num',
-                        render: {
-                            _: 'display',
-                            sort: 'original'
-                        }
-                    },
-                    {
-                        data: 'aveSessionDuration',
-                        type: 'num',
-                        render: {
-                            _: 'display',
-                            sort: 'original'
-                        }
-                    },
-                    {
-                        data: 'aveTimeOnPage',
-                        type: 'num',
-                        render: {
-                            _: 'display',
-                            sort: 'original'
-                        }
-                    },
-                    {
-                        data: "noOfBounces",
-                        type: 'num',
-                        render: {
-                            _: 'display',
-                            sort: 'original'
-                        }
-                    },
-                    {data: "noOfCountries"}
-                ],
-                responsive: true
-            });
+        var visitorsData = getVisitorsDataAjax('top-pages', dateFrom, dateTo, quantity);
+
+        $.when(visitorsData).then(function(response){
+            generateVisitorsTable(response.data);
         });
+
+        function generateVisitorsTable(data){
+            if(typeof data !== 'undefined'){
+                $('#visitorsTable').DataTable({
+                    data: data,
+                    order: [[2, "desc"], [3, "desc"], [4, "desc"], [5,"desc"], [6, "desc"], [7, "asc"], [8, "desc"]],
+                    columns: [
+                        {data: "url"},
+                        {data: "pageTitle"},
+                        {
+                            data: "uniqueVisitors",
+                            type: 'num',
+                            render: {
+                                _: 'display',
+                                sort: 'original'
+                            }
+                        },
+                        {
+                            data: "pageViews",
+                            type: 'num',
+                            render: {
+                                _: 'display',
+                                sort: 'original'
+                            }
+                        },
+                        {
+                            data: "uniquePageViews",
+                            type: 'num',
+                            render: {
+                                _: 'display',
+                                sort: 'original'
+                            }
+                        },
+                        {
+                            data: 'aveSessionDuration',
+                            type: 'num',
+                            render: {
+                                _: 'display',
+                                sort: 'original'
+                            }
+                        },
+                        {
+                            data: 'aveTimeOnPage',
+                            type: 'num',
+                            render: {
+                                _: 'display',
+                                sort: 'original'
+                            }
+                        },
+                        {
+                            data: "noOfBounces",
+                            type: 'num',
+                            render: {
+                                _: 'display',
+                                sort: 'original'
+                            }
+                        },
+                        {data: "noOfCountries"}
+                    ],
+                    responsive: true
+                });
+            }
+        }
 
         function getRandomRgb() {
             var num = Math.round(0xffffff * Math.random());
