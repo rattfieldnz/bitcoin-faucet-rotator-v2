@@ -349,12 +349,19 @@
         var dateTo = '12-08-2017';
         var quantity = 1000;
 
-        var jsonURL = '/api/v1/top-pages/from/' +
-            dateFrom + '/to/' +
-            dateTo + '/quantity/' +
-            quantity;
+        function getVisitorsDataAjax(dateFrom, dateTo, quantity = 10){
 
-        $.getJSON(jsonURL, function(response) {
+            var jsonURL = '/api/v1/top-pages/from/' +
+                dateFrom + '/to/' +
+                dateTo + '/quantity/' +
+                quantity;
+
+            return $.get(jsonURL, function(response){
+                return response.data;
+            }).promise();
+        }
+
+        $.when(getVisitorsDataAjax(dateFrom,dateTo,quantity)).then(function(response){
             $('#visitorsTable').DataTable({
                 data: response.data,
                 order: [[2, "desc"], [3, "desc"], [4, "desc"], [5,"desc"], [6, "desc"], [7, "asc"], [8, "desc"]],
