@@ -174,6 +174,53 @@ class GoogleAnalytics{
         }
     }
 
+    public static function visitsAndPageViews($startDate, $endDate, int $count = null): Collection{
+        $startDateValue = Dates::createDateTime($startDate);
+        $endDateValue = Dates::createDateTime($endDate);
+
+        if($endDateValue->lessThan($startDateValue)){
+
+            $tmpStartDateValue = $endDateValue;
+            $tmpEndDateValue = $startDateValue;
+
+            $endDateValue = $tmpStartDateValue;
+            $startDateValue = $tmpEndDateValue;
+        }
+
+        if($startDateValue->greaterThan($endDateValue)){
+
+            $tmpEndDateValue = $startDateValue;
+            $tmpStartDateValue = $endDateValue;
+
+            $endDateValue = $tmpEndDateValue;
+            $startDateValue = $tmpStartDateValue;
+
+        }
+
+        $period = Period::create($startDateValue, $endDateValue);
+        $metrics = 'ga:users,ga:pageviews';
+        $dimensions =
+            [
+                'dimensions' => 'ga:date'
+            ];
+
+        if(!empty($count)){
+            $dimensions['max-results'] = $count;
+        }
+
+        $response = Analytics::performQuery(
+            $period, $metrics, $dimensions
+        );
+
+        return collect($response['rows'] ?? [])->map(function (array $dateRow) {
+            return [
+                'date' => Carbon::createFromFormat('d/m/Y', $dateRow[0]),
+                'visitors' => (int) $dateRow[1],
+                'pageViews' => (int) $dateRow[2],
+            ];
+        });
+    }
+
     /**
      * Get number of countries which have visited a URL
      * for a specific period.

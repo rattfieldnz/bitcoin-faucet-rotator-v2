@@ -27,14 +27,22 @@ class StatsAPIController extends AppBaseController
      */
     public function getPagesVisited(string $dateFrom, string $dateTo, int $quantity = 20)
     {
-
         $fromDateInput = urldecode($dateFrom);
         $toDateInput = urldecode($dateTo);
         $quantity = intval($quantity);
         $data = GoogleAnalytics::topPagesBetweenTwoDates($fromDateInput, $toDateInput, $quantity);
 
-        //$dataTables = Datatables::collection($data)->make(true);
+        return Datatables::collection($data)->make(true);
+    }
 
-        return Datatables::collection($data)->make(true);;
+    public function getVisitorsAndPageViews(string $dateFrom, string $dateTo, int $quantity = 20){
+        $fromDateInput = urldecode($dateFrom);
+        $toDateInput = urldecode($dateTo);
+        $quantity = intval($quantity);
+
+        $data = GoogleAnalytics::visitsAndPageViews($fromDateInput, $toDateInput, $quantity);
+
+        return $data;
+
     }
 }
