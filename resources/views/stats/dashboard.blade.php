@@ -345,8 +345,8 @@
 
         // DATATABLES EXAMPLE FOR SHOWING VISITORS //
 
-        var dateFrom = '12-08-2017';
-        var dateTo = '12-08-2017';
+        var dateFrom = '13-08-2017';
+        var dateTo = '13-08-2017';
         var quantity = 1000;
 
         var visitorsData = getVisitorsDataAjax('top-pages', dateFrom, dateTo, quantity);

@@ -153,6 +153,7 @@ elixir(function(mix) {
             'js/datatables.net/dataTables.bootstrap.js',
             'js/custom/tablesorter_custom_code.js',
             'js/cookieconsent/cookieconsent.js',
+            'js/laroute/laroute.js',
             'js/custom/custom.js'
         ],
         'public/assets/js/mainScripts.js',
