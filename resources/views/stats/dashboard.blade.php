@@ -136,7 +136,7 @@
 @push('scripts')
 <script src="/assets/js/datatables.net/datatables.min.js?{{ rand() }}"></script>
 <script src="/assets/js/chart.js/Chart.min.js?{{ rand() }}"></script>
-<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://www.gstatic.com/charts/loader.js?{{ rand() }}"></script>
 <script>
     $(function () {
 
@@ -430,40 +430,6 @@
                     return response.data;
                 }).promise();
             }
-        }
-
-        function getRandomRgb() {
-            var num = Math.round(0xffffff * Math.random());
-            return {
-                r: num >> 16,
-                g: num >> 8 & 255,
-                b: num & 255
-            }
-        }
-
-        function rgbaString(r, g, b, a = 1) {
-            if (typeof r !== 'undefined' && typeof g !== 'undefined' && typeof b !== 'undefined') {
-                return "rgba(" + r + "," + g + "," + b + "," + a + ")";
-            } else {
-                return null;
-            }
-        }
-
-        function getRandomHexColor() {
-            var length = 6;
-            var chars = '0123456789ABCDEF';
-            var hex = '#';
-            while (length--) hex += chars[(Math.random() * 16) | 0];
-            return hex;
-        }
-
-        function secondsToTime(seconds) {
-            if (typeof seconds !== 'undefined' && !isNaN(seconds)){
-                return Math.ceil(seconds);
-            } else{
-                return 'unknown';
-            }
-
         }
     });
 </script>

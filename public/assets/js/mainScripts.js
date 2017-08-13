@@ -75211,11 +75211,41 @@ jQuery(window).resize(function() {
 
 function footerReset(){
     var contentHeight = jQuery(window).height();
-    var footerHeight = jQuery('#footer-custom').height();
-    var footerTop = jQuery('#footer-custom').position().top + footerHeight;
+    var footer = jQuery('#footer-custom');
+    var footerHeight = footer.height();
+    var footerTop = footer.position().top + footerHeight;
     if (footerTop < contentHeight) {
-        jQuery('#footer-custom').css('margin-top', (contentHeight - (footerTop) - 32) + 'px');
+        footer.css('margin-top', (contentHeight - (footerTop) - 32) + 'px');
     }
+}
+
+function getRandomRgb() {
+    var num = Math.round(0xffffff * Math.random());
+    return {
+        r: num >> 16,
+        g: num >> 8 & 255,
+        b: num & 255
+    }
+}
+
+function rgbaString(r, g, b, a) {
+    var opacity = 1;
+    if(typeof a !== 'undefined'){
+        opacity = a;
+    }
+    if (typeof r !== 'undefined' && typeof g !== 'undefined' && typeof b !== 'undefined') {
+        return "rgba(" + r + "," + g + "," + b + "," + opacity + ")";
+    } else {
+        return null;
+    }
+}
+
+function getRandomHexColor() {
+    var length = 6;
+    var chars = '0123456789ABCDEF';
+    var hex = '#';
+    while (length--) hex += chars[(Math.random() * 16) | 0];
+    return hex;
 }
 
 window.addEventListener("load", function(){
