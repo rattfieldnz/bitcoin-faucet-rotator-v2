@@ -168,9 +168,11 @@ elixir(function(mix) {
         'resources/assets/'
     );
 
-
     gulp.src("resources/assets/js/chart.js/Chart.js")
         .pipe(gulp.dest("public/assets/js/chart.js/"));
+
+    gulp.src("resources/assets/js/custom/stats.js")
+        .pipe(gulp.dest("public/assets/js/stats/"));
 
     gulp.src([
         'resources/assets/css/datatables.net/dataTables.bootstrap.css'
@@ -231,6 +233,7 @@ gulp.task('minifycss', function(){
 gulp.task('minifyjs', function(){
     compressDataTablesJs();
     compressChartJsScripts();
+    compressStatsScripts();
     compressMainJS();
     //compressMainRotator();
     //compressPaymentProcessorRotator();
@@ -262,6 +265,13 @@ function compressChartJsScripts(){
         .pipe(uglify())
         .pipe(rename("Chart.min.js"))
         .pipe(gulp.dest('public/assets/js/chart.js/'));
+}
+
+function compressStatsScripts(){
+    return gulp.src('public/assets/js/stats/stats.js')
+        .pipe(uglify())
+        .pipe(rename("stats.min.js"))
+        .pipe(gulp.dest('public/assets/js/stats/'));
 }
 
 function compressMainRotator(){
