@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a203795cfa1b4c626ed7f9f4753f3e9",
+    "content-hash": "093a5dad5027f91c3305126755d9a66f",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -2323,6 +2323,57 @@
                 "rest"
             ],
             "time": "2017-03-12T01:28:43+00:00"
+        },
+        {
+            "name": "lord/laroute",
+            "version": "2.4.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aaronlord/laroute.git",
+                "reference": "342af22147de90e02d5104447b7c5aea056b5548"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aaronlord/laroute/zipball/342af22147de90e02d5104447b7c5aea056b5548",
+                "reference": "342af22147de90e02d5104447b7c5aea056b5548",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
+                "illuminate/console": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
+                "illuminate/filesystem": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
+                "illuminate/routing": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
+                "illuminate/support": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "dev-master",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Lord\\Laroute\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Lord",
+                    "email": "hello@aaronlord.is"
+                }
+            ],
+            "description": "Access Laravels URL/Route helper functions, from JavaScript.",
+            "keywords": [
+                "javascript",
+                "laravel",
+                "routes",
+                "routing"
+            ],
+            "time": "2017-06-29T09:34:21+00:00"
         },
         {
             "name": "madewithlove/illuminate-psr-cache-bridge",

@@ -169,6 +169,7 @@ return [
         Creativeorange\Gravatar\GravatarServiceProvider::class,
         GrahamCampbell\HTMLMin\HTMLMinServiceProvider::class,
         Spatie\Analytics\AnalyticsServiceProvider::class,
+        Lord\Laroute\LarouteServiceProvider::class,
         /*
          * Application Service Providers...
          */

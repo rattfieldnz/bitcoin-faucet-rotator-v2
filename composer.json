@@ -38,7 +38,8 @@
         "greggilbert/recaptcha": "^2.2",
         "creativeorange/gravatar": "^1.0",
         "htmlmin/htmlmin": "^4.5",
-        "spatie/laravel-analytics": "^3.0"
+        "spatie/laravel-analytics": "^3.0",
+        "lord/laroute": "^2.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.6",
