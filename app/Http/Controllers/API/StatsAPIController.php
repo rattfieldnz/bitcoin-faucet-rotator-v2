@@ -7,6 +7,12 @@ use App\Libraries\Google\Analytics\GoogleAnalytics;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Facades\Datatables;
 
+/**
+ * Class StatsAPIController
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Http\Controllers\API
+ */
 class StatsAPIController extends AppBaseController
 {
     public function __construct()
@@ -35,6 +41,17 @@ class StatsAPIController extends AppBaseController
         return Datatables::collection($data)->make(true);
     }
 
+    /**
+     * Get total number of visitors and page views between given dates.
+     *
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @param int    $quantity
+     *
+     * @see \App\Libraries\Google\Analytics\GoogleAnalytics::visitsAndPageViews()
+     *
+     * @return \Illuminate\Support\Collection
+     */
     public function getVisitorsAndPageViews(string $dateFrom, string $dateTo, int $quantity = 20)
     {
         $fromDateInput = urldecode($dateFrom);
@@ -44,6 +61,17 @@ class StatsAPIController extends AppBaseController
         return GoogleAnalytics::visitsAndPageViews($fromDateInput, $toDateInput, $quantity);
     }
 
+    /**
+     * Get top x popular browsers (according to visitor views), between given dates.
+     *
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @param int    $maxBrowserCount
+     *
+     * @see \App\Libraries\Google\Analytics\GoogleAnalytics::topBrowsersBetweenTwoDates()
+     *
+     * @return \Illuminate\Support\Collection
+     */
     public function getTopBrowsersAndVisitors(string $dateFrom, string $dateTo, int $maxBrowserCount = 10)
     {
         $fromDateInput = urldecode($dateFrom);

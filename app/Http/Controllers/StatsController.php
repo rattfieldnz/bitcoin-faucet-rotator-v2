@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 use Spatie\Analytics\Period;
 use Yajra\Datatables\Facades\Datatables;
 
+/**
+ * Class StatsController
+ *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @package App\Http\Controllers
+ */
 class StatsController extends Controller
 {
     private $data = [];

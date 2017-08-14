@@ -13,6 +13,7 @@ use Carbon\Carbon;
  *
  * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Libraries\Google\Analytics
+ *
  * @see https://github.com/spatie/laravel-analytics/issues/148
  */
 class GoogleAnalytics
