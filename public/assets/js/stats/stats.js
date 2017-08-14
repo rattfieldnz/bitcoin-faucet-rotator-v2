@@ -5,9 +5,9 @@ Date.prototype.formatDDMMYYYY = function() {
         "/" +  this.getFullYear();
 };
 
-function generateVisitorsTable(data){
-    if(typeof data !== 'undefined'){
-        $('#visitorsTable').DataTable({
+function generateVisitorsTable(data, elementToRender){
+    if(typeof data !== 'undefined' && typeof elementToRender !== 'undefined'){
+        $(elementToRender).DataTable({
             data: data,
             order: [[2, "desc"], [3, "desc"], [4, "desc"], [5,"desc"], [6, "desc"], [7, "asc"], [8, "desc"]],
             columns: [

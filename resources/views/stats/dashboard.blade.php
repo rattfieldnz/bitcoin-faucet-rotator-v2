@@ -145,11 +145,6 @@
         var dateTo = '14-08-2017';
         var quantity = 1000;
 
-        /* ChartJS
-         * -------
-         * Here we will create a few charts using ChartJS
-         */
-
         //--------------
         //- AREA CHART -
         //--------------
@@ -268,7 +263,7 @@
         var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', dateFrom, dateTo, quantity);
 
         $.when(visitorsData).then(function(response){
-            generateVisitorsTable(response.data);
+            generateVisitorsTable(response.data, '#visitorsTable');
         });
     });
 </script>

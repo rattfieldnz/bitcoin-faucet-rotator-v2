@@ -15,15 +15,10 @@ class StatsController extends Controller
     public function index()
     {
 
-        $this->data['browserjson'] = GoogleAnalytics::topbrowsers(1);
+        $this->data['browserjson'] = GoogleAnalytics::topbrowsers(7);
 
         $result = GoogleAnalytics::countries(1);
         $this->data['countries'] = $result;
-
-        //$dataTablesData = GoogleAnalytics::topPagesBetweenTwoDates('12-08-2017', '12-08-2017');
-        //$this->data['dataTables'] = Datatables::collection($dataTablesData)->make(true);
-
-        //dd(json_encode($this->data['dataTables']));
 
         return view('stats.dashboard', $this->data);
     }
