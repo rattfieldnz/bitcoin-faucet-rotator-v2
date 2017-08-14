@@ -148,30 +148,25 @@
         //--------------
         //- AREA CHART -
         //--------------
-
         var visitorsAreaChartData = getVisitorsDataAjax('stats.visits-and-page-views', dateFrom, dateTo, quantity);
 
-        $.when(visitorsAreaChartData).then(function(response){
-            generateVisitorsLineChart(response, "areaChart");
-        });
-
-        // DATATABLES EXAMPLE FOR SHOWING VISITORS //
-
+        //--------------------------------
+        //- DATATABLES SHOWING VISITORS -
+        //--------------------------------
         var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', dateFrom, dateTo, quantity);
-
-        $.when(visitorsData).then(function(response){
-            generateVisitorsTable(response.data, '#visitorsTable');
-        });
 
         //-------------
         //- PIE CHART -
         //-------------
-
         var browserStatsData = getBrowserStatsAjax(dateFrom, dateTo, 10);
 
-        $.when(browserStatsData).then(function(response){
-            generatePieDonutChart(response,'#pieChart');
-        });
+        $.when(visitorsAreaChartData, visitorsData, browserStatsData).then(
+            function (vacd, vd, bsd) {
+                generateVisitorsLineChart(vacd[0], "areaChart");
+                generateVisitorsTable(vd[0].data, '#visitorsTable');
+                generatePieDonutChart(bsd[0],'#pieChart');
+            }
+        );
 
         //-----------------------
         //- COUNTRIES MAP -------
