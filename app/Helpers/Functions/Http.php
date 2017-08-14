@@ -24,34 +24,31 @@ class Http
      *
      * @return bool
      */
-    public static function canShowInIframes($url): bool {
+    public static function canShowInIframes($url): bool
+    {
 
         $headers = get_headers($url);
         $xFrameOptions = "X-Frame-Options: ";
         $contentSecurityPolicy = "Content-Security-Policy: frame-ancestors ";
         $canShow = true;
 
-        if(count($headers) == 0){
+        if (count($headers) == 0) {
             return false;
         }
 
-        foreach($headers as $key => $value){
-            if(substr($value, 0, strlen($xFrameOptions)) == $xFrameOptions){
+        foreach ($headers as $key => $value) {
+            if (substr($value, 0, strlen($xFrameOptions)) == $xFrameOptions) {
                 $xFrameOption = substr($value, strlen($xFrameOptions), strlen($value));
-                if(
-                    strtoupper($xFrameOption) == "SAMEORIGIN" || strtoupper($xFrameOption) == "DENY"
-                ){
+                if (strtoupper($xFrameOption) == "SAMEORIGIN" || strtoupper($xFrameOption) == "DENY"
+                ) {
                     $canShow = false;
                 }
-            }
-            else if(substr($value, 0, strlen($contentSecurityPolicy)) == $contentSecurityPolicy){
-
+            } else if (substr($value, 0, strlen($contentSecurityPolicy)) == $contentSecurityPolicy) {
                 $cspFrameAncestorsOption = substr($value, strlen($contentSecurityPolicy), strlen($value));
 
-                if(strtoupper($cspFrameAncestorsOption) == "'NONE'" || strtoupper($cspFrameAncestorsOption) == "'SELF'"){
+                if (strtoupper($cspFrameAncestorsOption) == "'NONE'" || strtoupper($cspFrameAncestorsOption) == "'SELF'") {
                     $canShow = false;
                 }
-
             }
         }
         return $canShow;

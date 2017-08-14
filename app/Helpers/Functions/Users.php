@@ -334,11 +334,11 @@ class Users
      *
      * @return string
      */
-    public static function getGravatar(User $user){
-        if(empty($user)){
+    public static function getGravatar(User $user)
+    {
+        if (empty($user)) {
             return null;
         }
-       return Gravatar::get($user->email);
-
+        return Gravatar::get($user->email);
     }
 }

@@ -148,8 +148,9 @@ class Dates
      *
      * @return string
      */
-    public static function seconds2human(int $seconds): string{
-        if($seconds == 0){
+    public static function seconds2human(int $seconds): string
+    {
+        if ($seconds == 0) {
             return $seconds . ' seconds';
         }
         list($years, $months, $days, $hours, $minutes, $seconds) = explode(":", gmdate("Y:n:j:G:i:s", $seconds));

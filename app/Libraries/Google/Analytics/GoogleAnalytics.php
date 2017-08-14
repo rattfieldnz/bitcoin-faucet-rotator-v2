@@ -15,7 +15,8 @@ use Carbon\Carbon;
  * @package App\Libraries\Google\Analytics
  * @see https://github.com/spatie/laravel-analytics/issues/148
  */
-class GoogleAnalytics{
+class GoogleAnalytics
+{
 
     /**
      * Get list of countries and number of sessions for given number of days.
@@ -24,8 +25,9 @@ class GoogleAnalytics{
      *
      * @return \Illuminate\Support\Collection
      */
-    public static function countries(int $numberOfDays = 1) : Collection {
-        $country = Analytics::performQuery(Period::days($numberOfDays),'ga:sessions',  ['dimensions'=>'ga:country','sort'=>'-ga:sessions']);
+    public static function countries(int $numberOfDays = 1) : Collection
+    {
+        $country = Analytics::performQuery(Period::days($numberOfDays), 'ga:sessions', ['dimensions'=>'ga:country','sort'=>'-ga:sessions']);
         $data = $country['rows'];
         return self::getCountryData($data);
     }
@@ -46,8 +48,7 @@ class GoogleAnalytics{
         $dataSets['labels'] = [];
         $dataSets['datasets'] = [];
         $dataSets['datasets']['data'] = [];
-        foreach ($array as $k=>$v)
-        {
+        foreach ($array as $k => $v) {
             array_push($dataSets['labels'], $array[$k] ['browser']);
             array_push($dataSets['datasets']['data'], $array[$k] ['sessions']);
         }
@@ -55,22 +56,27 @@ class GoogleAnalytics{
         return $dataSets;
     }
 
-    public static function topBrowsersBetweenTwoDates(string $startDate, string $endDate, int $maxResults = 10): Collection
+    /**
+     * Get Top x browsers overall.
+     *
+     * @param string $startDate
+     * @param string $endDate
+     * @param int    $maxBrowsers
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public static function topBrowsersBetweenTwoDates(string $startDate, string $endDate, int $maxBrowsers = 10): Collection
     {
         $startDateValue = Dates::createDateTime($startDate);
         $endDateValue = Dates::createDateTime($endDate);
 
-        if(!empty($startDateValue) && !empty($endDateValue)){
-
+        if (!empty($startDateValue) && !empty($endDateValue)) {
             $period = Period::create($startDateValue, $endDateValue);
 
-            return Analytics::fetchTopBrowsers($period, $maxResults);
-
+            return Analytics::fetchTopBrowsers($period, $maxBrowsers);
         } else {
             return collect();
         }
-
-
     }
 
     /**
@@ -97,14 +103,13 @@ class GoogleAnalytics{
      *
      * @return \Illuminate\Support\Collection
      */
-    public static function topPagesBetweenTwoDates(string $startDate, string $endDate, int $count = null){
+    public static function topPagesBetweenTwoDates(string $startDate, string $endDate, int $count = null)
+    {
         $startDateValue = Dates::createDateTime($startDate);
         $endDateValue = Dates::createDateTime($endDate);
 
-        if(!empty($startDateValue) && !empty($endDateValue)){
-
-            if($endDateValue->lessThan($startDateValue)){
-
+        if (!empty($startDateValue) && !empty($endDateValue)) {
+            if ($endDateValue->lessThan($startDateValue)) {
                 $tmpStartDateValue = $endDateValue;
                 $tmpEndDateValue = $startDateValue;
 
@@ -112,14 +117,12 @@ class GoogleAnalytics{
                 $startDateValue = $tmpEndDateValue;
             }
 
-            if($startDateValue->greaterThan($endDateValue)){
-
+            if ($startDateValue->greaterThan($endDateValue)) {
                 $tmpEndDateValue = $startDateValue;
                 $tmpStartDateValue = $endDateValue;
 
                 $endDateValue = $tmpEndDateValue;
                 $startDateValue = $tmpStartDateValue;
-
             }
 
             $period = Period::create($startDateValue, $endDateValue);
@@ -130,21 +133,20 @@ class GoogleAnalytics{
                     'sort' => 'ga:visitors,ga:pageViews,ga:uniquePageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounces',
                 ];
 
-            if(!empty($count)){
+            if (!empty($count)) {
                 $dimensions['max-results'] = $count;
             }
 
-            $results = Analytics::performQuery($period,$metrics,$dimensions);
+            $results = Analytics::performQuery($period, $metrics, $dimensions);
 
-            if(!empty($results['rows'])){
-
+            if (!empty($results['rows'])) {
                 $data = array_values($results['rows']);
 
-                foreach($data as $key => $value){
+                foreach ($data as $key => $value) {
                     array_push($data[$key], self::getNoOfCountries($period, $data[$key][0]));
                 }
 
-                foreach($data as $key => $value){
+                foreach ($data as $key => $value) {
                     array_push($data[$key], $startDateValue);
                     array_push($data[$key], $endDateValue);
                 }
@@ -184,7 +186,7 @@ class GoogleAnalytics{
                         'end' => $pageRow[10]->toDateString() . ' ' . $pageRow[10]->toTimeString() // end
                     ];
                 });
-            } else{
+            } else {
                 return collect();
             }
         } else {
@@ -192,12 +194,21 @@ class GoogleAnalytics{
         }
     }
 
-    public static function visitsAndPageViews($startDate, $endDate, int $count = null): Collection{
+    /**
+     * Get total number of visits and page-views between given dates.
+     *
+     * @param          $startDate
+     * @param          $endDate
+     * @param int|null $count
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public static function visitsAndPageViews($startDate, $endDate, int $count = null): Collection
+    {
         $startDateValue = Dates::createDateTime($startDate);
         $endDateValue = Dates::createDateTime($endDate);
 
-        if($endDateValue->lessThan($startDateValue)){
-
+        if ($endDateValue->lessThan($startDateValue)) {
             $tmpStartDateValue = $endDateValue;
             $tmpEndDateValue = $startDateValue;
 
@@ -205,14 +216,12 @@ class GoogleAnalytics{
             $startDateValue = $tmpEndDateValue;
         }
 
-        if($startDateValue->greaterThan($endDateValue)){
-
+        if ($startDateValue->greaterThan($endDateValue)) {
             $tmpEndDateValue = $startDateValue;
             $tmpStartDateValue = $endDateValue;
 
             $endDateValue = $tmpEndDateValue;
             $startDateValue = $tmpStartDateValue;
-
         }
 
         $period = Period::create($startDateValue, $endDateValue);
@@ -222,7 +231,7 @@ class GoogleAnalytics{
                 'dimensions' => 'ga:date'
             ];
 
-        if(!empty($count)){
+        if (!empty($count)) {
             $dimensions['max-results'] = $count;
         }
 
@@ -253,8 +262,9 @@ class GoogleAnalytics{
      *
      * @return int
      */
-    public static function getNoOfCountries(Period $period, $urlPath) : int{
-        if(!empty($period)){
+    public static function getNoOfCountries(Period $period, $urlPath) : int
+    {
+        if (!empty($period)) {
             $results = Analytics::performQuery(
                 $period,
                 'ga:sessions',
@@ -273,8 +283,9 @@ class GoogleAnalytics{
      *
      * @return \Illuminate\Support\Collection
      */
-    private static function getCountryData(array $data): Collection{
-        if(!empty($data)){
+    private static function getCountryData(array $data): Collection
+    {
+        if (!empty($data)) {
             array_unshift($data, ['Country', 'Visitors']);
             $result= collect($data ?? [])->map(function (array $dataRow) {
                 return [
@@ -283,7 +294,7 @@ class GoogleAnalytics{
                 ];
             });
             return $result;
-        } else{
+        } else {
             $data = collect();
             $data->push(['Country', 'Visitors'])
                 ->push(['New Zealand', 0]); // Set default country and number of visitors.

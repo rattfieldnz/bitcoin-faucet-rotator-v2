@@ -35,7 +35,8 @@ class StatsAPIController extends AppBaseController
         return Datatables::collection($data)->make(true);
     }
 
-    public function getVisitorsAndPageViews(string $dateFrom, string $dateTo, int $quantity = 20){
+    public function getVisitorsAndPageViews(string $dateFrom, string $dateTo, int $quantity = 20)
+    {
         $fromDateInput = urldecode($dateFrom);
         $toDateInput = urldecode($dateTo);
         $quantity = intval($quantity);
@@ -43,12 +44,12 @@ class StatsAPIController extends AppBaseController
         return GoogleAnalytics::visitsAndPageViews($fromDateInput, $toDateInput, $quantity);
     }
 
-    public function getTopBrowsersAndVisitors(string $dateFrom, string $dateTo, int $maxBrowserCount = 10){
+    public function getTopBrowsersAndVisitors(string $dateFrom, string $dateTo, int $maxBrowserCount = 10)
+    {
         $fromDateInput = urldecode($dateFrom);
         $toDateInput = urldecode($dateTo);
         $maxBrowserCount = intval($maxBrowserCount);
 
         return GoogleAnalytics::topBrowsersBetweenTwoDates($fromDateInput, $toDateInput, $maxBrowserCount);
-
     }
 }

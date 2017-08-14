@@ -42,8 +42,8 @@ class PrivacyPolicyController extends AppBaseController
         $this->privacyPolicyRepository->pushCriteria(new RequestCriteria($request));
         $privacyPolicy = $this->privacyPolicyRepository->first();
 
-        if(count($privacyPolicy) == 0){
-            if(!empty(Auth::user()) && Auth::user()->isAnAdmin()){
+        if (count($privacyPolicy) == 0) {
+            if (!empty(Auth::user()) && Auth::user()->isAnAdmin()) {
                 flash(
                     '<i class="fa fa-info-circle" aria-hidden="true" style="font-size: 2em; margin-right: 0.5em;"></i> 
                     You have not created a privacy policy yet; however, you can create one here.'
@@ -130,8 +130,8 @@ class PrivacyPolicyController extends AppBaseController
     {
         $privacyPolicy = $this->privacyPolicyRepository->first();
 
-        if(count($privacyPolicy) == 0){
-            if(!empty(Auth::user()) && Auth::user()->isAnAdmin()){
+        if (count($privacyPolicy) == 0) {
+            if (!empty(Auth::user()) && Auth::user()->isAnAdmin()) {
                 flash(
                     '<i class="fa fa-info-circle" aria-hidden="true" style="font-size: 2em; margin-right: 0.5em;"></i> 
                             You have not created a privacy policy yet; however, you can create one here.'

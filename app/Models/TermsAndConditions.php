@@ -54,6 +54,4 @@ class TermsAndConditions extends Model
         'content' => 'required|min:200',
         'keywords' => 'sometimes|max:255'
     ];
-
-    
 }
