@@ -213,8 +213,9 @@ class GoogleAnalytics{
         );
 
         return collect($response['rows'] ?? [])->map(function (array $dateRow) {
+            $date = Carbon::createFromFormat('Ymd', $dateRow[0]);
             return [
-                'date' => Carbon::createFromFormat('d/m/Y', $dateRow[0]),
+                'date' => $date->toDateString(),
                 'visitors' => (int) $dateRow[1],
                 'pageViews' => (int) $dateRow[2],
             ];

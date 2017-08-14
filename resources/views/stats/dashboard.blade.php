@@ -141,8 +141,8 @@
 <script>
     $(function () {
 
-        var dateFrom = '13-08-2017';
-        var dateTo = '13-08-2017';
+        var dateFrom = '08-08-2017';
+        var dateTo = '14-08-2017';
         var quantity = 1000;
 
         /* ChartJS
@@ -154,195 +154,11 @@
         //- AREA CHART -
         //--------------
 
-        /**Date.prototype.formatDDMMYYYY = function() {
-            return (this.getDate() + 1) +
-                "/" +  this.getMonth() +
-                "/" +  this.getFullYear();
-        };
-
-        function generateVisitorsLineChart(data, chartElement){
-
-            var visitorsRGB = getRandomRgb();
-            var pageViewsRGB = getRandomRgb();
-
-            if(typeof data !== 'undefined' && typeof chartElement !== 'undefined'){
-
-                var areaChartContext = document.getElementById(chartElement).getContext("2d");
-
-                var labels = [], visitorsData = [], pageViewsData = [];
-
-                // Separate data and labels into their own arrays.
-                data.forEach(function(d) {
-                    labels.push(new Date(d.date).formatDDMMYYYY());
-                    visitorsData.push(parseInt(d.visitors));
-                    pageViewsData.push(parseInt(d.pageViews));
-                });
-
-                var config = {
-                    type: 'line',
-                    data: {
-                        labels: labels,
-                        datasets: [
-                            {
-                                label: "Visitors",
-                                borderColor: rgbaString(visitorsRGB.r, visitorsRGB.g, visitorsRGB.b),
-                                backgroundColor: rgbaString(visitorsRGB.r, visitorsRGB.g, visitorsRGB.b, 0.5),
-                                data: visitorsData
-                            },
-                            {
-                                label: "Page views",
-                                borderColor: rgbaString(pageViewsRGB.r, pageViewsRGB.g, pageViewsRGB.b),
-                                backgroundColor: rgbaString(pageViewsRGB.r, pageViewsRGB.g, pageViewsRGB.b, 0.5),
-                                data: pageViewsData
-                            }
-                        ]
-                    },
-                    options: {
-                        showScale: true,
-                        scaleShowGridLines: true,
-                        scaleGridLineColor: "rgba(0,0,0,.05)",
-                        scaleGridLineWidth: 1,
-                        scaleShowHorizontalLines: true,
-                        scaleShowVerticalLines: true,
-                        bezierCurve: true,
-                        bezierCurveTension: 0.8,
-                        pointDot: false,
-                        pointDotRadius: 4,
-                        pointDotStrokeWidth: 1,
-                        pointHitDetectionRadius: 20,
-                        datasetStroke: true,
-                        datasetStrokeWidth: 2,
-                        datasetFill: true,
-                        maintainAspectRatio: true,
-                        responsive: true,
-                        tooltips: {
-                            mode: 'index',
-                            intersect: false,
-                            callbacks: {
-                                label: function (t, d) {
-                                    if (t.datasetIndex === 0) {
-                                        return "Visitors: " + t.yLabel.toString();
-                                    } else if (t.datasetIndex === 1) {
-                                        return "Page Views: " + t.yLabel.toString();
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            yAxes: [{
-                                scaleLabel: {
-                                    display: true,
-                                    labelString: 'Number of Visitors / Page Views'
-                                }
-                            }],
-                            xAxes: [{
-                                scaleLabel: {
-                                    display: true,
-                                    labelString: 'Date'
-                                }
-                            }]
-                        }
-                    }
-                };
-                var areaChart = new Chart(areaChartContext, config);
-            }
-        }
-
         var visitorsAreaChartData = getVisitorsDataAjax('stats.visits-and-page-views', dateFrom, dateTo, quantity);
 
         $.when(visitorsAreaChartData).then(function(response){
-            generateVisitorsLineChart(response.data, "areaChart");
-        });**/
-
-        let areaChartContext = document.getElementById("areaChart").getContext("2d");
-
-        let visitorsRGB = getRandomRgb();
-        let pageViewsRGB = getRandomRgb();
-
-        let config = {
-            type: 'line',
-            data: {
-                labels: {!! json_encode($dates->map(function($date) { return $date->format('d/m/Y'); })) !!},
-                datasets: [
-                    {
-                        label: "Visitors",
-                        borderColor: rgbaString(visitorsRGB.r, visitorsRGB.g, visitorsRGB.b),
-                        backgroundColor: rgbaString(visitorsRGB.r, visitorsRGB.g, visitorsRGB.b, 0.5),
-                        data: {!! json_encode($visitors) !!}
-                    },
-                    {
-                        label: "Page views",
-                        borderColor: rgbaString(pageViewsRGB.r, pageViewsRGB.g, pageViewsRGB.b),
-                        backgroundColor: rgbaString(pageViewsRGB.r, pageViewsRGB.g, pageViewsRGB.b, 0.5),
-                        data: {!! json_encode($pageViews) !!}
-                    }
-                ]
-            },
-            options: {
-                //Boolean - If we should show the scale at all
-                showScale: true,
-                //Boolean - Whether grid lines are shown across the chart
-                scaleShowGridLines: true,
-                //String - Colour of the grid lines
-                scaleGridLineColor: "rgba(0,0,0,.05)",
-                //Number - Width of the grid lines
-                scaleGridLineWidth: 1,
-                //Boolean - Whether to show horizontal lines (except X axis)
-                scaleShowHorizontalLines: true,
-                //Boolean - Whether to show vertical lines (except Y axis)
-                scaleShowVerticalLines: true,
-                //Boolean - Whether the line is curved between points
-                bezierCurve: true,
-                //Number - Tension of the bezier curve between points
-                bezierCurveTension: 0.8,
-                //Boolean - Whether to show a dot for each point
-                pointDot: false,
-                //Number - Radius of each point dot in pixels
-                pointDotRadius: 4,
-                //Number - Pixel width of point dot stroke
-                pointDotStrokeWidth: 1,
-                //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-                pointHitDetectionRadius: 20,
-                //Boolean - Whether to show a stroke for datasets
-                datasetStroke: true,
-                //Number - Pixel width of dataset stroke
-                datasetStrokeWidth: 2,
-                //Boolean - Whether to fill the dataset with a color
-                datasetFill: true,
-                //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-                maintainAspectRatio: true,
-                //Boolean - whether to make the chart responsive to window resizing
-                responsive: true,
-                tooltips: {
-                    mode: 'index',
-                    intersect: false,
-                    callbacks: {
-                        label: function (t, d) {
-                            if (t.datasetIndex === 0) {
-                                return "Visitors: " + t.yLabel.toString();
-                            } else if (t.datasetIndex === 1) {
-                                return "Page Views: " + t.yLabel.toString();
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    yAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Number of Visitors / Page Views'
-                        }
-                    }],
-                    xAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Date'
-                        }
-                    }]
-                }
-            }
-        };
-        let areaChart = new Chart(areaChartContext, config);
+            generateVisitorsLineChart(response, "areaChart");
+        });
 
         //-------------
         //- PIE CHART -
@@ -373,8 +189,7 @@
         };
 
         let backgroundColors = [];
-        let dataCount =
-                {!! count($browserjson['datasets']['data']) !!}
+        let dataCount = {!! count($browserjson['datasets']['data']) !!}
         for (let i = 0; i < dataCount; i++) {
             backgroundColors.push(getRandomHexColor());
         }

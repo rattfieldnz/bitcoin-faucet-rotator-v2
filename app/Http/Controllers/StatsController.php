@@ -15,16 +15,6 @@ class StatsController extends Controller
     public function index()
     {
 
-        $analyticsData_one = Analytics::fetchTotalVisitorsAndPageViews(Period::days(1));
-        $this->data['dates'] = $analyticsData_one->pluck('date');
-        $this->data['visitors'] = $analyticsData_one->pluck('visitors');
-        $this->data['pageViews'] = $analyticsData_one->pluck('pageViews');
-
-        $analyticsData_three = Analytics::fetchMostVisitedPages(Period::days(1));
-        $this->data['three_url'] = $analyticsData_three->pluck('url');
-        $this->data['three_pageTitle'] = $analyticsData_three->pluck('pageTitle');
-        $this->data['three_pageViews'] = $analyticsData_three->pluck('pageViews');
-
         $this->data['browserjson'] = GoogleAnalytics::topbrowsers(1);
 
         $result = GoogleAnalytics::countries(1);
