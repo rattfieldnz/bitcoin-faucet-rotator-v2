@@ -180,3 +180,77 @@ function getVisitorsDataAjax(routeName, dateFrom, dateTo, quantity){
         return null;
     }
 }
+
+function getBrowserStatsAjax(dateFrom, dateTo, maxBrowsers){
+
+    if(typeof maxBrowsers === 'undefined'){
+        maxBrowsers = 10;
+    }
+
+    if(typeof dateFrom !== 'undefined' && typeof dateTo !== 'undefined'){
+
+        var browsersRoute = laroute.route(
+            'stats.top-x-browsers',
+            { dateFrom : dateFrom, dateTo: dateTo, maxBrowsers: maxBrowsers }
+        );
+
+        return $.get(browsersRoute, function(response){
+            return response.data;
+        }).promise();
+    } else {
+        return null;
+    }
+}
+
+function generatePieDonutChart(data, renderToElement){
+    if(typeof data !== 'undefined' && typeof renderToElement !== 'undefined'){
+
+        var pieChartCanvas;
+        if(renderToElement.charAt(0) === '.'){
+            pieChartCanvas = document.getElementsByClassName(renderToElement.substr(1))[0];
+        } else if (renderToElement.charAt(0) === '#') {
+            pieChartCanvas = document.getElementById(renderToElement.substr(1));
+        } else {
+            console.log("Pie chart element is not correctly defined.");
+            return null;
+        }
+
+        var pieChartContext = pieChartCanvas.getContext("2d");
+        var pieChartOptions = {
+            segmentShowStroke: true,
+            segmentStrokeColor: "#fff",
+            segmentStrokeWidth: 2,
+            percentageInnerCutout: 50, // This is 0 for Pie charts
+            animationSteps: 100,
+            animationEasing: "easeOutBounce",
+            animateRotate: true,
+            animateScale: false,
+            responsive: true,
+            maintainAspectRatio: true
+        };
+
+        var backgroundColors = [];
+        var labels = [];
+        var dataItems = [];
+
+        data.forEach(function(d) {
+            labels.push(d.browser);
+            dataItems.push(parseInt(d.sessions));
+            backgroundColors.push(getRandomHexColor());
+        });
+
+        return new Chart(
+            pieChartContext, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        backgroundColor: backgroundColors,
+                        data: dataItems
+                    }],
+                    options: pieChartOptions
+                }
+            }
+        );
+    }
+}

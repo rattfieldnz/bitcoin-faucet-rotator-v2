@@ -40,9 +40,15 @@ class StatsAPIController extends AppBaseController
         $toDateInput = urldecode($dateTo);
         $quantity = intval($quantity);
 
-        $data = GoogleAnalytics::visitsAndPageViews($fromDateInput, $toDateInput, $quantity);
+        return GoogleAnalytics::visitsAndPageViews($fromDateInput, $toDateInput, $quantity);
+    }
 
-        return $data;
+    public function getTopBrowsersAndVisitors(string $dateFrom, string $dateTo, int $maxBrowserCount = 10){
+        $fromDateInput = urldecode($dateFrom);
+        $toDateInput = urldecode($dateTo);
+        $maxBrowserCount = intval($maxBrowserCount);
+
+        return GoogleAnalytics::topBrowsersBetweenTwoDates($fromDateInput, $toDateInput, $maxBrowserCount);
 
     }
 }

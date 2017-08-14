@@ -26,5 +26,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function () {
             'as' => 'stats.visits-and-page-views',
             'uses' => 'StatsAPIController@getVisitorsAndPageViews'
         ]);
+
+    Route::get('top-x-browsers/from/{dateFrom}/to/{dateTo}/max-browsers/{maxBrowsers?}',
+        [
+            'as' => 'stats.top-x-browsers',
+            'uses' => 'StatsAPIController@getTopBrowsersAndVisitors'
+        ]);
 });
 

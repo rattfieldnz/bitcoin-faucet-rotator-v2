@@ -155,53 +155,23 @@
             generateVisitorsLineChart(response, "areaChart");
         });
 
+        // DATATABLES EXAMPLE FOR SHOWING VISITORS //
+
+        var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', dateFrom, dateTo, quantity);
+
+        $.when(visitorsData).then(function(response){
+            generateVisitorsTable(response.data, '#visitorsTable');
+        });
+
         //-------------
         //- PIE CHART -
         //-------------
-        let pieChartCanvas = document.getElementById('pieChart');
-        let pieChartContext = pieChartCanvas.getContext("2d");
-        let pieChartOptions = {
-            //Boolean - Whether we should show a stroke on each segment
-            segmentShowStroke: true,
-            //String - The colour of each segment stroke
-            segmentStrokeColor: "#fff",
-            //Number - The width of each segment stroke
-            segmentStrokeWidth: 2,
-            //Number - The percentage of the chart that we cut out of the middle
-            percentageInnerCutout: 50, // This is 0 for Pie charts
-            //Number - Amount of animation steps
-            animationSteps: 100,
-            //String - Animation easing effect
-            animationEasing: "easeOutBounce",
-            //Boolean - Whether we animate the rotation of the Doughnut
-            animateRotate: true,
-            //Boolean - Whether we animate scaling the Doughnut from the centre
-            animateScale: false,
-            //Boolean - whether to make the chart responsive to window resizing
-            responsive: true,
-            // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-            maintainAspectRatio: true
-        };
 
-        let backgroundColors = [];
-        let dataCount = {!! count($browserjson['datasets']['data']) !!}
-        for (let i = 0; i < dataCount; i++) {
-            backgroundColors.push(getRandomHexColor());
-        }
+        var browserStatsData = getBrowserStatsAjax(dateFrom, dateTo, 10);
 
-        let pieChart = new Chart(
-            pieChartContext, {
-                type: 'doughnut',
-                data: {
-                    labels: {!! json_encode($browserjson['labels']) !!},
-                    datasets: [{
-                        backgroundColor: backgroundColors,
-                        data: {!! json_encode($browserjson['datasets']['data']) !!}
-                    }],
-                    options: pieChartOptions
-                }
-            }
-        );
+        $.when(browserStatsData).then(function(response){
+            generatePieDonutChart(response,'#pieChart');
+        });
 
         //-----------------------
         //- COUNTRIES MAP -------
@@ -256,14 +226,6 @@
             windowResizeTimer = setTimeout(function () {
                 drawRegionsMap();
             }, 250);
-        });
-
-        // DATATABLES EXAMPLE FOR SHOWING VISITORS //
-
-        var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', dateFrom, dateTo, quantity);
-
-        $.when(visitorsData).then(function(response){
-            generateVisitorsTable(response.data, '#visitorsTable');
         });
     });
 </script>

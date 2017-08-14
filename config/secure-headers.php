@@ -197,6 +197,7 @@ return [
                 'infyom.com',
                 'www.google-analytics.com',
                 'google-analytics.com',
+                'maps.googleapis.com',
                 'secure.gravatar.com',
                 'csi.gstatic.com',
                 'stats.g.doubleclick.net',

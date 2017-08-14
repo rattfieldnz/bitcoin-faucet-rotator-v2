@@ -14,10 +14,7 @@ class StatsController extends Controller
     private $data = [];
     public function index()
     {
-
-        $this->data['browserjson'] = GoogleAnalytics::topbrowsers(7);
-
-        $result = GoogleAnalytics::countries(1);
+        $result = GoogleAnalytics::countries(7);
         $this->data['countries'] = $result;
 
         return view('stats.dashboard', $this->data);

@@ -55,6 +55,24 @@ class GoogleAnalytics{
         return $dataSets;
     }
 
+    public static function topBrowsersBetweenTwoDates(string $startDate, string $endDate, int $maxResults = 10): Collection
+    {
+        $startDateValue = Dates::createDateTime($startDate);
+        $endDateValue = Dates::createDateTime($endDate);
+
+        if(!empty($startDateValue) && !empty($endDateValue)){
+
+            $period = Period::create($startDateValue, $endDateValue);
+
+            return Analytics::fetchTopBrowsers($period, $maxResults);
+
+        } else {
+            return collect();
+        }
+
+
+    }
+
     /**
      * Get top x pages between date_from and date_to.
      *
@@ -79,7 +97,7 @@ class GoogleAnalytics{
      *
      * @return \Illuminate\Support\Collection
      */
-    public static function topPagesBetweenTwoDates($startDate, $endDate, int $count = null){
+    public static function topPagesBetweenTwoDates(string $startDate, string $endDate, int $count = null){
         $startDateValue = Dates::createDateTime($startDate);
         $endDateValue = Dates::createDateTime($endDate);
 
