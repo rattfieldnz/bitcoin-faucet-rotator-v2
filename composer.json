@@ -9,7 +9,7 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "dev-master",
+        "laravel/framework": "5.4.*",
         "cviebrock/eloquent-sluggable": "4.2.*",
         "yajra/laravel-datatables-oracle": "7.*",
         "barryvdh/laravel-ide-helper": "2.3.*",

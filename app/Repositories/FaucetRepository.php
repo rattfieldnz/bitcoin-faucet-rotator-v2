@@ -100,7 +100,7 @@ class FaucetRepository extends Repository implements IRepository
             'has_ref_program' => Purifier::clean($data['has_ref_program'], 'generalFields'),
             'ref_payout_percent' => Purifier::clean($data['ref_payout_percent'], 'generalFields'),
             'comments' => Purifier::clean($data['comments'], 'generalFields'),
-            'is_paused' => Purifier::clean($data['comments'], 'generalFields'),
+            'is_paused' => Purifier::clean($data['is_paused'], 'generalFields'),
             'meta_title' => Purifier::clean($data['meta_title'], 'generalFields'),
             'meta_description' => Purifier::clean($data['meta_description'], 'generalFields'),
             'meta_keywords' => Purifier::clean($data['meta_keywords'], 'generalFields'),

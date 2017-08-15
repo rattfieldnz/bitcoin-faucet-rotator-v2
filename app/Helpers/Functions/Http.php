@@ -27,12 +27,12 @@ class Http
     public static function canShowInIframes($url): bool
     {
 
-        $headers = get_headers($url);
+        $headers = @get_headers($url);
         $xFrameOptions = "X-Frame-Options: ";
         $contentSecurityPolicy = "Content-Security-Policy: frame-ancestors ";
         $canShow = true;
 
-        if (count($headers) == 0) {
+        if ($headers == false || count($headers) == 0) {
             return false;
         }
 

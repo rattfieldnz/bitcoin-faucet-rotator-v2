@@ -170,6 +170,7 @@ return [
         GrahamCampbell\HTMLMin\HTMLMinServiceProvider::class,
         Spatie\Analytics\AnalyticsServiceProvider::class,
         Lord\Laroute\LarouteServiceProvider::class,
+        Fideloper\Proxy\TrustedProxyServiceProvider::class,
         /*
          * Application Service Providers...
          */

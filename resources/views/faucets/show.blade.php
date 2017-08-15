@@ -130,12 +130,18 @@
                         @else
                             <h3 style="font-size: 3em;">Sorry!</h3>
 
-                            <p>This faucet cannot be shown in iframes. Please
+                            <p>This faucet either cannot be shown in iframes, or there is an issue with the faucet's domain name. Please
                                 {!!  link_to(
                                     $faucetUrl,
                                     'visit ' . $faucet->name . ' in a new window/tab',
                                     ['target' => '_blank']) !!}.
                             </p>
+                            @if(Auth::user() && Auth::user()->isAnAdmin())
+                                <p>You can {!! link_to('/faucets/' . $faucet->slug . '/edit', 'check this faucet') !!} to make any changes (for example, if the
+                                    faucet's URL / domain name is having issues).</p>
+                            @else
+                                <p>Please contact the administrator if you are experiencing issues with the faucet's direct URL / domain name.</p>
+                            @endif
                         @endif
                     @else
                         <p>This faucet has been paused from showing in rotation.</p>
