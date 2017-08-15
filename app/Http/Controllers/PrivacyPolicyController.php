@@ -65,9 +65,15 @@ class PrivacyPolicyController extends AppBaseController
             $currentUrl = route('privacy-policy.index');
             $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
             WebsiteMeta::setCustomMeta(
-                $title, $description, $keywords,
-                $publishedTime, $modifiedTime, $author,
-                $currentUrl, $image, "Privacy Policy"
+                $title,
+                $description,
+                $keywords,
+                $publishedTime,
+                $modifiedTime,
+                $author,
+                $currentUrl,
+                $image,
+                "Privacy Policy"
             );
             return view('privacy_policy.show')
                 ->with('privacyPolicy', $privacyPolicy);

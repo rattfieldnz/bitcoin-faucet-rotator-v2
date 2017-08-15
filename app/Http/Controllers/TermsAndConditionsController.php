@@ -64,9 +64,15 @@ class TermsAndConditionsController extends AppBaseController
             $currentUrl = route('terms-and-conditions.index');
             $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
             WebsiteMeta::setCustomMeta(
-                $title, $description, $keywords,
-                $publishedTime, $modifiedTime, $author,
-                $currentUrl, $image, "Terms and Conditions"
+                $title,
+                $description,
+                $keywords,
+                $publishedTime,
+                $modifiedTime,
+                $author,
+                $currentUrl,
+                $image,
+                "Terms and Conditions"
             );
             return view('terms_and_conditions.show')
                 ->with('termsAndConditions', $termsAndConditions);

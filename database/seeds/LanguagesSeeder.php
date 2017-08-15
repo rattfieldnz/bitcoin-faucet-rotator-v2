@@ -25,7 +25,8 @@ class LanguagesSeeder extends BaseSeeder
                 ]);
                 $language->save();
                 $this->command->info(
-                    "Seeding Language => Name: " . $language->name() . ", ISO Code: " . $language->isoCode());
+                    "Seeding Language => Name: " . $language->name() . ", ISO Code: " . $language->isoCode()
+                );
             }
         } catch (Exception $e) {
             error_log($e->getMessage());

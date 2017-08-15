@@ -84,7 +84,7 @@ Route::resource('payment-processors', 'PaymentProcessorController');
 
 Route::delete(
     'users/{slug}/delete-permanently',
-        [
+    [
             'as' => 'users.delete-permanently',
             'uses' => 'UserController@destroyPermanently'
         ]

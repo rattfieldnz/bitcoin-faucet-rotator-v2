@@ -21,23 +21,27 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function () {
         ]
     );
 
-    Route::get('visits-and-page-views/from/{dateFrom}/to/{dateTo}/quantity/{quantity?}',
+    Route::get(
+        'visits-and-page-views/from/{dateFrom}/to/{dateTo}/quantity/{quantity?}',
         [
             'as' => 'stats.visits-and-page-views',
             'uses' => 'StatsAPIController@getVisitorsAndPageViews'
-        ]);
+        ]
+    );
 
-    Route::get('top-x-browsers/from/{dateFrom}/to/{dateTo}/max-browsers/{maxBrowsers?}',
+    Route::get(
+        'top-x-browsers/from/{dateFrom}/to/{dateTo}/max-browsers/{maxBrowsers?}',
         [
             'as' => 'stats.top-x-browsers',
             'uses' => 'StatsAPIController@getTopBrowsersAndVisitors'
-        ]);
+        ]
+    );
 
-    Route::get('countries-and-visitors/from/{dateFrom}/to/{dateTo}',
+    Route::get(
+        'countries-and-visitors/from/{dateFrom}/to/{dateTo}',
         [
             'as' => 'stats.countries-and-visitors',
             'uses' => 'StatsAPIController@getCountriesAndVisitors'
         ]
     );
 });
-

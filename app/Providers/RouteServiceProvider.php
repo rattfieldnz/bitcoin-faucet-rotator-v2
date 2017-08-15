@@ -61,7 +61,8 @@ class RouteServiceProvider extends ServiceProvider
             [
             'middleware' => 'web',
             'namespace' => $this->namespace,
-            ], function ($router) {
+            ],
+            function ($router) {
                 include base_path('routes/web.php');
             }
         );
@@ -81,7 +82,8 @@ class RouteServiceProvider extends ServiceProvider
             'middleware' => 'api',
             'namespace' => $this->namespace,
             'prefix' => 'api',
-            ], function ($router) {
+            ],
+            function ($router) {
                 include base_path('routes/api.php');
             }
         );
