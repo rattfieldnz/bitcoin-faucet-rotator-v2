@@ -157,7 +157,7 @@ class Dates
         $years -= 1970;
         $months--;
         $days--;
-        $parts = array();
+        $parts = [];
         if ($years > 0) {
             $parts[] = $years . " " . str::plural("year", $years);
         }

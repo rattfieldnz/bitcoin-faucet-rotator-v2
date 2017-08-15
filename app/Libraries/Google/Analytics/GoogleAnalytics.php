@@ -30,8 +30,8 @@ class GoogleAnalytics
     {
         $countries = Analytics::performQuery(
             Period::days($numberOfDays),
-                'ga:sessions',
-                ['dimensions'=>'ga:country','sort'=>'-ga:sessions']
+            'ga:sessions',
+            ['dimensions'=>'ga:country','sort'=>'-ga:sessions']
         );
         $data = $countries['rows'];
         return self::getCountryData($data);
@@ -268,7 +268,9 @@ class GoogleAnalytics
         }
 
         $response = Analytics::performQuery(
-            $period, $metrics, $dimensions
+            $period,
+            $metrics,
+            $dimensions
         );
 
         return collect($response['rows'] ?? [])->map(function (array $dateRow) {
@@ -300,7 +302,8 @@ class GoogleAnalytics
             $results = Analytics::performQuery(
                 $period,
                 'ga:sessions',
-                ['dimensions'=>'ga:country','filters' => 'ga:pagePath%3D%3D' . $urlPath]);
+                ['dimensions'=>'ga:country','filters' => 'ga:pagePath%3D%3D' . $urlPath]
+            );
 
             return count($results['rows']);
         } else {
