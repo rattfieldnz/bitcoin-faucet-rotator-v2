@@ -37,13 +37,20 @@ class GoogleAnalytics
         return self::getCountryData($data);
     }
 
+    /**
+     * Retrieve countries and their amount of visitors between given dates.
+     *
+     * @param string $fromDate
+     * @param string $toDate
+     *
+     * @return \Illuminate\Support\Collection
+     */
     public static function countriesBetweenTwoDates(string $fromDate, string $toDate): Collection
     {
         $startDateValue = Dates::createDateTime($fromDate);
         $endDateValue = Dates::createDateTime($toDate);
 
-        if(!empty($startDateValue) && !empty($endDateValue)){
-
+        if (!empty($startDateValue) && !empty($endDateValue)) {
             $period = Period::create($startDateValue, $endDateValue);
             $countries = Analytics::performQuery(
                 $period,
@@ -52,11 +59,9 @@ class GoogleAnalytics
             );
 
             return self::getCountryData($countries['rows']);
-
         } else {
             return collect();
         }
-
     }
 
     /**

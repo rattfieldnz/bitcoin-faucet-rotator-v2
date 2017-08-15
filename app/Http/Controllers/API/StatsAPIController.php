@@ -81,6 +81,16 @@ class StatsAPIController extends AppBaseController
         return GoogleAnalytics::topBrowsersBetweenTwoDates($fromDateInput, $toDateInput, $maxBrowserCount);
     }
 
+    /**
+     * Retrieve countries and their amount of visitors between given dates.
+     *
+     * @param string $dateFrom
+     * @param string $dateTo
+     *
+     * @see \App\Libraries\Google\Analytics\GoogleAnalytics::countriesBetweenTwoDates()
+     *
+     * @return \Illuminate\Support\Collection
+     */
     public function getCountriesAndVisitors(string $dateFrom, string $dateTo)
     {
         $fromDateInput = urldecode($dateFrom);
