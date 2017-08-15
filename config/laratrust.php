@@ -44,7 +44,7 @@ return [
     |
     */
     'user_models' => [
-        'users' => 'App\Models\User',
+        'users' => App\Models\User::class,
     ],
 
     /*
@@ -61,12 +61,12 @@ return [
         /**
          * Role model
          */
-        'role' => 'App\Models\Role',
+        'role' => App\Models\Role::class,
 
         /**
          * Permission model
          */
-        'permission' => 'App\Models\Permission',
+        'permission' => App\Models\Permission::class,
 
         /**
          * Team model
