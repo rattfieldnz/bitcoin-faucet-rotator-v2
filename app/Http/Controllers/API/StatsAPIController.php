@@ -80,4 +80,12 @@ class StatsAPIController extends AppBaseController
 
         return GoogleAnalytics::topBrowsersBetweenTwoDates($fromDateInput, $toDateInput, $maxBrowserCount);
     }
+
+    public function getCountriesAndVisitors(string $dateFrom, string $dateTo)
+    {
+        $fromDateInput = urldecode($dateFrom);
+        $toDateInput = urldecode($dateTo);
+
+        return GoogleAnalytics::countriesBetweenTwoDates($fromDateInput, $toDateInput);
+    }
 }

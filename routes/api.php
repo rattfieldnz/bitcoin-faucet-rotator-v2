@@ -32,5 +32,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function () {
             'as' => 'stats.top-x-browsers',
             'uses' => 'StatsAPIController@getTopBrowsersAndVisitors'
         ]);
+
+    Route::get('countries-and-visitors/from/{dateFrom}/to/{dateTo}',
+        [
+            'as' => 'stats.countries-and-visitors',
+            'uses' => 'StatsAPIController@getCountriesAndVisitors'
+        ]
+    );
 });
 

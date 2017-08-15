@@ -254,3 +254,83 @@ function generatePieDonutChart(data, renderToElement){
         );
     }
 }
+
+function getCountriesAndVisitorsAjax(dateFrom, dateTo){
+
+    if(typeof dateFrom !== 'undefined' && typeof dateTo !== 'undefined'){
+
+        var browsersRoute = laroute.route(
+            'stats.countries-and-visitors',
+            { dateFrom : dateFrom, dateTo: dateTo }
+        );
+
+        return $.get(browsersRoute, function(response){
+            return response.data;
+        }).promise();
+    } else {
+        return null;
+    }
+}
+
+function generateGoogleGeoChart(data, renderToElement){
+
+    var geoChartCanvas;
+    if(renderToElement.charAt(0) === '.'){
+        geoChartCanvas = document.getElementsByClassName(renderToElement.substr(1))[0];
+    } else if (renderToElement.charAt(0) === '#') {
+        geoChartCanvas = document.getElementById(renderToElement.substr(1));
+    } else {
+        console.log("Pie chart element is not correctly defined.");
+        return null;
+    }
+
+    google.charts.load('current', {
+        'packages': ['geochart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+    });
+
+    for (var i = 0; i < data.length; i++) {
+        if (!isNaN(data[i][1])) {
+            data[i][1] = parseInt(data[i][1]);
+        }
+    }
+
+    var geoData = data;
+
+    var drawRegionsMap = function(){
+
+        geoChartCanvas.innerHTML = "";
+        var data = google.visualization.arrayToDataTable(geoData);
+
+        var options = {};
+        options.width = '90%';
+        options.showLegend = true;
+        options.showZoomOut = true;
+        options.zoomOutLabel = 'Zoom Out';
+
+        var chart = new google.visualization.GeoChart(geoChartCanvas);
+
+        chart.draw(data, options);
+    };
+
+    google.charts.setOnLoadCallback(drawRegionsMap);
+
+    var windowResizeTimer;
+
+    jQuery(window).on('resize', function () {
+        clearTimeout(windowResizeTimer);
+        windowResizeTimer = setTimeout(function () {
+            drawRegionsMap();
+        }, 250);
+    });
+
+    jQuery(window).on('reload', function () {
+        clearTimeout(windowResizeTimer);
+        windowResizeTimer = setTimeout(function () {
+            drawRegionsMap();
+        }, 250);
+    });
+
+}

@@ -150,78 +150,37 @@
         //--------------
         var visitorsAreaChartData = getVisitorsDataAjax('stats.visits-and-page-views', dateFrom, dateTo, quantity);
 
+        $.when(visitorsAreaChartData).then(function(vacd){
+            generateVisitorsLineChart(vacd, "areaChart");
+        });
+
         //--------------------------------
         //- DATATABLES SHOWING VISITORS -
         //--------------------------------
         var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', dateFrom, dateTo, quantity);
+
+        $.when(visitorsData).then(function(vd){
+            generateVisitorsTable(vd.data, '#visitorsTable');
+        });
+
+        //-----------------------
+        //- COUNTRIES MAP -------
+        //-----------------------
+        var geoChartData = getCountriesAndVisitorsAjax(dateFrom, dateTo);
+
+        $.when(geoChartData).then(function(gcd){
+            generateGoogleGeoChart(gcd, '#regions_div');
+        });
 
         //-------------
         //- PIE CHART -
         //-------------
         var browserStatsData = getBrowserStatsAjax(dateFrom, dateTo, 10);
 
-        $.when(visitorsAreaChartData, visitorsData, browserStatsData).then(
-            function (vacd, vd, bsd) {
-                generateVisitorsLineChart(vacd[0], "areaChart");
-                generateVisitorsTable(vd[0].data, '#visitorsTable');
-                generatePieDonutChart(bsd[0],'#pieChart');
-            }
-        );
-
-        //-----------------------
-        //- COUNTRIES MAP -------
-        //-----------------------
-
-        var mapElement = $('#regions_div');
-        google.charts.load('current', {
-            'packages': ['geochart'],
-            // Note: you will need to get a mapsApiKey for your project.
-            // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-            'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
-        });
-        google.charts.setOnLoadCallback(drawRegionsMap);
-        var countriesData = {!! json_encode($countries) !!};
-
-        for (var i = 0; i < countriesData.length; i++) {
-            if (!isNaN(countriesData[i][1])) {
-                countriesData[i][1] = parseInt(countriesData[i][1]);
-            }
-        }
-
-        function drawRegionsMap() {
-            mapElement.empty();
-            if (countriesData.length > 0) {
-                var data = google.visualization.arrayToDataTable(countriesData);
-
-                var options = {};
-                options.width = '90%';
-                options.showLegend = true;
-                options.showZoomOut = true;
-                options.zoomOutLabel = 'Zoom Out';
-
-                var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-
-                chart.draw(data, options);
-            } else {
-                mapElement.append('<p style="font-size:2em;">Sorry, there is no data to show on this map.</p>');
-            }
-        }
-
-        var windowResizeTimer;
-
-        jQuery(window).on('resize', function () {
-            clearTimeout(windowResizeTimer);
-            windowResizeTimer = setTimeout(function () {
-                drawRegionsMap();
-            }, 250);
+        $.when(browserStatsData).then(function(bsd){
+            generatePieDonutChart(bsd,'#pieChart');
         });
 
-        jQuery(window).on('reload', function () {
-            clearTimeout(windowResizeTimer);
-            windowResizeTimer = setTimeout(function () {
-                drawRegionsMap();
-            }, 250);
-        });
     });
 </script>
 @endpush

@@ -28,9 +28,35 @@ class GoogleAnalytics
      */
     public static function countries(int $numberOfDays = 1) : Collection
     {
-        $country = Analytics::performQuery(Period::days($numberOfDays), 'ga:sessions', ['dimensions'=>'ga:country','sort'=>'-ga:sessions']);
-        $data = $country['rows'];
+        $countries = Analytics::performQuery(
+            Period::days($numberOfDays),
+                'ga:sessions',
+                ['dimensions'=>'ga:country','sort'=>'-ga:sessions']
+        );
+        $data = $countries['rows'];
         return self::getCountryData($data);
+    }
+
+    public static function countriesBetweenTwoDates(string $fromDate, string $toDate): Collection
+    {
+        $startDateValue = Dates::createDateTime($fromDate);
+        $endDateValue = Dates::createDateTime($toDate);
+
+        if(!empty($startDateValue) && !empty($endDateValue)){
+
+            $period = Period::create($startDateValue, $endDateValue);
+            $countries = Analytics::performQuery(
+                $period,
+                'ga:sessions',
+                ['dimensions'=>'ga:country','sort'=>'-ga:sessions']
+            );
+
+            return self::getCountryData($countries['rows']);
+
+        } else {
+            return collect();
+        }
+
     }
 
     /**
