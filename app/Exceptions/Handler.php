@@ -57,6 +57,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        // Show full error stack trace info - if environment is set to 'local',
+        // and if app debugging is set to true.
+        if(config('app.debug') && config('app.env') == 'local') {
+            return parent::render($request, $e);
+        }
+
         if ($e instanceof TokenMismatchException) {
 
             Log::error($e->getMessage()); // Log this exception, in case further debugging/troubleshooting is meeded.
@@ -89,6 +95,7 @@ class Handler extends ExceptionHandler
             }
         }
 
-        return parent::render($request, $e);
+        // Default is to render an error 500 page
+        return response()->view('errors.500', ['message' => $e->getMessage()], 500);
     }
 }
