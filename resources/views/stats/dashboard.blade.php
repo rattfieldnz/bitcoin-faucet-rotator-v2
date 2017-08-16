@@ -141,8 +141,8 @@
 <script>
     $(function () {
 
-        var dateFrom = '08-08-2017';
-        var dateTo = '14-08-2017';
+        var dateFrom = '10-08-2017';
+        var dateTo = '16-08-2017';
         var quantity = 1000;
 
         //--------------
