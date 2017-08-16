@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Mews\Purifier\Facades\Purifier;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Whoops\Exception\ErrorException;
 
 /**
  * Class FaucetController
@@ -137,6 +138,7 @@ class FaucetController extends AppBaseController
      */
     public function show($slug)
     {
+        //$b = 6/0;
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
 
         $adminUser = $this->userFunctions::adminUser();

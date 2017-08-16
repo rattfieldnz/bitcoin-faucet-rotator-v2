@@ -7,8 +7,10 @@ use Illuminate\Session\TokenMismatchException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Log;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Whoops\Exception\ErrorException;
 
 /**
  * Class Handler
@@ -58,6 +60,12 @@ class Handler extends ExceptionHandler
             flash("The login form has expired, please try again.")->error();
             return redirect(route('login'));
         }
+
+        if($e instanceof \ErrorException){
+            Log::error($e->getMessage());
+            return response()->view('errors.500', ['message' => $e->getMessage()], 500);
+        }
+
         return parent::render($request, $e);
     }
 }
