@@ -16,7 +16,6 @@
             padding: 0;
             width: 100%;
             color: #B0BEC5;
-            font-weight: 100;
             font-family: 'Lato';
         }
 
@@ -38,10 +37,14 @@
             <h2>Something has been broken :(.</h2>
 
             @if(!empty(Auth::user()) && Auth::user()->isAnAdmin())
-            <h3>A brief message describing the error is below:</h3>
-            <ul>
-                <li><strong>{{ $message }}</strong></li>
-            </ul>
+                @if(!empty($message))
+                <h3>A brief message describing the error is below:</h3>
+                <ul>
+                    <li><strong>{{ $message }}</strong></li>
+                </ul>
+                @endif
+            @else
+                <p><strong>Please <a href="mailto:{{ \Helpers\Functions\Users::adminUser()->email }}?Subject=RE:%20Error%20500%20issue.">contact the site owner</a> for further information.</strong></p>
             @endif
             <p><strong>This error has been logged, and related information will be delivered to admin/site developer.</strong></p>
         </div>

@@ -16,19 +16,10 @@
             padding: 0;
             width: 100%;
             color: #B0BEC5;
-            display: table;
-            font-weight: 100;
             font-family: 'Lato';
         }
 
-        .container {
-            text-align: center;
-            display: table-cell;
-            vertical-align: middle;
-        }
-
         .content {
-            text-align: center;
             display: inline-block;
         }
 
@@ -45,8 +36,8 @@
             <h1 class="title">Sorry!</h1>
             <p>
                 <strong>
-                    The page you have requested cannot be found. If you believe something should exist here, please
-                    <a href="mailto:{{ App\Models\User::where('is_admin', '=', true)->first()->email }}?Subject=RE:%20Page%20not%20found%20error.">contact the site owner</a>.
+                    The {{ !empty($item) ? ' ' . $item . "'s " : ' ' }}page you have requested cannot be found. If you believe something should exist here, please
+                    <a href="mailto:{{ \Helpers\Functions\Users::adminUser()->email }}?Subject=RE:%20Page%20not%20found%20error.">contact the site owner</a>.
                 </strong>
             </p>
         </div>

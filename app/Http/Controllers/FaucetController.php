@@ -138,7 +138,6 @@ class FaucetController extends AppBaseController
      */
     public function show($slug)
     {
-        //$b = 6/0;
         $faucet = $this->faucetRepository->findByField('slug', $slug)->first();
 
         $adminUser = $this->userFunctions::adminUser();
