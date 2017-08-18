@@ -57,6 +57,9 @@ gulp.task("copyfiles", function() {
     gulp.src("vendor/bower_components/admin-lte/dist/css/**/*.css")
         .pipe(gulp.dest("resources/assets/css/admin-lte/"));
 
+    gulp.src("vendor/bower_components/admin-lte/bootstrap/css/*.css.map")
+        .pipe(gulp.dest("public/assets/css/"));
+
     gulp.src("vendor/bower_components/admin-lte/dist/img/**/*")
         .pipe(gulp.dest("resources/assets/img/admin-lte/"));
 

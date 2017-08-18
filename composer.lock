@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2341ab1607c5bab2f1a436c1360346c1",
+    "content-hash": "ada2412339b3616c5642ed720a710eb9",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -2921,6 +2921,47 @@
             "time": "2017-07-28T14:45:09+00:00"
         },
         {
+            "name": "optimus/heimdal",
+            "version": "1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/esbenp/heimdal.git",
+                "reference": "6cb406b2acd2c4cec948099a9855a0f5a1aed437"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/esbenp/heimdal/zipball/6cb406b2acd2c4cec948099a9855a0f5a1aed437",
+                "reference": "6cb406b2acd2c4cec948099a9855a0f5a1aed437",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~5.3"
+            },
+            "require-dev": {
+                "bugsnag/bugsnag-laravel": "^2.4",
+                "mockery/mockery": "0.9.*",
+                "orchestra/testbench": "~3.1",
+                "phpunit/phpunit": "~4.7",
+                "satooshi/php-coveralls": "dev-master@dev"
+            },
+            "suggest": {
+                "asm89/stack-cors": "Needed to add CORS headers if add_cors_headers configuration is true",
+                "rollbar/rollbar": "Needed to report exceptions to Rollbar.com",
+                "sentry/sentry": "Needed to report exceptions to Sentry.io"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Optimus\\Heimdal\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "time": "2017-08-05T10:53:12+00:00"
+        },
+        {
             "name": "paragonie/constant_time_encoding",
             "version": "v2.0.3",
             "source": {
@@ -3909,6 +3950,134 @@
                 "roles"
             ],
             "time": "2017-07-26T16:52:20+00:00"
+        },
+        {
+            "name": "sentry/sentry",
+            "version": "1.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getsentry/sentry-php.git",
+                "reference": "ed62ac351124a136f61b7ece7e0d172f4c56897b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/ed62ac351124a136f61b7ece7e0d172f4c56897b",
+                "reference": "ed62ac351124a136f61b7ece7e0d172f4c56897b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": "^5.3|^7.0"
+            },
+            "conflict": {
+                "raven/raven": "*"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.8.0",
+                "monolog/monolog": "*",
+                "phpunit/phpunit": "^4.8 || ^5.0"
+            },
+            "suggest": {
+                "ext-hash": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "immobiliare/sentry-php": "Fork that fixes support for PHP 5.2",
+                "monolog/monolog": "Automatically capture Monolog events as breadcrumbs"
+            },
+            "bin": [
+                "bin/sentry"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.7.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Raven_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "David Cramer",
+                    "email": "dcramer@gmail.com"
+                }
+            ],
+            "description": "A PHP client for Sentry (http://getsentry.com)",
+            "homepage": "http://getsentry.com",
+            "keywords": [
+                "log",
+                "logging"
+            ],
+            "time": "2017-08-02T16:38:25+00:00"
+        },
+        {
+            "name": "sentry/sentry-laravel",
+            "version": "0.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getsentry/sentry-laravel.git",
+                "reference": "4ca94ed3ba6d79ad049957be574a738a3478f94c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/4ca94ed3ba6d79ad049957be574a738a3478f94c",
+                "reference": "4ca94ed3ba6d79ad049957be574a738a3478f94c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "4.*|5.*",
+                "php": ">=5.3.0",
+                "sentry/sentry": ">=1.7.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.8.0",
+                "orchestra/testbench": "3.*",
+                "phpunit/phpunit": "^4.6.6"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.8.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Sentry\\SentryLaravel\\SentryLaravelServiceProvider"
+                    ],
+                    "aliases": {
+                        "Sentry": "Sentry\\SentryLaravel\\SentryFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Sentry\\SentryLaravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "David Cramer",
+                    "email": "dcramer@gmail.com"
+                }
+            ],
+            "description": "Laravel integration for Sentry (https://sentry.io)",
+            "homepage": "https://sentry.io",
+            "keywords": [
+                "errors",
+                "laravel",
+                "logging",
+                "sentry"
+            ],
+            "time": "2017-08-11T17:29:14+00:00"
         },
         {
             "name": "spatie/laravel-activitylog",

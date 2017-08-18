@@ -171,6 +171,7 @@ return [
         Spatie\Analytics\AnalyticsServiceProvider::class,
         Lord\Laroute\LarouteServiceProvider::class,
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
+        Optimus\Heimdal\Provider\LaravelServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -238,6 +239,7 @@ return [
         'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
         'HTMLMin' => GrahamCampbell\HTMLMin\Facades\HTMLMin::class,
         'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
+        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
     ],
 
 ];

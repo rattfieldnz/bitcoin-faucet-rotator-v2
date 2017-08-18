@@ -68,15 +68,7 @@
                                             <th>No. of Countries</th>
                                         </tr>
                                     </thead>
-                                    <div id="loader-wrapper">
-                                        <div id="loader"></div>
-                                        <p>Please wait, there's a lot of data to crunch...</p>
-                                    </div>
-                                    <div id="error-loader-wrapper">
-                                        <div id="loader"><h1>!</h1></div>
-                                        <p>Oops! An error has occurred. Further details are below:</p>
-                                        <p><span id="message"></span></p>
-                                    </div>
+                                    <tbody></tbody>
                                     <tfoot>
                                         <tr>
                                             <th>URL</th>
@@ -151,9 +143,26 @@
     $(function () {
 
         $.ajaxSetup({timeout:3600000});
-        var dateFrom = '11-08-2017';
-        var dateTo = '17-08-2017';
+
+        var loader = $('<div class="loader-wrapper"><div class="loader"></div><p>Please wait, there\'s a lot of data to crunch...</p></div>');
+
+        var dateFrom = '12-08-2017';
+        var dateTo = '18-08-2017';
         var quantity = 1000;
+
+        function displayLoading(container, promise) {
+            //create a spinner in container if not already created
+            //show spinner
+            //hide other content
+            container.append(loader);
+            loader.show();
+            promise.done(function() {
+                console.log("done");
+                //hide spinner
+                //show other content
+                loader.hide();
+            });
+        }
 
         //--------------
         //- AREA CHART -
@@ -170,6 +179,7 @@
         //- DATATABLES SHOWING VISITORS -
         //--------------------------------
         var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', dateFrom, dateTo, quantity);
+        displayLoading($("#visitorsTable").find("tbody"), visitorsData);
 
         $.when(visitorsData).then(function(vd){
             generateVisitorsTable(vd.data, '#visitorsTable');

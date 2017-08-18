@@ -320,13 +320,11 @@ class GoogleAnalytics
      * @param \Spatie\Analytics\Period $period
      * @param                          $urlPath
      *
-     * @return int
+     * @return int|Collection
      */
     public static function getNoOfCountries(Period $period, $urlPath) : int
     {
         try {
-
-
             if (!empty($period)) {
                 $results = Analytics::performQuery(
                     $period,

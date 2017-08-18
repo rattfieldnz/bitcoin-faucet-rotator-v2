@@ -22,6 +22,8 @@ use Whoops\Exception\ErrorException;
  */
 class Handler extends ExceptionHandler
 {
+    private $sentryID;
+
     /**
      * A list of the exception types that should not be reported.
      *
@@ -44,8 +46,12 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
-        app('sneaker')->captureException($e);
+        if ($this->shouldReport($e)) {
+            // bind the event ID for Feedback
+            $this->sentryID = app('sentry')->captureException($e);
 
+            app('sneaker')->captureException($e);
+        }
         parent::report($e);
     }
 
@@ -74,7 +80,10 @@ class Handler extends ExceptionHandler
         if($e instanceof \ErrorException){
             Log::error($e->getMessage());
 
-            return response()->view('errors.500', ['message' => $e->getMessage()], 500);
+            return response()->view('errors.500', [
+                'message' => $e->getMessage(),
+                'sentryID' => $this->sentryID
+            ], 500);
         }
 
         if ($e instanceof ModelNotFoundException) {
@@ -92,7 +101,10 @@ class Handler extends ExceptionHandler
                 return response()->json(['message' => "Google Analytics API usage exceeded"], 500);
             }
 
-            return response()->view('errors.500', ['message' => "Google Analytics API usage exceeded"], 500);
+            return response()->view('errors.500', [
+                'message' => "Google Analytics API usage exceeded",
+                'sentryID' => $this->sentryID
+            ], 500);
         }
 
         if ($this->isHttpException($e))
@@ -100,12 +112,15 @@ class Handler extends ExceptionHandler
             $exception = FlattenException::create($e);
             $statusCode = $exception->getStatusCode($exception);
 
-            if (in_array($statusCode, array(403, 404, 500))){
-                return response()->view('errors.' . $statusCode, [], $statusCode);
+            if (in_array($statusCode, array(403, 404, 418, 500))){
+                return response()->view('errors.' . $statusCode, ['sentryID' => $this->sentryID], $statusCode);
             }
         }
 
         // Default is to render an error 500 page
-        return response()->view('errors.500', ['message' => $e->getMessage()], 500);
+        return response()->view('errors.500', [
+            'message' => $e->getMessage(),
+            'sentryID' => $this->sentryID
+        ], 500);
     }
 }

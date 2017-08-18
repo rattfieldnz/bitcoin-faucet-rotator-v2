@@ -38667,16 +38667,13 @@ table.show-table-header thead tr th {
   background: url("/assets/images/iCheck/square/purple.png") no-repeat !important;
 }
 
-#loader-wrapper,
-#error-loader-wrapper {
-  z-index: 10;
+#visitorsTable .loader-wrapper {
+  position: absolute;
   margin: 0 0 1em 0;
   text-align: center;
-  display: none;
-  visibility: hidden;
 }
 
-#loader-wrapper #loader {
+#visitorsTable .loader-wrapper .loader {
   z-index: 10;
   margin: 0 auto;
   border: 1em solid #f3f3f3;
@@ -38686,15 +38683,6 @@ table.show-table-header thead tr th {
   height: 6em;
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
-}
-
-#error-loader-wrapper #loader {
-  z-index: 10;
-  margin: 0 auto;
-  border: 1em solid red;
-  border-radius: 50%;
-  width: 6em;
-  height: 6em;
 }
 
 @-webkit-keyframes spin {

@@ -43,7 +43,9 @@
         "htmlmin/htmlmin": "^4.5",
         "spatie/laravel-analytics": "^3.0",
         "lord/laroute": "^2.4",
-        "fideloper/proxy": "~3.3"
+        "fideloper/proxy": "~3.3",
+        "optimus/heimdal": "^1.5",
+        "sentry/sentry-laravel": "^0.8.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.6",

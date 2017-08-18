@@ -153,7 +153,8 @@ return [
                 'google-analytics.com',
                 'www.google.com',
                 'www.gstatic.com',
-                'maps.googleapis.com'
+                'maps.googleapis.com',
+                'cdn.ravenjs.com'
             ],
 
             'hashes' => [
