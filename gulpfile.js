@@ -189,7 +189,7 @@ elixir(function(mix) {
             'resources/assets/css/jquery-ui/jquery-ui.css',
             'resources/assets/select2/select2.css',
             'resources/assets/css/iCheck/skins/_all.css',
-            'resources/assets/css/datatables/dataTables.*.css',
+            'resources/assets/css/datatables/dataTables.bootstrap.css',
             'resources/assets/css/ionicons/ionicons.css',
             'resources/assets/css/admin-lte/_all-skins.css',
             'resources/assets/css/admin-lte/AdminLTE.css',

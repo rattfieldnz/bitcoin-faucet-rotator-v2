@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Google_Service_Exception;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -83,6 +84,15 @@ class Handler extends ExceptionHandler
             $item = class_basename($baseModel);
 
             return response()->view('errors.404', compact('item'), 404);
+        }
+
+        if($e instanceof Google_Service_Exception){
+
+            if($request->isAjax()){
+                return response()->json(['message' => "Google Analytics API usage exceeded"], 500);
+            }
+
+            return response()->view('errors.500', ['message' => "Google Analytics API usage exceeded"], 500);
         }
 
         if ($this->isHttpException($e))

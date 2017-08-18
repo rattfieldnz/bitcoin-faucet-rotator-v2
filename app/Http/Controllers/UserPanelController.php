@@ -79,7 +79,7 @@ class UserPanelController extends Controller
             return redirect(route('users.index'));
         }
 
-        return view('users.panel.show')
+        return view('users.show')
             ->with('user', $user);
     }
 }

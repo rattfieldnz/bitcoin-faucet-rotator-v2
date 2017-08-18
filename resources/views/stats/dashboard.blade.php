@@ -68,6 +68,15 @@
                                             <th>No. of Countries</th>
                                         </tr>
                                     </thead>
+                                    <div id="loader-wrapper">
+                                        <div id="loader"></div>
+                                        <p>Please wait, there's a lot of data to crunch...</p>
+                                    </div>
+                                    <div id="error-loader-wrapper">
+                                        <div id="loader"><h1>!</h1></div>
+                                        <p>Oops! An error has occurred. Further details are below:</p>
+                                        <p><span id="message"></span></p>
+                                    </div>
                                     <tfoot>
                                         <tr>
                                             <th>URL</th>
@@ -141,8 +150,9 @@
 <script>
     $(function () {
 
-        var dateFrom = '10-08-2017';
-        var dateTo = '16-08-2017';
+        $.ajaxSetup({timeout:3600000});
+        var dateFrom = '11-08-2017';
+        var dateTo = '17-08-2017';
         var quantity = 1000;
 
         //--------------
@@ -152,6 +162,8 @@
 
         $.when(visitorsAreaChartData).then(function(vacd){
             generateVisitorsLineChart(vacd, "areaChart");
+        }).catch(function(e){
+            console.log("There was an error");
         });
 
         //--------------------------------
@@ -161,6 +173,8 @@
 
         $.when(visitorsData).then(function(vd){
             generateVisitorsTable(vd.data, '#visitorsTable');
+        }).catch(function(e){
+            console.log("There was an error");
         });
 
         //-----------------------
@@ -170,6 +184,8 @@
 
         $.when(geoChartData).then(function(gcd){
             generateGoogleGeoChart(gcd, '#regions_div');
+        }).catch(function(e){
+            console.log("There was an error");
         });
 
         //-------------
@@ -179,6 +195,8 @@
 
         $.when(browserStatsData).then(function(bsd){
             generatePieDonutChart(bsd,'#pieChart');
+        }).catch(function(e){
+            console.log("There was an error");
         });
 
     });

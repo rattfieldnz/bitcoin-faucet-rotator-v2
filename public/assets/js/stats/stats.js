@@ -1,4 +1,6 @@
 
+$.fn.dataTable.ext.errMode = 'none';
+
 Date.prototype.formatDDMMYYYY = function() {
     return (this.getDate()) +
         "/" +  (this.getMonth() + 1) +
@@ -6,9 +8,27 @@ Date.prototype.formatDDMMYYYY = function() {
 };
 
 function generateVisitorsTable(data, elementToRender){
+
     if(typeof data !== 'undefined' && typeof elementToRender !== 'undefined'){
-        $(elementToRender).DataTable({
+
+        $("#loader-wrapper").css('display', 'none').css('visibility', 'hidden');
+        $(elementToRender)
+            .on( 'draw.dt', function () {
+                console.log( 'Loading' );
+                //Here show the loader.
+                $("#loader-wrapper").css('display', 'initial').css('visibility', 'visible');
+            } )
+            .on( 'init.dt', function () {
+                console.log( 'Loaded' );
+                //Here hide the loader.
+                $("#loader-wrapper").css('display', 'none').css('visibility', 'hidden');
+            } )
+            .DataTable({
+            processing: true,
             data: data,
+            language: {
+                processing: "Loading...",
+            },
             order: [[2, "desc"], [3, "desc"], [4, "desc"], [5,"desc"], [6, "desc"], [7, "asc"], [8, "desc"]],
             columns: [
                 {data: "url"},
@@ -64,7 +84,7 @@ function generateVisitorsTable(data, elementToRender){
                 {data: "noOfCountries"}
             ],
             responsive: true
-        });
+        }).dataTable();
     }
 }
 

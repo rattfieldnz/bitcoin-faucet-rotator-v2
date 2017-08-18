@@ -28,13 +28,17 @@ class GoogleAnalytics
      */
     public static function countries(int $numberOfDays = 1) : Collection
     {
-        $countries = Analytics::performQuery(
-            Period::days($numberOfDays),
-            'ga:sessions',
-            ['dimensions'=>'ga:country','sort'=>'-ga:sessions']
-        );
-        $data = $countries['rows'];
-        return self::getCountryData($data);
+        try {
+            $countries = Analytics::performQuery(
+                Period::days($numberOfDays),
+                'ga:sessions',
+                ['dimensions' => 'ga:country', 'sort' => '-ga:sessions']
+            );
+            $data = $countries['rows'];
+            return self::getCountryData($data);
+        } catch(\Google_Service_Exception $e){
+            return collect(['message' => 'Google API limit Exceeded']);
+        }
     }
 
     /**
@@ -50,17 +54,21 @@ class GoogleAnalytics
         $startDateValue = Dates::createDateTime($fromDate);
         $endDateValue = Dates::createDateTime($toDate);
 
-        if (!empty($startDateValue) && !empty($endDateValue)) {
-            $period = Period::create($startDateValue, $endDateValue);
-            $countries = Analytics::performQuery(
-                $period,
-                'ga:sessions',
-                ['dimensions'=>'ga:country','sort'=>'-ga:sessions']
-            );
+        try {
+            if (!empty($startDateValue) && !empty($endDateValue)) {
+                $period = Period::create($startDateValue, $endDateValue);
+                $countries = Analytics::performQuery(
+                    $period,
+                    'ga:sessions',
+                    ['dimensions' => 'ga:country', 'sort' => '-ga:sessions']
+                );
 
-            return self::getCountryData($countries['rows']);
-        } else {
-            return collect();
+                return self::getCountryData($countries['rows']);
+            } else {
+                return collect();
+            }
+        } catch(\Google_Service_Exception $e){
+            return collect(['message' => 'Google API limit Exceeded']);
         }
     }
 
@@ -74,18 +82,22 @@ class GoogleAnalytics
      */
     public static function topbrowsers(int $numberOfDays = 1)
     {
-        $analyticsData = Analytics::fetchTopBrowsers(Period::days($numberOfDays));
-        $array = $analyticsData->toArray();
-        $dataSets = [];
-        $dataSets['labels'] = [];
-        $dataSets['datasets'] = [];
-        $dataSets['datasets']['data'] = [];
-        foreach ($array as $k => $v) {
-            array_push($dataSets['labels'], $array[$k] ['browser']);
-            array_push($dataSets['datasets']['data'], $array[$k] ['sessions']);
-        }
+        try {
+            $analyticsData = Analytics::fetchTopBrowsers(Period::days($numberOfDays));
+            $array = $analyticsData->toArray();
+            $dataSets = [];
+            $dataSets['labels'] = [];
+            $dataSets['datasets'] = [];
+            $dataSets['datasets']['data'] = [];
+            foreach ($array as $k => $v) {
+                array_push($dataSets['labels'], $array[$k] ['browser']);
+                array_push($dataSets['datasets']['data'], $array[$k] ['sessions']);
+            }
 
-        return $dataSets;
+            return $dataSets;
+        } catch(\Google_Service_Exception $e){
+            return collect(['message' => 'Google API limit Exceeded']);
+        }
     }
 
     /**
@@ -102,12 +114,16 @@ class GoogleAnalytics
         $startDateValue = Dates::createDateTime($startDate);
         $endDateValue = Dates::createDateTime($endDate);
 
-        if (!empty($startDateValue) && !empty($endDateValue)) {
-            $period = Period::create($startDateValue, $endDateValue);
+        try {
+            if (!empty($startDateValue) && !empty($endDateValue)) {
+                $period = Period::create($startDateValue, $endDateValue);
 
-            return Analytics::fetchTopBrowsers($period, $maxBrowsers);
-        } else {
-            return collect();
+                return Analytics::fetchTopBrowsers($period, $maxBrowsers);
+            } else {
+                return collect();
+            }
+        } catch(\Google_Service_Exception $e){
+            return collect(['message' => 'Google API limit Exceeded']);
         }
     }
 
@@ -140,89 +156,93 @@ class GoogleAnalytics
         $startDateValue = Dates::createDateTime($startDate);
         $endDateValue = Dates::createDateTime($endDate);
 
-        if (!empty($startDateValue) && !empty($endDateValue)) {
-            if ($endDateValue->lessThan($startDateValue)) {
-                $tmpStartDateValue = $endDateValue;
-                $tmpEndDateValue = $startDateValue;
+        try{
+            if (!empty($startDateValue) && !empty($endDateValue)) {
+                if ($endDateValue->lessThan($startDateValue)) {
+                    $tmpStartDateValue = $endDateValue;
+                    $tmpEndDateValue = $startDateValue;
 
-                $endDateValue = $tmpStartDateValue;
-                $startDateValue = $tmpEndDateValue;
-            }
-
-            if ($startDateValue->greaterThan($endDateValue)) {
-                $tmpEndDateValue = $startDateValue;
-                $tmpStartDateValue = $endDateValue;
-
-                $endDateValue = $tmpEndDateValue;
-                $startDateValue = $tmpStartDateValue;
-            }
-
-            $period = Period::create($startDateValue, $endDateValue);
-            $metrics = 'ga:visitors,ga:pageViews,ga:uniquePageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounces';
-            $dimensions =
-                [
-                    'dimensions' => 'ga:pagePath,ga:pageTitle',
-                    'sort' => 'ga:visitors,ga:pageViews,ga:uniquePageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounces',
-                ];
-
-            if (!empty($count)) {
-                $dimensions['max-results'] = $count;
-            }
-
-            $results = Analytics::performQuery($period, $metrics, $dimensions);
-
-            if (!empty($results['rows'])) {
-                $data = array_values($results['rows']);
-
-                foreach ($data as $key => $value) {
-                    array_push($data[$key], self::getNoOfCountries($period, $data[$key][0]));
+                    $endDateValue = $tmpStartDateValue;
+                    $startDateValue = $tmpEndDateValue;
                 }
 
-                foreach ($data as $key => $value) {
-                    array_push($data[$key], $startDateValue);
-                    array_push($data[$key], $endDateValue);
+                if ($startDateValue->greaterThan($endDateValue)) {
+                    $tmpEndDateValue = $startDateValue;
+                    $tmpStartDateValue = $endDateValue;
+
+                    $endDateValue = $tmpEndDateValue;
+                    $startDateValue = $tmpStartDateValue;
                 }
 
-                //$date = Carbon::now()->toTimeString()
-
-                return collect($data ?? [])->map(function (array $pageRow) {
-                    return [
-                        'url' => $pageRow[0], // url
-                        'pageTitle' => $pageRow[1], // pageTitle
-                        'uniqueVisitors' => [
-                            'display' => number_format((int) $pageRow[2]),
-                            'original' => (int) $pageRow[2]
-                        ],
-                        'pageViews' => [
-                            'display' => number_format((int) $pageRow[3]),
-                            'original' => (int) $pageRow[3]
-                        ],
-                        'uniquePageViews' => [
-                            'display' => number_format((int) $pageRow[4]),
-                            'original' => (int) $pageRow[4]
-                        ],
-                        'aveSessionDuration' => [
-                            'display' => Dates::seconds2human(ceil(floatval($pageRow[5]))),
-                            'original' => floatval($pageRow[5])
-                        ],
-                        'aveTimeOnPage' => [
-                            'display' => Dates::seconds2human(ceil(floatval($pageRow[6]))),
-                            'original' => floatval($pageRow[6])
-                        ],
-                        'noOfBounces' => [
-                            'display' => number_format((int) $pageRow[7]),
-                            'original' => (int) $pageRow[7]
-                        ],
-                        'noOfCountries' => (int) $pageRow[8], // noOfCountries
-                        'start' => $pageRow[9]->toDateString() . ' ' . $pageRow[9]->toTimeString(), // start
-                        'end' => $pageRow[10]->toDateString() . ' ' . $pageRow[10]->toTimeString() // end
+                $period = Period::create($startDateValue, $endDateValue);
+                $metrics = 'ga:visitors,ga:pageViews,ga:uniquePageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounces';
+                $dimensions =
+                    [
+                        'dimensions' => 'ga:pagePath,ga:pageTitle',
+                        'sort' => 'ga:visitors,ga:pageViews,ga:uniquePageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounces',
                     ];
-                });
+
+                if (!empty($count)) {
+                    $dimensions['max-results'] = $count;
+                }
+
+                $results = Analytics::performQuery($period, $metrics, $dimensions);
+
+                if (!empty($results['rows'])) {
+                    $data = array_values($results['rows']);
+
+                    foreach ($data as $key => $value) {
+                        array_push($data[$key], self::getNoOfCountries($period, $data[$key][0]));
+                    }
+
+                    foreach ($data as $key => $value) {
+                        array_push($data[$key], $startDateValue);
+                        array_push($data[$key], $endDateValue);
+                    }
+
+                    //$date = Carbon::now()->toTimeString()
+
+                    return collect($data ?? [])->map(function (array $pageRow) {
+                        return [
+                            'url' => $pageRow[0], // url
+                            'pageTitle' => $pageRow[1], // pageTitle
+                            'uniqueVisitors' => [
+                                'display' => number_format((int) $pageRow[2]),
+                                'original' => (int) $pageRow[2]
+                            ],
+                            'pageViews' => [
+                                'display' => number_format((int) $pageRow[3]),
+                                'original' => (int) $pageRow[3]
+                            ],
+                            'uniquePageViews' => [
+                                'display' => number_format((int) $pageRow[4]),
+                                'original' => (int) $pageRow[4]
+                            ],
+                            'aveSessionDuration' => [
+                                'display' => Dates::seconds2human(ceil(floatval($pageRow[5]))),
+                                'original' => floatval($pageRow[5])
+                            ],
+                            'aveTimeOnPage' => [
+                                'display' => Dates::seconds2human(ceil(floatval($pageRow[6]))),
+                                'original' => floatval($pageRow[6])
+                            ],
+                            'noOfBounces' => [
+                                'display' => number_format((int) $pageRow[7]),
+                                'original' => (int) $pageRow[7]
+                            ],
+                            'noOfCountries' => (int) $pageRow[8], // noOfCountries
+                            'start' => $pageRow[9]->toDateString() . ' ' . $pageRow[9]->toTimeString(), // start
+                            'end' => $pageRow[10]->toDateString() . ' ' . $pageRow[10]->toTimeString() // end
+                        ];
+                    });
+                } else {
+                    return collect();
+                }
             } else {
                 return collect();
             }
-        } else {
-            return collect();
+        } catch(\Google_Service_Exception $e){
+            return collect(['message' => 'Google API limit Exceeded']);
         }
     }
 
@@ -240,47 +260,53 @@ class GoogleAnalytics
         $startDateValue = Dates::createDateTime($startDate);
         $endDateValue = Dates::createDateTime($endDate);
 
-        if ($endDateValue->lessThan($startDateValue)) {
-            $tmpStartDateValue = $endDateValue;
-            $tmpEndDateValue = $startDateValue;
+        try {
 
-            $endDateValue = $tmpStartDateValue;
-            $startDateValue = $tmpEndDateValue;
+
+            if ($endDateValue->lessThan($startDateValue)) {
+                $tmpStartDateValue = $endDateValue;
+                $tmpEndDateValue = $startDateValue;
+
+                $endDateValue = $tmpStartDateValue;
+                $startDateValue = $tmpEndDateValue;
+            }
+
+            if ($startDateValue->greaterThan($endDateValue)) {
+                $tmpEndDateValue = $startDateValue;
+                $tmpStartDateValue = $endDateValue;
+
+                $endDateValue = $tmpEndDateValue;
+                $startDateValue = $tmpStartDateValue;
+            }
+
+            $period = Period::create($startDateValue, $endDateValue);
+            $metrics = 'ga:users,ga:pageviews';
+            $dimensions =
+                [
+                    'dimensions' => 'ga:date'
+                ];
+
+            if (!empty($count)) {
+                $dimensions['max-results'] = $count;
+            }
+
+            $response = Analytics::performQuery(
+                $period,
+                $metrics,
+                $dimensions
+            );
+
+            return collect($response['rows'] ?? [])->map(function (array $dateRow) {
+                $date = Carbon::createFromFormat('Ymd', $dateRow[0]);
+                return [
+                    'date' => $date->toDateString(),
+                    'visitors' => (int)$dateRow[1],
+                    'pageViews' => (int)$dateRow[2],
+                ];
+            });
+        } catch(\Google_Service_Exception $e){
+            return collect(['message' => 'Google API limit Exceeded']);
         }
-
-        if ($startDateValue->greaterThan($endDateValue)) {
-            $tmpEndDateValue = $startDateValue;
-            $tmpStartDateValue = $endDateValue;
-
-            $endDateValue = $tmpEndDateValue;
-            $startDateValue = $tmpStartDateValue;
-        }
-
-        $period = Period::create($startDateValue, $endDateValue);
-        $metrics = 'ga:users,ga:pageviews';
-        $dimensions =
-            [
-                'dimensions' => 'ga:date'
-            ];
-
-        if (!empty($count)) {
-            $dimensions['max-results'] = $count;
-        }
-
-        $response = Analytics::performQuery(
-            $period,
-            $metrics,
-            $dimensions
-        );
-
-        return collect($response['rows'] ?? [])->map(function (array $dateRow) {
-            $date = Carbon::createFromFormat('Ymd', $dateRow[0]);
-            return [
-                'date' => $date->toDateString(),
-                'visitors' => (int) $dateRow[1],
-                'pageViews' => (int) $dateRow[2],
-            ];
-        });
     }
 
     /**
@@ -298,16 +324,22 @@ class GoogleAnalytics
      */
     public static function getNoOfCountries(Period $period, $urlPath) : int
     {
-        if (!empty($period)) {
-            $results = Analytics::performQuery(
-                $period,
-                'ga:sessions',
-                ['dimensions'=>'ga:country','filters' => 'ga:pagePath%3D%3D' . $urlPath]
-            );
+        try {
 
-            return count($results['rows']);
-        } else {
-            return 0;
+
+            if (!empty($period)) {
+                $results = Analytics::performQuery(
+                    $period,
+                    'ga:sessions',
+                    ['dimensions' => 'ga:country', 'filters' => 'ga:pagePath%3D%3D' . $urlPath]
+                );
+
+                return count($results['rows']);
+            } else {
+                return 0;
+            }
+        }  catch(\Google_Service_Exception $e){
+            return collect(['message' => 'Google API limit Exceeded']);
         }
     }
 
@@ -320,20 +352,24 @@ class GoogleAnalytics
      */
     private static function getCountryData(array $data): Collection
     {
-        if (!empty($data)) {
-            array_unshift($data, ['Country', 'Visitors']);
-            $result= collect($data ?? [])->map(function (array $dataRow) {
-                return [
-                    $dataRow[0],
-                    is_int($dataRow[1]) ? intval($dataRow[1]) : $dataRow[1],
-                ];
-            });
-            return $result;
-        } else {
-            $data = collect();
-            $data->push(['Country', 'Visitors'])
-                ->push(['New Zealand', 0]); // Set default country and number of visitors.
-            return $data;
+        try {
+            if (!empty($data)) {
+                array_unshift($data, ['Country', 'Visitors']);
+                $result = collect($data ?? [])->map(function (array $dataRow) {
+                    return [
+                        $dataRow[0],
+                        is_int($dataRow[1]) ? intval($dataRow[1]) : $dataRow[1],
+                    ];
+                });
+                return $result;
+            } else {
+                $data = collect();
+                $data->push(['Country', 'Visitors'])
+                    ->push(['New Zealand', 0]); // Set default country and number of visitors.
+                return $data;
+            }
+        } catch(\Google_Service_Exception $e){
+            return collect(['message' => 'Google API limit Exceeded']);
         }
     }
 }

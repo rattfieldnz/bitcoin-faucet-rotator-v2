@@ -36,9 +36,13 @@ class StatsAPIController extends AppBaseController
         $fromDateInput = urldecode($dateFrom);
         $toDateInput = urldecode($dateTo);
         $quantity = intval($quantity);
-        $data = GoogleAnalytics::topPagesBetweenTwoDates($fromDateInput, $toDateInput, $quantity);
+        try {
+            $data = GoogleAnalytics::topPagesBetweenTwoDates($fromDateInput, $toDateInput, $quantity);
 
-        return Datatables::collection($data)->make(true);
+            return Datatables::collection($data)->make(true);
+        } catch(\Google_Service_Exception $e){
+            return response()->json(['message' => 'Google API limit exceeded'], 500);
+        }
     }
 
     /**
@@ -58,7 +62,11 @@ class StatsAPIController extends AppBaseController
         $toDateInput = urldecode($dateTo);
         $quantity = intval($quantity);
 
-        return GoogleAnalytics::visitsAndPageViews($fromDateInput, $toDateInput, $quantity);
+        try {
+            return GoogleAnalytics::visitsAndPageViews($fromDateInput, $toDateInput, $quantity);
+        } catch(\Google_Service_Exception $e){
+            return response()->json(['message' => 'Google API limit exceeded'], 500);
+        }
     }
 
     /**
@@ -78,7 +86,11 @@ class StatsAPIController extends AppBaseController
         $toDateInput = urldecode($dateTo);
         $maxBrowserCount = intval($maxBrowserCount);
 
-        return GoogleAnalytics::topBrowsersBetweenTwoDates($fromDateInput, $toDateInput, $maxBrowserCount);
+        try {
+            return GoogleAnalytics::topBrowsersBetweenTwoDates($fromDateInput, $toDateInput, $maxBrowserCount);
+        } catch(\Google_Service_Exception $e){
+            return response()->json(['message' => 'Google API limit exceeded'], 500);
+        }
     }
 
     /**
@@ -96,6 +108,10 @@ class StatsAPIController extends AppBaseController
         $fromDateInput = urldecode($dateFrom);
         $toDateInput = urldecode($dateTo);
 
-        return GoogleAnalytics::countriesBetweenTwoDates($fromDateInput, $toDateInput);
+        try {
+            return GoogleAnalytics::countriesBetweenTwoDates($fromDateInput, $toDateInput);
+        } catch(\Google_Service_Exception $e){
+            return response()->json(['message' => 'Google API limit exceeded'], 500);
+        }
     }
 }
