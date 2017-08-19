@@ -8,7 +8,6 @@ Date.prototype.formatDDMMYYYY = function() {
 };
 
 function generateVisitorsTable(data, elementToRender){
-
     if(typeof data !== 'undefined' && typeof elementToRender !== 'undefined'){
         $(elementToRender).DataTable({
             processing: true,

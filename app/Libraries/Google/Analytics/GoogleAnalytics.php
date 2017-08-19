@@ -37,7 +37,7 @@ class GoogleAnalytics
             $data = $countries['rows'];
             return self::getCountryData($data);
         } catch(\Google_Service_Exception $e){
-            return collect(['message' => 'Google API limit Exceeded']);
+            return self::googleException();
         }
     }
 
@@ -68,7 +68,7 @@ class GoogleAnalytics
                 return collect();
             }
         } catch(\Google_Service_Exception $e){
-            return collect(['message' => 'Google API limit Exceeded']);
+            return self::googleException();
         }
     }
 
@@ -96,7 +96,7 @@ class GoogleAnalytics
 
             return $dataSets;
         } catch(\Google_Service_Exception $e){
-            return collect(['message' => 'Google API limit Exceeded']);
+            return self::googleException();
         }
     }
 
@@ -123,7 +123,7 @@ class GoogleAnalytics
                 return collect();
             }
         } catch(\Google_Service_Exception $e){
-            return collect(['message' => 'Google API limit Exceeded']);
+            return self::googleException();
         }
     }
 
@@ -149,14 +149,15 @@ class GoogleAnalytics
      * @param     $endDate
      * @param int $count
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Google_Service_Exception|\Illuminate\Support\Collection
      */
     public static function topPagesBetweenTwoDates(string $startDate, string $endDate, int $count = null)
     {
         $startDateValue = Dates::createDateTime($startDate);
         $endDateValue = Dates::createDateTime($endDate);
 
-        try{
+        try {
+
             if (!empty($startDateValue) && !empty($endDateValue)) {
                 if ($endDateValue->lessThan($startDateValue)) {
                     $tmpStartDateValue = $endDateValue;
@@ -207,16 +208,16 @@ class GoogleAnalytics
                             'url' => $pageRow[0], // url
                             'pageTitle' => $pageRow[1], // pageTitle
                             'uniqueVisitors' => [
-                                'display' => number_format((int) $pageRow[2]),
-                                'original' => (int) $pageRow[2]
+                                'display' => number_format((int)$pageRow[2]),
+                                'original' => (int)$pageRow[2]
                             ],
                             'pageViews' => [
-                                'display' => number_format((int) $pageRow[3]),
-                                'original' => (int) $pageRow[3]
+                                'display' => number_format((int)$pageRow[3]),
+                                'original' => (int)$pageRow[3]
                             ],
                             'uniquePageViews' => [
-                                'display' => number_format((int) $pageRow[4]),
-                                'original' => (int) $pageRow[4]
+                                'display' => number_format((int)$pageRow[4]),
+                                'original' => (int)$pageRow[4]
                             ],
                             'aveSessionDuration' => [
                                 'display' => Dates::seconds2human(ceil(floatval($pageRow[5]))),
@@ -227,10 +228,10 @@ class GoogleAnalytics
                                 'original' => floatval($pageRow[6])
                             ],
                             'noOfBounces' => [
-                                'display' => number_format((int) $pageRow[7]),
-                                'original' => (int) $pageRow[7]
+                                'display' => number_format((int)$pageRow[7]),
+                                'original' => (int)$pageRow[7]
                             ],
-                            'noOfCountries' => (int) $pageRow[8], // noOfCountries
+                            'noOfCountries' => (int)$pageRow[8], // noOfCountries
                             'start' => $pageRow[9]->toDateString() . ' ' . $pageRow[9]->toTimeString(), // start
                             'end' => $pageRow[10]->toDateString() . ' ' . $pageRow[10]->toTimeString() // end
                         ];
@@ -242,7 +243,7 @@ class GoogleAnalytics
                 return collect();
             }
         } catch(\Google_Service_Exception $e){
-            return collect(['message' => 'Google API limit Exceeded']);
+            return new \Google_Service_Exception("Google API limit Exceeded!", 500);
         }
     }
 
@@ -261,7 +262,6 @@ class GoogleAnalytics
         $endDateValue = Dates::createDateTime($endDate);
 
         try {
-
 
             if ($endDateValue->lessThan($startDateValue)) {
                 $tmpStartDateValue = $endDateValue;
@@ -305,7 +305,7 @@ class GoogleAnalytics
                 ];
             });
         } catch(\Google_Service_Exception $e){
-            return collect(['message' => 'Google API limit Exceeded']);
+            return self::googleException();
         }
     }
 
@@ -337,7 +337,7 @@ class GoogleAnalytics
                 return 0;
             }
         }  catch(\Google_Service_Exception $e){
-            return collect(['message' => 'Google API limit Exceeded']);
+            return self::googleException();
         }
     }
 
@@ -367,7 +367,17 @@ class GoogleAnalytics
                 return $data;
             }
         } catch(\Google_Service_Exception $e){
-            return collect(['message' => 'Google API limit Exceeded']);
+            return self::googleException();
         }
+    }
+
+    public static function googleException(string $status = 'error', string $message = 'Google API limit Exceeded!'): Collection{
+        return collect(
+            [
+                'status' => $status,
+                'code' => 500,
+                'message' => $message
+            ]
+        );
     }
 }

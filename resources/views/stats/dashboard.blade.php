@@ -31,6 +31,8 @@
                             </div>
                         </div>
                         <div class="box-body">
+                            <div id="areaChart-progressbar" style="margin: 0 0 1em 0;"><span style="text-align: center;margin: 0.3em 0 0 45%;"></span></div>
+                            <div></div>
                             <div class="chart">
                                 <canvas id="areaChart" style="height:250px"></canvas>
                             </div>
@@ -53,7 +55,10 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <div class="chart">
+                            <div id="visitorsTable-progressbar" style="margin: 0 0 1em 0;"><span style="text-align: center;margin: 0.3em 0 0 45%;"></span></div>
+                            <div></div>
+
+                                <div id="visitorsTable-wrapper" class="chart">
                                 <table id="visitorsTable" cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
@@ -102,6 +107,8 @@
                             </div>
                         </div>
                         <div class="box-body">
+                            <div id="countriesMap-progressbar" style="margin: 0 0 1em 0;"><span style="text-align: center;margin: 0.3em 0 0 45%;"></span></div>
+                            <div></div>
                             <div id="regions_div" style="width: 100%; height: auto;"></div>
                         </div>
                         <!-- /.box-body -->
@@ -121,6 +128,8 @@
                             </div>
                         </div>
                         <div class="box-body">
+                            <div id="pieChart-progressbar" style="margin: 0 0 1em 0;"><span style="text-align: center;margin: 0.3em 0 0 45%;"></span></div>
+                            <div></div>
                             <canvas id="pieChart" style="height:250px"></canvas>
                         </div>
                         <!-- /.box-body -->
@@ -140,51 +149,52 @@
 <script src="https://www.gstatic.com/charts/loader.js?{{ rand() }}"></script>
 <script src="/assets/js/stats/stats.min.js?{{ rand() }}"></script>
 <script>
-    $(function () {
 
+    $(function () {
         $.ajaxSetup({timeout:3600000});
 
-        var loader = $('<div class="loader-wrapper"><div class="loader"></div><p>Please wait, there\'s a lot of data to crunch...</p></div>');
-
-        var dateFrom = '12-08-2017';
-        var dateTo = '18-08-2017';
+        var dateFrom = '13-08-2017';
+        var dateTo = '19-08-2017';
         var quantity = 1000;
-
-        function displayLoading(container, promise) {
-            //create a spinner in container if not already created
-            //show spinner
-            //hide other content
-            container.append(loader);
-            loader.show();
-            promise.done(function() {
-                console.log("done");
-                //hide spinner
-                //show other content
-                loader.hide();
-            });
-        }
 
         //--------------
         //- AREA CHART -
         //--------------
         var visitorsAreaChartData = getVisitorsDataAjax('stats.visits-and-page-views', dateFrom, dateTo, quantity);
 
-        $.when(visitorsAreaChartData).then(function(vacd){
-            generateVisitorsLineChart(vacd, "areaChart");
-        }).catch(function(e){
-            console.log("There was an error");
+        visitorsAreaChartData.done(function(vacd){
+            if(typeof vacd.message !== 'undefined'){
+                console.log("There was an error for visitors area chart - " + vacd.message);
+            } else {
+                generateVisitorsLineChart(vacd, "areaChart");
+                console.log("Area chart has loaded.");
+            }
+        });
+        visitorsAreaChartData.fail(function(vacd){
+            console.log("There was an error for visitors area chart - " + vacd.message);
+        });
+        visitorsAreaChartData.progress(function(){
+            console.log("Visitors area chart is loading...");
         });
 
         //--------------------------------
         //- DATATABLES SHOWING VISITORS -
         //--------------------------------
         var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', dateFrom, dateTo, quantity);
-        displayLoading($("#visitorsTable").find("tbody"), visitorsData);
 
-        $.when(visitorsData).then(function(vd){
-            generateVisitorsTable(vd.data, '#visitorsTable');
-        }).catch(function(e){
-            console.log("There was an error");
+        visitorsData.done(function(vd){
+            if(typeof vd.status !== 'undefined' && vd.status === 'error'){
+                console.log("There was an error for visitors datatable - " + vd.message);
+            } else {
+                generateVisitorsTable(vd.data, '#visitorsTable');
+                console.log("Visitors datatable has loaded.");
+            }
+        });
+        visitorsData.fail(function(vd){
+            console.log("There was an error for visitors datatable - " + vd.message);
+        });
+        visitorsData.progress(function(){
+            console.log("Visitors datatable is loading...");
         });
 
         //-----------------------
@@ -192,10 +202,19 @@
         //-----------------------
         var geoChartData = getCountriesAndVisitorsAjax(dateFrom, dateTo);
 
-        $.when(geoChartData).then(function(gcd){
-            generateGoogleGeoChart(gcd, '#regions_div');
-        }).catch(function(e){
-            console.log("There was an error");
+        geoChartData.done(function(gcd){
+            if(typeof gcd.message !== 'undefined'){
+                console.log("There was an error for visitors geo chart - " + gcd.message);
+            } else{
+                generateGoogleGeoChart(gcd, '#regions_div');
+                console.log("Visitors geo chart has loaded.");
+            }
+        });
+        geoChartData.fail(function(gcd){
+            console.log("There was an error for visitors geo chart - " + gcd.message);
+        });
+        geoChartData.progress(function(){
+            console.log("Visitors geo chart is loading...");
         });
 
         //-------------
@@ -203,10 +222,19 @@
         //-------------
         var browserStatsData = getBrowserStatsAjax(dateFrom, dateTo, 10);
 
-        $.when(browserStatsData).then(function(bsd){
-            generatePieDonutChart(bsd,'#pieChart');
-        }).catch(function(e){
-            console.log("There was an error");
+        browserStatsData.done(function(bsd){
+            if(typeof bsd.message !== 'undefined'){
+                console.log("There was an error for visitors' browsers chart - " + bsd.message);
+            } else {
+                generatePieDonutChart(bsd,'#pieChart');
+                console.log("Visitors' browsers chart has loaded.");
+            }
+        });
+        browserStatsData.fail(function(bsd){
+            console.log("There was an error for visitors' browsers chart - " + bsd.message);
+        });
+        browserStatsData.progress(function(){
+            console.log("Visitors' browsers chart is loading...");
         });
 
     });

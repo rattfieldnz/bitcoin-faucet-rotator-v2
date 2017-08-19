@@ -97,6 +97,7 @@ class Handler extends ExceptionHandler
 
         if($e instanceof Google_Service_Exception){
 
+            dd($e);
             if($request->isAjax()){
                 return response()->json(['message' => "Google Analytics API usage exceeded"], 500);
             }

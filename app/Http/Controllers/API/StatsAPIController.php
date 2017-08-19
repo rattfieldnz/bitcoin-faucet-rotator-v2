@@ -23,25 +23,25 @@ class StatsAPIController extends AppBaseController
     /**
      * Get top x pages between date_from and date_to.
      *
-     * @param string $dateFrom
-     * @param string $dateTo
-     * @param int    $quantity
-     *
-     * @see \App\Libraries\Google\Analytics\GoogleAnalytics::topPagesBetweenTwoDates()
+     * @param \Yajra\Datatables\Request $request
+     * @param string                    $dateFrom
+     * @param string                    $dateTo
+     * @param int                       $quantity
      *
      * @return \Illuminate\Http\JsonResponse
+     * @see \App\Libraries\Google\Analytics\GoogleAnalytics::topPagesBetweenTwoDates()
+     *
      */
-    public function getPagesVisited(string $dateFrom, string $dateTo, int $quantity = 20)
+    public function getPagesVisited(\Yajra\Datatables\Request $request,string $dateFrom, string $dateTo, int $quantity = 20)
     {
         $fromDateInput = urldecode($dateFrom);
         $toDateInput = urldecode($dateTo);
         $quantity = intval($quantity);
         try {
             $data = GoogleAnalytics::topPagesBetweenTwoDates($fromDateInput, $toDateInput, $quantity);
-
-            return Datatables::collection($data)->make(true);
+            return (new \App\Libraries\DataTables\DataTables($request))->collection($data)->make(true);
         } catch(\Google_Service_Exception $e){
-            return response()->json(['message' => 'Google API limit exceeded'], 500);
+            return response()->json(GoogleAnalytics::googleException()->toArray(), 500);
         }
     }
 
@@ -65,7 +65,7 @@ class StatsAPIController extends AppBaseController
         try {
             return GoogleAnalytics::visitsAndPageViews($fromDateInput, $toDateInput, $quantity);
         } catch(\Google_Service_Exception $e){
-            return response()->json(['message' => 'Google API limit exceeded'], 500);
+            return response()->json(GoogleAnalytics::googleException()->toArray(), 500);
         }
     }
 
@@ -89,7 +89,7 @@ class StatsAPIController extends AppBaseController
         try {
             return GoogleAnalytics::topBrowsersBetweenTwoDates($fromDateInput, $toDateInput, $maxBrowserCount);
         } catch(\Google_Service_Exception $e){
-            return response()->json(['message' => 'Google API limit exceeded'], 500);
+            return response()->json(GoogleAnalytics::googleException()->toArray(), 500);
         }
     }
 
@@ -111,7 +111,7 @@ class StatsAPIController extends AppBaseController
         try {
             return GoogleAnalytics::countriesBetweenTwoDates($fromDateInput, $toDateInput);
         } catch(\Google_Service_Exception $e){
-            return response()->json(['message' => 'Google API limit exceeded'], 500);
+            return response()->json(GoogleAnalytics::googleException()->toArray(), 500);
         }
     }
 }
