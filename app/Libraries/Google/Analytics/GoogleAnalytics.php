@@ -180,7 +180,7 @@ class GoogleAnalytics
                 $dimensions =
                     [
                         'dimensions' => 'ga:pagePath,ga:pageTitle',
-                        'sort' => 'ga:visitors,ga:pageViews,ga:uniquePageviews,ga:avgSessionDuration,ga:avgTimeOnPage,ga:bounces',
+                        'sort' => 'ga:visitors',
                     ];
 
                 if (!empty($count)) {

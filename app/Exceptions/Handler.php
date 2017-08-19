@@ -99,7 +99,14 @@ class Handler extends ExceptionHandler
 
             dd($e);
             if($request->isAjax()){
-                return response()->json(['message' => "Google Analytics API usage exceeded"], 500);
+                return response()->json(
+                    [
+                        'status' => 'error',
+                        'message' => "Google Analytics API usage exceeded",
+                        'code' => 500
+                    ],
+                    500
+                );
             }
 
             return response()->view('errors.500', [
