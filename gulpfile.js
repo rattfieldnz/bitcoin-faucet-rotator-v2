@@ -132,6 +132,10 @@ gulp.task("copyfiles", function() {
     gulp.src("vendor/bower_components/chart.js/dist/Chart.js")
         .pipe(gulp.dest("resources/assets/js/chart.js/"));
 
+    // JQuery Progress Timer (for progress bars)
+    gulp.src("vendor/bower_components/jquery-progresstimer/dist/js/jquery.progresstimer.js")
+        .pipe(gulp.dest("resources/assets/js/jquery-progresstimer/"));
+
 });
 
 /**
@@ -156,6 +160,7 @@ elixir(function(mix) {
             'js/datatables.net/dataTables.bootstrap.js',
             'js/custom/tablesorter_custom_code.js',
             'js/cookieconsent/cookieconsent.js',
+            'js/jquery-progresstimer/jquery.progresstimer.js',
             'js/laroute/laroute.js',
             'js/custom/custom.js'
         ],

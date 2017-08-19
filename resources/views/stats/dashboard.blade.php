@@ -55,8 +55,7 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <div id="visitorsTable-progressbar" style="margin: 0 0 1em 0;"><span style="text-align: center;margin: 0.3em 0 0 45%;"></span></div>
-                            <div></div>
+                            <div id="visitorsTable-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 
                                 <div id="visitorsTable-wrapper" class="chart">
                                 <table id="visitorsTable" cellspacing="0" width="100%">
@@ -182,18 +181,48 @@
         //--------------------------------
         var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', dateFrom, dateTo, quantity);
 
+        var progress = $("#visitorsTable-progressbar").progressTimer({
+            timeLimit: 600,
+            //bootstrap progress bar style at the beginning of the timer
+            baseStyle: 'progress-bar-info',
+
+            warningThreshold: 180,
+
+            //bootstrap progress bar style in the warning phase
+            warningStyle: 'progress-bar-warning',
+
+            //bootstrap progress bar style at completion of timer
+            completeStyle: 'progress-bar-success',
+        });
+
+        var progressError = function(dataObject, progressBar, item){
+            if(typeof dataObject !== 'undefined' && typeof progressBar !== 'undefined'){
+                if(dataObject.message !== 'undefined'){
+                    progressBar.progressTimer('error', {
+                        errorText:'ERROR! - ' + dataObject.message,
+                        warningStyle: 'progress-bar-danger',
+                        onFinish:function(){
+                            typeof item !== 'undefined' ? item = ' for ' + item : '';
+                            console.log("There was an error " + item + " - " + dataObject.message);
+                        }
+                    });
+                }
+            }
+        };
+
         visitorsData.done(function(vd){
             if(typeof vd.status !== 'undefined' && vd.status === 'error'){
-                console.log("There was an error for visitors datatable - " + vd.message);
+                progressError(vd,progress,'visitors datatable');
             } else {
                 generateVisitorsTable(vd.data, '#visitorsTable');
+                progress.progressTimer('complete');
                 console.log("Visitors datatable has loaded.");
             }
         });
         visitorsData.fail(function(vd){
-            console.log("There was an error for visitors datatable - " + vd.message);
+            progressError(vd,progress,'visitors datatable');
         });
-        visitorsData.progress(function(){
+        visitorsData.progress(function(vd){
             console.log("Visitors datatable is loading...");
         });
 
