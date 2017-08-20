@@ -10,10 +10,12 @@ jQuery(window).resize(function() {
 function footerReset(){
     var contentHeight = jQuery(window).height();
     var footer = jQuery('#footer-custom');
-    var footerHeight = footer.height();
-    var footerTop = footer.position().top + footerHeight;
-    if (footerTop < contentHeight) {
-        footer.css('margin-top', (contentHeight - (footerTop) - 32) + 'px');
+    if(typeof footer.position() !== 'undefined'){
+        var footerHeight = footer.height();
+        var footerTop = footer.position().top + footerHeight;
+        if (footerTop < contentHeight) {
+            footer.css('margin-top', (contentHeight - (footerTop) - 32) + 'px');
+        }
     }
 }
 
