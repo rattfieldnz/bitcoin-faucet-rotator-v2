@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <div id="areaChart-progressbar" style="margin: 0 0 1em 0;"><span style="text-align: center;margin: 0.3em 0 0 45%;"></span></div>
+                            <div id="areaChart-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
                             <div></div>
                             <div class="chart">
                                 <canvas id="areaChart" style="height:250px"></canvas>
@@ -106,8 +106,8 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <div id="countriesMap-progressbar" style="margin: 0 0 1em 0;"><span style="text-align: center;margin: 0.3em 0 0 45%;"></span></div>
-                            <div></div>
+                            <div id="countriesMap-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+
                             <div id="regions_div" style="width: 100%; height: auto;"></div>
                         </div>
                         <!-- /.box-body -->
@@ -159,18 +159,21 @@
         //--------------
         //- AREA CHART -
         //--------------
+        var areaChartName = 'visitors area chart';
         var visitorsAreaChartData = getVisitorsDataAjax('stats.visits-and-page-views', dateFrom, dateTo, quantity);
+        var visitorsAreaChartProgressBar = generateProgressBar("#areaChart-progressbar", areaChartName);
 
         visitorsAreaChartData.done(function(vacd){
             if(typeof vacd.message !== 'undefined'){
-                console.log("There was an error for visitors area chart - " + vacd.message);
+                progressError(vacd,visitorsAreaChartProgressBar,'visitors area chart');
             } else {
                 generateVisitorsLineChart(vacd, "areaChart");
+                visitorsAreaChartProgressBar.progressTimer('complete');
                 console.log("Area chart has loaded.");
             }
         });
         visitorsAreaChartData.fail(function(vacd){
-            console.log("There was an error for visitors area chart - " + vacd.message);
+            progressError(vacd,visitorsAreaChartProgressBar,areaChartName);
         });
         visitorsAreaChartData.progress(function(){
             console.log("Visitors area chart is loading...");
@@ -179,48 +182,20 @@
         //--------------------------------
         //- DATATABLES SHOWING VISITORS -
         //--------------------------------
+        var dataTablesName = 'visitors datatable';
         var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', dateFrom, dateTo, quantity);
-
-        var progress = $("#visitorsTable-progressbar").progressTimer({
-            timeLimit: 600,
-            //bootstrap progress bar style at the beginning of the timer
-            baseStyle: 'progress-bar-info',
-
-            warningThreshold: 180,
-
-            //bootstrap progress bar style in the warning phase
-            warningStyle: 'progress-bar-warning',
-
-            //bootstrap progress bar style at completion of timer
-            completeStyle: 'progress-bar-success',
-        });
-
-        var progressError = function(dataObject, progressBar, item){
-            if(typeof dataObject !== 'undefined' && typeof progressBar !== 'undefined'){
-                if(dataObject.message !== 'undefined'){
-                    progressBar.progressTimer('error', {
-                        errorText:'ERROR! - ' + dataObject.message,
-                        warningStyle: 'progress-bar-danger',
-                        onFinish:function(){
-                            typeof item !== 'undefined' ? item = ' for ' + item : '';
-                            console.log("There was an error " + item + " - " + dataObject.message);
-                        }
-                    });
-                }
-            }
-        };
+        var visitorsTableProgressBar = generateProgressBar("#visitorsTable-progressbar",dataTablesName);
 
         visitorsData.done(function(vd){
-            if(typeof vd.status !== 'undefined' && vd.status === 'error'){
-                progressError(vd,progress,'visitors datatable');
+            if(typeof vd.message !== 'undefined'){
+                progressError(vd,visitorsTableProgressBar,dataTablesName);
             } else {
                 generateVisitorsTable(vd.data, '#visitorsTable');
-                progress.progressTimer('complete');
-                console.log("Visitors datatable has loaded.");
+                visitorsTableProgressBar.progressTimer('complete');
             }
         });
         visitorsData.fail(function(vd){
-            progressError(vd,progress,'visitors datatable');
+            progressError(vd,visitorsTableProgressBar,dataTablesName);
         });
         visitorsData.progress(function(vd){
             console.log("Visitors datatable is loading...");
@@ -229,18 +204,20 @@
         //-----------------------
         //- COUNTRIES MAP -------
         //-----------------------
+        var countriesMapName = 'visitors geo chart';
         var geoChartData = getCountriesAndVisitorsAjax(dateFrom, dateTo);
+        var geoChartProgressBar = generateProgressBar("#countriesMap-progressbar",countriesMapName);
 
         geoChartData.done(function(gcd){
             if(typeof gcd.message !== 'undefined'){
-                console.log("There was an error for visitors geo chart - " + gcd.message);
+                progressError(gcd,geoChartProgressBar,countriesMapName);
             } else{
                 generateGoogleGeoChart(gcd, '#regions_div');
-                console.log("Visitors geo chart has loaded.");
+                geoChartProgressBar.progressTimer('complete');
             }
         });
         geoChartData.fail(function(gcd){
-            console.log("There was an error for visitors geo chart - " + gcd.message);
+            progressError(gcd,geoChartProgressBar,countriesMapName);
         });
         geoChartData.progress(function(){
             console.log("Visitors geo chart is loading...");
@@ -249,18 +226,20 @@
         //-------------
         //- PIE CHART -
         //-------------
+        var pieChartName = "visitors' browsers chart";
         var browserStatsData = getBrowserStatsAjax(dateFrom, dateTo, 10);
+        var browserStatsProgressBar = generateProgressBar("#pieChart-progressbar",pieChartName);
 
         browserStatsData.done(function(bsd){
             if(typeof bsd.message !== 'undefined'){
-                console.log("There was an error for visitors' browsers chart - " + bsd.message);
+                progressError(bsd,browserStatsProgressBar,pieChartName);
             } else {
                 generatePieDonutChart(bsd,'#pieChart');
-                console.log("Visitors' browsers chart has loaded.");
+                browserStatsProgressBar.progressTimer('complete');
             }
         });
         browserStatsData.fail(function(bsd){
-            console.log("There was an error for visitors' browsers chart - " + bsd.message);
+            progressError(bsd,browserStatsProgressBar,pieChartName);
         });
         browserStatsData.progress(function(){
             console.log("Visitors' browsers chart is loading...");

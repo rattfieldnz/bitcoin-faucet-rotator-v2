@@ -46,6 +46,34 @@ function getRandomHexColor() {
     return hex;
 }
 
+function progressError(dataObject, progressBar, item){
+    if(typeof dataObject !== 'undefined' && typeof progressBar !== 'undefined'){
+        if(dataObject.message !== 'undefined'){
+            progressBar.progressTimer('error', {
+                errorText:'ERROR! - ' + dataObject.message,
+                warningStyle: 'progress-bar-danger',
+                onFinish:function(){
+                    typeof item !== 'undefined' ? item = ' for ' + item : '';
+                    console.log("There was an error " + item + " - " + dataObject.message);
+                }
+            });
+        }
+    }
+}
+
+function generateProgressBar(element, dataName){
+    if(typeof element !== 'undefined' && dataName !== 'undefined'){
+        return $(element).progressTimer({
+            timeLimit: 600,
+            baseStyle: 'progress-bar-info',
+            warningThreshold: 180,
+            warningStyle: 'progress-bar-warning',
+            completeStyle: 'progress-bar-success',
+            successText: '<strong>100% - ' + dataName + ' data loading complete!</strong>'
+        });
+    }
+}
+
 window.addEventListener("load", function(){
     window.cookieconsent.initialise({
         "palette": {
