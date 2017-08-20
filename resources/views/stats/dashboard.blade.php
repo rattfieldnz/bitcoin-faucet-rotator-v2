@@ -169,7 +169,7 @@
             } else {
                 generateVisitorsLineChart(vacd, "areaChart");
                 visitorsAreaChartProgressBar.progressTimer('complete');
-                console.log("Area chart has loaded.");
+                hideElement(visitorsAreaChartProgressBar, 3000);
             }
         });
         visitorsAreaChartData.fail(function(vacd){
@@ -192,6 +192,7 @@
             } else {
                 generateVisitorsTable(vd.data, '#visitorsTable');
                 visitorsTableProgressBar.progressTimer('complete');
+                hideElement(visitorsTableProgressBar, 3000)
             }
         });
         visitorsData.fail(function(vd){
@@ -214,6 +215,7 @@
             } else{
                 generateGoogleGeoChart(gcd, '#regions_div');
                 geoChartProgressBar.progressTimer('complete');
+                hideElement(geoChartProgressBar, 3000);
             }
         });
         geoChartData.fail(function(gcd){
@@ -236,6 +238,7 @@
             } else {
                 generatePieDonutChart(bsd,'#pieChart');
                 browserStatsProgressBar.progressTimer('complete');
+                hideElement(browserStatsProgressBar, 3000);
             }
         });
         browserStatsData.fail(function(bsd){

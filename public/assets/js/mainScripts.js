@@ -75495,6 +75495,15 @@ function generateProgressBar(element, dataName){
     }
 }
 
+function hideElement(element, timeoutValue){
+    if(typeof element !== 'undefined'){
+        typeof timeoutValue === 'undefined' ? timeoutValue = 0: timeoutValue;
+        return setTimeout(function(){
+            element.hide();
+        }, timeoutValue);
+    }
+}
+
 window.addEventListener("load", function(){
     window.cookieconsent.initialise({
         "palette": {
