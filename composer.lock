@@ -1716,12 +1716,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/laravel-generator.git",
-                "reference": "c483a2f78231de990f49cd851c821293136d0d9f"
+                "reference": "06d6509836165a8abbf250c4010bfa6cbd52fbc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/c483a2f78231de990f49cd851c821293136d0d9f",
-                "reference": "c483a2f78231de990f49cd851c821293136d0d9f",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/06d6509836165a8abbf250c4010bfa6cbd52fbc3",
+                "reference": "06d6509836165a8abbf250c4010bfa6cbd52fbc3",
                 "shasum": ""
             },
             "require": {
@@ -1767,7 +1767,7 @@
                 "test",
                 "view"
             ],
-            "time": "2017-07-30T07:56:03+00:00"
+            "time": "2017-08-19T20:07:53+00:00"
         },
         {
             "name": "infyomlabs/swagger-generator",

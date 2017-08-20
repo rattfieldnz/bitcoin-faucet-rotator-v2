@@ -152,9 +152,9 @@
     $(function () {
         $.ajaxSetup({timeout:3600000});
 
-        var dateFrom = '13-08-2017';
-        var dateTo = '19-08-2017';
-        var quantity = 1000;
+        var dateFrom = '14-08-2017';
+        var dateTo = '20-08-2017';
+        var quantity = 10000;
 
         //--------------
         //- AREA CHART -
