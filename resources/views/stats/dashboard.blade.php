@@ -152,8 +152,8 @@
     $(function () {
         $.ajaxSetup({timeout:3600000});
 
-        var dateFrom = '14-08-2017';
-        var dateTo = '20-08-2017';
+        var dateFrom = '15-08-2017';
+        var dateTo = '21-08-2017';
         var quantity = 10000;
 
         //--------------
@@ -171,11 +171,9 @@
                 visitorsAreaChartProgressBar.progressTimer('complete');
                 hideElement(visitorsAreaChartProgressBar, 3000);
             }
-        });
-        visitorsAreaChartData.fail(function(vacd){
+        }).fail(function(vacd){
             progressError(vacd,visitorsAreaChartProgressBar,areaChartName);
-        });
-        visitorsAreaChartData.progress(function(){
+        }).progress(function(){
             console.log("Visitors area chart is loading...");
         });
 
@@ -194,11 +192,9 @@
                 visitorsTableProgressBar.progressTimer('complete');
                 hideElement(visitorsTableProgressBar, 3000)
             }
-        });
-        visitorsData.fail(function(vd){
+        }).fail(function(vd){
             progressError(vd,visitorsTableProgressBar,dataTablesName);
-        });
-        visitorsData.progress(function(vd){
+        }).progress(function(vd){
             console.log("Visitors datatable is loading...");
         });
 
@@ -217,11 +213,9 @@
                 geoChartProgressBar.progressTimer('complete');
                 hideElement(geoChartProgressBar, 3000);
             }
-        });
-        geoChartData.fail(function(gcd){
+        }).fail(function(gcd){
             progressError(gcd,geoChartProgressBar,countriesMapName);
-        });
-        geoChartData.progress(function(){
+        }).progress(function(){
             console.log("Visitors geo chart is loading...");
         });
 
@@ -240,11 +234,9 @@
                 browserStatsProgressBar.progressTimer('complete');
                 hideElement(browserStatsProgressBar, 3000);
             }
-        });
-        browserStatsData.fail(function(bsd){
+        }).fail(function(bsd){
             progressError(bsd,browserStatsProgressBar,pieChartName);
-        });
-        browserStatsData.progress(function(){
+        }).progress(function(){
             console.log("Visitors' browsers chart is loading...");
         });
 
