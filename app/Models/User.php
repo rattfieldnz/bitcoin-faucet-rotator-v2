@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laratrust\Traits\LaratrustUserTrait;
+use Laravel\Passport\HasApiTokens;
 use Spatie\Activitylog\ActivitylogServiceProvider;
 use Spatie\Activitylog\Traits\CausesActivity;
 
@@ -25,6 +26,7 @@ class User extends Authenticatable
     use Notifiable;
     use Sluggable;
     use CausesActivity;
+    use HasApiTokens;
 
     public $table = 'users';
     

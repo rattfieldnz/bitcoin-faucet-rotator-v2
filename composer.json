@@ -10,7 +10,7 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "^5.4",
-        "laravel/passport": "^3.0.0",
+        "laravel/passport": "^3.0",
         "cviebrock/eloquent-sluggable": "4.2.*",
         "yajra/laravel-datatables-oracle": "7.*",
         "barryvdh/laravel-ide-helper": "2.3.*",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b110069d421479b0bfe8e5694ec41fd2",
+    "content-hash": "658faac1d89c675e163cc1c0494be4ef",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1344,16 +1344,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.19",
+            "version": "v0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "430b7125af4f76f38f786222117a9ac1436e0e28"
+                "reference": "c1a6e6ac716c6563ca6c240120cde69fde49af4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/430b7125af4f76f38f786222117a9ac1436e0e28",
-                "reference": "430b7125af4f76f38f786222117a9ac1436e0e28",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/c1a6e6ac716c6563ca6c240120cde69fde49af4f",
+                "reference": "c1a6e6ac716c6563ca6c240120cde69fde49af4f",
                 "shasum": ""
             },
             "require": {
@@ -1377,7 +1377,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-08-13T00:18:21+00:00"
+            "time": "2017-08-20T00:20:36+00:00"
         },
         {
             "name": "google/auth",

@@ -172,6 +172,7 @@ return [
         Lord\Laroute\LarouteServiceProvider::class,
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
         Optimus\Heimdal\Provider\LaravelServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
         /*
          * Application Service Providers...
          */
