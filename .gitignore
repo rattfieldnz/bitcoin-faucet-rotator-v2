@@ -1,5 +1,6 @@
 vendor/
 node_modules/
+storage/*
 
 resources/assets/css/admin-lte
 resources/assets/css/bootstrap
