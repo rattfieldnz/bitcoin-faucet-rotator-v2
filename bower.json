@@ -23,6 +23,7 @@
     "datatables.net": "^1.10.15",
     "datatables.net-bs": "^2.1.1",
     "chart.js": "chartjs#^2.6.0",
-    "jquery-progresstimer": "^1.0.7"
+    "jquery-progresstimer": "^1.0.7",
+    "js-cookie": "^2.1.4"
   }
 }

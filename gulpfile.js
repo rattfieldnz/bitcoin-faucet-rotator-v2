@@ -136,6 +136,10 @@ gulp.task("copyfiles", function() {
     gulp.src("vendor/bower_components/jquery-progresstimer/dist/js/jquery.progresstimer.js")
         .pipe(gulp.dest("resources/assets/js/jquery-progresstimer/"));
 
+    // JS Cookie
+    gulp.src("vendor/bower_components/js-cookie/src/js.cookie.js")
+        .pipe(gulp.dest("resources/assets/js/js-cookie/"));
+
 });
 
 /**
@@ -162,6 +166,7 @@ elixir(function(mix) {
             'js/cookieconsent/cookieconsent.js',
             'js/jquery-progresstimer/jquery.progresstimer.js',
             'js/laroute/laroute.js',
+            'js/js-cookie/js.cookie.js',
             'js/custom/custom.js'
         ],
         'public/assets/js/mainScripts.js',

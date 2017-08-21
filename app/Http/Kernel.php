@@ -21,7 +21,16 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \App\Http\Middleware\EncryptCookies::class,
+        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \App\Http\Middleware\Cors::class,
+        \App\Http\Middleware\VerifyCsrfToken::class,
         \App\Http\Middleware\TrustProxies::class,
+        \Matthewbdaly\ETagMiddleware\ETag::class,
+        \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
+        /**\GrahamCampbell\HTMLMin\Http\Middleware\MinifyMiddleware::class**/
     ];
 
     /**
@@ -31,15 +40,9 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
-            \Matthewbdaly\ETagMiddleware\ETag::class,
-            \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
             \DougSisk\BlockReferralSpam\Middleware\BlockReferralSpam::class,
-            /**\GrahamCampbell\HTMLMin\Http\Middleware\MinifyMiddleware::class**/
+            \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
+            //\GrahamCampbell\HTMLMin\Http\Middleware\MinifyMiddleware::class
         ],
 
         'api' => [
@@ -63,5 +66,6 @@ class Kernel extends HttpKernel
         'role' => \Laratrust\Middleware\LaratrustRole::class,
         'permission' => \Laratrust\Middleware\LaratrustPermission::class,
         'ability' => \Laratrust\Middleware\LaratrustAbility::class,
+        'create_fresh_api_token' => \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
     ];
 }

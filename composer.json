@@ -46,7 +46,8 @@
         "lord/laroute": "^2.4",
         "fideloper/proxy": "~3.3",
         "optimus/heimdal": "^1.5",
-        "sentry/sentry-laravel": "^0.8.0"
+        "sentry/sentry-laravel": "^0.8.0",
+        "optimus/api-consumer": "^0.2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.6",

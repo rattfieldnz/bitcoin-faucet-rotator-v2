@@ -173,6 +173,7 @@ return [
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
         Optimus\Heimdal\Provider\LaravelServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+        Optimus\ApiConsumer\Provider\LaravelServiceProvider::class,
         /*
          * Application Service Providers...
          */

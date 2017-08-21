@@ -1,11 +1,15 @@
 <?php
 
-
 /*
 |--------------------------------------------------------------------------
 | API routes
 |--------------------------------------------------------------------------
 */
+
+
+// CORS
+header('Access-Control-Allow-Origin: ' . env('APP_URL'));
+header('Access-Control-Allow-Credentials: true');
 
 Route::group(['prefix' => 'v1', 'namespace' => 'API'], function () {
 

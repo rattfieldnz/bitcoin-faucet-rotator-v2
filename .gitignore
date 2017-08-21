@@ -30,6 +30,7 @@ resources/assets/js/cookieconsent
 resources/assets/js/datatables.net
 resources/assets/js/chart.js
 resources/assets/js/localforage
+resources/assets/js/js-cookie
 
 # Laravel 4 specific
 bootstrap/compiled.php

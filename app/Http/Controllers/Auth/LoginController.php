@@ -63,7 +63,7 @@ class LoginController extends Controller
         if (empty($user)) {
             return redirect(route('login'));
         }
-        $this->setRedirectedTo(route('users.panel', ['userSlug' => $user->slug]));
+        $this->setRedirectedTo(route('users.show', ['userSlug' => $user->slug]));
 
         flash('Welcome back ' . $user->first_name . "! Glad you have returned :).")->success();
 

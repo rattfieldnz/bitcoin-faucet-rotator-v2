@@ -11,6 +11,9 @@
 |
 */
 
+header('Access-Control-Allow-Origin: ' . env('APP_URL'));
+header('Access-Control-Allow-Credentials: true');
+
 Route::auth();
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
@@ -53,8 +56,6 @@ Route::get('users/{userSlug}/faucets/{faucetSlug}/restore', ['as' => 'users.fauc
 Route::patch('users/{userSlug}/faucets/update-multiple', ['as' => 'users.faucets.update-multiple', 'uses' => 'UserFaucetsController@updateMultiple']);
 
 Route::resource('faucets', 'FaucetController');
-
-Route::get('/users/{userSlug}/panel', ['as' => 'users.panel', 'uses' => 'UserPanelController@show']);
 
 Route::delete(
     'payment-processors/{slug}/delete-permanently',
