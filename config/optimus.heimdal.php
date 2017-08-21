@@ -11,8 +11,8 @@ return [
         SymfonyException\UnprocessableEntityHttpException::class => Formatters\UnprocessableEntityHttpExceptionFormatter::class,
         SymfonyException\UnauthorizedHttpException::class => App\Exceptions\Formatters\UnauthorizedHttpExceptionFormatter::class,
         App\Exceptions\ImATeapotHttpException::class => App\Exceptions\Formatters\ImATeapotHttpExceptionFormatter::class,
-        SymfonyException\HttpException::class => Formatters\HttpExceptionFormatter::class,
-        Exception::class => Formatters\ExceptionFormatter::class,
+        //SymfonyException\HttpException::class => Formatters\HttpExceptionFormatter::class,
+        //Exception::class => Formatters\ExceptionFormatter::class,
     ],
 
     'response_factory' => \Optimus\Heimdal\ResponseFactory::class,

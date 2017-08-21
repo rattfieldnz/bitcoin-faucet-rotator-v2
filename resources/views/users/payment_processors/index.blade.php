@@ -23,7 +23,7 @@
             @endif
         </div>
     </section>
-    <div class="content">
+    <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">
         <div class="clearfix"></div>
 
         @include('flash::message')

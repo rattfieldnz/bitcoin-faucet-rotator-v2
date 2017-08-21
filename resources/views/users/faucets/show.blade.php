@@ -26,7 +26,7 @@
         @endif
         </div>
     </section>
-    <div class="content">
+    <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">
         <div class="clearfix"></div>
         @include('flash::message')
         @include('faucets.partials._message-info')
@@ -35,7 +35,7 @@
 
         <div class="box box-primary">
             <div class="box-body">
-                <div class="row" style="padding-left: 20px">
+                <div class="row" style="padding-left: 1.25em;">
                     <p><strong>*</strong> Payout amounts are in Satoshis</p>
                     <div id="faucet-info" class="table table-responsive">
                         <table class="table table-striped table bordered show-table-header">

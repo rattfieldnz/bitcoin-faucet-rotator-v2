@@ -5,138 +5,140 @@
 @endsection
 
 @section('content')
-    <section class="content-header">
-        <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
-            <h1>Stats</h1>
-        </div>
-    </section>
-    <div class="content">
-        <div class="clearfix"></div>
+    <div style="margin-left: 1.25em;">
+        <section class="content-header">
+            <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
+                <h1>Stats</h1>
+            </div>
+        </section>
+        <div class="content">
+            <div class="clearfix"></div>
 
-        @include('flash::message')
+            @include('flash::message')
 
-        <div class="clearfix"></div>
-        @include('layouts.partials.navigation._breadcrumbs')
-        <div class="box box-primary">
-            <div class="box-body">
-                <div class="row" style="margin: 0 0 0 0;">
-                    <!-- AREA CHART -->
-                    <div class="box box-primary col-md-12">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Visitors and Page Views</h3>
+            <div class="clearfix"></div>
+            @include('layouts.partials.navigation._breadcrumbs')
+            <div class="box box-primary">
+                <div class="box-body">
+                    <div class="row" style="margin: 0 0 0 0;">
+                        <!-- AREA CHART -->
+                        <div class="box box-primary col-md-12">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Visitors and Page Views</h3>
 
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                </button>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="box-body">
-                            <div id="areaChart-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-                            <div></div>
-                            <div class="chart">
-                                <canvas id="areaChart" style="height:250px"></canvas>
+                            <div class="box-body">
+                                <div id="areaChart-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div></div>
+                                <div class="chart">
+                                    <canvas id="areaChart" style="height:250px"></canvas>
+                                </div>
                             </div>
+                            <!-- /.box-body -->
                         </div>
-                        <!-- /.box-body -->
+                        <!-- /.box -->
                     </div>
-                    <!-- /.box -->
-                </div>
-                <!-- /.row -->
-                <div class="row" style="margin: 0 0 0 0;">
-                    <!-- /.col (LEFT) -->
-                    <!-- VISITORS TABLE -->
-                    <div class="box box-info col-md-12">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Most Popular Pages</h3>
+                    <!-- /.row -->
+                    <div class="row" style="margin: 0 0 0 0;">
+                        <!-- /.col (LEFT) -->
+                        <!-- VISITORS TABLE -->
+                        <div class="box box-info col-md-12">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Most Popular Pages</h3>
 
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                </button>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="box-body">
-                            <div id="visitorsTable-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="box-body">
+                                <div id="visitorsTable-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 
-                                <div id="visitorsTable-wrapper" class="chart">
-                                <table id="visitorsTable" cellspacing="0" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th>URL</th>
-                                            <th>Page Title</th>
-                                            <th>Unique Visitors</th>
-                                            <th>Page Views</th>
-                                            <th>Unique Page Views</th>
-                                            <th>Ave. Session Duration</th>
-                                            <th>Ave. Time on Page</th>
-                                            <th>Bounces</th>
-                                            <th>No. of Countries</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>URL</th>
-                                            <th>Page Title</th>
-                                            <th>Unique Visitors</th>
-                                            <th>Page Views</th>
-                                            <th>Unique Page Views</th>
-                                            <th>Ave. Session Duration</th>
-                                            <th>Ave. Time on Page</th>
-                                            <th>Bounces</th>
-                                            <th>No. of Countries</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+                                    <div id="visitorsTable-wrapper" class="chart">
+                                    <table id="visitorsTable" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>URL</th>
+                                                <th>Page Title</th>
+                                                <th>Unique Visitors</th>
+                                                <th>Page Views</th>
+                                                <th>Unique Page Views</th>
+                                                <th>Ave. Session Duration</th>
+                                                <th>Ave. Time on Page</th>
+                                                <th>Bounces</th>
+                                                <th>No. of Countries</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>URL</th>
+                                                <th>Page Title</th>
+                                                <th>Unique Visitors</th>
+                                                <th>Page Views</th>
+                                                <th>Unique Page Views</th>
+                                                <th>Ave. Session Duration</th>
+                                                <th>Ave. Time on Page</th>
+                                                <th>Bounces</th>
+                                                <th>No. of Countries</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
                             </div>
+                            <!-- /.box-body -->
                         </div>
-                        <!-- /.box-body -->
+                        <!-- /.box -->
                     </div>
-                    <!-- /.box -->
-                </div>
 
-                <div class="row" style="margin: 0 0 0 0;">
-                    <!-- COUNTRIES MAP -->
-                    <div class="box box-info col-md-12">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Visitor Countries</h3>
+                    <div class="row" style="margin: 0 0 0 0;">
+                        <!-- COUNTRIES MAP -->
+                        <div class="box box-info col-md-12">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Visitor Countries</h3>
 
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                </button>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="box-body">
-                            <div id="countriesMap-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="box-body">
+                                <div id="countriesMap-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 
-                            <div id="regions_div" style="width: 100%; height: auto;"></div>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.box -->
-                    <!-- /.col (RIGHT) -->
-                </div>
-                <div class="row" style="margin: 0 0 0 0;">
-                    <!-- DONUT CHART -->
-                    <div class="box box-danger col-md-12">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Browser Usage (by visits)</h3>
-
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                </button>
+                                <div id="regions_div" style="width: 100%; height: auto;"></div>
                             </div>
+                            <!-- /.box-body -->
                         </div>
-                        <div class="box-body">
-                            <div id="pieChart-progressbar" style="margin: 0 0 1em 0;"><span style="text-align: center;margin: 0.3em 0 0 45%;"></span></div>
-                            <div></div>
-                            <canvas id="pieChart" style="height:250px"></canvas>
-                        </div>
-                        <!-- /.box-body -->
+                        <!-- /.box -->
+                        <!-- /.col (RIGHT) -->
                     </div>
-                    <!-- /.box -->
-                </div>
-                <!-- /.row -->
+                    <div class="row" style="margin: 0 0 0 0;">
+                        <!-- DONUT CHART -->
+                        <div class="box box-danger col-md-12">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Browser Usage (by visits)</h3>
 
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div id="pieChart-progressbar" style="margin: 0 0 1em 0;"><span style="text-align: center;margin: 0.3em 0 0 45%;"></span></div>
+                                <div></div>
+                                <canvas id="pieChart" style="height:250px"></canvas>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                    <!-- /.row -->
+
+                </div>
             </div>
         </div>
     </div>
