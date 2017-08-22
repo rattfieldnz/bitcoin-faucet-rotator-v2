@@ -176,8 +176,8 @@
             }
         });
 
-        var dateFrom = '15-08-2017';
-        var dateTo = '21-08-2017';
+        var dateTo = currentDate().dateFormatted;
+        var dateFrom = dateFormatted(alterDate(currentDate().date, -6)).dateFormatted;
         var quantity = 10000;
 
         //--------------
@@ -187,19 +187,32 @@
         var visitorsAreaChartData = getVisitorsDataAjax('stats.visits-and-page-views', dateFrom, dateTo, quantity);
         var visitorsAreaChartProgressBar = generateProgressBar("#areaChart-progressbar", areaChartName);
 
-        visitorsAreaChartData.done(function(vacd){
-            if(typeof vacd.message !== 'undefined'){
-                progressError(vacd,visitorsAreaChartProgressBar,'visitors area chart');
-            } else {
-                generateVisitorsLineChart(vacd, "areaChart");
-                visitorsAreaChartProgressBar.progressTimer('complete');
-                hideElement(visitorsAreaChartProgressBar, 3000);
-            }
-        }).fail(function(vacd){
-            progressError(vacd,visitorsAreaChartProgressBar,areaChartName);
-        }).progress(function(){
-            console.log("Visitors area chart is loading...");
-        });
+        if(visitorsAreaChartData.status !== 'undefined' && visitorsAreaChartData.status === 'error'){
+            progressError(
+                visitorsAreaChartData.message,
+                visitorsAreaChartProgressBar,
+                areaChartName
+            );
+        } else {
+            visitorsAreaChartData.done(function(vacd){
+                if(typeof vacd.status !== 'undefined' && vacd.status === 'error'){
+                    progressError(
+                        vacd.message,
+                        visitorsAreaChartProgressBar,
+                        areaChartName
+                    );
+                } else {
+                    generateVisitorsLineChart(vacd, "areaChart");
+                    visitorsAreaChartProgressBar.progressTimer('complete');
+                    hideElement(visitorsAreaChartProgressBar, 3000);
+                }
+            }).fail(function(vacd){
+                progressError(vacd,visitorsAreaChartProgressBar,areaChartName);
+            }).progress(function(){
+                console.log("Visitors area chart is loading...");
+            });
+        }
+
 
         //--------------------------------
         //- DATATABLES SHOWING VISITORS -
@@ -208,19 +221,31 @@
         var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', dateFrom, dateTo, quantity);
         var visitorsTableProgressBar = generateProgressBar("#visitorsTable-progressbar",dataTablesName);
 
-        visitorsData.done(function(vd){
-            if(typeof vd.message !== 'undefined'){
+        if(visitorsData.status !== 'undefined' && visitorsData.status === 'error'){
+            progressError(
+                visitorsData.message,
+                visitorsTableProgressBar,
+                dataTablesName
+            );
+        } else {
+            visitorsData.done(function(vd){
+                if(typeof vd.data[0] !== 'undefined' && vd.data[0][0] === 'error'){
+                    progressError(
+                        vd.data[2][0],
+                        visitorsTableProgressBar,
+                        dataTablesName
+                    );
+                } else {
+                    generateVisitorsTable(vd.data, '#visitorsTable');
+                    visitorsTableProgressBar.progressTimer('complete');
+                    hideElement(visitorsTableProgressBar, 3000);
+                }
+            }).fail(function(vd){
                 progressError(vd,visitorsTableProgressBar,dataTablesName);
-            } else {
-                generateVisitorsTable(vd.data, '#visitorsTable');
-                visitorsTableProgressBar.progressTimer('complete');
-                hideElement(visitorsTableProgressBar, 3000)
-            }
-        }).fail(function(vd){
-            progressError(vd,visitorsTableProgressBar,dataTablesName);
-        }).progress(function(vd){
-            console.log("Visitors datatable is loading...");
-        });
+            }).progress(function(vd){
+                console.log("Visitors datatable is loading...");
+            });
+        }
 
         //-----------------------
         //- COUNTRIES MAP -------
@@ -229,19 +254,33 @@
         var geoChartData = getCountriesAndVisitorsAjax(dateFrom, dateTo);
         var geoChartProgressBar = generateProgressBar("#countriesMap-progressbar",countriesMapName);
 
-        geoChartData.done(function(gcd){
-            if(typeof gcd.message !== 'undefined'){
+        if(geoChartData.status !== 'undefined' && geoChartData.status === 'error'){
+            progressError(
+                geoChartData.message,
+                geoChartProgressBar,
+                countriesMapName
+            );
+        } else {
+            geoChartData.done(function(gcd){
+
+                if(typeof gcd.status !== 'undefined' && gcd.status === 'error'){
+                    progressError(
+                        gcd.message,
+                        geoChartProgressBar,
+                        countriesMapName
+                    );
+                } else {
+                    generateGoogleGeoChart(gcd, '#regions_div');
+                    geoChartProgressBar.progressTimer('complete');
+                    hideElement(geoChartProgressBar, 3000);
+                }
+            }).fail(function(gcd){
                 progressError(gcd,geoChartProgressBar,countriesMapName);
-            } else{
-                generateGoogleGeoChart(gcd, '#regions_div');
-                geoChartProgressBar.progressTimer('complete');
-                hideElement(geoChartProgressBar, 3000);
-            }
-        }).fail(function(gcd){
-            progressError(gcd,geoChartProgressBar,countriesMapName);
-        }).progress(function(){
-            console.log("Visitors geo chart is loading...");
-        });
+            }).progress(function(){
+                console.log("Visitors geo chart is loading...");
+            });
+        }
+
 
         //-------------
         //- PIE CHART -
@@ -250,19 +289,33 @@
         var browserStatsData = getBrowserStatsAjax(dateFrom, dateTo, 10);
         var browserStatsProgressBar = generateProgressBar("#pieChart-progressbar",pieChartName);
 
-        browserStatsData.done(function(bsd){
-            if(typeof bsd.message !== 'undefined'){
+        if(browserStatsData.status !== 'undefined' && browserStatsData.status === 'error'){
+            progressError(
+                browserStatsData.message,
+                browserStatsProgressBar,
+                pieChartName
+            );
+        } else {
+            browserStatsData.done(function(bsd){
+
+                if(typeof bsd.status !== 'undefined' && bsd.status === 'error'){
+                    progressError(
+                        bsd.message,
+                        browserStatsProgressBar,
+                        pieChartName
+                    );
+                } else {
+                    generatePieDonutChart(bsd,'#pieChart');
+                    browserStatsProgressBar.progressTimer('complete');
+                    hideElement(browserStatsProgressBar, 3000);
+                }
+            }).fail(function(bsd){
                 progressError(bsd,browserStatsProgressBar,pieChartName);
-            } else {
-                generatePieDonutChart(bsd,'#pieChart');
-                browserStatsProgressBar.progressTimer('complete');
-                hideElement(browserStatsProgressBar, 3000);
-            }
-        }).fail(function(bsd){
-            progressError(bsd,browserStatsProgressBar,pieChartName);
-        }).progress(function(){
-            console.log("Visitors' browsers chart is loading...");
-        });
+            }).progress(function(){
+                console.log("Visitors' browsers chart is loading...");
+            });
+        }
+
 
     });
 </script>

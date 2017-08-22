@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Helpers\Functions;
+use Illuminate\Support\Collection;
 
 /**
  * Class Http
@@ -52,5 +53,22 @@ class Http
             }
         }
         return $canShow;
+    }
+
+    /**
+     * @param string $message
+     * @param string $status
+     * @param int    $code
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public static function exceptionAsCollection(string $message = 'Message not set.', string $status = 'error', int $code = 500): Collection{
+        return collect(
+            [
+                'status' => $status,
+                'code' => $code,
+                'message' => $message
+            ]
+        );
     }
 }

@@ -80,6 +80,18 @@ class Handler extends ExceptionHandler
         if($e instanceof \ErrorException){
             Log::error($e->getMessage());
 
+            if($request->isAjax()){
+                return response()->json(
+                    [
+                        'status' => 'error',
+                        'code' => 500,
+                        'sentryID' => $this->sentryID,
+                        'message' => $e->getMessage()
+                    ],
+                    500
+                );
+            }
+
             return response()->view('errors.500', [
                 'message' => $e->getMessage(),
                 'sentryID' => $this->sentryID
@@ -92,6 +104,18 @@ class Handler extends ExceptionHandler
             $baseModel = new $model;
             $item = class_basename($baseModel);
 
+            if($request->isAjax()){
+                return response()->json(
+                    [
+                        'status' => 'error',
+                        'code' => 404,
+                        'sentryID' => $this->sentryID,
+                        'message' => $item . " was not found",
+                    ],
+                    404
+                );
+            }
+
             return response()->view('errors.404', compact('item'), 404);
         }
 
@@ -101,8 +125,29 @@ class Handler extends ExceptionHandler
                 return response()->json(
                     [
                         'status' => 'error',
+                        'code' => 500,
+                        'sentryID' => $this->sentryID,
                         'message' => "Google Analytics API usage exceeded",
-                        'code' => 500
+                    ],
+                    500
+                );
+            }
+
+            return response()->view('errors.500', [
+                'message' => "Google Analytics API usage exceeded",
+                'sentryID' => $this->sentryID
+            ], 500);
+        }
+
+        if($e instanceof \Exception){
+
+            if($request->isAjax()){
+                return response()->json(
+                    [
+                        'status' => 'error',
+                        'code' => 500,
+                        'sentryID' => $this->sentryID,
+                        'message' => "Google Analytics API usage exceeded",
                     ],
                     500
                 );

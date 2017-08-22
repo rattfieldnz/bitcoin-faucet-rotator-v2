@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\Functions\Http;
 use App\Http\Controllers\AppBaseController;
 use App\Libraries\Google\Analytics\GoogleAnalytics;
-use Illuminate\Http\Request;
-use Yajra\Datatables\Facades\Datatables;
+use Exception;
 
 /**
  * Class StatsAPIController
@@ -28,20 +28,29 @@ class StatsAPIController extends AppBaseController
      * @param string                    $dateTo
      * @param int                       $quantity
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Support\Collection
      * @see \App\Libraries\Google\Analytics\GoogleAnalytics::topPagesBetweenTwoDates()
      *
      */
     public function getPagesVisited(\Yajra\Datatables\Request $request,string $dateFrom, string $dateTo, int $quantity = 20)
     {
-        $fromDateInput = urldecode($dateFrom);
-        $toDateInput = urldecode($dateTo);
-        $quantity = intval($quantity);
         try {
-            $data = GoogleAnalytics::topPagesBetweenTwoDates($fromDateInput, $toDateInput, $quantity);
-            return (new \App\Libraries\DataTables\DataTables($request))->collection($data)->make(true);
+
+            if(empty($dateFrom) || empty($dateTo)){
+                return Http::exceptionAsCollection("From and to dates cannot be empty.");
+            } else {
+                $fromDateInput = urldecode($dateFrom);
+                $toDateInput = urldecode($dateTo);
+                $quantity = intval($quantity);
+
+                $data = GoogleAnalytics::topPagesBetweenTwoDates($fromDateInput, $toDateInput, $quantity);
+
+                return (new \App\Libraries\DataTables\DataTables($request))->collection($data)->make(true);
+            }
         } catch(\Google_Service_Exception $e){
-            return response()->json(GoogleAnalytics::googleException()->toArray(), 500);
+            return Http::exceptionAsCollection($e->getMessage());
+        } catch(Exception $e){
+            return Http::exceptionAsCollection($e->getMessage());
         }
     }
 
@@ -58,14 +67,21 @@ class StatsAPIController extends AppBaseController
      */
     public function getVisitorsAndPageViews(string $dateFrom, string $dateTo, int $quantity = 20)
     {
-        $fromDateInput = urldecode($dateFrom);
-        $toDateInput = urldecode($dateTo);
-        $quantity = intval($quantity);
-
         try {
-            return GoogleAnalytics::visitsAndPageViews($fromDateInput, $toDateInput, $quantity);
+
+            if(empty($dateFrom) || empty($dateTo)){
+                return Http::exceptionAsCollection("From and to dates cannot be empty.");
+            } else {
+                $fromDateInput = urldecode($dateFrom);
+                $toDateInput = urldecode($dateTo);
+                $quantity = intval($quantity);
+
+                return GoogleAnalytics::visitsAndPageViews($fromDateInput, $toDateInput, $quantity);
+            }
         } catch(\Google_Service_Exception $e){
-            return response()->json(GoogleAnalytics::googleException()->toArray(), 500);
+            return Http::exceptionAsCollection($e->getMessage());
+        } catch(\Exception $e){
+            return Http::exceptionAsCollection($e->getMessage());
         }
     }
 
@@ -82,14 +98,21 @@ class StatsAPIController extends AppBaseController
      */
     public function getTopBrowsersAndVisitors(string $dateFrom, string $dateTo, int $maxBrowserCount = 10)
     {
-        $fromDateInput = urldecode($dateFrom);
-        $toDateInput = urldecode($dateTo);
-        $maxBrowserCount = intval($maxBrowserCount);
-
         try {
-            return GoogleAnalytics::topBrowsersBetweenTwoDates($fromDateInput, $toDateInput, $maxBrowserCount);
+
+            if(empty($dateFrom) || empty($dateTo)){
+                return Http::exceptionAsCollection("From and to dates cannot be empty.");
+            } else {
+                $fromDateInput = urldecode($dateFrom);
+                $toDateInput = urldecode($dateTo);
+                $maxBrowserCount = intval($maxBrowserCount);
+
+                return GoogleAnalytics::topBrowsersBetweenTwoDates($fromDateInput, $toDateInput, $maxBrowserCount);
+            }
         } catch(\Google_Service_Exception $e){
-            return response()->json(GoogleAnalytics::googleException()->toArray(), 500);
+            return Http::exceptionAsCollection($e->getMessage());
+        } catch(\Exception $e){
+            return Http::exceptionAsCollection($e->getMessage());
         }
     }
 
@@ -105,13 +128,20 @@ class StatsAPIController extends AppBaseController
      */
     public function getCountriesAndVisitors(string $dateFrom, string $dateTo)
     {
-        $fromDateInput = urldecode($dateFrom);
-        $toDateInput = urldecode($dateTo);
-
         try {
-            return GoogleAnalytics::countriesBetweenTwoDates($fromDateInput, $toDateInput);
+
+            if(empty($dateFrom) || empty($dateTo)){
+                return Http::exceptionAsCollection("From and to dates cannot be empty.");
+            } else {
+                $fromDateInput = urldecode($dateFrom);
+                $toDateInput = urldecode($dateTo);
+
+                return GoogleAnalytics::countriesBetweenTwoDates($fromDateInput, $toDateInput);
+            }
         } catch(\Google_Service_Exception $e){
-            return response()->json(GoogleAnalytics::googleException()->toArray(), 500);
+            return Http::exceptionAsCollection($e->getMessage());
+        } catch(Exception $e){
+            return Http::exceptionAsCollection($e->getMessage());
         }
     }
 }

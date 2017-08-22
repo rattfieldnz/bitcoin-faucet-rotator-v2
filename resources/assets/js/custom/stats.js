@@ -2,8 +2,8 @@
 $.fn.dataTable.ext.errMode = 'none';
 
 Date.prototype.formatDDMMYYYY = function() {
-    return (this.getDate()) +
-        "/" +  (this.getMonth() + 1) +
+    return ('0' + (this.getDate())).slice(-2) +
+        "/" +  ('0' + (this.getMonth() + 1)).slice(-2) +
         "/" +  this.getFullYear();
 };
 
@@ -79,7 +79,7 @@ function generateVisitorsLineChart(data, chartElement){
     var visitorsRGB = getRandomRgb();
     var pageViewsRGB = getRandomRgb();
 
-    if(typeof data !== 'undefined' && typeof chartElement !== 'undefined'){
+    if(typeof data !== 'undefined' && data.status !== 'error' && typeof chartElement !== 'undefined'){
 
         var areaChartContext = document.getElementById(chartElement).getContext("2d");
 
@@ -162,13 +162,19 @@ function generateVisitorsLineChart(data, chartElement){
     }
 }
 
-function getVisitorsDataAjax(routeName, dateFrom, dateTo, quantity){
-
+function getVisitorsDataAjax(routeName, dateFrom, dateTo, quantity)
+{
     if(typeof quantity === 'undefined'){
         quantity = 10;
     }
 
-    if(typeof routeName !== 'undefined' && typeof dateFrom !== 'undefined' && typeof dateTo !== 'undefined'){
+    var error = {
+        status: 'error',
+        message: '',
+        code: ''
+    };
+
+    if(typeof routeName !== 'undefined' && dateFrom !== null && dateTo !== null){
 
         var visitorsRoute = laroute.route(
             routeName,
@@ -183,7 +189,16 @@ function getVisitorsDataAjax(routeName, dateFrom, dateTo, quantity){
             return response.data;
         }).promise();
     } else {
-        return null;
+        error.message = "Both dates cannot be null / empty.";
+        error.code = 500;
+        visitorsRoute = laroute.route(
+            routeName,
+            { dateFrom : dateFrom, dateTo: dateTo, quantity: quantity }
+        );
+
+        return $.get(visitorsRoute, function(){
+            return error;
+        }).promise();
     }
 }
 
@@ -193,7 +208,13 @@ function getBrowserStatsAjax(dateFrom, dateTo, maxBrowsers){
         maxBrowsers = 10;
     }
 
-    if(typeof dateFrom !== 'undefined' && typeof dateTo !== 'undefined'){
+    var error = {
+        status: 'error',
+        message: '',
+        code: ''
+    };
+
+    if(dateFrom !== null && dateTo !== null){
 
         var browsersRoute = laroute.route(
             'stats.top-x-browsers',
@@ -204,7 +225,17 @@ function getBrowserStatsAjax(dateFrom, dateTo, maxBrowsers){
             return response.data;
         }).promise();
     } else {
-        return null;
+        error.message = "Both dates cannot be null / empty.";
+        error.code = 500;
+
+        browsersRoute = laroute.route(
+            'stats.top-x-browsers',
+            { dateFrom : dateFrom, dateTo: dateTo, maxBrowsers: maxBrowsers }
+        );
+
+        return $.get(browsersRoute, function(){
+            return error;
+        }).promise();
     }
 }
 
@@ -261,9 +292,16 @@ function generatePieDonutChart(data, renderToElement){
     }
 }
 
-function getCountriesAndVisitorsAjax(dateFrom, dateTo){
+function getCountriesAndVisitorsAjax(dateFrom, dateTo)
+{
 
-    if(typeof dateFrom !== 'undefined' && typeof dateTo !== 'undefined'){
+    var error = {
+        status: 'error',
+        message: '',
+        code: ''
+    };
+
+    if(dateFrom !== null && dateTo !== null){
 
         var browsersRoute = laroute.route(
             'stats.countries-and-visitors',
@@ -274,7 +312,18 @@ function getCountriesAndVisitorsAjax(dateFrom, dateTo){
             return response.data;
         }).promise();
     } else {
-        return null;
+
+        browsersRoute = laroute.route(
+            'stats.countries-and-visitors',
+            { dateFrom : dateFrom, dateTo: dateTo }
+        );
+
+        error.message = "Both dates cannot be null / empty.";
+        error.code = 500;
+
+        return $.get(browsersRoute, function(){
+            return error;
+        }).promise();
     }
 }
 
