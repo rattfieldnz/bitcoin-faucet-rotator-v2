@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div style="margin-left: 1.25em;">
+    <div class="zero-margin">
         <section class="content-header">
             <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
                 <h1>Stats</h1>
@@ -20,7 +20,7 @@
             @include('layouts.partials.navigation._breadcrumbs')
             <div class="box box-primary">
                 <div class="box-body">
-                    <div class="row" style="margin: 0 0 0 0;">
+                    <div class="zero-margin">
                         <!-- AREA CHART -->
                         <div class="box box-primary col-md-12">
                             <div class="box-header with-border">
@@ -43,7 +43,7 @@
                         <!-- /.box -->
                     </div>
                     <!-- /.row -->
-                    <div class="row" style="margin: 0 0 0 0;">
+                    <div class="row zero-margin">
                         <!-- /.col (LEFT) -->
                         <!-- VISITORS TABLE -->
                         <div class="box box-info col-md-12">
@@ -95,7 +95,7 @@
                         <!-- /.box -->
                     </div>
 
-                    <div class="row" style="margin: 0 0 0 0;">
+                    <div class="row zero-margin">
                         <!-- COUNTRIES MAP -->
                         <div class="box box-info col-md-12">
                             <div class="box-header with-border">
@@ -116,7 +116,7 @@
                         <!-- /.box -->
                         <!-- /.col (RIGHT) -->
                     </div>
-                    <div class="row" style="margin: 0 0 0 0;">
+                    <div class="row zero-margin">
                         <!-- DONUT CHART -->
                         <div class="box box-danger col-md-12">
                             <div class="box-header with-border">
