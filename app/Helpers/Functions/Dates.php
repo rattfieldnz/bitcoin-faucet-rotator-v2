@@ -125,18 +125,18 @@ class Dates
      * @param        $dateTimeString
      * @param string $dateTimeFormat
      *
-     * @return \Carbon\Carbon|null
+     * @return \Carbon\Carbon|bool
      */
-    public static function createDateTime($dateTimeString, $dateTimeFormat = Constants::DATETIME_FORMAT_DMY_HIS) : Carbon
+    public static function createDateTime($dateTimeString, $dateTimeFormat = Constants::DATETIME_FORMAT_DMY_HIS)
     {
 
         try {
             $dateTimeValue = new Carbon($dateTimeString);
             $dateTime = Carbon::createFromFormat($dateTimeFormat, $dateTimeValue->format($dateTimeFormat));
-            return $dateTime !== false ? $dateTime : null;
+            return $dateTime != false ? $dateTime : false;
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            return null;
+            return false;
         }
     }
 

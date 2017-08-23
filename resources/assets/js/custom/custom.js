@@ -63,7 +63,7 @@ function getRandomHexColor() {
 }
 
 function progressError(dataObject, progressBar, item) {
-    if (dataObject !== null && typeof progressBar !== 'undefined') {
+    if (dataObject !== null && dataObject !== 'undefined' && typeof progressBar !== 'undefined') {
 
         var errorMessage;
 

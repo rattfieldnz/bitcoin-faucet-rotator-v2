@@ -55,6 +55,10 @@ class GoogleAnalytics
         $startDateValue = Dates::createDateTime($fromDate);
         $endDateValue = Dates::createDateTime($toDate);
 
+        if($startDateValue == false || $endDateValue == false){
+            Http::exceptionAsCollection("Both dates must be valid - e.g.: 23/08/2017.");
+        }
+
         if ($endDateValue->lessThan($startDateValue)) {
             return Http::exceptionAsCollection("End date must be greater than / after start date.");
         }
@@ -87,18 +91,18 @@ class GoogleAnalytics
      */
     public static function topbrowsers(int $numberOfDays = 1)
     {
-            $analyticsData = Analytics::fetchTopBrowsers(Period::days($numberOfDays));
-            $array = $analyticsData->toArray();
-            $dataSets = [];
-            $dataSets['labels'] = [];
-            $dataSets['datasets'] = [];
-            $dataSets['datasets']['data'] = [];
-            foreach ($array as $k => $v) {
-                array_push($dataSets['labels'], $array[$k] ['browser']);
-                array_push($dataSets['datasets']['data'], $array[$k] ['sessions']);
-            }
+        $analyticsData = Analytics::fetchTopBrowsers(Period::days($numberOfDays));
+        $array = $analyticsData->toArray();
+        $dataSets = [];
+        $dataSets['labels'] = [];
+        $dataSets['datasets'] = [];
+        $dataSets['datasets']['data'] = [];
+        foreach ($array as $k => $v) {
+            array_push($dataSets['labels'], $array[$k] ['browser']);
+            array_push($dataSets['datasets']['data'], $array[$k] ['sessions']);
+        }
 
-            return $dataSets;
+        return $dataSets;
     }
 
     /**
@@ -119,6 +123,10 @@ class GoogleAnalytics
 
         $startDateValue = Dates::createDateTime($startDate);
         $endDateValue = Dates::createDateTime($endDate);
+
+        if($startDateValue == false || $endDateValue == false){
+            Http::exceptionAsCollection("Both dates must be valid - e.g.: 23/08/2017.");
+        }
 
         if ($endDateValue->lessThan($startDateValue)) {
             return Http::exceptionAsCollection("End date must be greater than / after start date.");
@@ -171,6 +179,10 @@ class GoogleAnalytics
 
         $startDateValue = Dates::createDateTime($startDate);
         $endDateValue = Dates::createDateTime($endDate);
+
+        if($startDateValue == false || $endDateValue == false){
+            Http::exceptionAsCollection("Both dates must be valid - e.g.: 23/08/2017.");
+        }
 
         if ($endDateValue->lessThan($startDateValue)) {
             return Http::exceptionAsCollection("End date must be greater than / after start date.");
@@ -262,6 +274,10 @@ class GoogleAnalytics
 
         $startDateValue = Dates::createDateTime($startDate);
         $endDateValue = Dates::createDateTime($endDate);
+
+        if($startDateValue == false || $endDateValue == false){
+            Http::exceptionAsCollection("Both dates must be valid - e.g.: 23/08/2017.");
+        }
 
         if ($endDateValue->lessThan($startDateValue)) {
             return Http::exceptionAsCollection("End date must be greater than / after start date.");

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Analytics;
+use App\Helpers\Constants;
 use App\Helpers\Functions\Dates;
 use App\Libraries\Google\Analytics\GoogleAnalytics;
 use Illuminate\Http\Request;
@@ -24,6 +25,7 @@ class StatsController extends Controller
 
     public function index()
     {
+        //dd(Dates::createDateTime('20-21-2017',Constants::DATE_FORMAT_DMY));
         return view('stats.dashboard');
     }
 }

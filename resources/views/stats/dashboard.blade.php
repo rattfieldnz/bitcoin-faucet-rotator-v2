@@ -229,7 +229,7 @@
             );
         } else {
             visitorsData.done(function(vd){
-                if(typeof vd.data[0] !== 'undefined' && vd.data[0][0] === 'error'){
+                if(typeof vd.data[0][0] !== 'undefined' && vd.data[0][0] === 'error'){
                     progressError(
                         vd.data[2][0],
                         visitorsTableProgressBar,
@@ -242,7 +242,7 @@
                 }
             }).fail(function(vd){
                 progressError(vd,visitorsTableProgressBar,dataTablesName);
-            }).progress(function(vd){
+            }).progress(function(){
                 console.log("Visitors datatable is loading...");
             });
         }

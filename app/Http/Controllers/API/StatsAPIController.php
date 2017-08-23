@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\Constants;
+use App\Helpers\Functions\Dates;
 use App\Helpers\Functions\Http;
 use App\Http\Controllers\AppBaseController;
 use App\Libraries\Google\Analytics\GoogleAnalytics;
@@ -34,13 +36,20 @@ class StatsAPIController extends AppBaseController
      */
     public function getPagesVisited(\Yajra\Datatables\Request $request,string $dateFrom, string $dateTo, int $quantity = 20)
     {
+        $fromDateInput = urldecode($dateFrom);
+        $toDateInput = urldecode($dateTo);
+
         try {
 
-            if(empty($dateFrom) || empty($dateTo)){
+            if(empty($fromDateInput) || empty($toDateInput)){
                 return Http::exceptionAsCollection("From and to dates cannot be empty.");
-            } else {
-                $fromDateInput = urldecode($dateFrom);
-                $toDateInput = urldecode($dateTo);
+            } else if(
+                Dates::createDateTime($fromDateInput,Constants::DATE_FORMAT_DMY) == false ||
+                Dates::createDateTime($toDateInput,Constants::DATE_FORMAT_DMY) == false
+            ){
+                return Http::exceptionAsCollection("Both dates must be valid - e.g.: 23/08/2017.");
+            }
+            else {
                 $quantity = intval($quantity);
 
                 $data = GoogleAnalytics::topPagesBetweenTwoDates($fromDateInput, $toDateInput, $quantity);
@@ -67,17 +76,22 @@ class StatsAPIController extends AppBaseController
      */
     public function getVisitorsAndPageViews(string $dateFrom, string $dateTo, int $quantity = 20)
     {
+        $fromDateInput = urldecode($dateFrom);
+        $toDateInput = urldecode($dateTo);
+
+        if(empty($fromDateInput) || empty($toDateInput)){
+            return Http::exceptionAsCollection("From and to dates cannot be empty.");
+        } else if(
+            Dates::createDateTime($fromDateInput,Constants::DATE_FORMAT_DMY) == false ||
+            Dates::createDateTime($toDateInput,Constants::DATE_FORMAT_DMY) == false
+        ) {
+            return Http::exceptionAsCollection("Both dates must be valid - e.g.: 23/08/2017.");
+        }
+
+        $quantity = intval($quantity);
+
         try {
-
-            if(empty($dateFrom) || empty($dateTo)){
-                return Http::exceptionAsCollection("From and to dates cannot be empty.");
-            } else {
-                $fromDateInput = urldecode($dateFrom);
-                $toDateInput = urldecode($dateTo);
-                $quantity = intval($quantity);
-
                 return GoogleAnalytics::visitsAndPageViews($fromDateInput, $toDateInput, $quantity);
-            }
         } catch(\Google_Service_Exception $e){
             return Http::exceptionAsCollection($e->getMessage());
         } catch(\Exception $e){
@@ -98,13 +112,19 @@ class StatsAPIController extends AppBaseController
      */
     public function getTopBrowsersAndVisitors(string $dateFrom, string $dateTo, int $maxBrowserCount = 10)
     {
+        $fromDateInput = urldecode($dateFrom);
+        $toDateInput = urldecode($dateTo);
         try {
 
-            if(empty($dateFrom) || empty($dateTo)){
+            if(empty($fromDateInput) || empty($toDateInput)){
                 return Http::exceptionAsCollection("From and to dates cannot be empty.");
-            } else {
-                $fromDateInput = urldecode($dateFrom);
-                $toDateInput = urldecode($dateTo);
+            } else if(
+                Dates::createDateTime($fromDateInput,Constants::DATE_FORMAT_DMY) == false ||
+                Dates::createDateTime($toDateInput,Constants::DATE_FORMAT_DMY) == false
+            ){
+                return Http::exceptionAsCollection("Both dates must be valid - e.g.: 23/08/2017.");
+            }
+            else {
                 $maxBrowserCount = intval($maxBrowserCount);
 
                 return GoogleAnalytics::topBrowsersBetweenTwoDates($fromDateInput, $toDateInput, $maxBrowserCount);
@@ -128,13 +148,19 @@ class StatsAPIController extends AppBaseController
      */
     public function getCountriesAndVisitors(string $dateFrom, string $dateTo)
     {
+        $fromDateInput = urldecode($dateFrom);
+        $toDateInput = urldecode($dateTo);
         try {
 
-            if(empty($dateFrom) || empty($dateTo)){
+            if(empty($fromDateInput) || empty($toDateInput)){
                 return Http::exceptionAsCollection("From and to dates cannot be empty.");
-            } else {
-                $fromDateInput = urldecode($dateFrom);
-                $toDateInput = urldecode($dateTo);
+            } else if(
+                Dates::createDateTime($fromDateInput,Constants::DATE_FORMAT_DMY) == false ||
+                Dates::createDateTime($toDateInput,Constants::DATE_FORMAT_DMY) == false
+            ){
+                return Http::exceptionAsCollection("Both dates must be valid - e.g.: 23/08/2017.");
+            }
+            else {
 
                 return GoogleAnalytics::countriesBetweenTwoDates($fromDateInput, $toDateInput);
             }
