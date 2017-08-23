@@ -40,6 +40,6 @@ class HomeController extends Controller
             return redirect(route('login'));
         }
 
-        return redirect(route('users.panel', ['userSlug' => $user->slug]));
+        return redirect(route('users.show', ['userSlug' => $user->slug]));
     }
 }
