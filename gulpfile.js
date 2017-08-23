@@ -20,7 +20,7 @@ gulp.task("copyfiles", function() {
         .pipe(gulp.dest("resources/assets/js/jquery/"));
 
     // JQuery UI //
-    gulp.src("vendor/bower_components/jquery-ui/ui/**")
+    /**gulp.src("vendor/bower_components/jquery-ui/ui/**")
         .pipe(gulp.dest("resources/assets/js/jquery-ui/"));
 
     gulp.src("vendor/bower_components/jquery-ui/jquery-ui.js")
@@ -30,7 +30,7 @@ gulp.task("copyfiles", function() {
         .pipe(gulp.dest("resources/assets/css/jquery-ui/"));
 
     gulp.src("vendor/bower_components/jquery-ui/themes/base/images/*")
-        .pipe(gulp.dest("public/assets/images/jquery-ui/"));
+        .pipe(gulp.dest("public/assets/images/jquery-ui/"));**/
 
     // Bootstrap //
     gulp.src("vendor/bower_components/bootstrap/dist/css/bootstrap.css")
@@ -150,7 +150,8 @@ elixir(function(mix) {
     // Combine needed Javascript/JQuery files
     mix.scripts([
             'js/jquery/jquery.js',
-            'js/jquery-ui/jquery-ui.js',
+            //'js/jquery-ui/jquery-ui.js',
+            'js/jquery-ui-custom/jquery-ui.js',
             'js/bootstrap/bootstrap.js',
             'js/localforage/localforage.js',
             'js/admin-lte/app.js',
@@ -199,7 +200,8 @@ elixir(function(mix) {
     gulp.src([
             'resources/assets/css/bootstrap/bootstrap.css',
             'resources/assets/css/font-awesome/font-awesome.css',
-            'resources/assets/css/jquery-ui/jquery-ui.css',
+            //'resources/assets/css/jquery-ui/jquery-ui.css',
+            'resources/assets/css/jquery-ui-custom/*.css',
             'resources/assets/select2/select2.css',
             'resources/assets/css/iCheck/skins/_all.css',
             'resources/assets/css/datatables/dataTables.bootstrap.css',

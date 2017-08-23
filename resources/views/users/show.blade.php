@@ -116,29 +116,13 @@
     </div>
 @endsection
 
-@section('css')
-    <style>
-        .ui-state-active,
-        .ui-widget-content .ui-state-active,
-        .ui-widget-header .ui-state-active,
-        a.ui-button:active,
-        .ui-button:active,
-        .ui-button.ui-state-active:hover {
-            border: 0px;
-            background: #3c8dbc;
-            font-weight: normal;
-            color: #ffffff;
-        }
-    </style>
-@endsection
-
-@section('scripts')
+@push('scripts')
     <script>
         $( function() {
             $( "#tabs" ).tabs();
         } );
     </script>
-@endsection
+@endpush
 
 @push('google-analytics')
     @include('layouts.partials.tracking._google_analytics')
