@@ -8,7 +8,8 @@ Date.prototype.formatDDMMYYYY = function() {
 };
 
 function generateVisitorsTable(data, elementToRender){
-    if(typeof data !== 'undefined' && typeof elementToRender !== 'undefined'){
+    
+    if(typeof data !== 'undefined' && typeof $(elementToRender) !== 'undefined'){
         $(elementToRender).DataTable({
             processing: true,
             data: data,
@@ -79,9 +80,9 @@ function generateVisitorsLineChart(data, chartElement){
     var visitorsRGB = getRandomRgb();
     var pageViewsRGB = getRandomRgb();
 
-    if(typeof data !== 'undefined' && data.status !== 'error' && typeof chartElement !== 'undefined'){
+    if(typeof data !== 'undefined' && data.status !== 'error' && typeof $(chartElement)[0] !== 'undefined'){
 
-        var areaChartContext = document.getElementById(chartElement).getContext("2d");
+        var areaChartContext = $(chartElement)[0].getContext('2d');;
 
         var labels = [], visitorsData = [], pageViewsData = [];
 
@@ -240,7 +241,7 @@ function getBrowserStatsAjax(dateFrom, dateTo, maxBrowsers){
 }
 
 function generatePieDonutChart(data, renderToElement){
-    if(typeof data !== 'undefined' && typeof renderToElement !== 'undefined'){
+    if(typeof data !== 'undefined' && typeof $(renderToElement) !== 'undefined'){
 
         var pieChartCanvas;
         if(renderToElement.charAt(0) === '.'){

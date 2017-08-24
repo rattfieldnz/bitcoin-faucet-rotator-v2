@@ -20,7 +20,20 @@
             @include('layouts.partials.navigation._breadcrumbs')
             <div class="box box-primary">
                 <div class="box-body">
-                    <div class="zero-margin">
+                    <div class="row" style="margin: 0 0 1em 0;">
+                        <form id="stats-form" class="form-inline">
+                            <div class="form-group">
+                                <label for="from-date">From:</label>
+                                <input type="text" class="form-control" id="from-date" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="to-date">To:</label>
+                                <input type="text" class="form-control" id="to-date" placeholder="">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Get Stats</button>
+                        </form>
+                    </div>
+                    <div class="row zero-margin">
                         <!-- AREA CHART -->
                         <div class="box box-primary col-md-12">
                             <div class="box-header with-border">
@@ -137,7 +150,6 @@
                         <!-- /.box -->
                     </div>
                     <!-- /.row -->
-
                 </div>
             </div>
         </div>
@@ -180,67 +192,71 @@
         var dateFrom = dateFormatted(alterDate(currentDate().date, -6)).dateFormatted;
         var quantity = 10000;
 
+        var fromDateInput = $("#from-date");
+        fromDateInput.val(dateFrom);
+        var toDateInput = $("#to-date");
+        toDateInput.val(dateTo);
+
+        fromDateInput.prop("placeholder", dateFrom);
+        toDateInput.prop("placeholder", dateTo);
+
+        fromDateInput.datepicker({
+            numberOfMonths: 2,
+            dateFormat: 'dd-mm-yy',
+            onSelect: function (selected) {
+                var dt = new Date(selected);
+                dt.setDate(dt.getDate());
+                toDateInput.datepicker("option", null, dateFormatted(dt).dateFormatted);
+            }
+        });
+        toDateInput.datepicker({
+            numberOfMonths: 2,
+            dateFormat: 'dd-mm-yy',
+            onSelect: function (selected) {
+                var dt = new Date(selected);
+                dt.setDate(dt.getDate());
+                fromDateInput.datepicker("option", null, dateFormatted(dt).dateFormatted);
+            }
+        });
+
         //--------------
         //- AREA CHART -
         //--------------
         var areaChartName = 'visitors area chart';
-        var visitorsAreaChartData = getVisitorsDataAjax('stats.visits-and-page-views', dateFrom, dateTo, quantity);
+        var areaChartElement = "#areaChart";
+        var visitorsAreaChartData = getVisitorsDataAjax('stats.visits-and-page-views', fromDateInput.val(), toDateInput.val(), quantity);
         var visitorsAreaChartProgressBar = generateProgressBar("#areaChart-progressbar", areaChartName);
-
-        if(visitorsAreaChartData.status !== 'undefined' && visitorsAreaChartData.status === 'error'){
-            progressError(
-                visitorsAreaChartData.message,
-                visitorsAreaChartProgressBar,
-                areaChartName
-            );
-        } else {
-            visitorsAreaChartData.done(function(vacd){
-                if(typeof vacd.status !== 'undefined' && vacd.status === 'error'){
-                    progressError(
-                        vacd.message,
-                        visitorsAreaChartProgressBar,
-                        areaChartName
-                    );
-                } else {
-                    generateVisitorsLineChart(vacd, "areaChart");
-                    visitorsAreaChartProgressBar.progressTimer('complete');
-                    hideElement(visitorsAreaChartProgressBar, 3000);
-                }
-            }).fail(function(vacd){
-                progressError(vacd,visitorsAreaChartProgressBar,areaChartName);
-            }).progress(function(){
-                console.log("Visitors area chart is loading...");
-            });
-        }
-
+        renderVisitorsAreaChart(visitorsAreaChartData, areaChartElement,visitorsAreaChartProgressBar);
 
         //--------------------------------
         //- DATATABLES SHOWING VISITORS -
         //--------------------------------
         var dataTablesName = 'visitors datatable';
-        var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', dateFrom, dateTo, quantity);
+        var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', fromDateInput.val(), toDateInput.val(), quantity);
         var visitorsTableProgressBar = generateProgressBar("#visitorsTable-progressbar",dataTablesName);
 
         if(visitorsData.status !== 'undefined' && visitorsData.status === 'error'){
+            showElement("#visitorsTable-progressbar");
             progressError(
                 visitorsData.message,
-                visitorsTableProgressBar,
-                dataTablesName
+                visitorsTableProgressBar
             );
         } else {
             visitorsData.done(function(vd){
                 if(typeof vd.data[0][0] !== 'undefined' && vd.data[0][0] === 'error'){
+                    showElement("#visitorsTable-progressbar");
                     progressError(
                         vd.data[2][0],
-                        visitorsTableProgressBar,
-                        dataTablesName
+                        visitorsTableProgressBar
                     );
                 } else {
+                    showElement("#visitorsTable-progressbar");
                     generateVisitorsTable(vd.data, '#visitorsTable');
                     visitorsTableProgressBar.progressTimer('complete');
-                    hideElement(visitorsTableProgressBar, 3000);
+                    hideElement("#visitorsTable-progressbar", 3000);
                 }
             }).fail(function(vd){
+                showElement("#visitorsTable-progressbar");
                 progressError(vd,visitorsTableProgressBar,dataTablesName);
             }).progress(function(){
                 console.log("Visitors datatable is loading...");
@@ -251,72 +267,90 @@
         //- COUNTRIES MAP -------
         //-----------------------
         var countriesMapName = 'visitors geo chart';
-        var geoChartData = getCountriesAndVisitorsAjax(dateFrom, dateTo);
+        var geoChartData = getCountriesAndVisitorsAjax(fromDateInput.val(), toDateInput.val());
         var geoChartProgressBar = generateProgressBar("#countriesMap-progressbar",countriesMapName);
 
+        hideElement("#countriesMap-progressbar");
         if(geoChartData.status !== 'undefined' && geoChartData.status === 'error'){
+            showElement("#countriesMap-progressbar");
             progressError(
                 geoChartData.message,
-                geoChartProgressBar,
-                countriesMapName
+                geoChartProgressBar
             );
         } else {
             geoChartData.done(function(gcd){
 
                 if(typeof gcd.status !== 'undefined' && gcd.status === 'error'){
+                    showElement("#countriesMap-progressbar");
                     progressError(
                         gcd.message,
-                        geoChartProgressBar,
-                        countriesMapName
+                        geoChartProgressBar
                     );
                 } else {
+                    showElement("#countriesMap-progressbar");
                     generateGoogleGeoChart(gcd, '#regions_div');
                     geoChartProgressBar.progressTimer('complete');
-                    hideElement(geoChartProgressBar, 3000);
+                    hideElement("#countriesMap-progressbar", 3000);
                 }
             }).fail(function(gcd){
-                progressError(gcd,geoChartProgressBar,countriesMapName);
+                showElement("#countriesMap-progressbar");
+                progressError(gcd,geoChartProgressBar);
             }).progress(function(){
                 console.log("Visitors geo chart is loading...");
             });
         }
 
-
         //-------------
         //- PIE CHART -
         //-------------
         var pieChartName = "visitors' browsers chart";
-        var browserStatsData = getBrowserStatsAjax(dateFrom, dateTo, 10);
+        var browserStatsData = getBrowserStatsAjax(fromDateInput.val(), toDateInput.val(), 10);
         var browserStatsProgressBar = generateProgressBar("#pieChart-progressbar",pieChartName);
 
+        hideElement("#pieChart-progressbar");
         if(browserStatsData.status !== 'undefined' && browserStatsData.status === 'error'){
+
+            showElement("#pieChart-progressbar");
             progressError(
                 browserStatsData.message,
-                browserStatsProgressBar,
-                pieChartName
+                browserStatsProgressBar
             );
         } else {
             browserStatsData.done(function(bsd){
 
                 if(typeof bsd.status !== 'undefined' && bsd.status === 'error'){
+                    showElement("#pieChart-progressbar");
                     progressError(
                         bsd.message,
-                        browserStatsProgressBar,
-                        pieChartName
+                        browserStatsProgressBar
                     );
                 } else {
+                    showElement("#pieChart-progressbar");
                     generatePieDonutChart(bsd,'#pieChart');
                     browserStatsProgressBar.progressTimer('complete');
-                    hideElement(browserStatsProgressBar, 3000);
+                    hideElement("#pieChart-progressbar", 3000);
                 }
             }).fail(function(bsd){
+                showElement("#pieChart-progressbar");
                 progressError(bsd,browserStatsProgressBar,pieChartName);
             }).progress(function(){
                 console.log("Visitors' browsers chart is loading...");
             });
         }
 
+        $("#stats-form").submit(function(event){
+            event.preventDefault();
 
+            var fromDate = $("#from-date").val();
+            var toDate = $("#to-date").val();
+
+            var data = getVisitorsDataAjax('stats.visits-and-page-views', fromDate, toDate, quantity);
+            var progressBar = generateProgressBar("#areaChart-progressbar", areaChartName);
+
+            $("#areaChart").empty();
+            renderVisitorsAreaChart(data, "#areaChart",progressBar, true);
+
+        });
     });
 </script>
 @endpush

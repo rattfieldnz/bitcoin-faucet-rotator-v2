@@ -75649,7 +75649,7 @@ function getRandomHexColor() {
     return hex;
 }
 
-function progressError(dataObject, progressBar, item) {
+function progressError(dataObject, progressBar) {
     if (dataObject !== null && dataObject !== 'undefined' && typeof progressBar !== 'undefined') {
 
         var errorMessage;
@@ -75662,18 +75662,14 @@ function progressError(dataObject, progressBar, item) {
 
         progressBar.progressTimer('error', {
             errorText: '<strong>ERROR! - ' + errorMessage + '</strong>',
-            warningStyle: 'progress-bar-danger',
-            onFinish: function () {
-                typeof item !== 'undefined' ? item = 'for ' + item : '';
-                console.log("<strong>There was an error " + item + " - " + errorMessage + '</strong>');
-            }
+            warningStyle: 'progress-bar-danger'
         });
     }
 }
 
-function generateProgressBar(element, dataName) {
-    if (typeof element !== 'undefined' && dataName !== 'undefined') {
-        return $(element).progressTimer({
+function generateProgressBar(elementName, dataName) {
+    if (typeof $(elementName) !== 'undefined' && dataName !== 'undefined') {
+        return $(elementName).progressTimer({
             timeLimit: 600,
             baseStyle: 'progress-bar-info',
             warningThreshold: 180,
@@ -75684,11 +75680,20 @@ function generateProgressBar(element, dataName) {
     }
 }
 
-function hideElement(element, timeoutValue) {
-    if (typeof element !== 'undefined') {
+function hideElement(elementName, timeoutValue) {
+    if (typeof $(elementName) !== 'undefined') {
         typeof timeoutValue === 'undefined' ? timeoutValue = 0 : timeoutValue;
         return setTimeout(function () {
-            element.hide();
+            $(elementName).hide();
+        }, timeoutValue);
+    }
+}
+
+function showElement(elementName, timeoutValue){
+    if (typeof $(elementName) !== 'undefined') {
+        typeof timeoutValue === 'undefined' ? timeoutValue = 0 : timeoutValue;
+        return setTimeout(function () {
+            $(elementName).show();
         }, timeoutValue);
     }
 }
@@ -75745,4 +75750,34 @@ function alterDate(date, amount) {
     }
 }
 
+function renderVisitorsAreaChart(data, chartElementName, progressBar, doUpdate){
+
+    hideElement(progressBar);
+    $(chartElementName).empty();
+    if(typeof doUpdate === 'undefined' || doUpdate === null){
+        doUpdate = false;
+    }
+    if(data.status !== 'undefined' && data.status === 'error'){
+        showElement(progressBar);
+        progressError(data.message, progressBar);
+    } else {
+        data.done(function(vacd){
+            if(typeof vacd.status !== 'undefined' && vacd.status === 'error'){
+                showElement(progressBar);
+                progressError(vacd.message, progressBar);
+            } else {
+                showElement(progressBar);
+                var chart = generateVisitorsLineChart(vacd, chartElementName);
+                doUpdate === true ? chart.update() : '';
+                progressBar.progressTimer('complete');
+                hideElement(progressBar, 3000);
+            }
+        }).fail(function(vacd){
+            showElement(progressBar);
+            progressError(vacd,progressBar);
+        }).progress(function(){
+            console.log("Visitors area chart is loading...");
+        });
+    }
+}
 //# sourceMappingURL=mainScripts.js.map
