@@ -368,7 +368,7 @@ class GoogleAnalytics
         }
     }
 
-    public static function googleException(string $status = 'error', string $message = 'Google API limit Exceeded!'): Collection{
+    public static function googleException(string $status = 'error', string $message = 'Google Analytics API daily usage exceeded!'): Collection{
         return collect(
             [
                 'status' => $status,

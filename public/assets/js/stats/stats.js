@@ -1,16 +1,10 @@
 
 $.fn.dataTable.ext.errMode = 'none';
 
-Date.prototype.formatDDMMYYYY = function() {
-    return ('0' + (this.getDate())).slice(-2) +
-        "/" +  ('0' + (this.getMonth() + 1)).slice(-2) +
-        "/" +  this.getFullYear();
-};
-
 function generateVisitorsTable(data, elementToRender){
-    
+
     if(typeof data !== 'undefined' && typeof $(elementToRender) !== 'undefined'){
-        $(elementToRender).DataTable({
+        return $(elementToRender).DataTable({
             processing: true,
             data: data,
             language: {

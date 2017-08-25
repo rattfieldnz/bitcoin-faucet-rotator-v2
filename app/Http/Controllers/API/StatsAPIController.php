@@ -8,6 +8,7 @@ use App\Helpers\Functions\Http;
 use App\Http\Controllers\AppBaseController;
 use App\Libraries\Google\Analytics\GoogleAnalytics;
 use Exception;
+use Google_Service_Exception;
 
 /**
  * Class StatsAPIController
@@ -56,8 +57,8 @@ class StatsAPIController extends AppBaseController
 
                 return (new \App\Libraries\DataTables\DataTables($request))->collection($data)->make(true);
             }
-        } catch(\Google_Service_Exception $e){
-            return Http::exceptionAsCollection($e->getMessage());
+        } catch(Google_Service_Exception $e){
+            return GoogleAnalytics::googleException('error');
         } catch(Exception $e){
             return Http::exceptionAsCollection($e->getMessage());
         }
@@ -91,9 +92,9 @@ class StatsAPIController extends AppBaseController
         $quantity = intval($quantity);
 
         try {
-                return GoogleAnalytics::visitsAndPageViews($fromDateInput, $toDateInput, $quantity);
-        } catch(\Google_Service_Exception $e){
-            return Http::exceptionAsCollection($e->getMessage());
+            return GoogleAnalytics::visitsAndPageViews($fromDateInput, $toDateInput, $quantity);
+        } catch(Google_Service_Exception $e){
+            return GoogleAnalytics::googleException('error');
         } catch(\Exception $e){
             return Http::exceptionAsCollection($e->getMessage());
         }
@@ -129,8 +130,8 @@ class StatsAPIController extends AppBaseController
 
                 return GoogleAnalytics::topBrowsersBetweenTwoDates($fromDateInput, $toDateInput, $maxBrowserCount);
             }
-        } catch(\Google_Service_Exception $e){
-            return Http::exceptionAsCollection($e->getMessage());
+        } catch(Google_Service_Exception $e){
+            return GoogleAnalytics::googleException('error');
         } catch(\Exception $e){
             return Http::exceptionAsCollection($e->getMessage());
         }
@@ -164,8 +165,8 @@ class StatsAPIController extends AppBaseController
 
                 return GoogleAnalytics::countriesBetweenTwoDates($fromDateInput, $toDateInput);
             }
-        } catch(\Google_Service_Exception $e){
-            return Http::exceptionAsCollection($e->getMessage());
+        } catch(Google_Service_Exception $e){
+            return GoogleAnalytics::googleException('error');
         } catch(Exception $e){
             return Http::exceptionAsCollection($e->getMessage());
         }

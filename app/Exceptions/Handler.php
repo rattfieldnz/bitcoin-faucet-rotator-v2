@@ -3,7 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
-use Google_Service_Exception;
+use \Google_Service_Exception;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -119,7 +119,7 @@ class Handler extends ExceptionHandler
             return response()->view('errors.404', compact('item'), 404);
         }
 
-        if($e instanceof Google_Service_Exception){
+        if($e instanceof \Google_Service_Exception){
 
             if($request->isAjax()){
                 return response()->json(
@@ -127,7 +127,7 @@ class Handler extends ExceptionHandler
                         'status' => 'error',
                         'code' => 500,
                         'sentryID' => $this->sentryID,
-                        'message' => "Google Analytics API usage exceeded",
+                        'message' => "Google Analytics API daily usage exceeded!",
                     ],
                     500
                 );

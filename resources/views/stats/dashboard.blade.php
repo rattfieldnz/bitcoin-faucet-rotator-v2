@@ -9,6 +9,7 @@
         <section class="content-header">
             <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
                 <h1>Stats</h1>
+                <h3>From <span id="date-from-display"></span> to <span id="date-to-display"></span></h3>
             </div>
         </section>
         <div class="content">
@@ -70,8 +71,8 @@
                             </div>
                             <div class="box-body">
                                 <div id="visitorsTable-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-
-                                    <div id="visitorsTable-wrapper" class="chart">
+                                <div></div>
+                                <div id="visitorsTable-wrapper" class="chart">
                                     <table id="visitorsTable" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
@@ -121,7 +122,7 @@
                             </div>
                             <div class="box-body">
                                 <div id="countriesMap-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-
+                                <div></div>
                                 <div id="regions_div" style="width: 100%; height: auto;"></div>
                             </div>
                             <!-- /.box-body -->
@@ -141,7 +142,7 @@
                                 </div>
                             </div>
                             <div class="box-body">
-                                <div id="pieChart-progressbar" style="margin: 0 0 1em 0;"><span style="text-align: center;margin: 0.3em 0 0 45%;"></span></div>
+                                <div id="pieChart-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
                                 <div></div>
                                 <canvas id="pieChart" style="height:250px"></canvas>
                             </div>
@@ -188,14 +189,20 @@
             }
         });
 
-        var dateTo = currentDate().dateFormatted;
-        var dateFrom = dateFormatted(alterDate(currentDate().date, -6)).dateFormatted;
-        var quantity = 10000;
+        var dateTo = currentDate();
+        var dateFrom = dateFormatted(alterDate(currentDate().date, -6));
+        var quantity = 500;
+
+        var dateFromDisplayElement = $('#date-from-display');
+        var dateToDisplayElement = $('#date-to-display');
+
+        dateFromDisplayElement.text(dateFrom.fullDisplay);
+        dateToDisplayElement.text(dateTo.fullDisplay);
 
         var fromDateInput = $("#from-date");
-        fromDateInput.val(dateFrom);
+        fromDateInput.val(dateFrom.dateFormatted);
         var toDateInput = $("#to-date");
-        toDateInput.val(dateTo);
+        toDateInput.val(dateTo.dateFormatted);
 
         fromDateInput.prop("placeholder", dateFrom);
         toDateInput.prop("placeholder", dateTo);
@@ -234,34 +241,7 @@
         var dataTablesName = 'visitors datatable';
         var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', fromDateInput.val(), toDateInput.val(), quantity);
         var visitorsTableProgressBar = generateProgressBar("#visitorsTable-progressbar",dataTablesName);
-
-        if(visitorsData.status !== 'undefined' && visitorsData.status === 'error'){
-            showElement("#visitorsTable-progressbar");
-            progressError(
-                visitorsData.message,
-                visitorsTableProgressBar
-            );
-        } else {
-            visitorsData.done(function(vd){
-                if(typeof vd.data[0][0] !== 'undefined' && vd.data[0][0] === 'error'){
-                    showElement("#visitorsTable-progressbar");
-                    progressError(
-                        vd.data[2][0],
-                        visitorsTableProgressBar
-                    );
-                } else {
-                    showElement("#visitorsTable-progressbar");
-                    generateVisitorsTable(vd.data, '#visitorsTable');
-                    visitorsTableProgressBar.progressTimer('complete');
-                    hideElement("#visitorsTable-progressbar", 3000);
-                }
-            }).fail(function(vd){
-                showElement("#visitorsTable-progressbar");
-                progressError(vd,visitorsTableProgressBar,dataTablesName);
-            }).progress(function(){
-                console.log("Visitors datatable is loading...");
-            });
-        }
+        renderVisitorsDataTable(visitorsData,'#visitorsTable',visitorsTableProgressBar);
 
         //-----------------------
         //- COUNTRIES MAP -------
@@ -270,7 +250,6 @@
         var geoChartData = getCountriesAndVisitorsAjax(fromDateInput.val(), toDateInput.val());
         var geoChartProgressBar = generateProgressBar("#countriesMap-progressbar",countriesMapName);
 
-        hideElement("#countriesMap-progressbar");
         if(geoChartData.status !== 'undefined' && geoChartData.status === 'error'){
             showElement("#countriesMap-progressbar");
             progressError(
@@ -281,6 +260,7 @@
             geoChartData.done(function(gcd){
 
                 if(typeof gcd.status !== 'undefined' && gcd.status === 'error'){
+
                     showElement("#countriesMap-progressbar");
                     progressError(
                         gcd.message,
@@ -293,8 +273,9 @@
                     hideElement("#countriesMap-progressbar", 3000);
                 }
             }).fail(function(gcd){
+
                 showElement("#countriesMap-progressbar");
-                progressError(gcd,geoChartProgressBar);
+                progressError(gcd.message,geoChartProgressBar);
             }).progress(function(){
                 console.log("Visitors geo chart is loading...");
             });
@@ -307,7 +288,6 @@
         var browserStatsData = getBrowserStatsAjax(fromDateInput.val(), toDateInput.val(), 10);
         var browserStatsProgressBar = generateProgressBar("#pieChart-progressbar",pieChartName);
 
-        hideElement("#pieChart-progressbar");
         if(browserStatsData.status !== 'undefined' && browserStatsData.status === 'error'){
 
             showElement("#pieChart-progressbar");
@@ -319,6 +299,7 @@
             browserStatsData.done(function(bsd){
 
                 if(typeof bsd.status !== 'undefined' && bsd.status === 'error'){
+
                     showElement("#pieChart-progressbar");
                     progressError(
                         bsd.message,
@@ -331,8 +312,12 @@
                     hideElement("#pieChart-progressbar", 3000);
                 }
             }).fail(function(bsd){
+
                 showElement("#pieChart-progressbar");
-                progressError(bsd,browserStatsProgressBar,pieChartName);
+                progressError(
+                    bsd.message,
+                    browserStatsProgressBar
+                );
             }).progress(function(){
                 console.log("Visitors' browsers chart is loading...");
             });
@@ -344,17 +329,33 @@
             var fromDate = $("#from-date").val();
             var toDate = $("#to-date").val();
 
+            var dayFrom = Number.parseInt(fromDate.substr(0,2));
+            var monthFrom = Number.parseInt(fromDate.substr(3,5));
+            var yearFrom = Number.parseInt(fromDate.substr(6));
+
+            var dayTo = Number.parseInt(toDate.substr(0,2));
+            var monthTo = Number.parseInt(toDate.substr(3,5));
+            var yearTo = Number.parseInt(toDate.substr(6));
+
+            var newDateFrom = new Date(yearFrom,monthFrom-1,dayFrom);
+            var newDateTo = new Date(yearTo,monthTo-1,dayTo);
+
+            if(typeof newDateFrom !== 'undefined' && typeof newDateFrom !== 'undefined'){
+                dateFromDisplayElement.text(dateFormatted(newDateFrom).fullDisplay);
+                dateToDisplayElement.text(dateFormatted(newDateTo).fullDisplay);
+            }
+
             var data = getVisitorsDataAjax('stats.visits-and-page-views', fromDate, toDate, quantity);
             var progressBar = generateProgressBar("#areaChart-progressbar", areaChartName);
-
-            $("#areaChart").empty();
             renderVisitorsAreaChart(data, "#areaChart",progressBar, true);
+
+            var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', fromDate, toDate, quantity);
+            console.log("From: " + fromDate + ", To: " + toDate + ", Quantity: " + quantity);
+            var visitorsTableProgressBar = generateProgressBar("#visitorsTable-progressbar",dataTablesName);
+            renderVisitorsDataTable(visitorsData,'#visitorsTable',visitorsTableProgressBar, true);
+            visitorsData.done(function(vd){console.log(vd);});
 
         });
     });
 </script>
-@endpush
-
-@push('google-analytics')
-@include('layouts.partials.tracking._google_analytics')
 @endpush

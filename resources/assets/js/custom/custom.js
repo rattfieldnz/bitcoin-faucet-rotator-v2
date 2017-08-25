@@ -21,6 +21,24 @@ window.addEventListener("load", function () {
     })
 });
 
+Number.prototype.nth= function(){
+    if(this%1) return this;
+    var s= this%100;
+    if(s>3 && s<21) return this+'th';
+    switch(s%10){
+        case 1: return this+'st';
+        case 2: return this+'nd';
+        case 3: return this+'rd';
+        default: return this+'th';
+    }
+};
+
+Date.prototype.formatDDMMYYYY = function() {
+    return ('0' + (this.getDate())).slice(-2) +
+        "/" +  ('0' + (this.getMonth() + 1)).slice(-2) +
+        "/" +  this.getFullYear();
+};
+
 function footerReset() {
     var contentHeight = jQuery(window).height();
     var footer = jQuery('#footer-custom');
@@ -63,14 +81,16 @@ function getRandomHexColor() {
 }
 
 function progressError(dataObject, progressBar) {
-    if (dataObject !== null && dataObject !== 'undefined' && typeof progressBar !== 'undefined') {
+    if (dataObject !== null && typeof dataObject !== 'undefined' && typeof progressBar !== 'undefined') {
 
         var errorMessage;
 
         if(typeof dataObject === 'string'){
             errorMessage = dataObject;
-        } else{
+        } else if(dataObject.message !== 'undefined'){
             errorMessage = dataObject.message;
+        } else {
+            errorMessage = "Unknown error.";
         }
 
         progressBar.progressTimer('error', {
@@ -121,7 +141,11 @@ function currentDate(separator){
     var month = ('0' + (d.getMonth()+1)).slice(-2);
     var year = d.getFullYear();
 
-    return {date: d, dateFormatted:day + separator + month + separator + year }
+    return {
+        date: d,
+        dateFormatted:day + separator + month + separator + year,
+        fullDisplay: formatDateFull(d)
+    }
 }
 
 function dateFormatted(date, separator){
@@ -134,9 +158,26 @@ function dateFormatted(date, separator){
         var month = ("0" + (date.getMonth()+1)).slice(-2);
         var year = date.getFullYear();
 
-        return {date: date, dateFormatted:day + separator + month + separator + year }
+        return {
+            date: date,
+            dateFormatted:day + separator + month + separator + year,
+            fullDisplay: formatDateFull(date)
+        }
     } else{
         return null;
+    }
+}
+
+function formatDateFull(date){
+    if(typeof date !== 'undefined' && date !== null){
+        var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var displayDay = days[date.getDay()];
+        var displayDate = date.getDate().nth();
+        var displayMonth = ['January','February','March','April','May','June','July','August','September','October','November','December']
+            [date.getMonth()];
+        var displayYear = date.getFullYear();
+
+        return displayDay + ' ' + displayDate + ' ' + displayMonth + ' ' + displayYear;
     }
 }
 
@@ -163,33 +204,73 @@ function alterDate(date, amount) {
     }
 }
 
+function currentLanguage(){
+    var language = window.navigator.userLanguage || window.navigator.language;
+
+    return language !== 'undefined' ? language : navigator.language;
+}
+
 function renderVisitorsAreaChart(data, chartElementName, progressBar, doUpdate){
 
-    hideElement(progressBar);
-    $(chartElementName).empty();
-    if(typeof doUpdate === 'undefined' || doUpdate === null){
-        doUpdate = false;
-    }
     if(data.status !== 'undefined' && data.status === 'error'){
+
         showElement(progressBar);
         progressError(data.message, progressBar);
+        return false;
     } else {
         data.done(function(vacd){
             if(typeof vacd.status !== 'undefined' && vacd.status === 'error'){
+
                 showElement(progressBar);
                 progressError(vacd.message, progressBar);
+                return false;
             } else {
                 showElement(progressBar);
-                var chart = generateVisitorsLineChart(vacd, chartElementName);
-                doUpdate === true ? chart.update() : '';
+                generateVisitorsLineChart(vacd, chartElementName);
+                progressBar.progressTimer('complete');
+                hideElement(progressBar, 3000);
+                return true;
+            }
+        }).fail(function(vacd){
+
+            showElement(progressBar);
+            progressError(vacd.message,progressBar);
+            return false;
+        }).progress(function(){
+            console.log("Visitors area chart is loading...");
+        });
+    }
+}
+
+function renderVisitorsDataTable(data, dataTableElement, progressBar, doUpdate){
+
+    if(data.status !== 'undefined' && data.status === 'error'){
+        showElement(progressBar);
+        progressError(
+            data.message,
+            progressBar
+        );
+    } else {
+        data.done(function(vd){
+            if(typeof vd.status !== 'undefined' && vd.status === 'error'){
+
+                showElement(progressBar);
+                progressError(
+                    vd.message,
+                    progressBar
+                );
+            } else {
+                showElement(progressBar);
+                generateVisitorsTable(vd.data, dataTableElement);
+
                 progressBar.progressTimer('complete');
                 hideElement(progressBar, 3000);
             }
-        }).fail(function(vacd){
-            showElement(progressBar);
-            progressError(vacd,progressBar);
+        }).fail(function(vd){
+            showElement("#visitorsTable-progressbar");
+            progressError(vd.message,progressBar);
         }).progress(function(){
-            console.log("Visitors area chart is loading...");
+            console.log("Visitors datatable is loading...");
         });
     }
 }
