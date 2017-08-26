@@ -9,6 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Libraries\Google\Analytics\GoogleAnalytics;
 use Exception;
 use Google_Service_Exception;
+use Yajra\Datatables\Request;
 
 /**
  * Class StatsAPIController
@@ -35,7 +36,7 @@ class StatsAPIController extends AppBaseController
      * @see \App\Libraries\Google\Analytics\GoogleAnalytics::topPagesBetweenTwoDates()
      *
      */
-    public function getPagesVisited(\Yajra\Datatables\Request $request,string $dateFrom, string $dateTo, int $quantity = 20)
+    public function getPagesVisited(Request $request, string $dateFrom, string $dateTo, int $quantity = 20)
     {
         $fromDateInput = urldecode($dateFrom);
         $toDateInput = urldecode($dateTo);
@@ -58,7 +59,7 @@ class StatsAPIController extends AppBaseController
                 return (new \App\Libraries\DataTables\DataTables($request))->collection($data)->make(true);
             }
         } catch(Google_Service_Exception $e){
-            return GoogleAnalytics::googleException('error');
+            return GoogleAnalytics::googleException($e);
         } catch(Exception $e){
             return Http::exceptionAsCollection($e->getMessage());
         }
@@ -94,7 +95,7 @@ class StatsAPIController extends AppBaseController
         try {
             return GoogleAnalytics::visitsAndPageViews($fromDateInput, $toDateInput, $quantity);
         } catch(Google_Service_Exception $e){
-            return GoogleAnalytics::googleException('error');
+            return GoogleAnalytics::googleException($e);
         } catch(\Exception $e){
             return Http::exceptionAsCollection($e->getMessage());
         }
@@ -131,7 +132,7 @@ class StatsAPIController extends AppBaseController
                 return GoogleAnalytics::topBrowsersBetweenTwoDates($fromDateInput, $toDateInput, $maxBrowserCount);
             }
         } catch(Google_Service_Exception $e){
-            return GoogleAnalytics::googleException('error');
+            return GoogleAnalytics::googleException($e);
         } catch(\Exception $e){
             return Http::exceptionAsCollection($e->getMessage());
         }
@@ -166,7 +167,7 @@ class StatsAPIController extends AppBaseController
                 return GoogleAnalytics::countriesBetweenTwoDates($fromDateInput, $toDateInput);
             }
         } catch(Google_Service_Exception $e){
-            return GoogleAnalytics::googleException('error');
+            return GoogleAnalytics::googleException($e);
         } catch(Exception $e){
             return Http::exceptionAsCollection($e->getMessage());
         }

@@ -5,7 +5,9 @@ namespace App\Libraries\Google\Analytics;
 use Analytics;
 use App\Helpers\Functions\Dates;
 use App\Helpers\Functions\Http;
+use Google_Service_Exception;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Spatie\Analytics\Period;
 use Carbon\Carbon;
 
@@ -368,13 +370,53 @@ class GoogleAnalytics
         }
     }
 
-    public static function googleException(string $status = 'error', string $message = 'Google Analytics API daily usage exceeded!'): Collection{
-        return collect(
-            [
-                'status' => $status,
-                'code' => 500,
-                'message' => $message
-            ]
-        );
+    /**
+     * Return a Google_service_Exception as a collection (good for API usage with Laravel framework).
+     *
+     * @param \Google_Service_Exception $e
+     *
+     * @see https://github.com/spatie/laravel-analytics
+     * @see https://github.com/google/google-api-php-client/blob/master/src/Google/Service/Exception.php
+     * @see https://developers.google.com/analytics/devguides/reporting/core/v3/errors
+     * @see https://github.com/laravel/framework/blob/5.4/src/Illuminate/Support/Collection.php
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public static function googleException(Google_Service_Exception $e): Collection{
+        $status = "error";
+
+        $alternativeException = collect([
+            'status' => $status,
+            'code' => 500,
+            'reason' => 'unknown',
+            'message' => "There is an issue with your usage of Google Analytics API - this has been logged to your app and server logs."
+        ]);
+
+        Log::error($e->getMessage());
+
+        if($e instanceof \Google_Service_Exception && !empty($e)){
+
+            $errorException = json_decode($e->getMessage())->error;
+
+            if(!empty($errorException) && !empty($errorException->errors[0])){
+
+                $reason = $errorException->errors[0]->reason;
+                $message = $errorException->errors[0]->message;
+                $code = $errorException->code;
+
+                return collect(
+                    [
+                        'status' => $status,
+                        'code' => $code,
+                        'reason' => $reason,
+                        'message' => $message . " This has been logged to your app logs."
+                    ]
+                );
+            } else {
+                return $alternativeException;
+            }
+        } else{
+            return $alternativeException;
+        }
     }
 }
