@@ -48,7 +48,7 @@
                             <div class="box-body">
                                 <div id="areaChart-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
                                 <div></div>
-                                <div class="chart">
+                                <div class="chart" id="areaChart-container">
                                     <canvas id="areaChart" style="height:250px"></canvas>
                                 </div>
                             </div>
@@ -233,7 +233,7 @@
         var areaChartElement = "#areaChart";
         var visitorsAreaChartData = getVisitorsDataAjax('stats.visits-and-page-views', fromDateInput.val(), toDateInput.val(), quantity);
         var visitorsAreaChartProgressBar = generateProgressBar("#areaChart-progressbar", areaChartName);
-        renderVisitorsAreaChart(visitorsAreaChartData, areaChartElement,visitorsAreaChartProgressBar);
+        renderVisitorsAreaChart(visitorsAreaChartData, areaChartElement, "#areaChart-container", "15.625em", visitorsAreaChartProgressBar);
 
         //--------------------------------
         //- DATATABLES SHOWING VISITORS -
@@ -242,6 +242,7 @@
         var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', fromDateInput.val(), toDateInput.val(), quantity);
         var visitorsTableProgressBar = generateProgressBar("#visitorsTable-progressbar",dataTablesName);
         renderVisitorsDataTable(visitorsData,'#visitorsTable',visitorsTableProgressBar);
+        //$('table#visitorsTable tbody').empty();
 
         //-----------------------
         //- COUNTRIES MAP -------
@@ -347,13 +348,13 @@
 
             var data = getVisitorsDataAjax('stats.visits-and-page-views', fromDate, toDate, quantity);
             var progressBar = generateProgressBar("#areaChart-progressbar", areaChartName);
-            renderVisitorsAreaChart(data, "#areaChart",progressBar, true);
+            renderVisitorsAreaChart(data, "#areaChart", "#areaChart-container", "15.625em", progressBar, true);
 
             var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', fromDate, toDate, quantity);
-            console.log("From: " + fromDate + ", To: " + toDate + ", Quantity: " + quantity);
-            var visitorsTableProgressBar = generateProgressBar("#visitorsTable-progressbar",dataTablesName);
-            renderVisitorsDataTable(visitorsData,'#visitorsTable',visitorsTableProgressBar, true);
-            visitorsData.done(function(vd){console.log(vd);});
+            var visitorsProgressBar = generateProgressBar("#visitorsTable-progressbar",dataTablesName);
+
+           // $('table#visitorsTable tbody').empty();
+            renderVisitorsDataTable(visitorsData,'table#visitorsTable',visitorsProgressBar, true);
 
         });
     });

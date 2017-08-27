@@ -64,7 +64,15 @@ function generateVisitorsTable(data, elementToRender){
                 },
                 {data: "noOfCountries"}
             ],
-            responsive: true
+            responsive: true,
+            fnStateSave: function (settings, data) {
+                localStorage.setItem( 'VisitorsDataTable', JSON.stringify(data) );
+            },
+            fnStateLoad: function (settings) {
+                var stateSettings = JSON.parse( localStorage.getItem('VisitorsDataTable') );
+                stateSettings.iStart = 0;  // resets to first page of results
+                return settings
+            }
         });
     }
 }

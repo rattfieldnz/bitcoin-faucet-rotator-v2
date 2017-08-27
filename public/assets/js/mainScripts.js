@@ -75797,7 +75797,11 @@ function currentLanguage(){
     return language !== 'undefined' ? language : navigator.language;
 }
 
-function renderVisitorsAreaChart(data, chartElementName, progressBar, doUpdate){
+function renderVisitorsAreaChart(data, chartElementName, chartContainerElement, chartHeight, progressBar, doUpdate){
+
+    if(chartHeight === 'undefined' || chartHeight === null){
+        chartHeight = "15.625em";
+    }
 
     if(data.status !== 'undefined' && data.status === 'error'){
 
@@ -75812,6 +75816,26 @@ function renderVisitorsAreaChart(data, chartElementName, progressBar, doUpdate){
                 progressError(vacd.message, progressBar);
                 return false;
             } else {
+
+                if(doUpdate === true){
+
+                    if(typeof $(chartContainerElement) !== 'undefined'){
+                        $(chartContainerElement).empty();
+
+                        var attribute = 'id';
+
+                        if(chartElementName.substring(0,1) === '.'){
+                            attribute = 'class';
+                        } else if (chartElementName.substring(0,1) === '#'){
+                            attribute = 'id';
+                        }
+
+                        var elementName = chartElementName.substring(1);
+
+                        $(chartContainerElement).append('<canvas ' + attribute + '="' + elementName + '" style="height:' + chartHeight + '"></canvas>');
+                    }
+                }
+
                 showElement(progressBar);
                 generateVisitorsLineChart(vacd, chartElementName);
                 progressBar.progressTimer('complete');
@@ -75831,8 +75855,14 @@ function renderVisitorsAreaChart(data, chartElementName, progressBar, doUpdate){
 
 function renderVisitorsDataTable(data, dataTableElement, progressBar, doUpdate){
 
+    $(dataTableElement).DataTable().destroy();
+    $(dataTableElement + ' tbody').empty();
+
+    showElement(progressBar);
+
+    var loadingProgressElement = $(dataTableElement + '_processing');
+    loadingProgressElement.attr('style', 'display:initial !important');
     if(data.status !== 'undefined' && data.status === 'error'){
-        showElement(progressBar);
         progressError(
             data.message,
             progressBar
@@ -75840,20 +75870,29 @@ function renderVisitorsDataTable(data, dataTableElement, progressBar, doUpdate){
     } else {
         data.done(function(vd){
             if(typeof vd.status !== 'undefined' && vd.status === 'error'){
-
-                showElement(progressBar);
                 progressError(
                     vd.message,
                     progressBar
                 );
             } else {
-                showElement(progressBar);
-                generateVisitorsTable(vd.data, dataTableElement);
+                  if(doUpdate === true){
+                      var dataTable = generateVisitorsTable(vd.data, dataTableElement);
 
-                progressBar.progressTimer('complete');
-                hideElement(progressBar, 3000);
+                      loadingProgressElement.attr('style', 'display:none !important');
+                      progressBar.progressTimer('complete');
+                      hideElement(progressBar, 3000);
+
+                      return dataTable;
+                  } else{
+                      loadingProgressElement.attr('style', 'display:none !important');
+                      progressBar.progressTimer('complete');
+                      hideElement(progressBar, 3000);
+
+                      return generateVisitorsTable(vd.data, dataTableElement);
+                  }
             }
         }).fail(function(vd){
+            loadingProgressElement.attr('style', 'display:none !important');
             showElement("#visitorsTable-progressbar");
             progressError(vd.message,progressBar);
         }).progress(function(){
