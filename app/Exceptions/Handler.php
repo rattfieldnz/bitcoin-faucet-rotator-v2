@@ -2,16 +2,20 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\Functions\Http;
+use App\Traits\RestTrait;
 use Exception;
 use \Google_Service_Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Log;
+use Symfony\Component\Debug\Exception\FatalErrorException;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Whoops\Exception\ErrorException;
 
 /**
@@ -22,6 +26,8 @@ use Whoops\Exception\ErrorException;
  */
 class Handler extends ExceptionHandler
 {
+    use RestTrait;
+
     private $sentryID;
 
     /**
@@ -31,8 +37,8 @@ class Handler extends ExceptionHandler
      */
     protected $dontReport = [
         AuthorizationException::class,
-        HttpException::class,
-        ModelNotFoundException::class,
+        //HttpException::class,
+        //ModelNotFoundException::class,
         ValidationException::class,
     ];
 
@@ -66,112 +72,138 @@ class Handler extends ExceptionHandler
     {
         // Show full error stack trace info - if environment is set to 'local',
         // and if app debugging is set to true.
-        if(config('app.debug') && config('app.env') == 'local') {
-            return parent::render($request, $e);
+        //if(config('app.debug') && config('app.env') == 'local') {
+        //    return parent::render($request, $e);
+       // }
+
+        if ($this->isHttpException($e))
+        {
+            $exception = FlattenException::create($e);
+            $statusCode = $exception->getStatusCode();
+
+            if($this->isApiCall($request)){
+                return Http::jsonException(
+                    'error',
+                    $statusCode,
+                    !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage($statusCode),
+                    $this->sentryID
+                );
+            } else {
+                return response()->view('errors.' . $statusCode, ['sentryID' => $this->sentryID], $statusCode);
+            }
         }
 
-        if ($e instanceof TokenMismatchException) {
+        if($e instanceof TokenMismatchException) {
 
             Log::error($e->getMessage()); // Log this exception, in case further debugging/troubleshooting is meeded.
             flash("The login form has expired, please try again.")->error();
             return redirect(route('login'));
         }
 
-        if($e instanceof \ErrorException){
+        if($e instanceof ErrorException){
             Log::error($e->getMessage());
 
-            if($request->isAjax()){
-                return response()->json(
-                    [
-                        'status' => 'error',
-                        'code' => 500,
-                        'sentryID' => $this->sentryID,
-                        'message' => $e->getMessage()
-                    ],
-                    500
+            if($this->isApiCall($request) || $request->ajax()){
+                return Http::jsonException(
+                    'error',
+                    500,
+                    !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500),
+                    $this->sentryID
                 );
+            } else {
+                return response()->view('errors.500', [
+                    'message' => !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500),
+                    'sentryID' => $this->sentryID
+                ], 500);
             }
-
-            return response()->view('errors.500', [
-                'message' => $e->getMessage(),
-                'sentryID' => $this->sentryID
-            ], 500);
         }
 
-        if ($e instanceof ModelNotFoundException) {
+        if($e instanceof ModelNotFoundException) {
 
             $model = $e->getModel();
             $baseModel = new $model;
             $item = class_basename($baseModel);
 
-            if($request->isAjax()){
-                return response()->json(
-                    [
-                        'status' => 'error',
-                        'code' => 404,
-                        'sentryID' => $this->sentryID,
-                        'message' => $item . " was not found",
-                    ],
-                    404
+            if($this->isApiCall($request) || $request->ajax()) {
+                return Http::jsonException(
+                    'error',
+                    404,
+                    $item . " was not found",
+                    $this->sentryID
                 );
+            } else {
+                return response()->view('errors.404', compact('item'), 404);
             }
-
-            return response()->view('errors.404', compact('item'), 404);
         }
 
-        if($e instanceof \Google_Service_Exception){
+        if($e instanceof NotFoundHttpException){
+            $item = "page / url";
 
-            if($request->isAjax()){
-                return response()->json(
-                    [
-                        'status' => 'error',
-                        'code' => 500,
-                        'sentryID' => $this->sentryID,
-                        'message' => "Google Analytics API daily usage exceeded!",
-                    ],
-                    500
+            if($this->isApiCall($request) || $request->ajax()) {
+                return Http::jsonException(
+                    'error',
+                    404,
+                    "The page/url was not found",
+                    $this->sentryID
                 );
+            } else {
+                return response()->view('errors.404', compact('item'), 404);
             }
-
-            return response()->view('errors.500', [
-                'message' => "Google Analytics API usage exceeded",
-                'sentryID' => $this->sentryID
-            ], 500);
         }
 
-        if($e instanceof \Exception){
+        if($e instanceof Google_Service_Exception){
 
-            if($request->isAjax()){
-                return response()->json(
-                    [
-                        'status' => 'error',
-                        'code' => 500,
-                        'sentryID' => $this->sentryID,
-                        'message' => "Google Analytics API usage exceeded",
-                    ],
-                    500
+            if($this->isApiCall($request) || $request->ajax()){
+                return Http::jsonException(
+                    'error',
+                    500,
+                    "Google Analytics API daily usage exceeded!",
+                    $this->sentryID
                 );
+            } else {
+                return response()->view('errors.500', [
+                    'message' => "Google Analytics API daily usage exceeded!",
+                    'sentryID' => $this->sentryID
+                ], 500);
             }
-
-            return response()->view('errors.500', [
-                'message' => "Google Analytics API usage exceeded",
-                'sentryID' => $this->sentryID
-            ], 500);
         }
 
-        if ($this->isHttpException($e))
-        {
-            $exception = FlattenException::create($e);
-            $statusCode = $exception->getStatusCode($exception);
+        if($e instanceof FatalErrorException) {
+            if($this->isApiCall($request) || $request->ajax()){
+                return Http::jsonException(
+                    'error',
+                    500,
+                    !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500),
+                    $this->sentryID
+                );
+            } else {
+                return response()->view('errors.500', [
+                    'message' => $e->getMessage(),
+                    'sentryID' => $this->sentryID
+                ], 500);
+            }
+        }
 
-            if (in_array($statusCode, array(403, 404, 418, 500))){
-                return response()->view('errors.' . $statusCode, ['sentryID' => $this->sentryID], $statusCode);
+        if($e instanceof Exception){
+
+            if($this->isApiCall($request) || $request->ajax()){
+                return Http::jsonException(
+                    'error',
+                    500,
+                    !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500),
+                    $this->sentryID
+                );
+            } else {
+                return response()->view('errors.500', [
+                    'message' => "Google Analytics API usage exceeded",
+                    'sentryID' => $this->sentryID
+                ], 500);
             }
         }
 
         // Default is to render an error 500 page
         return response()->view('errors.500', [
-            'message' => $e->getMessage(),
+            'message' => !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500),
             'sentryID' => $this->sentryID
         ], 500);
     }

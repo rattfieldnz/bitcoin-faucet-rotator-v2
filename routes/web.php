@@ -120,3 +120,5 @@ Route::get('terms-and-conditions/edit', ['as' => 'terms-and-conditions.edit', 'u
 Route::resource('terms-and-conditions', 'TermsAndConditionsController');
 
 Route::get('stats', ['as' => 'stats.index', 'uses' => 'StatsController@index']);
+
+Route::get('rotator', ['as' => 'rotator.index', 'uses' => 'RotatorController@index']);

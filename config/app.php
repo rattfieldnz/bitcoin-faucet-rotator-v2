@@ -171,9 +171,9 @@ return [
         Spatie\Analytics\AnalyticsServiceProvider::class,
         Lord\Laroute\LarouteServiceProvider::class,
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
-        Optimus\Heimdal\Provider\LaravelServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         Optimus\ApiConsumer\Provider\LaravelServiceProvider::class,
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
         /*
          * Application Service Providers...
          */

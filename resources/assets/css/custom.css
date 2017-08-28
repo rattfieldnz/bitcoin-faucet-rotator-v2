@@ -308,6 +308,25 @@ table.show-table-header thead tr th{
     background-color: #ecf0f5;
 }
 
+#faucet-rotator-nav-container {
+    margin-bottom: 0.5em;
+}
+
+#faucet-rotator-nav-container .center-block {
+    float: none !important;
+}
+
+#faucet-rotator-nav-container #nav-list {
+    text-align: center;
+}
+
+#faucet-rotator-nav-container #nav-list li {
+    display: inline;
+    list-style-type: none;
+}
+
+
+
 .icheckbox_square,
 .iradio_square {
     background: url("/assets/images/iCheck/square/square.png") no-repeat !important;

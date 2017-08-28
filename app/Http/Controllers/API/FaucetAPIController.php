@@ -34,8 +34,8 @@ class FaucetAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
      *
+     * @return \Illuminate\Http\JsonResponse *
      * @SWG\Get(
      *      path="/faucets",
      *      summary="Get a listing of the Faucets.",
