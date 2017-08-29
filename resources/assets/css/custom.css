@@ -164,7 +164,7 @@ table.show-table-header thead tr th{
 }
 
 #faucet-iframe, #rotator-iframe {
-    width: calc(100% - 1.5em);
+    width: 100%;
     height: 50em;
     border: 2px solid #ddd;
 }
@@ -309,15 +309,13 @@ table.show-table-header thead tr th{
 }
 
 #faucet-rotator-nav-container {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.25em;
 }
 
-#faucet-rotator-nav-container .center-block {
-    float: none !important;
-}
-
-#faucet-rotator-nav-container #nav-list {
-    text-align: center;
+#faucet-rotator-nav-container .btn-lg {
+    width: 5em;
+    min-width:3em;
+    margin-bottom: 0.25em;
 }
 
 #faucet-rotator-nav-container #nav-list li {

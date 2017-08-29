@@ -18,7 +18,7 @@ Route::auth();
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('/', ['as' => 'home', 'uses' => 'RotatorController@index']);
 
 Route::delete(
     'faucets/{slug}/delete-permanently',
@@ -120,5 +120,3 @@ Route::get('terms-and-conditions/edit', ['as' => 'terms-and-conditions.edit', 'u
 Route::resource('terms-and-conditions', 'TermsAndConditionsController');
 
 Route::get('stats', ['as' => 'stats.index', 'uses' => 'StatsController@index']);
-
-Route::get('rotator', ['as' => 'rotator.index', 'uses' => 'RotatorController@index']);

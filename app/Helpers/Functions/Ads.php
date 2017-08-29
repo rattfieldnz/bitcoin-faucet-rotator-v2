@@ -1,7 +1,6 @@
 <?php namespace Helpers\Functions;
 
-use App\AdBlock;
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 /**

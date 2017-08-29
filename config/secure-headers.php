@@ -136,7 +136,12 @@ return [
 
         'child-src' => [
             'allow' => [
-                'www.google.com'
+                'www.google.com',
+                'mellowads.com',
+                'a-ads.com',
+                'ad.a-ads.com',
+                'coinurl.com',
+                'bee-ads.com'
             ],
         ],
 
