@@ -8,6 +8,7 @@ class TwitterConfigTableSeeder extends Seeder
 {
     public function run()
     {
+        TwitterConfig::truncate();
         $keys = [];
         $user = User::find(1);
         $twitterConfig = new TwitterConfig();

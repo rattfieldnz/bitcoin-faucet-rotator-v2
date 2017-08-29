@@ -18,6 +18,7 @@ class PaymentProcessorsTableSeeder extends BaseSeeder
      */
     public function run()
     {
+        PaymentProcessor::truncate();
         $data = $this->csv_to_array(base_path() . '/database/seeds/csv_files/payment_processors.csv');
 
         foreach ($data as $d) {

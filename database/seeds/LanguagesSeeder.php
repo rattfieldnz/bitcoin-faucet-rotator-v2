@@ -15,6 +15,8 @@ class LanguagesSeeder extends BaseSeeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Language::truncate();
         $data = $this->csv_to_array(base_path() . '/database/seeds/csv_files/languages.csv', ';');
 
         try {

@@ -8,6 +8,7 @@ class AdBlockSeeder extends BaseSeeder
 {
     public function run()
     {
+        AdBlock::truncate();
         $data = $this->csv_to_array(base_path() . '/database/seeds/csv_files/ad_block.csv');
 
         foreach ($data as $d) {

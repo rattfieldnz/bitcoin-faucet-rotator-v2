@@ -6,6 +6,7 @@ class MainMetaTableSeeder extends BaseSeeder
 {
     public function run()
     {
+        MainMeta::truncate();
         $data = $this->csv_to_array(base_path() . '/database/seeds/csv_files/main_meta.csv');
 
         foreach ($data as $d) {

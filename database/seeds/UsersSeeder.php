@@ -1,6 +1,7 @@
 <?php
 
 use App\Helpers\Constants;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -9,7 +10,7 @@ class UsersSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('users')->truncate();
+        User::truncate();
 
         DB::table('users')->insert([
             'user_name' => Constants::ADMIN_SLUG,

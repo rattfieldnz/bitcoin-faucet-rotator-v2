@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
-            <h1>Payment Processor</h1>
+            <h1>{{ $paymentProcessor->name }}</h1>
         </div>
         <div class="row" style="margin:0 0 0 0;">
             @if(Auth::user() != null)

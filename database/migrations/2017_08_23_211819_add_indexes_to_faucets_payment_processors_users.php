@@ -15,24 +15,22 @@ class AddIndexesToFaucetsPaymentProcessorsUsers extends Migration
     {
         Schema::table('faucets', function (Blueprint $table) {
             $table->unique(['id', 'slug']);
-            $table->index('name');
-            $table->unique('url');
-            $table->index('interval_minutes');
-            $table->index('min_payout');
-            $table->index('max_payout');
-            $table->index('has_ref_program');
-            $table->index('ref_payout_percent');
-            $table->index('is_paused');
+            $table->index(['name']);
+            $table->index(['interval_minutes']);
+            $table->index(['min_payout']);
+            $table->index(['max_payout']);
+            $table->index(['has_ref_program']);
+            $table->index(['ref_payout_percent']);
+            $table->index(['is_paused']);
         });
 
         Schema::table('payment_processors', function (Blueprint $table) {
             $table->unique(['id', 'slug']);
-            $table->unique('url');
         });
 
         Schema::table('users', function (Blueprint $table) {
             $table->index(['id', 'slug']);
-            $table->index('user_name');
+            $table->index(['user_name']);
         });
 
     }
@@ -45,28 +43,22 @@ class AddIndexesToFaucetsPaymentProcessorsUsers extends Migration
     public function down()
     {
         Schema::table('faucets', function (Blueprint $table) {
-            $table->dropIndex('id');
-            $table->dropIndex('slug');
-            $table->dropIndex('name');
-            $table->dropIndex('url');
-            $table->dropIndex('interval_minutes');
-            $table->dropIndex('min_payout');
-            $table->dropIndex('max_payout');
-            $table->dropIndex('has_ref_program');
-            $table->dropIndex('ref_payout_percent');
-            $table->dropIndex('is_paused');
+            $table->dropIndex(['name']);
+            $table->dropIndex(['interval_minutes']);
+            $table->dropIndex(['min_payout']);
+            $table->dropIndex(['max_payout']);
+            $table->dropIndex(['has_ref_program']);
+            $table->dropIndex(['ref_payout_percent']);
+            $table->dropIndex(['is_paused']);
         });
 
         Schema::table('payment_processors', function (Blueprint $table) {
-            $table->dropIndex('id');
-            $table->dropIndex('slug');
-            $table->dropIndex('url');
+            $table->dropUnique(['id', 'slug']);
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->dropIndex('id');
-            $table->dropIndex('slug');
-            $table->dropIndex('user_name');
+            $table->dropIndex(['id', 'slug']);
+            $table->dropIndex(['user_name']);
         });
     }
 }
