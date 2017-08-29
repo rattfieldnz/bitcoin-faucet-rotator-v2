@@ -4,7 +4,7 @@
     <div style="margin:0 0 0 0;">
         <section class="content-header">
             <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
-                <h1 style="text-align: center;margin-left: -1em;">{{ $pageTitle }}</h1>
+                <h1 style="text-align: center;">{{ $pageTitle }}</h1>
             </div>
         </section>
         <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">
