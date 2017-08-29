@@ -8,7 +8,6 @@
 
 namespace App\Libraries\DataTables;
 
-
 use Illuminate\Support\Collection;
 use Yajra\Datatables\Engines\CollectionEngine;
 use Yajra\Datatables\Request;
@@ -42,8 +41,8 @@ class DataTables
      */
     public function collection($collection)
     {
-        if($collection instanceof \Google_Service_Exception){
-            throw new \Google_Service_Exception("Google API limit Exceeded!",500);
+        if ($collection instanceof \Google_Service_Exception) {
+            throw new \Google_Service_Exception("Google API limit Exceeded!", 500);
         }
         if (is_array($collection)) {
             $collection = new Collection($collection);

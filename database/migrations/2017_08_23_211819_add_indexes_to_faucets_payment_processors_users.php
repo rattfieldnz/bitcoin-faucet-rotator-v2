@@ -32,7 +32,6 @@ class AddIndexesToFaucetsPaymentProcessorsUsers extends Migration
             $table->index(['id', 'slug']);
             $table->index(['user_name']);
         });
-
     }
 
     /**

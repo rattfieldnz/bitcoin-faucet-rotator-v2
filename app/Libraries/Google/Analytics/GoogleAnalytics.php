@@ -50,14 +50,14 @@ class GoogleAnalytics
      */
     public static function countriesBetweenTwoDates(string $fromDate, string $toDate): Collection
     {
-        if((empty($fromDate) || empty($toDate)) || ($fromDate == 'null' || $toDate == 'null')){
+        if ((empty($fromDate) || empty($toDate)) || ($fromDate == 'null' || $toDate == 'null')) {
             return Http::exceptionAsCollection("Both dates must not be empty.");
         }
 
         $startDateValue = Dates::createDateTime($fromDate);
         $endDateValue = Dates::createDateTime($toDate);
 
-        if($startDateValue == false || $endDateValue == false){
+        if ($startDateValue == false || $endDateValue == false) {
             Http::exceptionAsCollection("Both dates must be valid - e.g.: 23/08/2017.");
         }
 
@@ -119,14 +119,14 @@ class GoogleAnalytics
      */
     public static function topBrowsersBetweenTwoDates(string $startDate, string $endDate, int $maxBrowsers = 10): Collection
     {
-        if((empty($startDate) || empty($endDate)) || ($startDate == 'null' || $endDate == 'null')){
+        if ((empty($startDate) || empty($endDate)) || ($startDate == 'null' || $endDate == 'null')) {
             return Http::exceptionAsCollection("Both dates must not be empty.");
         }
 
         $startDateValue = Dates::createDateTime($startDate);
         $endDateValue = Dates::createDateTime($endDate);
 
-        if($startDateValue == false || $endDateValue == false){
+        if ($startDateValue == false || $endDateValue == false) {
             Http::exceptionAsCollection("Both dates must be valid - e.g.: 23/08/2017.");
         }
 
@@ -175,14 +175,14 @@ class GoogleAnalytics
     public static function topPagesBetweenTwoDates(string $startDate, string $endDate, int $count = null)
     {
 
-        if((empty($startDate) || empty($endDate)) || ($startDate == 'null' || $endDate == 'null')){
+        if ((empty($startDate) || empty($endDate)) || ($startDate == 'null' || $endDate == 'null')) {
             return Http::exceptionAsCollection("Both dates must not be empty.");
         }
 
         $startDateValue = Dates::createDateTime($startDate);
         $endDateValue = Dates::createDateTime($endDate);
 
-        if($startDateValue == false || $endDateValue == false){
+        if ($startDateValue == false || $endDateValue == false) {
             Http::exceptionAsCollection("Both dates must be valid - e.g.: 23/08/2017.");
         }
 
@@ -270,14 +270,14 @@ class GoogleAnalytics
      */
     public static function visitsAndPageViews($startDate, $endDate, int $count = null): Collection
     {
-        if((empty($startDate) || empty($endDate)) || ($startDate == 'null' || $endDate == 'null')){
+        if ((empty($startDate) || empty($endDate)) || ($startDate == 'null' || $endDate == 'null')) {
             return Http::exceptionAsCollection("Both dates must not be empty.");
         }
 
         $startDateValue = Dates::createDateTime($startDate);
         $endDateValue = Dates::createDateTime($endDate);
 
-        if($startDateValue == false || $endDateValue == false){
+        if ($startDateValue == false || $endDateValue == false) {
             Http::exceptionAsCollection("Both dates must be valid - e.g.: 23/08/2017.");
         }
 
@@ -382,7 +382,8 @@ class GoogleAnalytics
      *
      * @return \Illuminate\Support\Collection
      */
-    public static function googleException(Google_Service_Exception $e): Collection{
+    public static function googleException(Google_Service_Exception $e): Collection
+    {
         $status = "error";
 
         $alternativeException = collect([
@@ -394,12 +395,10 @@ class GoogleAnalytics
 
         Log::error($e->getMessage());
 
-        if($e instanceof \Google_Service_Exception && !empty($e)){
-
+        if ($e instanceof \Google_Service_Exception && !empty($e)) {
             $errorException = json_decode($e->getMessage())->error;
 
-            if(!empty($errorException) && !empty($errorException->errors[0])){
-
+            if (!empty($errorException) && !empty($errorException->errors[0])) {
                 $reason = $errorException->errors[0]->reason;
                 $message = $errorException->errors[0]->message;
                 $code = $errorException->code;
@@ -415,7 +414,7 @@ class GoogleAnalytics
             } else {
                 return $alternativeException;
             }
-        } else{
+        } else {
             return $alternativeException;
         }
     }

@@ -11,12 +11,13 @@ use Illuminate\Http\Request;
 class RotatorController extends Controller
 {
 
-    public function index(){
+    public function index()
+    {
 
         $mainMeta = MainMeta::firstOrFail();
         $pageTitle = null;
         $content = null;
-        if(!empty($mainMeta)){
+        if (!empty($mainMeta)) {
             $title = $mainMeta->title;
             $description = $mainMeta->description;
             $keywords = explode(",", $mainMeta->keywords);

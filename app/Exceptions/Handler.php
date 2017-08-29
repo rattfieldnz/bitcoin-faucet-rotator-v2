@@ -76,12 +76,11 @@ class Handler extends ExceptionHandler
         //    return parent::render($request, $e);
        // }
 
-        if ($this->isHttpException($e))
-        {
+        if ($this->isHttpException($e)) {
             $exception = FlattenException::create($e);
             $statusCode = $exception->getStatusCode();
 
-            if($this->isApiCall($request)){
+            if ($this->isApiCall($request)) {
                 return Http::jsonException(
                     'error',
                     $statusCode,
@@ -93,17 +92,16 @@ class Handler extends ExceptionHandler
             }
         }
 
-        if($e instanceof TokenMismatchException) {
-
+        if ($e instanceof TokenMismatchException) {
             Log::error($e->getMessage()); // Log this exception, in case further debugging/troubleshooting is meeded.
             flash("The login form has expired, please try again.")->error();
             return redirect(route('login'));
         }
 
-        if($e instanceof ErrorException){
+        if ($e instanceof ErrorException) {
             Log::error($e->getMessage());
 
-            if($this->isApiCall($request) || $request->ajax()){
+            if ($this->isApiCall($request) || $request->ajax()) {
                 return Http::jsonException(
                     'error',
                     500,
@@ -118,13 +116,12 @@ class Handler extends ExceptionHandler
             }
         }
 
-        if($e instanceof ModelNotFoundException) {
-
+        if ($e instanceof ModelNotFoundException) {
             $model = $e->getModel();
             $baseModel = new $model;
             $item = class_basename($baseModel);
 
-            if($this->isApiCall($request) || $request->ajax()) {
+            if ($this->isApiCall($request) || $request->ajax()) {
                 return Http::jsonException(
                     'error',
                     404,
@@ -136,10 +133,10 @@ class Handler extends ExceptionHandler
             }
         }
 
-        if($e instanceof NotFoundHttpException){
+        if ($e instanceof NotFoundHttpException) {
             $item = "page / url";
 
-            if($this->isApiCall($request) || $request->ajax()) {
+            if ($this->isApiCall($request) || $request->ajax()) {
                 return Http::jsonException(
                     'error',
                     404,
@@ -151,9 +148,8 @@ class Handler extends ExceptionHandler
             }
         }
 
-        if($e instanceof Google_Service_Exception){
-
-            if($this->isApiCall($request) || $request->ajax()){
+        if ($e instanceof Google_Service_Exception) {
+            if ($this->isApiCall($request) || $request->ajax()) {
                 return Http::jsonException(
                     'error',
                     500,
@@ -168,8 +164,8 @@ class Handler extends ExceptionHandler
             }
         }
 
-        if($e instanceof FatalErrorException) {
-            if($this->isApiCall($request) || $request->ajax()){
+        if ($e instanceof FatalErrorException) {
+            if ($this->isApiCall($request) || $request->ajax()) {
                 return Http::jsonException(
                     'error',
                     500,
@@ -184,9 +180,8 @@ class Handler extends ExceptionHandler
             }
         }
 
-        if($e instanceof Exception){
-
-            if($this->isApiCall($request) || $request->ajax()){
+        if ($e instanceof Exception) {
+            if ($this->isApiCall($request) || $request->ajax()) {
                 return Http::jsonException(
                     'error',
                     500,

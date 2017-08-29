@@ -8,7 +8,6 @@
 
 namespace App\Exceptions\Formatters;
 
-
 use Exception;
 use Illuminate\Http\Request;
 use Symfony\Component\Debug\Exception\FlattenException;

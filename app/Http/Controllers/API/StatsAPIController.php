@@ -42,25 +42,22 @@ class StatsAPIController extends AppBaseController
         $toDateInput = urldecode($dateTo);
 
         try {
-
-            if(empty($fromDateInput) || empty($toDateInput)){
+            if (empty($fromDateInput) || empty($toDateInput)) {
                 return Http::exceptionAsCollection("From and to dates cannot be empty.");
-            } else if(
-                Dates::createDateTime($fromDateInput,Constants::DATE_FORMAT_DMY) == false ||
-                Dates::createDateTime($toDateInput,Constants::DATE_FORMAT_DMY) == false
-            ){
+            } else if (Dates::createDateTime($fromDateInput, Constants::DATE_FORMAT_DMY) == false ||
+                Dates::createDateTime($toDateInput, Constants::DATE_FORMAT_DMY) == false
+            ) {
                 return Http::exceptionAsCollection("Both dates must be valid - e.g.: 23/08/2017.");
-            }
-            else {
+            } else {
                 $quantity = intval($quantity);
 
                 $data = GoogleAnalytics::topPagesBetweenTwoDates($fromDateInput, $toDateInput, $quantity);
 
                 return (new \App\Libraries\DataTables\DataTables($request))->collection($data)->make(true);
             }
-        } catch(Google_Service_Exception $e){
+        } catch (Google_Service_Exception $e) {
             return GoogleAnalytics::googleException($e);
-        } catch(Exception $e){
+        } catch (Exception $e) {
             return Http::exceptionAsCollection($e->getMessage());
         }
     }
@@ -81,11 +78,10 @@ class StatsAPIController extends AppBaseController
         $fromDateInput = urldecode($dateFrom);
         $toDateInput = urldecode($dateTo);
 
-        if(empty($fromDateInput) || empty($toDateInput)){
+        if (empty($fromDateInput) || empty($toDateInput)) {
             return Http::exceptionAsCollection("From and to dates cannot be empty.");
-        } else if(
-            Dates::createDateTime($fromDateInput,Constants::DATE_FORMAT_DMY) == false ||
-            Dates::createDateTime($toDateInput,Constants::DATE_FORMAT_DMY) == false
+        } else if (Dates::createDateTime($fromDateInput, Constants::DATE_FORMAT_DMY) == false ||
+            Dates::createDateTime($toDateInput, Constants::DATE_FORMAT_DMY) == false
         ) {
             return Http::exceptionAsCollection("Both dates must be valid - e.g.: 23/08/2017.");
         }
@@ -94,9 +90,9 @@ class StatsAPIController extends AppBaseController
 
         try {
             return GoogleAnalytics::visitsAndPageViews($fromDateInput, $toDateInput, $quantity);
-        } catch(Google_Service_Exception $e){
+        } catch (Google_Service_Exception $e) {
             return GoogleAnalytics::googleException($e);
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return Http::exceptionAsCollection($e->getMessage());
         }
     }
@@ -117,23 +113,20 @@ class StatsAPIController extends AppBaseController
         $fromDateInput = urldecode($dateFrom);
         $toDateInput = urldecode($dateTo);
         try {
-
-            if(empty($fromDateInput) || empty($toDateInput)){
+            if (empty($fromDateInput) || empty($toDateInput)) {
                 return Http::exceptionAsCollection("From and to dates cannot be empty.");
-            } else if(
-                Dates::createDateTime($fromDateInput,Constants::DATE_FORMAT_DMY) == false ||
-                Dates::createDateTime($toDateInput,Constants::DATE_FORMAT_DMY) == false
-            ){
+            } else if (Dates::createDateTime($fromDateInput, Constants::DATE_FORMAT_DMY) == false ||
+                Dates::createDateTime($toDateInput, Constants::DATE_FORMAT_DMY) == false
+            ) {
                 return Http::exceptionAsCollection("Both dates must be valid - e.g.: 23/08/2017.");
-            }
-            else {
+            } else {
                 $maxBrowserCount = intval($maxBrowserCount);
 
                 return GoogleAnalytics::topBrowsersBetweenTwoDates($fromDateInput, $toDateInput, $maxBrowserCount);
             }
-        } catch(Google_Service_Exception $e){
+        } catch (Google_Service_Exception $e) {
             return GoogleAnalytics::googleException($e);
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return Http::exceptionAsCollection($e->getMessage());
         }
     }
@@ -153,22 +146,18 @@ class StatsAPIController extends AppBaseController
         $fromDateInput = urldecode($dateFrom);
         $toDateInput = urldecode($dateTo);
         try {
-
-            if(empty($fromDateInput) || empty($toDateInput)){
+            if (empty($fromDateInput) || empty($toDateInput)) {
                 return Http::exceptionAsCollection("From and to dates cannot be empty.");
-            } else if(
-                Dates::createDateTime($fromDateInput,Constants::DATE_FORMAT_DMY) == false ||
-                Dates::createDateTime($toDateInput,Constants::DATE_FORMAT_DMY) == false
-            ){
+            } else if (Dates::createDateTime($fromDateInput, Constants::DATE_FORMAT_DMY) == false ||
+                Dates::createDateTime($toDateInput, Constants::DATE_FORMAT_DMY) == false
+            ) {
                 return Http::exceptionAsCollection("Both dates must be valid - e.g.: 23/08/2017.");
-            }
-            else {
-
+            } else {
                 return GoogleAnalytics::countriesBetweenTwoDates($fromDateInput, $toDateInput);
             }
-        } catch(Google_Service_Exception $e){
+        } catch (Google_Service_Exception $e) {
             return GoogleAnalytics::googleException($e);
-        } catch(Exception $e){
+        } catch (Exception $e) {
             return Http::exceptionAsCollection($e->getMessage());
         }
     }

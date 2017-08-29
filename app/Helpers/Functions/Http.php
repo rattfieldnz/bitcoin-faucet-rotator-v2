@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Helpers\Functions;
+
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 
@@ -65,7 +66,8 @@ class Http
      *
      * @return \Illuminate\Support\Collection
      */
-    public static function exceptionAsCollection(string $message = 'Message not set.', string $status = 'error', int $code = 500): Collection{
+    public static function exceptionAsCollection(string $message = 'Message not set.', string $status = 'error', int $code = 500): Collection
+    {
         return collect(
             [
                 'status' => $status,
@@ -89,8 +91,9 @@ class Http
         string $status = 'error',
         int $code = 500,
         string $message = 'An error has occurred',
-        string $sentryID): JsonResponse
-    {
+        string $sentryID
+    ): JsonResponse {
+    
         return response()->json(
             [
                 'status' => $status,
@@ -109,7 +112,8 @@ class Http
      *
      * @return string
      */
-    public static function getHttpMessage(int $code): string {
+    public static function getHttpMessage(int $code): string
+    {
         $statuses =  self::statuses();
 
         return array_key_exists($code, $statuses) == true ? $statuses[$code] : "Unknown message for status code '" . $code . "'";
@@ -123,7 +127,8 @@ class Http
      *
      * @return array
      */
-    public static function statuses(): array{
+    public static function statuses(): array
+    {
         return [
             100 => 'Continue',
             101 => 'Switching Protocols',

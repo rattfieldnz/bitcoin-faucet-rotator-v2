@@ -19,5 +19,4 @@ trait RestTrait
     {
         return strpos($request->getUri(), '/api/v') !== false;
     }
-
 }
