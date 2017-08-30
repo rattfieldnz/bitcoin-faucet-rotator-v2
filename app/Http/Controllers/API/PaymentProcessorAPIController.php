@@ -65,7 +65,7 @@ class PaymentProcessorAPIController extends AppBaseController
     public function show($slug)
     {
         $paymentProcessor = $this->paymentProcessorRepository->findWhere(['slug' => $slug])->first();
-        
+
         if (empty($paymentProcessor)) {
             return $this->sendError('Payment Processor not found');
         }
