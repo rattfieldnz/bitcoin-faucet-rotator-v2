@@ -6,6 +6,7 @@ use App\Helpers\Functions\Faucets;
 use App\Http\Requests\API\CreateFaucetAPIRequest;
 use App\Http\Requests\API\UpdateFaucetAPIRequest;
 use App\Models\Faucet;
+use App\Models\PaymentProcessor;
 use App\Repositories\FaucetRepository;
 use App\Transformers\FaucetsTransformer;
 use Helpers\Functions\Users;
@@ -56,7 +57,7 @@ class FaucetAPIController extends AppBaseController
     {
 
         $faucet = $this->faucetRepository->findWhere(
-            ['is_paused' => false, 'has_low_balance' => false, 'slug' => $slug]
+            ['is_paused' => false, 'has_low_balance' => false, 'slug' => $slug, 'deleted_at' => null]
         )->first();
 
         if (empty($faucet)) {
@@ -91,7 +92,12 @@ class FaucetAPIController extends AppBaseController
                     // we are at beginning of faucet collection array.
                     // Go to last faucet in the collection.
                     $previousFaucet = $this->faucetRepository->findWhere(
-                        ['is_paused' => false, 'has_low_balance' => false, 'slug' => $faucetSlugs[count($faucetSlugs) - 1]]
+                        [
+                            'is_paused' => false,
+                            'has_low_balance' => false,
+                            'slug' => $faucetSlugs[count($faucetSlugs) - 1],
+                            'deleted_at' => null
+                        ]
                     )->first();
 
                     return $this->sendResponse(
@@ -102,7 +108,12 @@ class FaucetAPIController extends AppBaseController
                 }
 
                 $previousFaucet = $this->faucetRepository->findWhere(
-                    ['is_paused' => false, 'has_low_balance' => false, 'slug' => $faucetSlugs[$key - 1]]
+                    [
+                        'is_paused' => false,
+                        'has_low_balance' => false,
+                        'slug' => $faucetSlugs[$key - 1],
+                        'deleted_at' => null
+                    ]
                 )->first();
 
                 return $this->sendResponse(
@@ -127,7 +138,12 @@ class FaucetAPIController extends AppBaseController
                     // We are at end of the collection.
                     // Go to first faucet in the collection.
                     $nextFaucet = $this->faucetRepository->findWhere(
-                        ['is_paused' => false, 'has_low_balance' => false, 'slug' => $faucetSlugs[0]]
+                        [
+                            'is_paused' => false,
+                            'has_low_balance' => false,
+                            'slug' => $faucetSlugs[0],
+                            'deleted_at' => null
+                        ]
                     )->first();
 
                     return $this->sendResponse(
@@ -137,7 +153,12 @@ class FaucetAPIController extends AppBaseController
                         ), 'Faucet retrieved successfully');
                 }
                 $nextFaucet = $this->faucetRepository->findWhere(
-                    ['is_paused' => false, 'has_low_balance' => false, 'slug' => $faucetSlugs[$key + 1]]
+                    [
+                        'is_paused' => false,
+                        'has_low_balance' => false,
+                        'slug' => $faucetSlugs[$key + 1],
+                        'deleted_at' => null
+                    ]
                 )->first();
 
                 return $this->sendResponse(
@@ -158,4 +179,180 @@ class FaucetAPIController extends AppBaseController
                 true
             ), 'Faucet retrieved successfully');
     }
+
+    public function paymentProcessorFaucet($paymentProcessorSlug, $faucetSlug)
+    {
+        //Obtain payment processor by related slug.
+        $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->firstOrFail();
+
+        // Use model relationship to obtain associated faucets
+        $faucet = $paymentProcessor->faucets()
+            ->where('is_paused', '=', false)
+            ->where('has_low_balance', '=', false)
+            ->where('deleted_at', '=', null)
+            ->where('slug', '=', $faucetSlug)
+            ->first();
+        if ($faucet == null || !$faucet) {
+            return [404 => 'Not Found'];
+        }
+
+        return $this->sendResponse(
+            (new FaucetsTransformer)->transform(
+                $faucet,
+                true
+            ), 'Faucet retrieved successfully');
+    }
+
+    public function paymentProcessorFaucets($paymentProcessorSlug)
+    {
+        //Obtain payment processor by related slug.
+        $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->firstOrFail();
+
+        // Use model relationship to obtain associated faucets
+        $faucets = $paymentProcessor->faucets()
+            ->where('is_paused', '=', false)
+            ->where('has_low_balance', '=', false)
+            ->where('deleted_at', '=', null)
+            ->orderBy('interval_minutes')
+            ->get();
+
+        for ($i = 0; $i < count($faucets); $i++) {
+            $faucets[$i] = (new FaucetsTransformer)->transform($faucets[$i], true);
+        }
+
+        return $this->sendResponse($faucets, 'Faucets retrieved successfully');
+    }
+
+    public function firstPaymentProcessorFaucet($paymentProcessorSlug)
+    {
+        //Obtain payment processor by related slug.
+        $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->firstOrFail();
+
+        // Use model relationship to obtain associated faucets
+        $faucets = $paymentProcessor->faucets()
+            ->where('is_paused', '=', false)
+            ->where('has_low_balance', '=', false)
+            ->where('deleted_at', '=', null)
+            ->orderBy('interval_minutes')
+            ->get();
+
+        $faucet = (new FaucetsTransformer)->transform($faucets[0], true);
+
+        return $this->sendResponse($faucet, 'Faucet retrieved successfully');
+
+    }
+
+    public function previousPaymentProcessorFaucet($paymentProcessorSlug, $faucetSlug){
+        //Obtain payment processor by related slug.
+        $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->firstOrFail();
+
+        // Use model relationship to obtain associated faucets
+        $faucets = $paymentProcessor->faucets()
+            ->orderBy('interval_minutes');
+
+        $array = array_column($faucets->get()->toArray(), 'slug');
+
+        foreach($array as $key => $value){
+            if($value == $faucetSlug){
+                // Increase key to find next one.
+                if($key - 1 > count($array) - 1){
+                    // If addition is greater than number of faucets,
+                    // We are at end of the collection.
+                    // Go to first faucet in the collection.
+                    $faucet = Faucet::where('is_paused', '=', false)
+                        ->where('has_low_balance', '=', false)
+                        ->where('deleted_at', '=', null)
+                        ->where('slug', '=', $array[0])
+                        ->orderBy('interval_minutes')
+                        ->first();
+
+                    return $this->sendResponse(
+                        (new FaucetsTransformer)->transform(
+                            $faucet,
+                            true
+                        ), 'Faucet retrieved successfully');
+                }
+
+                $faucet = Faucet::where('is_paused', '=', false)
+                    ->where('has_low_balance', '=', false)
+                    ->where('deleted_at', '=', null)
+                    ->where('slug', '=', $array[$key - 1])
+                    ->orderBy('interval_minutes')
+                    ->first();
+
+                return $this->sendResponse(
+                    (new FaucetsTransformer)->transform(
+                        $faucet,
+                        true
+                    ), 'Faucet retrieved successfully');
+            }
+        }
+        return null;
+    }
+
+    public function nextPaymentProcessorFaucet($paymentProcessorSlug, $faucetSlug){
+        //Obtain payment processor by related slug.
+        $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->firstOrFail();
+
+        // Use model relationship to obtain associated faucets
+        $faucets = $paymentProcessor->faucets()
+            ->orderBy('interval_minutes');
+
+        $array = array_column($faucets->get()->toArray(), 'slug');
+
+        foreach($array as $key => $value){
+            if($value == $faucetSlug){
+                // Increase key to find next one.
+                if($key + 1 > count($array) - 1){
+                    // If addition is greater than number of faucets,
+                    // We are at end of the collection.
+                    // Go to first faucet in the collection.
+                    $faucet = Faucet::where('is_paused', '=', false)
+                        ->where('has_low_balance', '=', false)
+                        ->where('deleted_at', '=', null)
+                        ->where('slug', '=', $array[0])
+                        ->orderBy('interval_minutes')
+                        ->first();
+
+                    return $this->sendResponse(
+                        (new FaucetsTransformer)->transform(
+                            $faucet,
+                            true
+                        ), 'Faucet retrieved successfully');
+                }
+
+                $faucet = Faucet::where('is_paused', '=', false)
+                    ->where('has_low_balance', '=', false)
+                    ->where('deleted_at', '=', null)
+                    ->where('slug', '=', $array[$key + 1])
+                    ->orderBy('interval_minutes')
+                    ->first();
+
+                return $this->sendResponse(
+                    (new FaucetsTransformer)->transform(
+                        $faucet,
+                        true
+                    ), 'Faucet retrieved successfully');
+            }
+        }
+        return null;
+    }
+
+    public function lastPaymentProcessorFaucet($paymentProcessorSlug){
+        //Obtain payment processor by related slug.
+        $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->firstOrFail();
+
+        // Use model relationship to obtain associated faucets
+        $faucets = $paymentProcessor->faucets()
+            ->where('is_paused', '=', false)
+            ->where('has_low_balance', '=', false)
+            ->where('deleted_at', '=', null)
+            ->orderBy('interval_minutes')
+            ->get();
+
+        $faucet = (new FaucetsTransformer)->transform($faucets[count($faucets) - 1], true);
+
+        return $this->sendResponse($faucet, 'Faucet retrieved successfully');
+    }
+
 }

@@ -56,95 +56,22 @@ class PaymentProcessorAPIController extends AppBaseController
     }
 
     /**
-     * @param CreatePaymentProcessorAPIRequest $request
-     * @return Response
-     *
-     * @SWG\Post(
-     *      path="/paymentProcessors",
-     *      summary="Store a newly created PaymentProcessor in storage",
-     *      tags={"PaymentProcessor"},
-     *      description="Store PaymentProcessor",
-     *      produces={"application/json"},
-     *      @SWG\Parameter(
-     *          name="body",
-     *          in="body",
-     *          description="PaymentProcessor that should be stored",
-     *          required=false,
-     *          @SWG\Schema(ref="#/definitions/PaymentProcessor")
-     *      ),
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  ref="#/definitions/PaymentProcessor"
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    /*public function store(CreatePaymentProcessorAPIRequest $request)
-    {
-        $input = $request->all();
-
-        $paymentProcessors = $this->paymentProcessorRepository->create($input);
-
-        return $this->sendResponse($paymentProcessors->toArray(), 'Payment Processor saved successfully');
-    }*/
-
-    /**
      * Get a payment processor as JSON.
      *
-     * @param $id
+     * @param $slug
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show($slug)
     {
-        $paymentProcessor = $this->paymentProcessorRepository->findWithoutFail($id);
-
+        $paymentProcessor = $this->paymentProcessorRepository->findWhere(['slug' => $slug])->first();
+        
         if (empty($paymentProcessor)) {
             return $this->sendError('Payment Processor not found');
         }
 
-        return $this->sendResponse($paymentProcessor->toArray(), 'Payment Processor retrieved successfully');
+        $paymentProcessor = (new PaymentProcessorsTransformer)->transform($paymentProcessor, true);
+
+        return $this->sendResponse($paymentProcessor, 'Payment Processor retrieved successfully');
     }
-
-    /*public function update($id, UpdatePaymentProcessorAPIRequest $request)
-    {
-        $input = $request->all();
-
-        $paymentProcessor = $this->paymentProcessorRepository->findWithoutFail($id);
-
-        if (empty($paymentProcessor)) {
-            return $this->sendError('Payment Processor not found');
-        }
-
-        $paymentProcessor = $this->paymentProcessorRepository->update($input, $id);
-
-        return $this->sendResponse($paymentProcessor->toArray(), 'PaymentProcessor updated successfully');
-    }*/
-
-    /*public function destroy($id)
-    {
-        $paymentProcessor = $this->paymentProcessorRepository->findWithoutFail($id);
-
-        if (empty($paymentProcessor)) {
-            return $this->sendError('Payment Processor not found');
-        }
-
-        $paymentProcessor->delete();
-
-        return $this->sendResponse($id, 'Payment Processor deleted successfully');
-    }*/
 }
