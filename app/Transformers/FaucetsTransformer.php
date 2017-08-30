@@ -6,6 +6,7 @@ use App\Helpers\Functions\Faucets;
 use App\Models\Faucet;
 use App\Models\Role;
 use App\Models\User;
+use Helpers\Functions\Users;
 use Illuminate\Database\Eloquent\Collection;
 use League\Fractal\TransformerAbstract;
 
@@ -27,9 +28,7 @@ class FaucetsTransformer extends TransformerAbstract
      */
     public function transform(Faucet $model, $addPaymentProcessors = false)
     {
-        $role = Role::where('name', 'Owner')->first();
-
-        $user = $role->users()->first();
+        $user = Users::adminUser();
 
         $referralCode = Faucets::getUserFaucetRefCode($user, $model);
         $faucet = [

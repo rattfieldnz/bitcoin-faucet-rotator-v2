@@ -14,7 +14,12 @@ header('Access-Control-Allow-Credentials: true');
 Route::group(['prefix' => 'v1', 'namespace' => 'API'], function () {
 
     Route::get('faucets', ['as' => 'faucets', 'uses' => 'FaucetAPIController@index']);
-    Route::get('faucets/{slug}', ['as' => 'faucets.show', 'uses' => 'FaucetAPIController@show']);
+    Route::get('faucets/{id}', ['as' => 'faucets.show', 'uses' => 'FaucetAPIController@show']);
+    Route::get('first_faucet', ['as' => 'faucets.first', 'uses' => 'FaucetAPIController@getFirstFaucet']);
+    Route::get('faucets/{id}/previous', ['as' => 'faucets.previous', 'uses' => 'FaucetAPIController@getPreviousFaucet']);
+    Route::get('faucets/{id}/next', ['as' => 'faucets.next', 'uses' => 'FaucetAPIController@getNextFaucet']);
+    Route::get('last_faucet', ['as' => 'faucets.last', 'uses' => 'FaucetAPIController@getLastFaucet']);
+
     Route::get('payment_processors', ['as' => 'payment_processors', 'uses' => 'PaymentProcessorAPIController@index']);
 
     Route::get(

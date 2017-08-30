@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Helpers\Functions\Faucets;
+use App\Models\Faucet;
 use App\Models\User;
 use Helpers\Functions\Users;
 use Illuminate\Support\ServiceProvider;
@@ -23,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
     }
 
 

@@ -365,11 +365,11 @@ class Faucets
 
         // Check if the user and faucet exists.
 
-        if ((empty($user) || $user->isDeleted() && !Auth::user()->isAnAdmin())) {
+        if ((empty($user) || $user->isDeleted() && (Auth::check() && !Auth::user()->isAnAdmin()))) {
             return null;
         }
 
-        if (empty($faucet) || empty($faucet->pivot->deleted_at) && !Auth::user()->isAnAdmin()) {
+        if (empty($faucet) || empty($faucet->pivot->deleted_at) && (Auth::check() && !Auth::user()->isAnAdmin())) {
             return null;
         }
 
@@ -399,12 +399,12 @@ class Faucets
         $user = User::where('slug', $user->slug)->withTrashed()->first();
 
         //If there is no such user, about to 404 page.
-        if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
+        if (empty($user) || ($user->isDeleted() && (Auth::check() && !Auth::user()->isAnAdmin()))) {
             flash('User not found')->error();
             return redirect(route('users.index'));
         }
 
-        if (empty($faucet) && ($faucet->isDeleted() && !Auth::user()->isAnAdmin())) {
+        if (empty($faucet) && ($faucet->isDeleted() && (Auth::check() && !Auth::user()->isAnAdmin()))) {
             return null;
         }
 

@@ -15,7 +15,7 @@
         margin: 0;
         padding: 0;
         width: 100%;
-        color: #B0BEC5;
+        color: #333333;
         font-family: 'Lato';
     }
 
@@ -36,19 +36,12 @@
         <h1 class="title">Sorry!</h1>
         <h2>You aren't authorized, or do not have the sufficient permissions to access this feature.</h2>
         <p><strong>Please <a href="mailto:{{ \Helpers\Functions\Users::adminUser()->email }}?Subject=RE:%20Unauthorized%20access%20to%20site%20section.">contact the site owner</a> to request access.</strong></p>
-        @unless(empty($sentryID))
-        <!-- Sentry JS SDK 2.1.+ required -->
-            <script src="https://cdn.ravenjs.com/3.3.0/raven.min.js"></script>
 
-            <script>
-                Raven.showReportDialog({
-                    eventId: '{{ $sentryID }}',
+        <p><strong>This error has been logged, and related information will be delivered to admin/site developer.</strong></p>
 
-                    // use the public DSN (dont include your secret!)
-                    dsn: 'https://238ec750dc3f4d05b26c9ed7f957af0b@sentry.io/53671'
-                });
-            </script>
-        @endunless
+        @if(!empty(Sentry::getLastEventID()))
+            <p><strong>Please send this ID with your support request: {{ Sentry::getLastEventID() }}.</strong></p>
+        @endif
     </div>
 </div>
 @endsection

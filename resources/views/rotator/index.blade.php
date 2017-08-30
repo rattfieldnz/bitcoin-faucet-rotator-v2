@@ -28,6 +28,10 @@
     </div>
 @endsection
 
+@push('scripts')
+<script src="/assets/js/rotator-scripts/mainRotator.min.js?{{ rand() }}"></script>
+@endpush
+
 @push('google-analytics')
 @include('layouts.partials.tracking._google_analytics')
 @endpush
