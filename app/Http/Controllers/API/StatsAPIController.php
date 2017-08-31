@@ -6,10 +6,10 @@ use App\Helpers\Constants;
 use App\Helpers\Functions\Dates;
 use App\Helpers\Functions\Http;
 use App\Http\Controllers\AppBaseController;
+use App\Libraries\DataTables\DataTables;
 use App\Libraries\Google\Analytics\GoogleAnalytics;
-use Exception;
 use Google_Service_Exception;
-use Yajra\Datatables\Request;
+use Yajra\DataTables\Utilities\Request;
 
 /**
  * Class StatsAPIController
@@ -27,7 +27,7 @@ class StatsAPIController extends AppBaseController
     /**
      * Get top x pages between date_from and date_to.
      *
-     * @param \Yajra\Datatables\Request $request
+     * @param \Yajra\DataTables\Utilities\Request $request
      * @param string                    $dateFrom
      * @param string                    $dateTo
      * @param int                       $quantity
@@ -53,11 +53,11 @@ class StatsAPIController extends AppBaseController
 
                 $data = GoogleAnalytics::topPagesBetweenTwoDates($fromDateInput, $toDateInput, $quantity);
 
-                return (new \App\Libraries\DataTables\DataTables($request))->collection($data)->make(true);
+                return (new DataTables($request))->collection($data)->make(true);
             }
         } catch (Google_Service_Exception $e) {
             return GoogleAnalytics::googleException($e);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return Http::exceptionAsCollection($e->getMessage());
         }
     }
@@ -157,7 +157,7 @@ class StatsAPIController extends AppBaseController
             }
         } catch (Google_Service_Exception $e) {
             return GoogleAnalytics::googleException($e);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return Http::exceptionAsCollection($e->getMessage());
         }
     }

@@ -8,23 +8,23 @@
 
 namespace App\Libraries\DataTables;
 
+use Yajra\DataTables\CollectionDataTable;
 use Illuminate\Support\Collection;
-use Yajra\Datatables\Engines\CollectionEngine;
-use Yajra\Datatables\Request;
+use Yajra\Datatables\Utilities\Request;
 
 class DataTables
 {
     /**
      * Datatables request object.
      *
-     * @var \Yajra\Datatables\Request
+     * @var \Yajra\Datatables\Utilities\Request
      */
     protected $request;
 
     /**
      * Datatables constructor.
      *
-     * @param \Yajra\Datatables\Request $request
+     * @param \Yajra\Datatables\Utilities\Request $request
      */
     public function __construct(Request $request)
     {
@@ -36,7 +36,7 @@ class DataTables
      *
      * @param \Illuminate\Support\Collection|mixed $collection
      *
-     * @return \Yajra\Datatables\Engines\CollectionEngine
+     * @return \Yajra\Datatables\CollectionDataTable
      * @throws \Google_Service_Exception
      */
     public function collection($collection)
@@ -48,6 +48,6 @@ class DataTables
             $collection = new Collection($collection);
         }
 
-        return new CollectionEngine($collection, $this->request);
+        return new CollectionDataTable($collection, $this->request);
     }
 }
