@@ -75893,11 +75893,52 @@ function renderVisitorsDataTable(data, dataTableElement, progressBar, doUpdate){
             }
         }).fail(function(vd){
             loadingProgressElement.attr('style', 'display:none !important');
-            showElement("#visitorsTable-progressbar");
+            showElement(progressBar);
             progressError(vd.message,progressBar);
         }).progress(function(){
             console.log("Visitors datatable is loading...");
         });
+    }
+}
+
+function renderVisitorsGoogleMap(data, mapElement, progressBar, mapWidth,mapHeight, doUpdate){
+    if(typeof $(mapElement) !== 'undefined' && typeof progressBar !== 'undefined'){
+        if(data.status !== 'undefined' && data.status === 'error'){
+            showElement(progressBar);
+            progressError(
+                data.message,
+                progressBar
+            );
+        } else {
+            data.done(function(d){
+
+                if(typeof d.status !== 'undefined' && d.status === 'error'){
+
+                    showElement(progressBar);
+                    progressError(
+                        d.message,
+                        progressBar
+                    );
+                } else {
+
+                    if(doUpdate === true){
+                        $(mapElement).empty();
+                    }
+
+                    showElement(progressBar);
+                    $(mapElement).attr('style', 'height:' + mapHeight + ';width: ' + mapWidth + ' !important');
+                    generateGoogleGeoChart(d, mapElement);
+                    progressBar.progressTimer('complete');
+                    hideElement(progressBar, 3000);
+                }
+            }).fail(function(d){
+
+                showElement(progressBar);
+                progressError(d.message,progressBar);
+            }).progress(function(){
+                console.log("Visitors geo chart is loading...");
+            });
+        }
     }
 }
 //# sourceMappingURL=mainScripts.js.map

@@ -165,8 +165,7 @@ function generateVisitorsLineChart(data, chartElement){
     }
 }
 
-function getVisitorsDataAjax(routeName, dateFrom, dateTo, quantity)
-{
+function getVisitorsDataAjax(routeName, dateFrom, dateTo, quantity) {
     if(typeof quantity === 'undefined'){
         quantity = 10;
     }
@@ -295,8 +294,7 @@ function generatePieDonutChart(data, renderToElement){
     }
 }
 
-function getCountriesAndVisitorsAjax(dateFrom, dateTo)
-{
+function getCountriesAndVisitorsAjax(dateFrom, dateTo) {
 
     var error = {
         status: 'error',

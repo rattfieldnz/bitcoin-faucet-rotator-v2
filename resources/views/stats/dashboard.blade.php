@@ -123,7 +123,7 @@
                             <div class="box-body">
                                 <div id="countriesMap-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
                                 <div></div>
-                                <div id="regions_div" style="width: 100%; height: auto;"></div>
+                                <div id="regions_div"></div>
                             </div>
                             <!-- /.box-body -->
                         </div>
@@ -250,37 +250,7 @@
         var countriesMapName = 'visitors geo chart';
         var geoChartData = getCountriesAndVisitorsAjax(fromDateInput.val(), toDateInput.val());
         var geoChartProgressBar = generateProgressBar("#countriesMap-progressbar",countriesMapName);
-
-        if(geoChartData.status !== 'undefined' && geoChartData.status === 'error'){
-            showElement("#countriesMap-progressbar");
-            progressError(
-                geoChartData.message,
-                geoChartProgressBar
-            );
-        } else {
-            geoChartData.done(function(gcd){
-
-                if(typeof gcd.status !== 'undefined' && gcd.status === 'error'){
-
-                    showElement("#countriesMap-progressbar");
-                    progressError(
-                        gcd.message,
-                        geoChartProgressBar
-                    );
-                } else {
-                    showElement("#countriesMap-progressbar");
-                    generateGoogleGeoChart(gcd, '#regions_div');
-                    geoChartProgressBar.progressTimer('complete');
-                    hideElement("#countriesMap-progressbar", 3000);
-                }
-            }).fail(function(gcd){
-
-                showElement("#countriesMap-progressbar");
-                progressError(gcd.message,geoChartProgressBar);
-            }).progress(function(){
-                console.log("Visitors geo chart is loading...");
-            });
-        }
+        renderVisitorsGoogleMap(geoChartData, '#regions_div', geoChartProgressBar, '100%', 'auto');
 
         //-------------
         //- PIE CHART -
@@ -352,9 +322,11 @@
 
             var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', fromDate, toDate, quantity);
             var visitorsProgressBar = generateProgressBar("#visitorsTable-progressbar",dataTablesName);
-
-           // $('table#visitorsTable tbody').empty();
             renderVisitorsDataTable(visitorsData,'table#visitorsTable',visitorsProgressBar, true);
+
+            var geoChartData = getCountriesAndVisitorsAjax(fromDateInput.val(), toDateInput.val());
+            var geoChartProgressBar = generateProgressBar("#countriesMap-progressbar",countriesMapName);
+            renderVisitorsGoogleMap(geoChartData, '#regions_div', geoChartProgressBar, '100%', 'auto', true);
 
         });
     });
