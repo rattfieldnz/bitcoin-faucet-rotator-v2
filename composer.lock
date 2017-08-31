@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "16e13225312c2ff3640c11594df56881",
+    "content-hash": "eb14de8061cd9361ef967492e7c11b12",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -2048,6 +2048,73 @@
                 "templates"
             ],
             "time": "2016-02-14T10:41:03+00:00"
+        },
+        {
+            "name": "jaybizzle/laravel-migrations-organiser",
+            "version": "v4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JayBizzle/Laravel-Migrations-Organiser.git",
+                "reference": "d3ad66fcd90e4ca30c8e11ae2da6afa18ed6ca92"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JayBizzle/Laravel-Migrations-Organiser/zipball/d3ad66fcd90e4ca30c8e11ae2da6afa18ed6ca92",
+                "reference": "d3ad66fcd90e4ca30c8e11ae2da6afa18ed6ca92",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.3.*|5.4.*|5.5.*",
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "illuminate/database": "5.3.*",
+                "illuminate/filesystem": "5.3.*",
+                "mockery/mockery": "~0.9",
+                "nesbot/carbon": "~1.18",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Jaybizzle\\MigrationsOrganiser\\MigrationsOrganiserServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jaybizzle\\MigrationsOrganiser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Beech",
+                    "email": "mbeech@mark-beech.co.uk"
+                },
+                {
+                    "name": "Max King",
+                    "email": "max@kingkreations.co.uk"
+                }
+            ],
+            "description": "A Laravel 5 package to help organise migration files.",
+            "keywords": [
+                "Organizer",
+                "date",
+                "dated",
+                "folder",
+                "laravel",
+                "migrate",
+                "migrations",
+                "organise",
+                "organiser",
+                "organize"
+            ],
+            "time": "2017-06-20T20:58:25+00:00"
         },
         {
             "name": "jlapp/swaggervel",

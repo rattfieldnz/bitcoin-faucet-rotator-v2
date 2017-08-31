@@ -174,6 +174,7 @@ return [
         Laravel\Passport\PassportServiceProvider::class,
         Optimus\ApiConsumer\Provider\LaravelServiceProvider::class,
         Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+        Jaybizzle\MigrationsOrganiser\MigrationsOrganiserServiceProvider::class,
         /*
          * Application Service Providers...
          */

@@ -20,7 +20,7 @@ class FaucetsTableSeeder extends BaseSeeder
     public function run()
     {
         Faucet::truncate();
-        $data = $this->csv_to_array(base_path() . '/database/seeds/csv_files/faucets2.csv', ';');
+        $data = $this->csv_to_array(base_path() . '/database/seeds/csv_files/faucets.csv', ';');
         $user = User::where('user_name', 'admin')->first();
 
         foreach ($data as $d) {
