@@ -311,7 +311,7 @@
             var newDateFrom = new Date(yearFrom,monthFrom-1,dayFrom);
             var newDateTo = new Date(yearTo,monthTo-1,dayTo);
 
-            if(typeof newDateFrom !== 'undefined' && typeof newDateFrom !== 'undefined'){
+            if(typeof newDateFrom !== 'undefined' && typeof newDateTo !== 'undefined'){
                 dateFromDisplayElement.text(dateFormatted(newDateFrom).fullDisplay);
                 dateToDisplayElement.text(dateFormatted(newDateTo).fullDisplay);
             }
