@@ -153,7 +153,7 @@ return [
          * Infyom Generator And Dependant Service Providers...
          */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        Yajra\Datatables\DatatablesServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
@@ -167,7 +167,7 @@ return [
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
         Creativeorange\Gravatar\GravatarServiceProvider::class,
-        GrahamCampbell\HTMLMin\HTMLMinServiceProvider::class,
+        \HTMLMin\HTMLMin\HTMLMinServiceProvider::class,
         Spatie\Analytics\AnalyticsServiceProvider::class,
         Lord\Laroute\LarouteServiceProvider::class,
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
@@ -239,7 +239,8 @@ return [
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
         'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
-        'HTMLMin' => GrahamCampbell\HTMLMin\Facades\HTMLMin::class,
+        'HTMLMin' => \HTMLMin\HTMLMin\Facades\HTMLMin::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
         'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
     ],
