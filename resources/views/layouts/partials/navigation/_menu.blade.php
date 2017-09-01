@@ -7,7 +7,7 @@
 </li>
 
 <li class="{{ Request::is('users*') ? 'active' : '' }}">
-    <a href="{!! route('users.index') !!}"><i class="fa fa-user-circle" aria-hidden="true"></i><span>Users</span></a>
+    <a href="{!! route('users.index') !!}"><i class="fa fa-users" aria-hidden="true"></i><span>Users</span></a>
 </li>
 
 @if(Auth::user() != null)
@@ -24,15 +24,15 @@
         </li>
 
         <li class="{{ Request::is('twitter-config*') ? 'active' : '' }}">
-            <a href="{!! route('twitter-config.index') !!}"><i class="fa fa-edit" aria-hidden="true"></i><span>Twitter Config</span></a>
+            <a href="{!! route('twitter-config.index') !!}"><i class="fa fa-twitter" aria-hidden="true"></i><span>Twitter Config</span></a>
         </li>
 
         <li class="{{ Request::is('roles*') ? 'active' : '' }}">
-            <a href="{!! route('roles.index') !!}"><i class="fa fa-edit" aria-hidden="true"></i><span>Roles</span></a>
+            <a href="{!! route('roles.index') !!}"><i class="fa fa-user-plus" aria-hidden="true"></i><span>Roles</span></a>
         </li>
 
         <li class="{{ Request::is('permissions*') ? 'active' : '' }}">
-            <a href="{!! route('permissions.index') !!}"><i class="fa fa-edit" aria-hidden="true"></i><span>Permissions</span></a>
+            <a href="{!! route('permissions.index') !!}"><i class="fa fa-user-plus" aria-hidden="true"></i><span>Permissions</span></a>
         </li>
     @endif
 @endif
