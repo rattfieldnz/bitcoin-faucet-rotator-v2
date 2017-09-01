@@ -210,10 +210,10 @@ function currentLanguage(){
     return language !== 'undefined' ? language : navigator.language;
 }
 
-function renderVisitorsAreaChart(data, chartElementName, chartContainerElement, chartHeight, progressBar, doUpdate){
+function renderVisitorsAreaChart(data, chartElement, chartContainerElement, chartHeight, progressBar, doUpdate){
 
     if(chartHeight === 'undefined' || chartHeight === null){
-        chartHeight = "15.625em";
+        chartHeight = "20em";
     }
 
     if(data.status !== 'undefined' && data.status === 'error'){
@@ -231,26 +231,11 @@ function renderVisitorsAreaChart(data, chartElementName, chartContainerElement, 
             } else {
 
                 if(doUpdate === true){
-
-                    if(typeof $(chartContainerElement) !== 'undefined'){
-                        $(chartContainerElement).empty();
-
-                        var attribute = 'id';
-
-                        if(chartElementName.substring(0,1) === '.'){
-                            attribute = 'class';
-                        } else if (chartElementName.substring(0,1) === '#'){
-                            attribute = 'id';
-                        }
-
-                        var elementName = chartElementName.substring(1);
-
-                        $(chartContainerElement).append('<canvas ' + attribute + '="' + elementName + '" style="height:' + chartHeight + '"></canvas>');
-                    }
+                    clearChart(chartElement, chartContainerElement, chartHeight);
                 }
 
                 showElement(progressBar);
-                generateVisitorsLineChart(vacd, chartElementName);
+                generateVisitorsLineChart(vacd, chartElement);
                 progressBar.progressTimer('complete');
                 hideElement(progressBar, 3000);
                 return true;
@@ -352,5 +337,74 @@ function renderVisitorsGoogleMap(data, mapElement, progressBar, mapWidth,mapHeig
                 console.log("Visitors geo chart is loading...");
             });
         }
+    }
+}
+
+function renderBrowserStatsPieChart(data, chartElement, chartContainerElement, chartHeight, progressBar, doUpdate){
+
+    if(chartHeight === 'undefined' || chartHeight === null){
+        chartHeight = "35em";
+    }
+
+    if(data.status !== 'undefined' && data.status === 'error'){
+
+        showElement(progressBar);
+        progressError(
+            data.message,
+            progressBar
+        );
+    } else {
+        data.done(function(d){
+
+            if(typeof d.status !== 'undefined' && d.status === 'error'){
+
+                showElement(progressBar);
+                progressError(
+                    d.message,
+                    progressBar
+                );
+            } else {
+
+                if(doUpdate === true){
+                    clearChart(chartElement, chartContainerElement, chartHeight);
+                }
+                showElement(progressBar);
+                generatePieDonutChart(d,chartElement);
+                progressBar.progressTimer('complete');
+                hideElement(progressBar, 3000);
+            }
+        }).fail(function(d){
+
+            showElement(progressBar);
+            progressError(
+                d.message,
+                progressBar
+            );
+        }).progress(function(){
+            console.log("Visitors' browsers chart is loading...");
+        });
+    }
+}
+
+function clearChart(chartElement, chartContainerElement, chartHeight){
+
+    if(chartHeight === 'undefined' || chartHeight === null){
+        chartHeight = "35em";
+    }
+
+    if(typeof $(chartContainerElement) !== 'undefined' && typeof $(chartElement) !== 'undefined'){
+        $(chartContainerElement).empty();
+
+        var attribute = 'id';
+
+        if(chartElement.substring(0,1) === '.'){
+            attribute = 'class';
+        } else if (chartElement.substring(0,1) === '#'){
+            attribute = 'id';
+        }
+
+        var elementName = chartElement.substring(1);
+
+        $(chartContainerElement).append('<canvas ' + attribute + '="' + elementName + '" style="height:' + chartHeight + '"></canvas>');
     }
 }

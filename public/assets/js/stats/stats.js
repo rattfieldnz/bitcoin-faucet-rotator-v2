@@ -1,5 +1,140 @@
+$(function () {
+    $.fn.dataTable.ext.errMode = 'none';
+    $.ajaxSetup({
+        timeout:3600000,
 
-$.fn.dataTable.ext.errMode = 'none';
+        // force ajax call on all browsers
+        cache: false,
+
+        // Enables cross domain requests
+        crossDomain: true,
+
+        // Helps in setting cookie
+        xhrFields: {
+            withCredentials: true
+        },
+
+        beforeSend: function (xhr, type) {
+            // Set the CSRF Token in the header for security
+            //if (type.type !== "GET") {
+            var token = Cookies.get("XSRF-TOKEN");
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.setRequestHeader('X-XSRF-Token', token);
+            //}
+        }
+    });
+
+    var dateTo = currentDate();
+    var dateFrom = dateFormatted(alterDate(currentDate().date, -6));
+    var quantity = 500;
+
+    var dateFromDisplayElement = $('#date-from-display');
+    var dateToDisplayElement = $('#date-to-display');
+
+    dateFromDisplayElement.text(dateFrom.fullDisplay);
+    dateToDisplayElement.text(dateTo.fullDisplay);
+
+    var fromDateInput = $("#from-date");
+    fromDateInput.val(dateFrom.dateFormatted);
+    var toDateInput = $("#to-date");
+    toDateInput.val(dateTo.dateFormatted);
+
+    fromDateInput.prop("placeholder", dateFrom);
+    toDateInput.prop("placeholder", dateTo);
+
+    fromDateInput.datepicker({
+        numberOfMonths: 2,
+        dateFormat: 'dd-mm-yy',
+        onSelect: function (selected) {
+            var dt = new Date(selected);
+            dt.setDate(dt.getDate());
+            toDateInput.datepicker("option", null, dateFormatted(dt).dateFormatted);
+        }
+    });
+    toDateInput.datepicker({
+        numberOfMonths: 2,
+        dateFormat: 'dd-mm-yy',
+        onSelect: function (selected) {
+            var dt = new Date(selected);
+            dt.setDate(dt.getDate());
+            fromDateInput.datepicker("option", null, dateFormatted(dt).dateFormatted);
+        }
+    });
+
+    //--------------
+    //- AREA CHART -
+    //--------------
+    var areaChartName = 'visitors area chart';
+    var areaChartElement = "#areaChart";
+    var visitorsAreaChartData = getVisitorsDataAjax('stats.visits-and-page-views', fromDateInput.val(), toDateInput.val(), quantity);
+    var visitorsAreaChartProgressBar = generateProgressBar("#areaChart-progressbar", areaChartName);
+    renderVisitorsAreaChart(visitorsAreaChartData, areaChartElement, "#areaChart-container", "20em", visitorsAreaChartProgressBar);
+
+    //--------------------------------
+    //- DATATABLES SHOWING VISITORS -
+    //--------------------------------
+    var dataTablesName = 'visitors datatable';
+    var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', fromDateInput.val(), toDateInput.val(), quantity);
+    var visitorsTableProgressBar = generateProgressBar("#visitorsTable-progressbar",dataTablesName);
+    renderVisitorsDataTable(visitorsData,'#visitorsTable',visitorsTableProgressBar);
+    //$('table#visitorsTable tbody').empty();
+
+    //-----------------------
+    //- COUNTRIES MAP -------
+    //-----------------------
+    var countriesMapName = 'visitors geo chart';
+    var geoChartData = getCountriesAndVisitorsAjax(fromDateInput.val(), toDateInput.val());
+    var geoChartProgressBar = generateProgressBar("#countriesMap-progressbar",countriesMapName);
+    renderVisitorsGoogleMap(geoChartData, '#regions_div', geoChartProgressBar, '100%', 'auto');
+
+    //-------------
+    //- PIE CHART -
+    //-------------
+    var pieChartName = "visitors' browsers chart";
+    var browserStatsData = getBrowserStatsAjax('stats.top-x-browsers', fromDateInput.val(), toDateInput.val(), 10);
+    var browserStatsProgressBar = generateProgressBar("#pieChart-progressbar",pieChartName);
+    renderBrowserStatsPieChart(browserStatsData, '#pieChart', '#pieChart-container', "35em", browserStatsProgressBar);
+
+    $("#stats-form").submit(function(event){
+        event.preventDefault();
+
+        var fromDate = $("#from-date").val();
+        var toDate = $("#to-date").val();
+
+        var dayFrom = Number.parseInt(fromDate.substr(0,2));
+        var monthFrom = Number.parseInt(fromDate.substr(3,5));
+        var yearFrom = Number.parseInt(fromDate.substr(6));
+
+        var dayTo = Number.parseInt(toDate.substr(0,2));
+        var monthTo = Number.parseInt(toDate.substr(3,5));
+        var yearTo = Number.parseInt(toDate.substr(6));
+
+        var newDateFrom = new Date(yearFrom,monthFrom-1,dayFrom);
+        var newDateTo = new Date(yearTo,monthTo-1,dayTo);
+
+        if(typeof newDateFrom !== 'undefined' && typeof newDateTo !== 'undefined'){
+            dateFromDisplayElement.text(dateFormatted(newDateFrom).fullDisplay);
+            dateToDisplayElement.text(dateFormatted(newDateTo).fullDisplay);
+        }
+
+        var data = getVisitorsDataAjax('stats.visits-and-page-views', fromDate, toDate, quantity);
+        var progressBar = generateProgressBar("#areaChart-progressbar", areaChartName);
+        renderVisitorsAreaChart(data, "#areaChart", "#areaChart-container", "20em", progressBar, true);
+
+        var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', fromDate, toDate, quantity);
+        var visitorsProgressBar = generateProgressBar("#visitorsTable-progressbar",dataTablesName);
+        renderVisitorsDataTable(visitorsData,'table#visitorsTable',visitorsProgressBar, true);
+
+        var geoChartData = getCountriesAndVisitorsAjax(fromDateInput.val(), toDateInput.val());
+        var geoChartProgressBar = generateProgressBar("#countriesMap-progressbar",countriesMapName);
+        renderVisitorsGoogleMap(geoChartData, '#regions_div', geoChartProgressBar, '100%', 'auto', true);
+
+        var browserStatsData = getBrowserStatsAjax('stats.top-x-browsers', fromDateInput.val(), toDateInput.val(), 10);
+        var browserStatsProgressBar = generateProgressBar("#pieChart-progressbar",pieChartName);
+        renderBrowserStatsPieChart(browserStatsData, '#pieChart', '#pieChart-container', "35em", browserStatsProgressBar, true);
+
+    });
+});
 
 function generateVisitorsTable(data, elementToRender){
 
@@ -166,17 +301,11 @@ function generateVisitorsLineChart(data, chartElement){
 }
 
 function getVisitorsDataAjax(routeName, dateFrom, dateTo, quantity) {
-    if(typeof quantity === 'undefined'){
+    if(quantity === null){
         quantity = 10;
     }
 
-    var error = {
-        status: 'error',
-        message: '',
-        code: ''
-    };
-
-    if(typeof routeName !== 'undefined' && dateFrom !== null && dateTo !== null){
+    if(routeName !== null && dateFrom !== null && dateTo !== null){
 
         var visitorsRoute = laroute.route(
             routeName,
@@ -190,53 +319,24 @@ function getVisitorsDataAjax(routeName, dateFrom, dateTo, quantity) {
         return $.get(visitorsRoute, function(response){
             return response.data;
         }).promise();
-    } else {
-        error.message = "Both dates cannot be null / empty.";
-        error.code = 500;
-        visitorsRoute = laroute.route(
-            routeName,
-            { dateFrom : dateFrom, dateTo: dateTo, quantity: quantity }
-        );
-
-        return $.get(visitorsRoute, function(){
-            return error;
-        }).promise();
     }
 }
 
-function getBrowserStatsAjax(dateFrom, dateTo, maxBrowsers){
+function getBrowserStatsAjax(routeName, dateFrom, dateTo, maxBrowsers){
 
-    if(typeof maxBrowsers === 'undefined'){
+    if(maxBrowsers === null){
         maxBrowsers = 10;
     }
 
-    var error = {
-        status: 'error',
-        message: '',
-        code: ''
-    };
-
-    if(dateFrom !== null && dateTo !== null){
+    if(routeName !== null && dateFrom !== null && dateTo !== null){
 
         var browsersRoute = laroute.route(
-            'stats.top-x-browsers',
+            routeName,
             { dateFrom : dateFrom, dateTo: dateTo, maxBrowsers: maxBrowsers }
         );
 
         return $.get(browsersRoute, function(response){
             return response.data;
-        }).promise();
-    } else {
-        error.message = "Both dates cannot be null / empty.";
-        error.code = 500;
-
-        browsersRoute = laroute.route(
-            'stats.top-x-browsers',
-            { dateFrom : dateFrom, dateTo: dateTo, maxBrowsers: maxBrowsers }
-        );
-
-        return $.get(browsersRoute, function(){
-            return error;
         }).promise();
     }
 }

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="zero-margin">
+    <div style="margin: 0 0 0 1em;">
         <section class="content-header">
             <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
                 <h1>Stats</h1>
@@ -49,7 +49,7 @@
                                 <div id="areaChart-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
                                 <div></div>
                                 <div class="chart" id="areaChart-container">
-                                    <canvas id="areaChart" style="height:250px"></canvas>
+                                    <canvas id="areaChart" style="height:25em;"></canvas>
                                 </div>
                             </div>
                             <!-- /.box-body -->
@@ -144,7 +144,9 @@
                             <div class="box-body">
                                 <div id="pieChart-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
                                 <div></div>
-                                <canvas id="pieChart" style="height:250px"></canvas>
+                                <div class="chart" id="pieChart-container">
+                                    <canvas id="pieChart" style="height:35em;"></canvas>
+                                </div>
                             </div>
                             <!-- /.box-body -->
                         </div>
@@ -162,173 +164,4 @@
 <script src="/assets/js/chart.js/Chart.min.js?{{ rand() }}"></script>
 <script src="https://www.gstatic.com/charts/loader.js?{{ rand() }}"></script>
 <script src="/assets/js/stats/stats.min.js?{{ rand() }}"></script>
-<script>
-
-    $(function () {
-        $.ajaxSetup({
-            timeout:3600000,
-
-            // force ajax call on all browsers
-            cache: false,
-
-            // Enables cross domain requests
-            crossDomain: true,
-
-            // Helps in setting cookie
-            xhrFields: {
-                withCredentials: true
-            },
-
-            beforeSend: function (xhr, type) {
-                // Set the CSRF Token in the header for security
-                //if (type.type !== "GET") {
-                    var token = Cookies.get("XSRF-TOKEN");
-                    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                    xhr.setRequestHeader('X-XSRF-Token', token);
-                //}
-            }
-        });
-
-        var dateTo = currentDate();
-        var dateFrom = dateFormatted(alterDate(currentDate().date, -6));
-        var quantity = 500;
-
-        var dateFromDisplayElement = $('#date-from-display');
-        var dateToDisplayElement = $('#date-to-display');
-
-        dateFromDisplayElement.text(dateFrom.fullDisplay);
-        dateToDisplayElement.text(dateTo.fullDisplay);
-
-        var fromDateInput = $("#from-date");
-        fromDateInput.val(dateFrom.dateFormatted);
-        var toDateInput = $("#to-date");
-        toDateInput.val(dateTo.dateFormatted);
-
-        fromDateInput.prop("placeholder", dateFrom);
-        toDateInput.prop("placeholder", dateTo);
-
-        fromDateInput.datepicker({
-            numberOfMonths: 2,
-            dateFormat: 'dd-mm-yy',
-            onSelect: function (selected) {
-                var dt = new Date(selected);
-                dt.setDate(dt.getDate());
-                toDateInput.datepicker("option", null, dateFormatted(dt).dateFormatted);
-            }
-        });
-        toDateInput.datepicker({
-            numberOfMonths: 2,
-            dateFormat: 'dd-mm-yy',
-            onSelect: function (selected) {
-                var dt = new Date(selected);
-                dt.setDate(dt.getDate());
-                fromDateInput.datepicker("option", null, dateFormatted(dt).dateFormatted);
-            }
-        });
-
-        //--------------
-        //- AREA CHART -
-        //--------------
-        var areaChartName = 'visitors area chart';
-        var areaChartElement = "#areaChart";
-        var visitorsAreaChartData = getVisitorsDataAjax('stats.visits-and-page-views', fromDateInput.val(), toDateInput.val(), quantity);
-        var visitorsAreaChartProgressBar = generateProgressBar("#areaChart-progressbar", areaChartName);
-        renderVisitorsAreaChart(visitorsAreaChartData, areaChartElement, "#areaChart-container", "15.625em", visitorsAreaChartProgressBar);
-
-        //--------------------------------
-        //- DATATABLES SHOWING VISITORS -
-        //--------------------------------
-        var dataTablesName = 'visitors datatable';
-        var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', fromDateInput.val(), toDateInput.val(), quantity);
-        var visitorsTableProgressBar = generateProgressBar("#visitorsTable-progressbar",dataTablesName);
-        renderVisitorsDataTable(visitorsData,'#visitorsTable',visitorsTableProgressBar);
-        //$('table#visitorsTable tbody').empty();
-
-        //-----------------------
-        //- COUNTRIES MAP -------
-        //-----------------------
-        var countriesMapName = 'visitors geo chart';
-        var geoChartData = getCountriesAndVisitorsAjax(fromDateInput.val(), toDateInput.val());
-        var geoChartProgressBar = generateProgressBar("#countriesMap-progressbar",countriesMapName);
-        renderVisitorsGoogleMap(geoChartData, '#regions_div', geoChartProgressBar, '100%', 'auto');
-
-        //-------------
-        //- PIE CHART -
-        //-------------
-        var pieChartName = "visitors' browsers chart";
-        var browserStatsData = getBrowserStatsAjax(fromDateInput.val(), toDateInput.val(), 10);
-        var browserStatsProgressBar = generateProgressBar("#pieChart-progressbar",pieChartName);
-
-        if(browserStatsData.status !== 'undefined' && browserStatsData.status === 'error'){
-
-            showElement("#pieChart-progressbar");
-            progressError(
-                browserStatsData.message,
-                browserStatsProgressBar
-            );
-        } else {
-            browserStatsData.done(function(bsd){
-
-                if(typeof bsd.status !== 'undefined' && bsd.status === 'error'){
-
-                    showElement("#pieChart-progressbar");
-                    progressError(
-                        bsd.message,
-                        browserStatsProgressBar
-                    );
-                } else {
-                    showElement("#pieChart-progressbar");
-                    generatePieDonutChart(bsd,'#pieChart');
-                    browserStatsProgressBar.progressTimer('complete');
-                    hideElement("#pieChart-progressbar", 3000);
-                }
-            }).fail(function(bsd){
-
-                showElement("#pieChart-progressbar");
-                progressError(
-                    bsd.message,
-                    browserStatsProgressBar
-                );
-            }).progress(function(){
-                console.log("Visitors' browsers chart is loading...");
-            });
-        }
-
-        $("#stats-form").submit(function(event){
-            event.preventDefault();
-
-            var fromDate = $("#from-date").val();
-            var toDate = $("#to-date").val();
-
-            var dayFrom = Number.parseInt(fromDate.substr(0,2));
-            var monthFrom = Number.parseInt(fromDate.substr(3,5));
-            var yearFrom = Number.parseInt(fromDate.substr(6));
-
-            var dayTo = Number.parseInt(toDate.substr(0,2));
-            var monthTo = Number.parseInt(toDate.substr(3,5));
-            var yearTo = Number.parseInt(toDate.substr(6));
-
-            var newDateFrom = new Date(yearFrom,monthFrom-1,dayFrom);
-            var newDateTo = new Date(yearTo,monthTo-1,dayTo);
-
-            if(typeof newDateFrom !== 'undefined' && typeof newDateTo !== 'undefined'){
-                dateFromDisplayElement.text(dateFormatted(newDateFrom).fullDisplay);
-                dateToDisplayElement.text(dateFormatted(newDateTo).fullDisplay);
-            }
-
-            var data = getVisitorsDataAjax('stats.visits-and-page-views', fromDate, toDate, quantity);
-            var progressBar = generateProgressBar("#areaChart-progressbar", areaChartName);
-            renderVisitorsAreaChart(data, "#areaChart", "#areaChart-container", "15.625em", progressBar, true);
-
-            var visitorsData = getVisitorsDataAjax('stats.top-pages-between-dates', fromDate, toDate, quantity);
-            var visitorsProgressBar = generateProgressBar("#visitorsTable-progressbar",dataTablesName);
-            renderVisitorsDataTable(visitorsData,'table#visitorsTable',visitorsProgressBar, true);
-
-            var geoChartData = getCountriesAndVisitorsAjax(fromDateInput.val(), toDateInput.val());
-            var geoChartProgressBar = generateProgressBar("#countriesMap-progressbar",countriesMapName);
-            renderVisitorsGoogleMap(geoChartData, '#regions_div', geoChartProgressBar, '100%', 'auto', true);
-
-        });
-    });
-</script>
 @endpush
