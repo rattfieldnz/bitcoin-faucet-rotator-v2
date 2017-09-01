@@ -22,14 +22,25 @@
                         </div>
                         <div class="row" id="userdialog">
                             <p id="membersince">Member since<br>{{ date('l jS \of F Y', strtotime(Auth::user()->created_at)) }}</p>
-                                {!! link_to_route(
-                                        'users.show',
-                                        "Profile",
-                                        ['slug' => Auth::user()->slug],
-                                        ['class' => 'btn btn-primary col-xs-5', 'style' => 'margin:0 0.25em 0 0em;color:white !important;']
-                                    )
-                                !!}
-                                <a href="{!! url('/logout') !!}" class="btn btn-primary col-xs-5" style="color:white !important;">Sign Out</a>
+                            {!! Form::button(
+                                '<i class="fa fa-id-card-o" style="vertical-align: middle; margin-right:0.25em;"></i>Profile',
+                                [
+                                    'type' => 'button',
+                                    'onClick' => "location.href='" . route('users.show', ['slug' => Auth::user()->slug]) . "'",
+                                    'class' => 'btn btn-primary col-xs-5',
+                                    'style' => 'margin:0 0.25em 0 0; color: white; color: white !important;'
+                                ])
+                            !!}
+
+                            {!! Form::button(
+                                '<i class="fa fa-sign-out" style="vertical-align: middle; margin-right:0.25em;"></i> Sign Out',
+                                [
+                                    'type' => 'button',
+                                    'onClick' => "location.href='" . route('logout') . "'",
+                                    'class' => 'btn btn-primary col-xs-5',
+                                    'style' => 'color: white; color: white !important;'
+                                ])
+                            !!}
                         </div>
                     </figure>
                 @endif

@@ -40729,7 +40729,7 @@ table.show-table-header thead tr th {
   background: url("/assets/images/iCheck/square/purple.png") no-repeat !important;
 }
 
-@media screen and (max-height: 45em) and (min-height: 0em) {
+@media screen and (max-height: 50em) and (min-height: 0em) {
   .main-sidebar,
   .sidebar-fixed,
   #sidebar-wrapper {
