@@ -452,16 +452,16 @@
         },
         {
             "name": "bepsvpt/secure-headers",
-            "version": "4.0.0",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BePsvPT/secure-headers.git",
-                "reference": "4f5ec1986b420140bd2549bbe04db8268ba44ccb"
+                "reference": "76965664f1727a053734ac4fe7297905c6af18c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BePsvPT/secure-headers/zipball/4f5ec1986b420140bd2549bbe04db8268ba44ccb",
-                "reference": "4f5ec1986b420140bd2549bbe04db8268ba44ccb",
+                "url": "https://api.github.com/repos/BePsvPT/secure-headers/zipball/76965664f1727a053734ac4fe7297905c6af18c8",
+                "reference": "76965664f1727a053734ac4fe7297905c6af18c8",
                 "shasum": ""
             },
             "require": {
@@ -473,10 +473,17 @@
             "require-dev": {
                 "codeclimate/php-test-reporter": "0.4.*",
                 "doctrine/instantiator": "1.0.*",
-                "orchestra/testbench": "3.4.*",
-                "phpunit/phpunit": "5.7.*"
+                "orchestra/testbench": "3.5.*",
+                "phpunit/phpunit": "6.0.*"
             },
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Bepsvpt\\SecureHeaders\\SecureHeadersServiceProvider"
+                    ]
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Bepsvpt\\SecureHeaders\\": "src/"
@@ -502,7 +509,7 @@
                 "https",
                 "laravel"
             ],
-            "time": "2017-08-04T05:48:17+00:00"
+            "time": "2017-09-01T12:27:38+00:00"
         },
         {
             "name": "cocur/slugify",
@@ -2504,16 +2511,16 @@
         },
         {
             "name": "laravelcollective/html",
-            "version": "v5.4.8",
+            "version": "v5.4.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LaravelCollective/html.git",
-                "reference": "9b8f51e7a2368911c896f5d42757886bae0717b5"
+                "reference": "f04965dc688254f4c77f684ab0b42264f9eb9634"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/9b8f51e7a2368911c896f5d42757886bae0717b5",
-                "reference": "9b8f51e7a2368911c896f5d42757886bae0717b5",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/f04965dc688254f4c77f684ab0b42264f9eb9634",
+                "reference": "f04965dc688254f4c77f684ab0b42264f9eb9634",
                 "shasum": ""
             },
             "require": {
@@ -2554,20 +2561,20 @@
             ],
             "description": "HTML and Form Builders for the Laravel Framework",
             "homepage": "http://laravelcollective.com",
-            "time": "2017-05-22T06:35:07+00:00"
+            "time": "2017-08-12T15:52:38+00:00"
         },
         {
             "name": "lcobucci/jwt",
-            "version": "3.2.1",
+            "version": "3.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lcobucci/jwt.git",
-                "reference": "ddce703826f9c5229781933b1a39069e38e6a0f3"
+                "reference": "0b5930be73582369e10c4d4bb7a12bac927a203c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/ddce703826f9c5229781933b1a39069e38e6a0f3",
-                "reference": "ddce703826f9c5229781933b1a39069e38e6a0f3",
+                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/0b5930be73582369e10c4d4bb7a12bac927a203c",
+                "reference": "0b5930be73582369e10c4d4bb7a12bac927a203c",
                 "shasum": ""
             },
             "require": {
@@ -2612,7 +2619,7 @@
                 "JWS",
                 "jwt"
             ],
-            "time": "2016-10-31T20:09:32+00:00"
+            "time": "2017-09-01T08:23:26+00:00"
         },
         {
             "name": "league/csv",
@@ -4181,12 +4188,12 @@
             "version": "v2.10.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/RoumenDamianoff/laravel-feed.git",
+                "url": "https://github.com/Laravelium/laravel-feed.git",
                 "reference": "ffbdb58f2ef41c7cb5d3bcd0aec2273e8eabc58b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RoumenDamianoff/laravel-feed/zipball/ffbdb58f2ef41c7cb5d3bcd0aec2273e8eabc58b",
+                "url": "https://api.github.com/repos/Laravelium/laravel-feed/zipball/ffbdb58f2ef41c7cb5d3bcd0aec2273e8eabc58b",
                 "reference": "ffbdb58f2ef41c7cb5d3bcd0aec2273e8eabc58b",
                 "shasum": ""
             },
@@ -4232,12 +4239,12 @@
             "version": "v2.6.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/RoumenDamianoff/laravel-sitemap.git",
+                "url": "https://github.com/Laravelium/laravel-sitemap.git",
                 "reference": "43747375a1dc19b11aa52442c99628a8d104c0f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RoumenDamianoff/laravel-sitemap/zipball/43747375a1dc19b11aa52442c99628a8d104c0f7",
+                "url": "https://api.github.com/repos/Laravelium/laravel-sitemap/zipball/43747375a1dc19b11aa52442c99628a8d104c0f7",
                 "reference": "43747375a1dc19b11aa52442c99628a8d104c0f7",
                 "shasum": ""
             },
@@ -5771,16 +5778,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v8.0.0",
+            "version": "v8.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "e98ec00d9acadf06a1b7f5eb72fb8ecf8968319c"
+                "reference": "06ddfeac9a86a701d860070a2f19b1f6ebe6615d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/e98ec00d9acadf06a1b7f5eb72fb8ecf8968319c",
-                "reference": "e98ec00d9acadf06a1b7f5eb72fb8ecf8968319c",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/06ddfeac9a86a701d860070a2f19b1f6ebe6615d",
+                "reference": "06ddfeac9a86a701d860070a2f19b1f6ebe6615d",
                 "shasum": ""
             },
             "require": {
@@ -5837,7 +5844,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2017-08-31T01:50:52+00:00"
+            "time": "2017-08-31T11:09:32+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
