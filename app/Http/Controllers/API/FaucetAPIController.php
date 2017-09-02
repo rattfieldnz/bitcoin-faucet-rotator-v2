@@ -180,7 +180,7 @@ class FaucetAPIController extends AppBaseController
             ), 'Faucet retrieved successfully');
     }
 
-    public function paymentProcessorFaucet($paymentProcessorSlug, $faucetSlug)
+    public function getPaymentProcessorFaucet($paymentProcessorSlug, $faucetSlug)
     {
         //Obtain payment processor by related slug.
         $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->firstOrFail();
@@ -203,7 +203,7 @@ class FaucetAPIController extends AppBaseController
             ), 'Faucet retrieved successfully');
     }
 
-    public function paymentProcessorFaucets($paymentProcessorSlug)
+    public function getPaymentProcessorFaucets($paymentProcessorSlug)
     {
         //Obtain payment processor by related slug.
         $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->firstOrFail();
@@ -223,7 +223,7 @@ class FaucetAPIController extends AppBaseController
         return $this->sendResponse($faucets, 'Faucets retrieved successfully');
     }
 
-    public function firstPaymentProcessorFaucet($paymentProcessorSlug)
+    public function getFirstPaymentProcessorFaucet($paymentProcessorSlug)
     {
         //Obtain payment processor by related slug.
         $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->firstOrFail();
@@ -242,7 +242,7 @@ class FaucetAPIController extends AppBaseController
 
     }
 
-    public function previousPaymentProcessorFaucet($paymentProcessorSlug, $faucetSlug){
+    public function getPreviousPaymentProcessorFaucet($paymentProcessorSlug, $faucetSlug){
         //Obtain payment processor by related slug.
         $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->firstOrFail();
 
@@ -290,7 +290,7 @@ class FaucetAPIController extends AppBaseController
         return null;
     }
 
-    public function nextPaymentProcessorFaucet($paymentProcessorSlug, $faucetSlug){
+    public function getNextPaymentProcessorFaucet($paymentProcessorSlug, $faucetSlug){
         //Obtain payment processor by related slug.
         $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->firstOrFail();
 
@@ -338,7 +338,7 @@ class FaucetAPIController extends AppBaseController
         return null;
     }
 
-    public function lastPaymentProcessorFaucet($paymentProcessorSlug){
+    public function getLastPaymentProcessorFaucet($paymentProcessorSlug){
         //Obtain payment processor by related slug.
         $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->firstOrFail();
 

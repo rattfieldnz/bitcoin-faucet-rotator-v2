@@ -22,32 +22,32 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function () {
 
     Route::get('payment-processors/{paymentProcessorSlug}/faucets/{faucetSlug}', [
         'as' => 'payment-processor.faucet',
-        'uses' => 'FaucetAPIController@paymentProcessorFaucet'
+        'uses' => 'FaucetAPIController@getPaymentProcessorFaucet'
     ]);
 
     Route::get('payment-processors/{paymentProcessorSlug}/faucets', [
         'as' => 'payment-processor.faucets',
-        'uses' => 'FaucetAPIController@paymentProcessorFaucets'
+        'uses' => 'FaucetAPIController@getPaymentProcessorFaucets'
     ]);
 
     Route::get('payment-processors/{paymentProcessorSlug}/first-faucet', [
         'as' => 'payment-processor.first-faucet',
-        'uses' => 'FaucetAPIController@firstPaymentProcessorFaucet'
+        'uses' => 'FaucetAPIController@getFirstPaymentProcessorFaucet'
     ]);
 
     Route::get('payment-processors/{paymentProcessorSlug}/faucets/{faucetSlug}/previous', [
         'as' => 'payment-processor.previous-faucet',
-        'uses' => 'FaucetAPIController@previousPaymentProcessorFaucet'
+        'uses' => 'FaucetAPIController@getPreviousPaymentProcessorFaucet'
     ]);
 
     Route::get('payment-processors/{paymentProcessorSlug}/faucets/{faucetSlug}/next', [
         'as' => 'payment-processor.next-faucet',
-        'uses' => 'FaucetAPIController@nextPaymentProcessorFaucet'
+        'uses' => 'FaucetAPIController@getNextPaymentProcessorFaucet'
     ]);
 
     Route::get('payment-processors/{paymentProcessorSlug}/last-faucet', [
         'as' => 'payment-processor.last-faucet',
-        'uses' => 'FaucetAPIController@lastPaymentProcessorFaucet'
+        'uses' => 'FaucetAPIController@getLastPaymentProcessorFaucet'
     ]);
 
     Route::get('payment-processors', ['as' => 'payment-processors', 'uses' => 'PaymentProcessorAPIController@index']);
