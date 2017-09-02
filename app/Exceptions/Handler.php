@@ -188,7 +188,7 @@ class Handler extends ExceptionHandler
                 );
             } else {
                 return response()->view('errors.500', [
-                    'message' => "Google Analytics API usage exceeded",
+                    'message' => !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500),
                     'sentryID' => $this->sentryID
                 ], 500);
             }

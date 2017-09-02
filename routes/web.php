@@ -81,6 +81,13 @@ Route::get(
     ]
 );
 
+Route::get('payment-processors/{slug}/rotator',
+    [
+        'as' => 'payment-processors.rotator',
+        'uses' => 'RotatorController@getPaymentProcessorFaucetRotator'
+    ]
+);
+
 Route::resource('payment-processors', 'PaymentProcessorController');
 
 Route::delete(

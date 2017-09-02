@@ -6,6 +6,7 @@ use App\Helpers\Functions\Faucets;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Models\Faucet;
 use App\Models\MainMeta;
+use App\Models\PaymentProcessor;
 use Carbon\Carbon;
 use Helpers\Functions\Users;
 use Illuminate\Http\Request;
@@ -51,5 +52,30 @@ class RotatorController extends Controller
         return view('rotator.index')
             ->with('pageTitle', $pageTitle)
             ->with('content', $content);
+    }
+
+    public function getPaymentProcessorFaucetRotator($paymentProcessorSlug){
+        $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->firstOrFail();
+
+        if(empty($paymentProcessor)){
+            abort(404, "The payment processor cannot be found.");
+        }
+
+        $title = $paymentProcessor->name . " Faucet Rotator (" . count($paymentProcessor->faucets) . " available faucet/s).";
+        $description = "Come and get free satoshis from around " . count($paymentProcessor->faucets) . " faucets in the " . $paymentProcessor->name . " Faucet Rotator.";
+        $keywords = array_map('trim', explode(',', $paymentProcessor->meta_keywords));
+        $publishedTime = Carbon::now()->toW3cString();
+        $modifiedTime = Carbon::now()->toW3cString();
+        $author = Users::adminUser()->fullName();
+        $currentUrl = route('payment-processors.rotator', ['slug' => $paymentProcessor->slug]);
+        $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $categoryDescription = "Bitcoin Faucet Rotator";
+
+        WebsiteMeta::setCustomMeta($title, $description, $keywords, $publishedTime, $modifiedTime, $author, $currentUrl, $image, $categoryDescription);
+
+        return view('payment_processors.rotator.index')
+            ->with('paymentProcessor', $paymentProcessor);
+
+
     }
 }
