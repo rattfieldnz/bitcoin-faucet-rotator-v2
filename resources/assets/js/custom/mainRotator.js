@@ -77,8 +77,22 @@ $(function(){
             success: function (data) {
                 iframeUrl = data.data.url;
                 currentFaucetSlug = data.data.slug;
+                var canShowInIframes = data.data.can_show_in_iframes;
+                var iframe = $('#rotator-iframe');
+                iframe.attr('src', '');
+                var noIframeContent = $('#show-no-iframe-content');
 
-                $('#rotator-iframe').attr('src', iframeUrl);
+                if(canShowInIframes === true){
+                    iframe.show();
+                    noIframeContent.hide();
+                    iframe.attr('src', iframeUrl);
+                } else {
+                    iframe.hide();
+                    noIframeContent.find('#faucet-link').attr('href', iframeUrl);
+                    noIframeContent.find('#faucet-link').attr('title', 'View "' + data.data.name + '" faucet in a new window');
+                    noIframeContent.show();
+                }
+
                 $('#current').attr('href', '/faucets/' + currentFaucetSlug);
             }
         });

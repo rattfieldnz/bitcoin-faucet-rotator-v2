@@ -17,6 +17,7 @@
                         </div>
                         <div class="col-lg-12">
                             <iframe sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin" src="" id="rotator-iframe"></iframe>
+                            @include('layouts.partials.misc._no-iframe-faucet-content')
                         </div>
                         <div class="col-lg-12">
                             {!! $content !!}

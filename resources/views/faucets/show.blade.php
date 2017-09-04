@@ -130,7 +130,8 @@
                         @else
                             <h3 style="font-size: 3em;">Sorry!</h3>
 
-                            <p>This faucet either cannot be shown in iframes, or there is an issue with the faucet's domain name. Please
+                            <p>This faucet either: cannot be shown in iframes, is redirected from it's original domain,
+                                or there is an issue with the faucet's domain name. Please
                                 {!!  link_to(
                                     $faucetUrl,
                                     'visit ' . $faucet->name . ' in a new window/tab',

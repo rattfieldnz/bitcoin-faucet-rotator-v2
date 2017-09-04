@@ -4,6 +4,7 @@ namespace App\Helpers\Functions;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class Http
@@ -27,34 +28,26 @@ class Http
      *
      * @return bool
      */
-    public static function canShowInIframes($url): bool
+    public static function canShowInIframes($url)
     {
 
-        $headers = @get_headers($url);
-        $xFrameOptions = "X-Frame-Options: ";
-        $contentSecurityPolicy = "Content-Security-Policy: frame-ancestors ";
-        $canShow = true;
+        $header = @get_headers($url, 1);
 
-        if ($headers == false || count($headers) == 0) {
+        if (!$header || stripos(strtoupper($header[0]), '200 OK') === false) return false;
+
+        else if(isset($header['X-Frame-Options']) && is_array($header['X-Frame-Options'])){
             return false;
         }
 
-        foreach ($headers as $key => $value) {
-            if (substr($value, 0, strlen($xFrameOptions)) == $xFrameOptions) {
-                $xFrameOption = substr($value, strlen($xFrameOptions), strlen($value));
-                if (strtoupper($xFrameOption) == "SAMEORIGIN" || strtoupper($xFrameOption) == "DENY"
-                ) {
-                    $canShow = false;
-                }
-            } else if (substr($value, 0, strlen($contentSecurityPolicy)) == $contentSecurityPolicy) {
-                $cspFrameAncestorsOption = substr($value, strlen($contentSecurityPolicy), strlen($value));
-
-                if (strtoupper($cspFrameAncestorsOption) == "'NONE'" || strtoupper($cspFrameAncestorsOption) == "'SELF'") {
-                    $canShow = false;
-                }
-            }
+        elseif (
+            isset($header['X-Frame-Options']) &&
+            (stripos(strtoupper($header['X-Frame-Options']), 'SAMEORIGIN') !== false || stripos(strtoupper($header['X-Frame-Options']), 'DENY') !== false)) {
+            return false;
         }
-        return $canShow;
+
+        else {
+            return true;
+        }
     }
 
     /**
