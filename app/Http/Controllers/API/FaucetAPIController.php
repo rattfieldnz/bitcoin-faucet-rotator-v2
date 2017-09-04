@@ -38,7 +38,7 @@ class FaucetAPIController extends AppBaseController
     {
         $this->faucetRepository = $faucetRepo;
         $this->faucetCollection = $this->faucetRepository->findWhere(
-            ['is_paused' => false, 'has_low_balance' => false]
+            ['is_paused' => false, 'has_low_balance' => false, 'deleted_at' => null]
         )->sortBy('interval_minutes')->values();
         $this->paymentProcessorRepo = $paymentProcessorRepo;
     }
@@ -181,6 +181,17 @@ class FaucetAPIController extends AppBaseController
                 $this->faucetCollection[count($this->faucetCollection) - 1],
                 true
             ), 'Faucet retrieved successfully');
+    }
+
+    public function getRandomFaucet(){
+
+        $faucets = $this->faucetCollection;
+
+        $randomIndex = rand(0, count($faucets) - 1);
+
+        $faucet = (new FaucetsTransformer)->transform($faucets[$randomIndex], false);
+
+        return $this->sendResponse($faucet, 'Faucet retrieved successfully');
     }
 
     public function getPaymentProcessorFaucet($paymentProcessorSlug, $faucetSlug)

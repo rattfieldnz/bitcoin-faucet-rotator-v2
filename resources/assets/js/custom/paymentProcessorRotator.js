@@ -77,15 +77,12 @@ $(function(){
 
     function generateFaucet(apiUrl){
         var iframeUrl;
-        //var currentFaucetSlug;
-        var numberOfFaucets;
 
         paymentProcessorSlug = $("#title").data("payment-processor-slug");
         $.ajax(apiUrl, {
             success: function (data) {
-                numberOfFaucets = data.data.length;
                 iframeUrl = data.data.url;
-                
+
                 currentFaucetSlug = data.data.slug;
                 $('#rotator-iframe').attr('src', iframeUrl);
                 $('#current').attr('href', '/faucets/' + currentFaucetSlug);

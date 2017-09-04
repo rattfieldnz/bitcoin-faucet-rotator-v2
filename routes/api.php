@@ -14,11 +14,12 @@ header('Access-Control-Allow-Credentials: true');
 Route::group(['prefix' => 'v1', 'namespace' => 'API'], function () {
 
     Route::get('faucets', ['as' => 'faucets', 'uses' => 'FaucetAPIController@index']);
-    Route::get('faucets/{id}', ['as' => 'faucets.show', 'uses' => 'FaucetAPIController@show']);
-    Route::get('first_faucet', ['as' => 'faucets.first', 'uses' => 'FaucetAPIController@getFirstFaucet']);
-    Route::get('faucets/{id}/previous', ['as' => 'faucets.previous', 'uses' => 'FaucetAPIController@getPreviousFaucet']);
-    Route::get('faucets/{id}/next', ['as' => 'faucets.next', 'uses' => 'FaucetAPIController@getNextFaucet']);
-    Route::get('last_faucet', ['as' => 'faucets.last', 'uses' => 'FaucetAPIController@getLastFaucet']);
+    Route::get('faucets/{slug}', ['as' => 'faucets.show', 'uses' => 'FaucetAPIController@show']);
+    Route::get('first-faucet', ['as' => 'faucets.first-faucet', 'uses' => 'FaucetAPIController@getFirstFaucet']);
+    Route::get('faucets/{slug}/previous-faucet', ['as' => 'faucets.previous-faucet', 'uses' => 'FaucetAPIController@getPreviousFaucet']);
+    Route::get('faucets/{slug}/next-faucet', ['as' => 'faucets.next-faucet', 'uses' => 'FaucetAPIController@getNextFaucet']);
+    Route::get('last-faucet', ['as' => 'faucets.last-faucet', 'uses' => 'FaucetAPIController@getLastFaucet']);
+    Route::get('random-faucet', ['as' => 'faucets.random-faucet', 'uses' => 'FaucetAPIController@getRandomFaucet']);
 
     Route::get('payment-processors', ['as' => 'payment-processors', 'uses' => 'PaymentProcessorAPIController@index']);
 
