@@ -85,7 +85,7 @@ $(function(){
             success: function (data) {
                 numberOfFaucets = data.data.length;
                 iframeUrl = data.data.url;
-                console.log(data.data.url);
+                
                 currentFaucetSlug = data.data.slug;
                 $('#rotator-iframe').attr('src', iframeUrl);
                 $('#current').attr('href', '/faucets/' + currentFaucetSlug);
