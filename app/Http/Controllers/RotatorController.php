@@ -73,6 +73,19 @@ class RotatorController extends Controller
 
         WebsiteMeta::setCustomMeta($title, $description, $keywords, $publishedTime, $modifiedTime, $author, $currentUrl, $image, $categoryDescription);
 
+        $config = Config::get('secure-headers.csp.child-src.allow');
+        $faucets = $paymentProcessor->faucets()
+            ->where('has_low_balance', '=', false)
+            ->where('has_low_balance', '=', false)
+            ->where('deleted_at', '=', null)
+            ->get(['url']);
+
+        foreach($faucets as $f){
+            array_push($config, parse_url($f->url)['host']);
+        }
+        //dd($config);
+        Config::set('secure-headers.csp.child-src.allow', $config);
+
         return view('payment_processors.rotator.index')
             ->with('paymentProcessor', $paymentProcessor);
 

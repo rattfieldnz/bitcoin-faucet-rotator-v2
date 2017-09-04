@@ -4,7 +4,7 @@
     <div style="margin:0 0 0 0;">
         <section class="content-header">
             <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
-                <h1 style="text-align: center;">{{ $paymentProcessor->name }} Faucet Rotator</h1>
+                <h1 id="title" style="text-align: center;" data-payment-processor-slug="{{ $paymentProcessor->slug }}">{{ $paymentProcessor->name }} Faucet Rotator</h1>
             </div>
         </section>
         <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">
@@ -26,7 +26,7 @@
 @endsection
 
 @push('scripts')
-<!--<script src="/assets/js/rotator-scripts/mainRotator.min.js?{{ rand() }}"></script>-->
+<script src="/assets/js/rotator-scripts/paymentProcessorRotator.min.js?{{ rand() }}"></script>
 @endpush
 
 @push('google-analytics')

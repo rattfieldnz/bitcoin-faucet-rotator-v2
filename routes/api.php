@@ -20,6 +20,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function () {
     Route::get('faucets/{id}/next', ['as' => 'faucets.next', 'uses' => 'FaucetAPIController@getNextFaucet']);
     Route::get('last_faucet', ['as' => 'faucets.last', 'uses' => 'FaucetAPIController@getLastFaucet']);
 
+    Route::get('payment-processors', ['as' => 'payment-processors', 'uses' => 'PaymentProcessorAPIController@index']);
+
+    Route::get('payment-processors/{slug}', ['as' => 'payment-processors.show', 'uses' => 'PaymentProcessorAPIController@show']);
+
     Route::get('payment-processors/{paymentProcessorSlug}/faucets/{faucetSlug}', [
         'as' => 'payment-processor.faucet',
         'uses' => 'FaucetAPIController@getPaymentProcessorFaucet'
@@ -35,12 +39,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function () {
         'uses' => 'FaucetAPIController@getFirstPaymentProcessorFaucet'
     ]);
 
-    Route::get('payment-processors/{paymentProcessorSlug}/faucets/{faucetSlug}/previous', [
+    Route::get('payment-processors/{paymentProcessorSlug}/faucets/{faucetSlug}/previous-faucet', [
         'as' => 'payment-processor.previous-faucet',
         'uses' => 'FaucetAPIController@getPreviousPaymentProcessorFaucet'
     ]);
 
-    Route::get('payment-processors/{paymentProcessorSlug}/faucets/{faucetSlug}/next', [
+    Route::get('payment-processors/{paymentProcessorSlug}/faucets/{faucetSlug}/next-faucet', [
         'as' => 'payment-processor.next-faucet',
         'uses' => 'FaucetAPIController@getNextPaymentProcessorFaucet'
     ]);
@@ -50,9 +54,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function () {
         'uses' => 'FaucetAPIController@getLastPaymentProcessorFaucet'
     ]);
 
-    Route::get('payment-processors', ['as' => 'payment-processors', 'uses' => 'PaymentProcessorAPIController@index']);
-
-    Route::get('payment-processors/{slug}', ['as' => 'payment-processors.show', 'uses' => 'PaymentProcessorAPIController@show']);
+    Route::get('payment-processors/{paymentProcessorSlug}/random-faucet', [
+        'as' => 'payment-processor.random-faucet',
+        'uses' => 'FaucetAPIController@getRandomPaymentProcessorFaucet'
+    ]);
 
     Route::get(
         'top-pages/from/{dateFrom}/to/{dateTo}/quantity/{quantity?}',

@@ -11,6 +11,12 @@
 
         <!-- START Site Styles -->
         @include('layouts.partials.styles._css')
+        <script>
+            window['GoogleAnalyticsObject'] = 'ga';
+            window['ga'] = window['ga'] || function() {
+                    (window['ga'].q = window['ga'].q || []).push(arguments)
+                };
+        </script>
         <!-- END Site Styles -->
     </head>
     <body class="skin-blue sidebar-mini" id="{{ empty(Auth::user()) ? 'guest-bg' : 'auth-bg' }}">

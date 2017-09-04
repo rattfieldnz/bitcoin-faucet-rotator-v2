@@ -3,6 +3,7 @@
 namespace App\Transformers;
 
 use App\Helpers\Functions\Faucets;
+use App\Helpers\Functions\Http;
 use App\Models\Faucet;
 use App\Models\Role;
 use App\Models\User;
@@ -35,6 +36,7 @@ class FaucetsTransformer extends TransformerAbstract
             'name' => $model->name,
             'slug' => $model->slug,
             'url' => $model->url . $referralCode,
+            'can_show_in_iframes' => Http::canShowInIframes($model->url),
             'interval_minutes' => (int)$model->interval_minutes,
             'min_payout' => (int)$model->min_payout,
             'max_payout' => (int)$model->max_payout,

@@ -283,10 +283,12 @@ class Faucets
                 ->causedBy(Auth::user())
                 ->log("The faucet ':subject.name' in '" . $user->user_name . "'s' collection was archived/deleted by :causer.user_name");
         } else {
+            DB::statement('SET FOREIGN_KEY_CHECKS = 0');
             DB::table('referral_info')
                 ->where('user_id', $user->id)
                 ->where('faucet_id', $faucet->id)
                 ->delete();
+            DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
             activity(self::faucetLogName())
                 ->performedOn($faucet)

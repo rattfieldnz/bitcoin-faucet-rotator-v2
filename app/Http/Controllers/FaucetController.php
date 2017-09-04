@@ -15,6 +15,7 @@ use Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Mews\Purifier\Facades\Purifier;
@@ -337,7 +338,9 @@ class FaucetController extends AppBaseController
         }
 
         Faucets::destroyUserFaucet(Auth::user(), $faucet, true);
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         $faucet->forceDelete();
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
         flash('The \''. $faucetName .'\' faucet was permanently deleted!')->success();
 
