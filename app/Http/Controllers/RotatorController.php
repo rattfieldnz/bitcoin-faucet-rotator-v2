@@ -43,7 +43,7 @@ class RotatorController extends Controller
             ->where('deleted_at', '=', null)
             ->get(['url']);
 
-        foreach($faucets as $f){
+        foreach ($faucets as $f) {
             array_push($config, parse_url($f->url)['host']);
         }
 
@@ -54,10 +54,11 @@ class RotatorController extends Controller
             ->with('content', $content);
     }
 
-    public function getPaymentProcessorFaucetRotator($paymentProcessorSlug){
+    public function getPaymentProcessorFaucetRotator($paymentProcessorSlug)
+    {
         $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->firstOrFail();
 
-        if(empty($paymentProcessor)){
+        if (empty($paymentProcessor)) {
             abort(404, "The payment processor cannot be found.");
         }
 
@@ -80,7 +81,7 @@ class RotatorController extends Controller
             ->where('deleted_at', '=', null)
             ->get(['url']);
 
-        foreach($faucets as $f){
+        foreach ($faucets as $f) {
             array_push($config, parse_url($f->url)['host']);
         }
         //dd($config);
@@ -88,7 +89,5 @@ class RotatorController extends Controller
 
         return view('payment_processors.rotator.index')
             ->with('paymentProcessor', $paymentProcessor);
-
-
     }
 }

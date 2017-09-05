@@ -33,19 +33,14 @@ class Http
 
         $header = @get_headers($url, 1);
 
-        if (!$header || stripos(strtoupper($header[0]), '200 OK') === false) return false;
-
-        else if(isset($header['X-Frame-Options']) && is_array($header['X-Frame-Options'])){
+        if (!$header || stripos(strtoupper($header[0]), '200 OK') === false) {
             return false;
-        }
-
-        elseif (
-            isset($header['X-Frame-Options']) &&
+        } else if (isset($header['X-Frame-Options']) && is_array($header['X-Frame-Options'])) {
+            return false;
+        } elseif (isset($header['X-Frame-Options']) &&
             (stripos(strtoupper($header['X-Frame-Options']), 'SAMEORIGIN') !== false || stripos(strtoupper($header['X-Frame-Options']), 'DENY') !== false)) {
             return false;
-        }
-
-        else {
+        } else {
             return true;
         }
     }

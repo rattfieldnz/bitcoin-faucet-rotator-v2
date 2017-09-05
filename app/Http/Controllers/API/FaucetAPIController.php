@@ -64,7 +64,7 @@ class FaucetAPIController extends AppBaseController
         )->first();
 
         if (empty($faucet)) {
-            return $this->sendError('Faucet not found',404);
+            return $this->sendError('Faucet not found', 404);
         }
 
         return $this->sendResponse(
@@ -74,7 +74,8 @@ class FaucetAPIController extends AppBaseController
             ), 'Faucet retrieved successfully');
     }
 
-    public function getFirstFaucet(){
+    public function getFirstFaucet()
+    {
 
         return $this->sendResponse(
             (new FaucetsTransformer)->transform(
@@ -83,14 +84,15 @@ class FaucetAPIController extends AppBaseController
             ), 'Faucet retrieved successfully');
     }
 
-    public function getPreviousFaucet($slug){
+    public function getPreviousFaucet($slug)
+    {
         $faucetSlugs = array_column($this->faucetCollection->toArray(), 'slug');
         $previousFaucet = null;
 
-        foreach($faucetSlugs as $key => $value){
-            if($value == $slug){
+        foreach ($faucetSlugs as $key => $value) {
+            if ($value == $slug) {
                 // Decrement key to find previous one.
-                if($key - 1 < 0){
+                if ($key - 1 < 0) {
                     // If subtracted value is negative,
                     // we are at beginning of faucet collection array.
                     // Go to last faucet in the collection.
@@ -129,14 +131,15 @@ class FaucetAPIController extends AppBaseController
         return null;
     }
 
-    public function getNextFaucet($slug){
+    public function getNextFaucet($slug)
+    {
         $faucetSlugs = array_column($this->faucetCollection->toArray(), 'slug');
         $nextFaucet = null;
 
-        foreach($faucetSlugs as $key => $value){
-            if($value == $slug){
+        foreach ($faucetSlugs as $key => $value) {
+            if ($value == $slug) {
                 // Increase key to find next one.
-                if($key + 1 > count($faucetSlugs) - 1){
+                if ($key + 1 > count($faucetSlugs) - 1) {
                     // If addition is greater than number of faucets,
                     // We are at end of the collection.
                     // Go to first faucet in the collection.
@@ -174,7 +177,8 @@ class FaucetAPIController extends AppBaseController
         return null;
     }
 
-    public function getLastFaucet(){
+    public function getLastFaucet()
+    {
 
         return $this->sendResponse(
             (new FaucetsTransformer)->transform(
@@ -183,7 +187,8 @@ class FaucetAPIController extends AppBaseController
             ), 'Faucet retrieved successfully');
     }
 
-    public function getRandomFaucet(){
+    public function getRandomFaucet()
+    {
 
         $faucets = $this->faucetCollection;
 
@@ -199,7 +204,7 @@ class FaucetAPIController extends AppBaseController
         //Obtain payment processor by related slug.
         $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
 
-        if(empty($paymentProcessor)){
+        if (empty($paymentProcessor)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'Payment processor not found.'],
                 "Payment processor not found."
@@ -226,7 +231,7 @@ class FaucetAPIController extends AppBaseController
         //Obtain payment processor by related slug.
         $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
 
-        if(empty($paymentProcessor)){
+        if (empty($paymentProcessor)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'Payment processor not found.'],
                     "Payment processor not found."
@@ -253,7 +258,7 @@ class FaucetAPIController extends AppBaseController
         //Obtain payment processor by related slug.
         $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
 
-        if(empty($paymentProcessor)){
+        if (empty($paymentProcessor)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'Payment processor not found.'],
                 "Payment processor not found."
@@ -271,14 +276,14 @@ class FaucetAPIController extends AppBaseController
         $faucet = (new FaucetsTransformer)->transform($faucets[0], false);
 
         return $this->sendResponse($faucet, 'Faucet retrieved successfully');
-
     }
 
-    public function getPreviousPaymentProcessorFaucet($paymentProcessorSlug, $faucetSlug){
+    public function getPreviousPaymentProcessorFaucet($paymentProcessorSlug, $faucetSlug)
+    {
         //Obtain payment processor by related slug.
         $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
 
-        if(empty($paymentProcessor)){
+        if (empty($paymentProcessor)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'Payment processor not found.'],
                 "Payment processor not found."
@@ -291,10 +296,10 @@ class FaucetAPIController extends AppBaseController
 
         $array = array_column($faucets->get()->toArray(), 'slug');
 
-        foreach($array as $key => $value){
-            if($value == $faucetSlug){
+        foreach ($array as $key => $value) {
+            if ($value == $faucetSlug) {
                 // Increase key to find next one.
-                if($key - 1 > count($array) - 1){
+                if ($key - 1 > count($array) - 1) {
                     // If addition is greater than number of faucets,
                     // We are at end of the collection.
                     // Go to first faucet in the collection.
@@ -329,11 +334,12 @@ class FaucetAPIController extends AppBaseController
         return null;
     }
 
-    public function getNextPaymentProcessorFaucet($paymentProcessorSlug, $faucetSlug){
+    public function getNextPaymentProcessorFaucet($paymentProcessorSlug, $faucetSlug)
+    {
         //Obtain payment processor by related slug.
         $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
 
-        if(empty($paymentProcessor)){
+        if (empty($paymentProcessor)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'Payment processor not found.'],
                 "Payment processor not found."
@@ -346,10 +352,10 @@ class FaucetAPIController extends AppBaseController
 
         $array = array_column($faucets->get()->toArray(), 'slug');
 
-        foreach($array as $key => $value){
-            if($value == $faucetSlug){
+        foreach ($array as $key => $value) {
+            if ($value == $faucetSlug) {
                 // Increase key to find next one.
-                if($key + 1 > count($array) - 1){
+                if ($key + 1 > count($array) - 1) {
                     // If addition is greater than number of faucets,
                     // We are at end of the collection.
                     // Go to first faucet in the collection.
@@ -384,11 +390,12 @@ class FaucetAPIController extends AppBaseController
         return null;
     }
 
-    public function getLastPaymentProcessorFaucet($paymentProcessorSlug){
+    public function getLastPaymentProcessorFaucet($paymentProcessorSlug)
+    {
         //Obtain payment processor by related slug.
         $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
 
-        if(empty($paymentProcessor)){
+        if (empty($paymentProcessor)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'Payment processor not found.'],
                 "Payment processor not found."
@@ -408,11 +415,12 @@ class FaucetAPIController extends AppBaseController
         return $this->sendResponse($faucet, 'Faucet retrieved successfully');
     }
 
-    public function getRandomPaymentProcessorFaucet($paymentProcessorSlug){
+    public function getRandomPaymentProcessorFaucet($paymentProcessorSlug)
+    {
         //Obtain payment processor by related slug.
         $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
 
-        if(empty($paymentProcessor)){
+        if (empty($paymentProcessor)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'Payment processor not found.'],
                 "Payment processor not found."
@@ -433,5 +441,4 @@ class FaucetAPIController extends AppBaseController
 
         return $this->sendResponse($faucet, 'Faucet retrieved successfully');
     }
-
 }
