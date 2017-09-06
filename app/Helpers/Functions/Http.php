@@ -28,21 +28,26 @@ class Http
      *
      * @return bool
      */
-    public static function canShowInIframes($url)
+    public static function canShowInIframes($url): bool
     {
-
         $header = @get_headers($url, 1);
 
-        if (!$header || stripos(strtoupper($header[0]), '200 OK') === false) {
+        if(!$header){
             return false;
-        } else if (isset($header['X-Frame-Options']) && is_array($header['X-Frame-Options'])) {
-            return false;
-        } elseif (isset($header['X-Frame-Options']) &&
-            (stripos(strtoupper($header['X-Frame-Options']), 'SAMEORIGIN') !== false || stripos(strtoupper($header['X-Frame-Options']), 'DENY') !== false)) {
-            return false;
-        } else {
-            return true;
         }
+
+        if(
+            (!empty($header['Content-Length']) && intval($header['Content-Length']) === 0) |
+            (!empty($header['content-length']) && intval($header['content-length']) === 0)
+        ){
+            return false;
+        }
+
+        if(!empty($header['X-Frame-Options']) | !empty($header['x-frame-options'])){
+            return false;
+        }
+
+        return true;
     }
 
     /**

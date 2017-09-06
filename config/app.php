@@ -175,6 +175,7 @@ return [
         Optimus\ApiConsumer\Provider\LaravelServiceProvider::class,
         Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
         Jaybizzle\MigrationsOrganiser\MigrationsOrganiserServiceProvider::class,
+        Laravel\Tinker\TinkerServiceProvider::class,
         /*
          * Application Service Providers...
          */

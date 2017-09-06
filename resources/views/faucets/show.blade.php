@@ -78,7 +78,7 @@
 
         <div class="box box-primary">
             <div class="box-body">
-                <div class="row" style="padding-left: 20px">
+                <div class="row zero-margin">
                     <p><strong>*</strong> Payout amounts are in Satoshis</p>
 
                     <div id="faucet-info" class="table table-responsive">
@@ -128,6 +128,7 @@
                         @if($canShowInIframe == true)
                         <iframe sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin" src="{{ $faucetUrl }}" id="faucet-iframe"></iframe>
                         @else
+                            <div id="show-no-iframe-content">
                             <h3 style="font-size: 3em;">Sorry!</h3>
 
                             <p>This faucet either: cannot be shown in iframes, is redirected from it's original domain,
@@ -143,6 +144,7 @@
                             @else
                                 <p>Please contact the administrator if you are experiencing issues with the faucet's direct URL / domain name.</p>
                             @endif
+                            </div>
                         @endif
                     @else
                         <p>This faucet has been paused from showing in rotation.</p>

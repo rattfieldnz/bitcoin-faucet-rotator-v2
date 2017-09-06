@@ -8,7 +8,7 @@ use App\Models\Faucet;
 use App\Models\MainMeta;
 use App\Models\PaymentProcessor;
 use Carbon\Carbon;
-use Helpers\Functions\Users;
+use App\Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 
@@ -76,7 +76,7 @@ class RotatorController extends Controller
 
         $config = Config::get('secure-headers.csp.child-src.allow');
         $faucets = $paymentProcessor->faucets()
-            ->where('has_low_balance', '=', false)
+            ->where('is_paused', '=', false)
             ->where('has_low_balance', '=', false)
             ->where('deleted_at', '=', null)
             ->get(['url']);

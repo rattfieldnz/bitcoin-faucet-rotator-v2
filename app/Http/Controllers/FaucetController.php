@@ -11,7 +11,7 @@ use App\Models\Faucet;
 use App\Models\PaymentProcessor;
 use App\Repositories\FaucetRepository;
 use Carbon\Carbon;
-use Helpers\Functions\Users;
+use App\Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -173,7 +173,7 @@ class FaucetController extends AppBaseController
                     ->with('faucet', $faucet)
                     ->with('faucetUrl', $faucetUrl)
                     ->with('message', $message)
-                    ->with('canShowInIframe', Http::canShowInIframes($faucetUrl));
+                    ->with('canShowInIframe', Http::canShowInIframes($faucet->url));
             }
             if (!empty($faucet) && !$faucet->isDeleted()) { // If the faucet exists and isn't soft-deleted
 
@@ -187,7 +187,7 @@ class FaucetController extends AppBaseController
                     ->with('faucet', $faucet)
                     ->with('faucetUrl', $faucetUrl)
                     ->with('message', $message)
-                    ->with('canShowInIframe', Http::canShowInIframes($faucetUrl));
+                    ->with('canShowInIframe', (boolean)Http::canShowInIframes($faucetUrl));
             } else {
                 flash('Faucet not found')->error();
                 return redirect(route('faucets.index'));

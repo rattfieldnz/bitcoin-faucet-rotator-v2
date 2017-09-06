@@ -2,7 +2,7 @@
     <div itemprop="about" itemscope itemtype="http://schema.org/Person">
         <div class="row" style="display:inline-block;">
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="vertical-align: middle;">
-                <img itemprop="image" src="{{ \Helpers\Functions\Users::getGravatar($user) }}" class="img-circle" alt="User Image"/>
+                <img itemprop="image" src="{{ \App\Helpers\Functions\Users::getGravatar($user) }}" class="img-circle" alt="User Image"/>
             </div>
             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9" style="vertical-align: middle;">
                 <h2 class="user-profile-heading-h2 word-wrap-white-space">

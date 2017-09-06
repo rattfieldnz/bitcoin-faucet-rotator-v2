@@ -12,7 +12,7 @@
                     <figure>
                         <div class="row">
                             <div class="col-xs-4">
-                                <img src="{{ \Helpers\Functions\Users::getGravatar(Auth::user()) }}" class="img-circle" alt="User Image"/>
+                                <img src="{{ \App\Helpers\Functions\Users::getGravatar(Auth::user()) }}" class="img-circle" alt="User Image"/>
                             </div>
                             <figcaption class="col-xs-8">
                                 <p id="username"><strong>{{ Auth::user()->user_name}}</strong></p>

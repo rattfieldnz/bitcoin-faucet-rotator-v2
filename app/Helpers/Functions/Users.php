@@ -6,7 +6,7 @@
  * Time: 20:33
  */
 
-namespace Helpers\Functions;
+namespace App\Helpers\Functions;
 
 use App\Helpers\Constants;
 use App\Http\Requests\UpdateUserRequest;

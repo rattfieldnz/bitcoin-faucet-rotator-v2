@@ -76,7 +76,6 @@ class FaucetAPIController extends AppBaseController
 
     public function getFirstFaucet()
     {
-
         return $this->sendResponse(
             (new FaucetsTransformer)->transform(
                 $this->faucetCollection[0],

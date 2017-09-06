@@ -367,11 +367,11 @@ class Faucets
 
         // Check if the user and faucet exists.
 
-        if ((empty($user) || $user->isDeleted() && (Auth::check() && !Auth::user()->isAnAdmin()))) {
+        if (empty($user) || $user->isDeleted()) {
             return null;
         }
 
-        if (empty($faucet) || empty($faucet->pivot->deleted_at) && (Auth::check() && !Auth::user()->isAnAdmin())) {
+        if (empty($faucet) || !empty($faucet->pivot->deleted_at)) {
             return null;
         }
 

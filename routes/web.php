@@ -36,6 +36,16 @@ Route::patch(
     ]
 );
 
+Route::get('faucets/{slug}/edit', [
+    'as' => 'faucets.edit',
+    'uses' => 'FaucetController@edit'
+]);
+
+Route::get('faucets/{slug}', [
+    'as' => 'faucet.show',
+    'uses' => 'FaucetController@show'
+]);
+
 Route::get('users/{userSlug}/faucets', ['as' => 'users.faucets', 'uses' => 'UserFaucetsController@index']);
 Route::get('users/{userSlug}/faucets/create', ['as' => 'users.faucets.create', 'uses' => 'UserFaucetsController@create']);
 Route::post('users/{userSlug}/faucets/store', ['as' => 'users.faucets.store', 'uses' => 'UserFaucetsController@store']);

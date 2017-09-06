@@ -160,7 +160,7 @@ table.show-table-header thead tr th{
 }
 
 #faucet-info{
-    width:calc(100% - 1.5em);
+    width: 100%;
 }
 
 #faucet-iframe, #rotator-iframe {
@@ -169,10 +169,17 @@ table.show-table-header thead tr th{
     border: 0.125em solid #ddd;
 }
 
-#show-no-iframe-content{
+#show-no-iframe-content, #show-ajax-data-error-content{
     width: 100%;
     padding: 0.5em;
-    border: 0.375em solid #ddd;
+}
+
+#show-no-iframe-content{
+    border: 0.375em solid orange;
+}
+
+#show-ajax-data-error-content{
+    border: 0.375em solid red;
 }
 
 .wrapper{
