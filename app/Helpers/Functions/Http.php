@@ -32,18 +32,17 @@ class Http
     {
         $header = @get_headers($url, 1);
 
-        if(!$header){
+        if (!$header) {
             return false;
         }
 
-        if(
-            (!empty($header['Content-Length']) && intval($header['Content-Length']) === 0) |
+        if ((!empty($header['Content-Length']) && intval($header['Content-Length']) === 0) |
             (!empty($header['content-length']) && intval($header['content-length']) === 0)
-        ){
+        ) {
             return false;
         }
 
-        if(!empty($header['X-Frame-Options']) | !empty($header['x-frame-options'])){
+        if (!empty($header['X-Frame-Options']) | !empty($header['x-frame-options'])) {
             return false;
         }
 
