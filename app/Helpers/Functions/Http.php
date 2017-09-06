@@ -36,6 +36,11 @@ class Http
             return false;
         }
 
+        if(filter_var(gethostbyname(parse_url($url)['host']), FILTER_VALIDATE_IP) === false)
+        {
+            return false;
+        }
+
         if ((!empty($header['Content-Length']) && intval($header['Content-Length']) === 0) |
             (!empty($header['content-length']) && intval($header['content-length']) === 0)
         ) {
