@@ -75995,4 +75995,5 @@ function clearChart(chartElement, chartContainerElement, chartHeight){
         $(chartContainerElement).append('<canvas ' + attribute + '="' + elementName + '" style="height:' + chartHeight + '"></canvas>');
     }
 }
+
 //# sourceMappingURL=mainScripts.js.map
