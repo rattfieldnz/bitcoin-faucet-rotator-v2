@@ -6,7 +6,7 @@ use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreatePrivacyPolicyRequest;
 use App\Http\Requests\UpdatePrivacyPolicyRequest;
 use App\Repositories\PrivacyPolicyRepository;
-use Helpers\Functions\Users;
+use App\Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Auth;

@@ -6,7 +6,6 @@ use App\Helpers\Functions;
 use App\Http\Requests\CreatePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Repositories\PermissionRepository;
-use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Auth;
@@ -49,36 +48,6 @@ class PermissionController extends AppBaseController
         return view('permissions.index')
             ->with('permissions', $permissions);
     }
-
-    /**
-     * Show the form for creating a new Permission.
-     *
-     * @return Response
-     */
-    /*public function create()
-    {
-        Functions::userCanAccessArea(Auth::user(), 'permissions.create');
-        return view('permissions.create');
-    }*/
-
-    /**
-     * Store a newly created Permission in storage.
-     *
-     * @param CreatePermissionRequest $request
-     *
-     * @return Response
-     */
-    /*public function store(CreatePermissionRequest $request)
-    {
-        Functions::userCanAccessArea(Auth::user(), 'permissions.store');
-        $input = $request->all();
-
-        $permission = $this->permissionRepository->create($input);
-
-        Flash::success('Permission saved successfully.');
-
-        return redirect(route('permissions.index'));
-    }*/
 
     /**
      * Display the specified Permission.
@@ -148,29 +117,4 @@ class PermissionController extends AppBaseController
 
         return redirect(route('permissions.index'));
     }
-
-    /**
-     * Remove the specified Permission from storage.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    /*public function destroy($id)
-    {
-        Functions::userCanAccessArea(Auth::user(), 'permissions.destroy');
-        $permission = $this->permissionRepository->findWithoutFail($id);
-
-        if (empty($permission)) {
-            Flash::error('Permission not found');
-
-            return redirect(route('permissions.index'));
-        }
-
-        $this->permissionRepository->delete($id);
-
-        Flash::success('Permission deleted successfully.');
-
-        return redirect(route('permissions.index'));
-    }*/
 }

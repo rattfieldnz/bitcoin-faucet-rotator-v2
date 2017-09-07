@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Functions\Faucets;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Models\Faucet;
 use App\Models\MainMeta;
 use App\Models\PaymentProcessor;
 use Carbon\Carbon;
 use App\Helpers\Functions\Users;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 
 class RotatorController extends Controller

@@ -13,13 +13,9 @@ use App\Models\User;
 use App\Repositories\UserFaucetRepository;
 use App\Repositories\UserRepository;
 use Carbon\Carbon;
-use Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Route;
 use Mews\Purifier\Facades\Purifier;
 use Prettus\Repository\Criteria\RequestCriteria;
 

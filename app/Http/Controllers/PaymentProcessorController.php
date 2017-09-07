@@ -17,7 +17,7 @@ use Flash;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
-use Helpers\Functions\Users;
+use App\Helpers\Functions\Users;
 
 /**
  * Class PaymentProcessorController
@@ -34,7 +34,7 @@ class PaymentProcessorController extends AppBaseController
      * PaymentProcessorController constructor.
      *
      * @param \App\Repositories\PaymentProcessorRepository $paymentProcessorRepo
-     * @param \Helpers\Functions\Users                     $userFunctions
+     * @param \App\Helpers\Functions\Users                     $userFunctions
      */
     public function __construct(PaymentProcessorRepository $paymentProcessorRepo, Users $userFunctions)
     {

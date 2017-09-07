@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\CreatePaymentProcessorAPIRequest;
-use App\Http\Requests\API\UpdatePaymentProcessorAPIRequest;
-use App\Models\PaymentProcessor;
 use App\Repositories\PaymentProcessorRepository;
 use App\Transformers\PaymentProcessorsTransformer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
 
 /**
  * Class PaymentProcessorController

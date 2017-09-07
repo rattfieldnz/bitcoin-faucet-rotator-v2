@@ -2,14 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Analytics;
-use App\Helpers\Constants;
-use App\Helpers\Functions\Dates;
-use App\Libraries\Google\Analytics\GoogleAnalytics;
-use Illuminate\Http\Request;
-use Spatie\Analytics\Period;
-use Yajra\Datatables\Facades\Datatables;
-
 /**
  * Class StatsController
  *

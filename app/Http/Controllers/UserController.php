@@ -9,7 +9,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\MainMeta;
 use App\Repositories\UserRepository;
 use Carbon\Carbon;
-use Helpers\Functions\Users;
+use App\Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;

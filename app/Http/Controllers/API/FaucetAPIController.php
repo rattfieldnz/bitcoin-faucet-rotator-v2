@@ -2,21 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Helpers\Functions\Faucets;
-use App\Http\Requests\API\CreateFaucetAPIRequest;
-use App\Http\Requests\API\UpdateFaucetAPIRequest;
 use App\Models\Faucet;
-use App\Models\PaymentProcessor;
 use App\Repositories\FaucetRepository;
 use App\Repositories\PaymentProcessorRepository;
 use App\Transformers\FaucetsTransformer;
-use Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use Illuminate\Support\Facades\Config;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
 
 /**
  * Class FaucetController

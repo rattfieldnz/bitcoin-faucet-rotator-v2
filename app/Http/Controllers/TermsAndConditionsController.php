@@ -6,7 +6,7 @@ use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreateTermsAndConditionsRequest;
 use App\Http\Requests\UpdateTermsAndConditionsRequest;
 use App\Repositories\TermsAndConditionsRepository;
-use Helpers\Functions\Users;
+use App\Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Auth;

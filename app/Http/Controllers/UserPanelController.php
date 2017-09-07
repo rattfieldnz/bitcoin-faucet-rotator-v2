@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\UserRepository;
-use Helpers\Functions\Users;
+use App\Helpers\Functions\Users;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
