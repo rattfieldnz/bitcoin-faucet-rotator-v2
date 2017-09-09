@@ -8,6 +8,8 @@
             </div>
         </section>
         <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">
+
+            @include('layouts.partials.navigation._breadcrumbs')
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="row">

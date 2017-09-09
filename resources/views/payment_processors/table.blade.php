@@ -9,6 +9,7 @@
         <th>Name</th>
         <th>Faucets</th>
         <th>No. Of Faucets</th>
+        <th>Rotator Link</th>
         <th>Min. Claimable</th>
         <th>Max. Claimable</th>
 
@@ -37,6 +38,9 @@
                     {{ count($paymentProcessor->faucets()->get()) }}
                 @endif
             </td>
+           <td>
+               {!! link_to_route('payment-processors.rotator', $paymentProcessor->name . ' Rotator', ['slug' => $paymentProcessor->slug]) !!}
+           </td>
 
             @if(count($paymentProcessor->faucets()->get()) != 0)
                 <td>

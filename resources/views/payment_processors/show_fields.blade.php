@@ -25,6 +25,10 @@
     {!! Form::label('faucets', 'Faucets:') !!}
     {!! link_to_route('payment-processors.faucets', 'View Faucets', $paymentProcessor->slug) !!}
 </div>
+<div class="form-group">
+    {!! Form::label('rotator', 'Rotator:') !!}
+    {!! link_to_route('payment-processors.rotator', 'View Rotator', $paymentProcessor->slug) !!}
+</div>
 @endif
 
 @if(Auth::user() != null)
