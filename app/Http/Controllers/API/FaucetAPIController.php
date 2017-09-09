@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\Functions\Users;
 use App\Models\Faucet;
 use App\Repositories\FaucetRepository;
 use App\Repositories\PaymentProcessorRepository;
@@ -26,6 +27,7 @@ class FaucetAPIController extends AppBaseController
     private $faucetRepository;
     private $faucetCollection;
     private $paymentProcessorRepo;
+    private $adminUser;
 
     public function __construct(FaucetRepository $faucetRepo, PaymentProcessorRepository $paymentProcessorRepo)
     {
@@ -34,6 +36,7 @@ class FaucetAPIController extends AppBaseController
             ['is_paused' => false, 'has_low_balance' => false, 'deleted_at' => null]
         )->sortBy('interval_minutes')->values();
         $this->paymentProcessorRepo = $paymentProcessorRepo;
+        $this->adminUser = Users::adminUser();
     }
 
     public function index(Request $request)
@@ -43,7 +46,7 @@ class FaucetAPIController extends AppBaseController
 
         for ($i = 0; $i < count($this->faucetCollection); $i++) {
             $this->faucetCollection[$i] = (new FaucetsTransformer)
-                ->transform($this->faucetCollection[$i], true);
+                ->transform($this->adminUser, $this->faucetCollection[$i], true);
         }
 
         return $this->sendResponse($this->faucetCollection, 'Faucets retrieved successfully');
@@ -62,6 +65,7 @@ class FaucetAPIController extends AppBaseController
 
         return $this->sendResponse(
             (new FaucetsTransformer)->transform(
+                $this->adminUser,
                 $faucet,
                     true
             ), 'Faucet retrieved successfully');
@@ -71,6 +75,7 @@ class FaucetAPIController extends AppBaseController
     {
         return $this->sendResponse(
             (new FaucetsTransformer)->transform(
+                $this->adminUser,
                 $this->faucetCollection[0],
                     true
             ), 'Faucet retrieved successfully');
@@ -99,6 +104,7 @@ class FaucetAPIController extends AppBaseController
 
                     return $this->sendResponse(
                         (new FaucetsTransformer)->transform(
+                            $this->adminUser,
                             $previousFaucet,
                                 true
                         ), 'Faucet retrieved successfully');
@@ -115,6 +121,7 @@ class FaucetAPIController extends AppBaseController
 
                 return $this->sendResponse(
                     (new FaucetsTransformer)->transform(
+                        $this->adminUser,
                         $previousFaucet,
                         true
                     ), 'Faucet retrieved successfully');
@@ -146,6 +153,7 @@ class FaucetAPIController extends AppBaseController
 
                     return $this->sendResponse(
                         (new FaucetsTransformer)->transform(
+                            $this->adminUser,
                             $nextFaucet,
                             true
                         ), 'Faucet retrieved successfully');
@@ -161,6 +169,7 @@ class FaucetAPIController extends AppBaseController
 
                 return $this->sendResponse(
                     (new FaucetsTransformer)->transform(
+                        $this->adminUser,
                         $nextFaucet,
                         true
                     ), 'Faucet retrieved successfully');
@@ -174,6 +183,7 @@ class FaucetAPIController extends AppBaseController
 
         return $this->sendResponse(
             (new FaucetsTransformer)->transform(
+                $this->adminUser,
                 $this->faucetCollection[count($this->faucetCollection) - 1],
                 true
             ), 'Faucet retrieved successfully');
@@ -186,7 +196,7 @@ class FaucetAPIController extends AppBaseController
 
         $randomIndex = rand(0, count($faucets) - 1);
 
-        $faucet = (new FaucetsTransformer)->transform($faucets[$randomIndex], false);
+        $faucet = (new FaucetsTransformer)->transform($this->adminUser, $faucets[$randomIndex], false);
 
         return $this->sendResponse($faucet, 'Faucet retrieved successfully');
     }
@@ -213,6 +223,7 @@ class FaucetAPIController extends AppBaseController
 
         return $this->sendResponse(
             (new FaucetsTransformer)->transform(
+                $this->adminUser,
                 $faucet,
                 true
             ), 'Faucet retrieved successfully');
@@ -239,7 +250,7 @@ class FaucetAPIController extends AppBaseController
             ->get();
 
         for ($i = 0; $i < count($faucets); $i++) {
-            $faucets[$i] = (new FaucetsTransformer)->transform($faucets[$i], false);
+            $faucets[$i] = (new FaucetsTransformer)->transform($this->adminUser, $faucets[$i], false);
         }
 
         return $this->sendResponse($faucets, 'Faucets retrieved successfully');
@@ -265,7 +276,7 @@ class FaucetAPIController extends AppBaseController
             ->orderBy('interval_minutes')
             ->get();
 
-        $faucet = (new FaucetsTransformer)->transform($faucets[0], false);
+        $faucet = (new FaucetsTransformer)->transform($this->adminUser, $faucets[0], false);
 
         return $this->sendResponse($faucet, 'Faucet retrieved successfully');
     }
@@ -304,6 +315,7 @@ class FaucetAPIController extends AppBaseController
 
                     return $this->sendResponse(
                         (new FaucetsTransformer)->transform(
+                            $this->adminUser,
                             $faucet,
                             true
                         ), 'Faucet retrieved successfully');
@@ -318,6 +330,7 @@ class FaucetAPIController extends AppBaseController
 
                 return $this->sendResponse(
                     (new FaucetsTransformer)->transform(
+                        $this->adminUser,
                         $faucet,
                         true
                     ), 'Faucet retrieved successfully');
@@ -360,6 +373,7 @@ class FaucetAPIController extends AppBaseController
 
                     return $this->sendResponse(
                         (new FaucetsTransformer)->transform(
+                            $this->adminUser,
                             $faucet,
                             true
                         ), 'Faucet retrieved successfully');
@@ -374,6 +388,7 @@ class FaucetAPIController extends AppBaseController
 
                 return $this->sendResponse(
                     (new FaucetsTransformer)->transform(
+                        $this->adminUser,
                         $faucet,
                         true
                     ), 'Faucet retrieved successfully');
@@ -402,7 +417,7 @@ class FaucetAPIController extends AppBaseController
             ->orderBy('interval_minutes')
             ->get();
 
-        $faucet = (new FaucetsTransformer)->transform($faucets[count($faucets) - 1], true);
+        $faucet = (new FaucetsTransformer)->transform($this->adminUser, $faucets[count($faucets) - 1], true);
 
         return $this->sendResponse($faucet, 'Faucet retrieved successfully');
     }
@@ -429,7 +444,7 @@ class FaucetAPIController extends AppBaseController
 
         $randomIndex = rand(0, count($faucets) - 1);
 
-        $faucet = (new FaucetsTransformer)->transform($faucets[$randomIndex], false);
+        $faucet = (new FaucetsTransformer)->transform($this->adminUser, $faucets[$randomIndex], false);
 
         return $this->sendResponse($faucet, 'Faucet retrieved successfully');
     }

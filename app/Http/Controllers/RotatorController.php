@@ -32,6 +32,9 @@ class RotatorController extends Controller
             $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
             $seoConfig->categoryDescription = "Bitcoin Faucet Rotator";
 
+            $pageTitle = $mainMeta->page_main_title;
+            $content = $mainMeta->page_main_content;
+
             WebsiteMeta::setCustomMeta($seoConfig);
         }
 

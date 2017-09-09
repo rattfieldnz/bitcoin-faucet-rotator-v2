@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Transformers\UsersTransformer;
 
 /**
  * Class UserController
@@ -42,54 +43,23 @@ class UserAPIController extends AppBaseController
         $this->userRepository->pushCriteria(new LimitOffsetCriteria($request));
         $users = $this->userRepository->all();
 
+        for($i = 0; $i < count($users); $i++){
+            $users[$i] = (new UsersTransformer)->transform($users[$i], true);
+        }
+
         return $this->sendResponse($users->toArray(), 'Users retrieved successfully');
     }
 
-    /*public function store(CreateUserAPIRequest $request)
+    public function show($slug)
     {
-        $input = $request->all();
-
-        $users = $this->userRepository->create($input);
-
-        return $this->sendResponse($users->toArray(), 'User saved successfully');
-    }*/
-
-    public function show($id)
-    {
-        $user = $this->userRepository->findWithoutFail($id);
+        $user = $this->userRepository->findWhere(['slug' => $slug])->first();
 
         if (empty($user)) {
             return $this->sendError('User not found');
         }
 
-        return $this->sendResponse($user->toArray(), 'User retrieved successfully');
+        $user = (new UsersTransformer)->transform($user, true);
+
+        return $this->sendResponse($user, 'User retrieved successfully');
     }
-
-    /*public function update($id, UpdateUserAPIRequest $request)
-    {
-        $input = $request->all();
-
-        $user = $this->userRepository->findWithoutFail($id);
-
-        if (empty($user)) {
-            return $this->sendError('User not found');
-        }
-
-        $user = $this->userRepository->update($input, $id);
-
-        return $this->sendResponse($user->toArray(), 'User updated successfully');
-    }*/
-
-    /*public function destroy($id)
-    {
-        $user = $this->userRepository->findWithoutFail($id);
-
-        if (empty($user)) {
-            return $this->sendError('User not found');
-        }
-
-        $user->delete();
-
-        return $this->sendResponse($id, 'User deleted successfully');
-    }*/
 }

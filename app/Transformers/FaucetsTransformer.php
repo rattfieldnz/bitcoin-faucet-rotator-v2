@@ -6,12 +6,14 @@ use App\Helpers\Functions\Faucets;
 use App\Helpers\Functions\Http;
 use App\Models\Faucet;
 use App\Helpers\Functions\Users;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use League\Fractal\TransformerAbstract;
 
 /**
  * Class FaucetsTransformer
  *
+ * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package namespace App\Transformers;
  */
 class FaucetsTransformer extends TransformerAbstract
@@ -20,15 +22,14 @@ class FaucetsTransformer extends TransformerAbstract
     /**
      * Transform the Faucet entity
      *
-     * @param Faucet $model
-     * @param bool   $addPaymentProcessors
+     * @param \App\Models\User $user
+     * @param \App\Models\Faucet $model
+     * @param bool $addPaymentProcessors
      *
      * @return array
      */
-    public function transform(Faucet $model, $addPaymentProcessors = false)
+    public function transform(User $user, Faucet $model, $addPaymentProcessors = false)
     {
-        $user = Users::adminUser();
-
         $referralCode = Faucets::getUserFaucetRefCode($user, $model);
         $faucet = [
             'name' => $model->name,

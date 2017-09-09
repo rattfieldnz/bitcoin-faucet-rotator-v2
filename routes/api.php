@@ -91,4 +91,14 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function () {
             'uses' => 'StatsAPIController@getCountriesAndVisitors'
         ]
     );
+
+    Route::get('users', [
+        'as' => 'users',
+        'uses' => 'UserAPIController@index'
+    ]);
+
+    Route::get('users/{slug}', [
+        'as' => 'users.show',
+        'uses' => 'UserAPIController@show'
+    ]);
 });
