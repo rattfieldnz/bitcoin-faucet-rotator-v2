@@ -6,6 +6,7 @@ use App\Helpers\Functions;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Libraries\Seo\SeoConfig;
 use App\Models\MainMeta;
 use App\Repositories\UserRepository;
 use Carbon\Carbon;
@@ -55,18 +56,19 @@ class UserController extends AppBaseController
             $users = $this->userRepository->withTrashed()->get();
         }
 
-        $title = "List of Current Users (" . count($users) . ")";
-        $description = "View all users currently active/registered on the Bitcoin faucet rotator. There are " .
-            count($users) . " users registered, including the admin user.";
-        $keywords = ['Users', 'Bitcoin Faucet Rotator users', 'List of Users'];
-        $publishedTime = Carbon::now()->toW3cString();
-        $modifiedTime = Carbon::now()->toW3cString();
-        $author = Users::adminUser()->fullName();
-        $currentUrl = route('users.index');
-        $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
-        $categoryDescription = "List of Users";
 
-        WebsiteMeta::setCustomMeta($title, $description, $keywords, $publishedTime, $modifiedTime, $author, $currentUrl, $image, $categoryDescription);
+        $seoConfig = new SeoConfig();
+        $seoConfig->title = "List of Current Users (" . count($users) . ")";
+        $seoConfig->description = "View all users currently active/registered on the Bitcoin faucet rotator. There are " .
+            count($users) . " users registered, including the admin user.";
+        $seoConfig->keywords = ['Users', 'Bitcoin Faucet Rotator users', 'List of Users'];
+        $seoConfig->publishedTime = Carbon::now()->toW3cString();
+        $seoConfig->modifiedTime = Carbon::now()->toW3cString();
+        $seoConfig->authorName = Users::adminUser()->fullName();
+        $seoConfig->currentUrl = route('users.index');
+        $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $seoConfig->categoryDescription = "List of Users";
+        WebsiteMeta::setCustomMeta($seoConfig);
 
         return view('users.index')
             ->with('users', $users);

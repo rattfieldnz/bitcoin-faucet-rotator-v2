@@ -7,6 +7,7 @@ use App\Helpers\Functions\Http;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreateUserFaucetRequest;
 use App\Http\Requests\UpdateUserFaucetRequest;
+use App\Libraries\Seo\SeoConfig;
 use App\Models\Faucet;
 use App\Models\PaymentProcessor;
 use App\Models\User;
@@ -89,19 +90,19 @@ class UserFaucetsController extends Controller
 
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->pluck('name', 'id');
 
-        $title = $user->user_name . "'s list of faucets (" . count($showFaucets) . ")";
-        $description = "View " . $user->user_name .
+        $seoConfig = new SeoConfig();
+        $seoConfig->title = $user->user_name . "'s list of faucets (" . count($showFaucets) . ")";
+        $seoConfig->description = "View " . $user->user_name .
             "'s list of faucets and claim some free Bitcoin! They currently have " .
             count($showFaucets) . " faucets.";
-        $keywords = [$user->user_name, 'List of Faucets', $user->user_name . "'s faucets", "Bitcoin Faucets", "Get Free Bitcoin"];
-        $publishedTime = Carbon::now()->toW3cString();
-        $modifiedTime = Carbon::now()->toW3cString();
-        $author = $user->fullName();
-        $currentUrl = route('users.faucets', ['userSlug' => $user->slug]);
-        $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
-        $categoryDescription = "List of Faucets";
-
-        WebsiteMeta::setCustomMeta($title, $description, $keywords, $publishedTime, $modifiedTime, $author, $currentUrl, $image, $categoryDescription);
+        $seoConfig->keywords = [$user->user_name, 'List of Faucets', $user->user_name . "'s faucets", "Bitcoin Faucets", "Get Free Bitcoin"];
+        $seoConfig->publishedTime = Carbon::now()->toW3cString();
+        $seoConfig->modifiedTime = Carbon::now()->toW3cString();
+        $seoConfig->authorName = $user->fullName();
+        $seoConfig->currentUrl = route('users.faucets', ['userSlug' => $user->slug]);
+        $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $seoConfig->categoryDescription  ="List of Faucets";
+        WebsiteMeta::setCustomMeta($seoConfig);
 
         return view('users.faucets.index')
             ->with('user', $user)

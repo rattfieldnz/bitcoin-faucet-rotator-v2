@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreatePrivacyPolicyRequest;
 use App\Http\Requests\UpdatePrivacyPolicyRequest;
+use App\Libraries\Seo\SeoConfig;
 use App\Repositories\PrivacyPolicyRepository;
 use App\Helpers\Functions\Users;
 use Illuminate\Http\Request;
@@ -56,25 +57,19 @@ class PrivacyPolicyController extends AppBaseController
                     ->with('errorMessage', $errorMessage);
             }
         } else {
-            $title = !empty($privacyPolicy->title) ? $privacyPolicy->title : "Privacy Policy";
-            $description = $privacyPolicy->short_description;
-            $keywords = array_map('trim', explode(',', $privacyPolicy->keywords));
-            $publishedTime = $privacyPolicy->created_at->toW3CString();
-            $modifiedTime = $privacyPolicy->updated_at->toW3CString();
-            $author = Users::adminUser()->fullName();
-            $currentUrl = route('privacy-policy.index');
-            $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
-            WebsiteMeta::setCustomMeta(
-                $title,
-                $description,
-                $keywords,
-                $publishedTime,
-                $modifiedTime,
-                $author,
-                $currentUrl,
-                $image,
-                "Privacy Policy"
-            );
+
+            $seoConfig = new SeoConfig();
+            $seoConfig->title = !empty($privacyPolicy->title) ? $privacyPolicy->title : "Privacy Policy";
+            $seoConfig->description = $privacyPolicy->short_description;
+            $seoConfig->keywords = array_map('trim', explode(',', $privacyPolicy->keywords));
+            $seoConfig->publishedTime = $privacyPolicy->created_at->toW3CString();
+            $seoConfig->modifiedTime = $privacyPolicy->updated_at->toW3CString();
+            $seoConfig->authorName = Users::adminUser()->fullName();
+            $seoConfig->currentUrl = route('privacy-policy.index');
+            $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
+            $seoConfig->categoryDescription = "Privacy Policy";
+
+            WebsiteMeta::setCustomMeta($seoConfig);
             return view('privacy_policy.show')
                 ->with('privacyPolicy', $privacyPolicy);
         }

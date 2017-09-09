@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreateTermsAndConditionsRequest;
 use App\Http\Requests\UpdateTermsAndConditionsRequest;
+use App\Libraries\Seo\SeoConfig;
 use App\Repositories\TermsAndConditionsRepository;
 use App\Helpers\Functions\Users;
 use Illuminate\Http\Request;
@@ -55,25 +56,19 @@ class TermsAndConditionsController extends AppBaseController
                     ->with('errorMessage', $errorMessage);
             }
         } else {
-            $title = !empty($termsAndConditions->title) ? $termsAndConditions->title : "Terms and Conditions";
-            $description = $termsAndConditions->short_description;
-            $keywords = array_map('trim', explode(',', $termsAndConditions->keywords));
-            $publishedTime = $termsAndConditions->created_at->toW3CString();
-            $modifiedTime = $termsAndConditions->updated_at->toW3CString();
-            $author = Users::adminUser()->fullName();
-            $currentUrl = route('terms-and-conditions.index');
-            $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
-            WebsiteMeta::setCustomMeta(
-                $title,
-                $description,
-                $keywords,
-                $publishedTime,
-                $modifiedTime,
-                $author,
-                $currentUrl,
-                $image,
-                "Terms and Conditions"
-            );
+
+            $seoConfig = new SeoConfig();
+            $seoConfig->title = !empty($termsAndConditions->title) ? $termsAndConditions->title : "Terms and Conditions";
+            $seoConfig->description = $termsAndConditions->short_description;
+            $seoConfig->keywords = array_map('trim', explode(',', $termsAndConditions->keywords));
+            $seoConfig->publishedTime = $termsAndConditions->created_at->toW3CString();
+            $seoConfig->modifiedTime = $termsAndConditions->updated_at->toW3CString();
+            $seoConfig->authorName = Users::adminUser()->fullName();
+            $seoConfig->currentUrl = route('terms-and-conditions.index');
+            $seoConfig->imagePath = route('terms-and-conditions.index');
+            $seoConfig->categoryDescription = "Terms and Conditions";
+            WebsiteMeta::setCustomMeta($seoConfig);
+
             return view('terms_and_conditions.show')
                 ->with('termsAndConditions', $termsAndConditions);
         }

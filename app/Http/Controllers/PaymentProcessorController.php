@@ -8,6 +8,7 @@ use App\Helpers\Functions\PaymentProcessors;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreatePaymentProcessorRequest;
 use App\Http\Requests\UpdatePaymentProcessorRequest;
+use App\Libraries\Seo\SeoConfig;
 use App\Models\PaymentProcessor;
 use App\Repositories\PaymentProcessorRepository;
 use Carbon\Carbon;
@@ -60,17 +61,18 @@ class PaymentProcessorController extends AppBaseController
             $paymentProcessors = $this->paymentProcessorRepository->all();
         }
 
-        $title = "Listing of faucet payment processors (" . count($paymentProcessors) . ")";
-        $description = "This page shows a list of payment processors which are currently in use in the system. There are " .
+        $seoConfig = new SeoConfig();
+        $seoConfig->title = "Listing of faucet payment processors (" . count($paymentProcessors) . ")";
+        $seoConfig->description = "This page shows a list of payment processors which are currently in use in the system. There are " .
             count($paymentProcessors) . " payment processors.";
-        $publishedTime = Carbon::now()->toW3cString();
-        $modifiedTime = Carbon::now()->toW3cString();
-        $author = Users::adminUser()->fullName();
-        $currentUrl = route('payment-processors.index');
-        $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
-        $categoryDescription = 'Crypto Payment Processors';
-
-        WebsiteMeta::setCustomMeta($title, $description, [], $publishedTime, $modifiedTime, $author, $currentUrl, $image, $categoryDescription);
+        $seoConfig->keywords = $paymentProcessors->pluck('name')->toArray();
+        $seoConfig->publishedTime = Carbon::now()->toW3cString();
+        $seoConfig->modifiedTime = Carbon::now()->toW3cString();
+        $seoConfig->authorName = Users::adminUser()->fullName();
+        $seoConfig->currentUrl = route('payment-processors.index');
+        $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $seoConfig->categoryDescription = 'Crypto Payment Processors';
+        WebsiteMeta::setCustomMeta($seoConfig);
 
         return view('payment_processors.index')
             ->with('paymentProcessors', $paymentProcessors);
@@ -173,18 +175,19 @@ class PaymentProcessorController extends AppBaseController
             $message = "The payment processor has been temporarily deleted. Any associated faucets will show again once this payment processor has been restored.";
         }
 
-        $title = $paymentProcessor->name . " payment processor faucets (" . count($faucets) . ")";
-        $description = "This page shows a list of faucets which use " . $paymentProcessor->name .
+        $seoConfig = new SeoConfig();
+        $seoConfig->title = $paymentProcessor->name . " payment processor faucets (" . count($faucets) . ")";
+        $seoConfig->description = "This page shows a list of faucets which use " . $paymentProcessor->name .
             " as a payment processor. There are currently " .
             count($faucets) . " faucets for this payment processor.";
-        $publishedTime = Carbon::now()->toW3cString();
-        $modifiedTime = Carbon::now()->toW3cString();
-        $author = Users::adminUser()->fullName();
-        $currentUrl = route('payment-processors.faucets', ['slug' => $paymentProcessor->slug]);
-        $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
-        $categoryDescription = 'Crypto Payment Processor Faucets';
-
-        WebsiteMeta::setCustomMeta($title, $description, [], $publishedTime, $modifiedTime, $author, $currentUrl, $image, $categoryDescription);
+        $seoConfig->keywords = $faucets->pluck('name')->toArray();
+        $seoConfig->publishedTime = Carbon::now()->toW3cString();
+        $seoConfig->modifiedTime = Carbon::now()->toW3cString();
+        $seoConfig->authorName = Users::adminUser()->fullName();
+        $seoConfig->currentUrl = route('payment-processors.faucets', ['slug' => $paymentProcessor->slug]);
+        $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $seoConfig->categoryDescription = 'Crypto Payment Processor Faucets';
+        WebsiteMeta::setCustomMeta($seoConfig);
 
         return view('payment_processors.faucets.index')
             ->with('faucets', $faucets)
@@ -220,20 +223,17 @@ class PaymentProcessorController extends AppBaseController
             return redirect(route('payment-processors.index'));
         }
 
-        //dd(PaymentProcessors::countUserPaymentProcessorFaucets($user, $paymentProcessors->where('id', 7)->first()));
-
-        $title = "Crypto payment processors for " . $user->user_name;
-
-        $description = "Here are " . $user->user_name . "'s faucets linked by system payment processors.";
-
-        $publishedTime = Carbon::now()->toW3CString();
-        $modifiedTime = Carbon::now()->toW3CString();
-        $author = $user->fullName();
-        $currentUrl = route('users.payment-processors', ['userSlug' =>  $userSlug]);
-        $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
-        $categoryDescription = 'Crypto Payment Processors';
-
-        WebsiteMeta::setCustomMeta($title, $description, [], $publishedTime, $modifiedTime, $author, $currentUrl, $image, $categoryDescription);
+        $seoConfig = new SeoConfig();
+        $seoConfig->title = "Crypto payment processors for " . $user->user_name;
+        $seoConfig->description = "Here are " . $user->user_name . "'s faucets linked by system payment processors.";
+        $seoConfig->keywords = $paymentProcessors->pluck('name')->toArray();
+        $seoConfig->publishedTime = Carbon::now()->toW3CString();
+        $seoConfig->modifiedTime = Carbon::now()->toW3CString();
+        $seoConfig->authorName = $user->fullName();
+        $seoConfig->currentUrl = route('users.payment-processors', ['userSlug' =>  $userSlug]);
+        $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $seoConfig->categoryDescription = 'Crypto Payment Processors';
+        WebsiteMeta::setCustomMeta($seoConfig);
 
         return view('users.payment_processors.index')
             ->with('paymentProcessors', $paymentProcessors)
@@ -271,33 +271,27 @@ class PaymentProcessorController extends AppBaseController
             return redirect(route('users.payment-processors', $user->slug));
         }
 
-        /**if (Auth::guest()) {
-            $faucets = $this->userFunctions->getPaymentProcessorFaucets($user, $paymentProcessor, false);
-        } elseif (Auth::user() != null && (Auth::user()->isAnAdmin() || $user == Auth::user())) {
-            $faucets = $this->userFunctions->getPaymentProcessorFaucets($user, $paymentProcessor, true);
-        }**/
-
         $faucets = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor);
 
         if ($user->isAnAdmin()) {
             return redirect(route('payment-processors.faucets', ['slug' => $paymentProcessor->slug]));
         }
 
-        $title = $paymentProcessor->name . " faucets for " . $user->user_name . " (". count($faucets) . ")";
+        $keywords = array_map('trim', explode(',', $paymentProcessor->meta_keywords));
 
-        $description = "Here are " . $user->user_name . "'s " . $paymentProcessor->name .
+        $seoConfig = new SeoConfig();
+        $seoConfig->title = $paymentProcessor->name . " faucets for " . $user->user_name . " (". count($faucets) . ")";
+        $seoConfig->description = "Here are " . $user->user_name . "'s " . $paymentProcessor->name .
             " faucets. Right now, they have " . count($faucets) . " " .
             $paymentProcessor->name . " faucets.";
-
-        $keywords = array_map('trim', explode(',', $paymentProcessor->meta_keywords));
-        $publishedTime = Carbon::now()->toW3CString();
-        $modifiedTime = Carbon::now()->toW3CString();
-        $author = $user->fullName();
-        $currentUrl = route('users.payment-processors.faucets', ['userSlug' =>  $userSlug, 'paymentProcessorSlug' => $paymentProcessorSlug]);
-        $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
-        $categoryDescription = 'Crypto Payment Processor Faucets';
-
-        WebsiteMeta::setCustomMeta($title, $description, $keywords, $publishedTime, $modifiedTime, $author, $currentUrl, $image, $categoryDescription);
+        $seoConfig->keywords = array_push($keywords, $paymentProcessor->name);
+        $seoConfig->publishedTime = Carbon::now()->toW3CString();
+        $seoConfig->modifiedTime = Carbon::now()->toW3CString();
+        $seoConfig->authorName = $user->fullName();
+        $seoConfig->currentUrl = route('users.payment-processors.faucets', ['userSlug' =>  $userSlug, 'paymentProcessorSlug' => $paymentProcessorSlug]);
+        $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $seoConfig->categoryDescription = 'Crypto Payment Processor Faucets';
+        WebsiteMeta::setCustomMeta($seoConfig);
 
         return view('users.payment_processors.faucets.index')
             ->with('user', $user)

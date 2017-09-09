@@ -7,6 +7,7 @@ use App\Helpers\Functions\Http;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreateFaucetRequest;
 use App\Http\Requests\UpdateFaucetRequest;
+use App\Libraries\Seo\SeoConfig;
 use App\Models\PaymentProcessor;
 use App\Repositories\FaucetRepository;
 use Carbon\Carbon;
@@ -65,17 +66,26 @@ class FaucetController extends AppBaseController
 
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->pluck('name', 'id');
 
-        $title = "List of Available Bitcoin Faucets (" . count($faucets) . ")";
-        $description = "This page shows all the bitcoin faucets that are currently available. There are a total of " .
+        $seoConfig = new SeoConfig();
+        $seoConfig->title = "List of Available Bitcoin Faucets (" . count($faucets) . ")";
+        $seoConfig->description = "This page shows all the bitcoin faucets that are currently available. There are a total of " .
             count($faucets) . " in the faucet rotator.";
-        $keywords = ["Crypto Faucets", "Bitcoin Faucets", "List of Crypto Faucets", "List of Bitcoin Faucets", "Free Bitcoins", "Get Free Bitcoins", "Satoshis"];
-        $publishedTime = Carbon::now()->toW3cString();
-        $modifiedTime = Carbon::now()->toW3cString();
-        $author = Users::adminUser()->fullName();
-        $currentUrl = route('faucets.index');
-        $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
-        $categoryDescription = "Crypto Faucets";
-        WebsiteMeta::setCustomMeta($title, $description, $keywords, $publishedTime, $modifiedTime, $author, $currentUrl, $image, $categoryDescription);
+        $seoConfig->keywords = [
+            "Crypto Faucets",
+            "Bitcoin Faucets",
+            "List of Crypto Faucets",
+            "List of Bitcoin Faucets",
+            "Free Bitcoins",
+            "Get Free Bitcoins",
+            "Satoshis"
+        ];
+        $seoConfig->publishedTime = Carbon::now()->toW3cString();
+        $seoConfig->modifiedTime = Carbon::now()->toW3cString();
+        $seoConfig->authorName = Users::adminUser()->fullName();
+        $seoConfig->currentUrl = route('faucets.index');
+        $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $seoConfig->categoryDescription = "Crypto Faucets";
+        WebsiteMeta::setCustomMeta($seoConfig);
 
         return view('faucets.index')
             ->with('faucets', $faucets)
