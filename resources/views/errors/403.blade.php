@@ -35,7 +35,7 @@
     <div class="content">
         <h1 class="title">Sorry!</h1>
         <h2>You aren't authorized, or do not have the sufficient permissions to access this feature.</h2>
-        <p><strong>Please <a href="mailto:{{ \Helpers\Functions\Users::adminUser()->email }}?Subject=RE:%20Unauthorized%20access%20to%20site%20section.">contact the site owner</a> to request access.</strong></p>
+        <p><strong>Please <a href="mailto:{{ \App\Helpers\Functions\Users::adminUser()->email }}?Subject=RE:%20Unauthorized%20access%20to%20site%20section.">contact the site owner</a> to request access.</strong></p>
 
         <p><strong>This error has been logged, and related information will be delivered to admin/site developer.</strong></p>
 

@@ -46,7 +46,7 @@
 
                 @endif
             @else
-                <p><strong>Please <a href="mailto:{{ \Helpers\Functions\Users::adminUser()->email }}?Subject=RE:%20Error%20418%20issue.">contact the site owner</a> for further information.</strong></p>
+                <p><strong>Please <a href="mailto:{{ \App\Helpers\Functions\Users::adminUser()->email }}?Subject=RE:%20Error%20418%20issue.">contact the site owner</a> for further information.</strong></p>
             @endif
 
             <p><strong>This error has been logged, and related information will be delivered to admin/site developer.</strong></p>

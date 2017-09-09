@@ -35,7 +35,7 @@
         <div class="content">
             <h1 class="title">Sorry!</h1>
             <h2>The request cannot be fulfilled due to bad syntax.</h2>
-            <p><strong>Please <a href="mailto:{{ \Helpers\Functions\Users::adminUser()->email }}?Subject=RE:%20HTTP%20400%20to%20error%20exception.">contact the site owner</a> to request access.</strong></p>
+            <p><strong>Please <a href="mailto:{{ \App\Helpers\Functions\Users::adminUser()->email }}?Subject=RE:%20HTTP%20400%20to%20error%20exception.">contact the site owner</a> to request access.</strong></p>
 
             <p><strong>This error has been logged, and related information will be delivered to admin/site developer.</strong></p>
 
