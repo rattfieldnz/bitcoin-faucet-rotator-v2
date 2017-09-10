@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Helpers\Functions\Users;
 use App\Models\Faucet;
+use App\Models\User;
 use App\Repositories\FaucetRepository;
 use App\Repositories\PaymentProcessorRepository;
 use App\Transformers\FaucetsTransformer;
@@ -39,11 +40,9 @@ class FaucetAPIController extends AppBaseController
         $this->adminUser = Users::adminUser();
     }
 
-    public function index(Request $request)
+    /* End points for main rotator */
+    public function index()
     {
-        $this->faucetRepository->pushCriteria(new RequestCriteria($request));
-        $this->faucetRepository->pushCriteria(new LimitOffsetCriteria($request));
-
         for ($i = 0; $i < count($this->faucetCollection); $i++) {
             $this->faucetCollection[$i] = (new FaucetsTransformer)
                 ->transform($this->adminUser, $this->faucetCollection[$i], true);
@@ -201,6 +200,7 @@ class FaucetAPIController extends AppBaseController
         return $this->sendResponse($faucet, 'Faucet retrieved successfully');
     }
 
+    /* End points for payment processor rotator */
     public function getPaymentProcessorFaucet($paymentProcessorSlug, $faucetSlug)
     {
         //Obtain payment processor by related slug.
@@ -215,10 +215,10 @@ class FaucetAPIController extends AppBaseController
 
         // Use model relationship to obtain associated faucets
         $faucet = $paymentProcessor->faucets()
-            ->where('is_paused', '=', false)
-            ->where('has_low_balance', '=', false)
-            ->where('deleted_at', '=', null)
-            ->where('slug', '=', $faucetSlug)
+            ->where('faucets.is_paused', '=', false)
+            ->where('faucets.has_low_balance', '=', false)
+            ->where('faucets.deleted_at', '=', null)
+            ->where('faucets.slug', '=', $faucetSlug)
             ->first();
 
         return $this->sendResponse(
@@ -243,10 +243,10 @@ class FaucetAPIController extends AppBaseController
 
         // Use model relationship to obtain associated faucets
         $faucets = $paymentProcessor->faucets()
-            ->where('is_paused', '=', false)
-            ->where('has_low_balance', '=', false)
-            ->where('deleted_at', '=', null)
-            ->orderBy('interval_minutes')
+            ->where('faucets.is_paused', '=', false)
+            ->where('faucets.has_low_balance', '=', false)
+            ->where('faucets.deleted_at', '=', null)
+            ->orderBy('faucets.interval_minutes')
             ->get();
 
         for ($i = 0; $i < count($faucets); $i++) {
@@ -270,10 +270,10 @@ class FaucetAPIController extends AppBaseController
 
         // Use model relationship to obtain associated faucets
         $faucets = $paymentProcessor->faucets()
-            ->where('is_paused', '=', false)
-            ->where('has_low_balance', '=', false)
-            ->where('deleted_at', '=', null)
-            ->orderBy('interval_minutes')
+            ->where('faucets.is_paused', '=', false)
+            ->where('faucets.has_low_balance', '=', false)
+            ->where('faucets.deleted_at', '=', null)
+            ->orderBy('faucets.interval_minutes')
             ->get();
 
         $faucet = (new FaucetsTransformer)->transform($this->adminUser, $faucets[0], false);
@@ -295,7 +295,7 @@ class FaucetAPIController extends AppBaseController
 
         // Use model relationship to obtain associated faucets
         $faucets = $paymentProcessor->faucets()
-            ->orderBy('interval_minutes');
+            ->orderBy('faucets.interval_minutes');
 
         $array = array_column($faucets->get()->toArray(), 'slug');
 
@@ -353,7 +353,9 @@ class FaucetAPIController extends AppBaseController
 
         // Use model relationship to obtain associated faucets
         $faucets = $paymentProcessor->faucets()
-            ->orderBy('interval_minutes');
+            ->where('faucets.has_low_balance', '=', false)
+            ->where('faucets.deleted_at', '=', null)
+            ->orderBy('faucets.interval_minutes');
 
         $array = array_column($faucets->get()->toArray(), 'slug');
 
@@ -411,10 +413,10 @@ class FaucetAPIController extends AppBaseController
 
         // Use model relationship to obtain associated faucets
         $faucets = $paymentProcessor->faucets()
-            ->where('is_paused', '=', false)
-            ->where('has_low_balance', '=', false)
-            ->where('deleted_at', '=', null)
-            ->orderBy('interval_minutes')
+            ->where('faucets.is_paused', '=', false)
+            ->where('faucets.has_low_balance', '=', false)
+            ->where('faucets.deleted_at', '=', null)
+            ->orderBy('faucets.interval_minutes')
             ->get();
 
         $faucet = (new FaucetsTransformer)->transform($this->adminUser, $faucets[count($faucets) - 1], true);
@@ -436,10 +438,10 @@ class FaucetAPIController extends AppBaseController
 
         // Use model relationship to obtain associated faucets
         $faucets = $paymentProcessor->faucets()
-            ->where('is_paused', '=', false)
-            ->where('has_low_balance', '=', false)
-            ->where('deleted_at', '=', null)
-            ->orderBy('interval_minutes')
+            ->where('faucets.is_paused', '=', false)
+            ->where('faucets.has_low_balance', '=', false)
+            ->where('faucets.deleted_at', '=', null)
+            ->orderBy('faucets.interval_minutes')
             ->get();
 
         $randomIndex = rand(0, count($faucets) - 1);
@@ -447,5 +449,229 @@ class FaucetAPIController extends AppBaseController
         $faucet = (new FaucetsTransformer)->transform($this->adminUser, $faucets[$randomIndex], false);
 
         return $this->sendResponse($faucet, 'Faucet retrieved successfully');
+    }
+
+    /* End points for user's main rotator */
+    public function getUserFaucets($userSlug){
+
+        $user = User::where('slug', '=', $userSlug)->first();
+
+        if(empty($user)){
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
+                "User not found."
+            );
+        }
+
+        if($user->isAnAdmin()){
+            return $this->index();
+        }
+
+        $userFaucets = Users::getFaucets($user);
+
+        for($i = 0; $i < count($userFaucets); $i++){
+            $userFaucets[$i] = (new FaucetsTransformer)->transform($user, $userFaucets[$i], true);
+        }
+
+        return $this->sendResponse($userFaucets, 'User faucets retrieved successfully');
+
+    }
+
+    public function getUserFaucet($userSlug, $faucetSlug){
+
+        $user = User::where('slug', '=', $userSlug)->first();
+
+        if(empty($user)){
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
+                "User not found."
+            );
+        }
+
+        $faucet = Users::getFaucet($user, $faucetSlug);
+
+        if(empty($faucet)){
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'User faucet not found.'],
+                "User faucet not found."
+            );
+        }
+
+        $faucet = (new FaucetsTransformer)->transform($user, $faucet, true);
+
+        return $this->sendResponse($faucet, 'User faucet retrieved successfully');
+    }
+
+    public function getFirstUserFaucet($userSlug){
+
+        $user = User::where('slug', '=', $userSlug)->first();
+
+        if(empty($user)){
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
+                "User not found."
+            );
+        }
+
+        $userFaucets = Users::getFaucets($user);
+
+        $userFaucet = (new FaucetsTransformer)->transform($user, $userFaucets->first(), true);
+
+        return $this->sendResponse($userFaucet, 'User faucet retrieved successfully');
+    }
+
+    public function getPreviousUserFaucet($userSlug, $faucetSlug){
+
+        $user = User::where('slug', '=', $userSlug)->first();
+
+        if(empty($user)){
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
+                "User not found."
+            );
+        }
+
+        $faucet = $this->faucetRepository->findWhere(['slug' => $faucetSlug])->first();
+
+        if(empty($faucet)){
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'Faucet not found.'],
+                "Faucet not found."
+            );
+        }
+
+        $userFaucets = Users::getFaucets($user);
+
+        $array = array_column($userFaucets->toArray(), 'slug');
+
+        foreach ($array as $key => $value) {
+            if ($value == $faucetSlug) {
+                // Increase key to find next one.
+                if ($key - 1 > count($array) - 1) {
+                    // If addition is greater than number of faucets,
+                    // We are at end of the collection.
+                    // Go to first faucet in the collection.
+                    $faucet = Users::getFaucet($user, $array[0]);
+
+                    return $this->sendResponse(
+                        (new FaucetsTransformer)->transform(
+                            $this->adminUser,
+                            $faucet,
+                            true
+                        ), 'Faucet retrieved successfully');
+                }
+
+                $faucet = Users::getFaucet($user, $array[($key - 1) < 0 ? count($array) - $key - 1 : $key - 1]);
+
+                return $this->sendResponse(
+                    (new FaucetsTransformer)->transform(
+                        $this->adminUser,
+                        $faucet,
+                        true
+                    ), 'Faucet retrieved successfully');
+            }
+        }
+
+    }
+
+    public function getNextUserFaucet($userSlug, $faucetSlug){
+
+        $user = User::where('slug', '=', $userSlug)->first();
+
+        if(empty($user)){
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
+                "User not found."
+            );
+        }
+
+        $faucet = $this->faucetRepository->findWhere(['slug' => $faucetSlug])->first();
+
+        if(empty($faucet)){
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'Faucet not found.'],
+                "Faucet not found."
+            );
+        }
+
+        $userFaucets = Users::getFaucets($user);
+
+        $array = array_column($userFaucets->toArray(), 'slug');
+
+        foreach ($array as $key => $value) {
+            if ($value == $faucetSlug) {
+                // Increase key to find next one.
+                if ($key + 1 > count($array) - 1) {
+                    // If addition is greater than number of faucets,
+                    // We are at end of the collection.
+                    // Go to first faucet in the collection.
+                    $faucet = $user->faucets()
+                        ->where('faucets.is_paused', '=', false)
+                        ->where('faucets.has_low_balance', '=', false)
+                        ->where('faucets.deleted_at', '=', null)
+                        ->where('faucets.slug', '=', $array[0])
+                        ->orderBy('faucets.interval_minutes')
+                        ->first();
+
+                    return $this->sendResponse(
+                        (new FaucetsTransformer)->transform(
+                            $this->adminUser,
+                            $faucet,
+                            true
+                        ), 'Faucet retrieved successfully');
+                }
+
+                $faucet = $user->faucets()
+                    ->where('faucets.is_paused', '=', false)
+                    ->where('faucets.has_low_balance', '=', false)
+                    ->where('faucets.deleted_at', '=', null)
+                    ->where('faucets.slug', '=', $array[$key + 1])
+                    ->orderBy('faucets.interval_minutes')
+                    ->first();
+
+                return $this->sendResponse(
+                    (new FaucetsTransformer)->transform(
+                        $user,
+                        $faucet,
+                        true
+                    ), 'Faucet retrieved successfully');
+            }
+        }
+    }
+
+    public function getLastUserFaucet($userSlug){
+        $user = User::where('slug', '=', $userSlug)->first();
+
+        if(empty($user)){
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
+                "User not found."
+            );
+        }
+
+        $userFaucets = Users::getFaucets($user);
+
+        $userFaucet = (new FaucetsTransformer)->transform($user, $userFaucets[count($userFaucets) - 1], true);
+
+        return $this->sendResponse($userFaucet, 'User faucet retrieved successfully');
+    }
+
+    public function getRandomUserFaucet($userSlug){
+        $user = User::where('slug', '=', $userSlug)->first();
+
+        if(empty($user)){
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
+                "User not found."
+            );
+        }
+
+        $userFaucets = Users::getFaucets($user);
+
+        $randomIndex = rand(0, count($userFaucets) - 1);
+
+        $userFaucet = (new FaucetsTransformer)->transform($user, $userFaucets[$randomIndex], false);
+
+        return $this->sendResponse($userFaucet, 'User faucet retrieved successfully');
     }
 }

@@ -35,7 +35,7 @@ class FaucetsTransformer extends TransformerAbstract
             'name' => $model->name,
             'slug' => $model->slug,
             'url' => $model->url . $referralCode,
-            'can_show_in_iframes' => Http::canShowInIframes($model->url),
+            'can_show_in_iframes' => (boolean)Http::canShowInIframes($model->url),
             'interval_minutes' => (int)$model->interval_minutes,
             'min_payout' => (int)$model->min_payout,
             'max_payout' => (int)$model->max_payout,
@@ -45,7 +45,8 @@ class FaucetsTransformer extends TransformerAbstract
             'is_paused' => (boolean)$model->is_paused,
             'meta_title' => $model->meta_title,
             'meta_description' => $model->meta_description,
-            'meta_keywords' => $model->meta_keywords
+            'meta_keywords' => $model->meta_keywords,
+            'user_slug' => $user->slug
         ];
 
         if ($addPaymentProcessors == true) {

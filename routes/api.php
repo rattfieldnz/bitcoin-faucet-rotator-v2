@@ -21,6 +21,41 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function () {
     Route::get('last-faucet', ['as' => 'faucets.last-faucet', 'uses' => 'FaucetAPIController@getLastFaucet']);
     Route::get('random-faucet', ['as' => 'faucets.random-faucet', 'uses' => 'FaucetAPIController@getRandomFaucet']);
 
+    Route::get('users/{userSlug}/faucets', [
+        'as' => 'user.faucets',
+        'uses' => 'FaucetAPIController@getUserFaucets'
+    ]);
+
+    Route::get('users/{userSlug}/faucets/{faucetSlug}', [
+        'as' => 'user.faucet',
+        'uses' => 'FaucetAPIController@getUserFaucet'
+    ]);
+
+    Route::get('users/{userSlug}/first-faucet', [
+        'as' => 'user.first-faucet',
+        'uses' => 'FaucetAPIController@getFirstUserFaucet'
+    ]);
+
+    Route::get('users/{userSlug}/faucets/{faucetSlug}/next-faucet', [
+        'as' => 'user.next-faucet',
+        'uses' => 'FaucetAPIController@getNextUserFaucet'
+    ]);
+
+    Route::get('users/{userSlug}/faucets/{faucetSlug}/previous-faucet', [
+        'as' => 'user.previous-faucet',
+        'uses' => 'FaucetAPIController@getPreviousUserFaucet'
+    ]);
+
+    Route::get('users/{userSlug}/last-faucet', [
+        'as' => 'user.last-faucet',
+        'uses' => 'FaucetAPIController@getLastUserFaucet'
+    ]);
+
+    Route::get('users/{userSlug}/random-faucet', [
+        'as' => 'user.random-faucet',
+        'uses' => 'FaucetAPIController@getRandomUserFaucet'
+    ]);
+
     Route::get('payment-processors', ['as' => 'payment-processors', 'uses' => 'PaymentProcessorAPIController@index']);
 
     Route::get('payment-processors/{slug}', ['as' => 'payment-processors.show', 'uses' => 'PaymentProcessorAPIController@show']);

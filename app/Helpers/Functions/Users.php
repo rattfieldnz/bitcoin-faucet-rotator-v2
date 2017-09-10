@@ -21,6 +21,7 @@ use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\TwitterCard;
 use Creativeorange\Gravatar\Facades\Gravatar;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash as LaracastsFlash;
@@ -340,5 +341,36 @@ class Users
             return null;
         }
         return Gravatar::get($user->email);
+    }
+
+    /**
+     * @param \App\Models\User $user
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public static function getFaucets(User $user): Collection{
+
+        return $user->faucets()
+            ->where('faucets.is_paused', '=', false)
+            ->where('faucets.has_low_balance', '=', false)
+            ->where('faucets.deleted_at', '=', null)
+            ->orderBy('faucets.interval_minutes')
+            ->get();
+    }
+
+    /**
+     * @param \App\Models\User $user
+     * @param                  $faucetSlug
+     *
+     * @return \App\Models\Faucet
+     */
+    public static function getFaucet(User $user, $faucetSlug): Faucet{
+
+        return $user->faucets()
+            ->where('faucets.is_paused', '=', false)
+            ->where('faucets.has_low_balance', '=', false)
+            ->where('faucets.deleted_at', '=', null)
+            ->where('slug', '=', $faucetSlug)
+            ->first();
     }
 }
