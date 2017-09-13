@@ -73,6 +73,34 @@
                     !!}
                 </dd>
             </dl>
+            <dl title="{{ $user->user_name }}'s Bitcoin Faucet Rotator" style="margin-top: -1.5em;">
+                <dd class="user-profile-dd-list word-wrap-white-space">
+                    <i class="fa fa-bitcoin circle-letter right-margin-half-em"></i>
+                    {!!
+                        link_to_route(
+                            'users.rotator',
+                            $user->user_name . "'s Bitcoin Faucet Rotator",
+                            ['userSlug' => $user->slug],
+                            [
+                                'itemprop' => 'url', 'target' => '_blank',
+                                'title' => $user->user_name . "'s Bitcoin Faucet Rotator."
+                            ]
+                        )
+                    !!}
+                    {!! Html::decode(
+                            link_to_route(
+                            'users.rotator',
+                            '<i class="fa fa-external-link" style="color: #3c8dbc;"></i>',
+                            ['userSlug' => $user->slug],
+                            [
+                                'itemprop' => 'url', 'target' => '_blank',
+                                'title' => $user->user_name . "'s Bitcoin Faucet Rotator."
+                            ]
+                        )
+                        )
+                    !!}
+                </dd>
+            </dl>
             <dl title="Bitcoin Address" style="margin-top: -1.5em;">
                 <dd class="user-profile-dd-list word-wrap-white-space">
                     <i class="fa fa-bitcoin circle-letter right-margin-half-em"></i>

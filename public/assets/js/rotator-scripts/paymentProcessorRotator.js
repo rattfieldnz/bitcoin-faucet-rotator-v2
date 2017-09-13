@@ -120,6 +120,13 @@ $(function(){
                 );
 
                 $('#current').attr('href', currentFaucetRoute);
+
+                var faucetListsRoute = laroute.route(
+                    'payment-processors.faucets',
+                    { slug : paymentProcessorSlug }
+                );
+
+                $('#list_of_faucets').attr('href', faucetListsRoute);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if(typeof jqXHR.responseJSON.status !== 'undefined' && jqXHR.responseJSON.status === 'error'){
