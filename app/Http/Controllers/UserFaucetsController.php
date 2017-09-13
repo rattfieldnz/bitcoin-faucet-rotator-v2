@@ -323,6 +323,7 @@ class UserFaucetsController extends Controller
                 return view('users.faucets.show')
                     ->with('user', $user)
                     ->with('faucet', $faucet)
+                    ->with('faucetUrl', $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet))
                     ->with('message', $message)
                     ->with('canShowInIframe', Http::canShowInIframes($faucet->url));
             } else {

@@ -65,6 +65,11 @@ Route::get('users/{userSlug}/faucets/{faucetSlug}/delete-permanently', ['as' => 
 Route::get('users/{userSlug}/faucets/{faucetSlug}/restore', ['as' => 'users.faucets.restore', 'uses' => 'UserFaucetsController@restoreDeleted']);
 Route::patch('users/{userSlug}/faucets/update-multiple', ['as' => 'users.faucets.update-multiple', 'uses' => 'UserFaucetsController@updateMultiple']);
 
+Route::get('users/{userSlug}/rotator', [
+    'as' => 'users.rotator',
+    'uses' => 'RotatorController@getUserFaucetRotator'
+]);
+
 Route::resource('faucets', 'FaucetController');
 
 Route::delete(
