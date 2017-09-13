@@ -136,8 +136,6 @@ class RotatorController extends Controller
         $seoConfig->categoryDescription = "User Bitcoin Faucet Rotator";
         WebsiteMeta::setCustomMeta($seoConfig);
 
-        $pageTitle = $user->user_name . "'s Bitcoin Faucet Rotator. ";
-
         $cspConfig = Config::get('secure-headers.csp.child-src.allow');
 
         foreach ($faucets->get(['url']) as $f) {
@@ -147,7 +145,8 @@ class RotatorController extends Controller
         Config::set('secure-headers.csp.child-src.allow', $cspConfig);
 
         return view('users.rotator.index')
-            ->with('pageTitle', $pageTitle);
+            ->with('userName', $user->user_name)
+            ->with('userSlug', $user->slug);
 
     }
 }

@@ -36,7 +36,7 @@
             </a>
         </li>
         <li>
-            <a class="btn btn-primary btn-lg" id="list_of_faucets" href="/faucets" title="List of Faucets" role="button" onclick="ga('send', 'event', 'Buttons', 'click', 'list-of-faucets-nav-button');">
+            <a class="btn btn-primary btn-lg" id="list_of_faucets" href="" title="List of Faucets" role="button" onclick="ga('send', 'event', 'Buttons', 'click', 'list-of-faucets-nav-button');">
                 <span class="glyphicon glyphicon-list"></span>
             </a>
         </li>

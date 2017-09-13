@@ -194,6 +194,9 @@ elixir(function(mix) {
     gulp.src("resources/assets/js/custom/paymentProcessorRotator.js")
         .pipe(gulp.dest("public/assets/js/rotator-scripts/"));
 
+    gulp.src("resources/assets/js/custom/userFaucetRotator.js")
+        .pipe(gulp.dest("public/assets/js/rotator-scripts/"));
+
     gulp.src([
         'resources/assets/css/datatables.net/dataTables.bootstrap.css'
     ])
@@ -258,6 +261,7 @@ gulp.task('minifyjs', function(){
     compressMainJS();
     compressMainRotator();
     compressPaymentProcessorRotator();
+    compressUserFaucetRotator();
 });
 
 function compressMainJS(){
@@ -306,5 +310,12 @@ function compressPaymentProcessorRotator(){
     return gulp.src('public/assets/js/rotator-scripts/paymentProcessorRotator.js')
         .pipe(uglify())
         .pipe(rename('paymentProcessorRotator.min.js'))
+        .pipe(gulp.dest('public/assets/js/rotator-scripts/'));
+}
+
+function compressUserFaucetRotator(){
+    return gulp.src('public/assets/js/rotator-scripts/userFaucetRotator.js')
+        .pipe(uglify())
+        .pipe(rename('userFaucetRotator.min.js'))
         .pipe(gulp.dest('public/assets/js/rotator-scripts/'));
 }
