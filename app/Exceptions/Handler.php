@@ -36,10 +36,10 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        AuthorizationException::class,
+        //AuthorizationException::class,
         //HttpException::class,
         //ModelNotFoundException::class,
-        ValidationException::class,
+        //ValidationException::class,
     ];
 
     /**
@@ -88,6 +88,11 @@ class Handler extends ExceptionHandler
             } else {
                 return response()->view('errors.' . $statusCode, ['sentryID' => $this->sentryID], $statusCode);
             }
+        }
+
+        if($e instanceof ValidationException) {
+
+            return redirect()->back()->withErrors($e->validator->getMessageBag()->toArray());
         }
 
         if ($e instanceof TokenMismatchException) {

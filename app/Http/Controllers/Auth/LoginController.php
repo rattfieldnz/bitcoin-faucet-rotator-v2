@@ -136,6 +136,9 @@ class LoginController extends Controller
         }
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     */
     protected function validateLogin(Request $request)
     {
         $this->validate($request, [
