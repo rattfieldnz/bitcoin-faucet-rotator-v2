@@ -74,7 +74,7 @@ class RotatorController extends Controller
         }
 
         $seoConfig = new SeoConfig();
-        $seoConfig->title = $paymentProcessor->name . " Faucet Rotator (" . count($paymentProcessor->faucets) . " available faucet/s).";
+        $seoConfig->title = $paymentProcessor->name . " Faucet Rotator (" . count($paymentProcessor->faucets) . " available faucet/s)";
         $seoConfig->description = "Come and get free satoshis from around " .
             count($paymentProcessor->faucets) . " faucets in the " .
             $paymentProcessor->name . " Faucet Rotator.";
@@ -124,7 +124,7 @@ class RotatorController extends Controller
         array_push($faucetKeywords, $user->user_name);
 
         $seoConfig = new SeoConfig();
-        $seoConfig->title = $user->user_name . "'s Faucet Rotator";
+        $seoConfig->title = $user->user_name . "'s Rotator";
         $seoConfig->description = "Claim your free bitcoins from " . $user->user_name . "'s Bitcoin Faucet Rotator. " .
                                   "There are currently " . count($faucets->get()) . " faucets in their rotator.";
         $seoConfig->keywords = $faucetKeywords;

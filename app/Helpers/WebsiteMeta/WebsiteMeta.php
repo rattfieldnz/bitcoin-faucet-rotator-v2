@@ -139,8 +139,7 @@ class WebsiteMeta
      */
     public static function setCustomMeta(SeoConfig $seoConfig) {
 
-        SEOMeta::setTitle($seoConfig->title)
-            ->setTitleSeparator('|')
+        SEOMeta::setTitle($seoConfig->pageTitle())
             ->setDescription($seoConfig->description)
             ->setKeywords($seoConfig->keywords)
             ->addMeta('author', $seoConfig->authorName, 'name')
@@ -151,7 +150,7 @@ class WebsiteMeta
             ->addMeta('fb:admins', "871754942861947", 'property')
             ->setCanonical($seoConfig->currentUrl);
 
-        OpenGraph::setTitle($seoConfig->title)
+        OpenGraph::setTitle($seoConfig->pageTitle())
             ->setUrl($seoConfig->currentUrl)
             ->setSiteName(MainMeta::first()->page_main_title)
             ->addProperty("locale", MainMeta::first()->language()->first()->isoCode())
@@ -168,7 +167,7 @@ class WebsiteMeta
 
         TwitterCard::setType('summary')
             ->addImage($seoConfig->imagePath)
-            ->setTitle($seoConfig->title)
+            ->setTitle($seoConfig->pageTitle())
             ->setDescription($seoConfig->description)
             ->setUrl($seoConfig->currentUrl)
             ->setSite(MainMeta::first()->twitter_username);

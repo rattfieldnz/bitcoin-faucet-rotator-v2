@@ -502,7 +502,7 @@ class Faucets
     public static function setMeta(Faucet $faucet, User $user)
     {
         if (!empty($faucet) && !empty($user)) {
-            $title = $faucet->meta_title;
+            $title = $faucet->meta_title . " " . env('APP_TITLE_SEPARATOR') . " " . env('APP_TITLE_APPEND');
             $description = $faucet->meta_description;
             $keywords = array_map('trim', explode(',', $faucet->meta_keywords));
             $publishedTime = $faucet->created_at->toW3CString();

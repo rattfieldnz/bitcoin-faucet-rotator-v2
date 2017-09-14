@@ -33,7 +33,7 @@ class PaymentProcessors
     {
 
         if (!empty($paymentProcessor) && !empty($user)) {
-            $title = $paymentProcessor->meta_title;
+            $title = $paymentProcessor->meta_title . " " . env('APP_TITLE_SEPARATOR') . " " . env('APP_TITLE_APPEND');
             $description = $paymentProcessor->meta_description;
             $keywords = array_map('trim', explode(',', $paymentProcessor->meta_keywords));
             $publishedTime = $paymentProcessor->created_at->toW3CString();

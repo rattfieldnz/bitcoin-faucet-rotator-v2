@@ -283,7 +283,7 @@ class Users
     public static function setMeta(User $user)
     {
         if (!empty($user)) {
-            $title = "User '" . $user->user_name . "'s Profile";
+            $title = "User '" . $user->user_name . "'s Profile" . " " . env('APP_TITLE_SEPARATOR') . " " . env('APP_TITLE_APPEND');
             $description = "View the user profile for '" . $user->user_name .
                 "' on this page. They currently have " . count($user->faucets()->get()) . " faucets.";
             $keywords = [$user->fullName(), $user->user_name, "User Profile", "User Faucets", "Show User Profile"];
