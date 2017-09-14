@@ -56,7 +56,6 @@ class TermsAndConditionsController extends AppBaseController
                     ->with('errorMessage', $errorMessage);
             }
         } else {
-
             $seoConfig = new SeoConfig();
             $seoConfig->title = !empty($termsAndConditions->title) ? $termsAndConditions->title : "Terms and Conditions";
             $seoConfig->description = $termsAndConditions->short_description;

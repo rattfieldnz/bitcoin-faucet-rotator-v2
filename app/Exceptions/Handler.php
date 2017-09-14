@@ -90,8 +90,7 @@ class Handler extends ExceptionHandler
             }
         }
 
-        if($e instanceof ValidationException) {
-
+        if ($e instanceof ValidationException) {
             return redirect()->back()->withErrors($e->validator->getMessageBag()->toArray());
         }
 

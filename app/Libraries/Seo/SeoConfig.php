@@ -28,10 +28,11 @@ class SeoConfig
     public $imagePath = '';
     public $categoryDescription = '';
 
-    public function pageTitle(){
+    public function pageTitle()
+    {
         $separator = !empty($this->titleSeparator) ? $this->titleSeparator : env('APP_TITLE_SEPARATOR');
         $append = !empty($this->titleAppend) ? $this->titleAppend : env('APP_TITLE_APPEND');
-        if(empty($this->title)){
+        if (empty($this->title)) {
             return $append;
         }
         return $this->title . " " . $separator . " " . $append;

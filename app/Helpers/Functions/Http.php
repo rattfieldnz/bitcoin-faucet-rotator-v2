@@ -36,8 +36,7 @@ class Http
             return false;
         }
 
-        if(filter_var(gethostbyname(parse_url($url)['host']), FILTER_VALIDATE_IP) === false)
-        {
+        if (filter_var(gethostbyname(parse_url($url)['host']), FILTER_VALIDATE_IP) === false) {
             return false;
         }
 

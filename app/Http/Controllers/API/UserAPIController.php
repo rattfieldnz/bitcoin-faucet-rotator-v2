@@ -43,7 +43,7 @@ class UserAPIController extends AppBaseController
         $this->userRepository->pushCriteria(new LimitOffsetCriteria($request));
         $users = $this->userRepository->all();
 
-        for($i = 0; $i < count($users); $i++){
+        for ($i = 0; $i < count($users); $i++) {
             $users[$i] = (new UsersTransformer)->transform($users[$i], true);
         }
 

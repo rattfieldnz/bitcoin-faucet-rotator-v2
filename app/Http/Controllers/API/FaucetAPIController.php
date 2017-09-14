@@ -452,36 +452,37 @@ class FaucetAPIController extends AppBaseController
     }
 
     /* End points for user's main rotator */
-    public function getUserFaucets($userSlug){
+    public function getUserFaucets($userSlug)
+    {
 
         $user = User::where('slug', '=', $userSlug)->first();
 
-        if(empty($user)){
+        if (empty($user)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
                 "User not found."
             );
         }
 
-        if($user->isAnAdmin()){
+        if ($user->isAnAdmin()) {
             return $this->index();
         }
 
         $userFaucets = Users::getFaucets($user);
 
-        for($i = 0; $i < count($userFaucets); $i++){
+        for ($i = 0; $i < count($userFaucets); $i++) {
             $userFaucets[$i] = (new FaucetsTransformer)->transform($user, $userFaucets[$i], true);
         }
 
         return $this->sendResponse($userFaucets, 'User faucets retrieved successfully');
-
     }
 
-    public function getUserFaucet($userSlug, $faucetSlug){
+    public function getUserFaucet($userSlug, $faucetSlug)
+    {
 
         $user = User::where('slug', '=', $userSlug)->first();
 
-        if(empty($user)){
+        if (empty($user)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
                 "User not found."
@@ -490,7 +491,7 @@ class FaucetAPIController extends AppBaseController
 
         $faucet = Users::getFaucet($user, $faucetSlug);
 
-        if(empty($faucet)){
+        if (empty($faucet)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'User faucet not found.'],
                 "User faucet not found."
@@ -502,11 +503,12 @@ class FaucetAPIController extends AppBaseController
         return $this->sendResponse($faucet, 'User faucet retrieved successfully');
     }
 
-    public function getFirstUserFaucet($userSlug){
+    public function getFirstUserFaucet($userSlug)
+    {
 
         $user = User::where('slug', '=', $userSlug)->first();
 
-        if(empty($user)){
+        if (empty($user)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
                 "User not found."
@@ -520,11 +522,12 @@ class FaucetAPIController extends AppBaseController
         return $this->sendResponse($userFaucet, 'User faucet retrieved successfully');
     }
 
-    public function getPreviousUserFaucet($userSlug, $faucetSlug){
+    public function getPreviousUserFaucet($userSlug, $faucetSlug)
+    {
 
         $user = User::where('slug', '=', $userSlug)->first();
 
-        if(empty($user)){
+        if (empty($user)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
                 "User not found."
@@ -533,7 +536,7 @@ class FaucetAPIController extends AppBaseController
 
         $faucet = $this->faucetRepository->findWhere(['slug' => $faucetSlug])->first();
 
-        if(empty($faucet)){
+        if (empty($faucet)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'Faucet not found.'],
                 "Faucet not found."
@@ -571,14 +574,14 @@ class FaucetAPIController extends AppBaseController
                     ), 'Faucet retrieved successfully');
             }
         }
-
     }
 
-    public function getNextUserFaucet($userSlug, $faucetSlug){
+    public function getNextUserFaucet($userSlug, $faucetSlug)
+    {
 
         $user = User::where('slug', '=', $userSlug)->first();
 
-        if(empty($user)){
+        if (empty($user)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
                 "User not found."
@@ -587,7 +590,7 @@ class FaucetAPIController extends AppBaseController
 
         $faucet = $this->faucetRepository->findWhere(['slug' => $faucetSlug])->first();
 
-        if(empty($faucet)){
+        if (empty($faucet)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'Faucet not found.'],
                 "Faucet not found."
@@ -639,10 +642,11 @@ class FaucetAPIController extends AppBaseController
         }
     }
 
-    public function getLastUserFaucet($userSlug){
+    public function getLastUserFaucet($userSlug)
+    {
         $user = User::where('slug', '=', $userSlug)->first();
 
-        if(empty($user)){
+        if (empty($user)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
                 "User not found."
@@ -656,10 +660,11 @@ class FaucetAPIController extends AppBaseController
         return $this->sendResponse($userFaucet, 'User faucet retrieved successfully');
     }
 
-    public function getRandomUserFaucet($userSlug){
+    public function getRandomUserFaucet($userSlug)
+    {
         $user = User::where('slug', '=', $userSlug)->first();
 
-        if(empty($user)){
+        if (empty($user)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
                 "User not found."

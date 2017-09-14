@@ -57,7 +57,6 @@ class PrivacyPolicyController extends AppBaseController
                     ->with('errorMessage', $errorMessage);
             }
         } else {
-
             $seoConfig = new SeoConfig();
             $seoConfig->title = !empty($privacyPolicy->title) ? $privacyPolicy->title : "Privacy Policy";
             $seoConfig->description = $privacyPolicy->short_description;

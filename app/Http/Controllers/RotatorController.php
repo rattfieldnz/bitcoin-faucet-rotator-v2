@@ -29,7 +29,6 @@ class RotatorController extends Controller
         $pageTitle = null;
         $content = null;
         if (!empty($mainMeta)) {
-
             $seoConfig = new SeoConfig();
             $seoConfig->title = $mainMeta->title;
             $seoConfig->description = $mainMeta->description;
@@ -107,12 +106,12 @@ class RotatorController extends Controller
     public function getUserFaucetRotator($userSlug)
     {
         $user = $this->userRepository->findByField('slug', $userSlug)->first();
-        if(empty($user)){
+        if (empty($user)) {
             flash('User not found')->error();
             return redirect(route('users.index'));
         }
 
-        if($user->isAnAdmin()){
+        if ($user->isAnAdmin()) {
             return redirect(route('home'));
         }
 
@@ -147,6 +146,5 @@ class RotatorController extends Controller
         return view('users.rotator.index')
             ->with('userName', $user->user_name)
             ->with('userSlug', $user->slug);
-
     }
 }

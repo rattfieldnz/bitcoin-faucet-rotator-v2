@@ -348,7 +348,8 @@ class Users
      *
      * @return \Illuminate\Support\Collection
      */
-    public static function getFaucets(User $user): Collection{
+    public static function getFaucets(User $user): Collection
+    {
 
         return $user->faucets()
             ->where('faucets.is_paused', '=', false)
@@ -364,7 +365,8 @@ class Users
      *
      * @return \App\Models\Faucet
      */
-    public static function getFaucet(User $user, $faucetSlug): Faucet{
+    public static function getFaucet(User $user, $faucetSlug): Faucet
+    {
 
         return $user->faucets()
             ->where('faucets.is_paused', '=', false)

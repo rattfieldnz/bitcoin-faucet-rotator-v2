@@ -137,7 +137,8 @@ class WebsiteMeta
     /**
      * @param \App\Libraries\Seo\SeoConfig $seoConfig
      */
-    public static function setCustomMeta(SeoConfig $seoConfig) {
+    public static function setCustomMeta(SeoConfig $seoConfig)
+    {
 
         SEOMeta::setTitle($seoConfig->pageTitle())
             ->setDescription($seoConfig->description)
