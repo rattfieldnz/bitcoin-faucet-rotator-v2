@@ -56,6 +56,41 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function () {
         'uses' => 'FaucetAPIController@getRandomUserFaucet'
     ]);
 
+    Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}/faucets', [
+        'as' => 'user.payment-processor-faucets',
+        'uses' => 'FaucetAPIController@getUserPaymentProcessorFaucets'
+    ]);
+
+    Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}/faucets/{faucetSlug}', [
+        'as' => 'user.payment-processor-faucet',
+        'uses' => 'FaucetAPIController@getUserPaymentProcessorFaucet'
+    ]);
+
+    Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}/first-faucet', [
+        'as' => 'user.payment-processor-first-faucet',
+        'uses' => 'FaucetAPIController@getFirstUserPaymentProcessorFaucet'
+    ]);
+
+    Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}/faucets/{faucetSlug}/next-faucet', [
+        'as' => 'user.payment-processor-next-faucet',
+        'uses' => 'FaucetAPIController@getNextUserPaymentProcessorFaucet'
+    ]);
+
+    Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}/faucets/{faucetSlug}/previous-faucet', [
+        'as' => 'user.payment-processor-previous-faucet',
+        'uses' => 'FaucetAPIController@getPreviousUserPaymentProcessorFaucet'
+    ]);
+
+    Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}/last-faucet', [
+        'as' => 'user.payment-processor-last-faucet',
+        'uses' => 'FaucetAPIController@getLastUserPaymentProcessorFaucet'
+    ]);
+
+    Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}/random-faucet', [
+        'as' => 'user.payment-processor-random-faucet',
+        'uses' => 'FaucetAPIController@getRandomUserPaymentProcessorFaucet'
+    ]);
+
     Route::get('payment-processors', ['as' => 'payment-processors', 'uses' => 'PaymentProcessorAPIController@index']);
 
     Route::get('payment-processors/{slug}', ['as' => 'payment-processors.show', 'uses' => 'PaymentProcessorAPIController@show']);

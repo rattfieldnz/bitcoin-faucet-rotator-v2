@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\Functions\PaymentProcessors;
 use App\Helpers\Functions\Users;
 use App\Models\Faucet;
 use App\Models\User;
@@ -678,5 +679,292 @@ class FaucetAPIController extends AppBaseController
         $userFaucet = (new FaucetsTransformer)->transform($user, $userFaucets[$randomIndex], false);
 
         return $this->sendResponse($userFaucet, 'User faucet retrieved successfully');
+    }
+
+    /* End points for user's payment processor rotator */
+    public function getUserPaymentProcessorFaucets($userSlug, $paymentProcessorSlug)
+    {
+        $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
+        $user = User::where('slug', '=', $userSlug)->first();
+
+        if (empty($user)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
+                "User not found."
+            );
+        }
+
+        if (empty($paymentProcessor)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'Payment processor not found.'],
+                "Payment processor not found."
+            );
+        }
+
+        if ($user->isAnAdmin()) {
+            return $this->getPaymentProcessorFaucets($paymentProcessor->slug);
+        }
+
+        $faucets = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor);
+
+        for($i = 0; $i < count($faucets); $i++){
+            $faucets[$i] = (new FaucetsTransformer)->transform($user, $faucets[$i], true);
+        }
+
+        return $this->sendResponse($faucets, 'User payment processor faucets retrieved successfully');
+    }
+
+    public function getUserPaymentProcessorFaucet($userSlug, $paymentProcessorSlug, $faucetSlug)
+    {
+        $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
+        $user = User::where('slug', '=', $userSlug)->first();
+        $faucet = $this->faucetRepository->findWhere(['slug' => $faucetSlug])->first();
+
+        if (empty($user)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
+                "User not found."
+            );
+        }
+
+        if (empty($paymentProcessor)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'Payment processor not found.'],
+                "Payment processor not found."
+            );
+        }
+
+        if (empty($faucet)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'Faucet not found.'],
+                "Faucet not found."
+            );
+        }
+
+        if ($user->isAnAdmin()) {
+            return $this->getPaymentProcessorFaucet($paymentProcessor->slug, $faucet->slug);
+        }
+
+        $userFaucet = PaymentProcessors::userPaymentProcessorFaucet($user, $paymentProcessor, $faucet);
+
+        return (new FaucetsTransformer)->transform($user, $userFaucet, true);
+
+    }
+
+    public function getFirstUserPaymentProcessorFaucet($userSlug, $paymentProcessorSlug)
+    {
+        $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
+        $user = User::where('slug', '=', $userSlug)->first();
+
+        if (empty($user)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
+                "User not found."
+            );
+        }
+
+        if (empty($paymentProcessor)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'Payment processor not found.'],
+                "Payment processor not found."
+            );
+        }
+
+        if ($user->isAnAdmin()) {
+            return $this->getFirstPaymentProcessorFaucet($paymentProcessor->slug);
+        }
+
+        $faucet = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor)->first();
+
+        return (new FaucetsTransformer)->transform($user, $faucet, true);
+    }
+
+    public function getNextUserPaymentProcessorFaucet($userSlug, $paymentProcessorSlug, $faucetSlug)
+    {
+        $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
+        $user = User::where('slug', '=', $userSlug)->first();
+        $faucet = $this->faucetRepository->findWhere(['slug' => $faucetSlug])->first();
+
+        if (empty($user)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
+                "User not found."
+            );
+        }
+
+        if (empty($paymentProcessor)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'Payment processor not found.'],
+                "Payment processor not found."
+            );
+        }
+
+        if (empty($faucet)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'Faucet not found.'],
+                "Faucet not found."
+            );
+        }
+
+        if ($user->isAnAdmin()) {
+            return $this->getNextPaymentProcessorFaucet($paymentProcessor->slug, $faucet->slug);
+        }
+
+        $faucets = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor);
+
+        $array = array_column($faucets->toArray(), 'slug');
+
+        foreach ($array as $key => $value) {
+            if ($value == $faucet->slug) {
+                // Increase key to find next one.
+                if ($key + 1 > count($array) - 1) {
+                    // If addition is greater than number of faucets,
+                    // We are at end of the collection.
+                    // Go to first faucet in the collection.
+                    $faucet = Users::getFaucet($user, $array[0]);
+
+                    return $this->sendResponse(
+                        (new FaucetsTransformer)->transform(
+                            $user,
+                            $faucet,
+                            true
+                        ), 'Faucet retrieved successfully');
+                }
+
+                $faucet = Users::getFaucet($user, $array[$key + 1]);
+
+                return $this->sendResponse(
+                    (new FaucetsTransformer)->transform(
+                        $user,
+                        $faucet,
+                        true
+                    ), 'Faucet retrieved successfully');
+            }
+        }
+    }
+
+    public function getPreviousUserPaymentProcessorFaucet($userSlug, $paymentProcessorSlug, $faucetSlug)
+    {
+        $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
+        $user = User::where('slug', '=', $userSlug)->first();
+        $faucet = $this->faucetRepository->findWhere(['slug' => $faucetSlug])->first();
+
+        if (empty($user)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
+                "User not found."
+            );
+        }
+
+        if (empty($paymentProcessor)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'Payment processor not found.'],
+                "Payment processor not found."
+            );
+        }
+
+        if (empty($faucet)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'Faucet not found.'],
+                "Faucet not found."
+            );
+        }
+
+        if ($user->isAnAdmin()) {
+            return $this->getNextPaymentProcessorFaucet($paymentProcessor->slug, $faucet->slug);
+        }
+
+        $faucets = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor);
+
+        $array = array_column($faucets->toArray(), 'slug');
+
+        foreach ($array as $key => $value) {
+            if ($value == $faucet->slug) {
+                // Increase key to find next one.
+                if ($key - 1 > count($array) - 1) {
+                    // If addition is greater than number of faucets,
+                    // We are at end of the collection.
+                    // Go to first faucet in the collection.
+                    $faucet = Users::getFaucet($user, $array[0]);
+
+                    return $this->sendResponse(
+                        (new FaucetsTransformer)->transform(
+                            $user,
+                            $faucet,
+                            true
+                        ), 'Faucet retrieved successfully');
+                }
+
+                $faucet = Users::getFaucet($user, $array[($key - 1) < 0 ? count($array) - $key - 1 : $key - 1]);
+
+                return $this->sendResponse(
+                    (new FaucetsTransformer)->transform(
+                        $user,
+                        $faucet,
+                        true
+                    ), 'Faucet retrieved successfully');
+            }
+        }
+    }
+
+    public function getLastUserPaymentProcessorFaucet($userSlug, $paymentProcessorSlug)
+    {
+        $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
+        $user = User::where('slug', '=', $userSlug)->first();
+        if (empty($user)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
+                "User not found."
+            );
+        }
+
+        if (empty($paymentProcessor)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'Payment processor not found.'],
+                "Payment processor not found."
+            );
+        }
+
+        if ($user->isAnAdmin()) {
+            return $this->getLastPaymentProcessorFaucet($paymentProcessor->slug);
+        }
+
+        $faucets = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor);
+
+        $userFaucet = (new FaucetsTransformer)->transform($user, $faucets[count($faucets) - 1], true);
+
+        return $this->sendResponse($userFaucet, 'User payment processor faucet retrieved successfully');
+    }
+
+    public function getRandomUserPaymentProcessorFaucet($userSlug, $paymentProcessorSlug)
+    {
+        $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
+        $user = User::where('slug', '=', $userSlug)->first();
+        if (empty($user)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
+                "User not found."
+            );
+        }
+
+        if (empty($paymentProcessor)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'Payment processor not found.'],
+                "Payment processor not found."
+            );
+        }
+
+        if ($user->isAnAdmin()) {
+            return $this->getRandomPaymentProcessorFaucet($paymentProcessor->slug);
+        }
+
+        $faucets = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor);
+
+        $randomIndex = rand(0, count($faucets) - 1);
+
+        $userFaucet = (new FaucetsTransformer)->transform($user, $faucets[$randomIndex], false);
+
+        return $this->sendResponse($userFaucet, 'User faucet retrieved successfully');
+
     }
 }

@@ -1,8 +1,7 @@
-
-var currentFaucetSlug;
-
 $(function(){
-    //var currentFaucetSlug;
+    var currentFaucetSlug;
+    var paymentProcessorSlug;
+
     init();
 
     //Set iframe src to first faucet in array
@@ -10,8 +9,10 @@ $(function(){
         event.preventDefault();
 
         var route = laroute.route(
-            'faucets.first-faucet'
+            'payment-processor.first-faucet',
+            { paymentProcessorSlug : paymentProcessorSlug }
         );
+
         generateFaucet(route);
     });
 
@@ -19,8 +20,8 @@ $(function(){
         event.preventDefault();
 
         var route = laroute.route(
-            'faucets.next-faucet',
-            { slug : currentFaucetSlug }
+            'payment-processor.next-faucet',
+            { paymentProcessorSlug : paymentProcessorSlug, faucetSlug : currentFaucetSlug }
         );
         generateFaucet(route);
     });
@@ -29,8 +30,8 @@ $(function(){
         event.preventDefault();
 
         var route = laroute.route(
-            'faucets.previous-faucet',
-            { slug : currentFaucetSlug }
+            'payment-processor.previous-faucet',
+            { paymentProcessorSlug : paymentProcessorSlug, faucetSlug : currentFaucetSlug }
         );
         generateFaucet(route);
     });
@@ -39,8 +40,8 @@ $(function(){
         event.preventDefault();
 
         var route = laroute.route(
-            'faucets.last-faucet',
-            { slug : currentFaucetSlug }
+            'payment-processor.last-faucet',
+            { paymentProcessorSlug : paymentProcessorSlug }
         );
         generateFaucet(route);
     });
@@ -49,8 +50,8 @@ $(function(){
         event.preventDefault();
 
         var route = laroute.route(
-            'faucets.show',
-            { slug : currentFaucetSlug }
+            'payment-processor.faucet',
+            { paymentProcessorSlug : paymentProcessorSlug, faucetSlug : currentFaucetSlug }
         );
         generateFaucet(route);
     });
@@ -59,15 +60,17 @@ $(function(){
         event.preventDefault();
 
         var route = laroute.route(
-            'faucets.random-faucet'
+            'payment-processor.random-faucet',
+            { paymentProcessorSlug : paymentProcessorSlug }
         );
         generateFaucet(route);
     });
 
     function init(){
-
+        paymentProcessorSlug = $("#title").data("payment-processor-slug");
         var route = laroute.route(
-            'faucets.first-faucet'
+            'payment-processor.first-faucet',
+            { paymentProcessorSlug : paymentProcessorSlug }
         );
         generateFaucet(route);
     }
@@ -117,6 +120,13 @@ $(function(){
                 );
 
                 $('#current').attr('href', currentFaucetRoute);
+
+                var faucetListsRoute = laroute.route(
+                    'payment-processors.faucets',
+                    { slug : paymentProcessorSlug }
+                );
+
+                $('#list_of_faucets').attr('href', faucetListsRoute);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if(typeof jqXHR.responseJSON.status !== 'undefined' && jqXHR.responseJSON.status === 'error'){

@@ -1,4 +1,5 @@
 $(function(){
+    var userSlug;
     var currentFaucetSlug;
     var paymentProcessorSlug;
 

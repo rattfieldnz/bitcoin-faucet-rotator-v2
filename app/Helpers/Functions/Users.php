@@ -373,6 +373,7 @@ class Users
             ->where('faucets.has_low_balance', '=', false)
             ->where('faucets.deleted_at', '=', null)
             ->where('slug', '=', $faucetSlug)
+            ->orderBy('faucets.interval_minutes')
             ->first();
     }
 }

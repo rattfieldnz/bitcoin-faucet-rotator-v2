@@ -1,5 +1,8 @@
+
+var currentFaucetSlug;
+
 $(function(){
-    var currentFaucetSlug;
+    //var currentFaucetSlug;
     init();
 
     //Set iframe src to first faucet in array

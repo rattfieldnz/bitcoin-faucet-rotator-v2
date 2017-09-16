@@ -112,22 +112,47 @@ class PaymentProcessors
     public static function userPaymentProcessorFaucets(User $user, PaymentProcessor $paymentProcessor)
     {
         if (empty($user) || empty($paymentProcessor)) {
-            return 0;
+            return null;
         }
 
         $userFaucets = User::where('id', '=', $user->id)
             ->first()
             ->faucets();
 
+        $faucets = $paymentProcessor->faucets();
+
         if (!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)) {
             $userFaucets = $userFaucets->withTrashed()->get()->pluck('id')->toArray();
+
+            return $faucets->withTrashed()->get()->whereIn('id', $userFaucets);
         } else {
             $userFaucets = $userFaucets->get()->pluck('id')->toArray();
+
+            return $faucets->get()->whereIn('id', $userFaucets);
+        }
+    }
+
+    public static function userPaymentProcessorFaucet(User $user, PaymentProcessor $paymentProcessor, Faucet $faucet)
+    {
+        if (empty($user) || empty($paymentProcessor) ||empty($faucet)) {
+            return null;
         }
 
-        $paymentProcessorFaucets = $paymentProcessor->faucets()->withTrashed()->get()->whereIn('id', $userFaucets);
+        $userFaucet = User::where('id', '=', $user->id)
+            ->first()
+            ->faucets()
+            ->where('faucets.slug', '=', $faucet->slug);
 
+        $faucets = $paymentProcessor->faucets();
 
-        return $paymentProcessorFaucets;
+        if (!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)) {
+            $faucetId = $userFaucet->withTrashed()->get()->pluck('id')->first();
+
+            return $faucets->withTrashed()->where('faucets.id', '=', $faucetId)->first();
+        } else {
+            $faucetId = $userFaucet->get()->pluck('id')->first();
+
+            return $faucets->where('faucets.id', '=', $faucetId)->first();
+        }
     }
 }
