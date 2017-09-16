@@ -1553,16 +1553,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.23",
+            "version": "v0.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "402cbac930add01bf65d151d3f2048a5bdfbd320"
+                "reference": "3e90db2d96265bbe1f3e855f9558e6bb12ae2dc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/402cbac930add01bf65d151d3f2048a5bdfbd320",
-                "reference": "402cbac930add01bf65d151d3f2048a5bdfbd320",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/3e90db2d96265bbe1f3e855f9558e6bb12ae2dc6",
+                "reference": "3e90db2d96265bbe1f3e855f9558e6bb12ae2dc6",
                 "shasum": ""
             },
             "require": {
@@ -1586,7 +1586,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-09-09T00:24:34+00:00"
+            "time": "2017-09-13T20:25:35+00:00"
         },
         {
             "name": "google/auth",
@@ -1950,12 +1950,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/adminlte-templates.git",
-                "reference": "d3f6141a77c289f04c7ab1c242e1edf3174d349e"
+                "reference": "6e62b9ad14f3b6111209896398b098f6e7052aa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/d3f6141a77c289f04c7ab1c242e1edf3174d349e",
-                "reference": "d3f6141a77c289f04c7ab1c242e1edf3174d349e",
+                "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/6e62b9ad14f3b6111209896398b098f6e7052aa0",
+                "reference": "6e62b9ad14f3b6111209896398b098f6e7052aa0",
                 "shasum": ""
             },
             "require": {
@@ -1987,7 +1987,7 @@
                 "laravel",
                 "templates"
             ],
-            "time": "2017-07-30T07:03:42+00:00"
+            "time": "2017-09-16T04:55:59+00:00"
         },
         {
             "name": "infyomlabs/laravel-generator",
@@ -1995,12 +1995,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/laravel-generator.git",
-                "reference": "87879922b6edeedb56a5221bc3a7fb100d46b34b"
+                "reference": "94978b436c81d7e2c76b0a57f1cbecb02992186c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/87879922b6edeedb56a5221bc3a7fb100d46b34b",
-                "reference": "87879922b6edeedb56a5221bc3a7fb100d46b34b",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/94978b436c81d7e2c76b0a57f1cbecb02992186c",
+                "reference": "94978b436c81d7e2c76b0a57f1cbecb02992186c",
                 "shasum": ""
             },
             "require": {
@@ -2046,7 +2046,7 @@
                 "test",
                 "view"
             ],
-            "time": "2017-09-06T17:09:56+00:00"
+            "time": "2017-09-16T05:11:37+00:00"
         },
         {
             "name": "infyomlabs/swagger-generator",
@@ -5153,12 +5153,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "7857a524c7e23c59be49261e196337d1444f0f02"
+                "reference": "0fb45a835b60085d00ad92261829d2fd1243f01b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/7857a524c7e23c59be49261e196337d1444f0f02",
-                "reference": "7857a524c7e23c59be49261e196337d1444f0f02",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/0fb45a835b60085d00ad92261829d2fd1243f01b",
+                "reference": "0fb45a835b60085d00ad92261829d2fd1243f01b",
                 "shasum": ""
             },
             "require": {
@@ -5198,7 +5198,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2017-08-03T09:34:20+00:00"
+            "time": "2017-09-15T10:12:22+00:00"
         },
         {
             "name": "symfony/debug",
@@ -6101,16 +6101,16 @@
         },
         {
             "name": "zendframework/zend-diactoros",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "1d23172f9dc1687a97c195a777b0199f14f7b26e"
+                "reference": "2faa791b66bac33ca40031d8bce03b7dc8143490"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/1d23172f9dc1687a97c195a777b0199f14f7b26e",
-                "reference": "1d23172f9dc1687a97c195a777b0199f14f7b26e",
+                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/2faa791b66bac33ca40031d8bce03b7dc8143490",
+                "reference": "2faa791b66bac33ca40031d8bce03b7dc8143490",
                 "shasum": ""
             },
             "require": {
@@ -6129,8 +6129,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5-dev",
-                    "dev-develop": "1.6-dev"
+                    "dev-master": "1.6-dev",
+                    "dev-develop": "1.7-dev"
                 }
             },
             "autoload": {
@@ -6149,7 +6149,7 @@
                 "psr",
                 "psr-7"
             ],
-            "time": "2017-08-22T20:38:56+00:00"
+            "time": "2017-09-13T14:47:08+00:00"
         },
         {
             "name": "zircote/swagger-php",
@@ -8139,12 +8139,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "65dcaf68b6d9a4a78d48c00305b2dfb5648c2ab8"
+                "reference": "407a9b933209f5291b1b90ec0ed1298fcfba3026"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/65dcaf68b6d9a4a78d48c00305b2dfb5648c2ab8",
-                "reference": "65dcaf68b6d9a4a78d48c00305b2dfb5648c2ab8",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/407a9b933209f5291b1b90ec0ed1298fcfba3026",
+                "reference": "407a9b933209f5291b1b90ec0ed1298fcfba3026",
                 "shasum": ""
             },
             "require": {
@@ -8187,7 +8187,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2017-09-11T20:45:17+00:00"
+            "time": "2017-09-15T10:12:22+00:00"
         },
         {
             "name": "symfony/filesystem",
