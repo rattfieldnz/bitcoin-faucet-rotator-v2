@@ -164,7 +164,7 @@ class RotatorController extends Controller
             return redirect(route('users.index'));
         }
 
-        if($user->isAnAdmin()){
+        if ($user->isAnAdmin()) {
             return redirect(route('payment-processors.rotator', ['slug' => $paymentProcessor->slug]));
         }
 
@@ -205,7 +205,5 @@ class RotatorController extends Controller
             ->with('paymentProcessorSlug', $paymentProcessor->slug)
             ->with('userName', $user->user_name)
             ->with('paymentProcessorName', $paymentProcessor->name);
-
-
     }
 }

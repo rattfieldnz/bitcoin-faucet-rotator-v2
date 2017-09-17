@@ -707,7 +707,7 @@ class FaucetAPIController extends AppBaseController
 
         $faucets = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor);
 
-        for($i = 0; $i < count($faucets); $i++){
+        for ($i = 0; $i < count($faucets); $i++) {
             $faucets[$i] = (new FaucetsTransformer)->transform($user, $faucets[$i], true);
         }
 
@@ -750,7 +750,6 @@ class FaucetAPIController extends AppBaseController
         $userFaucet = (new FaucetsTransformer)->transform($user, $userFaucet, true);
 
         return $this->sendResponse($userFaucet, 'User payment processor faucet retrieved successfully');
-
     }
 
     public function getFirstUserPaymentProcessorFaucet($userSlug, $paymentProcessorSlug)
@@ -969,6 +968,5 @@ class FaucetAPIController extends AppBaseController
         $userFaucet = (new FaucetsTransformer)->transform($user, $faucets[$randomIndex], false);
 
         return $this->sendResponse($userFaucet, 'User payment processor faucet retrieved successfully');
-
     }
 }
