@@ -95,7 +95,7 @@ $(function () {
     var browserStatsProgressBar = generateProgressBar("#pieChart-progressbar",pieChartName);
     renderBrowserStatsPieChart(browserStatsData, '#pieChart', '#pieChart-container', "35em", browserStatsProgressBar);
 
-    $("#stats-form").submit(function(event){
+    $("#stats-form").submit(function (event) {
         event.preventDefault();
 
         var fromDate = $("#from-date").val();
@@ -112,7 +112,7 @@ $(function () {
         var newDateFrom = new Date(yearFrom,monthFrom-1,dayFrom);
         var newDateTo = new Date(yearTo,monthTo-1,dayTo);
 
-        if(typeof newDateFrom !== 'undefined' && typeof newDateTo !== 'undefined'){
+        if (typeof newDateFrom !== 'undefined' && typeof newDateTo !== 'undefined') {
             dateFromDisplayElement.text(dateFormatted(newDateFrom).fullDisplay);
             dateToDisplayElement.text(dateFormatted(newDateTo).fullDisplay);
         }
@@ -136,9 +136,10 @@ $(function () {
     });
 });
 
-function generateVisitorsTable(data, elementToRender){
+function generateVisitorsTable(data, elementToRender)
+{
 
-    if(typeof data !== 'undefined' && typeof $(elementToRender) !== 'undefined'){
+    if (typeof data !== 'undefined' && typeof $(elementToRender) !== 'undefined') {
         return $(elementToRender).DataTable({
             processing: true,
             data: data,
@@ -156,7 +157,7 @@ function generateVisitorsTable(data, elementToRender){
                         _: 'display',
                         sort: 'original'
                     }
-                },
+            },
                 {
                     data: "pageViews",
                     type: 'num',
@@ -164,7 +165,7 @@ function generateVisitorsTable(data, elementToRender){
                         _: 'display',
                         sort: 'original'
                     }
-                },
+            },
                 {
                     data: "uniquePageViews",
                     type: 'num',
@@ -172,7 +173,7 @@ function generateVisitorsTable(data, elementToRender){
                         _: 'display',
                         sort: 'original'
                     }
-                },
+            },
                 {
                     data: 'aveSessionDuration',
                     type: 'num',
@@ -180,7 +181,7 @@ function generateVisitorsTable(data, elementToRender){
                         _: 'display',
                         sort: 'original'
                     }
-                },
+            },
                 {
                     data: 'aveTimeOnPage',
                     type: 'num',
@@ -188,7 +189,7 @@ function generateVisitorsTable(data, elementToRender){
                         _: 'display',
                         sort: 'original'
                     }
-                },
+            },
                 {
                     data: "noOfBounces",
                     type: 'num',
@@ -196,7 +197,7 @@ function generateVisitorsTable(data, elementToRender){
                         _: 'display',
                         sort: 'original'
                     }
-                },
+            },
                 {data: "noOfCountries"}
             ],
             responsive: true,
@@ -212,19 +213,19 @@ function generateVisitorsTable(data, elementToRender){
     }
 }
 
-function generateVisitorsLineChart(data, chartElement){
+function generateVisitorsLineChart(data, chartElement)
+{
 
     var visitorsRGB = getRandomRgb();
     var pageViewsRGB = getRandomRgb();
 
-    if(typeof data !== 'undefined' && data.status !== 'error' && typeof $(chartElement)[0] !== 'undefined'){
-
+    if (typeof data !== 'undefined' && data.status !== 'error' && typeof $(chartElement)[0] !== 'undefined') {
         var areaChartContext = $(chartElement)[0].getContext('2d');;
 
         var labels = [], visitorsData = [], pageViewsData = [];
 
         // Separate data and labels into their own arrays.
-        data.forEach(function(d) {
+        data.forEach(function (d) {
             labels.push(new Date(d.date).formatDDMMYYYY());
             visitorsData.push(parseInt(d.visitors));
             pageViewsData.push(parseInt(d.pageViews));
@@ -240,13 +241,13 @@ function generateVisitorsLineChart(data, chartElement){
                         borderColor: rgbaString(visitorsRGB.r, visitorsRGB.g, visitorsRGB.b),
                         backgroundColor: rgbaString(visitorsRGB.r, visitorsRGB.g, visitorsRGB.b, 0.5),
                         data: visitorsData
-                    },
+                },
                     {
                         label: "Page views",
                         borderColor: rgbaString(pageViewsRGB.r, pageViewsRGB.g, pageViewsRGB.b),
                         backgroundColor: rgbaString(pageViewsRGB.r, pageViewsRGB.g, pageViewsRGB.b, 0.5),
                         data: pageViewsData
-                    }
+                }
                 ]
             },
             options: {
@@ -300,52 +301,52 @@ function generateVisitorsLineChart(data, chartElement){
     }
 }
 
-function getVisitorsDataAjax(routeName, dateFrom, dateTo, quantity) {
-    if(quantity === null){
+function getVisitorsDataAjax(routeName, dateFrom, dateTo, quantity)
+{
+    if (quantity === null) {
         quantity = 10;
     }
 
-    if(routeName !== null && dateFrom !== null && dateTo !== null){
-
+    if (routeName !== null && dateFrom !== null && dateTo !== null) {
         var visitorsRoute = laroute.route(
             routeName,
             { dateFrom : dateFrom, dateTo: dateTo, quantity: quantity }
         );
 
-        if(typeof visitorsRoute === 'undefined'){
+        if (typeof visitorsRoute === 'undefined') {
             return null;
         }
 
-        return $.get(visitorsRoute, function(response){
+        return $.get(visitorsRoute, function (response) {
             return response.data;
         }).promise();
     }
 }
 
-function getBrowserStatsAjax(routeName, dateFrom, dateTo, maxBrowsers){
+function getBrowserStatsAjax(routeName, dateFrom, dateTo, maxBrowsers)
+{
 
-    if(maxBrowsers === null){
+    if (maxBrowsers === null) {
         maxBrowsers = 10;
     }
 
-    if(routeName !== null && dateFrom !== null && dateTo !== null){
-
+    if (routeName !== null && dateFrom !== null && dateTo !== null) {
         var browsersRoute = laroute.route(
             routeName,
             { dateFrom : dateFrom, dateTo: dateTo, maxBrowsers: maxBrowsers }
         );
 
-        return $.get(browsersRoute, function(response){
+        return $.get(browsersRoute, function (response) {
             return response.data;
         }).promise();
     }
 }
 
-function generatePieDonutChart(data, renderToElement){
-    if(typeof data !== 'undefined' && typeof $(renderToElement) !== 'undefined'){
-
+function generatePieDonutChart(data, renderToElement)
+{
+    if (typeof data !== 'undefined' && typeof $(renderToElement) !== 'undefined') {
         var pieChartCanvas;
-        if(renderToElement.charAt(0) === '.'){
+        if (renderToElement.charAt(0) === '.') {
             pieChartCanvas = document.getElementsByClassName(renderToElement.substr(1))[0];
         } else if (renderToElement.charAt(0) === '#') {
             pieChartCanvas = document.getElementById(renderToElement.substr(1));
@@ -372,7 +373,7 @@ function generatePieDonutChart(data, renderToElement){
         var labels = [];
         var dataItems = [];
 
-        data.forEach(function(d) {
+        data.forEach(function (d) {
             labels.push(d.browser);
             dataItems.push(parseInt(d.sessions));
             backgroundColors.push(getRandomHexColor());
@@ -394,7 +395,8 @@ function generatePieDonutChart(data, renderToElement){
     }
 }
 
-function getCountriesAndVisitorsAjax(dateFrom, dateTo) {
+function getCountriesAndVisitorsAjax(dateFrom, dateTo)
+{
 
     var error = {
         status: 'error',
@@ -402,18 +404,16 @@ function getCountriesAndVisitorsAjax(dateFrom, dateTo) {
         code: ''
     };
 
-    if(dateFrom !== null && dateTo !== null){
-
+    if (dateFrom !== null && dateTo !== null) {
         var browsersRoute = laroute.route(
             'stats.countries-and-visitors',
             { dateFrom : dateFrom, dateTo: dateTo }
         );
 
-        return $.get(browsersRoute, function(response){
+        return $.get(browsersRoute, function (response) {
             return response.data;
         }).promise();
     } else {
-
         browsersRoute = laroute.route(
             'stats.countries-and-visitors',
             { dateFrom : dateFrom, dateTo: dateTo }
@@ -422,16 +422,17 @@ function getCountriesAndVisitorsAjax(dateFrom, dateTo) {
         error.message = "Both dates cannot be null / empty.";
         error.code = 500;
 
-        return $.get(browsersRoute, function(){
+        return $.get(browsersRoute, function () {
             return error;
         }).promise();
     }
 }
 
-function generateGoogleGeoChart(data, renderToElement){
+function generateGoogleGeoChart(data, renderToElement)
+{
 
     var geoChartCanvas;
-    if(renderToElement.charAt(0) === '.'){
+    if (renderToElement.charAt(0) === '.') {
         geoChartCanvas = document.getElementsByClassName(renderToElement.substr(1))[0];
     } else if (renderToElement.charAt(0) === '#') {
         geoChartCanvas = document.getElementById(renderToElement.substr(1));
@@ -455,7 +456,7 @@ function generateGoogleGeoChart(data, renderToElement){
 
     var geoData = data;
 
-    var drawRegionsMap = function(){
+    var drawRegionsMap = function () {
 
         geoChartCanvas.innerHTML = "";
         var data = google.visualization.arrayToDataTable(geoData);

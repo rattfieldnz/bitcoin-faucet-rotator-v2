@@ -21,11 +21,15 @@ window.addEventListener("load", function () {
     })
 });
 
-Number.prototype.nth= function(){
-    if(this%1) return this;
+Number.prototype.nth= function () {
+    if (this%1) {
+        return this;
+    }
     var s= this%100;
-    if(s>3 && s<21) return this+'th';
-    switch(s%10){
+    if (s>3 && s<21) {
+        return this+'th';
+    }
+    switch (s%10) {
         case 1: return this+'st';
         case 2: return this+'nd';
         case 3: return this+'rd';
@@ -33,13 +37,14 @@ Number.prototype.nth= function(){
     }
 };
 
-Date.prototype.formatDDMMYYYY = function() {
+Date.prototype.formatDDMMYYYY = function () {
     return ('0' + (this.getDate())).slice(-2) +
         "/" +  ('0' + (this.getMonth() + 1)).slice(-2) +
         "/" +  this.getFullYear();
 };
 
-function footerReset() {
+function footerReset()
+{
     var contentHeight = jQuery(window).height();
     var footer = jQuery('#footer-custom');
     if (typeof footer.position() !== 'undefined') {
@@ -51,7 +56,8 @@ function footerReset() {
     }
 }
 
-function getRandomRgb() {
+function getRandomRgb()
+{
     var num = Math.round(0xffffff * Math.random());
     return {
         r: num >> 16,
@@ -60,7 +66,8 @@ function getRandomRgb() {
     }
 }
 
-function rgbaString(r, g, b, a) {
+function rgbaString(r, g, b, a)
+{
     var opacity = 1;
     if (typeof a !== 'undefined') {
         opacity = a;
@@ -72,22 +79,25 @@ function rgbaString(r, g, b, a) {
     }
 }
 
-function getRandomHexColor() {
+function getRandomHexColor()
+{
     var length = 6;
     var chars = '0123456789ABCDEF';
     var hex = '#';
-    while (length--) hex += chars[(Math.random() * 16) | 0];
+    while (length--) {
+        hex += chars[(Math.random() * 16) | 0];
+    }
     return hex;
 }
 
-function progressError(dataObject, progressBar) {
+function progressError(dataObject, progressBar)
+{
     if (dataObject !== null && typeof dataObject !== 'undefined' && typeof progressBar !== 'undefined') {
-
         var errorMessage;
 
-        if(typeof dataObject === 'string'){
+        if (typeof dataObject === 'string') {
             errorMessage = dataObject;
-        } else if(dataObject.message !== 'undefined'){
+        } else if (dataObject.message !== 'undefined') {
             errorMessage = dataObject.message;
         } else {
             errorMessage = "Unknown error.";
@@ -100,7 +110,8 @@ function progressError(dataObject, progressBar) {
     }
 }
 
-function generateProgressBar(elementName, dataName) {
+function generateProgressBar(elementName, dataName)
+{
     if (typeof $(elementName) !== 'undefined' && dataName !== 'undefined') {
         return $(elementName).progressTimer({
             timeLimit: 600,
@@ -113,7 +124,8 @@ function generateProgressBar(elementName, dataName) {
     }
 }
 
-function hideElement(elementName, timeoutValue) {
+function hideElement(elementName, timeoutValue)
+{
     if (typeof $(elementName) !== 'undefined') {
         typeof timeoutValue === 'undefined' ? timeoutValue = 0 : timeoutValue;
         return setTimeout(function () {
@@ -122,7 +134,8 @@ function hideElement(elementName, timeoutValue) {
     }
 }
 
-function showElement(elementName, timeoutValue){
+function showElement(elementName, timeoutValue)
+{
     if (typeof $(elementName) !== 'undefined') {
         typeof timeoutValue === 'undefined' ? timeoutValue = 0 : timeoutValue;
         return setTimeout(function () {
@@ -131,9 +144,10 @@ function showElement(elementName, timeoutValue){
     }
 }
 
-function currentDate(separator){
+function currentDate(separator)
+{
 
-    if(typeof separator === 'undefined'){
+    if (typeof separator === 'undefined') {
         separator = '-';
     }
     var d = new Date();
@@ -148,10 +162,10 @@ function currentDate(separator){
     }
 }
 
-function dateFormatted(date, separator){
-    if(typeof date !== 'undefined' && date.constructor === Date){
-
-        if(typeof separator === 'undefined'){
+function dateFormatted(date, separator)
+{
+    if (typeof date !== 'undefined' && date.constructor === Date) {
+        if (typeof separator === 'undefined') {
             separator = '-';
         }
         var day = ("0" + (date.getDate())).slice(-2);
@@ -163,13 +177,14 @@ function dateFormatted(date, separator){
             dateFormatted:day + separator + month + separator + year,
             fullDisplay: formatDateFull(date)
         }
-    } else{
+    } else {
         return null;
     }
 }
 
-function formatDateFull(date){
-    if(typeof date !== 'undefined' && date !== null){
+function formatDateFull(date)
+{
+    if (typeof date !== 'undefined' && date !== null) {
         var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         var displayDay = days[date.getDay()];
         var displayDate = date.getDate().nth();
@@ -181,13 +196,13 @@ function formatDateFull(date){
     }
 }
 
-function alterDate(date, amount) {
+function alterDate(date, amount)
+{
     var timezoneOffset = date.getTimezoneOffset() * 60 * 1000,
         t = date.getTime(),
         d = new Date();
 
-    if(typeof amount !== 'undefined' && Number.isInteger(amount)){
-
+    if (typeof amount !== 'undefined' && Number.isInteger(amount)) {
         t += (1000 * 60 * 60 * 24 * amount);
 
         d.setTime(t);
@@ -199,38 +214,37 @@ function alterDate(date, amount) {
         }
 
         return d;
-    } else{
+    } else {
         return null;
     }
 }
 
-function currentLanguage(){
+function currentLanguage()
+{
     var language = window.navigator.userLanguage || window.navigator.language;
 
     return language !== 'undefined' ? language : navigator.language;
 }
 
-function renderVisitorsAreaChart(data, chartElement, chartContainerElement, chartHeight, progressBar, doUpdate){
+function renderVisitorsAreaChart(data, chartElement, chartContainerElement, chartHeight, progressBar, doUpdate)
+{
 
-    if(chartHeight === 'undefined' || chartHeight === null){
+    if (chartHeight === 'undefined' || chartHeight === null) {
         chartHeight = "20em";
     }
 
-    if(data.status !== 'undefined' && data.status === 'error'){
-
+    if (data.status !== 'undefined' && data.status === 'error') {
         showElement(progressBar);
         progressError(data.message, progressBar);
         return false;
     } else {
-        data.done(function(vacd){
-            if(typeof vacd.status !== 'undefined' && vacd.status === 'error'){
-
+        data.done(function (vacd) {
+            if (typeof vacd.status !== 'undefined' && vacd.status === 'error') {
                 showElement(progressBar);
                 progressError(vacd.message, progressBar);
                 return false;
             } else {
-
-                if(doUpdate === true){
+                if (doUpdate === true) {
                     clearChart(chartElement, chartContainerElement, chartHeight);
                 }
 
@@ -240,18 +254,19 @@ function renderVisitorsAreaChart(data, chartElement, chartContainerElement, char
                 hideElement(progressBar, 3000);
                 return true;
             }
-        }).fail(function(vacd){
+        }).fail(function (vacd) {
 
             showElement(progressBar);
             progressError(vacd.message,progressBar);
             return false;
-        }).progress(function(){
+        }).progress(function () {
             console.log("Visitors area chart is loading...");
         });
     }
 }
 
-function renderVisitorsDataTable(data, dataTableElement, progressBar, doUpdate){
+function renderVisitorsDataTable(data, dataTableElement, progressBar, doUpdate)
+{
 
     $(dataTableElement).DataTable().destroy();
     $(dataTableElement + ' tbody').empty();
@@ -260,66 +275,65 @@ function renderVisitorsDataTable(data, dataTableElement, progressBar, doUpdate){
 
     var loadingProgressElement = $(dataTableElement + '_processing');
     loadingProgressElement.attr('style', 'display:initial !important');
-    if(data.status !== 'undefined' && data.status === 'error'){
+    if (data.status !== 'undefined' && data.status === 'error') {
         progressError(
             data.message,
             progressBar
         );
     } else {
-        data.done(function(vd){
-            if(typeof vd.status !== 'undefined' && vd.status === 'error'){
+        data.done(function (vd) {
+            if (typeof vd.status !== 'undefined' && vd.status === 'error') {
                 progressError(
                     vd.message,
                     progressBar
                 );
             } else {
-                  if(doUpdate === true){
-                      var dataTable = generateVisitorsTable(vd.data, dataTableElement);
+                if (doUpdate === true) {
+                    var dataTable = generateVisitorsTable(vd.data, dataTableElement);
 
-                      loadingProgressElement.attr('style', 'display:none !important');
-                      progressBar.progressTimer('complete');
-                      hideElement(progressBar, 3000);
+                    loadingProgressElement.attr('style', 'display:none !important');
+                    progressBar.progressTimer('complete');
+                    hideElement(progressBar, 3000);
 
-                      return dataTable;
-                  } else{
-                      loadingProgressElement.attr('style', 'display:none !important');
-                      progressBar.progressTimer('complete');
-                      hideElement(progressBar, 3000);
+                    return dataTable;
+                } else {
+                    loadingProgressElement.attr('style', 'display:none !important');
+                    progressBar.progressTimer('complete');
+                    hideElement(progressBar, 3000);
 
-                      return generateVisitorsTable(vd.data, dataTableElement);
-                  }
+                    return generateVisitorsTable(vd.data, dataTableElement);
+                }
             }
-        }).fail(function(vd){
+        }).fail(function (vd) {
             loadingProgressElement.attr('style', 'display:none !important');
             showElement(progressBar);
             progressError(vd.message,progressBar);
-        }).progress(function(){
+        }).progress(function () {
             console.log("Visitors datatable is loading...");
         });
     }
 }
 
-function renderVisitorsGoogleMap(data, mapElement, progressBar, mapWidth,mapHeight, doUpdate){
-    if(typeof $(mapElement) !== 'undefined' && typeof progressBar !== 'undefined'){
-        if(data.status !== 'undefined' && data.status === 'error'){
+function renderVisitorsGoogleMap(data, mapElement, progressBar, mapWidth,mapHeight, doUpdate)
+{
+    if (typeof $(mapElement) !== 'undefined' && typeof progressBar !== 'undefined') {
+        if (data.status !== 'undefined' && data.status === 'error') {
             showElement(progressBar);
             progressError(
                 data.message,
                 progressBar
             );
         } else {
-            data.done(function(d){
+            data.done(function (d) {
 
-                if(typeof d.status !== 'undefined' && d.status === 'error'){
-
+                if (typeof d.status !== 'undefined' && d.status === 'error') {
                     showElement(progressBar);
                     progressError(
                         d.message,
                         progressBar
                     );
                 } else {
-
-                    if(doUpdate === true){
+                    if (doUpdate === true) {
                         $(mapElement).empty();
                     }
 
@@ -329,43 +343,41 @@ function renderVisitorsGoogleMap(data, mapElement, progressBar, mapWidth,mapHeig
                     progressBar.progressTimer('complete');
                     hideElement(progressBar, 3000);
                 }
-            }).fail(function(d){
+            }).fail(function (d) {
 
                 showElement(progressBar);
                 progressError(d.message,progressBar);
-            }).progress(function(){
+            }).progress(function () {
                 console.log("Visitors geo chart is loading...");
             });
         }
     }
 }
 
-function renderBrowserStatsPieChart(data, chartElement, chartContainerElement, chartHeight, progressBar, doUpdate){
+function renderBrowserStatsPieChart(data, chartElement, chartContainerElement, chartHeight, progressBar, doUpdate)
+{
 
-    if(chartHeight === 'undefined' || chartHeight === null){
+    if (chartHeight === 'undefined' || chartHeight === null) {
         chartHeight = "35em";
     }
 
-    if(data.status !== 'undefined' && data.status === 'error'){
-
+    if (data.status !== 'undefined' && data.status === 'error') {
         showElement(progressBar);
         progressError(
             data.message,
             progressBar
         );
     } else {
-        data.done(function(d){
+        data.done(function (d) {
 
-            if(typeof d.status !== 'undefined' && d.status === 'error'){
-
+            if (typeof d.status !== 'undefined' && d.status === 'error') {
                 showElement(progressBar);
                 progressError(
                     d.message,
                     progressBar
                 );
             } else {
-
-                if(doUpdate === true){
+                if (doUpdate === true) {
                     clearChart(chartElement, chartContainerElement, chartHeight);
                 }
                 showElement(progressBar);
@@ -373,33 +385,34 @@ function renderBrowserStatsPieChart(data, chartElement, chartContainerElement, c
                 progressBar.progressTimer('complete');
                 hideElement(progressBar, 3000);
             }
-        }).fail(function(d){
+        }).fail(function (d) {
 
             showElement(progressBar);
             progressError(
                 d.message,
                 progressBar
             );
-        }).progress(function(){
+        }).progress(function () {
             console.log("Visitors' browsers chart is loading...");
         });
     }
 }
 
-function clearChart(chartElement, chartContainerElement, chartHeight){
+function clearChart(chartElement, chartContainerElement, chartHeight)
+{
 
-    if(chartHeight === 'undefined' || chartHeight === null){
+    if (chartHeight === 'undefined' || chartHeight === null) {
         chartHeight = "35em";
     }
 
-    if(typeof $(chartContainerElement) !== 'undefined' && typeof $(chartElement) !== 'undefined'){
+    if (typeof $(chartContainerElement) !== 'undefined' && typeof $(chartElement) !== 'undefined') {
         $(chartContainerElement).empty();
 
         var attribute = 'id';
 
-        if(chartElement.substring(0,1) === '.'){
+        if (chartElement.substring(0,1) === '.') {
             attribute = 'class';
-        } else if (chartElement.substring(0,1) === '#'){
+        } else if (chartElement.substring(0,1) === '#') {
             attribute = 'id';
         }
 

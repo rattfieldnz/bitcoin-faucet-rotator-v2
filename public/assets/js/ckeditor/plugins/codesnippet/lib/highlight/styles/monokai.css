@@ -28,13 +28,13 @@ Monokai style - ported by Luigi Maselli - http://grigio.org
 
 .hljs .hljs-constant,
 .asciidoc .hljs-code {
-	color: #66D9EF;
+    color: #66D9EF;
 }
 
 .hljs-code,
 .hljs-class .hljs-title,
 .hljs-header {
-	color: white;
+    color: white;
 }
 
 .hljs-link_label,
@@ -43,7 +43,7 @@ Monokai style - ported by Luigi Maselli - http://grigio.org
 .hljs-symbol .hljs-string,
 .hljs-value,
 .hljs-regexp {
-	color: #BF79DB;
+    color: #BF79DB;
 }
 
 .hljs-link_url,

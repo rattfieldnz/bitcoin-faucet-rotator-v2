@@ -1,4 +1,4 @@
-$(function(){
+$(function () {
     var currentFaucetSlug;
     var paymentProcessorSlug;
     var userSlug;
@@ -6,7 +6,7 @@ $(function(){
     init();
 
     //Set iframe src to first faucet in array
-    $('#first_faucet').click(function(event) {
+    $('#first_faucet').click(function (event) {
         event.preventDefault();
 
         var route = laroute.route(
@@ -20,7 +20,7 @@ $(function(){
         generateFaucet(route);
     });
 
-    $('#next_faucet').click(function(event){
+    $('#next_faucet').click(function (event) {
         event.preventDefault();
 
         var route = laroute.route(
@@ -34,7 +34,7 @@ $(function(){
         generateFaucet(route);
     });
 
-    $('#previous_faucet').click(function(event){
+    $('#previous_faucet').click(function (event) {
         event.preventDefault();
 
         var route = laroute.route(
@@ -48,7 +48,7 @@ $(function(){
         generateFaucet(route);
     });
 
-    $('#last_faucet').click(function(event) {
+    $('#last_faucet').click(function (event) {
         event.preventDefault();
 
         var route = laroute.route(
@@ -61,7 +61,7 @@ $(function(){
         generateFaucet(route);
     });
 
-    $('#reload_current').click(function(event) {
+    $('#reload_current').click(function (event) {
         event.preventDefault();
 
         var route = laroute.route(
@@ -75,7 +75,7 @@ $(function(){
         generateFaucet(route);
     });
 
-    $('#random').click(function(event){
+    $('#random').click(function (event) {
         event.preventDefault();
 
         var route = laroute.route(
@@ -88,7 +88,8 @@ $(function(){
         generateFaucet(route);
     });
 
-    function init(){
+    function init()
+    {
         paymentProcessorSlug = $("#title").data("payment-processor-slug");
         userSlug = $("#title").data("user-slug");
         var route = laroute.route(
@@ -101,7 +102,8 @@ $(function(){
         generateFaucet(route);
     }
 
-    function generateFaucet(apiUrl){
+    function generateFaucet(apiUrl)
+    {
         var iframeUrl;
         var iframe = $('#rotator-iframe');
         var ajaxErrorContent = $('#show-ajax-data-error-content');
@@ -118,7 +120,7 @@ $(function(){
                 iframeUrl = data.data.url;
                 currentFaucetSlug = data.data.slug;
 
-                if(Boolean(data.data.can_show_in_iframes) === true){
+                if (Boolean(data.data.can_show_in_iframes) === true) {
                     iframe.show();
                     noIframeContent.hide();
                     iframe.attr('src', iframeUrl);
@@ -127,8 +129,7 @@ $(function(){
                     noIframeContent.find('#faucet-link').attr('href', iframeUrl);
                     noIframeContent.find('#faucet-link').attr('title', 'View "' + data.data.name + '" faucet in a new window');
 
-                    if(typeof editFaucetLink !== 'undefined'){
-
+                    if (typeof editFaucetLink !== 'undefined') {
                         var editFaucetRoute = laroute.route(
                             'users.faucets',
                             { userSlug : userSlug }
@@ -161,25 +162,24 @@ $(function(){
                 $('#list_of_faucets').attr('href', faucetListsRoute);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                if(typeof jqXHR.responseJSON.status !== 'undefined' && jqXHR.responseJSON.status === 'error'){
+                if (typeof jqXHR.responseJSON.status !== 'undefined' && jqXHR.responseJSON.status === 'error') {
                     iframe.hide();
                     noIframeContent.hide();
                     var errorCode = $('#error-code');
                     var errorMessage = $('#error-message');
                     var sentryId = $('#sentry-id');
-                    if(
+                    if (
                         typeof errorCode !== 'undefined' &&
                         typeof errorMessage !== 'undefined' &&
-                        typeof sentryId !== 'undefined')
-                    {
+                        typeof sentryId !== 'undefined') {
                         errorCode.text(jqXHR.responseJSON.code);
                         errorMessage.text(jqXHR.responseJSON.message);
                         sentryId.text(jqXHR.responseJSON.sentryID);
                         ajaxErrorContent.show();
                     }
-
                 }
             }
         });
     }
 });
+
