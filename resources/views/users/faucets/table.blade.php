@@ -144,41 +144,50 @@
             @endif
         </tr>
     @endforeach
-    @if(Auth::user() != null && (Auth::user()->isAnAdmin() || (Auth::user() == $user && $user->hasPermission('create-user-faucets'))))
     <div id="user-faucets-buttons">
-        {!! Form::button(
-            '<i class="fa fa-floppy-o" style="vertical-align: middle; margin-right:0.25em;"> </i> Save Referral Codes',
-            [
-                'type' => 'submit',
-                'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
-                'style' => 'margin:0.25em 0.25em 0 0; min-width:12em;'
-            ])
-        !!}
-        @if(Route::currentRouteName() != 'users.faucets.create')
+        @if(Auth::user() != null && (Auth::user()->isAnAdmin() || (Auth::user() == $user && $user->hasPermission('create-user-faucets'))))
             {!! Form::button(
-                '<i class="fa fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Add New Faucet',
+                '<i class="fa fa-floppy-o" style="vertical-align: middle; margin-right:0.25em;"> </i> Save Referral Codes',
                 [
-                    'type' => 'button',
-                    'onClick' => "location.href='" . route('users.faucets.create', $user->slug) . "'",
-                    'class' => 'btn btn-primary btn-success col-lg-2 col-md-2 col-sm-3 col-xs-12',
-                    'style' => 'margin:0.25em 0.25em 0.25em 0; color: white; min-width:12em;'
+                    'type' => 'submit',
+                    'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                    'style' => 'margin:0.25em 0.25em 0 0; min-width:12em;'
                 ])
             !!}
+            @if(Route::currentRouteName() != 'users.faucets.create')
+                {!! Form::button(
+                    '<i class="fa fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Add New Faucet',
+                    [
+                        'type' => 'button',
+                        'onClick' => "location.href='" . route('users.faucets.create', ['slug' => $user->slug]) . "'",
+                        'class' => 'btn btn-primary btn-success col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                        'style' => 'margin:0.25em 0.25em 0.25em 0; color: white; min-width:12em;'
+                    ])
+                !!}
+            @endif
         @endif
         @if(Route::currentRouteName() != 'users.faucets')
             {!! Form::button(
-                '<i class="fa fa-external-link" style="vertical-align: middle; margin-right:0.25em;"></i>View on New Page',
+                '<i class="fa fa-link" style="vertical-align: middle; margin-right:0.25em;"></i>View on New Page',
                 [
                     'type' => 'button',
-                    'onClick' => "window.open('" . route('users.faucets', $user->slug) . "', '_blank')",
+                    'onClick' => "window.open('" . route('users.faucets', ['slug' => $user->slug]) . "', '_blank')",
                     'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
                     'style' => 'margin:0.25em 0 0.25em 0; color: white; min-width:12em;'
                 ])
             !!}
         @endif
+        {!! Form::button(
+            '<i class="fa fa-link" style="vertical-align: middle; margin-right:0.25em;"></i>View Rotator',
+            [
+                'type' => 'button',
+                'onClick' => "window.open('" . route('users.rotator', ['slug' => $user->slug]) . "', '_blank')",
+                'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                'style' => 'margin:0.25em 0 0.25em 0.25em; color: white; min-width:12em;'
+            ])
+        !!}
     </div>
         {!! Form::close() !!}
-    @endif
     </tbody>
 </table>
 </div>

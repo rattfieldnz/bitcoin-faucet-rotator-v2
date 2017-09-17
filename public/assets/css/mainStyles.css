@@ -40419,11 +40419,11 @@ table.show-table-header thead tr th {
 }
 
 #footer-alternate-menu li + li:before {
-  content: "|";
+  content: " | ";
 }
 
 #footer-alternate-menu li + li:after {
-  content: "";
+  content: " ";
 }
 
 #content-wrapper {

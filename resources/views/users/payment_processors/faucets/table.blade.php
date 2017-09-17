@@ -160,6 +160,15 @@
                     'style' => 'margin:0.25em 0 0.25em 0; color: white; min-width:12em;'
                 ])
             !!}
+            {!! Form::button(
+                '<i class="fa fa-link" style="vertical-align: middle; margin-right:0.25em;"></i>View ' . $paymentProcessor->name . ' Rotator',
+                [
+                    'type' => 'button',
+                    'onClick' => "window.open('" . route('users.payment-processors.rotator', ['userSlug' => $user->slug, 'paymentProcessorSlug' => $paymentProcessor->slug]) . "', '_blank')",
+                    'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                    'style' => 'margin:0.25em 0 0.25em 0.25em; color: white; min-width:12em;'
+                ])
+            !!}
         @endif
         </tbody>
     </table>

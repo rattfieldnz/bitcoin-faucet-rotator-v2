@@ -8,8 +8,8 @@
         @endif
         <th>Name</th>
         <th>Faucets</th>
+        <th>Rotators</th>
         <th>No. Of Faucets</th>
-        <th>Rotator Link</th>
         <th>Min. Claimable</th>
         <th>Max. Claimable</th>
 
@@ -32,24 +32,24 @@
             </td>
             <td>{!! link_to_route('payment-processors.faucets', $paymentProcessor->name . " Faucets", ['slug' => $paymentProcessor->slug]) !!}</td>
             <td>
+                {!! link_to_route('payment-processors.rotator', $paymentProcessor->name . ' Rotator', ['slug' => $paymentProcessor->slug]) !!}
+            </td>
+            <td>
                 @if(!empty(Auth::user()) && Auth::user()->isAnAdmin())
                     {{ count($paymentProcessor->faucets()->withTrashed()->get()) }}
                 @else
                     {{ count($paymentProcessor->faucets()->get()) }}
                 @endif
             </td>
-           <td>
-               {!! link_to_route('payment-processors.rotator', $paymentProcessor->name . ' Rotator', ['slug' => $paymentProcessor->slug]) !!}
-           </td>
 
             @if(count($paymentProcessor->faucets()->get()) != 0)
                 <td>
                     {{ $paymentProcessor->faucets()->sum('min_payout') }}
-                    Satoshis every {{ $paymentProcessor->faucets()->sum('interval_minutes') }} minutes
+                    Satoshis / {{ $paymentProcessor->faucets()->sum('interval_minutes') }} minutes
                 </td>
                 <td>
                     {{ $paymentProcessor->faucets()->sum('max_payout') }}
-                    Satoshis every {{ $paymentProcessor->faucets()->sum('interval_minutes') }} minutes
+                    Satoshis / {{ $paymentProcessor->faucets()->sum('interval_minutes') }} minutes
                 </td>
             @else
                 <td>N/A</td>

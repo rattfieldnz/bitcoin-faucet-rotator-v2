@@ -8,6 +8,7 @@
         @endif
         <th>Name</th>
         <th>Faucets</th>
+        <th>Rotators</th>
         <th>No. Of Faucets</th>
         <th>Min. Claimable</th>
         <th>Max. Claimable</th>
@@ -26,7 +27,26 @@
             <td>
                 {{ $paymentProcessor->name }}
             </td>
-            <td>{!! link_to_route('users.payment-processors.faucets', $paymentProcessor->name . " Faucets", ['userSlug' => $user->slug, 'paymentProcessorSlug' => $paymentProcessor->slug]) !!}</td>
+            <td>
+                {!!
+                    link_to_route(
+                        'users.payment-processors.faucets',
+                        $paymentProcessor->name . " Faucets",
+                        ['userSlug' => $user->slug, 'paymentProcessorSlug' => $paymentProcessor->slug],
+                        ['target' => '_blank']
+                    )
+                !!}
+            </td>
+            <td>
+                {!!
+                    link_to_route(
+                        'users.payment-processors.rotator',
+                        $paymentProcessor->name . " Rotator",
+                        ['userSlug' => $user->slug, 'paymentProcessorSlug' => $paymentProcessor->slug],
+                        ['target' => '_blank']
+                    )
+                !!}
+            </td>
             <td>
                 @if(!empty(Auth::user()) && Auth::user()->isAnAdmin())
                     {{ count($paymentProcessorFaucets) }}
@@ -37,11 +57,11 @@
             @if(count($paymentProcessorFaucets) != 0)
             <td>
                 {{ $paymentProcessorFaucets->sum('min_payout') }}
-                Satoshis every {{ $paymentProcessorFaucets->sum('interval_minutes') }} minutes
+                Satoshis / {{ $paymentProcessorFaucets->sum('interval_minutes') }} minutes
             </td>
             <td>
                 {{ $paymentProcessorFaucets->sum('max_payout') }}
-                Satoshis every {{ $paymentProcessorFaucets->sum('interval_minutes') }} minutes
+                Satoshis / {{ $paymentProcessorFaucets->sum('interval_minutes') }} minutes
             </td>
             @else
                 <td>N/A</td>

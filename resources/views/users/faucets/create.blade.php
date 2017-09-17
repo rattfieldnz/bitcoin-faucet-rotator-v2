@@ -17,8 +17,12 @@
         <div class="box box-primary">
 
             <div class="box-body">
-                <div class="row">
-                    @include('users.faucets.table')
+                <div class="row zero-margin">
+                    @if(count($faucets) == 0)
+                        <p>There are no more faucets to add. All available faucets are being used.</p>
+                    @else
+                        @include('users.faucets.table')
+                    @endif
                 </div>
             </div>
         </div>

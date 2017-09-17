@@ -1,4 +1,4 @@
-{!! Form::hidden('id', $faucet != null ? $faucet->id : null) !!}
+{!! Form::hidden('id', !empty($faucet) ? $faucet->id : null) !!}
 <!-- Name Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('name') ? ' has-error' : '' }}">
     {!! Form::label('name', 'Name:') !!}
@@ -26,7 +26,7 @@
 <!-- Referral Code Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('referral_code') ? ' has-error' : '' }}">
 	{!! Form::label('referral_code', 'Referral Code:') !!}
-	{!! Form::text('referral_code', $faucet != null ? $faucet->users()->first()->pivot->referral_code : null, ['class' => 'form-control', 'placeholder' => 'ABCDEF123456']) !!}
+	{!! Form::text('referral_code', !empty($faucet) ? $faucet->users()->first()->pivot->referral_code : null, ['class' => 'form-control', 'placeholder' => 'ABCDEF123456']) !!}
 	<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
 	@if ($errors->has('referral_code'))
 		<span class="help-block">

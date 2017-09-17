@@ -36,6 +36,11 @@ Route::patch(
     ]
 );
 
+Route::get('faucets/create', [
+    'as' => 'faucets.create',
+    'uses' => 'FaucetController@create'
+]);
+
 Route::get('faucets/{slug}/edit', [
     'as' => 'faucets.edit',
     'uses' => 'FaucetController@edit'

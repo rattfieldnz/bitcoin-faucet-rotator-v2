@@ -17,7 +17,7 @@
         <div class="box box-primary">
 
             <div class="box-body">
-                <div class="row">
+                <div class="row zero-margin">
                     {!! Form::open(['route' => 'users.store']) !!}
 
                         @include('users.fields')
