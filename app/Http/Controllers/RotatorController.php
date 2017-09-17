@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Functions\PaymentProcessors;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Libraries\Seo\SeoConfig;
 use App\Models\Faucet;
@@ -137,7 +138,7 @@ class RotatorController extends Controller
 
         $cspConfig = Config::get('secure-headers.csp.child-src.allow');
 
-        foreach ($faucets->get(['url']) as $f) {
+        foreach ($faucets->get() as $f) {
             array_push($cspConfig, parse_url($f->url)['host']);
         }
 
@@ -146,5 +147,65 @@ class RotatorController extends Controller
         return view('users.rotator.index')
             ->with('userName', $user->user_name)
             ->with('userSlug', $user->slug);
+    }
+
+    function getUserPaymentProcessorFaucetRotator($userSlug, $paymentProcessorSlug)
+    {
+        $user = $this->userRepository->findByField('slug', $userSlug)->first();
+        $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->first();
+
+        if (empty($user)) {
+            flash('User not found')->error();
+            return redirect(route('users.index'));
+        }
+
+        if (empty($paymentProcessor)) {
+            flash('Payment processor not found')->error();
+            return redirect(route('users.index'));
+        }
+
+        if($user->isAnAdmin()){
+            return redirect(route('payment-processors.rotator', ['slug' => $paymentProcessor->slug]));
+        }
+
+        $faucets = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor);
+        $faucetKeywords = $faucets->pluck('faucets.name')->toArray();
+        array_push($faucetKeywords, $user->user_name);
+        array_push($faucetKeywords, $paymentProcessor->slug);
+
+        $seoConfig = new SeoConfig();
+        $seoConfig->title = $user->user_name . "'s " . $paymentProcessor->name . " Rotator";
+        $seoConfig->description = "Claim your free bitcoins from " . $user->user_name . "'s  . $paymentProcessor->name . Bitcoin Faucet Rotator. " .
+            "There are currently " . count($faucets) . " faucets in this rotator.";
+        $seoConfig->keywords = $faucetKeywords;
+        $seoConfig->publishedTime = Carbon::now()->toW3cString();
+        $seoConfig->modifiedTime = Carbon::now()->toW3cString();
+        $seoConfig->authorName = $user->fullName();
+        $seoConfig->currentUrl = route(
+            'users.payment-processors.rotator',
+                [
+                    'userSlug' => $user->slug,
+                    'paymentProcessorSlug' => $paymentProcessor->slug
+                ]
+        );
+        $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $seoConfig->categoryDescription = "User Bitcoin Faucet Rotator";
+        WebsiteMeta::setCustomMeta($seoConfig);
+
+        $cspConfig = Config::get('secure-headers.csp.child-src.allow');
+
+        foreach ($faucets as $f) {
+            array_push($cspConfig, parse_url($f->url)['host']);
+        }
+
+        Config::set('secure-headers.csp.child-src.allow', $cspConfig);
+
+        return view('users.payment_processors.rotator.index')
+            ->with('userSlug', $user->slug)
+            ->with('paymentProcessorSlug', $paymentProcessor->slug)
+            ->with('userName', $user->user_name)
+            ->with('paymentProcessorName', $paymentProcessor->name);
+
+
     }
 }

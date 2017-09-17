@@ -311,6 +311,8 @@ table.show-table-header thead tr th{
 
 #guest-bg, #auth-bg{
     min-width: 20em !important;
+    height: 100%;
+    overflow-y: scroll;
 }
 
 #guest-bg{

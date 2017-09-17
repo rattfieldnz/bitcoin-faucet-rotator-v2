@@ -747,7 +747,9 @@ class FaucetAPIController extends AppBaseController
 
         $userFaucet = PaymentProcessors::userPaymentProcessorFaucet($user, $paymentProcessor, $faucet);
 
-        return (new FaucetsTransformer)->transform($user, $userFaucet, true);
+        $userFaucet = (new FaucetsTransformer)->transform($user, $userFaucet, true);
+
+        return $this->sendResponse($userFaucet, 'User payment processor faucet retrieved successfully');
 
     }
 
@@ -776,7 +778,9 @@ class FaucetAPIController extends AppBaseController
 
         $faucet = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor)->first();
 
-        return (new FaucetsTransformer)->transform($user, $faucet, true);
+        $faucet = (new FaucetsTransformer)->transform($user, $faucet, true);
+
+        return $this->sendResponse($faucet, 'User payment processor faucet retrieved successfully');
     }
 
     public function getNextUserPaymentProcessorFaucet($userSlug, $paymentProcessorSlug, $faucetSlug)
@@ -828,7 +832,7 @@ class FaucetAPIController extends AppBaseController
                             $user,
                             $faucet,
                             true
-                        ), 'Faucet retrieved successfully');
+                        ), 'User payment processor faucet retrieved successfully');
                 }
 
                 $faucet = Users::getFaucet($user, $array[$key + 1]);
@@ -838,7 +842,7 @@ class FaucetAPIController extends AppBaseController
                         $user,
                         $faucet,
                         true
-                    ), 'Faucet retrieved successfully');
+                    ), 'User payment processor faucet retrieved successfully');
             }
         }
     }
@@ -902,7 +906,7 @@ class FaucetAPIController extends AppBaseController
                         $user,
                         $faucet,
                         true
-                    ), 'Faucet retrieved successfully');
+                    ), 'User payment processor faucet retrieved successfully');
             }
         }
     }
@@ -964,7 +968,7 @@ class FaucetAPIController extends AppBaseController
 
         $userFaucet = (new FaucetsTransformer)->transform($user, $faucets[$randomIndex], false);
 
-        return $this->sendResponse($userFaucet, 'User faucet retrieved successfully');
+        return $this->sendResponse($userFaucet, 'User payment processor faucet retrieved successfully');
 
     }
 }
