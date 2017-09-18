@@ -10,6 +10,7 @@ use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\TwitterCard;
 use Carbon\Carbon;
+use Form;
 use Illuminate\Support\Facades\Config;
 use Laracasts\Flash\Flash as LaracastsFlash;
 use App\Models\PaymentProcessor;
@@ -545,6 +546,118 @@ class Faucets
                 ->setUrl($currentUrl)
                 ->setSite(MainMeta::first()->twitter_username);
         }
+    }
+
+    /**
+     * @param \App\Models\Faucet $faucet
+     *
+     * @return null|string
+     */
+    public static function htmlEditButton(Faucet $faucet)
+    {
+        if(empty($faucet)){
+            return null;
+        }
+
+        $route = route('faucets.edit', ['slug' => $faucet->slug]);
+
+        if(Auth::check() && Auth::user()->isAnAdmin()){
+
+            return Form::button(
+                '<i class="glyphicon glyphicon-edit"></i>',
+                [
+                    'type' => 'button',
+                    'class' => 'btn btn-default btn-xs',
+                    'style' => 'display: inline-block;',
+                    'onClick' => "location.href='" . $route . "'"
+                ]
+            );
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @param \App\Models\Faucet $faucet
+     *
+     * @return null|string
+     */
+    public static function deletePermanentlyForm(Faucet $faucet)
+    {
+        if(empty($faucet)){
+            return null;
+        }
+
+        if($faucet->isDeleted()){
+            $form = Form::open(['route' => ['faucets.delete-permanently', $faucet->slug], 'method' => 'delete', 'style' => 'display: inline-block;']);
+            $form .= Form::button(
+                    '<i class="glyphicon glyphicon-trash"></i>',
+                    [
+                        'type' => 'submit',
+                        'class' => 'btn btn-danger btn-xs',
+                        'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"
+                    ]
+            );
+            $form .= Form::close();
+
+            return $form;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @param \App\Models\Faucet $faucet
+     *
+     * @return null|string
+     */
+    public static function restoreForm(Faucet $faucet)
+    {
+        if(empty($faucet)){
+            return null;
+        }
+
+        if($faucet->isDeleted()){
+            $form = Form::open(['route' => ['faucets.restore', $faucet->slug], 'method' => 'patch', 'style' => 'display: inline-block;']);
+            $form .= Form::button(
+                    '<i class="glyphicon glyphicon-refresh"></i>',
+                         [
+                             'type' => 'submit',
+                             'class' => 'btn btn-info btn-xs',
+                             'onclick' => "return confirm('Are you sure you want to restore this deleted faucet?')"
+                         ]
+            );
+            $form .= Form::close();
+
+            return $form;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @param \App\Models\Faucet $faucet
+     *
+     * @return null|string
+     */
+    public static function softDeleteForm(Faucet $faucet)
+    {
+        if(empty($faucet)){
+            return null;
+        }
+
+        $form = Form::open(['route' => ['faucets.destroy', 'slug' => $faucet->slug], 'method' => 'delete', 'style' => 'display: inline-block;']);
+        $form .= Form::button(
+                '<i class="glyphicon glyphicon-trash"></i>',
+                [
+                    'type' => 'submit',
+                    'class' => 'btn btn-warning btn-xs',
+                    'onclick' => "return confirm('Are you sure?')"
+                ]
+        );
+        $form .= Form::close();
+
+        return $form;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\Functions\Faucets;
 use App\Helpers\Functions\PaymentProcessors;
 use App\Helpers\Functions\Users;
 use App\Models\Faucet;
@@ -9,10 +10,14 @@ use App\Models\User;
 use App\Repositories\FaucetRepository;
 use App\Repositories\PaymentProcessorRepository;
 use App\Transformers\FaucetsTransformer;
+use Form;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Yajra\DataTables\Facades\DataTables;
 
 /**
  * Class FaucetController
@@ -44,12 +49,73 @@ class FaucetAPIController extends AppBaseController
     /* End points for main rotator */
     public function index()
     {
-        for ($i = 0; $i < count($this->faucetCollection); $i++) {
+        /**for ($i = 0; $i < count($this->faucetCollection); $i++) {
             $this->faucetCollection[$i] = (new FaucetsTransformer)
                 ->transform($this->adminUser, $this->faucetCollection[$i], true);
+        }**/
+
+        $faucets = new Collection();
+
+        for($i = 0; $i < count($this->faucetCollection); $i++){
+
+            $data = [
+                'name' => $this->faucetCollection[$i]->name,
+                'url' => $this->faucetCollection[$i]->url . Faucets::getUserFaucetRefCode(Users::adminUser(), $this->faucetCollection[$i]),
+                'interval_minutes' => intval($this->faucetCollection[$i]->interval_minutes),
+                'min_payout' => [
+                    'display' => number_format(intval($this->faucetCollection[$i]->min_payout)),
+                    'original' => intval($this->faucetCollection[$i]->min_payout)
+                ],
+                'max_payout' => [
+                    'display' => number_format(intval($this->faucetCollection[$i]->max_payout)),
+                    'original' => intval($this->faucetCollection[$i]->max_payout)
+                ],
+                'comments' => $this->faucetCollection[$i]->comments,
+                'is_paused' => [
+                    'display' => $this->faucetCollection[$i]->is_paused == true ? "Yes" : "No",
+                    'original' => $this->faucetCollection[$i]->is_paused
+                ],
+                'slug' => $this->faucetCollection[$i]->slug,
+                'has_low_balance' => $this->faucetCollection[$i]->has_low_balance,
+            ];
+
+            $paymentProcessors = $this->faucetCollection[$i]->paymentProcessors()->get();
+
+            if(count($paymentProcessors) != 0){
+                $data['payment_processors'] = [];
+                foreach($paymentProcessors as $p){
+                    array_push(
+                        $data['payment_processors'],
+                        [
+                            'name' => $p->name,
+                            'url' => route('payment-processors.show', ['slug' => $p->slug])
+                        ]
+                    );
+                }
+            }
+
+
+            if(Auth::check() && Auth::user()->isAnAdmin()){
+                $data['id'] = intval($this->faucetCollection[$i]->id);
+                $data['is_deleted'] = [
+                    'display' => empty($this->faucetCollection[$i]->deleted_at) ? "No" : "Yes",
+                    'original' => $this->faucetCollection[$i]->deleted_at
+                ];
+                $data['actions'] = '';
+                $data['actions'] .= Faucets::htmlEditButton($this->faucetCollection[$i]);
+
+                if($this->faucetCollection[$i]->isDeleted()){
+                    $data['actions'] .= Faucets::deletePermanentlyForm($this->faucetCollection[$i]);
+                    $data['actions'] .= Faucets::restoreForm($this->faucetCollection[$i]);
+                }
+
+                $data['actions'] .= Faucets::softDeleteForm($this->faucetCollection[$i]);
+            }
+
+            $faucets->push($data);
         }
 
-        return $this->sendResponse($this->faucetCollection, 'Faucets retrieved successfully');
+        return Datatables::of($faucets)->rawColumns(['actions'])->make(true);
     }
 
     public function show($slug)
