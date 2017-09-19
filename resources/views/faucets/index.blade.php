@@ -80,24 +80,24 @@
     function generateFaucetsTable(data, elementToRender)
     {
         if (typeof data !== 'undefined' && typeof $(elementToRender) !== 'undefined') {
-            return $(elementToRender).DataTable({
+            var tableConfig = {
                 processing: true,
                 data: data,
                 language: {
                     processing: "Loading...",
                 },
-                order: [[2, "asc"], [3,"desc"], [4, "desc"], [1, "asc"], [6, "asc"], [0, "asc"]],
+                order: [],
                 columns: [
-                    {data: 'id'},
-                    {data: "name"},
-                    {data: "interval_minutes"},
+                    {data: "name", order: 1},
+                    {data: "interval_minutes", order: 2},
                     {
                         data: "min_payout",
                         type: 'num',
                         render: {
                             _: 'display',
                             sort: 'original'
-                        }
+                        },
+                        order: 3
                     },
                     {
                         data: "max_payout",
@@ -105,7 +105,8 @@
                         render: {
                             _: 'display',
                             sort: 'original'
-                        }
+                        },
+                        order: 4
                     },
                     {
                         data: "payment_processors",
@@ -116,18 +117,8 @@
                             });
                             list += '</ul>';
                             return list;
-                        }
-                    },
-                    {
-                        data: 'is_deleted',
-                        type: 'num',
-                        render: {
-                            _: 'display',
-                            sort: 'original'
-                        }
-                    },
-                    {
-                        data: 'actions',
+                        },
+                        order: 5
                     }
                 ],
                 responsive: true,
@@ -139,15 +130,69 @@
                     stateSettings.iStart = 0;  // resets to first page of results
                     return settings
                 }
-            });
+            };
+
+            var thead = '<tr>';
+
+            if(keyExists('id', data[0])){
+                tableConfig.columns.push({data: 'id', order: 0});
+                thead += '<th>Id</th>';
+                tableConfig.order = [[2, 'asc'], [3, 'desc'], [4, 'desc'], [1, 'desc'], [0, 'desc']];
+            } else {
+                tableConfig.order = [[1, "asc"], [2, 'desc'], [3, 'desc'], [0, 'desc']];
+            }
+
+            thead += '<th>Name</th>' +
+                '<th>Interval Minutes</th>' +
+                '<th>Min. Payout*</th>' +
+                '<th>Max. Payout*</th>' +
+                '<th>Payment Processors</th>';
+
+            if(keyExists('is_deleted', data[0])){
+                tableConfig.columns.push({
+                    data: 'is_deleted',
+                    type: 'num',
+                    render: {
+                        _: 'display',
+                        sort: 'original'
+                    },
+                    order: 6
+                });
+
+                thead += '<th>Deleted?</th>';
+            }
+
+            if(keyExists('actions', data[0])){
+                tableConfig.columns.push({
+                    data: 'actions',
+                    order: 7
+                });
+
+                thead += '<th>Action</th>';
+            }
+
+            thead += '</tr>';
+
+            $(elementToRender + ' thead').empty();
+            $(elementToRender + ' tfoot').empty();
+
+            $(elementToRender + ' thead').append(thead);
+            $(elementToRender + ' tfoot').append(thead);
+
+            tableConfig.columns.sort(sortConfig);
+
+            return $(elementToRender).DataTable(tableConfig);
         }
+    }
+
+    function sortConfig(a,b){
+        return a.order - b.order;
     }
 
     function getFaucetsDataAjax(routeName)
     {
         if (routeName !== null) {
             var faucetsRoute = laroute.route(routeName);
-            console.log(routeName);
 
             if (typeof faucetsRoute === 'undefined' || faucetsRoute === null) {
                 return null;
@@ -176,7 +221,6 @@
             );
         } else {
             data.done(function (d) {
-                //console.log(d);
                 if (typeof d.status !== 'undefined' && d.status === 'error') {
                     progressError(
                         d.message,
