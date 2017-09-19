@@ -66,8 +66,6 @@
             }
         });
 
-
-
         //--------------------------------
         //- DATATABLES SHOWING FAUCETS -
         //--------------------------------
@@ -86,9 +84,21 @@
                 language: {
                     processing: "Loading...",
                 },
+                scrollX: true,
                 order: [],
                 columns: [
-                    {data: "name", order: 1},
+                    {
+                        data: "name",
+                        render: {
+                            _: function(data){
+                                var link = '<a href="' + data.display + '" target="_blank" title="' + data.original + '">';
+                                link += data.original + '</a>';
+                                return link;
+                            },
+                            sort: 'original'
+                        },
+                        order: 1
+                    },
                     {data: "interval_minutes", order: 2},
                     {
                         data: "min_payout",
@@ -110,10 +120,12 @@
                     },
                     {
                         data: "payment_processors",
-                        render: function (data, type, full, meta){
-                            var list = '<ul>';
+                        render: function (data){
+                            var list = '<ul class="payment-processors-list">\n';
                             $.each(data, function(i){
-                                list += '<li>' + data[i].name + '</li>';
+                                var link = '<a href="' + data[i].url + '" target="_blank" title="' + data[i].name + '">';
+                                link += data[i].name + '</a>';
+                                list += '<li>' + link + '</li>';
                             });
                             list += '</ul>';
                             return list;
@@ -121,7 +133,7 @@
                         order: 5
                     }
                 ],
-                responsive: true,
+                responsive: false,
                 fnStateSave: function (settings, data) {
                     localStorage.setItem( 'FaucetsDataTable', JSON.stringify(data) );
                 },
@@ -231,7 +243,9 @@
                     progressBar.progressTimer('complete');
                     hideElement(progressBar, 3000);
 
-                    return generateFaucetsTable(d.data, dataTableElement);
+                    var table = generateFaucetsTable(d.data, dataTableElement);
+
+                    return table;
                 }
             }).fail(function (vd) {
                 loadingProgressElement.attr('style', 'display:none !important');

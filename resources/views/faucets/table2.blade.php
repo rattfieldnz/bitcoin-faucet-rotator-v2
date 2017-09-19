@@ -2,7 +2,7 @@
 
 <div id="faucetsTable-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 <div></div>
-<div id="faucetsTable-wrapper" class="chart">
+<div class="chart" style="width: 100%">
 
     @if(Route::currentRouteName() != 'faucets.index')
         @if(!empty(Auth::user() && Auth::user()->isAnAdmin()))
@@ -18,7 +18,7 @@
             !!}
         @endif
     @endif
-    <table id="faucetsTable" cellspacing="0" width="100%">
+    <table id="faucetsTable" class="row-border hover order-column" cellspacing="0">
         <thead>
         <tr>
             @if(Auth::user() != null)

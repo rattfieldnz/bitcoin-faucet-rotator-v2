@@ -15,6 +15,31 @@
     background-image: url("../images/table-sorter/table-sorter-asc.gif");
 }
 
+table.dataTable tbody tr td:first-child,
+table.dataTable thead tr th:first-child,
+table.dataTable tfoot tr th:first-child{
+    padding-left:0.5em !important;
+}
+
+table.dataTable tbody tr:nth-child(even) td{
+    background-color: whitesmoke !important;
+}
+
+table.dataTable{
+    border:0.125em solid #7ba9bc;
+}
+
+table.dataTable thead, table.dataTable tfoot{
+    background-color: #7ba9bc;
+    height:3em;
+    line-height:3em;
+    padding:0 0.5em 0 0.5em;
+}
+
+ul.payment-processors-list{
+    margin-top:0.5em;
+}
+
 table.show-table-header thead tr th{
     background-color: #3c8dbc;
     color: white;

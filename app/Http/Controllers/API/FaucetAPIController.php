@@ -11,6 +11,7 @@ use App\Repositories\FaucetRepository;
 use App\Repositories\PaymentProcessorRepository;
 use App\Transformers\FaucetsTransformer;
 use Form;
+use Html;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Collection;
@@ -57,9 +58,11 @@ class FaucetAPIController extends AppBaseController
         $faucets = new Collection();
 
         for($i = 0; $i < count($this->faucetCollection); $i++){
-
             $data = [
-                'name' => $this->faucetCollection[$i]->name,
+                'name' => [
+                    'display' => route('faucets.show', ['slug' => $this->faucetCollection[$i]->slug]),
+                    'original' => $this->faucetCollection[$i]->name,
+                ],
                 'url' => $this->faucetCollection[$i]->url . Faucets::getUserFaucetRefCode(Users::adminUser(), $this->faucetCollection[$i]),
                 'interval_minutes' => intval($this->faucetCollection[$i]->interval_minutes),
                 'min_payout' => [
