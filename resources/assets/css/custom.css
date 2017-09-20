@@ -15,6 +15,15 @@
     background-image: url("../images/table-sorter/table-sorter-asc.gif");
 }
 
+table.faucetsTable_guest{
+    width: 102.75em !important;
+}
+
+table#faucetsTable, table#faucetsTable_wrapper{
+    width: 88.5em;
+    min-width: 45em;
+}
+
 table.dataTable tbody tr td:first-child,
 table.dataTable thead tr th:first-child,
 table.dataTable tfoot tr th:first-child{
@@ -441,6 +450,10 @@ table.show-table-header thead tr th{
 
 @media screen and (min-width: 0em) and (max-width: 47.875em){
 
+    .auth-page-title{
+        margin-top:6em;
+    }
+
     .user-profile-main-heading{
         margin-top:5.5em;
     }
@@ -476,6 +489,11 @@ table.show-table-header thead tr th{
 }
 
 @media screen and (min-width:48em) and (max-width: 61.937em) {
+
+    .auth-page-title{
+        margin-top:3em;
+    }
+
     #navigation li{
         width:7em;
     }
@@ -486,12 +504,22 @@ table.show-table-header thead tr th{
 }
 
 @media screen and (min-width:61.938em) and (max-width:71.188em) {
+
+    .auth-page-title{
+        margin-top:3em;
+    }
+
     #navigation li{
         width:7em;
     }
 }
 
 @media screen and (min-width:71.188em) and (max-width:71.250em) {
+
+    .auth-page-title{
+        margin-top:3em;
+    }
+
     #navigation li{
         width:6.5em;
     }
