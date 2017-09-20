@@ -1553,16 +1553,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.24",
+            "version": "v0.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "3e90db2d96265bbe1f3e855f9558e6bb12ae2dc6"
+                "reference": "a94763c82a4325a6529feaa0a1f5fd1c289c8f68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/3e90db2d96265bbe1f3e855f9558e6bb12ae2dc6",
-                "reference": "3e90db2d96265bbe1f3e855f9558e6bb12ae2dc6",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/a94763c82a4325a6529feaa0a1f5fd1c289c8f68",
+                "reference": "a94763c82a4325a6529feaa0a1f5fd1c289c8f68",
                 "shasum": ""
             },
             "require": {
@@ -1586,7 +1586,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-09-13T20:25:35+00:00"
+            "time": "2017-09-16T00:23:43+00:00"
         },
         {
             "name": "google/auth",
@@ -7952,16 +7952,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.0.2",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "c7594a88ae75401e8f8d0bd4deb8431b39045c51"
+                "reference": "3c2d0a0fe39684ba0c1eb842a6a775d0b938d699"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/c7594a88ae75401e8f8d0bd4deb8431b39045c51",
-                "reference": "c7594a88ae75401e8f8d0bd4deb8431b39045c51",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/3c2d0a0fe39684ba0c1eb842a6a775d0b938d699",
+                "reference": "3c2d0a0fe39684ba0c1eb842a6a775d0b938d699",
                 "shasum": ""
             },
             "require": {
@@ -7971,7 +7971,7 @@
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0"
             },
             "bin": [
                 "bin/phpcs",
@@ -7999,7 +7999,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-07-18T01:12:32+00:00"
+            "time": "2017-09-19T22:47:14+00:00"
         },
         {
             "name": "symfony/config",
