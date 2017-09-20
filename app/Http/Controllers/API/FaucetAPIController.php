@@ -57,7 +57,7 @@ class FaucetAPIController extends AppBaseController
 
         $faucets = new Collection();
 
-        for($i = 0; $i < count($this->faucetCollection); $i++){
+        for ($i = 0; $i < count($this->faucetCollection); $i++) {
             $data = [
                 'name' => [
                     'display' => route('faucets.show', ['slug' => $this->faucetCollection[$i]->slug]),
@@ -84,9 +84,9 @@ class FaucetAPIController extends AppBaseController
 
             $paymentProcessors = $this->faucetCollection[$i]->paymentProcessors()->get();
 
-            if(count($paymentProcessors) != 0){
+            if (count($paymentProcessors) != 0) {
                 $data['payment_processors'] = [];
-                foreach($paymentProcessors as $p){
+                foreach ($paymentProcessors as $p) {
                     array_push(
                         $data['payment_processors'],
                         [
@@ -98,7 +98,7 @@ class FaucetAPIController extends AppBaseController
             }
 
 
-            if(Auth::check() && Auth::user()->isAnAdmin()){
+            if (Auth::check() && Auth::user()->isAnAdmin()) {
                 $data['id'] = intval($this->faucetCollection[$i]->id);
                 $data['is_deleted'] = [
                     'display' => empty($this->faucetCollection[$i]->deleted_at) ? "No" : "Yes",
@@ -107,7 +107,7 @@ class FaucetAPIController extends AppBaseController
                 $data['actions'] = '';
                 $data['actions'] .= Faucets::htmlEditButton($this->faucetCollection[$i]);
 
-                if($this->faucetCollection[$i]->isDeleted()){
+                if ($this->faucetCollection[$i]->isDeleted()) {
                     $data['actions'] .= Faucets::deletePermanentlyForm($this->faucetCollection[$i]);
                     $data['actions'] .= Faucets::restoreForm($this->faucetCollection[$i]);
                 }
