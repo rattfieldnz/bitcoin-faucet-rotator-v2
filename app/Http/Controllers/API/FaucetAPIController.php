@@ -40,8 +40,9 @@ class FaucetAPIController extends AppBaseController
     public function __construct(FaucetRepository $faucetRepo, PaymentProcessorRepository $paymentProcessorRepo)
     {
         $this->faucetRepository = $faucetRepo;
-        $this->faucetCollection = $this->faucetRepository->findWhere(
-            ['is_paused' => false, 'has_low_balance' => false, 'deleted_at' => null]
+        $deleted = Auth::check() && Auth::user()->isAnAdmin() ? true : false;
+        $this->faucetCollection = $this->faucetRepository->findItemsWhere(
+            ['is_paused' => false, 'has_low_balance' => false], ['*'], $deleted
         )->sortBy('interval_minutes')->values();
         $this->paymentProcessorRepo = $paymentProcessorRepo;
         $this->adminUser = Users::adminUser();
