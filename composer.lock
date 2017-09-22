@@ -1553,16 +1553,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.25",
+            "version": "v0.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "a94763c82a4325a6529feaa0a1f5fd1c289c8f68"
+                "reference": "84e5a19a1cbbf7b59c51aee2cb49dbb4ec13f99f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/a94763c82a4325a6529feaa0a1f5fd1c289c8f68",
-                "reference": "a94763c82a4325a6529feaa0a1f5fd1c289c8f68",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/84e5a19a1cbbf7b59c51aee2cb49dbb4ec13f99f",
+                "reference": "84e5a19a1cbbf7b59c51aee2cb49dbb4ec13f99f",
                 "shasum": ""
             },
             "require": {
@@ -1586,7 +1586,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-09-16T00:23:43+00:00"
+            "time": "2017-09-22T00:23:08+00:00"
         },
         {
             "name": "google/auth",
@@ -3282,23 +3282,23 @@
         },
         {
             "name": "mews/purifier",
-            "version": "v2.0.8",
+            "version": "2.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mewebstudio/Purifier.git",
-                "reference": "2a81746eb933c0c4338786f99a9cf66f24c02a6a"
+                "reference": "85af9a2a932583b2c78a0ed762b46cb19399a0a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mewebstudio/Purifier/zipball/2a81746eb933c0c4338786f99a9cf66f24c02a6a",
-                "reference": "2a81746eb933c0c4338786f99a9cf66f24c02a6a",
+                "url": "https://api.github.com/repos/mewebstudio/Purifier/zipball/85af9a2a932583b2c78a0ed762b46cb19399a0a9",
+                "reference": "85af9a2a932583b2c78a0ed762b46cb19399a0a9",
                 "shasum": ""
             },
             "require": {
                 "ezyang/htmlpurifier": "4.9.*",
-                "illuminate/config": "5.1.*|5.2.*|5.3.*|5.4.*",
-                "illuminate/filesystem": "5.1.*|5.2.*|5.3.*|5.4.*",
-                "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*",
+                "illuminate/config": "5.*",
+                "illuminate/filesystem": "5.*",
+                "illuminate/support": "5.*",
                 "php": ">=5.5.9"
             },
             "require-dev": {
@@ -3353,7 +3353,7 @@
                 "security",
                 "xss"
             ],
-            "time": "2017-08-08T13:10:50+00:00"
+            "time": "2017-09-11T15:02:51+00:00"
         },
         {
             "name": "michelecurletta/laravel-schedule-overview",
