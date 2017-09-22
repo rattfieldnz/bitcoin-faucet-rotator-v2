@@ -28,7 +28,8 @@ $(function () {
     //- DATATABLES SHOWING FAUCETS -
     //--------------------------------
     var dataTablesName = 'faucets datatable';
-    var faucetsData = getFaucetsDataAjax('faucets');
+    var route = laroute.route('faucets');
+    var faucetsData = getFaucetsDataAjax(route);
     var faucetsTableProgressBar = generateProgressBar("#faucetsTable-progressbar",dataTablesName);
     renderFaucetsDataTable(faucetsData, '#faucetsTable', faucetsTableProgressBar);
 });
@@ -159,19 +160,11 @@ function sortConfig(a,b){
     return a.order - b.order;
 }
 
-function getFaucetsDataAjax(routeName)
+function getFaucetsDataAjax(route)
 {
-    if (routeName !== null) {
-        var faucetsRoute = laroute.route(routeName);
-
-        if (typeof faucetsRoute === 'undefined' || faucetsRoute === null) {
-            return null;
-        }
-
-        return $.get(faucetsRoute, function (response) {
-            return response.data;
-        }).promise();
-    }
+    return $.get(route, function (response) {
+        return response.data;
+    }).promise();
 }
 
 function renderFaucetsDataTable(data, dataTableElement, progressBar)
