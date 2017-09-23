@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
-            <h1>{{ $user->user_name }}'s Faucets</h1>
+            <h1 id="title" data-user-slug="{{ $user->slug }}">{{ $user->user_name }}'s Faucets</h1>
         </div>
     </section>
     <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">
@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 @if(count($faucets) > 0)
-                @include('users.faucets.table')
+                @include('users.faucets.table2')
                 @else
                     <p>{{ $user->user_name }} has not added any faucets yet.</p>
                 @endif

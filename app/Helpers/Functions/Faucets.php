@@ -551,15 +551,19 @@ class Faucets
     /**
      * @param \App\Models\Faucet $faucet
      *
+     * @param \App\Models\User   $user
+     *
      * @return null|string
      */
-    public static function htmlEditButton(Faucet $faucet)
+    public static function htmlEditButton(Faucet $faucet, User $user)
     {
-        if (empty($faucet)) {
+        if (empty($faucet) || empty($user)) {
             return null;
         }
 
-        $route = route('faucets.edit', ['slug' => $faucet->slug]);
+        $route = $user->isAnAdmin() ?
+            route('faucets.edit', ['slug' => $faucet->slug]) :
+            route('users.faucets', ['userSlug' => $user->slug]);
 
         if (Auth::check() && Auth::user()->isAnAdmin()) {
             return Form::button(
@@ -579,16 +583,22 @@ class Faucets
     /**
      * @param \App\Models\Faucet $faucet
      *
+     * @param \App\Models\User   $user
+     *
      * @return null|string
      */
-    public static function deletePermanentlyForm(Faucet $faucet)
+    public static function deletePermanentlyForm(Faucet $faucet, User $user)
     {
-        if (empty($faucet)) {
+        if (empty($faucet) || empty($user)) {
             return null;
         }
 
         if ($faucet->isDeleted()) {
-            $form = Form::open(['route' => ['faucets.delete-permanently', $faucet->slug], 'method' => 'delete', 'style' => 'display: inline-block;']);
+
+            $route = $user->isAnAdmin() ? ['faucets.delete-permanently', $faucet->slug] :
+                ['users.faucets.delete-permanently', $user->slug, $faucet->slug];
+
+            $form = Form::open(['route' => $route, 'method' => 'delete', 'style' => 'display: inline-block;']);
             $form .= Form::button(
                     '<i class="glyphicon glyphicon-trash"></i>',
                     [
@@ -608,16 +618,23 @@ class Faucets
     /**
      * @param \App\Models\Faucet $faucet
      *
+     * @param \App\Models\User   $user
+     *
      * @return null|string
      */
-    public static function restoreForm(Faucet $faucet)
+    public static function restoreForm(Faucet $faucet, User $user)
     {
-        if (empty($faucet)) {
+        if (empty($faucet) || empty($user)) {
             return null;
         }
 
         if ($faucet->isDeleted()) {
-            $form = Form::open(['route' => ['faucets.restore', $faucet->slug], 'method' => 'patch', 'style' => 'display: inline-block;']);
+
+            $route = $user->isAnAdmin() ? ['faucets.restore', $faucet->slug] :
+                ['users.faucets.restore', $user->slug, $faucet->slug];
+
+            $form = Form::open(['route' => $route, 'method' => 'patch', 'style' => 'display: inline-block;']);
+
             $form .= Form::button(
                     '<i class="glyphicon glyphicon-refresh"></i>',
                          [
@@ -637,15 +654,20 @@ class Faucets
     /**
      * @param \App\Models\Faucet $faucet
      *
+     * @param \App\Models\User   $user
+     *
      * @return null|string
      */
-    public static function softDeleteForm(Faucet $faucet)
+    public static function softDeleteForm(Faucet $faucet, User $user)
     {
-        if (empty($faucet)) {
+        if (empty($faucet) || empty($user)) {
             return null;
         }
 
-        $form = Form::open(['route' => ['faucets.destroy', 'slug' => $faucet->slug], 'method' => 'delete', 'style' => 'display: inline-block;']);
+        $route = $user->isAnAdmin() ? ['faucets.destroy', $faucet->slug] :
+            ['users.faucets.destroy', $user->slug, $faucet->slug];
+
+        $form = Form::open(['route' => $route, 'method' => 'delete', 'style' => 'display: inline-block;']);
         $form .= Form::button(
                 '<i class="glyphicon glyphicon-trash"></i>',
                 [

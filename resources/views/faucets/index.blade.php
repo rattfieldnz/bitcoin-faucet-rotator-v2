@@ -36,11 +36,6 @@
     </div>
 @endsection
 
-@push('scripts')
-<script src="/assets/js/datatables.net/datatables.min.js?{{ rand() }}"></script>
-<script src="/assets/js/faucet-scripts/faucetDatatables.min.js?{{ rand() }}"></script>
-@endpush
-
 @push('google-analytics')
     @include('layouts.partials.tracking._google_analytics')
 @endpush

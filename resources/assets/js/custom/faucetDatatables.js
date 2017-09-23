@@ -1,39 +1,3 @@
-$(function () {
-    $.fn.dataTable.ext.errMode = 'none';
-    $.ajaxSetup({
-        timeout: 3600000,
-
-        // force ajax call on all browsers
-        cache: false,
-
-        // Enables cross domain requests
-        crossDomain: true,
-
-        // Helps in setting cookie
-        xhrFields: {
-            withCredentials: true
-        },
-
-        beforeSend: function (xhr, type) {
-            // Set the CSRF Token in the header for security
-            //if (type.type !== "GET") {
-            var token = Cookies.get("XSRF-TOKEN");
-            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            xhr.setRequestHeader('X-XSRF-Token', token);
-            //}
-        }
-    });
-
-    //--------------------------------
-    //- DATATABLES SHOWING FAUCETS -
-    //--------------------------------
-    var dataTablesName = 'faucets datatable';
-    var route = laroute.route('faucets');
-    var faucetsData = getFaucetsDataAjax(route);
-    var faucetsTableProgressBar = generateProgressBar("#faucetsTable-progressbar",dataTablesName);
-    renderFaucetsDataTable(faucetsData, '#faucetsTable', faucetsTableProgressBar);
-});
-
 function generateFaucetsTable(data, elementToRender)
 {
     if (typeof data !== 'undefined' && typeof $(elementToRender) !== 'undefined') {
@@ -113,8 +77,18 @@ function generateFaucetsTable(data, elementToRender)
             tableConfig.order = [[1, "asc"], [2, 'desc'], [3, 'desc'], [0, 'desc']];
         }
 
-        thead += '<th>Name</th>' +
-            '<th>Interval Minutes</th>' +
+        thead += '<th>Name</th><th>Interval Minutes</th>';
+
+        if(keyExists('referral_code_form', data[0])){
+            console.log('referral code form');
+            tableConfig.columns.push({data: 'referral_code_form', order: 2});
+            thead += '<th>Referral Code</th>';
+            tableConfig.order = [[2, 'asc'], [4, 'desc'], [5, 'desc'], [1, 'desc'], [0, 'desc']];
+        } else {
+            tableConfig.order = [[1, "asc"], [2, 'desc'], [3, 'desc'], [0, 'desc']];
+        }
+
+        thead +=
             '<th>Min. Payout*</th>' +
             '<th>Max. Payout*</th>' +
             '<th>Payment Processors</th>';
@@ -194,9 +168,7 @@ function renderFaucetsDataTable(data, dataTableElement, progressBar)
                 progressBar.progressTimer('complete');
                 hideElement(progressBar, 3000);
 
-                var table = generateFaucetsTable(d.data, dataTableElement);
-
-                return table;
+                return generateFaucetsTable(d.data, dataTableElement);
             }
         }).fail(function (vd) {
             loadingProgressElement.attr('style', 'display:none !important');
