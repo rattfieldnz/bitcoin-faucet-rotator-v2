@@ -56,10 +56,9 @@
         !!}
     </div>
     <table id="faucetsTable"
-           class="row-border hover order-column {{ !Auth::check() ? 'faucetsTable_guest' : '' }}"
-           cellspacing="0"
-           width="100%">
-        <thead class="row">
+           class="row-border hover order-column table-hover table-responsive {{ !Auth::check() ? 'faucetsTable_guest' : '' }}"
+           cellspacing="0" width="100%">
+        <thead>
         @if(Auth::user() != null)
             @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
                 <th>Id</th>
@@ -85,6 +84,31 @@
         @endif
         </thead>
         <tbody></tbody>
+        <tfoot>
+        @if(Auth::user() != null)
+            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
+                <th>Id</th>
+            @endif
+        @endif
+        <th>Name</th>
+        @if(Auth::user() != null)
+            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
+                <th>Referral Code</th>
+            @endif
+        @endif
+        <th>Interval Minutes</th>
+        <th>Min. Payout*</th>
+        <th>Max. Payout*</th>
+        <th>Payment Processors</th>
+        @if(Auth::user() != null)
+            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
+                @if(Route::currentRouteName() != 'users.faucets.create')
+                    <th>Deleted?</th>
+                    <th>Action</th>
+                @endif
+            @endif
+        @endif
+        </tfoot>
     </table>
 </div>
 @if(Auth::user() != null && (Auth::user()->isAnAdmin() || Auth::user() == $user))
@@ -130,6 +154,15 @@
         var faucetsData = getFaucetsDataAjax(route);
         var faucetsTableProgressBar = generateProgressBar("#faucetsTable-progressbar",dataTablesName);
         renderFaucetsDataTable(faucetsData, '#faucetsTable', faucetsTableProgressBar);
+
+        $("#tabs").tabs( {
+            "activate": function(event, ui) {
+                var table = $.fn.dataTable.fnTables(true);
+                if ( table.length > 0 ) {
+                    $(table).dataTable().fnAdjustColumnSizing();
+                }
+            }
+        } );
     });
 </script>
 @endpush

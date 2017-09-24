@@ -40342,13 +40342,15 @@ and (max-device-width : 480px) {
 }
 
 table.faucetsTable_guest {
-  width: 102.75em !important;
+  width: 99.6em !important;
+  max-width: none;
 }
 
 table#faucetsTable,
 table#faucetsTable_wrapper {
   width: 88.5em;
   min-width: 45em;
+  max-width: none;
 }
 
 table.dataTable tbody tr td:first-child,

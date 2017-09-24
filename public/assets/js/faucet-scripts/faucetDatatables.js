@@ -8,6 +8,8 @@ function generateFaucetsTable(data, elementToRender)
                 processing: "Loading...",
             },
             scrollX: true,
+            scrollCollapse: true,
+            bJQueryUI: true,
             order: [],
             columns: [
                 {
@@ -126,7 +128,7 @@ function generateFaucetsTable(data, elementToRender)
 
         tableConfig.columns.sort(sortConfig);
 
-        return $(elementToRender).DataTable(tableConfig);
+        $(elementToRender).DataTable(tableConfig);
     }
 }
 
