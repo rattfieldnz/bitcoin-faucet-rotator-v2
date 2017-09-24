@@ -594,7 +594,6 @@ class Faucets
         }
 
         if ($faucet->isDeleted()) {
-
             $route = $user->isAnAdmin() ? ['faucets.delete-permanently', $faucet->slug] :
                 ['users.faucets.delete-permanently', $user->slug, $faucet->slug];
 
@@ -629,7 +628,6 @@ class Faucets
         }
 
         if ($faucet->isDeleted()) {
-
             $route = $user->isAnAdmin() ? ['faucets.restore', $faucet->slug] :
                 ['users.faucets.restore', $user->slug, $faucet->slug];
 
