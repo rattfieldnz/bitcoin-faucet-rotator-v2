@@ -70,24 +70,26 @@ function generateFaucetsTable(data, elementToRender)
         };
 
         var thead = '<tr>';
+        console.log(!keyExists('id', data[0]));
+        console.log(!keyExists('referral_code_form', data[0]));
+        console.log(!keyExists('is_deleted', data[0]));
+
+        if(!keyExists('id', data[0]) && !keyExists('referral_code_form', data[0]) && !keyExists('is_deleted', data[0])){
+            tableConfig.order = [[1, "asc"], [2, "desc"], [3, "desc"], [0, "asc"]];
+        }
 
         if(keyExists('id', data[0])){
             tableConfig.columns.push({data: 'id', order: 0});
             thead += '<th>Id</th>';
             tableConfig.order = [[2, 'asc'], [3, 'desc'], [4, 'desc'], [1, 'desc'], [0, 'desc']];
-        } else {
-            tableConfig.order = [[1, "asc"], [2, 'desc'], [3, 'desc'], [0, 'desc']];
         }
 
         thead += '<th>Name</th><th>Interval Minutes</th>';
 
         if(keyExists('referral_code_form', data[0])){
-            console.log('referral code form');
             tableConfig.columns.push({data: 'referral_code_form', order: 2});
             thead += '<th>Referral Code</th>';
             tableConfig.order = [[2, 'asc'], [4, 'desc'], [5, 'desc'], [1, 'desc'], [0, 'desc']];
-        } else {
-            tableConfig.order = [[1, "asc"], [2, 'desc'], [3, 'desc'], [0, 'desc']];
         }
 
         thead +=

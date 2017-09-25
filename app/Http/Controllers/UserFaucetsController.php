@@ -402,15 +402,14 @@ class UserFaucetsController extends Controller
 
         $userFaucetIds = $input['faucet_id'];
         $referralCodes = $input['referral_code'];
+        //dd($referralCodes);
 
         for ($i = 0; $i < count($userFaucetIds); $i++) {
-            $referralCode = !empty($referralCodes[$i]) ? $referralCodes[$i] : null;
+            $referralCode = !empty($referralCodes[$i]) ? $referralCodes[$i] : "bnbnbnbnbnbnbnbn";
 
             $faucet = Faucet::where('id', '=', intval($userFaucetIds[$i]))->first();
 
-            if (!empty($faucet)) {
-                Faucets::setUserFaucetRefCode($user, $faucet, $referralCode);
-            }
+            Faucets::setUserFaucetRefCode($user, $faucet, $referralCode);
         }
 
         if (!empty(request('payment_processor'))) {
@@ -459,6 +458,7 @@ class UserFaucetsController extends Controller
         }
 
         $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
+
         $mainFaucet = Faucet::where('slug', $faucetSlug)->first();
 
         $redirectRoute = route('users.faucets', $user->slug);

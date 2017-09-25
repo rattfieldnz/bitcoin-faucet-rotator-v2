@@ -21,7 +21,7 @@
                     @if(count($faucets) == 0)
                         <p>There are no more faucets to add. All available faucets are being used.</p>
                     @else
-                        @include('users.faucets.table2')
+                        @include('users.faucets.table')
                     @endif
                 </div>
             </div>

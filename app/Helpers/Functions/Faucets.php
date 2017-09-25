@@ -593,7 +593,7 @@ class Faucets
             return null;
         }
 
-        if ($faucet->isDeleted()) {
+        if ($faucet->isDeleted() || !empty($faucet->pivot->deleted_at)) {
             $route = $user->isAnAdmin() ? ['faucets.delete-permanently', $faucet->slug] :
                 ['users.faucets.delete-permanently', $user->slug, $faucet->slug];
 
@@ -627,7 +627,7 @@ class Faucets
             return null;
         }
 
-        if ($faucet->isDeleted()) {
+        if ($user->isAnAdmin() && $faucet->isDeleted() || !empty($faucet->pivot->deleted_at && !$user->isAnAdmin())) {
             $route = $user->isAnAdmin() ? ['faucets.restore', $faucet->slug] :
                 ['users.faucets.restore', $user->slug, $faucet->slug];
 
@@ -660,6 +660,10 @@ class Faucets
     {
         if (empty($faucet) || empty($user)) {
             return null;
+        }
+
+        if(!empty($faucet->pivot->deleted_at) || $faucet->isDeleted()){
+            return self::deletePermanentlyForm($faucet, $user);
         }
 
         $route = $user->isAnAdmin() ? ['faucets.destroy', $faucet->slug] :

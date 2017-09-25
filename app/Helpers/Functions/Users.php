@@ -350,11 +350,11 @@ class Users
      */
     public static function getFaucets(User $user): Collection
     {
-
+        $deletedAtOperator = Auth::check() && ($user->isAnAdmin() || $user === Auth::user()) ? '!=' : '=';
         return $user->faucets()
             ->where('faucets.is_paused', '=', false)
             ->where('faucets.has_low_balance', '=', false)
-            ->where('faucets.deleted_at', '=', null)
+            ->where('faucets.deleted_at', $deletedAtOperator, null)
             ->orderBy('faucets.interval_minutes')
             ->get();
     }

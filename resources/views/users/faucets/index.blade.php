@@ -20,7 +20,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 @if(count($faucets) > 0)
-                @include('users.faucets.table2')
+                @include('users.faucets.table')
                 @else
                     <p>{{ $user->user_name }} has not added any faucets yet.</p>
                 @endif

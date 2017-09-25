@@ -1,160 +1,28 @@
 <p><strong>*</strong> Payout amounts are in Satoshis</p>
-<div class="table-responsive" style="margin:0.5em !important;">
-<table class="table table-striped bordered tablesorter" id="faucets-table">
-    <thead class="row">
-        @if(Auth::user() != null)
-            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                <th>Id</th>
-            @endif
-        @endif
-        <th>Name</th>
-        @if(Auth::user() != null)
-            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                <th>Referral Code</th>
-            @endif
-        @endif
-        <th>Interval Minutes</th>
-        <th>Min. Payout*</th>
-        <th>Max. Payout*</th>
-        <th>Payment Processors</th>
-        @if(Auth::user() != null)
-            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                @if(Route::currentRouteName() != 'users.faucets.create')
-                    <th>Deleted?</th>
-                    <th>Action</th>
-                @endif
-            @endif
-        @endif
-    </thead>
-    <tbody class="row">
-    @if(Auth::user() != null && (Auth::user()->isAnAdmin() || Auth::user() == $user))
+
+<div id="faucetsTable-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+<div></div>
+
+
+
+@if(Auth::user() != null && (Auth::user()->isAnAdmin() || Auth::user() == $user))
     {!! Form::open(['route' => ['users.faucets.update-multiple', $user->slug], 'method' => 'POST', 'class' => 'form-inline']) !!}
     {!! Form::hidden('_method', 'PATCH') !!}
     {!! Form::hidden('user_id', $user->id) !!}
     {!! Form::hidden('current_route_name', Route::currentRouteName())!!}
-    @endif
-    @foreach($faucets as $faucet)
-        <tr>
-            @if(Auth::user() != null)
-                @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                    <td>{!! $faucet->id !!}</td>
-                @endif
-            @endif
-            <td>
-                {!!
-                    link_to_route(
-                        'users.faucets.show',
-                        $faucet->name,
-                        ['userSlug' => $user->slug,'faucetSlug' =>  $faucet->slug],
-                        ['title' => $faucet->name, 'style' => 'text-decoration:underline;']
-                    )
-                !!}
-            </td>
-
-            @if(Auth::user() != null)
-                @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                    @if(!empty($faucet))
-                        <td>
-                            {!! Form::hidden('faucet_id[]', $faucet->id) !!}
-                            {!! Form::text('referral_code[]', \App\Helpers\Functions\Faucets::getUserFaucetRefCode($user, $faucet), ['class' => 'form-control', 'placeholder' => 'ABCDEF123456']) !!}
-                        </td>
-                     @endif
-                @endif
-            @endif
-            <td>{!! $faucet->interval_minutes !!}</td>
-            <td>{!! $faucet->min_payout !!}</td>
-            <td>{!! $faucet->max_payout !!}</td>
-            <td>
-                @if($faucet->paymentProcessors)
-                    @if(count($faucet->paymentProcessors) == 0)
-                        None. Please add one (or more) for this faucet
-                    @else
-                        <ul>
-                            @foreach($faucet->paymentProcessors as $p)
-                                <li>
-                                    {!!
-                                        link_to_route(
-                                            'users.payment-processors.faucets',
-                                            $p->name,
-                                            ['userSlug' => $user->slug,'paymentProcessorSlug' =>  $p->slug],
-                                            ['title' => $user->user_name . "'s " . $p->name . " faucets", 'style' => 'text-decoration:underline;']
-                                        )
-                                    !!}
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endif
-                @endif
-            </td>
-            @if(Auth::user() != null)
-                @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                    @if(Route::getCurrentRoute() != 'users.faucets.create' || Route::getCurrentRoute() == 'users.faucets')
-                        @if(!empty($faucet) && $faucet->pivot != null)
-                            <td>{!! $faucet->pivot->deleted_at != null ? "Yes" : "No" !!}</td>
-                            <td>
-                                @if($faucet->pivot->deleted_at != null)
-                                    @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                                        @if(
-                                            Auth::user()->hasPermission('permanent-delete-faucets') ||
-                                            $user->hasPermission('permanent-delete-user-faucets')
-                                        )
-                                            {!! link_to_route(
-                                                'users.faucets.delete-permanently',
-                                                '',
-                                                ['userSlug' => $user->slug, 'faucetSlug' => $faucet->slug],
-                                                ['class' => 'btn btn-danger btn-xs glyphicon glyphicon-trash', 'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"]
-                                                )
-                                            !!}
-                                        @endif
-                                    @endif
-                                    @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                                        @if(
-                                            Auth::user()->hasPermission('restore-faucets') ||
-                                            Auth::user()->hasPermission('restore-user-faucets')
-                                        )
-                                            {!! link_to_route(
-                                                'users.faucets.restore',
-                                                '',
-                                                ['userSlug' => $user->slug, 'faucetSlug' => $faucet->slug],
-                                                ['class' => 'btn btn-info btn-xs glyphicon glyphicon-refresh', 'onclick' => "return confirm('Are you sure you want to restore this deleted faucet?')"]
-                                                )
-                                            !!}
-                                        @endif
-                                    @endif
-                                @else
-                                    @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                                        @if(
-                                            Auth::user()->hasPermission('soft-delete-faucets') ||
-                                            Auth::user()->hasPermission('soft-delete-user-faucets')
-                                        )
-                                            {!! link_to_route(
-                                                'users.faucets.destroy',
-                                                '',
-                                                ['userSlug' => $user->slug, 'faucetSlug' => $faucet->slug],
-                                                ['class' => 'btn btn-warning btn-xs glyphicon glyphicon-trash', 'onclick' => "return confirm('Are you sure you want to archive/delete this faucet?')"]
-                                                )
-                                            !!}
-                                        @endif
-                                    @endif
-                                @endif
-                            </td>
-                        @endif
-                    @endif
-                @endif
-            @endif
-        </tr>
-    @endforeach
-    <div id="user-faucets-buttons">
+@endif
+<div class="chart">
+    <div id="user-faucets-buttons" class="row">
         @if(Auth::user() != null && (Auth::user()->isAnAdmin() || (Auth::user() == $user && $user->hasPermission('create-user-faucets'))))
-            {!! Form::button(
-                '<i class="fa fa-floppy-o" style="vertical-align: middle; margin-right:0.25em;"> </i> Save Referral Codes',
-                [
-                    'type' => 'submit',
-                    'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
-                    'style' => 'margin:0.25em 0.25em 0 0; min-width:12em;'
-                ])
-            !!}
             @if(Route::currentRouteName() != 'users.faucets.create')
+                {!! Form::button(
+                    '<i class="fa fa-floppy-o" style="vertical-align: middle; margin-right:0.25em;"> </i> Save Referral Codes',
+                    [
+                        'type' => 'submit',
+                        'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                        'style' => 'margin:0.25em 0.25em 0 0; min-width:12em;'
+                    ])
+                !!}
                 {!! Form::button(
                     '<i class="fa fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Add New Faucet',
                     [
@@ -183,11 +51,118 @@
                 'type' => 'button',
                 'onClick' => "window.open('" . route('users.rotator', ['slug' => $user->slug]) . "', '_blank')",
                 'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
-                'style' => 'margin:0.25em 0 0.25em 0.25em; color: white; min-width:12em;'
+                'style' => 'margin:0.25em 0 0.25em 0; color: white; min-width:12em;'
             ])
         !!}
     </div>
-        {!! Form::close() !!}
-    </tbody>
-</table>
+    <table id="faucetsTable"
+           class="row-border hover order-column table-hover table-responsive {{ !Auth::check() ? 'faucetsTable_guest' : '' }}"
+           cellspacing="0" width="100%">
+        <thead>
+        @if(Auth::user() != null)
+            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
+                <th>Id</th>
+            @endif
+        @endif
+        <th>Name</th>
+        @if(Auth::user() != null)
+            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
+                <th>Referral Code</th>
+            @endif
+        @endif
+        <th>Interval Minutes</th>
+        <th>Min. Payout*</th>
+        <th>Max. Payout*</th>
+        <th>Payment Processors</th>
+        @if(Auth::user() != null)
+            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
+                @if(Route::currentRouteName() != 'users.faucets.create')
+                    <th>Deleted?</th>
+                    <th>Action</th>
+                @endif
+            @endif
+        @endif
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+        @if(Auth::user() != null)
+            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
+                <th>Id</th>
+            @endif
+        @endif
+        <th>Name</th>
+        @if(Auth::user() != null)
+            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
+                <th>Referral Code</th>
+            @endif
+        @endif
+        <th>Interval Minutes</th>
+        <th>Min. Payout*</th>
+        <th>Max. Payout*</th>
+        <th>Payment Processors</th>
+        @if(Auth::user() != null)
+            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
+                @if(Route::currentRouteName() != 'users.faucets.create')
+                    <th>Deleted?</th>
+                    <th>Action</th>
+                @endif
+            @endif
+        @endif
+        </tfoot>
+    </table>
 </div>
+@if(Auth::user() != null && (Auth::user()->isAnAdmin() || Auth::user() == $user))
+    {!! Form::close() !!}
+@endif
+
+@push('scripts')
+<script src="/assets/js/datatables.net/datatables.min.js?{{ rand() }}"></script>
+<script src="/assets/js/faucet-scripts/faucetDatatables.js?{{ rand() }}"></script>
+<script>
+    $(function () {
+        $.fn.dataTable.ext.errMode = 'none';
+        $.ajaxSetup({
+            timeout: 3600000,
+
+            // force ajax call on all browsers
+            cache: false,
+
+            // Enables cross domain requests
+            crossDomain: true,
+
+            // Helps in setting cookie
+            xhrFields: {
+                withCredentials: true
+            },
+
+            beforeSend: function (xhr, type) {
+                // Set the CSRF Token in the header for security
+                //if (type.type !== "GET") {
+                var token = Cookies.get("XSRF-TOKEN");
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.setRequestHeader('X-XSRF-Token', token);
+                //}
+            }
+        });
+
+        //--------------------------------
+        //- DATATABLES SHOWING FAUCETS -
+        //--------------------------------
+        var dataTablesName = 'faucets datatable';
+        var userSlug = $('#title').data('user-slug');
+        var route = laroute.route('user.faucets', {userSlug: userSlug});
+        var faucetsData = getFaucetsDataAjax(route);
+        var faucetsTableProgressBar = generateProgressBar("#faucetsTable-progressbar",dataTablesName);
+        renderFaucetsDataTable(faucetsData, '#faucetsTable', faucetsTableProgressBar);
+
+        $("#tabs").tabs( {
+            "activate": function(event, ui) {
+                var table = $.fn.dataTable.fnTables(true);
+                if ( table.length > 0 ) {
+                    $(table).dataTable().fnAdjustColumnSizing();
+                }
+            }
+        } );
+    });
+</script>
+@endpush
