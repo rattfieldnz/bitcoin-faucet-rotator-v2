@@ -70,9 +70,6 @@ function generateFaucetsTable(data, elementToRender)
         };
 
         var thead = '<tr>';
-        console.log(!keyExists('id', data[0]));
-        console.log(!keyExists('referral_code_form', data[0]));
-        console.log(!keyExists('is_deleted', data[0]));
 
         if(!keyExists('id', data[0]) && !keyExists('referral_code_form', data[0]) && !keyExists('is_deleted', data[0])){
             tableConfig.order = [[1, "asc"], [2, "desc"], [3, "desc"], [0, "asc"]];
