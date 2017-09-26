@@ -51,7 +51,7 @@
                 'type' => 'button',
                 'onClick' => "window.open('" . route('users.rotator', ['slug' => $user->slug]) . "', '_blank')",
                 'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
-                'style' => 'margin:0.25em 0 0.25em 0; color: white; min-width:12em;'
+                'style' => 'margin:0.25em 0 0.25em 0.25em; color: white; min-width:12em;'
             ])
         !!}
     </div>
@@ -121,29 +121,6 @@
 <script>
     $(function () {
         $.fn.dataTable.ext.errMode = 'none';
-        $.ajaxSetup({
-            timeout: 3600000,
-
-            // force ajax call on all browsers
-            cache: false,
-
-            // Enables cross domain requests
-            crossDomain: true,
-
-            // Helps in setting cookie
-            xhrFields: {
-                withCredentials: true
-            },
-
-            beforeSend: function (xhr, type) {
-                // Set the CSRF Token in the header for security
-                //if (type.type !== "GET") {
-                var token = Cookies.get("XSRF-TOKEN");
-                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                xhr.setRequestHeader('X-XSRF-Token', token);
-                //}
-            }
-        });
 
         //--------------------------------
         //- DATATABLES SHOWING FAUCETS -

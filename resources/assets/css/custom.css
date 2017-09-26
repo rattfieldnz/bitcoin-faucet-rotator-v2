@@ -15,8 +15,12 @@
     background-image: url("../images/table-sorter/table-sorter-asc.gif");
 }
 
+#user-faucets-buttons{
+    margin-left: 0;
+}
+
 table.faucetsTable_guest{
-    width: 99.6em !important;
+    width: 102.8em !important;
     max-width: none;
 }
 

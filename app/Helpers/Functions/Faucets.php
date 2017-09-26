@@ -627,9 +627,10 @@ class Faucets
             return null;
         }
 
+        $route = $user->isAnAdmin() ? ['faucets.restore', $faucet->slug] :
+            ['users.faucets.restore', $user->slug, $faucet->slug];
+
         if ($user->isAnAdmin() && $faucet->isDeleted() || !empty($faucet->pivot->deleted_at && !$user->isAnAdmin())) {
-            $route = $user->isAnAdmin() ? ['faucets.restore', $faucet->slug] :
-                ['users.faucets.restore', $user->slug, $faucet->slug];
 
             $form = Form::open(['route' => $route, 'method' => 'patch', 'style' => 'display: inline-block;']);
 
@@ -662,23 +663,24 @@ class Faucets
             return null;
         }
 
-        if(!empty($faucet->pivot->deleted_at) || $faucet->isDeleted()){
-            return self::deletePermanentlyForm($faucet, $user);
-        }
+        $form = null;
 
         $route = $user->isAnAdmin() ? ['faucets.destroy', $faucet->slug] :
             ['users.faucets.destroy', $user->slug, $faucet->slug];
 
-        $form = Form::open(['route' => $route, 'method' => 'delete', 'style' => 'display: inline-block;']);
-        $form .= Form::button(
+        if(!empty($route)){
+
+            $form = Form::open(['route' => $route, 'method' => 'delete', 'style' => 'display: inline-block;']);
+            $form .= Form::button(
                 '<i class="glyphicon glyphicon-trash"></i>',
                 [
                     'type' => 'submit',
                     'class' => 'btn btn-warning btn-xs',
                     'onclick' => "return confirm('Are you sure?')"
                 ]
-        );
-        $form .= Form::close();
+            );
+            $form .= Form::close();
+        }
 
         return $form;
     }

@@ -75058,6 +75058,29 @@ if (typeof jQuery === "undefined") {
 	return init(function () {});
 }));
 
+$.ajaxSetup({
+    timeout: 3600000,
+
+    // force ajax call on all browsers
+    cache: false,
+
+    // Enables cross domain requests
+    crossDomain: true,
+
+    // Helps in setting cookie
+    xhrFields: {
+        withCredentials: true
+    },
+
+    beforeSend: function (xhr, type) {
+        // Set the CSRF Token in the header for security
+        //if (type.type !== "GET") {
+        var token = Cookies.get("XSRF-TOKEN");
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.setRequestHeader('X-XSRF-Token', token);
+        //}
+    }
+});
 
 $(window).ready(function () {
     footerReset();

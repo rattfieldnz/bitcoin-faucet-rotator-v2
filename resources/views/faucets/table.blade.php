@@ -73,29 +73,6 @@
 <script>
     $(function () {
         $.fn.dataTable.ext.errMode = 'none';
-        $.ajaxSetup({
-            timeout: 3600000,
-
-            // force ajax call on all browsers
-            cache: false,
-
-            // Enables cross domain requests
-            crossDomain: true,
-
-            // Helps in setting cookie
-            xhrFields: {
-                withCredentials: true
-            },
-
-            beforeSend: function (xhr, type) {
-                // Set the CSRF Token in the header for security
-                //if (type.type !== "GET") {
-                var token = Cookies.get("XSRF-TOKEN");
-                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                xhr.setRequestHeader('X-XSRF-Token', token);
-                //}
-            }
-        });
 
         //--------------------------------
         //- DATATABLES SHOWING FAUCETS -
@@ -105,6 +82,16 @@
         var faucetsData = getFaucetsDataAjax(route);
         var faucetsTableProgressBar = generateProgressBar("#faucetsTable-progressbar",dataTablesName);
         renderFaucetsDataTable(faucetsData, '#faucetsTable', faucetsTableProgressBar);
+
+
+        $("#tabs").tabs( {
+            "activate": function(event, ui) {
+                var table = $.fn.dataTable.fnTables(true);
+                if ( table.length > 0 ) {
+                    $(table).dataTable().fnAdjustColumnSizing();
+                }
+            }
+        } );
     });
 </script>
 @endpush
