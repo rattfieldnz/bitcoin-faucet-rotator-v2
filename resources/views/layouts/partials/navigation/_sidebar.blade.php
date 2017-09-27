@@ -21,7 +21,7 @@
 
                         </div>
                         <div class="row" id="userdialog">
-                            <p id="membersince">Member since<br>{{ date('l jS \of F Y', strtotime(Auth::user()->created_at)) }}</p>
+                            <p id="membersince">Member since<br>{{ date('jS F Y', strtotime(Auth::user()->created_at)) }}</p>
                             {!! Form::button(
                                 '<i class="fa fa-id-card-o" style="vertical-align: middle; margin-right:0.25em;"></i>Profile',
                                 [

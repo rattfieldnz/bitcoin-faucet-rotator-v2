@@ -15,7 +15,7 @@ class CreateFaucetsTable extends Migration
     {
         Schema::create('faucets', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 25);
+            $table->string('name', 50);
             $table->string('url', 150)->unique();
             $table->integer('interval_minutes');
             $table->integer('min_payout');

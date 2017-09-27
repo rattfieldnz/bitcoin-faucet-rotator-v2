@@ -93,6 +93,14 @@ class PaymentProcessors
             ->get()
             ->whereIn('id', $userFaucets->select('id')->pluck('id')->toArray());
 
+        if(Auth::check() && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)){
+            $paymentProcessorFaucets = $paymentProcessor
+                ->faucets()
+                ->wherePivot('referral_code', '!=', null)
+                ->get()
+                ->whereIn('id', $userFaucets->select('id')->pluck('id')->toArray());
+        }
+
         $count = count($paymentProcessorFaucets);
 
         if (!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)) {
@@ -126,7 +134,11 @@ class PaymentProcessors
 
             return $faucets->withTrashed()->get()->whereIn('id', $userFaucets);
         } else {
-            $userFaucets = $userFaucets->get()->pluck('id')->toArray();
+            $userFaucets = $userFaucets
+                ->wherePivot('referral_code', '!=', null)
+                ->get()
+                ->pluck('id')
+                ->toArray();
 
             return $faucets->get()->whereIn('id', $userFaucets);
         }
@@ -150,7 +162,11 @@ class PaymentProcessors
 
             return $faucets->withTrashed()->where('faucets.id', '=', $faucetId)->first();
         } else {
-            $faucetId = $userFaucet->get()->pluck('id')->first();
+            $faucetId = $userFaucet
+                ->wherePivot('referral_code', '!=', null)
+                ->get()
+                ->pluck('id')
+                ->first();
 
             return $faucets->where('faucets.id', '=', $faucetId)->first();
         }

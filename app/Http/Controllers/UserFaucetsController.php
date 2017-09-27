@@ -82,10 +82,12 @@ class UserFaucetsController extends Controller
             return redirect(route('faucets.index'));
         }
 
-        if (Auth::guest() == true) {
-            $showFaucets = $user->faucets()->get();
+        if (Auth::guest() || (Auth::check() && (!Auth::user()->isAnAdmin() || $user->id != Auth::user()->id))) {
+            $showFaucets = $user->faucets()
+                ->wherePivot('referral_code', '!=', null)
+                ->get();
         } else {
-            $showFaucets = $user->faucets()->withTrashed()->get();
+            $showFaucets = $user->faucets()->get();
         }
 
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->pluck('name', 'id');
@@ -227,27 +229,25 @@ class UserFaucetsController extends Controller
 
         $message = null;
 
-       // dd($faucet);
-
-        // If the visitor isn't authenticated, the user's faucet is soft-deleted, and main admin faucet exists.
-        if (Auth::guest() && (!empty($mainFaucet) && !empty($faucet->pivot->deleted_at))) {
+        // If the visitor isn't authenticated, the user's faucet has no referral code, and main admin faucet exists.
+        if (Auth::guest() && (!empty($mainFaucet) && empty($faucet->pivot->referral_code))) {
             flash('The faucet was not found')->error();
             return redirect(route('users.faucets', $user->slug));
         }
 
-        // If the main admin faucet exists, and the user's faucet is soft-deleted.
-        if (!empty($mainFaucet) && (!empty($faucet) && $faucet->pivot->deleted_at)) {
+        // If the main admin faucet exists, and the user's faucet has no referral code.
+        if (!empty($mainFaucet) && (!empty($faucet) && empty($faucet->pivot->referral_code))) {
             //If the visitor isn't authenticated.
-            if (Auth::guest()) {
+            if (Auth::guest() || (!empty(Auth::user()) && Auth::user()->id != $user->id && !Auth::user()->isAnAdmin())) {
                 flash('The faucet was not found')->error();
                 return redirect(route('users.faucets', $user->slug));
             }
             //If the authenticated user is an owner or standard user.
             if (!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) || $user->id == Auth::user()->id) {
                 if (Auth::user()->isAnAdmin()) {
-                    $message = 'The faucet has been temporarily deleted by it\'s user; however, you are able to restore this faucet.';
+                    $message = 'The user has not added a referral code for this faucet; however, you are able to add one for them if needed.';
                 } elseif (Auth::user()->id == $user->id) {
-                    $message = 'You have deleted the faucet that was requested; however, you are able to restore this faucet.';
+                    $message = 'You have not added a referral code for this faucet; however, you are able to add one.';
                 }
                 Faucets::setMeta($faucet, $user);
 
@@ -292,26 +292,6 @@ class UserFaucetsController extends Controller
                 flash('The faucet was not found')->error();
                 return redirect(route('users.faucets', $user->slug));
             }
-        } // If user faucet exists, and the user's faucet is soft-deleted.
-        elseif (!empty($faucet) && $faucet->pivot->deleted_at != null) {
-            if (!Auth::guest() && (Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) && $user == Auth::user()) {
-                if (Auth::user()->hasRole('user')) {
-                    $message = 'You have deleted the faucet that was requested; however, you are able to restore this faucet.';
-                } elseif (Auth::user()->isAnAdmin()) {
-                    $message = 'The faucet has been temporarily deleted by the user. You can restore the faucet or permanently delete it.';
-                }
-                //dd($faucet);
-                Faucets::setMeta($faucet, $user);
-
-                Faucets::setSecureFaucetIframe($user, $faucet);
-
-                return view('users.faucets.show')
-                    ->with('user', $user)
-                    ->with('faucet', $faucet)
-                    ->with('faucetUrl', $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet))
-                    ->with('message', $message)
-                    ->with('canShowInIframe', Http::canShowInIframes($faucet->url));
-            }
         } else {
             //If user faucet exists
             if (!empty($faucet)) {
@@ -333,57 +313,6 @@ class UserFaucetsController extends Controller
         }
     }
 
-    /**
-     * Update the specified Faucet in storage.
-     *
-     * @param  $userSlug
-     * @param  $faucetSlug
-     * @param  UpdateUserFaucetRequest $request
-     * @return Response
-     */
-    public function update($userSlug, $faucetSlug, UpdateUserFaucetRequest $request)
-    {
-        $user = $this->userRepository->findByField('slug', $userSlug, true)->first();
-
-        $input = $request->except('_token', '_method');
-
-        //If there is no such user, about to 404 page.
-        if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
-            flash('User not found')->error();
-            return redirect(route('users.index'));
-        }
-
-        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
-        $redirectRoute = route('users.faucets', $user->slug);
-
-        if (empty($faucet)) {
-            flash('The faucet was not found')->error();
-
-            return redirect(route('users.faucets', $user->slug));
-        }
-
-        if (!empty(request('payment-processor'))) {
-            $slug = Purifier::clean(request('payment-processor'), 'generalFields');
-            $paymentProcessor = PaymentProcessor::where('slug', $slug)->first();
-        }
-
-        if (!empty($user) && !empty($faucet) && !empty($paymentProcessor)) {
-            $redirectRoute = route(
-                'users.payment-processors.faucets',
-                [
-                    'userSlug' => $user->slug,
-                    'paymentProcessorSlug' => $paymentProcessor->slug
-                ]
-            );
-        }
-
-        $this->userFaucetRepository->update($input, $user->id);
-
-        flash('The faucet \'' . $faucet->name . '\' was updated successfully!')->success();
-
-        return redirect($redirectRoute);
-    }
-
     public function updateMultiple($userSlug, Request $request)
     {
         $user = User::where('slug', $userSlug)->withTrashed()->first();
@@ -398,14 +327,11 @@ class UserFaucetsController extends Controller
 
         $redirectRoute = route('users.faucets', $user->slug);
 
-        //dd($input['current_route_name']);
-
         $userFaucetIds = $input['faucet_id'];
         $referralCodes = $input['referral_code'];
-        //dd($referralCodes);
 
         for ($i = 0; $i < count($userFaucetIds); $i++) {
-            $referralCode = !empty($referralCodes[$i]) ? $referralCodes[$i] : "bnbnbnbnbnbnbnbn";
+            $referralCode = !empty($referralCodes[$i]) ? $referralCodes[$i] : null;
 
             $faucet = Faucet::where('id', '=', intval($userFaucetIds[$i]))->first();
 
@@ -436,192 +362,6 @@ class UserFaucetsController extends Controller
         }
 
         flash('The referral codes for the selected faucets were successfully updated!')->success();
-
-        return redirect($redirectRoute);
-    }
-
-    /**
-     * Soft-delete the specified Faucet from storage.
-     *
-     * @param  $userSlug
-     * @param  $faucetSlug
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function destroy($userSlug, $faucetSlug)
-    {
-        $user = $this->userRepository->findByField('slug', $userSlug, true)->first();
-
-        //If there is no such user, about to 404 page.
-        if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
-            flash('User not found')->error();
-            return redirect(route('users.index'));
-        }
-
-        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
-
-        $mainFaucet = Faucet::where('slug', $faucetSlug)->first();
-
-        $redirectRoute = route('users.faucets', $user->slug);
-
-        if (empty($faucet)) {
-            flash('Faucet not found.')->error();
-
-            return redirect($redirectRoute);
-        }
-
-        if (!empty($faucet) && $mainFaucet->isDeleted()) {
-            flash(
-                'The owner has temporarily deleted this faucet, 
-                and you are not able to restore it. You can ask 
-                the owner if the faucet can be restored.'
-            )->error();
-
-            return redirect($redirectRoute);
-        }
-
-        if (!empty($faucet) && $faucet->pivot->deleted_at != null) {
-            flash('The faucet has already been soft-deleted.')->error();
-
-            return redirect($redirectRoute);
-        }
-
-        if (!empty(request('payment-processor'))) {
-            $slug = Purifier::clean(request('payment-processor'), 'generalFields');
-            $paymentProcessor = PaymentProcessor::where('slug', $slug)->first();
-        }
-
-        if (!empty($user) && !empty($faucet) && !empty($paymentProcessor)) {
-            $redirectRoute = route(
-                'users.payment-processors.faucets',
-                [
-                        'userSlug' => $user->slug,
-                        'paymentProcessorSlug' => $paymentProcessor->slug
-                    ]
-            );
-        }
-
-        $faucetName = $faucet->name;
-
-        $this->userFaucetRepository->deleteUserFaucet($user, $faucet, false);
-
-        flash('The faucet \'' . $faucetName . '\' has successfully been archived/deleted! You are able to restore the faucet.')->success();
-
-        return redirect($redirectRoute);
-    }
-
-    /**
-     * Permanently delete the specified Faucet from storage.
-     *
-     * @param $userSlug
-     * @param $faucetSlug
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function destroyPermanently($userSlug, $faucetSlug)
-    {
-        $user = $this->userRepository->findByField('slug', $userSlug, true)->first();
-
-        //If there is no such user, about to 404 page.
-        if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
-            flash('User not found')->error();
-            return redirect(route('users.index'));
-        }
-
-        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->first();
-
-        $redirectRoute = route('users.faucets', $user->slug);
-
-        if (empty($faucet)) {
-            flash('The faucet was not found, or has already been permanently deleted.')->error();
-
-            return redirect($redirectRoute);
-        }
-
-        $faucetName = $faucet->name;
-
-        $this->userFaucetRepository->deleteUserFaucet($user, $faucet, true);
-
-        if (!empty(request('payment-processor'))) {
-            $slug = Purifier::clean(request('payment-processor'), 'generalFields');
-            $paymentProcessor = PaymentProcessor::where('slug', $slug)->first();
-        }
-
-        if (!empty($user) && !empty($paymentProcessor)) {
-            $redirectRoute = route(
-                'users.payment-processors.faucets',
-                [
-                    'userSlug' => $user->slug,
-                    'paymentProcessorSlug' => $paymentProcessor->slug
-                ]
-            );
-        }
-
-        flash('The faucet \'' . $faucetName . '\' was permanently deleted!')->success();
-
-        return redirect($redirectRoute);
-    }
-
-    /**
-     * @param $userSlug
-     * @param $faucetSlug
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function restoreDeleted($userSlug, $faucetSlug)
-    {
-        $user = $this->userRepository->findByField('slug', $userSlug, true)->first();
-
-        //If there is no such user, about to 404 page.
-        if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
-            flash('User not found')->error();
-            return redirect(route('users.index'));
-        }
-
-        $faucet = $user->faucets()->where('slug', '=', $faucetSlug)->withTrashed()->first();
-
-        $redirectRoute = route('users.faucets', $user->slug);
-
-        if (empty($faucet)) {
-            flash('The faucet was not found, or has been permanently deleted.')->error();
-
-            return redirect(route('users.faucets', $user->slug));
-        }
-
-        if (!empty($faucet) && $faucet->isDeleted()) {
-            flash(
-                'The owner has temporarily deleted this faucet, 
-                and you are not able to restore it. You can 
-                ask the owner if the faucet can be restored.'
-            )->error();
-
-            return redirect($redirectRoute);
-        }
-
-        if ($faucet->pivot->deleted_at == null) {
-            flash('The faucet is already active, and hasn\'t been deleted.')->error();
-
-            return redirect($redirectRoute);
-        }
-
-        if (!empty(request('payment-processor'))) {
-            $slug = Purifier::clean(request('payment-processor'), 'generalFields');
-            $paymentProcessor = PaymentProcessor::where('slug', $slug)->first();
-        }
-
-        if (!empty($user) && !empty($faucet) && !empty($paymentProcessor)) {
-            $redirectRoute = route(
-                'users.payment-processors.faucets',
-                [
-                    'userSlug' => $user->slug,
-                    'paymentProcessorSlug' => $paymentProcessor->slug
-                ]
-            );
-        }
-
-        $faucetName = $faucet->name;
-
-        Faucets::restoreUserFaucet($user, $faucet);
-
-        flash('The faucet \'' . $faucetName . '\' was successfully restored!')->success();
 
         return redirect($redirectRoute);
     }

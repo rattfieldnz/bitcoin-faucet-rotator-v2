@@ -52,10 +52,9 @@ Route::get('faucets/{slug}', [
 ]);
 
 Route::get('users/{userSlug}/faucets', ['as' => 'users.faucets', 'uses' => 'UserFaucetsController@index']);
-Route::get('users/{userSlug}/faucets/create', ['as' => 'users.faucets.create', 'uses' => 'UserFaucetsController@create']);
 Route::post('users/{userSlug}/faucets/store', ['as' => 'users.faucets.store', 'uses' => 'UserFaucetsController@store']);
 Route::get('users/{userSlug}/faucets/{faucetSlug}', ['as' => 'users.faucets.show', 'uses' => 'UserFaucetsController@show']);
-//Route::get('users/{userSlug}/faucets/{faucetSlug}/edit', ['as' => 'users.faucets.edit', 'uses' => 'UserFaucetsController@edit']);
+
 Route::get('users/{userSlug}/payment-processors', ['as' => 'users.payment-processors', 'uses' => 'PaymentProcessorController@userPaymentProcessors']);
 Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}', function ($userSlug, $paymentProcessorSlug) {
     return redirect(route('users.payment-processors.faucets', ['userSlug' =>  $userSlug, 'paymentProcessorSlug' => $paymentProcessorSlug]));
@@ -78,10 +77,6 @@ Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}/rotator',
 Route::get('users/{userSlug}/faucets/{faucetSlug}/edit', function ($userSlug) {
     return redirect(route('users.faucets', ['userSlug' =>  $userSlug]));
 });
-Route::patch('users/{userSlug}/faucets/{faucetSlug}/update', ['as' => 'users.faucets.update', 'uses' => 'UserFaucetsController@update']);
-Route::delete('users/{userSlug}/faucets/{faucetSlug}/destroy', ['as' => 'users.faucets.destroy', 'uses' => 'UserFaucetsController@destroy']);
-Route::delete('users/{userSlug}/faucets/{faucetSlug}/delete-permanently', ['as' => 'users.faucets.delete-permanently', 'uses' => 'UserFaucetsController@destroyPermanently']);
-Route::patch('users/{userSlug}/faucets/{faucetSlug}/restore', ['as' => 'users.faucets.restore', 'uses' => 'UserFaucetsController@restoreDeleted']);
 Route::patch('users/{userSlug}/faucets/update-multiple', ['as' => 'users.faucets.update-multiple', 'uses' => 'UserFaucetsController@updateMultiple']);
 
 Route::get('users/{userSlug}/rotator', [

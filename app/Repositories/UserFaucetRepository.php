@@ -49,27 +49,13 @@ class UserFaucetRepository extends Repository
     /**
      * Update user data via pivot table.
      *
-     * @param array  $data
-     * @param $userId
+     * @param array $data
+     * @param       $userId
      *
      * @return mixed|void
      */
     public function update(array $data, $userId)
     {
         Faucets::updateUserFaucet($data, $userId);
-    }
-
-    /**
-     * Soft-delete or permanently delete a user's faucet and referral information.
-     *
-     * @param \App\Models\User   $user
-     * @param \App\Models\Faucet $faucet
-     * @param bool               $permanentlyDelete
-     *
-     * @return bool|int
-     */
-    public function deleteUserFaucet(User $user, Faucet $faucet, bool $permanentlyDelete = false)
-    {
-        return Faucets::destroyUserFaucet($user, $faucet, $permanentlyDelete);
     }
 }

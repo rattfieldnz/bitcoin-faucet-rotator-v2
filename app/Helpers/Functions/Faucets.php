@@ -92,7 +92,7 @@ class Faucets
             $userFaucetData = self::cleanUserFaucetInput($data);
             $userId = $userFaucetData['user_id'];
             $faucetId = $userFaucetData['faucet_id'];
-            $referralCode = $userFaucetData['referral_code'];
+            $referralCode = !empty($userFaucetData['referral_code']) ? $userFaucetData['referral_code'] : null;
 
             $user = User::where('id', $userId)->first();
             $faucet = Faucet::where('id', $faucetId)->first();
@@ -124,7 +124,7 @@ class Faucets
         ) {
             $userFaucetData = self::cleanUserFaucetInput($data);
             $faucetId = $userFaucetData['faucet_id'];
-            $referralCode = $userFaucetData['referral_code'];
+            $referralCode = !empty($userFaucetData['referral_code']) ? $userFaucetData['referral_code'] : null;
 
             $user = User::where('id', $userId)->first();
             $faucet = Faucet::where('id', $faucetId)->first();
@@ -183,7 +183,8 @@ class Faucets
         $paymentProcessors = $request->get('payment_processors');
         $paymentProcessorIds = $request->get('payment_processors');
 
-        $referralCode = $request->get('referral_code');
+        $referralCodeData = $request->get('referral_code');
+        $referralCode = !empty($referralCodeData) ? $referralCodeData : null;
 
         if (count($paymentProcessorIds) == 1) {
             $paymentProcessors = PaymentProcessor::where('id', $paymentProcessorIds[0]);
@@ -411,35 +412,14 @@ class Faucets
             return null;
         }
 
-        // Check if the user already has a matching ref code.
-        $referralCode = trim(self::getUserFaucetRefCode($user, $faucet));
+        $refCode = empty($refCode) ? null : Purifier::clean($refCode, 'generalFields');
 
-        $test = DB::table('referral_info')->where(
+        DB::table('referral_info')->where(
             [
-                'faucet_id' => $faucet->id,
-                'user_id' => $user->id,
-                'referral_code' => $referralCode
+                ['faucet_id', '=', $faucet->id],
+                ['user_id', '=', $user->id]
             ]
-        )->select()->get();
-
-        // If there is no matching ref code, add record to database.
-        if (count($test) == 0 && (!empty($refCode) && strlen($refCode) > 0)) {
-            DB::table('referral_info')->insert(
-                [
-                    'faucet_id' => $faucet->id,
-                    'user_id' => $user->id,
-                    'referral_code' => Purifier::clean($refCode, 'generalFields')
-                ]
-            );
-        } else {
-            //dd($user);
-            DB::table('referral_info')->where(
-                [
-                    ['faucet_id', '=', $faucet->id],
-                    ['user_id', '=', $user->id]
-                ]
-            )->update(['referral_code' => Purifier::clean($refCode, 'generalFields')]);
-        }
+        )->update(['referral_code' => $refCode]);
     }
 
     /**

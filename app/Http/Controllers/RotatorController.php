@@ -97,7 +97,7 @@ class RotatorController extends Controller
         foreach ($faucets as $f) {
             array_push($config, parse_url($f->url)['host']);
         }
-        //dd($config);
+
         Config::set('secure-headers.csp.child-src.allow', $config);
 
         return view('payment_processors.rotator.index')
@@ -119,12 +119,14 @@ class RotatorController extends Controller
         $faucets = $user->faucets()
             ->where('faucets.is_paused', '=', false)
             ->where('faucets.has_low_balance', '=', false)
-            ->where('faucets.deleted_at', '=', null);
+            ->where('faucets.deleted_at', '=', null)
+            ->wherePivot('referral_code', '!=', null);
+
         $faucetKeywords = $faucets->pluck('faucets.name')->toArray();
         array_push($faucetKeywords, $user->user_name);
 
         $seoConfig = new SeoConfig();
-        $seoConfig->title = $user->user_name . "'s Rotator";
+        $seoConfig->title = $user->user_name . "'s Rotator (" . count($faucets->get()) . " faucets)";
         $seoConfig->description = "Claim your free bitcoins from " . $user->user_name . "'s Bitcoin Faucet Rotator. " .
                                   "There are currently " . count($faucets->get()) . " faucets in their rotator.";
         $seoConfig->keywords = $faucetKeywords;

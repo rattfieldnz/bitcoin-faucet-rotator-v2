@@ -535,85 +535,75 @@ class FaucetAPIController extends AppBaseController
         }
 
         $userFaucets = Users::getFaucets($user);
+
         $faucets = new Collection();
 
         for ($i = 0; $i < count($userFaucets); $i++) {
-            $data = [
-                'name' => [
-                    'display' => route(
-                        'users.faucets.show',
+            $referralCode = Faucets::getUserFaucetRefCode($user, $userFaucets[$i]);
+            if(
+                (Auth::check() && (Auth::user()->id == $user->id || Auth::user()->isAnAdmin())) ||
+                (!Auth::check() && !empty($referralCode))
+            ){
+                $data = [
+                    'name' => [
+                        'display' => route(
+                            'users.faucets.show',
                             ['userSlug' => $user->slug, 'faucetSlug' => $userFaucets[$i]->slug]),
-                    'original' => $userFaucets[$i]->name,
-                ],
-                'url' => $userFaucets[$i]->url . Faucets::getUserFaucetRefCode($user, $userFaucets[$i]),
-                'referral_code' => Faucets::getUserFaucetRefCode($user, $userFaucets[$i]),
-                'interval_minutes' => intval($userFaucets[$i]->interval_minutes),
-                'min_payout' => [
-                    'display' => number_format(intval($userFaucets[$i]->min_payout)),
-                    'original' => intval($userFaucets[$i]->min_payout)
-                ],
-                'max_payout' => [
-                    'display' => number_format(intval($userFaucets[$i]->max_payout)),
-                    'original' => intval($userFaucets[$i]->max_payout)
-                ],
-                'comments' => $userFaucets[$i]->comments,
-                'is_paused' => [
-                    'display' => $userFaucets[$i]->is_paused == true ? "Yes" : "No",
-                    'original' => $userFaucets[$i]->is_paused
-                ],
-                'slug' => $userFaucets[$i]->slug,
-                'has_low_balance' => $userFaucets[$i]->has_low_balance,
-            ];
-
-            $paymentProcessors = $userFaucets[$i]->paymentProcessors()->get();
-
-            if (count($paymentProcessors) != 0) {
-                $data['payment_processors'] = [];
-                foreach ($paymentProcessors as $p) {
-                    array_push(
-                        $data['payment_processors'],
-                        [
-                            'name' => $p->name,
-                            'url' => route(
-                                'users.payment-processors.faucets',
-                                    ['userSlug' => $user->slug, 'paymentProcessorSlug' => $p->slug]
-                            )
-                        ]
-                    );
-                }
-            }
-            if (Auth::check() && (Auth::user()->isAnAdmin() || Auth::user() === $user)) {
-                $data['id'] = intval($userFaucets[$i]->id);
-                $data['is_deleted'] = [
-                    'display' => empty($userFaucets[$i]->deleted_at) ? "No" : "Yes",
-                    'original' => $userFaucets[$i]->deleted_at
+                        'original' => $userFaucets[$i]->name,
+                    ],
+                    'url' => $userFaucets[$i]->url . $referralCode,
+                    'referral_code' => $referralCode,
+                    'interval_minutes' => intval($userFaucets[$i]->interval_minutes),
+                    'min_payout' => [
+                        'display' => number_format(intval($userFaucets[$i]->min_payout)),
+                        'original' => intval($userFaucets[$i]->min_payout)
+                    ],
+                    'max_payout' => [
+                        'display' => number_format(intval($userFaucets[$i]->max_payout)),
+                        'original' => intval($userFaucets[$i]->max_payout)
+                    ],
+                    'comments' => $userFaucets[$i]->comments,
+                    'is_paused' => [
+                        'display' => $userFaucets[$i]->is_paused == true ? "Yes" : "No",
+                        'original' => $userFaucets[$i]->is_paused
+                    ],
+                    'slug' => $userFaucets[$i]->slug,
+                    'has_low_balance' => $userFaucets[$i]->has_low_balance,
                 ];
 
-                $data['referral_code_form'] = Form::hidden('faucet_id[]', $userFaucets[$i]->id) .
+                $paymentProcessors = $userFaucets[$i]->paymentProcessors()->get();
+
+                if (count($paymentProcessors) != 0) {
+                    $data['payment_processors'] = [];
+                    foreach ($paymentProcessors as $p) {
+                        array_push(
+                            $data['payment_processors'],
+                            [
+                                'name' => $p->name,
+                                'url' => route(
+                                    'users.payment-processors.faucets',
+                                    ['userSlug' => $user->slug, 'paymentProcessorSlug' => $p->slug]
+                                )
+                            ]
+                        );
+                    }
+                }
+                if (Auth::check() && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)) {
+                    $data['id'] = intval($userFaucets[$i]->id);
+
+                    $data['referral_code_form'] = Form::hidden('faucet_id[]', $userFaucets[$i]->id) .
                         Form::text(
                             'referral_code[]',
                             Faucets::getUserFaucetRefCode($user, $userFaucets[$i]),
                             ['class' => 'form-control', 'placeholder' => 'ABCDEF123456']
                         );
-
-                $data['actions'] = '';
-                $data['actions'] .= Faucets::htmlEditButton($userFaucets[$i], $user);
-
-                if ($userFaucets[$i]->isDeleted()) {
-                    $data['actions'] .= Faucets::deletePermanentlyForm($userFaucets[$i], $user);
-                    $data['actions'] .= Faucets::restoreForm($userFaucets[$i], $user);
                 }
 
-                $data['actions'] .= Faucets::softDeleteForm($userFaucets[$i], $user);
+                $faucets->push($data);
             }
-
-            $faucets->push($data);
         }
 
-        $rawColumns = ['actions'];
-        !empty($data['referral_code_form']) ? array_push($rawColumns, 'referral_code_form') : null;
-
-        return Datatables::of($faucets)->rawColumns($rawColumns)->make(true);
+        return Datatables::of($faucets)->rawColumns(['referral_code_form'])->make(true);
     }
 
     public function getUserFaucet($userSlug, $faucetSlug)
@@ -654,9 +644,17 @@ class FaucetAPIController extends AppBaseController
             );
         }
 
+        $faucets = new Collection();
+
         $userFaucets = Users::getFaucets($user);
 
-        $userFaucet = (new FaucetsTransformer)->transform($user, $userFaucets->first(), true);
+        foreach($userFaucets as $f){
+            if(!empty($f->pivot->referral_code)){
+                $faucets->push($f);
+            }
+        }
+
+        $userFaucet = (new FaucetsTransformer)->transform($user, $faucets->first(), true);
 
         return $this->sendResponse($userFaucet, 'User faucet retrieved successfully');
     }
@@ -682,9 +680,17 @@ class FaucetAPIController extends AppBaseController
             );
         }
 
+        $faucets = new Collection();
+
         $userFaucets = Users::getFaucets($user);
 
-        $array = array_column($userFaucets->toArray(), 'slug');
+        foreach($userFaucets as $f){
+            if(!empty($f->pivot->referral_code)){
+                $faucets->push($f);
+            }
+        }
+
+        $array = array_column($faucets->toArray(), 'slug');
 
         foreach ($array as $key => $value) {
             if ($value == $faucetSlug) {
@@ -752,6 +758,7 @@ class FaucetAPIController extends AppBaseController
                         ->where('faucets.has_low_balance', '=', false)
                         ->where('faucets.deleted_at', '=', null)
                         ->where('faucets.slug', '=', $array[0])
+                        ->wherePivot('referral_code', '!=', null)
                         ->orderBy('faucets.interval_minutes')
                         ->first();
 
@@ -768,6 +775,7 @@ class FaucetAPIController extends AppBaseController
                     ->where('faucets.has_low_balance', '=', false)
                     ->where('faucets.deleted_at', '=', null)
                     ->where('faucets.slug', '=', $array[$key + 1])
+                    ->wherePivot('referral_code', '!=', null)
                     ->orderBy('faucets.interval_minutes')
                     ->first();
 
@@ -792,9 +800,15 @@ class FaucetAPIController extends AppBaseController
             );
         }
 
-        $userFaucets = Users::getFaucets($user);
+        $faucets = new Collection();
 
-        $userFaucet = (new FaucetsTransformer)->transform($user, $userFaucets[count($userFaucets) - 1], true);
+        foreach(Users::getFaucets($user) as $f){
+            if(!empty($f->pivot->referral_code)){
+                $faucets->push($f);
+            }
+        }
+
+        $userFaucet = (new FaucetsTransformer)->transform($user, $faucets[count($faucets) - 1], true);
 
         return $this->sendResponse($userFaucet, 'User faucet retrieved successfully');
     }
@@ -810,11 +824,17 @@ class FaucetAPIController extends AppBaseController
             );
         }
 
-        $userFaucets = Users::getFaucets($user);
+        $faucets = new Collection();
 
-        $randomIndex = rand(0, count($userFaucets) - 1);
+        foreach(Users::getFaucets($user) as $f){
+            if(!empty($f->pivot->referral_code)){
+                $faucets->push($f);
+            }
+        }
 
-        $userFaucet = (new FaucetsTransformer)->transform($user, $userFaucets[$randomIndex], false);
+        $randomIndex = rand(0, count($faucets) - 1);
+
+        $userFaucet = (new FaucetsTransformer)->transform($user, $faucets[$randomIndex], false);
 
         return $this->sendResponse($userFaucet, 'User faucet retrieved successfully');
     }

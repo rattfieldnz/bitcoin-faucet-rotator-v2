@@ -16,6 +16,8 @@ class LaratrustSeeder extends Seeder
     public function run()
     {
         $user = User::where('is_admin', '=', true)->first();
+        $standardUser = User::where('slug', '=', 'bobisbob')->first();
+
         $this->command->info('Truncating Role and Permission tables');
         try {
             $this->truncateLaratrustTables();
@@ -60,10 +62,12 @@ class LaratrustSeeder extends Seeder
                     }
                 }
             }
+
         }
 
         $this->command->info('Attaching \'owner\' role to user that has \'is_admin\' set to true.');
         $user->attachRole(Role::where('name', '=', 'owner')->first());
+        $standardUser->attachRole(Role::where('name', '=', 'user')->first());
 
         // creating user with permissions
         try {
@@ -92,6 +96,23 @@ class LaratrustSeeder extends Seeder
                     }
                 }
             }
+
+            $initialPermissions = [
+                Permission::where('name', 'read-users')->first(),
+                Permission::where('name', 'read-faucets')->first(),
+                Permission::where('name', 'create-user-faucets')->first(),
+                Permission::where('name', 'read-user-faucets')->first(),
+                Permission::where('name', 'update-user-faucets')->first(),
+                Permission::where('name', 'soft-delete-user-faucets')->first(),
+                Permission::where('name', 'permanent-delete-user-faucets')->first(),
+                Permission::where('name', 'restore-user-faucets')->first(),
+                Permission::where('name', 'read-payment-processors')->first(),
+            ];
+
+            foreach ($initialPermissions as $permission) {
+                $standardUser->attachPermission($permission);
+            }
+
         } catch (Illuminate\Database\QueryException $e) {
         }
     }

@@ -16,14 +16,6 @@
         <th>Min. Payout</th>
         <th>Max. Payout</th>
         <th>Payment Processors</th>
-        @if(Auth::user() != null)
-            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                @if(Route::currentRouteName() != 'users.faucets.create')
-                    <th>Deleted?</th>
-                @endif
-                <th>Action</th>
-            @endif
-        @endif
         </thead>
         <tbody>
         @if(Auth::user() != null && (Auth::user()->isAnAdmin() || Auth::user() == $user))
@@ -62,83 +54,6 @@
                         @endforeach
                     </ul>
                 </td>
-                @if(Auth::user() != null)
-                    @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                        @if(Route::getCurrentRoute() != 'users.faucets.create' || Route::getCurrentRoute() == 'users.faucets')
-                            @if(!empty($faucet) && $faucet->pivot != null)
-                                <td>{!! $faucet->pivot->deleted_at != null ? "Yes" : "No" !!}</td>
-                                <td>
-                                    @if($faucet->pivot->deleted_at != null)
-                                        @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                                            @if(
-                                                Auth::user()->hasPermission('permanent-delete-faucets') ||
-                                                $user->hasPermission('permanent-delete-user-faucets')
-                                            )
-                                                {!! link_to_route(
-                                                    'users.faucets.delete-permanently',
-                                                    '',
-                                                    [
-                                                        'userSlug' => $user->slug,
-                                                        'faucetSlug' => $faucet->slug,
-                                                        'payment-processor' => $paymentProcessor->slug
-                                                    ],
-                                                    [
-                                                        'class' => 'btn btn-danger btn-xs glyphicon glyphicon-trash',
-                                                        'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"
-                                                    ]
-                                                    )
-                                                !!}
-                                            @endif
-                                        @endif
-                                        @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                                            @if(
-                                                Auth::user()->hasPermission('restore-faucets') ||
-                                                Auth::user()->hasPermission('restore-user-faucets')
-                                            )
-                                                {!! link_to_route(
-                                                    'users.faucets.restore',
-                                                    '',
-                                                    [
-                                                        'userSlug' => $user->slug,
-                                                        'faucetSlug' => $faucet->slug,
-                                                        'payment-processor' => $paymentProcessor->slug
-                                                    ],
-                                                    [
-                                                        'class' => 'btn btn-info btn-xs glyphicon glyphicon-refresh',
-                                                        'onclick' => "return confirm('Are you sure you want to restore this deleted faucet?')"
-                                                    ]
-                                                    )
-                                                !!}
-                                            @endif
-                                        @endif
-                                    @else
-                                        @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                                            @if(
-                                                Auth::user()->hasPermission('soft-delete-faucets') ||
-                                                Auth::user()->hasPermission('soft-delete-user-faucets')
-                                            )
-                                                {!! link_to_route(
-                                                    'users.faucets.destroy',
-                                                    '',
-                                                    [
-                                                        'userSlug' => $user->slug,
-                                                        'faucetSlug' => $faucet->slug,
-                                                        'payment-processor' => $paymentProcessor->slug
-                                                    ],
-                                                    [
-                                                        'class' => 'btn btn-warning btn-xs glyphicon glyphicon-trash',
-                                                        'onclick' => "return confirm('Are you sure you want to archive/delete this faucet?')"
-                                                    ]
-                                                    )
-                                                !!}
-                                            @endif
-                                        @endif
-                                    @endif
-                                </td>
-                            @endif
-                        @endif
-                    @endif
-                @endif
             </tr>
         @endforeach
         @if(Auth::user() != null && (Auth::user()->isAnAdmin() || Auth::user() == $user))
@@ -151,15 +66,6 @@
                 ])
             !!}
             {!! Form::close() !!}
-            {!! Form::button(
-                '<i class="fa fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Add New Faucet',
-                [
-                    'type' => 'button',
-                    'onClick' => "location.href='" . route('users.faucets.create', $user->slug) . "'",
-                    'class' => 'btn btn-success col-lg-2 col-md-2 col-sm-3 col-xs-12',
-                    'style' => 'margin:0.25em 0 0.25em 0; color: white; min-width:12em;'
-                ])
-            !!}
             {!! Form::button(
                 '<i class="fa fa-link" style="vertical-align: middle; margin-right:0.25em;"></i>View ' . $paymentProcessor->name . ' Rotator',
                 [

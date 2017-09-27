@@ -1,9 +1,17 @@
 <p><strong>*</strong> Payout amounts are in Satoshis</p>
 
+
+@if(Auth::check() && (Auth::user()->id == $user->id || Auth::user()->isAnAdmin()))
+    <div class="alert alert-info">
+        <p>
+            <i class="fa fa-info-circle" aria-hidden="true" style="font-size: 2em; margin-right: 0.5em;"></i>
+            Faucets without referral codes will not be shown to visitors - in the faucet list and rotator.
+        </p>
+    </div>
+@endif
+
 <div id="faucetsTable-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 <div></div>
-
-
 
 @if(Auth::user() != null && (Auth::user()->isAnAdmin() || Auth::user() == $user))
     {!! Form::open(['route' => ['users.faucets.update-multiple', $user->slug], 'method' => 'POST', 'class' => 'form-inline']) !!}
@@ -14,25 +22,14 @@
 <div class="chart">
     <div id="user-faucets-buttons" class="row">
         @if(Auth::user() != null && (Auth::user()->isAnAdmin() || (Auth::user() == $user && $user->hasPermission('create-user-faucets'))))
-            @if(Route::currentRouteName() != 'users.faucets.create')
-                {!! Form::button(
-                    '<i class="fa fa-floppy-o" style="vertical-align: middle; margin-right:0.25em;"> </i> Save Referral Codes',
-                    [
-                        'type' => 'submit',
-                        'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
-                        'style' => 'margin:0.25em 0.25em 0 0; min-width:12em;'
-                    ])
-                !!}
-                {!! Form::button(
-                    '<i class="fa fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Add New Faucet',
-                    [
-                        'type' => 'button',
-                        'onClick' => "location.href='" . route('users.faucets.create', ['slug' => $user->slug]) . "'",
-                        'class' => 'btn btn-primary btn-success col-lg-2 col-md-2 col-sm-3 col-xs-12',
-                        'style' => 'margin:0.25em 0.25em 0.25em 0; color: white; min-width:12em;'
-                    ])
-                !!}
-            @endif
+            {!! Form::button(
+                '<i class="fa fa-floppy-o" style="vertical-align: middle; margin-right:0.25em;"> </i> Save Referral Codes',
+                [
+                    'type' => 'submit',
+                    'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                    'style' => 'margin:0.25em 0.25em 0 0; min-width:12em;'
+                ])
+            !!}
         @endif
         @if(Route::currentRouteName() != 'users.faucets')
             {!! Form::button(
@@ -59,55 +56,11 @@
            class="row-border hover order-column table-hover table-responsive {{ !Auth::check() ? 'faucetsTable_guest' : '' }}"
            cellspacing="0" width="100%">
         <thead>
-        @if(Auth::user() != null)
-            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                <th>Id</th>
-            @endif
-        @endif
-        <th>Name</th>
-        @if(Auth::user() != null)
-            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                <th>Referral Code</th>
-            @endif
-        @endif
-        <th>Interval Minutes</th>
-        <th>Min. Payout*</th>
-        <th>Max. Payout*</th>
-        <th>Payment Processors</th>
-        @if(Auth::user() != null)
-            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                @if(Route::currentRouteName() != 'users.faucets.create')
-                    <th>Deleted?</th>
-                    <th>Action</th>
-                @endif
-            @endif
-        @endif
+        @include('users.faucets.partials._thead_and_tfoot')
         </thead>
         <tbody></tbody>
         <tfoot>
-        @if(Auth::user() != null)
-            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                <th>Id</th>
-            @endif
-        @endif
-        <th>Name</th>
-        @if(Auth::user() != null)
-            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                <th>Referral Code</th>
-            @endif
-        @endif
-        <th>Interval Minutes</th>
-        <th>Min. Payout*</th>
-        <th>Max. Payout*</th>
-        <th>Payment Processors</th>
-        @if(Auth::user() != null)
-            @if(Auth::user()->isAnAdmin() || Auth::user() == $user)
-                @if(Route::currentRouteName() != 'users.faucets.create')
-                    <th>Deleted?</th>
-                    <th>Action</th>
-                @endif
-            @endif
-        @endif
+        @include('users.faucets.partials._thead_and_tfoot')
         </tfoot>
     </table>
 </div>
@@ -120,6 +73,30 @@
 <script src="/assets/js/faucet-scripts/faucetDatatables.js?{{ rand() }}"></script>
 <script>
     $(function () {
+
+        $.ajaxSetup({
+            timeout: 3600000,
+
+            // force ajax call on all browsers
+            cache: false,
+
+            // Enables cross domain requests
+            crossDomain: true,
+
+            // Helps in setting cookie
+            xhrFields: {
+                withCredentials: true
+            },
+
+            beforeSend: function (xhr, type) {
+                // Set the CSRF Token in the header for security
+                //if (type.type !== "GET") {
+                var token = Cookies.get("XSRF-TOKEN");
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.setRequestHeader('X-XSRF-Token', token);
+                //}
+            }
+        });
         $.fn.dataTable.ext.errMode = 'none';
 
         //--------------------------------

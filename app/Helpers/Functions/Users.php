@@ -81,6 +81,12 @@ class Users
             $newUser->attachPermission($permission);
         }
 
+        $faucets = Faucet::all();
+
+        foreach($faucets as $f){
+            $f->users()->attach($user->id, ['faucet_id' => $f->id, 'referral_code' => null]);
+        }
+
         if (!empty(Auth::user()) && Auth::user()->isAnAdmin()) {
             $logMessage = "The user ':subject.user_name' was added by :causer.user_name";
             $causedBy = Auth::user();
@@ -350,13 +356,18 @@ class Users
      */
     public static function getFaucets(User $user): Collection
     {
-        $deletedAtOperator = Auth::check() && ($user->isAnAdmin() || $user === Auth::user()) ? '!=' : '=';
-        return $user->faucets()
+        $faucets = $user->faucets()
             ->where('faucets.is_paused', '=', false)
             ->where('faucets.has_low_balance', '=', false)
-            ->where('faucets.deleted_at', $deletedAtOperator, null)
-            ->orderBy('faucets.interval_minutes')
-            ->get();
+            ->where('faucets.deleted_at', '=', null);
+
+        if(Auth::check() && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)){
+            return $faucets->orderBy('faucets.interval_minutes')->get();
+        } else {
+            return $faucets->wherePivot('referral_code', '!=', null)
+                ->orderBy('faucets.interval_minutes')
+                ->get();
+        }
     }
 
     /**
@@ -367,13 +378,20 @@ class Users
      */
     public static function getFaucet(User $user, $faucetSlug): Faucet
     {
+        $deletedAtOperator = Auth::check() && ($user->isAnAdmin() || $user === Auth::user()) ? '!=' : '=';
 
-        return $user->faucets()
+        $faucet = $user->faucets()
             ->where('faucets.is_paused', '=', false)
             ->where('faucets.has_low_balance', '=', false)
-            ->where('faucets.deleted_at', '=', null)
-            ->where('slug', '=', $faucetSlug)
-            ->orderBy('faucets.interval_minutes')
-            ->first();
+            ->where('faucets.deleted_at', $deletedAtOperator, null)
+            ->where('slug', '=', $faucetSlug);
+
+        if(Auth::check() && (Auth::user()->isAnAdmin() || $user === Auth::user())){
+            return $faucet->first();
+        } else {
+            return $faucet
+                ->wherePivot('referral_code', '!=', null)
+                ->first();
+        }
     }
 }

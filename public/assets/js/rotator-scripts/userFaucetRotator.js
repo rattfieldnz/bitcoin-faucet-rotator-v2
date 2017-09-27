@@ -85,7 +85,7 @@ $(function () {
 
         $.ajax(apiUrl, {
             success: function (data) {
-                console.log(data);
+
                 iframe.attr('src', '');
 
                 noIframeContent.hide();

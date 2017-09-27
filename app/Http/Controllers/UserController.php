@@ -50,10 +50,10 @@ class UserController extends AppBaseController
     {
         $this->userRepository->pushCriteria(new RequestCriteria($request));
         $users = null;
-        if (Auth::guest() || Auth::user()->hasRole('user')) {
-            $users = $this->userRepository->all();
-        } elseif (Auth::user()->isAnAdmin()) {
+        if (Auth::user()->isAnAdmin()) {
             $users = $this->userRepository->withTrashed()->get();
+        } else {
+            $users = $this->userRepository->all();
         }
 
 
@@ -206,10 +206,11 @@ class UserController extends AppBaseController
 
             return redirect(route('users.index'));
         }
-        if ($user == Auth::user() || Auth::user()->isAnAdmin()) {
+
+        if ($user->id == Auth::user()->id || Auth::user()->isAnAdmin()) {
             $this->userFunctions->updateUser($user->slug, $request);
 
-            if ($user == Auth::user()) {
+            if ($user->id == Auth::user()->id) {
                 flash('You have successfully updated your profile!')->success();
             } elseif (Auth::user()->isAnAdmin()) {
                 flash('The user profile for \''. $user->user_name . '\' was successfully updated!')->success();
