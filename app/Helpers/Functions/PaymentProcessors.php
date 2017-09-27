@@ -93,7 +93,7 @@ class PaymentProcessors
             ->get()
             ->whereIn('id', $userFaucets->select('id')->pluck('id')->toArray());
 
-        if(Auth::check() && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)){
+        if (Auth::check() && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)) {
             $paymentProcessorFaucets = $paymentProcessor
                 ->faucets()
                 ->wherePivot('referral_code', '!=', null)

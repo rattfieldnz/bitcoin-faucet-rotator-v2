@@ -83,7 +83,7 @@ class Users
 
         $faucets = Faucet::all();
 
-        foreach($faucets as $f){
+        foreach ($faucets as $f) {
             $f->users()->attach($user->id, ['faucet_id' => $f->id, 'referral_code' => null]);
         }
 
@@ -361,7 +361,7 @@ class Users
             ->where('faucets.has_low_balance', '=', false)
             ->where('faucets.deleted_at', '=', null);
 
-        if(Auth::check() && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)){
+        if (Auth::check() && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)) {
             return $faucets->orderBy('faucets.interval_minutes')->get();
         } else {
             return $faucets->wherePivot('referral_code', '!=', null)
@@ -386,7 +386,7 @@ class Users
             ->where('faucets.deleted_at', $deletedAtOperator, null)
             ->where('slug', '=', $faucetSlug);
 
-        if(Auth::check() && (Auth::user()->isAnAdmin() || $user === Auth::user())){
+        if (Auth::check() && (Auth::user()->isAnAdmin() || $user === Auth::user())) {
             return $faucet->first();
         } else {
             return $faucet

@@ -540,10 +540,9 @@ class FaucetAPIController extends AppBaseController
 
         for ($i = 0; $i < count($userFaucets); $i++) {
             $referralCode = Faucets::getUserFaucetRefCode($user, $userFaucets[$i]);
-            if(
-                (Auth::check() && (Auth::user()->id == $user->id || Auth::user()->isAnAdmin())) ||
+            if ((Auth::check() && (Auth::user()->id == $user->id || Auth::user()->isAnAdmin())) ||
                 (!Auth::check() && !empty($referralCode))
-            ){
+            ) {
                 $data = [
                     'name' => [
                         'display' => route(
@@ -648,8 +647,8 @@ class FaucetAPIController extends AppBaseController
 
         $userFaucets = Users::getFaucets($user);
 
-        foreach($userFaucets as $f){
-            if(!empty($f->pivot->referral_code)){
+        foreach ($userFaucets as $f) {
+            if (!empty($f->pivot->referral_code)) {
                 $faucets->push($f);
             }
         }
@@ -684,8 +683,8 @@ class FaucetAPIController extends AppBaseController
 
         $userFaucets = Users::getFaucets($user);
 
-        foreach($userFaucets as $f){
-            if(!empty($f->pivot->referral_code)){
+        foreach ($userFaucets as $f) {
+            if (!empty($f->pivot->referral_code)) {
                 $faucets->push($f);
             }
         }
@@ -802,8 +801,8 @@ class FaucetAPIController extends AppBaseController
 
         $faucets = new Collection();
 
-        foreach(Users::getFaucets($user) as $f){
-            if(!empty($f->pivot->referral_code)){
+        foreach (Users::getFaucets($user) as $f) {
+            if (!empty($f->pivot->referral_code)) {
                 $faucets->push($f);
             }
         }
@@ -826,8 +825,8 @@ class FaucetAPIController extends AppBaseController
 
         $faucets = new Collection();
 
-        foreach(Users::getFaucets($user) as $f){
-            if(!empty($f->pivot->referral_code)){
+        foreach (Users::getFaucets($user) as $f) {
+            if (!empty($f->pivot->referral_code)) {
                 $faucets->push($f);
             }
         }

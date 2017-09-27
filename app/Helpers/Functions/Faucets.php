@@ -611,7 +611,6 @@ class Faucets
             ['users.faucets.restore', $user->slug, $faucet->slug];
 
         if ($user->isAnAdmin() && $faucet->isDeleted() || !empty($faucet->pivot->deleted_at && !$user->isAnAdmin())) {
-
             $form = Form::open(['route' => $route, 'method' => 'patch', 'style' => 'display: inline-block;']);
 
             $form .= Form::button(
@@ -648,8 +647,7 @@ class Faucets
         $route = $user->isAnAdmin() ? ['faucets.destroy', $faucet->slug] :
             ['users.faucets.destroy', $user->slug, $faucet->slug];
 
-        if(!empty($route)){
-
+        if (!empty($route)) {
             $form = Form::open(['route' => $route, 'method' => 'delete', 'style' => 'display: inline-block;']);
             $form .= Form::button(
                 '<i class="glyphicon glyphicon-trash"></i>',

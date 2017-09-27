@@ -62,7 +62,6 @@ class LaratrustSeeder extends Seeder
                     }
                 }
             }
-
         }
 
         $this->command->info('Attaching \'owner\' role to user that has \'is_admin\' set to true.');
@@ -112,7 +111,6 @@ class LaratrustSeeder extends Seeder
             foreach ($initialPermissions as $permission) {
                 $standardUser->attachPermission($permission);
             }
-
         } catch (Illuminate\Database\QueryException $e) {
         }
     }
