@@ -1,7 +1,5 @@
 <?php
 
-use GrahamCampbell\HTMLMin\Facades\HTMLMin;
-
 return [
 
     /*
@@ -176,6 +174,7 @@ return [
         Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
         Jaybizzle\MigrationsOrganiser\MigrationsOrganiserServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -245,6 +244,7 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
         'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];
