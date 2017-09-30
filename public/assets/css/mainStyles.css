@@ -40345,16 +40345,24 @@ and (max-device-width : 480px) {
   margin-left: 0;
 }
 
-table.faucetsTable_guest {
+table.faucetsTable_guest,
+table.paymentProcessorsTable_guest {
   width: 102.8em !important;
   max-width: none;
 }
 
 table#faucetsTable,
-table#faucetsTable_wrapper {
+table#faucetsTable_wrapper,
+table#paymentProcessorsTable,
+table#paymentProcessorsTable_wrapper {
   width: 88.5em;
   min-width: 45em;
   max-width: none;
+}
+
+table.dataTable tbody tr {
+  min-height: 3em;
+  line-height: 2em;
 }
 
 table.dataTable tbody tr td:first-child,

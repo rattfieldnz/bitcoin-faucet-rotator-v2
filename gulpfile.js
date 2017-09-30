@@ -203,6 +203,9 @@ elixir(function(mix) {
     gulp.src("resources/assets/js/custom/faucetDatatables.js")
         .pipe(gulp.dest("public/assets/js/faucet-scripts/"));
 
+    gulp.src("resources/assets/js/custom/paymentProcessorDatatables.js")
+        .pipe(gulp.dest("public/assets/js/payment-processor-scripts/"));
+
     gulp.src([
         'resources/assets/css/datatables.net/dataTables.bootstrap.css'
     ])
@@ -270,6 +273,7 @@ gulp.task('minifyjs', function(){
     compressUserFaucetRotator();
     compressUserPaymentProcessorRotator();
     compressFaucetDatatablesScript();
+    compressPaymentProcessorsDatatableScript();
 });
 
 function compressMainJS(){
@@ -340,4 +344,11 @@ function compressFaucetDatatablesScript(){
         .pipe(uglify())
         .pipe(rename('faucetDatatables.min.js'))
         .pipe(gulp.dest('public/assets/js/faucet-scripts/'));
+}
+
+function compressPaymentProcessorsDatatableScript(){
+    return gulp.src('public/assets/js/payment-processor-scripts/paymentProcessorDatatables.js')
+        .pipe(uglify())
+        .pipe(rename('paymentProcessorDatatables.min.js'))
+        .pipe(gulp.dest('public/assets/js/payment-processor-scripts/'));
 }

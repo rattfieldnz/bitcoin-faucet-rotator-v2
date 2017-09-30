@@ -10,6 +10,7 @@ use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\TwitterCard;
 use Illuminate\Support\Facades\Auth;
+use Form;
 
 /**
  * Class PaymentProcessors
@@ -170,5 +171,130 @@ class PaymentProcessors
 
             return $faucets->where('faucets.id', '=', $faucetId)->first();
         }
+    }
+
+
+    /**
+     * @param \App\Models\PaymentProcessor $paymentProcessor
+     *
+     * @return null|string
+     *
+     */
+    public static function htmlEditButton(PaymentProcessor $paymentProcessor)
+    {
+        if (empty($paymentProcessor)) {
+            return null;
+        }
+
+        $route = route('payment-processors.edit', ['slug' => $paymentProcessor->slug]);
+
+        if (Auth::check() && Auth::user()->isAnAdmin()) {
+            return Form::button(
+                '<i class="glyphicon glyphicon-edit"></i>',
+                [
+                    'type' => 'button',
+                    'class' => 'btn btn-default btn-xs',
+                    'style' => 'display: inline-block;',
+                    'onClick' => "location.href='$route'"
+                ]
+            );
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @param \App\Models\PaymentProcessor $paymentProcessor
+     *
+     * @return null|string
+     *
+     */
+    public static function deletePermanentlyForm(PaymentProcessor $paymentProcessor)
+    {
+        if (empty($paymentProcessor)) {
+            return null;
+        }
+
+        if ($paymentProcessor->isDeleted() && (Auth::check() && Auth::user()->isAnAdmin())) {
+            $route = ['payment-processors.delete-permanently', $paymentProcessor->slug];
+
+            $form = Form::open(['route' => $route, 'method' => 'delete', 'style' => 'display: inline-block;']);
+            $form .= Form::button(
+                '<i class="glyphicon glyphicon-trash"></i>',
+                [
+                    'type' => 'submit',
+                    'class' => 'btn btn-danger btn-xs',
+                    'onclick' => "return confirm('Are you sure? The payment processor will be PERMANENTLY deleted!')"
+                ]
+            );
+            $form .= Form::close();
+
+            return $form;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @param \App\Models\PaymentProcessor $paymentProcessor
+     *
+     * @return \Illuminate\Support\HtmlString|null|string
+     */
+    public static function restoreForm(PaymentProcessor $paymentProcessor)
+    {
+        if (empty($paymentProcessor)) {
+            return null;
+        }
+
+        $route = ['payment-processors.restore', $paymentProcessor->slug];
+
+        if ($paymentProcessor->isDeleted() && (Auth::check() && Auth::user()->isAnAdmin())) {
+            $form = Form::open(['route' => $route, 'method' => 'patch', 'style' => 'display: inline-block;']);
+
+            $form .= Form::button(
+                '<i class="glyphicon glyphicon-refresh"></i>',
+                [
+                    'type' => 'submit',
+                    'class' => 'btn btn-info btn-xs',
+                    'onclick' => "return confirm('Are you sure you want to restore this deleted payment processor?')"
+                ]
+            );
+            $form .= Form::close();
+
+            return $form;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @param \App\Models\PaymentProcessor $paymentProcessor
+     *
+     * @return \Illuminate\Support\HtmlString|null|string
+     */
+    public static function softDeleteForm(PaymentProcessor $paymentProcessor)
+    {
+        if (empty($paymentProcessor)) {
+            return null;
+        }
+
+        $form = null;
+
+        $route = ['payment-processors.destroy', $paymentProcessor->slug];
+
+        if (!empty($route) && (Auth::check() && Auth::user()->isAnAdmin())) {
+            $form = Form::open(['route' => $route, 'method' => 'delete', 'style' => 'display: inline-block;']);
+            $form .= Form::button(
+                '<i class="glyphicon glyphicon-trash"></i>',
+                [
+                    'type' => 'submit',
+                    'class' => 'btn btn-warning btn-xs',
+                    'onclick' => "return confirm('Are you sure?')"
+                ]
+            );
+            $form .= Form::close();
+        }
+
+        return $form;
     }
 }

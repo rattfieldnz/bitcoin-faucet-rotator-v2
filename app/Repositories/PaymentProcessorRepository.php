@@ -72,6 +72,29 @@ class PaymentProcessorRepository extends Repository implements IRepository
     }
 
     /**
+     * Find data by multiple fields
+     *
+     * @param array $where
+     * @param array $columns
+     *
+     * @param bool  $deleted
+     *
+     * @return mixed
+     */
+    public function findItemsWhere(array $where, $columns = ['*'], bool $deleted = false)
+    {
+        $this->applyCriteria();
+        $this->applyScope();
+
+        $this->applyConditions($where);
+
+        $model = $deleted == true ? $this->model->withTrashed()->get($columns) : $this->model->get($columns);
+        $this->resetModel();
+
+        return $this->parserResult($model);
+    }
+
+    /**
      * Santize payment processor data.
      *
      * @param array $data

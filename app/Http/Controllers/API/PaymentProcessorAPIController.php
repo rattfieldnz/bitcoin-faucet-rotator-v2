@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\Functions\PaymentProcessors;
 use App\Repositories\PaymentProcessorRepository;
 use App\Transformers\PaymentProcessorsTransformer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Yajra\DataTables\Facades\DataTables;
 
 /**
  * Class PaymentProcessorController
@@ -42,13 +46,55 @@ class PaymentProcessorAPIController extends AppBaseController
         $this->paymentProcessorRepository->pushCriteria(new RequestCriteria($request));
         $this->paymentProcessorRepository->pushCriteria(new LimitOffsetCriteria($request));
 
-        $paymentProcessors = $this->paymentProcessorRepository->all();
+        $paymentProcessors = $this->paymentProcessorRepository->findItemsWhere([], ['*'], false);
+        $formattedData = new Collection();
 
-        for ($i = 0; $i < count($paymentProcessors); $i++) {
-            $paymentProcessors[$i] = (new PaymentProcessorsTransformer)->transform($paymentProcessors[$i], true);
+        for($i = 0; $i < count($paymentProcessors); $i++){
+            $paymentProcessorFaucets = $paymentProcessors[$i]->faucets()->where('deleted_at', '=', null);
+            $data = [
+                'name' => [
+                    'display' => route('payment-processors.show', ['slug' => $paymentProcessors[$i]->slug]),
+                    'original' => $paymentProcessors[$i]->name,
+                ],
+                'faucets' => [
+                    'display' => route('payment-processors.faucets', ['slug' => $paymentProcessors[$i]->slug]),
+                    'original' => $paymentProcessors[$i]->name . ' Faucets'
+                ],
+                'rotator' => [
+                    'display' => route('payment-processors.rotator', ['slug' => $paymentProcessors[$i]->slug]),
+                    'original' => $paymentProcessors[$i]->name . ' Rotator'
+                ],
+                'no_of_faucets' => count($paymentProcessorFaucets->get()),
+                'min_claimable' => [
+                    'display' => $paymentProcessorFaucets->sum('min_payout') .
+                        ' Satoshis / ' . $paymentProcessorFaucets->sum('interval_minutes') . ' minutes',
+                    'original' => intval($paymentProcessorFaucets->sum('min_payout'))
+                ],
+                'max_claimable' => [
+                    'display' => $paymentProcessorFaucets->sum('max_payout') .
+                        ' Satoshis / ' . $paymentProcessorFaucets->sum('interval_minutes') . ' minutes',
+                    'original' => intval($paymentProcessorFaucets->sum('max_payout'))
+                ]
+            ];
+
+            if (Auth::check() && Auth::user()->isAnAdmin()) {
+                $data['id'] = intval($paymentProcessors[$i]->id);
+                $data['actions'] = '';
+                $data['actions'] .= PaymentProcessors::htmlEditButton($paymentProcessors[$i]);
+
+
+                if ($paymentProcessors[$i]->isDeleted()) {
+                    $data['actions'] .= PaymentProcessors::deletePermanentlyForm($paymentProcessors[$i]);
+                    $data['actions'] .= PaymentProcessors::restoreForm($paymentProcessors[$i]);
+                }
+
+                $data['actions'] .= PaymentProcessors::softDeleteForm($paymentProcessors[$i]);
+            }
+            $formattedData->push($data);
         }
 
-        return $this->sendResponse($paymentProcessors, 'Payment Processors retrieved successfully');
+
+        return Datatables::of($formattedData)->rawColumns(['actions'])->make(true);
     }
 
     /**
