@@ -50,7 +50,7 @@ class UserController extends AppBaseController
     {
         $this->userRepository->pushCriteria(new RequestCriteria($request));
         $users = null;
-        if (Auth::user()->isAnAdmin()) {
+        if (Auth::check() && Auth::user()->isAnAdmin()) {
             $users = $this->userRepository->withTrashed()->get();
         } else {
             $users = $this->userRepository->all();
