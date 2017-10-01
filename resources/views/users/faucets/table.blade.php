@@ -107,7 +107,7 @@
         var route = laroute.route('user.faucets', {userSlug: userSlug});
         var faucetsData = getFaucetsDataAjax(route);
         var faucetsTableProgressBar = generateProgressBar("#faucetsTable-progressbar",dataTablesName);
-        renderPaymentProcessorsDataTable(faucetsData, '#faucetsTable', faucetsTableProgressBar);
+        renderFaucetsDataTable(faucetsData, '#faucetsTable', faucetsTableProgressBar);
 
         $("#tabs").tabs( {
             "activate": function(event, ui) {
