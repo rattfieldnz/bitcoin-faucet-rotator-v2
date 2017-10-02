@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
-            <h1>
+            <h1 id="title" data-user-slug="{{ $user->slug }}" data-payment-processor-slug="{{ $paymentProcessor->slug }}">
                {{ $user->user_name }}'s {!! link_to_route('payment-processors.show', $paymentProcessor->name, $paymentProcessor->slug, ["target" => "_blank"]) !!} Faucets
             </h1>
         </div>
