@@ -53,7 +53,7 @@
         !!}
     </div>
     <table id="faucetsTable"
-           class="row-border hover order-column table-hover table-responsive {{ !Auth::check() ? 'faucetsTable_guest' : '' }}"
+           class="row-border hover order-column table-hover table-responsive {{ !Auth::check() ? 'faucetsTable_guest' : 'faucetsTable_auth' }}"
            cellspacing="0" width="100%">
         <thead>
         @include('users.faucets.partials._thead_and_tfoot')

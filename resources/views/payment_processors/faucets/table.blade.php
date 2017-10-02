@@ -6,7 +6,7 @@
 <div class="chart">
 
     <table id="faucetsTable"
-           class="row-border hover order-column {{ !Auth::check() ? 'faucetsTable_guest' : '' }}"
+           class="row-border hover order-column {{ !Auth::check() ? 'faucetsTable_guest' : 'faucetsTable_auth' }}"
            cellspacing="0"
            width="100%">
         <thead>
