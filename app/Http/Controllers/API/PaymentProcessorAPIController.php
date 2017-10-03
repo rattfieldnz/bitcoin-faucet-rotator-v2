@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Helpers\Functions\PaymentProcessors;
+use App\Helpers\Functions\Users;
+use App\Models\User;
 use App\Repositories\PaymentProcessorRepository;
 use App\Transformers\PaymentProcessorsTransformer;
 use Illuminate\Http\Request;
@@ -37,15 +39,12 @@ class PaymentProcessorAPIController extends AppBaseController
     /**
      * Return JSON with payment processors and associated faucets.
      *
-     * @param \Illuminate\Http\Request $request
-     *
      * @return \Illuminate\Http\JsonResponse
+     * @internal param \Illuminate\Http\Request $request
+     *
      */
-    public function index(Request $request)
+    public function index()
     {
-        $this->paymentProcessorRepository->pushCriteria(new RequestCriteria($request));
-        $this->paymentProcessorRepository->pushCriteria(new LimitOffsetCriteria($request));
-
         $paymentProcessors = $this->paymentProcessorRepository->findItemsWhere([], ['*'], false);
         $formattedData = new Collection();
 
@@ -93,6 +92,89 @@ class PaymentProcessorAPIController extends AppBaseController
             $formattedData->push($data);
         }
 
+        return Datatables::of($formattedData)->rawColumns(['actions'])->make(true);
+    }
+
+    /**
+     * @param $userSlug
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function userPaymentProcessors($userSlug)
+    {
+        $user = User::where('slug', '=', $userSlug)->first();
+
+        if (empty($user)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
+                "User not found."
+            );
+        }
+
+        if($user->isAnAdmin()){
+            return $this->index();
+        }
+
+        $paymentProcessors = $this->paymentProcessorRepository->findItemsWhere([], ['*'], false);
+        $formattedData = new Collection();
+
+        for($i = 0; $i < count($paymentProcessors); $i++){
+            $paymentProcessorFaucets = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessors[$i]);
+            $faucetsRoute = route(
+                'users.payment-processors.faucets',
+                [
+                    'userSlug' => $user->slug,
+                    'paymentProcessorSlug' => $paymentProcessors[$i]->slug
+                ]
+            );
+
+            $data = [
+                'name' => [
+                    'display' => $faucetsRoute,
+                    'original' => $paymentProcessors[$i]->name
+                ],
+                'faucets' => [
+                    'display' => $faucetsRoute,
+                    'original' => $paymentProcessors[$i]->name . ' Faucets'
+                ],
+                'rotator' => [
+                    'display' => route(
+                        'users.payment-processors.rotator',
+                        [
+                            'userSlug' => $user->slug,
+                            'paymentProcessorSlug' => $paymentProcessors[$i]->slug
+                        ]
+                    ),
+                    'original' => $paymentProcessors[$i]->name . ' Rotator'
+                ],
+                'no_of_faucets' => count($paymentProcessorFaucets->all()),
+                'min_claimable' => [
+                    'display' => $paymentProcessorFaucets->sum('min_payout') .
+                        ' Satoshis / ' . $paymentProcessorFaucets->sum('interval_minutes') . ' minutes',
+                    'original' => intval($paymentProcessorFaucets->sum('min_payout'))
+                ],
+                'max_claimable' => [
+                    'display' => $paymentProcessorFaucets->sum('max_payout') .
+                        ' Satoshis / ' . $paymentProcessorFaucets->sum('interval_minutes') . ' minutes',
+                    'original' => intval($paymentProcessorFaucets->sum('max_payout'))
+                ]
+            ];
+
+            if (Auth::check() && Auth::user()->isAnAdmin()) {
+                $data['id'] = intval($paymentProcessors[$i]->id);
+                $data['actions'] = '';
+                $data['actions'] .= PaymentProcessors::htmlEditButton($paymentProcessors[$i]);
+
+
+                if ($paymentProcessors[$i]->isDeleted()) {
+                    $data['actions'] .= PaymentProcessors::deletePermanentlyForm($paymentProcessors[$i]);
+                    $data['actions'] .= PaymentProcessors::restoreForm($paymentProcessors[$i]);
+                }
+
+                $data['actions'] .= PaymentProcessors::softDeleteForm($paymentProcessors[$i]);
+            }
+            $formattedData->push($data);
+        }
 
         return Datatables::of($formattedData)->rawColumns(['actions'])->make(true);
     }

@@ -25,7 +25,7 @@ table.faucetsTable_guest, table.paymentProcessorsTable_guest{
     max-width: none;
 }
 
-table.faucetsTable_auth, table#faucetsTable_wrapper, table#paymentProcessorsTable, table#paymentProcessorsTable_wrapper{
+table.faucetsTable_auth, table#faucetsTable_wrapper, table.paymentProcessorsTable_auth, table#paymentProcessorsTable_wrapper{
     width: 88.5em !important;
     min-width: 45em;
     max-width: none;

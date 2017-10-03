@@ -56,6 +56,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function () {
         'uses' => 'FaucetAPIController@getRandomUserFaucet'
     ]);
 
+    Route::get('users/{userSlug}/payment-processors', [
+        'as' => 'user.payment-processors',
+        'uses' => 'PaymentProcessorAPIController@userPaymentProcessors'
+    ]);
+
     Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}/faucets', [
         'as' => 'user.payment-processor-faucets',
         'uses' => 'FaucetAPIController@getUserPaymentProcessorFaucets'

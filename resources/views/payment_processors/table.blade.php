@@ -20,7 +20,7 @@
 <div class="chart">
 
     <table id="paymentProcessorsTable"
-           class="row-border hover order-column {{ !Auth::check() ? 'paymentProcessorsTable_guest' : '' }}"
+           class="row-border hover order-column {{ !Auth::check() ? 'paymentProcessorsTable_guest' : 'paymentProcessorsTable_auth' }}"
            cellspacing="0"
            width="100%">
         <thead>
@@ -69,7 +69,7 @@
 
 @push('scripts')
 <script src="/assets/js/datatables.net/datatables.min.js?{{ rand() }}"></script>
-<script src="/assets/js/payment-processor-scripts/paymentProcessorDatatables.js?{{ rand() }}"></script>
+<script src="/assets/js/payment-processor-scripts/paymentProcessorDatatables.min.js?{{ rand() }}"></script>
 <script>
     $(function () {
         $.fn.dataTable.ext.errMode = 'none';

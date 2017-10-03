@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
-            <h1>
+            <h1 id="title" data-user-slug="{{$user->slug}}">
                 {{ $user->user_name }}'s Payment Processors
             </h1>
         </div>

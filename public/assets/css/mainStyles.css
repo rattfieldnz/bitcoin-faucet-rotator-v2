@@ -40354,7 +40354,7 @@ table.paymentProcessorsTable_guest {
 
 table.faucetsTable_auth,
 table#faucetsTable_wrapper,
-table#paymentProcessorsTable,
+table.paymentProcessorsTable_auth,
 table#paymentProcessorsTable_wrapper {
   width: 88.5em !important;
   min-width: 45em;
