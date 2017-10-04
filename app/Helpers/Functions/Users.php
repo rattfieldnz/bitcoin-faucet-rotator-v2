@@ -21,6 +21,7 @@ use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\TwitterCard;
 use Creativeorange\Gravatar\Facades\Gravatar;
+use Form;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -393,5 +394,134 @@ class Users
                 ->wherePivot('referral_code', '!=', null)
                 ->first();
         }
+    }
+
+    /**
+     * @param \App\Models\User $user
+     *
+     * @return null|string
+     *
+     */
+    public static function htmlEditButton(User $user)
+    {
+        if (empty($user)) {
+            return null;
+        }
+
+        if (Auth::check() && (Auth::user()->isAnAdmin() || Auth::user() === $user)) {
+
+            $route = route('users.edit', ['slug' => $user->slug]);
+
+            return Form::button(
+                '<i class="glyphicon glyphicon-edit"></i>',
+                [
+                    'type' => 'button',
+                    'class' => 'btn btn-default btn-xs',
+                    'style' => 'display: inline-block;',
+                    'onClick' => "location.href='" . $route . "'"
+                ]
+            );
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @param \App\Models\User $user
+     *
+     * @return null|string
+     *
+     */
+    public static function deletePermanentlyForm(User $user)
+    {
+        if (empty($user)) {
+            return null;
+        }
+
+        if ($user->isDeleted()) {
+            $route = ['users.delete-permanently', $user->slug];
+
+            $form = Form::open(['route' => $route, 'method' => 'delete', 'style' => 'display: inline-block;']);
+            $form .= Form::button(
+                '<i class="glyphicon glyphicon-trash"></i>',
+                [
+                    'type' => 'submit',
+                    'class' => 'btn btn-danger btn-xs',
+                    'onclick' => "return confirm('Are you sure? The user will be PERMANENTLY deleted!')"
+                ]
+            );
+            $form .= Form::close();
+
+            return $form;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @param \App\Models\User $user
+     *
+     * @return null|string
+     *
+     */
+    public static function restoreForm(User $user)
+    {
+        if (empty($user)) {
+            return null;
+        }
+
+        if (Auth::check() && (Auth::user()->isAnAdmin()) && $user->isDeleted()) {
+
+            $route = ['users.restore', $user->slug];
+            $form = Form::open(['route' => $route, 'method' => 'patch', 'style' => 'display: inline-block;']);
+
+            $form .= Form::button(
+                '<i class="glyphicon glyphicon-refresh"></i>',
+                [
+                    'type' => 'submit',
+                    'class' => 'btn btn-info btn-xs',
+                    'onclick' => "return confirm('Are you sure you want to restore this deleted user?')"
+                ]
+            );
+            $form .= Form::close();
+
+            return $form;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @param \App\Models\User $user
+     *
+     * @return null|string
+     * @internal param \App\Models\Faucet $faucet
+     *
+     */
+    public static function softDeleteForm(User $user)
+    {
+        if (empty($user)) {
+            return null;
+        }
+
+        $form = null;
+
+        if (Auth::check() && (Auth::user()->isAnAdmin()) && !$user->isDeleted()) {
+
+            $route = ['users.destroy', $user->slug];
+
+            $form = Form::open(['route' => $route, 'method' => 'delete', 'style' => 'display: inline-block;']);
+            $form .= Form::button(
+                '<i class="glyphicon glyphicon-trash"></i>',
+                [
+                    'type' => 'submit',
+                    'class' => 'btn btn-warning btn-xs',
+                    'onclick' => "return confirm('Are you sure?')"
+                ]
+            );
+            $form .= Form::close();
+        }
+
+        return $form;
     }
 }

@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\Functions\Users;
 use App\Repositories\UserRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Auth;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Transformers\UsersTransformer;
+use Yajra\DataTables\Facades\DataTables;
 
 /**
  * Class UserController
@@ -41,13 +45,49 @@ class UserAPIController extends AppBaseController
     {
         $this->userRepository->pushCriteria(new RequestCriteria($request));
         $this->userRepository->pushCriteria(new LimitOffsetCriteria($request));
-        $users = $this->userRepository->all();
+        $systemUsers = (Auth::check() && Auth::user()->isAnAdmin()) ?
+            $this->userRepository->withTrashed()->get() :
+            $this->userRepository->all();
 
-        for ($i = 0; $i < count($users); $i++) {
-            $users[$i] = (new UsersTransformer)->transform($users[$i], true);
+        $users = new Collection();
+        for ($i = 0; $i < count($systemUsers); $i++) {
+
+            $data = [
+                'user_name' => [
+                    'display' => route('users.show', ['slug' => $systemUsers[$i]->slug]),
+                    'original' => $systemUsers[$i]->user_name,
+                ],
+                'faucets' => [
+                    'display' => route('users.faucets', ['slug' => $systemUsers[$i]->slug]),
+                    'original' => 'View ' . $systemUsers[$i]->user_name . '\'s faucets'
+                ],
+                'no_of_faucets' => (Auth::check() && (Auth::user()->isAnAdmin() || Auth::user() === $systemUsers[$i])) ?
+                    count($systemUsers[$i]->faucets()->wherePivot('referral_code', '!=', null)
+                        ->orWhereNull('referral_code')->get()) :
+                    count($systemUsers[$i]->faucets()->wherePivot('referral_code', '!=', null)->all()),
+                'payment_processors' => [
+                    'display' => route('users.payment-processors', ['userSlug' => $systemUsers[$i]->slug]),
+                    'original' => 'View ' . $systemUsers[$i]->user_name .'\'s faucets grouped by payment processors'
+                ]
+            ];
+
+            if (Auth::check() && Auth::user()->isAnAdmin()) {
+                $data['id'] = intval($systemUsers[$i]->id);
+                $data['actions'] = '';
+                $data['actions'] .= Users::htmlEditButton($systemUsers[$i]);
+
+                if ($systemUsers[$i]->isDeleted()) {
+                    $data['actions'] .= Users::deletePermanentlyForm($systemUsers[$i]);
+                    $data['actions'] .= Users::restoreForm($systemUsers[$i]);
+                }
+
+                $data['actions'] .= Users::softDeleteForm($systemUsers[$i]);
+            }
+
+            $users->push($data);
         }
 
-        return $this->sendResponse($users->toArray(), 'Users retrieved successfully');
+        return Datatables::of($users)->rawColumns(['actions'])->make(true);
     }
 
     public function show($slug)
