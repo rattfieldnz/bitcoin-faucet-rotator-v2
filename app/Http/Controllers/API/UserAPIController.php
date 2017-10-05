@@ -45,9 +45,10 @@ class UserAPIController extends AppBaseController
     {
         $this->userRepository->pushCriteria(new RequestCriteria($request));
         $this->userRepository->pushCriteria(new LimitOffsetCriteria($request));
+
         $systemUsers = (Auth::check() && Auth::user()->isAnAdmin()) ?
             $this->userRepository->withTrashed()->get() :
-            $this->userRepository->all();
+            $this->userRepository->findWhere(['deleted_at' => null])->all();
 
         $users = new Collection();
         for ($i = 0; $i < count($systemUsers); $i++) {
@@ -64,7 +65,7 @@ class UserAPIController extends AppBaseController
                 'no_of_faucets' => (Auth::check() && (Auth::user()->isAnAdmin() || Auth::user() === $systemUsers[$i])) ?
                     count($systemUsers[$i]->faucets()->wherePivot('referral_code', '!=', null)
                         ->orWhereNull('referral_code')->get()) :
-                    count($systemUsers[$i]->faucets()->wherePivot('referral_code', '!=', null)->all()),
+                    count($systemUsers[$i]->faucets()->wherePivot('referral_code', '!=', null)->get()),
                 'payment_processors' => [
                     'display' => route('users.payment-processors', ['userSlug' => $systemUsers[$i]->slug]),
                     'original' => 'View ' . $systemUsers[$i]->user_name .'\'s faucets grouped by payment processors'
@@ -73,15 +74,26 @@ class UserAPIController extends AppBaseController
 
             if (Auth::check() && Auth::user()->isAnAdmin()) {
                 $data['id'] = intval($systemUsers[$i]->id);
+                $data['role'] = $systemUsers[$i]->roles()->first()->name;
+                $data['is_admin'] = [
+                    'display' => $systemUsers[$i]->isAnAdmin() == true ? 'Yes' : 'No',
+                    'original' => $systemUsers[$i]->isAnAdmin()
+                ];
+                $data['is_deleted'] = [
+                    'display' => $systemUsers[$i]->isDeleted() == true ? "Yes" : "No",
+                    'original' => $systemUsers[$i]->isDeleted()
+                ];
                 $data['actions'] = '';
                 $data['actions'] .= Users::htmlEditButton($systemUsers[$i]);
 
-                if ($systemUsers[$i]->isDeleted()) {
-                    $data['actions'] .= Users::deletePermanentlyForm($systemUsers[$i]);
-                    $data['actions'] .= Users::restoreForm($systemUsers[$i]);
-                }
+                if(!$systemUsers[$i]->isAnAdmin()){
+                    if ($systemUsers[$i]->isDeleted()) {
+                        $data['actions'] .= Users::deletePermanentlyForm($systemUsers[$i]);
+                        $data['actions'] .= Users::restoreForm($systemUsers[$i]);
+                    }
 
-                $data['actions'] .= Users::softDeleteForm($systemUsers[$i]);
+                    $data['actions'] .= Users::softDeleteForm($systemUsers[$i]);
+                }
             }
 
             $users->push($data);

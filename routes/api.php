@@ -21,6 +21,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API'], function () {
     Route::get('last-faucet', ['as' => 'faucets.last-faucet', 'uses' => 'FaucetAPIController@getLastFaucet']);
     Route::get('random-faucet', ['as' => 'faucets.random-faucet', 'uses' => 'FaucetAPIController@getRandomFaucet']);
 
+    Route::get('users', ['as' => 'users', 'uses' => 'UserAPIController@index']);
+
     Route::get('users/{userSlug}/faucets', [
         'as' => 'user.faucets',
         'uses' => 'FaucetAPIController@getUserFaucets'
