@@ -52,7 +52,6 @@ class UserAPIController extends AppBaseController
 
         $users = new Collection();
         for ($i = 0; $i < count($systemUsers); $i++) {
-
             $data = [
                 'user_name' => [
                     'display' => route('users.show', ['slug' => $systemUsers[$i]->slug]),
@@ -86,7 +85,7 @@ class UserAPIController extends AppBaseController
                 $data['actions'] = '';
                 $data['actions'] .= Users::htmlEditButton($systemUsers[$i]);
 
-                if(!$systemUsers[$i]->isAnAdmin()){
+                if (!$systemUsers[$i]->isAnAdmin()) {
                     if ($systemUsers[$i]->isDeleted()) {
                         $data['actions'] .= Users::deletePermanentlyForm($systemUsers[$i]);
                         $data['actions'] .= Users::restoreForm($systemUsers[$i]);

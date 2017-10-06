@@ -409,7 +409,6 @@ class Users
         }
 
         if (Auth::check() && (Auth::user()->isAnAdmin() || Auth::user() === $user)) {
-
             $route = route('users.edit', ['slug' => $user->slug]);
 
             return Form::button(
@@ -471,7 +470,6 @@ class Users
         }
 
         if (Auth::check() && (Auth::user()->isAnAdmin()) && $user->isDeleted()) {
-
             $route = ['users.restore', $user->slug];
             $form = Form::open(['route' => $route, 'method' => 'patch', 'style' => 'display: inline-block;']);
 
@@ -507,7 +505,6 @@ class Users
         $form = null;
 
         if (Auth::check() && (Auth::user()->isAnAdmin()) && !$user->isDeleted()) {
-
             $route = ['users.destroy', $user->slug];
 
             $form = Form::open(['route' => $route, 'method' => 'delete', 'style' => 'display: inline-block;']);

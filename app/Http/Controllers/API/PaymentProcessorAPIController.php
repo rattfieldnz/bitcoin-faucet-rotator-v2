@@ -48,7 +48,7 @@ class PaymentProcessorAPIController extends AppBaseController
         $paymentProcessors = $this->paymentProcessorRepository->findItemsWhere([], ['*'], false);
         $formattedData = new Collection();
 
-        for($i = 0; $i < count($paymentProcessors); $i++){
+        for ($i = 0; $i < count($paymentProcessors); $i++) {
             $paymentProcessorFaucets = $paymentProcessors[$i]->faucets()->where('deleted_at', '=', null);
             $data = [
                 'name' => [
@@ -111,14 +111,14 @@ class PaymentProcessorAPIController extends AppBaseController
             );
         }
 
-        if($user->isAnAdmin()){
+        if ($user->isAnAdmin()) {
             return $this->index();
         }
 
         $paymentProcessors = $this->paymentProcessorRepository->findItemsWhere([], ['*'], false);
         $formattedData = new Collection();
 
-        for($i = 0; $i < count($paymentProcessors); $i++){
+        for ($i = 0; $i < count($paymentProcessors); $i++) {
             $paymentProcessorFaucets = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessors[$i]);
             $faucetsRoute = route(
                 'users.payment-processors.faucets',
