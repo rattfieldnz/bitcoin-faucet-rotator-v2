@@ -31,7 +31,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 @if(count($users) > 0)
-                @include('users.table2')
+                @include('users.table')
                 @else
                     <p>There are no users currently registered. How about {!! link_to_route('register', 'signing up', [], ['title' => "Sign up for an account"]) !!} yourself?</p>
                 @endif

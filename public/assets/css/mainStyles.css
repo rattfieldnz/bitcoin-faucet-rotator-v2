@@ -40346,6 +40346,7 @@ and (max-device-width : 480px) {
 }
 
 table.faucetsTable_guest,
+table.usersTable_guest,
 table.paymentProcessorsTable_guest {
   width: 102.8em !important;
   min-width: 45em;
@@ -40353,7 +40354,7 @@ table.paymentProcessorsTable_guest {
 }
 
 table.faucetsTable_auth,
-table#faucetsTable_wrapper,
+table.usersTable_auth,
 table.paymentProcessorsTable_auth,
 table#paymentProcessorsTable_wrapper {
   width: 88.5em !important;
