@@ -55,61 +55,7 @@ class FaucetAPIController extends AppBaseController
         $faucets = new Collection();
 
         for ($i = 0; $i < count($this->faucetCollection); $i++) {
-            $data = [
-                'name' => [
-                    'display' => route('faucets.show', ['slug' => $this->faucetCollection[$i]->slug]),
-                    'original' => $this->faucetCollection[$i]->name,
-                ],
-                'url' => $this->faucetCollection[$i]->url . Faucets::getUserFaucetRefCode(Users::adminUser(), $this->faucetCollection[$i]),
-                'interval_minutes' => intval($this->faucetCollection[$i]->interval_minutes),
-                'min_payout' => [
-                    'display' => number_format(intval($this->faucetCollection[$i]->min_payout)),
-                    'original' => intval($this->faucetCollection[$i]->min_payout)
-                ],
-                'max_payout' => [
-                    'display' => number_format(intval($this->faucetCollection[$i]->max_payout)),
-                    'original' => intval($this->faucetCollection[$i]->max_payout)
-                ],
-                'comments' => $this->faucetCollection[$i]->comments,
-                'is_paused' => [
-                    'display' => $this->faucetCollection[$i]->is_paused == true ? "Yes" : "No",
-                    'original' => $this->faucetCollection[$i]->is_paused
-                ],
-                'slug' => $this->faucetCollection[$i]->slug,
-                'has_low_balance' => $this->faucetCollection[$i]->has_low_balance,
-            ];
-
-            $paymentProcessors = $this->faucetCollection[$i]->paymentProcessors()->get();
-
-            if (count($paymentProcessors) != 0) {
-                $data['payment_processors'] = [];
-                foreach ($paymentProcessors as $p) {
-                    array_push(
-                        $data['payment_processors'],
-                        [
-                            'name' => $p->name,
-                            'url' => route('payment-processors.show', ['slug' => $p->slug])
-                        ]
-                    );
-                }
-            }
-
-            if (Auth::check() && Auth::user()->isAnAdmin()) {
-                $data['id'] = intval($this->faucetCollection[$i]->id);
-                $data['is_deleted'] = [
-                    'display' => empty($this->faucetCollection[$i]->deleted_at) ? "No" : "Yes",
-                    'original' => $this->faucetCollection[$i]->deleted_at
-                ];
-                $data['actions'] = '';
-                $data['actions'] .= Faucets::htmlEditButton($this->faucetCollection[$i], Users::adminUser());
-
-                if ($this->faucetCollection[$i]->isDeleted()) {
-                    $data['actions'] .= Faucets::deletePermanentlyForm($this->faucetCollection[$i], Users::adminUser());
-                    $data['actions'] .= Faucets::restoreForm($this->faucetCollection[$i], Users::adminUser());
-                }
-
-                $data['actions'] .= Faucets::softDeleteForm($this->faucetCollection[$i], Users::adminUser());
-            }
+            $data = Faucets::dataTablesData($this->faucetCollection[$i], Users::adminUser());
 
             $faucets->push($data);
         }
@@ -318,61 +264,7 @@ class FaucetAPIController extends AppBaseController
             ->get();
 
         for ($i = 0; $i < count($faucets); $i++) {
-            $data = [
-                'name' => [
-                    'display' => route('faucets.show', ['slug' => $faucets[$i]->slug]),
-                    'original' => $faucets[$i]->name,
-                ],
-                'url' => $faucets[$i]->url . Faucets::getUserFaucetRefCode(Users::adminUser(), $faucets[$i]),
-                'interval_minutes' => intval($faucets[$i]->interval_minutes),
-                'min_payout' => [
-                    'display' => number_format(intval($faucets[$i]->min_payout)),
-                    'original' => intval($faucets[$i]->min_payout)
-                ],
-                'max_payout' => [
-                    'display' => number_format(intval($faucets[$i]->max_payout)),
-                    'original' => intval($faucets[$i]->max_payout)
-                ],
-                'comments' => $faucets[$i]->comments,
-                'is_paused' => [
-                    'display' => $faucets[$i]->is_paused == true ? "Yes" : "No",
-                    'original' => $faucets[$i]->is_paused
-                ],
-                'slug' => $faucets[$i]->slug,
-                'has_low_balance' => $faucets[$i]->has_low_balance,
-            ];
-
-            $paymentProcessors = $faucets[$i]->paymentProcessors()->get();
-
-            if (count($paymentProcessors) != 0) {
-                $data['payment_processors'] = [];
-                foreach ($paymentProcessors as $p) {
-                    array_push(
-                        $data['payment_processors'],
-                        [
-                            'name' => $p->name,
-                            'url' => route('payment-processors.show', ['slug' => $p->slug])
-                        ]
-                    );
-                }
-            }
-
-            if (Auth::check() && Auth::user()->isAnAdmin()) {
-                $data['id'] = intval($faucets[$i]->id);
-                $data['is_deleted'] = [
-                    'display' => empty($faucets[$i]->deleted_at) ? "No" : "Yes",
-                    'original' => $faucets[$i]->deleted_at
-                ];
-                $data['actions'] = '';
-                $data['actions'] .= Faucets::htmlEditButton($faucets[$i], Users::adminUser());
-
-                if ($faucets[$i]->isDeleted()) {
-                    $data['actions'] .= Faucets::deletePermanentlyForm($faucets[$i], Users::adminUser());
-                    $data['actions'] .= Faucets::restoreForm($faucets[$i], Users::adminUser());
-                }
-
-                $data['actions'] .= Faucets::softDeleteForm($faucets[$i], Users::adminUser());
-            }
+            $data = Faucets::dataTablesData($faucets[$i], Users::adminUser());
 
             $formattedFaucets->push($data);
         }

@@ -664,6 +664,77 @@ class Faucets
     }
 
     /**
+     * @param \App\Models\Faucet $faucet
+     * @param \App\Models\User   $user
+     *
+     * @return array|null
+     */
+    public static function dataTablesData(Faucet $faucet, User $user)
+    {
+        if (empty($faucet) || empty($user)) {
+            return null;
+        }
+
+        $data = [
+            'name' => [
+                'display' => route('faucets.show', ['slug' => $faucet->slug]),
+                'original' => $faucet->name,
+            ],
+            'url' => $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet),
+            'interval_minutes' => intval($faucet->interval_minutes),
+            'min_payout' => [
+                'display' => number_format(intval($faucet->min_payout)),
+                'original' => intval($faucet->min_payout)
+            ],
+            'max_payout' => [
+                'display' => number_format(intval($faucet->max_payout)),
+                'original' => intval($faucet->max_payout)
+            ],
+            'comments' => $faucet->comments,
+            'is_paused' => [
+                'display' => $faucet->is_paused == true ? "Yes" : "No",
+                'original' => $faucet->is_paused
+            ],
+            'slug' => $faucet->slug,
+            'has_low_balance' => $faucet->has_low_balance,
+        ];
+
+        $paymentProcessors = $faucet->paymentProcessors()->get();
+
+        if (count($paymentProcessors) != 0) {
+            $data['payment_processors'] = [];
+            foreach ($paymentProcessors as $p) {
+                array_push(
+                    $data['payment_processors'],
+                    [
+                        'name' => $p->name,
+                        'url' => route('payment-processors.show', ['slug' => $p->slug])
+                    ]
+                );
+            }
+        }
+
+        if (Auth::check() && Auth::user()->isAnAdmin()) {
+            $data['id'] = intval($faucet->id);
+            $data['is_deleted'] = [
+                'display' => empty($faucet->deleted_at) ? "No" : "Yes",
+                'original' => $faucet->deleted_at
+            ];
+            $data['actions'] = '';
+            $data['actions'] .= Faucets::htmlEditButton($faucet, $user);
+
+            if ($faucet->isDeleted()) {
+                $data['actions'] .= Faucets::deletePermanentlyForm($faucet, $user);
+                $data['actions'] .= Faucets::restoreForm($faucet, $user);
+            }
+
+            $data['actions'] .= Faucets::softDeleteForm($faucet, $user);
+        }
+
+        return $data;
+    }
+
+    /**
      * Retrieve faucet ids matching with specified user.
      *
      * @param  User $user
