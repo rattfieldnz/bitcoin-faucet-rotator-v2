@@ -24,7 +24,7 @@
 
 <!-- Content Field -->
 <div class="form-group col-sm-12 col-lg-12 has-feedback{{ $errors->has('content') ? ' has-error' : '' }}">
-    {!! Form::label('content', 'Privacy Policy Content:') !!}
+    {!! Form::label('content', 'Terms and Conditions Content:') !!}
     {!! Form::textarea('content', null, ['id' => 'main_content', 'class' => 'form-control', 'placeholder' => 'This is where your terms and conditions content goes.']) !!}
     <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
     @if ($errors->has('content'))
