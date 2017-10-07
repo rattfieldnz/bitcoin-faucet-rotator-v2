@@ -39,10 +39,10 @@
 @endif
 
     <li class="{{ Request::is('privacy-policy*') ? 'active' : '' }}">
-        <strong><a href="{!! route('privacy-policy.index') !!}" title="Privacy Policy">Privacy Policy</a></strong>
+        <strong><a href="{!! route('privacy-policy') !!}" title="Privacy Policy">Privacy Policy</a></strong>
     </li>
 
     <li class="{{ Request::is('terms-and-conditions*') ? 'active' : '' }}">
-        <strong><a href="{!! route('terms-and-conditions.index') !!}" title="Terms and Conditions">Terms &amp; Conditions</a></strong>
+        <strong><a href="{!! route('terms-and-conditions') !!}" title="Terms and Conditions">Terms &amp; Conditions</a></strong>
     </li>
 </ul>

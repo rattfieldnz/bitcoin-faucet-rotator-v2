@@ -64,7 +64,7 @@ class PrivacyPolicyController extends AppBaseController
             $seoConfig->publishedTime = $privacyPolicy->created_at->toW3CString();
             $seoConfig->modifiedTime = $privacyPolicy->updated_at->toW3CString();
             $seoConfig->authorName = Users::adminUser()->fullName();
-            $seoConfig->currentUrl = route('privacy-policy.index');
+            $seoConfig->currentUrl = route('privacy-policy');
             $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
             $seoConfig->categoryDescription = "Privacy Policy";
 

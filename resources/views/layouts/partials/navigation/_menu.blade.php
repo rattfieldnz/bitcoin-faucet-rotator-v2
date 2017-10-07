@@ -38,9 +38,9 @@
 @endif
 
 <li class="{{ Request::is('privacy-policy*') ? 'active' : '' }}">
-    <a href="{!! route('privacy-policy.index') !!}"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Privacy Policy</span></a>
+    <a href="{!! route('privacy-policy') !!}"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Privacy Policy</span></a>
 </li>
 
 <li class="{{ Request::is('terms-and-conditions*') ? 'active' : '' }}">
-    <a href="{!! route('terms-and-conditions.index') !!}"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Terms &amp; Conditions</span></a>
+    <a href="{!! route('terms-and-conditions') !!}"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Terms &amp; Conditions</span></a>
 </li>

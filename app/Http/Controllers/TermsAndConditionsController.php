@@ -63,8 +63,8 @@ class TermsAndConditionsController extends AppBaseController
             $seoConfig->publishedTime = $termsAndConditions->created_at->toW3CString();
             $seoConfig->modifiedTime = $termsAndConditions->updated_at->toW3CString();
             $seoConfig->authorName = Users::adminUser()->fullName();
-            $seoConfig->currentUrl = route('terms-and-conditions.index');
-            $seoConfig->imagePath = route('terms-and-conditions.index');
+            $seoConfig->currentUrl = route('terms-and-conditions');
+            $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
             $seoConfig->categoryDescription = "Terms and Conditions";
             WebsiteMeta::setCustomMeta($seoConfig);
 
