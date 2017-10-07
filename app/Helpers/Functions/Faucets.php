@@ -332,34 +332,6 @@ class Faucets
     }
 
     /**
-     * Restore a user's faucet via pivot table.
-     *
-     * @param \App\Models\User   $user
-     * @param \App\Models\Faucet $faucet
-     *
-     * @return bool
-     */
-    public static function restoreUserFaucet(User $user, Faucet $faucet)
-    {
-
-        if (empty($user) || empty($faucet)) {
-            return false;
-        }
-
-        DB::table('referral_info')
-            ->where('user_id', $user->id)
-            ->where('faucet_id', $faucet->id)
-            ->update(['deleted_at' => null]);
-
-        activity(self::faucetLogName())
-            ->performedOn($faucet)
-            ->causedBy(Auth::user())
-            ->log("The faucet ':subject.name' in '" . $user->user_name . "'s' collection was restored by :causer.user_name");
-
-        return true;
-    }
-
-    /**
      * @param User   $user
      * @param Faucet $faucet
      * @return string
@@ -395,11 +367,6 @@ class Faucets
      */
     public static function setUserFaucetRefCode(User $user, Faucet $faucet, $refCode = null)
     {
-
-        // Check if the user and faucet exists.
-        /**if (empty($user) || empty($faucet)) {
-            return null;
-        }**/
         $user = User::where('slug', $user->slug)->withTrashed()->first();
 
         //If there is no such user, about to 404 page.
@@ -531,19 +498,15 @@ class Faucets
     /**
      * @param \App\Models\Faucet $faucet
      *
-     * @param \App\Models\User   $user
-     *
      * @return null|string
+     * @internal param \App\Models\User $user
+     *
      */
-    public static function htmlEditButton(Faucet $faucet, User $user)
+    public static function htmlEditButton(Faucet $faucet)
     {
-        if (empty($faucet) || empty($user)) {
+        if (empty($faucet)) {
             return null;
         }
-
-        $route = $user->isAnAdmin() ?
-            route('faucets.edit', ['slug' => $faucet->slug]) :
-            route('users.faucets', ['userSlug' => $user->slug]);
 
         if (Auth::check() && Auth::user()->isAnAdmin()) {
             return Form::button(
@@ -552,7 +515,7 @@ class Faucets
                     'type' => 'button',
                     'class' => 'btn btn-default btn-xs',
                     'style' => 'display: inline-block;',
-                    'onClick' => "location.href='" . $route . "'"
+                    'onClick' => "location.href='" . route('faucets.edit', ['slug' => $faucet->slug]) . "'"
                 ]
             );
         } else {
@@ -563,19 +526,17 @@ class Faucets
     /**
      * @param \App\Models\Faucet $faucet
      *
-     * @param \App\Models\User   $user
-     *
      * @return null|string
+     *
      */
-    public static function deletePermanentlyForm(Faucet $faucet, User $user)
+    public static function deletePermanentlyForm(Faucet $faucet)
     {
-        if (empty($faucet) || empty($user)) {
+        if (empty($faucet)) {
             return null;
         }
 
-        if ($faucet->isDeleted() || !empty($faucet->pivot->deleted_at)) {
-            $route = $user->isAnAdmin() ? ['faucets.delete-permanently', $faucet->slug] :
-                ['users.faucets.delete-permanently', $user->slug, $faucet->slug];
+        if (Auth::check() && Auth::user()->isAnAdmin() && $faucet->isDeleted()) {
+            $route = ['faucets.delete-permanently', $faucet->slug];
 
             $form = Form::open(['route' => $route, 'method' => 'delete', 'style' => 'display: inline-block;']);
             $form .= Form::button(
@@ -597,21 +558,17 @@ class Faucets
     /**
      * @param \App\Models\Faucet $faucet
      *
-     * @param \App\Models\User   $user
-     *
      * @return null|string
+     *
      */
-    public static function restoreForm(Faucet $faucet, User $user)
+    public static function restoreForm(Faucet $faucet)
     {
-        if (empty($faucet) || empty($user)) {
+        if (empty($faucet)) {
             return null;
         }
 
-        $route = $user->isAnAdmin() ? ['faucets.restore', $faucet->slug] :
-            ['users.faucets.restore', $user->slug, $faucet->slug];
-
-        if ($user->isAnAdmin() && $faucet->isDeleted() || !empty($faucet->pivot->deleted_at && !$user->isAnAdmin())) {
-            $form = Form::open(['route' => $route, 'method' => 'patch', 'style' => 'display: inline-block;']);
+        if (Auth::check() && Auth::user()->isAnAdmin() && $faucet->isDeleted()) {
+            $form = Form::open(['route' => ['faucets.restore', $faucet->slug], 'method' => 'patch', 'style' => 'display: inline-block;']);
 
             $form .= Form::button(
                     '<i class="glyphicon glyphicon-refresh"></i>',
@@ -632,23 +589,19 @@ class Faucets
     /**
      * @param \App\Models\Faucet $faucet
      *
-     * @param \App\Models\User   $user
-     *
      * @return null|string
+     *
      */
-    public static function softDeleteForm(Faucet $faucet, User $user)
+    public static function softDeleteForm(Faucet $faucet)
     {
-        if (empty($faucet) || empty($user)) {
+        if (empty($faucet)) {
             return null;
         }
 
         $form = null;
 
-        $route = $user->isAnAdmin() ? ['faucets.destroy', $faucet->slug] :
-            ['users.faucets.destroy', $user->slug, $faucet->slug];
-
-        if (!empty($route)) {
-            $form = Form::open(['route' => $route, 'method' => 'delete', 'style' => 'display: inline-block;']);
+        if (Auth::check() && Auth::user()->isAnAdmin()) {
+            $form = Form::open(['route' => ['faucets.destroy', $faucet->slug], 'method' => 'delete', 'style' => 'display: inline-block;']);
             $form .= Form::button(
                 '<i class="glyphicon glyphicon-trash"></i>',
                 [
@@ -665,13 +618,13 @@ class Faucets
 
     /**
      * @param \App\Models\Faucet $faucet
-     * @param \App\Models\User   $user
      *
      * @return array|null
+     *
      */
-    public static function dataTablesData(Faucet $faucet, User $user)
+    public static function faucetData(Faucet $faucet)
     {
-        if (empty($faucet) || empty($user)) {
+        if (empty($faucet)) {
             return null;
         }
 
@@ -680,7 +633,7 @@ class Faucets
                 'display' => route('faucets.show', ['slug' => $faucet->slug]),
                 'original' => $faucet->name,
             ],
-            'url' => $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet),
+            'url' => $faucet->url . Faucets::getUserFaucetRefCode(Users::adminUser(), $faucet),
             'interval_minutes' => intval($faucet->interval_minutes),
             'min_payout' => [
                 'display' => number_format(intval($faucet->min_payout)),
@@ -721,14 +674,93 @@ class Faucets
                 'original' => $faucet->deleted_at
             ];
             $data['actions'] = '';
-            $data['actions'] .= Faucets::htmlEditButton($faucet, $user);
+            $data['actions'] .= Faucets::htmlEditButton($faucet);
 
             if ($faucet->isDeleted()) {
-                $data['actions'] .= Faucets::deletePermanentlyForm($faucet, $user);
-                $data['actions'] .= Faucets::restoreForm($faucet, $user);
+                $data['actions'] .= Faucets::deletePermanentlyForm($faucet);
+                $data['actions'] .= Faucets::restoreForm($faucet);
             }
 
-            $data['actions'] .= Faucets::softDeleteForm($faucet, $user);
+            $data['actions'] .= Faucets::softDeleteForm($faucet);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param \App\Models\Faucet $faucet
+     * @param \App\Models\User   $user
+     *
+     * @return array|null
+     */
+    public static function userFaucetData(Faucet $faucet, User $user)
+    {
+        if (empty($faucet) || empty($user)) {
+            return null;
+        }
+
+        $referralCode = Faucets::getUserFaucetRefCode($user, $faucet);
+
+        $data = null;
+
+        if ((Auth::check() && (Auth::user()->id == $user->id || Auth::user()->isAnAdmin())) ||
+            (!Auth::check() && !empty($referralCode))
+        ) {
+            $data = [
+                'name' => [
+                    'display' => route(
+                        'users.faucets.show',
+                        ['userSlug' => $user->slug, 'faucetSlug' => $faucet->slug]),
+                    'original' => $faucet->name,
+                ],
+                'url' => $faucet->url . $referralCode,
+                'referral_code' => $referralCode,
+                'interval_minutes' => intval($faucet->interval_minutes),
+                'min_payout' => [
+                    'display' => number_format(intval($faucet->min_payout)),
+                    'original' => intval($faucet->min_payout)
+                ],
+                'max_payout' => [
+                    'display' => number_format(intval($faucet->max_payout)),
+                    'original' => intval($faucet->max_payout)
+                ],
+                'comments' => $faucet->comments,
+                'is_paused' => [
+                    'display' => $faucet->is_paused == true ? "Yes" : "No",
+                    'original' => $faucet->is_paused
+                ],
+                'slug' => $faucet->slug,
+                'has_low_balance' => $faucet->has_low_balance,
+            ];
+
+            $paymentProcessors = $faucet->paymentProcessors()->get();
+
+            if (count($paymentProcessors) != 0) {
+                $data['payment_processors'] = [];
+                foreach ($paymentProcessors as $p) {
+                    array_push(
+                        $data['payment_processors'],
+                        [
+                            'name' => $p->name,
+                            'url' => route(
+                                'users.payment-processors.faucets',
+                                ['userSlug' => $user->slug, 'paymentProcessorSlug' => $p->slug]
+                            )
+                        ]
+                    );
+                }
+            }
+
+            if (Auth::check() && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)) {
+                $data['id'] = intval($faucet->id);
+
+                $data['referral_code_form'] = Form::hidden('faucet_id[]', $faucet->id) .
+                    Form::text(
+                        'referral_code[]',
+                        Faucets::getUserFaucetRefCode($user, $faucet),
+                        ['class' => 'form-control', 'placeholder' => 'ABCDEF123456']
+                    );
+            }
         }
 
         return $data;

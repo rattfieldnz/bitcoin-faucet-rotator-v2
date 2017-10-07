@@ -55,7 +55,7 @@ class FaucetAPIController extends AppBaseController
         $faucets = new Collection();
 
         for ($i = 0; $i < count($this->faucetCollection); $i++) {
-            $data = Faucets::dataTablesData($this->faucetCollection[$i], Users::adminUser());
+            $data = Faucets::faucetData($this->faucetCollection[$i]);
 
             $faucets->push($data);
         }
@@ -264,7 +264,7 @@ class FaucetAPIController extends AppBaseController
             ->get();
 
         for ($i = 0; $i < count($faucets); $i++) {
-            $data = Faucets::dataTablesData($faucets[$i], Users::adminUser());
+            $data = Faucets::faucetData($faucets[$i]);
 
             $formattedFaucets->push($data);
         }
@@ -817,67 +817,10 @@ class FaucetAPIController extends AppBaseController
         $paymentProcessorFaucets = new Collection();
 
         for ($i = 0; $i < count($faucets); $i++) {
-            $referralCode = Faucets::getUserFaucetRefCode($user, $faucets[$i]);
-            if ((Auth::check() && (Auth::user()->id == $user->id || Auth::user()->isAnAdmin())) ||
-                (!Auth::check() && !empty($referralCode))
-            ) {
-                $data = [
-                    'name' => [
-                        'display' => route(
-                            'users.faucets.show',
-                            ['userSlug' => $user->slug, 'faucetSlug' => $faucets[$i]->slug]),
-                        'original' => $faucets[$i]->name,
-                    ],
-                    'url' => $faucets[$i]->url . $referralCode,
-                    'referral_code' => $referralCode,
-                    'interval_minutes' => intval($faucets[$i]->interval_minutes),
-                    'min_payout' => [
-                        'display' => number_format(intval($faucets[$i]->min_payout)),
-                        'original' => intval($faucets[$i]->min_payout)
-                    ],
-                    'max_payout' => [
-                        'display' => number_format(intval($faucets[$i]->max_payout)),
-                        'original' => intval($faucets[$i]->max_payout)
-                    ],
-                    'comments' => $faucets[$i]->comments,
-                    'is_paused' => [
-                        'display' => $faucets[$i]->is_paused == true ? "Yes" : "No",
-                        'original' => $faucets[$i]->is_paused
-                    ],
-                    'slug' => $faucets[$i]->slug,
-                    'has_low_balance' => $faucets[$i]->has_low_balance,
-                ];
 
-                $paymentProcessors = $faucets[$i]->paymentProcessors()->get();
+            $data = Faucets::userFaucetData($faucets[$i], $user);
 
-                if (count($paymentProcessors) != 0) {
-                    $data['payment_processors'] = [];
-                    foreach ($paymentProcessors as $p) {
-                        array_push(
-                            $data['payment_processors'],
-                            [
-                                'name' => $p->name,
-                                'url' => route(
-                                    'users.payment-processors.faucets',
-                                    ['userSlug' => $user->slug, 'paymentProcessorSlug' => $p->slug]
-                                )
-                            ]
-                        );
-                    }
-                }
-                if (Auth::check() && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)) {
-                    $data['id'] = intval($faucets[$i]->id);
-
-                    $data['referral_code_form'] = Form::hidden('faucet_id[]', $faucets[$i]->id) .
-                        Form::text(
-                            'referral_code[]',
-                            Faucets::getUserFaucetRefCode($user, $faucets[$i]),
-                            ['class' => 'form-control', 'placeholder' => 'ABCDEF123456']
-                        );
-                }
-
-                $paymentProcessorFaucets->push($data);
-            }
+            $paymentProcessorFaucets->push($data);
         }
 
         return Datatables::of($paymentProcessorFaucets)->rawColumns(['referral_code_form'])->make(true);
