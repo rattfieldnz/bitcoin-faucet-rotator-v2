@@ -39,7 +39,7 @@
                                             <div style="margin:0 0 0 0;">
                                                 <section class="content-header">
                                                     <div class="row guest-page-title">
-                                                        <h1 style="text-align: center;">XML Sitemap</h1>
+                                                        <h1 style="text-align: center; margin-top: 1em;">XML Sitemap</h1>
                                                     </div>
                                                 </section>
                                                 <div class="content content-guest">
@@ -67,7 +67,7 @@
                                                                     <p class="expl">This sitemap contains <xsl:value-of select="count(s:urlset/s:url)"/> URLs.</p>
 
                                                                     <div class="chart">
-                                                                        <table id="sitemap" class="row-border hover order-column sitemap-table" border="1" cellspacing="0">
+                                                                        <table id="sitemap" class="row-border hover order-column sitemap-table" cellspacing="0" width="100%">
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th style="text-align:left">URL</th>

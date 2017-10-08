@@ -24,8 +24,8 @@
                     <li>{!! link_to_route('faucets.index', "Faucets") !!}</li>
                     <li>{!! link_to_route('payment-processors.index', "Payment Processors") !!}</li>
                     <li>{!! link_to_route('users.index', "Current Users") !!}</li>
-                    <li>{!! link_to_route('privacy-policy.index', "Privacy Policy") !!}</li>
-                    <li>{!! link_to_route('terms-and-conditions.index', "Terms &amp; Conditions") !!}</li>
+                    <li>{!! link_to_route('privacy-policy', "Privacy Policy") !!}</li>
+                    <li>{!! link_to_route('terms-and-conditions', "Terms &amp; Conditions") !!}</li>
                     <li><a href="{!! url('/login') !!}">Login</a></li>
                     <li><a href="{!! url('/register') !!}">Register</a></li>
                 </ul>

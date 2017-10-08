@@ -40362,6 +40362,12 @@ table#paymentProcessorsTable_wrapper {
   max-width: none;
 }
 
+table.sitemap-table {
+  width: 89.9em !important;
+  min-width: 45em;
+  max-width: none;
+}
+
 table.dataTable tbody tr {
   min-height: 3em;
   line-height: 2em;
@@ -40378,7 +40384,7 @@ table.dataTable tbody tr:nth-child(even) td {
 }
 
 table.dataTable {
-  border: 0.125em solid #7ba9bc;
+  border: 0.0625em solid #7ba9bc;
 }
 
 table.dataTable thead,
