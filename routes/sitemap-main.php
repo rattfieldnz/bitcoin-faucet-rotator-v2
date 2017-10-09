@@ -8,12 +8,19 @@ Route::get('sitemap-main', function() {
         $currentTime = \Carbon\Carbon::now()->toW3cString();
         $sitemap->add(route('home'), $currentTime, '1.0', 'daily');
 
-        $lastModifiedFaucet = \App\Models\Faucet::where('deleted_at', '=', null)->get();
-        $lastModifiedFaucet = collect($lastModifiedFaucet)->last();
+        $lastModifiedUser = \App\Models\User::where('deleted_at', '=', null)
+            ->orderBy('updated_at', 'desc')
+            ->get()->first();
+        $sitemap->add(route('users.index'), $lastModifiedUser->updated_at->toW3cString(), '1.0', 'daily');
+
+        $lastModifiedFaucet = \App\Models\Faucet::where('deleted_at', '=', null)
+            ->orderBy('updated_at', 'desc')
+            ->get()->first();
         $sitemap->add(route('faucets.index'), $lastModifiedFaucet->updated_at->toW3cString(), '1.0', 'daily');
 
-        $lastModifiedPaymentProcessor = \App\Models\PaymentProcessor::where('deleted_at', '=', null)->get();
-        $lastModifiedPaymentProcessor = collect($lastModifiedPaymentProcessor)->last();
+        $lastModifiedPaymentProcessor = \App\Models\PaymentProcessor::where('deleted_at', '=', null)
+            ->orderBy('updated_at', 'desc')
+            ->get()->first();
         $sitemap->add(route('payment-processors.index'), $lastModifiedPaymentProcessor->updated_at->toW3cString(), '1.0', 'daily');
 
         $privacyPolicy = \App\Models\PrivacyPolicy::first();
@@ -35,8 +42,6 @@ Route::get('sitemap-main', function() {
                 'daily'
             );
         }
-
-
     }
 
     return $sitemap->render('xml');
