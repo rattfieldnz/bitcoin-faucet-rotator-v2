@@ -44,8 +44,8 @@
                 <li>{!! link_to_route('faucets.index', "Faucets") !!}</li>
                 <li>{!! link_to_route('payment-processors.index', "Payment Processors") !!}</li>
                 <li>{!! link_to_route('users.index', "Current Users") !!}</li>
-                <li>{!! link_to_route('privacy-policy.index', "Privacy Policy") !!}</li>
-                <li>{!! link_to_route('terms-and-conditions.index', "Terms &amp; Conditions") !!}</li>
+                <li>{!! link_to_route('privacy-policy', "Privacy Policy") !!}</li>
+                <li>{!! link_to_route('terms-and-conditions', "Terms &amp; Conditions") !!}</li>
             </ul>
             <!-- Right Side Of Navbar -->
             <ul id="navigation-right" class="nav navbar-nav navbar-right">
@@ -118,7 +118,7 @@
 
         <p><a href="{{ url('/password/reset') }}">I forgot my password</a>.<br>
            <a href="{{ url('/register') }}" class="text-center">Register a new membership</a>.</p>
-        <p>By logging in, you accept the {!! link_to_route('privacy-policy.index', "Privacy Policy") !!} and {!! link_to_route('terms-and-conditions.index', "Terms &amp; Conditions") !!}.</p>
+        <p>By logging in, you accept the {!! link_to_route('privacy-policy', "Privacy Policy") !!} and {!! link_to_route('terms-and-conditions', "Terms &amp; Conditions") !!}.</p>
     </div>
     <!-- /.login-box-body -->
 </div>
