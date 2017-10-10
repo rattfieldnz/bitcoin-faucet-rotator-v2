@@ -175,6 +175,7 @@ return [
         Jaybizzle\MigrationsOrganiser\MigrationsOrganiserServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Roumen\Feed\FeedServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -245,6 +246,7 @@ return [
         'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
         'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Feed' => Roumen\Feed\Feed::class,
     ],
 
 ];
