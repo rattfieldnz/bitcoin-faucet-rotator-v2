@@ -55,3 +55,6 @@ _ide_helper_models.php
 
 # Custom script for clearing caches
 /clearcompiledcache
+
+# Keep views from Laravel packages.
+!/resources/views/vendor/
