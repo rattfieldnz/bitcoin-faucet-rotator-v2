@@ -49,6 +49,7 @@ Route::get('faucets-feed', function(){
     // first param is the feed format
     // optional: second param is cache duration (value of 0 turns off caching)
     // optional: you can set custom cache key with 3rd param as string
+    $feed->ctype = "text/xml";
     return $feed->render('rss');
 
     // to return your feed as a string set second param to -1
