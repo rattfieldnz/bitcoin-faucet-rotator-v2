@@ -17,7 +17,8 @@
 
         <div class="box box-primary">
             <div class="box-body">
-                <div class="row" style="padding-left: 1.25em;">
+                <div class="row zero-margin">
+                    @include('layouts.partials.advertising.ads')
                     <p><strong>*</strong> Payout amounts are in Satoshis</p>
                     <div id="faucet-info" class="table table-responsive">
                         <table class="table table-striped table bordered show-table-header">

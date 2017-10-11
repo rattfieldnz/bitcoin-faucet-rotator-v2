@@ -19,6 +19,7 @@
         @include('layouts.partials.navigation._breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">
+                @include('layouts.partials.advertising.ads')
                 @if(count($faucets) > 0)
                 @include('users.faucets.table')
                 @else

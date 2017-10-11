@@ -82,6 +82,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
+                    @include('layouts.partials.advertising.ads')
                     @include('payment_processors.show_fields')
                     <a href="{!! route('payment-processors.index') !!}" class="btn btn-default">Back</a>
                 </div>

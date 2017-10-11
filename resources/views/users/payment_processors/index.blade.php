@@ -32,6 +32,7 @@
         @include('layouts.partials.navigation._breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">
+                @include('layouts.partials.advertising.ads')
                 @include('users.payment_processors.table')
             </div>
         </div>
