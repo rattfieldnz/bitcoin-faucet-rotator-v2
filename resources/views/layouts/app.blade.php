@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="{{ \App\Models\MainMeta::first()->language()->first()->isoCode() }}">
+<?php $isoCode = \App\Models\MainMeta::first()->language()->first()->isoCode(); ?>
+<html lang="{{ $isoCode }}">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,10 @@
         <!-- START SEO / Meta Tags / Twitter Graph / Open Graph data -->
         @include('layouts.partials.seo._meta-tags-data')
         <!-- END SEO / Meta Tags / Twitter Graph / Open Graph data -->
+
+        {!! \Feed::link(url('users-feed'),'rss','Feed: Users',$isoCode) !!}
+        {!! \Feed::link(url('faucets-feed'),'rss','Feed: Faucets',$isoCode) !!}
+        {!! \Feed::link(url('payment-processors-feed'),'rss','Feed: Payment Processors',$isoCode) !!}
 
         <!-- START Site Styles -->
         @include('layouts.partials.styles._css')
