@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: robattfield
- * Date: 8/09/2017
- * Time: 21:49
- */
-
 namespace App\Libraries\Seo;
+
 use Illuminate\Support\Facades\Route;
 
 /**
