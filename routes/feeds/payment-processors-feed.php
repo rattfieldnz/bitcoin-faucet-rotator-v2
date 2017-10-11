@@ -1,41 +1,42 @@
 <?php
 
-Route::get('users-feed', function(){
+Route::get('payment-processors-feed', function(){
 
     // create new feed
     $feed = App::make("feed");
 
     // multiple feeds are supported
+    // if you are using caching you should set different cache keys for your feeds
 
     // check if there is cached feed and build new only if is not
     if (!$feed->isCached())
     {
-        $users = \App\Models\User::where('deleted_at', '=', null)
+        $adminUser = \App\Helpers\Functions\Users::adminUser();
+        $paymentProcessor = \App\Models\PaymentProcessor::where('deleted_at', '=', null)
             ->orderBy('created_at', 'desc')
             ->get();
 
         // set your feed's title, description, link, pubdate and language
-        $feed->title = 'Site Users Feed';
-        $feed->description = 'This feed enables you to be updated when new users are added to the site.';
+        $feed->title = 'Payment Processors Feed';
+        $feed->description = 'This feed enables you to be updated when new processors are added to the site.';
         $feed->logo = env('APP_URL') . '/assets/images/og/bitcoin.png';
-        $feed->link = url('users-feed');
+        $feed->link = url('payment-processors-feed');
         $feed->setDateFormat('datetime'); // 'datetime', 'timestamp' or 'carbon'
-        $feed->pubdate = $users[0]->created_at;
+        $feed->pubdate = $paymentProcessor[0]->created_at;
         $feed->lang = 'en';
         $feed->setShortening(true); // true or false
         $feed->setTextLimit(160); // maximum length of description text
 
-        foreach ($users as $u)
+        foreach ($paymentProcessor as $p)
         {
             // set item's title, author, url, pubdate, description, content, enclosure (optional)*
-            $desc = $u->user_name . " 's Profile";
             $feed->add(
-                $u->user_name,
-                $u->fullName(),
-                route('users.show', ['slug' => $u->slug]),
-                $u->created_at,
-                $desc,
-                $desc
+                $p->name,
+                $adminUser->fullName(),
+                route('payment-processors.show', ['slug' => $p->slug]),
+                $p->created_at,
+                $p->meta_title,
+                $p->meta_description
             );
         }
 

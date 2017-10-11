@@ -30,14 +30,13 @@ Route::get('faucets-feed', function(){
         foreach ($faucets as $f)
         {
             // set item's title, author, url, pubdate, description, content, enclosure (optional)*
-            $desc = $f->meta_description;
             $feed->add(
                 $f->name,
                 $adminUser->fullName(),
                 route('faucets.show', ['slug' => $f->slug]),
                 $f->created_at,
-                $desc,
-                $desc
+                $f->meta_title,
+                $f->meta_description
             );
         }
 
