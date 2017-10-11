@@ -7,6 +7,7 @@
  */
 
 namespace App\Libraries\Seo;
+use Illuminate\Support\Facades\Route;
 
 /**
  * Class SeoConfig
@@ -35,6 +36,11 @@ class SeoConfig
         if (empty($this->title)) {
             return $append;
         }
+
+        if(Route::currentRouteName() == 'home'){
+            return $this->title;
+        }
+
         return $this->title . " " . $separator . " " . $append;
     }
 }
