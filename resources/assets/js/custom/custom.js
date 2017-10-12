@@ -87,6 +87,8 @@ function footerReset()
         var footerTop = footer.position().top + footerHeight;
         if (footerTop < contentHeight) {
             footer.css('margin-top', (contentHeight - (footerTop) - 32) + 'px');
+        } else {
+            footer.css('margin-top', ((contentHeight/10) - 32) + 'px');
         }
     }
 }
