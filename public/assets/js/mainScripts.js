@@ -75231,13 +75231,13 @@ function keyExists(key, search) {
 
 function footerReset()
 {
-    var contentHeight = jQuery(window).height();
-    var footer = jQuery('#footer-custom');
+    var contentHeight = $(window).height();
+    var footer = $('#footer-custom');
     if (typeof footer.position() !== 'undefined') {
         var footerHeight = footer.height();
         var footerTop = footer.position().top + footerHeight;
         if (footerTop < contentHeight) {
-            footer.css('margin-top', (contentHeight - (footerTop) - 32) + 'px');
+            footer.css('margin-top', (contentHeight*0.99 - (footerTop) - 32) + 'px');
         } else {
             footer.css('margin-top', ((contentHeight/10) - 32) + 'px');
         }
