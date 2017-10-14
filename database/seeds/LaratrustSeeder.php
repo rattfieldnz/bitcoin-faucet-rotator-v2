@@ -86,10 +86,9 @@ class LaratrustSeeder extends Seeder
 
                             $this->command->info('Creating Permission to ' . $permissionValue . ' for ' . $module);
 
-                            if (!$user->hasPermission($permission)) {
+                            if (!$user->hasPermission($permission->name)) {
                                 $user->attachPermission($permission);
-                            } else {
-                                $this->command->info($key . ': ' . $p . ' ' . $permissionValue . ' already exist');
+                                $this->command->info('Assigning permission "' . $permission->name . '"" to user "' . $user->user_name . '"');
                             }
                         }
                     }
@@ -110,6 +109,7 @@ class LaratrustSeeder extends Seeder
 
             foreach ($initialPermissions as $permission) {
                 $standardUser->attachPermission($permission);
+                $this->command->info('Assigning permission "' . $permission->name . '"" to user "' . $standardUser->user_name . '"');
             }
         } catch (Illuminate\Database\QueryException $e) {
         }
