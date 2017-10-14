@@ -817,7 +817,6 @@ class FaucetAPIController extends AppBaseController
         $paymentProcessorFaucets = new Collection();
 
         for ($i = 0; $i < count($faucets); $i++) {
-
             $data = Faucets::userFaucetData($faucets[$i], $user);
 
             $paymentProcessorFaucets->push($data);

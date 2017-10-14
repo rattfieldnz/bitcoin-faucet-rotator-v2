@@ -31,7 +31,7 @@ class SeoConfig
             return $append;
         }
 
-        if(Route::currentRouteName() == 'home'){
+        if (Route::currentRouteName() == 'home') {
             return $this->title;
         }
 
