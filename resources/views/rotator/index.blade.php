@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div style="margin:0 0 0 0;">
+    <div class="zero-margin">
         <section class="content-header">
             <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
                 <h1 style="text-align: center;">{{ $pageTitle }}</h1>

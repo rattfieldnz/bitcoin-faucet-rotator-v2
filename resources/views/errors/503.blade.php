@@ -1,38 +1,26 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Be right back.</title>
+@extends('layouts.app')
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+@section('title')
+    <title>Be right back.</title>
+@endsection
 
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #333333;
-                font-family: 'Lato';
-            }
-
-            .content {
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 72px;
-                margin-bottom: 40px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Be right back.</div>
+@section('content')
+    <div class="zero-margin">
+        <section class="content-header">
+            <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
+                <h1>Be right back.</h1>
+            </div>
+        </section>
+        <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h2 style="margin-top: 0;"><img src="/assets/images/misc/http-503-service-unavailable.jpg" alt="HTTP Error 503 - Service Unavailable!" class="img-responsive"></h2>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+@endsection
