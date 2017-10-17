@@ -26,17 +26,19 @@ class UsersSeeder extends Seeder
         ]);
 
         // Seed a standard user
-        DB::table('users')->insert([
-            'user_name' => 'bobisbob',
-            'first_name' => 'Bob',
-            'last_name' => 'Bob',
-            'email' => 'robert.attfield00@gmail.com',
-            'password' => bcrypt('P@ssw0rd55'),
-            'bitcoin_address' => '17ptPaCkdHEKYrnmieMPB5jyamHY42P39S',
-            'slug' => 'bobisbob',
-            'is_admin' => 0,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
+        if(env('APP_ENV') == 'local'){
+            DB::table('users')->insert([
+                'user_name' => 'bobisbob',
+                'first_name' => 'Bob',
+                'last_name' => 'Bob',
+                'email' => 'robert.attfield00@gmail.com',
+                'password' => bcrypt('P@ssw0rd55'),
+                'bitcoin_address' => '17ptPaCkdHEKYrnmieMPB5jyamHY42P39S',
+                'slug' => 'bobisbob',
+                'is_admin' => 0,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+        }
     }
 }

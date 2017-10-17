@@ -58,14 +58,16 @@ class FaucetsTableSeeder extends BaseSeeder
                     ", Referral Code: " . $referralCode
                 );
 
-                $standardUserRefCode = 'bobisbob';
-                $faucet->users()->attach($standardUser->id, ['faucet_id' => $faucet->id, 'referral_code' => $standardUserRefCode]);
-                $this->command->info(
-                    "Seeding standard User-Faucet Referral Info => User ID: " . $standardUser->id .
-                    ", Faucet ID:  " . $faucet->id .
-                    ", Faucet Name: " . $faucet->name .
-                    ", Referral Code: " . $referralCode
-                );
+                if(!empty($standardUser) && env('APP_ENV') == 'local'){
+                    $standardUserRefCode = 'bobisbob';
+                    $faucet->users()->attach($standardUser->id, ['faucet_id' => $faucet->id, 'referral_code' => $standardUserRefCode]);
+                    $this->command->info(
+                        "Seeding standard User-Faucet Referral Info => User ID: " . $standardUser->id .
+                        ", Faucet ID:  " . $faucet->id .
+                        ", Faucet Name: " . $faucet->name .
+                        ", Referral Code: " . $referralCode
+                    );
+                }
             } catch (Exception $e) {
                 error_log($e->getMessage());
             }
