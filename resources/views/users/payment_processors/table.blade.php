@@ -69,8 +69,8 @@
 </div>
 
 @push('scripts')
-<script src="/assets/js/datatables.net/datatables.min.js?{{ rand() }}"></script>
-<script src="/assets/js/payment-processor-scripts/paymentProcessorDatatables.min.js?{{ rand() }}"></script>
+<script src="{{ asset("/assets/js/datatables.net/datatables.min.js?" . rand()) }}"></script>
+<script src="{{ asset("/assets/js/payment-processor-scripts/paymentProcessorDatatables.min.js?" . rand()) }}"></script>
 <script>
     $(function () {
         $.fn.dataTable.ext.errMode = 'none';

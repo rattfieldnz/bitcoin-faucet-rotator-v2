@@ -45,4 +45,13 @@
     <li class="{{ Request::is('terms-and-conditions*') ? 'active' : '' }}">
         <strong><a href="{!! route('terms-and-conditions') !!}" title="Terms and Conditions">Terms &amp; Conditions</a></strong>
     </li>
+
+@if(Auth::guest())
+    <li class="{{ Request::is('login*') ? 'active' : '' }}">
+        <a href="{!! url('/login') !!}">Login</a>
+    </li>
+    <li class="{{ Request::is('register*') ? 'active' : '' }}">
+        <a href="{!! url('/register') !!}">Register</a>
+    </li>
+@endif
 </ul>

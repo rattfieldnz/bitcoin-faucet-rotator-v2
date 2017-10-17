@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="/assets/css/datatables.net/datatables.min.css?{{ rand() }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset("/assets/css/datatables.net/datatables.min.css?" . rand()) }}" type="text/css">
 @endsection
 
 @section('content')
@@ -160,8 +160,8 @@
 @endsection
 
 @push('scripts')
-<script src="/assets/js/datatables.net/datatables.min.js?{{ rand() }}"></script>
-<script src="/assets/js/chart.js/Chart.min.js?{{ rand() }}"></script>
+<script src="{{ asset("/assets/js/datatables.net/datatables.min.js?" . rand()) }}"></script>
+<script src="{{ asset("/assets/js/chart.js/Chart.min.js?" . rand()) }}"></script>
 <script src="https://www.gstatic.com/charts/loader.js?{{ rand() }}"></script>
-<script src="/assets/js/stats/stats.min.js?{{ rand() }}"></script>
+<script src="{{ asset("/assets/js/stats/stats.min.js?" . rand()) }}"></script>
 @endpush

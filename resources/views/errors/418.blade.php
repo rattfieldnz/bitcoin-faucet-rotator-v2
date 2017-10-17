@@ -16,7 +16,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-lg-6">
-                            <h3 style="margin-top: 0;"><img src="/assets/images/misc/http-418-im-a-teapot.jpg" alt="HTTP Error 418 - I'm a teapot!" class="img-responsive"></h3>
+                            <h3 style="margin-top: 0;"><img src="{{ asset("/assets/images/misc/http-418-im-a-teapot.jpg") }}" alt="HTTP Error 418 - I'm a teapot!" class="img-responsive"></h3>
                         </div>
                         <div class="col-lg-6">
 

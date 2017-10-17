@@ -44,8 +44,8 @@
 </div>
 
 @push('scripts')
-<script src="/assets/js/datatables.net/datatables.min.js?{{ rand() }}"></script>
-<script src="/assets/js/user-scripts/usersDatatables.min.js?{{ rand() }}"></script>
+<script src="{{ asset("/assets/js/datatables.net/datatables.min.js?" . rand()) }}"></script>
+<script src="{{ asset("/assets/js/user-scripts/usersDatatables.min.js?" . rand()) }}"></script>
 <script>
     $(function () {
 

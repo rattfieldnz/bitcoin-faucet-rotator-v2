@@ -49,7 +49,7 @@
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('privacy-policy.create') !!}" class="btn btn-default">Cancel</a>
+    <a href="{!! route('privacy-policy') !!}" class="btn btn-default">Cancel</a>
 </div>
 
 

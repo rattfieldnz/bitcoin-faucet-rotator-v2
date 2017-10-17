@@ -30,7 +30,7 @@
 @endsection
 
 @push('scripts')
-<script src="/assets/js/rotator-scripts/paymentProcessorRotator.min.js?{{ rand() }}"></script>
+<script src="{{ asset("/assets/js/rotator-scripts/paymentProcessorRotator.min.js?" . rand()) }}"></script>
 @endpush
 
 @push('google-analytics')

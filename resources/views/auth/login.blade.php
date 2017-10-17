@@ -6,9 +6,9 @@
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <title>Bitcoin Faucet Rotator Login Page</title>
     @if(env('APP_ENV') == 'local')
-        <link rel="stylesheet" href="/assets/css/mainStyles.css?{{ rand()}}">
+        <link rel="stylesheet" href="{{ asset("/assets/css/mainStyles.css?". rand()) }}">
     @elseif(env('APP_ENV') == 'production')
-        <link rel="stylesheet" href="/assets/css/mainStyles.min.css?{{ rand()}}">
+        <link rel="stylesheet" href="{{ asset("/assets/css/mainStyles.min.css?". rand()) }}">
     @endif
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -122,14 +122,12 @@
     </div>
     <!-- /.login-box-body -->
 </div>
+@include('layouts.partials.content._footer')
 <!-- /.login-box -->
 @if(env('APP_ENV') == 'local')
-    <script src="/assets/js/mainScripts.js?{{ rand()}}"></script>
+    <script src="{{ asset("/assets/js/mainScripts.js?". rand()) }}"></script>
 @elseif(env('APP_ENV') == 'production')
-    <script src="/assets/js/mainScripts.min.js?{{ rand()}}"></script>
-@endif
-@if(\App\Helpers\WebsiteMeta\WebsiteMeta::activatedAdBlockBlocking() == true)
-    <script src="/assets/js/blockadblock/custom.blockadblock.js?{{ rand()}}"></script>
+    <script src="{{ asset("/assets/js/mainScripts.min.js?". rand()) }}"></script>
 @endif
 <script>
     $(function () {

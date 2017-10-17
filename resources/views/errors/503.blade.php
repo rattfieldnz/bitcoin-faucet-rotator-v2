@@ -16,7 +16,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h2 style="margin-top: 0;"><img src="/assets/images/misc/http-503-service-unavailable.jpg" alt="HTTP Error 503 - Service Unavailable!" class="img-responsive"></h2>
+                            <h2 style="margin-top: 0;"><img src="{{ asset("/assets/images/misc/http-503-service-unavailable.jpg") }}" alt="HTTP Error 503 - Service Unavailable!" class="img-responsive"></h2>
                         </div>
                     </div>
                 </div>

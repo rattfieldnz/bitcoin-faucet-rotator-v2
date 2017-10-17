@@ -16,7 +16,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-lg-6">
-                            <h2 style="margin-top: 0;"><img src="/assets/images/misc/http-400-bad-request.jpg" alt="HTTP Error 400 - Bad Request!" class="img-responsive"></h2>
+                            <h2 style="margin-top: 0;"><img src="{{ asset("/assets/images/misc/http-400-bad-request.jpg") }}" alt="HTTP Error 400 - Bad Request!" class="img-responsive"></h2>
                         </div>
                         <div class="col-lg-6">
                             <p><strong>The request cannot be fulfilled due to bad syntax.</strong></p>

@@ -16,7 +16,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-lg-6">
-                            <h2 style="margin-top: 0;"><img src="/assets/images/misc/http-403-unauthorised-forbidden.jpg" alt="HTTP Error 403 - Unauthorised/Forbidden!" class="img-responsive"></h2>
+                            <h2 style="margin-top: 0;"><img src="{{ asset("/assets/images/misc/http-403-unauthorised-forbidden.jpg") }}" alt="HTTP Error 403 - Unauthorised/Forbidden!" class="img-responsive"></h2>
                         </div>
                         <div class="col-lg-6">
                             <p><strong>You aren't authorized, or do not have the sufficient permissions to access this feature.</strong></p>

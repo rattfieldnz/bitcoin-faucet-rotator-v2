@@ -16,7 +16,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-lg-6">
-                            <h2 style="margin-top: 0;"><img src="/assets/images/misc/http-500-internal-server-error.jpg" alt="HTTP Error - Internal Server Error!" class="img-responsive"></h2>
+                            <h2 style="margin-top: 0;"><img src="{{ asset("/assets/images/misc/http-500-internal-server-error.jpg") }}" alt="HTTP Error - Internal Server Error!" class="img-responsive"></h2>
                         </div>
                         <div class="col-lg-6">
 
