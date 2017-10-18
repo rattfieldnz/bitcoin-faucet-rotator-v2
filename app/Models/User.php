@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Helpers\Constants;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,6 +13,7 @@ use Laratrust\Traits\LaratrustUserTrait;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Activitylog\ActivitylogServiceProvider;
 use Spatie\Activitylog\Traits\CausesActivity;
+use Illuminate\Auth\Passwords\CanResetPassword as ResetPassword;
 
 /**
  * Class User
@@ -19,7 +21,7 @@ use Spatie\Activitylog\Traits\CausesActivity;
  * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Models
  */
-class User extends Authenticatable
+class User extends Authenticatable implements CanResetPassword
 {
     use LaratrustUserTrait;
     use SoftDeletes;
@@ -27,6 +29,7 @@ class User extends Authenticatable
     use Sluggable;
     use CausesActivity;
     use HasApiTokens;
+    use ResetPassword;
 
     public $table = 'users';
     
