@@ -87,7 +87,6 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                         Faucet::where('name','Hue Faucet')->first(),
                         Faucet::where('name','BitLucky')->first(),
                         Faucet::where('name','AT Spot')->first(),
-                        Faucet::where('name','Distan29 Faucet')->first(),
                         Faucet::where('name','Jacob\'s Faucet')->first(),
                         Faucet::where('name','CoinAd')->first(),
                         Faucet::where('name','GoBits')->first(),
@@ -97,6 +96,7 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                         Faucet::where('name','Get Free Coin')->first(),
                         Faucet::where('name','RektCoins')->first(),
                         Faucet::where('name','Free Bitcoin Mine')->first(),
+                        Faucet::where('name','CoinCrunch')->first(),
                     ];
                     for ($i = 0; $i < count($faucets); $i++) {
                         if (!empty($faucets[$i])) {
