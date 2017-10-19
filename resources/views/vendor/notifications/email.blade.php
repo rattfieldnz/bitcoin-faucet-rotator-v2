@@ -45,7 +45,12 @@
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-Regards,<br>{{ config('app.name') }}
+Regards,
+
+@component('vendor.mail.html.homepagelink', ['linkTitle' => config('app.name') . ' admin', 'linkText' => config('app.name')])
+    admin.
+@endcomponent
+
 @endif
 
 {{-- Subcopy --}}

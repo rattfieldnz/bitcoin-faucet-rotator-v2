@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\Constants;
+use App\Notifications\ResetPasswordNotification;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -142,6 +143,17 @@ class User extends Authenticatable implements CanResetPassword
                 'source' => 'user_name'
             ]
         ];
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 
     public function isAnAdmin()

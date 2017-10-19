@@ -1,0 +1,1 @@
+<a href="{{ env('APP_URL') }}" target="_blank" title="{{ $linkTitle }}">{{ $linkText }}</a> admin.

@@ -49,7 +49,8 @@
         "optimus/api-consumer": "^0.2.3",
         "asm89/stack-cors": "^1.1",
         "jaybizzle/laravel-migrations-organiser": "4.*",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "snowfire/beautymail": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.6",

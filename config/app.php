@@ -41,6 +41,8 @@ return [
 
     'url' => env('APP_URL'),
 
+    'name' => !empty(env('APP_NAME')) ? env('APP_NAME') : "Bitcoin Faucet Rotator",
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -176,6 +178,7 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Roumen\Feed\FeedServiceProvider::class,
+        Snowfire\Beautymail\BeautymailServiceProvider::class,
         /*
          * Application Service Providers...
          */
