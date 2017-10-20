@@ -24,13 +24,13 @@ return [
         'address'     => null,
 
         'logo'        => [
-            'path'   => '%PUBLIC%/vendor/beautymail/assets/images/sunny/logo.png',
-            'width'  => '',
-            'height' => '',
+            'path'   => env('APP_URL') . '/assets/images/logos/bitcoin_200x200.png',
+            'width'  => '200px',
+            'height' => '200px',
         ],
 
-        'twitter'  => null,
-        'facebook' => null,
+        'twitter'  => 'https://twitter.com/freebtcwebsite',
+        'facebook' => 'https://www.facebook.com/freebtc.website/',
         'flickr'   => null,
     ],
 

@@ -54,7 +54,6 @@ class ResetPasswordNotification extends Notification
         return (new MailMessage)
             ->greeting('Hello!')
             ->line('You are receiving this email because we received a password reset request for your account. Click the button below to reset your password:')
-            ->action('Reset Password', $url)
-            ->line('If you did not request a password reset, no further action is required.');
+            ->action('Reset Password', $url);
     }
 }
