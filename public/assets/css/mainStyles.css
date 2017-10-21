@@ -41575,6 +41575,7 @@ table.show-table-header thead tr th {
 #navbar-guest {
   background-color: transparent;
   border: 0;
+  width: auto;
 }
 
 #guest-bg,

@@ -11,7 +11,7 @@
     </li>
 
     <li class="{{ Request::is('users*') ? 'active' : '' }}">
-        <a href="{!! route('users.index') !!}" title="Users">Users</a>
+        <a href="{!! route('users.index') !!}" title="Current Users">Current Users</a>
     </li>
 
 @if(Auth::user() != null)
