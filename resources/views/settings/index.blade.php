@@ -35,7 +35,7 @@
                             @include('settings.twitter-config')
                         </div>
                         <div id="roles">
-
+                            @include('settings.roles')
                         </div>
                         <div id="permissions">
 

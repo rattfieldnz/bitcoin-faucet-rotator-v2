@@ -47,14 +47,16 @@ class SettingsController extends Controller
         $mainMeta = $this->mainMetaRepository->first();
         $adBlock = $this->adBlockRepository->first();
         $twitterConfig = $this->twitterConfigRepository->first();
+        $roles = $this->roleRepository->all();
 
 
 
         return view('settings.index')
             ->with('mainMeta', $mainMeta)
             ->with('adBlock', $adBlock)
-            ->with('adminUser', $adminUser)
             ->with('twitterConfig', $twitterConfig)
+            ->with('roles', $roles)
+            ->with('adminUser', $adminUser)
             ->with('languageCodes', $this->languageCodes);
     }
 }

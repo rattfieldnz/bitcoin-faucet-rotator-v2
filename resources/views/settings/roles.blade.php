@@ -1,7 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: robattfield
- * Date: 22/10/2017
- * Time: 20:52
- */
+
+<div class="row">
+    @include('roles.table')
+</div>
