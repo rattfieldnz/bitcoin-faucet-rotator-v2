@@ -43,7 +43,7 @@ class SettingsController extends Controller
         if(!Auth::user()->isAnAdmin()){
             abort(403);
         }
-        
+
         $adminUser = User::where('is_admin', true)->first();
         $mainMeta = $this->mainMetaRepository->first();
         $adBlock = $this->adBlockRepository->first();
