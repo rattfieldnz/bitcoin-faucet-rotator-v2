@@ -7,6 +7,11 @@
         </div>
     </section>
     <div class="content">
+        <div class="clearfix"></div>
+
+        @include('flash::message')
+
+        <div class="clearfix"></div>
         @include('layouts.partials.navigation._breadcrumbs')
         <div class="box box-primary">
             <div class="box-body">
@@ -21,7 +26,7 @@
                             <li><h3><a href="#permissions">Permissions</a></h3></li>
                         </ul>
                         <div id="main-meta">
-
+                            @include('settings.main-meta')
                         </div>
                         <div id="ad-block">
 

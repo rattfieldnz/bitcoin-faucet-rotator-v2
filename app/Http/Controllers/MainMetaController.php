@@ -83,7 +83,7 @@ class MainMetaController extends AppBaseController
 
         flash('Main Meta updated successfully.')->success();
 
-        return redirect(route('main-meta.index'));
+        return redirect(route('settings') . "#main-meta");
     }
 
     /**
@@ -100,7 +100,7 @@ class MainMetaController extends AppBaseController
         if (empty($mainMeta)) {
             flash('Main Meta not found.')->error();
 
-            return redirect(route('main-metas.index'));
+            return redirect(route('settings') . "#main-meta");
         }
 
         return view('main_meta.edit')
@@ -123,7 +123,7 @@ class MainMetaController extends AppBaseController
         if (empty($mainMeta)) {
             flash('Main Meta not found.')->error();
 
-            return redirect(route('main-metas.index'));
+            return redirect(route('settings') . "#main-meta");
         }
 
         $input = $request->all();
@@ -132,7 +132,7 @@ class MainMetaController extends AppBaseController
 
         flash('Main Meta updated successfully.')->success();
 
-        return redirect(route('main-meta.index'));
+        return redirect(route('settings') . "#main-meta");
     }
 
     /**
