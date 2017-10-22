@@ -82,7 +82,7 @@ class TwitterConfigController extends AppBaseController
 
         flash('Twitter Config saved successfully.')->success();
 
-        return redirect(route('twitter-config.index'));
+        return redirect(route('settings') . "#twitter-config");
     }
 
     /**
@@ -122,14 +122,14 @@ class TwitterConfigController extends AppBaseController
         if (empty($twitterConfig)) {
             flash('Twitter Config not found.')->error();
 
-            return redirect(route('twitter-config.index'));
+            return redirect(route('settings') . "#twitter-config");
         }
 
         $this->twitterConfigRepository->update($request->all(), $id);
 
         flash('Twitter Config updated successfully.')->success();
 
-        return redirect(route('twitter-config.index'));
+        return redirect(route('settings') . "#twitter-config");
     }
 
     /**

@@ -32,7 +32,7 @@
                             @include('settings.ad-block')
                         </div>
                         <div id="twitter-config">
-
+                            @include('settings.twitter-config')
                         </div>
                         <div id="roles">
 

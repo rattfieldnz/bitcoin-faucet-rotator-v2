@@ -46,6 +46,7 @@ class SettingsController extends Controller
         $adminUser = User::where('is_admin', true)->first();
         $mainMeta = $this->mainMetaRepository->first();
         $adBlock = $this->adBlockRepository->first();
+        $twitterConfig = $this->twitterConfigRepository->first();
 
 
 
@@ -53,6 +54,7 @@ class SettingsController extends Controller
             ->with('mainMeta', $mainMeta)
             ->with('adBlock', $adBlock)
             ->with('adminUser', $adminUser)
+            ->with('twitterConfig', $twitterConfig)
             ->with('languageCodes', $this->languageCodes);
     }
 }
