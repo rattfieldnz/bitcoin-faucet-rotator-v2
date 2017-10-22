@@ -160,3 +160,5 @@ Route::resource('terms-and-conditions', 'TermsAndConditionsController');
 Route::get('terms-and-conditions', ['as' => 'terms-and-conditions', 'uses' => 'TermsAndConditionsController@index']);
 
 Route::get('stats', ['as' => 'stats.index', 'uses' => 'StatsController@index']);
+
+Route::get('settings', ['as' => 'settings', 'uses' => 'SettingsController@index']);

@@ -306,7 +306,7 @@ table.show-table-header thead tr th{
     margin-left:-1em;
 }
 
-.user-profile-main-heading{
+.user-profile-main-heading, .settings-heading{
     margin-top:2em;
 }
 
@@ -322,7 +322,7 @@ table.show-table-header thead tr th{
     margin-top:-5em;
 }
 
-.user-profile-main-heading h1{
+.user-profile-main-heading h1, .settings-heading h1{
     margin-left:0.35em;
 }
 
@@ -473,7 +473,7 @@ table.show-table-header thead tr th{
         margin-top:6em;
     }
 
-    .user-profile-main-heading{
+    .user-profile-main-heading, .settings-heading{
         margin-top:5.5em;
     }
 
