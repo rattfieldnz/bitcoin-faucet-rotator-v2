@@ -38,7 +38,7 @@
                             @include('settings.roles')
                         </div>
                         <div id="permissions">
-
+                            @include('settings.permissions')
                         </div>
                     </div>
                 </div>

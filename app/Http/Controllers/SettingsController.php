@@ -43,19 +43,20 @@ class SettingsController extends Controller
         if(!Auth::user()->isAnAdmin()){
             abort(403);
         }
+        
         $adminUser = User::where('is_admin', true)->first();
         $mainMeta = $this->mainMetaRepository->first();
         $adBlock = $this->adBlockRepository->first();
         $twitterConfig = $this->twitterConfigRepository->first();
         $roles = $this->roleRepository->all();
-
-
+        $permissions = $this->permissionRepository->all();
 
         return view('settings.index')
             ->with('mainMeta', $mainMeta)
             ->with('adBlock', $adBlock)
             ->with('twitterConfig', $twitterConfig)
             ->with('roles', $roles)
+            ->with('permissions', $permissions)
             ->with('adminUser', $adminUser)
             ->with('languageCodes', $this->languageCodes);
     }
