@@ -36,39 +36,6 @@ class MainMetaController extends AppBaseController
     }
 
     /**
-     * Display a listing of the MainMeta.
-     *
-     * @param  Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index(Request $request)
-    {
-        Functions::userCanAccessArea(Auth::user(), 'main-meta.index', [], []);
-        $this->mainMetaRepository->pushCriteria(new RequestCriteria($request));
-        $mainMetas = $this->mainMetaRepository->all();
-
-        if (count($mainMetas) == 0) {
-            return view('main_meta.create');
-        }
-        $mainMeta = $this->mainMetaRepository->first();
-        return view('main_meta.edit')
-            ->with('mainMeta', $mainMeta)
-            ->with('languageCodes', $this->languageCodes);
-    }
-
-    /**
-     * Show the form for creating a new MainMeta.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function create()
-    {
-        Functions::userCanAccessArea(Auth::user(), 'main-meta.create', [], []);
-        return view('main_meta.create')
-            ->with('languageCodes', $this->languageCodes);
-    }
-
-    /**
      * Store a newly created MainMeta in storage.
      *
      * @param  CreateMainMetaRequest $request
@@ -84,28 +51,6 @@ class MainMetaController extends AppBaseController
         flash('Main Meta updated successfully.')->success();
 
         return redirect(route('settings') . "#main-meta");
-    }
-
-    /**
-     * Show the form for editing the specified MainMeta.
-     *
-     * @param  int $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function edit($id)
-    {
-        Functions::userCanAccessArea(Auth::user(), 'main-meta.edit', ['id' => $id], ['id' => $id]);
-        $mainMeta = $this->mainMetaRepository->findWithoutFail($id);
-
-        if (empty($mainMeta)) {
-            flash('Main Meta not found.')->error();
-
-            return redirect(route('settings') . "#main-meta");
-        }
-
-        return view('main_meta.edit')
-            ->with('mainMeta', $mainMeta)
-            ->with('languageCodes', $this->languageCodes);
     }
 
     /**

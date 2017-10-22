@@ -33,40 +33,6 @@ class TwitterConfigController extends AppBaseController
     }
 
     /**
-     * Display a listing of the TwitterConfig.
-     *
-     * @param  Request $request
-     * @return \Illuminate\View\View
-     */
-    public function index(Request $request)
-    {
-        Functions::userCanAccessArea(Auth::user(), 'twitter-config.index', [], []);
-        $this->twitterConfigRepository->pushCriteria(new RequestCriteria($request));
-        $twitterConfigs = $this->twitterConfigRepository->all();
-        $adminUser = Auth::user()->where('is_admin', true)->first();
-
-        if (count($twitterConfigs) == 0) {
-            return view('twitter_config.create')->with('adminUser', $adminUser);
-        }
-
-        $twitterConfig = $this->twitterConfigRepository->first();
-
-        return view('twitter_config.edit')
-            ->with('twitterConfig', $twitterConfig)->with('adminUser', $adminUser);
-    }
-
-    /**
-     * Show the form for creating a new TwitterConfig.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        Functions::userCanAccessArea(Auth::user(), 'twitter-config.create', [], []);
-        return view('twitter_config.create');
-    }
-
-    /**
      * Store a newly created TwitterConfig in storage.
      *
      * @param CreateTwitterConfigRequest $request
@@ -83,27 +49,6 @@ class TwitterConfigController extends AppBaseController
         flash('Twitter Config saved successfully.')->success();
 
         return redirect(route('settings') . "#twitter-config");
-    }
-
-    /**
-     * Show the form for editing the specified TwitterConfig.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function edit($id)
-    {
-        Functions::userCanAccessArea(Auth::user(), 'twitter-config.edit', ['id' => $id], ['id' => $id]);
-        $twitterConfig = $this->twitterConfigRepository->findWithoutFail($id);
-
-        if (empty($twitterConfig)) {
-            flash('Twitter Config not found.')->error();
-
-            return redirect(route('twitter-config.index'));
-        }
-
-        return view('twitter_config.edit')->with('twitterConfig', $twitterConfig);
     }
 
     /**

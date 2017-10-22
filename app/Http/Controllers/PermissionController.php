@@ -34,22 +34,6 @@ class PermissionController extends AppBaseController
     }
 
     /**
-     * Display a listing of the Permission.
-     *
-     * @param  Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index(Request $request)
-    {
-        Functions::userCanAccessArea(Auth::user(), 'permissions.index', [], []);
-        $this->permissionRepository->pushCriteria(new RequestCriteria($request));
-        $permissions = $this->permissionRepository->all();
-
-        return view('permissions.index')
-            ->with('permissions', $permissions);
-    }
-
-    /**
      * Display the specified Permission.
      *
      * @param string $slug

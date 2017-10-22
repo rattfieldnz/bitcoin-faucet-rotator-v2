@@ -33,41 +33,6 @@ class AdBlockController extends AppBaseController
     }
 
     /**
-     * Display a listing of the AdBlock.
-     *
-     * @param  Request $request
-     * @return \Illuminate\View\View
-     */
-    public function index(Request $request)
-    {
-        Functions::userCanAccessArea(Auth::user(), 'ad-block.index', [], []);
-
-        $this->adBlockRepository->pushCriteria(new RequestCriteria($request));
-        $adBlocks = $this->adBlockRepository->all();
-        $adminUser = User::where('is_admin', true)->first();
-
-        if (count($adBlocks) == 0) {
-            return view('ad_block.create');
-        }
-
-        $adBlock = $this->adBlockRepository->first();
-        return view('ad_block.edit')
-            ->with('adBlock', $adBlock)
-            ->with('adminUser', $adminUser);
-    }
-
-    /**
-     * Show the form for creating a new AdBlock.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        Functions::userCanAccessArea(Auth::user(), 'ad-block.create', [], []);
-        return view('ad_block.create');
-    }
-
-    /**
      * Store a newly created AdBlock in storage.
      *
      * @param  CreateAdBlockRequest $request
@@ -83,26 +48,6 @@ class AdBlockController extends AppBaseController
         flash('Ad Block saved successfully.')->success();
 
         return redirect(route('settings') . "#ad-block");
-    }
-
-    /**
-     * Show the form for editing the specified AdBlock.
-     *
-     * @param  int $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function edit($id)
-    {
-        Functions::userCanAccessArea(Auth::user(), 'ad-block.edit', ['id' => $id], ['id' => $id]);
-        $adBlock = $this->adBlockRepository->findWithoutFail($id);
-
-        if (empty($adBlock)) {
-            flash('Ad Block not found')->error();
-
-            return redirect(route('ad-block.index'));
-        }
-
-        return view('ad_block.edit')->with('adBlock', $adBlock);
     }
 
     /**
