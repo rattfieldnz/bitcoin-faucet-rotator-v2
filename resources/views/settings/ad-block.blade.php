@@ -1,7 +1,16 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: robattfield
- * Date: 22/10/2017
- * Time: 20:51
- */
+
+<div class="row">
+    @if(empty($adBlock))
+        {!! Form::open(['route' => 'ad-block.store']) !!}
+
+        @include('main_meta.fields')
+
+        {!! Form::close() !!}
+    @else
+        {!! Form::model($adBlock, ['route' => ['ad-block.update', $adBlock->id], 'method' => 'patch']) !!}
+
+        @include('ad_block.fields')
+
+        {!! Form::close() !!}
+    @endif
+</div>

@@ -29,7 +29,7 @@
                             @include('settings.main-meta')
                         </div>
                         <div id="ad-block">
-
+                            @include('settings.ad-block')
                         </div>
                         <div id="twitter-config">
 

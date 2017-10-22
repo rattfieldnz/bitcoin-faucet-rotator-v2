@@ -44,17 +44,15 @@ class SettingsController extends Controller
             abort(403);
         }
         $adminUser = User::where('is_admin', true)->first();
-        $mainMetas = $this->mainMetaRepository->all();
-        $mainMetaView = 'main_meta.create';
         $mainMeta = $this->mainMetaRepository->first();
+        $adBlock = $this->adBlockRepository->first();
 
-        if (count($mainMetas) > 0) {
-            $mainMetaView = 'main_meta.edit';
-        }
+
 
         return view('settings.index')
             ->with('mainMeta', $mainMeta)
-            ->with('mainMetaView', $mainMetaView)
+            ->with('adBlock', $adBlock)
+            ->with('adminUser', $adminUser)
             ->with('languageCodes', $this->languageCodes);
     }
 }

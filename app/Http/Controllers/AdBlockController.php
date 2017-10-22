@@ -82,7 +82,7 @@ class AdBlockController extends AppBaseController
 
         flash('Ad Block saved successfully.')->success();
 
-        return redirect(route('ad-block.index'));
+        return redirect(route('settings') . "#ad-block");
     }
 
     /**
@@ -120,14 +120,14 @@ class AdBlockController extends AppBaseController
         if (empty($adBlock)) {
             flash('Ad Block not found')->error();
 
-            return redirect(route('ad-block.index'));
+            return redirect(route('settings') . "#ad-block");
         }
 
         $this->adBlockRepository->update($request->all(), $id);
 
         flash('Ad Block updated successfully.')->success();
 
-        return redirect(route('ad-block.index'));
+        return redirect(route('settings') . "#ad-block");
     }
 
     /**
