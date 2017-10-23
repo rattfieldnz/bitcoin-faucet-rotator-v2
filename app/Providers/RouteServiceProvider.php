@@ -65,16 +65,16 @@ class RouteServiceProvider extends ServiceProvider
             function ($router) {
                 include base_path('routes/web.php');
 
-                include base_path('routes/sitemap-main.php');
-                include base_path('routes/sitemap-index.php');
+                include base_path('routes/sitemaps/sitemap-main.php');
+                include base_path('routes/sitemaps/sitemap-index.php');
 
-                include base_path('routes/sitemap-users.php');
-                include base_path('routes/sitemap-users-faucets.php');
-                include base_path('routes/sitemap-users-rotators.php');
-                include base_path('routes/sitemap-users-payment-processors.php');
+                include base_path('routes/sitemaps/sitemap-users.php');
+                include base_path('routes/sitemaps/sitemap-users-faucets.php');
+                include base_path('routes/sitemaps/sitemap-users-rotators.php');
+                include base_path('routes/sitemaps/sitemap-users-payment-processors.php');
 
-                include base_path('routes/sitemap-faucets.php');
-                include base_path('routes/sitemap-payment-processors.php');
+                include base_path('routes/sitemaps/sitemap-faucets.php');
+                include base_path('routes/sitemaps/sitemap-payment-processors.php');
 
                 include base_path('routes/feeds/faucets-feed.php');
                 include base_path('routes/feeds/users-feed.php');
