@@ -174,6 +174,31 @@
     @endif
 </div>
 
+<!-- Twitter Message Field -->
+<div class="form-group col-sm-10 has-feedback{{ $errors->has('twitter_message') ? ' has-error' : '' }}">
+	{!! Form::label('twitter_message', 'Twitter Message*:') !!}
+	{!! Form::text(
+	    'twitter_message', null,
+	    [
+	        'class' => 'form-control',
+	        'placeholder' => 'Earn between [faucet_min_payout] and [faucet_max_payout] satoshis every [faucet_interval] minute/s from [faucet_url] for free :) #FreeBitcoin #Bitcoin'
+	    ])
+	!!}
+	<p><small>*The following placeholders are available: [faucet_name], [faucet_url], [faucet_min_payout], [faucet_max_payout], [faucet_interval].</small></p>
+
+	<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
+	@if ($errors->has('twitter_message'))
+		<span class="help-block">
+		    <strong>{{ $errors->first('twitter_message') }}</strong>
+		</span>
+	@endif
+</div>
+
+<div class="form-group col-sm-2">
+	{!! Form::label('send_tweet', 'Send Tweet Notification?' ) !!}
+	{!! Form::select('send_tweet', [true => 'Yes', false => 'No'], 0, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Has Low Balance Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('has_low_balance') ? ' has-error' : '' }}">
     {!! Form::label('has_low_balance', 'Has Low Balance:') !!}

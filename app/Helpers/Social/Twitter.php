@@ -1,6 +1,8 @@
 <?php namespace App\Helpers\Social;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
+use App\Helpers\Functions\Faucets;
+use App\Helpers\WebsiteMeta\FaucetConstants;
 use App\Models\Faucet;
 use App\Models\User;
 
@@ -62,7 +64,9 @@ class Twitter
      */
     public function sendRandomFaucetTweet()
     {
-        $faucetIds = Faucet::where('id', '>', 0)->pluck('id')->toArray();
+        $faucetIds = Faucet::where('id', '>', 0)
+            ->where('deleted_at', '=', 'null')
+            ->pluck('id')->toArray();
         shuffle($faucetIds);
         $randomNumber = array_slice($faucetIds, 0, 1);
 
@@ -71,12 +75,8 @@ class Twitter
 
         if ($faucet != null) {
             //Construct a message template based on the random faucet's details.
-            $message = "Earn between " . $faucet->min_payout . " and "
-                . $faucet->max_payout . " satoshis every " . $faucet->interval_minutes
-                . " minute/s from " . url('/faucets/' . $faucet->slug) . " for free :).";
-
-                // Send the tweet of the random faucet.
-                $this->sendTweet($message);
+            $message = Faucets::renderTweet($faucet);
+            $this->sendTweet($message);
         }
     }
 

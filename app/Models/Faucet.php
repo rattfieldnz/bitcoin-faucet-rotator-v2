@@ -39,7 +39,8 @@ class Faucet extends Model
         'meta_title',
         'meta_description',
         'meta_keywords',
-        'has_low_balance'
+        'has_low_balance',
+        'twitter_message'
     ];
 
     protected $guarded = [
@@ -65,7 +66,8 @@ class Faucet extends Model
         'meta_title' => 'string',
         'meta_description' => 'string',
         'meta_keywords' => 'string',
-        'has_low_balance' => 'boolean'
+        'has_low_balance' => 'boolean',
+        'twitter_message' => 'string'
     ];
 
     /**

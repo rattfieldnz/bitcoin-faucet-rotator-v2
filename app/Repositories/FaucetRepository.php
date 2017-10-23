@@ -127,7 +127,8 @@ class FaucetRepository extends Repository implements IRepository
             'meta_title' => Purifier::clean($data['meta_title'], 'generalFields'),
             'meta_description' => Purifier::clean($data['meta_description'], 'generalFields'),
             'meta_keywords' => Purifier::clean($data['meta_keywords'], 'generalFields'),
-            'has_low_balance'  => Purifier::clean($data['has_low_balance'], 'generalFields')
+            'has_low_balance'  => Purifier::clean($data['has_low_balance'], 'generalFields'),
+            'twitter_message' => Purifier::clean($data['twitter_message'], 'generalFields')
         ];
     }
 }

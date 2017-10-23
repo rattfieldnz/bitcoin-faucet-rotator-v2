@@ -1,6 +1,8 @@
 <?php namespace App\Helpers\Functions;
 
 use App\Helpers\Constants;
+use App\Helpers\Social\Twitter;
+use App\Helpers\WebsiteMeta\FaucetConstants;
 use App\Http\Requests\CreateFaucetRequest;
 use App\Http\Requests\UpdateFaucetRequest;
 use App\Models\Faucet;
@@ -49,7 +51,7 @@ class Faucets
      */
     public function createStoreFaucet(CreateFaucetRequest $request)
     {
-        $input = $request->except('payment_processors', 'slug', 'referral_code');
+        $input = $request->except('payment_processors', 'slug', 'referral_code', 'send_tweet');
 
         $faucet = $this->faucetRepository->create($input);
 
@@ -65,8 +67,14 @@ class Faucets
             }
         }
 
-        if (Auth::user()->hasRole('owner')) {
-            Auth::user()->faucets()->sync([$faucet->id => ['referral_code' => $referralCode]]);
+        Users::adminUser()->faucets()->sync([$faucet->id => ['referral_code' => $referralCode]]);
+
+        if ($request->get('send_tweet') == 1 && env('APP_ENV') == 'production') {
+
+            $twitter = new Twitter(Users::adminUser());
+            $tweet = self::renderTweet($faucet);
+
+            $twitter->sendTweet($tweet);
         }
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
@@ -764,6 +772,29 @@ class Faucets
         }
 
         return $data;
+    }
+
+    /**
+     * @param \App\Models\Faucet $faucet
+     *
+     * @return string
+     */
+    public static function renderTweet(Faucet $faucet)
+    {
+        if(empty($faucet)){
+            return "";
+        }
+
+        $placeholders = [
+            FaucetConstants::FAUCET_NAME_PLACEHOLDER => $faucet->name,
+            FaucetConstants::FAUCET_INTERVAL_PLACEHOLDER => $faucet->interval_minutes,
+            FaucetConstants::FAUCET_URL_PLACEHOLDER => route('faucets.show', ['slug' => $faucet->slug]),
+            FaucetConstants::FAUCET_MIN_PAYOUT_PLACEHOLDER => $faucet->min_payout,
+            FaucetConstants::FAUCET_MAX_PAYOUT_PLACEHOLDER => $faucet->max_payout
+        ];
+
+        $tweet = !empty($faucet->twitter_message) ? strtr($faucet->twitter_message, $placeholders) : "";
+        return $tweet;
     }
 
     /**

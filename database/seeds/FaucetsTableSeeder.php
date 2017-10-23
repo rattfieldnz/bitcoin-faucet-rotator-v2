@@ -42,6 +42,12 @@ class FaucetsTableSeeder extends BaseSeeder
                     'meta_keywords' => Purifier::clean($d['meta_keywords'], 'generalFields'),
                     'has_low_balance' => (int)Purifier::clean($d['has_low_balance'], 'generalFields'),
                 ]);
+
+                $faucet->twitter_message = "Earn between [faucet_min_payout] and [faucet_max_payout] " .
+                                            "satoshis every [faucet_interval] minute/s from [faucet_url] " .
+                                            "for free :) #FreeBitcoin #Bitcoin #" .
+                                            str_replace(" ", "", ucwords($faucet->name)) . " .";
+
                 $faucet->save();
                 $this->command->info(
                     "Seeding Faucet => Name: " . $faucet->name .
