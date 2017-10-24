@@ -73,10 +73,8 @@
 
 <!-- Has Ref Program Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('has_ref_program') ? ' has-error' : '' }}">
-    {!! Form::label('has_ref_program', 'Has Referral Program:') !!}
-
-    {!! Form::label('has_ref_program', 'Yes') !!}    {!! Form::radio('has_ref_program', 1) !!}
-    {!! Form::label('has_ref_program', 'No') !!}    {!! Form::radio('has_ref_program', 0) !!}
+	{!! Form::label('has_ref_program', 'Has Referral Program:' ) !!}
+	{!! Form::select('has_ref_program', [true => 'Yes', false => 'No'], !empty($faucet) ? intval($faucet->has_ref_program): null, ['class' => 'form-control']) !!}
 
     @if ($errors->has('has_ref_program'))
         <span class="help-block">
@@ -113,9 +111,9 @@
 </div>
 
 <!-- Comments Field -->
-<div class="form-group col-sm-12 col-lg-12 has-feedback{{ $errors->has('comments') ? ' has-error' : '' }}">
+<div class="form-group col-sm-6 has-feedback{{ $errors->has('comments') ? ' has-error' : '' }}">
     {!! Form::label('comments', 'Comments:') !!}
-    {!! Form::text('comments', null, ['class' => 'form-control', 'placeholder' => 'Sup bro! Got a dollar for the bus?, this cool pukeko is as outrageously awesome as a good as hongi. Can\'t handle the jandle. Mean while, in a waka, Maui and Bazza were up to no good with a bunch of stuffed vivids. (http://kiwipsum.com)']) !!}
+    {!! Form::textarea('comments', null, ['class' => 'form-control', 'rows' => 4, 'placeholder' => 'Sup bro! Got a dollar for the bus?, this cool pukeko is as outrageously awesome as a good as hongi. Can\'t handle the jandle. Mean while, in a waka, Maui and Bazza were up to no good with a bunch of stuffed vivids. (http://kiwipsum.com)']) !!}
     <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
     @if ($errors->has('comments'))
         <span class="help-block">
@@ -126,10 +124,8 @@
 
 <!-- Is Paused Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('is_paused') ? ' has-error' : '' }}">
-    {!! Form::label('is_paused', 'Is Paused:') !!}
-
-    {!! Form::label('is_paused', 'Yes') !!}    {!! Form::radio('is_paused', 1) !!}
-    {!! Form::label('is_paused', 'No') !!}    {!! Form::radio('is_paused', 0) !!}
+	{!! Form::label('is_paused', 'Is Paused:' ) !!}
+	{!! Form::select('is_paused', [true => 'Yes', false => 'No'], !empty($faucet) ? intval($faucet->is_paused): null, ['class' => 'form-control']) !!}
 
     @if ($errors->has('is_paused'))
         <span class="help-block">
@@ -201,10 +197,8 @@
 
 <!-- Has Low Balance Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('has_low_balance') ? ' has-error' : '' }}">
-    {!! Form::label('has_low_balance', 'Has Low Balance:') !!}
-
-    {!! Form::label('has_low_balance', 'Yes') !!}    {!! Form::radio('has_low_balance', 1) !!}
-    {!! Form::label('has_low_balance', 'No') !!}    {!! Form::radio('has_low_balance', 0) !!}
+	{!! Form::label('has_low_balance', 'Has Low Balance:' ) !!}
+	{!! Form::select('has_low_balance', [true => 'Yes', false => 'No'], !empty($faucet) ? intval($faucet->has_low_balance): null, ['class' => 'form-control']) !!}
 
     @if ($errors->has('has_low_balance'))
         <span class="help-block">
