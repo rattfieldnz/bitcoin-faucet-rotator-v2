@@ -8,7 +8,6 @@
 
 namespace App\Helpers\WebsiteMeta;
 
-
 class FaucetConstants
 {
     const FAUCET_NAME_PLACEHOLDER = "[faucet_name]";

@@ -70,7 +70,6 @@ class Faucets
         Users::adminUser()->faucets()->sync([$faucet->id => ['referral_code' => $referralCode]]);
 
         if ($request->get('send_tweet') == 1 && env('APP_ENV') == 'production') {
-
             $twitter = new Twitter(Users::adminUser());
             $tweet = self::renderTweet($faucet);
 
@@ -781,7 +780,7 @@ class Faucets
      */
     public static function renderTweet(Faucet $faucet)
     {
-        if(empty($faucet)){
+        if (empty($faucet)) {
             return "";
         }
 

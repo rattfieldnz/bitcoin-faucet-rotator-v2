@@ -27,8 +27,8 @@ class SettingsController extends Controller
         TwitterConfigRepository $twitterConfigRepo,
         RoleRepository $roleRepo,
         PermissionRepository $permissionRepo
-    )
-    {
+    ) {
+    
         $this->mainMetaRepository = $mainMetaRepo;
         $this->adBlockRepository = $adBlockRepo;
         $this->twitterConfigRepository = $twitterConfigRepo;
@@ -39,8 +39,9 @@ class SettingsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
-        if(!Auth::user()->isAnAdmin()){
+    public function index()
+    {
+        if (!Auth::user()->isAnAdmin()) {
             abort(403);
         }
 

@@ -26,7 +26,7 @@ class UsersSeeder extends Seeder
         ]);
 
         // Seed a standard user
-        if(env('APP_ENV') == 'local'){
+        if (env('APP_ENV') == 'local') {
             DB::table('users')->insert([
                 'user_name' => 'bobisbob',
                 'first_name' => 'Bob',

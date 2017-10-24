@@ -64,7 +64,7 @@ class FaucetsTableSeeder extends BaseSeeder
                     ", Referral Code: " . $referralCode
                 );
 
-                if(!empty($standardUser) && env('APP_ENV') == 'local'){
+                if (!empty($standardUser) && env('APP_ENV') == 'local') {
                     $standardUserRefCode = 'bobisbob';
                     $faucet->users()->attach($standardUser->id, ['faucet_id' => $faucet->id, 'referral_code' => $standardUserRefCode]);
                     $this->command->info(
