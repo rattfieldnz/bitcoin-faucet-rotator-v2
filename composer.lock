@@ -4028,16 +4028,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.6",
+            "version": "2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "34a7699e6f31b1ef4035ee36444407cecf9f56aa"
+                "reference": "f4b6a522dfa1fd1e477c9cfe5909d5b31f098c0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/34a7699e6f31b1ef4035ee36444407cecf9f56aa",
-                "reference": "34a7699e6f31b1ef4035ee36444407cecf9f56aa",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/f4b6a522dfa1fd1e477c9cfe5909d5b31f098c0b",
+                "reference": "f4b6a522dfa1fd1e477c9cfe5909d5b31f098c0b",
                 "shasum": ""
             },
             "require": {
@@ -4116,7 +4116,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2017-06-05T06:31:10+00:00"
+            "time": "2017-10-23T05:04:54+00:00"
         },
         {
             "name": "piwik/referrer-spam-blacklist",
@@ -4192,16 +4192,16 @@
         },
         {
             "name": "prettus/l5-repository",
-            "version": "2.6.22",
+            "version": "2.6.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/andersao/l5-repository.git",
-                "reference": "c28699dbe0823bb7e5f93c4f292018dcc163d5bc"
+                "reference": "929119b6e96f6b223163db26f31c6de9971cedf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andersao/l5-repository/zipball/c28699dbe0823bb7e5f93c4f292018dcc163d5bc",
-                "reference": "c28699dbe0823bb7e5f93c4f292018dcc163d5bc",
+                "url": "https://api.github.com/repos/andersao/l5-repository/zipball/929119b6e96f6b223163db26f31c6de9971cedf3",
+                "reference": "929119b6e96f6b223163db26f31c6de9971cedf3",
                 "shasum": ""
             },
             "require": {
@@ -4222,6 +4222,11 @@
             "extra": {
                 "branch-alias": {
                     "dev-develop": "2.2-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Prettus\\Repository\\Providers\\RepositoryServiceProvider"
+                    ]
                 }
             },
             "autoload": {
@@ -4248,7 +4253,7 @@
                 "model",
                 "repository"
             ],
-            "time": "2017-09-06T01:48:23+00:00"
+            "time": "2017-10-23T19:39:30+00:00"
         },
         {
             "name": "prettus/laravel-validation",
