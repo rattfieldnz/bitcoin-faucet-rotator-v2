@@ -162,3 +162,5 @@ Route::get('terms-and-conditions', ['as' => 'terms-and-conditions', 'uses' => 'T
 Route::get('stats', ['as' => 'stats.index', 'uses' => 'StatsController@index']);
 
 Route::get('settings', ['as' => 'settings', 'uses' => 'SettingsController@index']);
+
+Route::resource('social-networks', 'SocialNetworksController');
