@@ -57,7 +57,7 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                     break;
                 case 'FaucetHub.io':
                     $faucets = [
-                        //39//
+                        //41//
                         Faucet::where('name','Penta Faucet')->first(),
                         Faucet::where('name','One Click Faucet')->first(),
                         Faucet::where('name','X-Faucet')->first(),
@@ -97,6 +97,8 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                         Faucet::where('name','RektCoins')->first(),
                         Faucet::where('name','Free Bitcoin Mine')->first(),
                         Faucet::where('name','CoinCrunch')->first(),
+                        Faucet::where('name','BTC Free Satoshi')->first(),
+                        Faucet::where('name','Free BTC 88')->first(),
                     ];
                     for ($i = 0; $i < count($faucets); $i++) {
                         if (!empty($faucets[$i])) {
