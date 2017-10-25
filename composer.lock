@@ -4192,16 +4192,16 @@
         },
         {
             "name": "prettus/l5-repository",
-            "version": "2.6.23",
+            "version": "2.6.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/andersao/l5-repository.git",
-                "reference": "929119b6e96f6b223163db26f31c6de9971cedf3"
+                "reference": "b95fc26d69c526e2f7bb11cfde34ec529f9fe474"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andersao/l5-repository/zipball/929119b6e96f6b223163db26f31c6de9971cedf3",
-                "reference": "929119b6e96f6b223163db26f31c6de9971cedf3",
+                "url": "https://api.github.com/repos/andersao/l5-repository/zipball/b95fc26d69c526e2f7bb11cfde34ec529f9fe474",
+                "reference": "b95fc26d69c526e2f7bb11cfde34ec529f9fe474",
                 "shasum": ""
             },
             "require": {
@@ -4253,7 +4253,7 @@
                 "model",
                 "repository"
             ],
-            "time": "2017-10-23T19:39:30+00:00"
+            "time": "2017-10-24T23:31:42+00:00"
         },
         {
             "name": "prettus/laravel-validation",
@@ -5474,12 +5474,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "f38b363faac4d647f53ef389203436e6c3b27f01"
+                "reference": "6bbad1ad4cd69dd440b24a62979cc469c5800490"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/f38b363faac4d647f53ef389203436e6c3b27f01",
-                "reference": "f38b363faac4d647f53ef389203436e6c3b27f01",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/6bbad1ad4cd69dd440b24a62979cc469c5800490",
+                "reference": "6bbad1ad4cd69dd440b24a62979cc469c5800490",
                 "shasum": ""
             },
             "require": {
@@ -5519,7 +5519,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-02T06:49:52+00:00"
+            "time": "2017-10-24T14:12:06+00:00"
         },
         {
             "name": "symfony/debug",
@@ -6352,16 +6352,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v8.1.1",
+            "version": "v8.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "70ea9184e00cc2e09a9c8772858c5fe04338b3fc"
+                "reference": "9bb45b445d3a9deb6a62e6974d2651bf15180d2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/70ea9184e00cc2e09a9c8772858c5fe04338b3fc",
-                "reference": "70ea9184e00cc2e09a9c8772858c5fe04338b3fc",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/9bb45b445d3a9deb6a62e6974d2651bf15180d2f",
+                "reference": "9bb45b445d3a9deb6a62e6974d2651bf15180d2f",
                 "shasum": ""
             },
             "require": {
@@ -6418,7 +6418,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2017-10-17T03:09:05+00:00"
+            "time": "2017-10-25T01:24:37+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
@@ -8543,12 +8543,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "c75d67ec54021ccfc876b3c26855084deb2ceb76"
+                "reference": "62911460ad3ba2d5df0613bf9eef972803113135"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/c75d67ec54021ccfc876b3c26855084deb2ceb76",
-                "reference": "c75d67ec54021ccfc876b3c26855084deb2ceb76",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/62911460ad3ba2d5df0613bf9eef972803113135",
+                "reference": "62911460ad3ba2d5df0613bf9eef972803113135",
                 "shasum": ""
             },
             "require": {
@@ -8591,7 +8591,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-20T18:48:32+00:00"
+            "time": "2017-10-24T14:12:06+00:00"
         },
         {
             "name": "symfony/filesystem",
