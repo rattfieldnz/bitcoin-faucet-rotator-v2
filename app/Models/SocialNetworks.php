@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -30,12 +31,6 @@ class SocialNetworks extends Model
         'reddit_url',
         'google_plus_url',
         'youtube_url',
-        'digg_url',
-        'flickr_url',
-        'instagram_url',
-        'odnoklassniki_url',
-        'pinterest_url',
-        'stumbleupon_url',
         'tumblr_url',
         'vimeo_url',
         'vkontakte_url',
@@ -55,12 +50,6 @@ class SocialNetworks extends Model
         'reddit_url' => 'string',
         'google_plus_url' => 'string',
         'youtube_url' => 'string',
-        'digg_url' => 'string',
-        'flickr_url' => 'string',
-        'instagram_url' => 'string',
-        'odnoklassniki_url' => 'string',
-        'pinterest_url' => 'string',
-        'stumbleupon_url' => 'string',
         'tumblr_url' => 'string',
         'vimeo_url' => 'string',
         'vkontakte_url' => 'string',
@@ -75,7 +64,86 @@ class SocialNetworks extends Model
      * @var array
      */
     public static $rules = [
-        
+        'facebook_url' => [
+            'sometimes',
+            'url',
+            'active_url',
+            'unique:social_network_links,facebook_url',
+            'max:255',
+            'regex:/http(?:s):\/\/(?:www\.)facebook\.com\/.+/i'
+        ],
+        'twitter_url' => [
+            'sometimes',
+            'url',
+            'active_url',
+            'unique:social_network_links,twitter_url',
+            'max:255',
+            'regex:/http(?:s):\/\/(?:www\.)twitter\.com\/.+/i'
+        ],
+        'reddit_url' => [
+            'sometimes',
+            'url',
+            'active_url',
+            'unique:social_network_links,reddit_url',
+            'max:255',
+            'regex:/http(?:s):\/\/(?:www\.)reddit\.com\/.+/i'
+        ],
+        'google_plus_url' => [
+            'sometimes',
+            'url',
+            'active_url',
+            'unique:social_network_links,google_plus_url',
+            'max:255',
+            'regex:/http(?:s):\/\/(?:www\.)plus\.google\.com\/.+/i'
+        ],
+        'youtube_url' => [
+            'sometimes',
+            'url',
+            'active_url',
+            'unique:social_network_links,youtube_url',
+            'max:255',
+            'regex:/http(?:s):\/\/(?:www\.)youtube\.com\/.+/i'
+        ],
+        'tumblr_url' => [
+            'sometimes',
+            'url',
+            'active_url',
+            'unique:social_network_links,tumblr_url',
+            'max:255',
+            'regex:/http(?:s):\/\/(?:www\.)tumblr\.com\/.+/i'
+        ],
+        'vimeo_url' => [
+            'sometimes',
+            'url',
+            'active_url',
+            'unique:social_network_links,vimeo_url',
+            'max:255',
+            'regex:/http(?:s):\/\/(?:www\.)vimeo\.com\/.+/i'
+        ],
+        'vkontakte_url' => [
+            'sometimes',
+            'url',
+            'active_url',
+            'unique:social_network_links,vkontakte_url',
+            'max:255',
+            'regex:/http(?:s):\/\/(?:www\.)vkontakte\.com\/.+/i'
+        ],
+        'sinaweibo_url' => [
+            'sometimes',
+            'url',
+            'active_url',
+            'unique:social_network_links,sinaweibo_url',
+            'max:255',
+            'regex:/http(?:s):\/\/(?:www\.)weibo\.com\/.+/i'
+        ],
+        'xing_url' => [
+            'sometimes',
+            'url',
+            'active_url',
+            'unique:social_network_links,xing_url',
+            'max:255',
+            'regex:/http(?:s):\/\/(?:www\.)xing\.com\/.+/i'
+        ],
     ];
 
     /**
@@ -83,6 +151,6 @@ class SocialNetworks extends Model
      **/
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class);
+        return $this->belongsTo(User::class);
     }
 }

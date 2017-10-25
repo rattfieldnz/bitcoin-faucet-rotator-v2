@@ -132,6 +132,13 @@ class User extends Authenticatable implements CanResetPassword
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function socialNetworkLinks(){
+        return $this->hasOne(SocialNetworks::class);
+    }
+
+    /**
      * Return the sluggable configuration array for this model.
      *
      * @return array
@@ -156,6 +163,9 @@ class User extends Authenticatable implements CanResetPassword
         $this->notify(new ResetPasswordNotification($token));
     }
 
+    /**
+     * @return bool
+     */
     public function isAnAdmin()
     {
         if ($this->is_admin == true && $this->hasRole('owner')) {
@@ -164,6 +174,9 @@ class User extends Authenticatable implements CanResetPassword
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function isDeleted()
     {
         if ($this->attributes['deleted_at']) {
@@ -172,11 +185,19 @@ class User extends Authenticatable implements CanResetPassword
         return false;
     }
 
+    /**
+     * @param string $eventName
+     *
+     * @return string
+     */
     public function getDescriptionForEvent(string $eventName): string
     {
         return "User '" . $this->user_name . "' has {$eventName} their profile.";
     }
 
+    /**
+     * @return string
+     */
     public function fullName()
     {
         return $this->attributes['first_name'] . ' ' .
