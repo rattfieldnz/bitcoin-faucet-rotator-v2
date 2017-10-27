@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Functions\Users;
 use App\Http\Requests\CreateSocialNetworksRequest;
 use App\Http\Requests\UpdateSocialNetworksRequest;
 use App\Repositories\SocialNetworksRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Routing\Redirector;
+use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -25,6 +29,7 @@ class SocialNetworksController extends AppBaseController
     public function __construct(SocialNetworksRepository $socialNetworksRepo)
     {
         $this->socialNetworksRepository = $socialNetworksRepo;
+        $this->middleware('auth');
     }
 
     /**
@@ -36,7 +41,12 @@ class SocialNetworksController extends AppBaseController
      */
     public function store(CreateSocialNetworksRequest $request)
     {
+        if (!Auth::user()->isAnAdmin()) {
+            abort(403);
+        }
+
         $input = $request->all();
+        $input['user_id'] = Users::adminUser()->id;
 
         $socialNetworks = $this->socialNetworksRepository->create($input);
 
@@ -55,6 +65,10 @@ class SocialNetworksController extends AppBaseController
      */
     public function update($id, UpdateSocialNetworksRequest $request)
     {
+        if (!Auth::user()->isAnAdmin()) {
+            abort(403);
+        }
+
         $socialNetworks = $this->socialNetworksRepository->findWithoutFail($id);
 
         if (empty($socialNetworks)) {
@@ -63,7 +77,10 @@ class SocialNetworksController extends AppBaseController
             return redirect(route('settings') . "#social-links");
         }
 
-        $socialNetworks = $this->socialNetworksRepository->update($request->all(), $id);
+        $input = $request->all();
+        //$input['user_id'] = Users::adminUser()->id;
+
+        $socialNetworks = $this->socialNetworksRepository->update($input, $id);
 
         Flash::success('Social Networks updated successfully.');
 
@@ -79,6 +96,10 @@ class SocialNetworksController extends AppBaseController
      */
     public function destroy($id)
     {
+        if (!Auth::user()->isAnAdmin()) {
+            abort(403);
+        }
+
         $socialNetworks = $this->socialNetworksRepository->findWithoutFail($id);
 
         if (empty($socialNetworks)) {

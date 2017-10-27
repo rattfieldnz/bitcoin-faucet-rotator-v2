@@ -134,7 +134,8 @@ class User extends Authenticatable implements CanResetPassword
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function socialNetworkLinks(){
+    public function socialNetworkLinks()
+    {
         return $this->hasOne(SocialNetworks::class);
     }
 

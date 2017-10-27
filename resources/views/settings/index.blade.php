@@ -7,6 +7,8 @@
         </div>
     </section>
     <div class="content">
+
+        @include('adminlte-templates::common.errors')
         <div class="clearfix"></div>
 
         @include('flash::message')
@@ -18,12 +20,13 @@
                 <div class="row profile-padding">
                     @include('layouts.partials.advertising.ads')
                     <div id="tabs">
-                        <ul>
+                        <ul id="tabMenu">
                             <li><h3><a href="#main-meta">Main Meta</a></h3></li>
                             <li><h3><a href="#ad-block">Ad Block</a></h3></li>
                             <li><h3><a href="#twitter-config">Twitter Config</a></h3></li>
                             <li><h3><a href="#roles">Roles</a></h3></li>
                             <li><h3><a href="#permissions">Permissions</a></h3></li>
+                            <li><h3><a href="#social-links">Social Links</a></h3></li>
                         </ul>
                         <div id="main-meta">
                             @include('settings.main-meta')
@@ -39,6 +42,9 @@
                         </div>
                         <div id="permissions">
                             @include('settings.permissions')
+                        </div>
+                        <div id="social-links">
+                            @include('settings.social-links')
                         </div>
                     </div>
                 </div>

@@ -14,6 +14,7 @@ class CreateSocialLinksTable extends Migration
     public function up()
     {
         Schema::create('social_network_links', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('facebook_url', 255)->nullable()->unique();
             $table->string('twitter_url', 255)->nullable()->unique();
             $table->string('reddit_url', 255)->nullable()->unique();
@@ -24,6 +25,8 @@ class CreateSocialLinksTable extends Migration
             $table->string('vkontakte_url', 255)->nullable()->unique();
             $table->string('sinaweibo_url', 255)->nullable()->unique();
             $table->string('xing_url', 255)->nullable()->unique();
+            $table->timestamps();
+            $table->softDeletes();
             $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users');
         });

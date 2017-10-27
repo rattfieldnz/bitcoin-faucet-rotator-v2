@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Functions\Users;
 use App\Models\Language;
 use App\Models\User;
 use App\Repositories\AdBlockRepository;
@@ -20,6 +21,7 @@ class SettingsController extends Controller
     private $roleRepository;
     private $permissionRepository;
     private $languageCodes;
+    private $socialLinks;
 
     public function __construct(
         MainMetaRepository $mainMetaRepo,
@@ -35,6 +37,7 @@ class SettingsController extends Controller
         $this->roleRepository = $roleRepo;
         $this->permissionRepository = $permissionRepo;
         $this->languageCodes = Language::orderBy('name')->pluck('name', 'iso_code');
+        $this->socialLinks = Users::adminUser() != null ? Users::adminUser()->socialNetworkLinks()->first(): null;
 
         $this->middleware('auth');
     }
@@ -45,7 +48,9 @@ class SettingsController extends Controller
             abort(403);
         }
 
-        $adminUser = User::where('is_admin', true)->first();
+        //dd(Users::adminUser()->socialNetworkLinks()->first()->facebook_url);
+
+        $adminUser = Users::adminUser();
         $mainMeta = $this->mainMetaRepository->first();
         $adBlock = $this->adBlockRepository->first();
         $twitterConfig = $this->twitterConfigRepository->first();
@@ -59,6 +64,7 @@ class SettingsController extends Controller
             ->with('roles', $roles)
             ->with('permissions', $permissions)
             ->with('adminUser', $adminUser)
-            ->with('languageCodes', $this->languageCodes);
+            ->with('languageCodes', $this->languageCodes)
+            ->with('socialLinks', $this->socialLinks);
     }
 }

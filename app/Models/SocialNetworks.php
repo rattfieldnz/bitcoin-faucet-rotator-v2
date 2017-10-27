@@ -70,7 +70,8 @@ class SocialNetworks extends Model
             'active_url',
             'unique:social_network_links,facebook_url',
             'max:255',
-            'regex:/http(?:s):\/\/(?:www\.)facebook\.com\/.+/i'
+            'regex:/http(s)?:\/\/(www\.)?facebook\.com\/.+/i',
+            'nullable'
         ],
         'twitter_url' => [
             'sometimes',
@@ -78,7 +79,8 @@ class SocialNetworks extends Model
             'active_url',
             'unique:social_network_links,twitter_url',
             'max:255',
-            'regex:/http(?:s):\/\/(?:www\.)twitter\.com\/.+/i'
+            'regex:/http(s)?:\/\/(www\.)?twitter\.com\/.+/i',
+            'nullable'
         ],
         'reddit_url' => [
             'sometimes',
@@ -86,7 +88,8 @@ class SocialNetworks extends Model
             'active_url',
             'unique:social_network_links,reddit_url',
             'max:255',
-            'regex:/http(?:s):\/\/(?:www\.)reddit\.com\/.+/i'
+            'regex:/http(s)?:\/\/(www\.)?reddit\.com\/.+/i',
+            'nullable'
         ],
         'google_plus_url' => [
             'sometimes',
@@ -94,7 +97,8 @@ class SocialNetworks extends Model
             'active_url',
             'unique:social_network_links,google_plus_url',
             'max:255',
-            'regex:/http(?:s):\/\/(?:www\.)plus\.google\.com\/.+/i'
+            'regex:/http(s)?:\/\/(www\.)?plus\.google\.com\/.+/i',
+            'nullable'
         ],
         'youtube_url' => [
             'sometimes',
@@ -102,7 +106,8 @@ class SocialNetworks extends Model
             'active_url',
             'unique:social_network_links,youtube_url',
             'max:255',
-            'regex:/http(?:s):\/\/(?:www\.)youtube\.com\/.+/i'
+            'regex:/http(s)?:\/\/(www\.)?youtube\.com\/.+/i',
+            'nullable'
         ],
         'tumblr_url' => [
             'sometimes',
@@ -110,7 +115,8 @@ class SocialNetworks extends Model
             'active_url',
             'unique:social_network_links,tumblr_url',
             'max:255',
-            'regex:/http(?:s):\/\/(?:www\.)tumblr\.com\/.+/i'
+            'regex:/http(s)?:\/\/(www)|(.*)tumblr\.com/i',
+            'nullable'
         ],
         'vimeo_url' => [
             'sometimes',
@@ -118,7 +124,8 @@ class SocialNetworks extends Model
             'active_url',
             'unique:social_network_links,vimeo_url',
             'max:255',
-            'regex:/http(?:s):\/\/(?:www\.)vimeo\.com\/.+/i'
+            'regex:/http(s)?:\/\/(www\.)?vimeo\.com\/.+/i',
+            'nullable'
         ],
         'vkontakte_url' => [
             'sometimes',
@@ -126,7 +133,8 @@ class SocialNetworks extends Model
             'active_url',
             'unique:social_network_links,vkontakte_url',
             'max:255',
-            'regex:/http(?:s):\/\/(?:www\.)vkontakte\.com\/.+/i'
+            'regex:/http(s):\/\/(www\.)?vk\.com\/.+/i',
+            'nullable'
         ],
         'sinaweibo_url' => [
             'sometimes',
@@ -134,7 +142,8 @@ class SocialNetworks extends Model
             'active_url',
             'unique:social_network_links,sinaweibo_url',
             'max:255',
-            'regex:/http(?:s):\/\/(?:www\.)weibo\.com\/.+/i'
+            'regex:/http(s):\/\/(www\.)?weibo\.com\/.+/i',
+            'nullable'
         ],
         'xing_url' => [
             'sometimes',
@@ -142,8 +151,14 @@ class SocialNetworks extends Model
             'active_url',
             'unique:social_network_links,xing_url',
             'max:255',
-            'regex:/http(?:s):\/\/(?:www\.)xing\.com\/.+/i'
+            'regex:/http(s):\/\/(www\.)?xing\.com\/.+/i',
+            'nullable'
         ],
+        'user_id' => [
+            'required',
+            'integer',
+            'unique:social_network_links,user_id'
+        ]
     ];
 
     /**
@@ -151,6 +166,6 @@ class SocialNetworks extends Model
      **/
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
