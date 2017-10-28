@@ -41312,6 +41312,27 @@ table.show-table-header thead tr th {
   margin-left: 0;
 }
 
+.footer-custom .social-links-row,
+.footer-custom-guest .social-links-row {
+  display: block;
+  min-width: 20em;
+  max-width: 20em;
+}
+
+.footer-custom .social-links-row,
+.footer-custom-guest .social-links-row {
+  display: block;
+  min-width: 20em;
+  max-width: 20em;
+}
+
+.link-box {
+  width: 1.750em;
+  height: 1.750em;
+  line-height: 1.750em;
+  margin: 0.445em;
+}
+
 .footer-custom-guest p {
   text-align: center;
 }
@@ -41691,6 +41712,13 @@ table.show-table-header thead tr th {
 
   .user-panel .info figure img {
     margin: 0 0 0 0 !important;
+  }
+}
+
+@media screen and (min-width: 0em) and (max-width: 20em) {
+  .footer-custom .social-links-row,
+  .footer-custom-guest .social-links-row {
+    margin: 0.5em 0 0.5em 0;
   }
 }
 

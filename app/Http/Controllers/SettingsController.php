@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Functions\Users;
+use App\Helpers\Social\SocialNetworkLinks;
 use App\Models\Language;
 use App\Models\User;
 use App\Repositories\AdBlockRepository;
@@ -47,8 +48,6 @@ class SettingsController extends Controller
         if (!Auth::user()->isAnAdmin()) {
             abort(403);
         }
-
-        //dd(Users::adminUser()->socialNetworkLinks()->first()->facebook_url);
 
         $adminUser = Users::adminUser();
         $mainMeta = $this->mainMetaRepository->first();
