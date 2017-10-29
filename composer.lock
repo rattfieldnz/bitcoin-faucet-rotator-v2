@@ -4192,16 +4192,16 @@
         },
         {
             "name": "prettus/l5-repository",
-            "version": "2.6.25",
+            "version": "2.6.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/andersao/l5-repository.git",
-                "reference": "154651bcadc4d81c22e2b621c3d291dc9eafb015"
+                "reference": "76acf53fd4d92bbc93f2990e10dbe8c11f02d4e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andersao/l5-repository/zipball/154651bcadc4d81c22e2b621c3d291dc9eafb015",
-                "reference": "154651bcadc4d81c22e2b621c3d291dc9eafb015",
+                "url": "https://api.github.com/repos/andersao/l5-repository/zipball/76acf53fd4d92bbc93f2990e10dbe8c11f02d4e8",
+                "reference": "76acf53fd4d92bbc93f2990e10dbe8c11f02d4e8",
                 "shasum": ""
             },
             "require": {
@@ -4253,7 +4253,7 @@
                 "model",
                 "repository"
             ],
-            "time": "2017-10-26T16:44:53+00:00"
+            "time": "2017-10-28T20:20:20+00:00"
         },
         {
             "name": "prettus/laravel-validation",
@@ -8543,12 +8543,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "62911460ad3ba2d5df0613bf9eef972803113135"
+                "reference": "8cc827ee34b27767110c6ba2f2efa899e8aa3be5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/62911460ad3ba2d5df0613bf9eef972803113135",
-                "reference": "62911460ad3ba2d5df0613bf9eef972803113135",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/8cc827ee34b27767110c6ba2f2efa899e8aa3be5",
+                "reference": "8cc827ee34b27767110c6ba2f2efa899e8aa3be5",
                 "shasum": ""
             },
             "require": {
@@ -8591,7 +8591,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-24T14:12:06+00:00"
+            "time": "2017-10-28T16:49:05+00:00"
         },
         {
             "name": "symfony/filesystem",

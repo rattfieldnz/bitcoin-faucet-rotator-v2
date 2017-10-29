@@ -41,4 +41,18 @@
         <a href="{!! url('/register') !!}">Register</a>
     </li>
 @endif
+
+</ul>
+<ul id="social-links-alternate-menu">
+    @foreach(\App\Helpers\Social\SocialNetworkLinks::adminLinks() as $socialNetworkName => $link)
+        <li>
+            <a
+                    href="{{ $link }}"
+                    title="{{ ucfirst($socialNetworkName) }}"
+                    target="_blank"
+            >
+                <i class="fa fa-{{ $socialNetworkName }} fa-2x" aria-hidden="true"></i>
+            </a>
+        </li>
+    @endforeach
 </ul>

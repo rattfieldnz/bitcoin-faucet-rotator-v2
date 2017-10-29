@@ -14,19 +14,9 @@ use App\Helpers\Functions\Users;
 class SocialNetworkLinks
 {
     /**
-     * @param int $arrayChunkRows
-     *
      * @return array
      */
-    public static function adminLinks(int $arrayChunkRows = 5){
-
-        if($arrayChunkRows < 0){
-            $arrayChunkRows = 5;
-        }
-
-        if($arrayChunkRows > 12){
-            $arrayChunkRows = 12;
-        }
+    public static function adminLinks(){
 
         $adminUser = Users::adminUser();
         $socialLinks = $adminUser->socialNetworkLinks()->first();
@@ -64,7 +54,7 @@ class SocialNetworkLinks
             $existingLinks['xing'] = $socialLinks->xing_url;
         }
 
-        return array_chunk($existingLinks,$arrayChunkRows, true);
+        return $existingLinks;
 
     }
 }
