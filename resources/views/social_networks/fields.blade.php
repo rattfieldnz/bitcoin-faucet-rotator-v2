@@ -1,3 +1,11 @@
+@if(!empty($socialLinks))
+    {!! Form::hidden('id', $socialLinks->id ) !!}
+@endif
+
+@if(!empty($adminUser))
+    {!! Form::hidden('user_id', $adminUser->id ) !!}
+@endif
+
 <!-- Facebook Url Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('facebook_url', 'Facebook Url:') !!}
@@ -17,13 +25,6 @@
 </div>
 
 <!-- Google Plus Url Field -->
-@if(!empty($socialLinks))
-    {!! Form::hidden('id', $socialLinks->id ) !!}
-@endif
-
-@if(!empty($adminUser))
-    {!! Form::hidden('user_id', $adminUser->id ) !!}
-@endif
 <div class="form-group col-sm-6">
     {!! Form::label('google_plus_url', 'Google Plus Url:') !!}
     {!! Form::text('google_plus_url', null, ['class' => 'form-control', 'type' => 'url']) !!}

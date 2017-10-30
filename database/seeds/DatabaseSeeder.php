@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TwitterConfigTableSeeder::class);
         $this->call(AdBlockSeeder::class);
         $this->call(LaratrustSeeder::class);
+        $this->call(SocialLinksTableSeeder::class);
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
         Model::reguard();
     }

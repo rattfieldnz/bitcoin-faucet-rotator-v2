@@ -99,6 +99,7 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
                         Faucet::where('name', 'CoinCrunch')->first(),
                         Faucet::where('name', 'BTC Free Satoshi')->first(),
                         Faucet::where('name', 'Free BTC 88')->first(),
+                        Faucet::where('name', 'SatoBitties')->first(),
                     ];
                     for ($i = 0; $i < count($faucets); $i++) {
                         if (!empty($faucets[$i])) {
