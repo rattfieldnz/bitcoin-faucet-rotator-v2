@@ -41452,6 +41452,56 @@ table.show-table-header thead tr th {
   text-align: inherit !important;
 }
 
+.social-link-field-fb {
+  margin-top: 0.95em;
+  margin-right: 0;
+}
+
+.social-link-field-tw {
+  margin-top: 0.9em;
+  margin-right: 0.35em;
+}
+
+.social-link-field-rd {
+  margin-top: 0.9em;
+  margin-right: 0.4em;
+}
+
+.social-link-field-gplus {
+  margin-top: 0.9em;
+  margin-right: 0.75em;
+}
+
+.social-link-field-yt {
+  margin-top: 0.9em;
+  margin-right: 0.25em;
+}
+
+.social-link-field-tumblr {
+  margin-top: 0.9em;
+  margin-right: 0;
+}
+
+.social-link-field-vimeo {
+  margin-top: 0.9em;
+  margin-right: 0.4em;
+}
+
+.social-link-field-vk {
+  margin-top: 0.85em;
+  margin-right: 0.5em;
+}
+
+.social-link-field-weibo {
+  margin-top: 0.9em;
+  margin-right: 0.5em;
+}
+
+.social-link-field-xing {
+  margin-top: 0.95em;
+  margin-right: 0.25em;
+}
+
 #faucet-info {
   width: 100%;
 }
