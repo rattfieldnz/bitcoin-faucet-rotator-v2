@@ -202,16 +202,49 @@ table.show-table-header thead tr th{
 
 #navigation li, #navigation-right li{
     display: block;
-    width:11em;
+    width:10.14em;
 }
 
-#navigation li:hover, #navigation-right li:hover{
-    background-color: #3c8dbc;
-}
-
-#navigation li a:hover, #navigation-right li a:hover{
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus,
+#navigation .standard-nav-item a:hover,
+#navigation .standard-nav-item:hover,
+#navigation .sub-nav-item:hover,
+#navigation .sub-nav-item a:hover,
+#navigation li a:hover, #navigation-right li a:hover,
+#navigation-right .standard-nav-item:hover,
+.dropdown-menu .sub-nav-item:hover,
+.dropdown-menu .sub-nav-item a:hover,
+ul#navigation li.standard-nav-item ul.dropdown-menu li.sub-nav-item:hover,
+ul#navigation li.standard-nav-item ul.dropdown-menu li.sub-nav-item a:hover
+{
+    background-color: #3c8dbc !important;
     color: whitesmoke;
     font-weight: 600;
+}
+
+.dropdown-menu,
+.dropdown-menu .sub-nav-item{
+    margin: 0 !important;
+    padding: 0;
+}
+
+.sub-nav-icon{
+    margin-left: -0.5em !important;
+}
+
+.sub-nav-text{
+    margin: 0 -1em 0 0;
+}
+
+#navigation li.sub-nav-item span{
+    vertical-align: middle;
+}
+
+#navigation .sub-nav-item a
+{
+    height: 3em;
+    line-height: 3em;
 }
 
 #remember-me-checkbox #checkbox{
@@ -545,9 +578,55 @@ table.show-table-header thead tr th{
     .footer-custom .social-links-row, .footer-custom-guest .social-links-row {
         margin: 0.5em 0 0.5em 0;
     }
+
+    #navigation .sub-nav-item,
+    #navigation .sub-nav-item:hover,
+    #navigation .sub-nav-item a:hover,
+    ul#navigation li.standard-nav-item ul.dropdown-menu li.sub-nav-item:hover,
+    .dropdown-menu .sub-nav-item:hover{
+        color: whitesmoke;
+        font-weight: 600;
+    }
+
+    #navigation .sub-nav-item{
+        border-top: 1px solid whitesmoke;
+        border-bottom: 1px solid whitesmoke;
+    }
+
+    #navigation .sub-nav-item:first-child{
+        border-top: 2px solid whitesmoke;
+    }
+
+    .sub-nav-icon{
+        margin: 0 0 0 2.5em;
+    }
+
+    .sub-nav-text{
+        margin: 0 2.5em 0 0;
+    }
 }
 
-@media screen and (min-width: 0em) and (max-width: 47.875em){
+@media screen and (min-width: 20.01em) and (max-width: 47.99em) {
+
+    #navigation .sub-nav-item{
+        border-top: 1px solid whitesmoke;
+        border-bottom: 1px solid whitesmoke;
+    }
+
+    #navigation .sub-nav-item:first-child{
+        border-top: 2px solid whitesmoke;
+    }
+
+    .sub-nav-icon{
+        margin: 0 0 0 3.5em !important;
+    }
+
+    .sub-nav-text{
+        margin: 0 3.5em 0 0 !important;
+    }
+}
+
+@media screen and (min-width: 0em) and (max-width: 47.99em){
 
     .auth-page-title{
         margin-top:6em;
@@ -583,6 +662,16 @@ table.show-table-header thead tr th{
     #footer-alternate-menu li:hover a, #footer-alternate-menu li a:hover {
         display: block;
         color: whitesmoke;
+    }
+
+    #navigation .sub-nav-item,
+    #navigation .sub-nav-item a,
+    #navigation .sub-nav-item:hover,
+    #navigation .sub-nav-item a:hover,
+    ul#navigation li.standard-nav-item ul.dropdown-menu li.sub-nav-item:hover,
+    .dropdown-menu .sub-nav-item:hover{
+        color: whitesmoke !important;
+        font-weight: 600;
     }
 
 }
