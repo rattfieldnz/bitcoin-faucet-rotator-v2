@@ -3615,7 +3615,7 @@
         },
         {
             "name": "mtdowling/cron-expression",
-            "version": "v1.2.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mtdowling/cron-expression.git",
@@ -5116,16 +5116,16 @@
         },
         {
             "name": "spatie/laravel-analytics",
-            "version": "3.1.0",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-analytics.git",
-                "reference": "274610724df301f4a1636281e16a5dc8f06bbb00"
+                "reference": "e1c517041a103f065b1406a80964fa2482b11395"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-analytics/zipball/274610724df301f4a1636281e16a5dc8f06bbb00",
-                "reference": "274610724df301f4a1636281e16a5dc8f06bbb00",
+                "url": "https://api.github.com/repos/spatie/laravel-analytics/zipball/e1c517041a103f065b1406a80964fa2482b11395",
+                "reference": "e1c517041a103f065b1406a80964fa2482b11395",
                 "shasum": ""
             },
             "require": {
@@ -5179,7 +5179,7 @@
                 "retrieve",
                 "spatie"
             ],
-            "time": "2017-08-30T23:45:36+00:00"
+            "time": "2017-10-30T19:26:50+00:00"
         },
         {
             "name": "spatie/string",
