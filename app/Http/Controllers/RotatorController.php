@@ -48,6 +48,7 @@ class RotatorController extends Controller
         }
 
         $config = Config::get('secure-headers.csp.child-src.allow');
+        $framesConfig = Config::get('secure-headers.csp.frame-src.allow');
 
         $faucets = Faucet::where('is_paused', '=', false)
             ->where('has_low_balance', '=', false)
@@ -56,9 +57,11 @@ class RotatorController extends Controller
 
         foreach ($faucets as $f) {
             array_push($config, parse_url($f->url)['host']);
+            array_push($framesConfig, parse_url($f->url)['host']);
         }
 
         Config::set('secure-headers.csp.child-src.allow', $config);
+        Config::set('secure-headers.csp.frame-src.allow', $framesConfig);
 
         return view('rotator.index')
             ->with('pageTitle', $pageTitle)

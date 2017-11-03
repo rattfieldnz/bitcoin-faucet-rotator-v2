@@ -430,6 +430,7 @@ class Faucets
         if (!empty($user) && !empty($faucet)) {
             $faucetUrl = $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet);
             Config::set('secure-headers.csp.child-src.allow', [parse_url($faucetUrl)['host']]);
+            Config::set('secure-headers.csp.frame-src.allow', [parse_url($faucetUrl)['host']]);
         }
     }
 

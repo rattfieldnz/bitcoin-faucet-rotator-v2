@@ -7,6 +7,7 @@
                 id="title"
                 data-payment-processor-slug="{{$paymentProcessor->slug}}"
             >{!! link_to_route('payment-processors.show', $paymentProcessor->name, $paymentProcessor->slug) !!} Faucets</h1>
+            @include('layouts.partials.social.addthis')
         </div>
         <div class="row" style="margin:0 0 0 0;">
             @if(Auth::user() != null)

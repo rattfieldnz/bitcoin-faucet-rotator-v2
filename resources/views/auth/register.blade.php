@@ -23,6 +23,7 @@
 <div class="register-box">
     <div class="register-logo">
         <strong><i class="fa fa-2x fa-bitcoin"></i>itcoin Faucet Rotator</strong>
+        @include('layouts.partials.social.addthis')
     </div>
     <div class="register-box-body">
         <p class="login-box-msg"><strong>Register a new membership</strong></p>

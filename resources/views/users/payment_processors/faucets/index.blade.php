@@ -6,6 +6,7 @@
             <h1 id="title" data-user-slug="{{ $user->slug }}" data-payment-processor-slug="{{ $paymentProcessor->slug }}">
                {{ $user->user_name }}'s {!! link_to_route('payment-processors.show', $paymentProcessor->name, $paymentProcessor->slug, ["target" => "_blank"]) !!} Faucets
             </h1>
+            @include('layouts.partials.social.addthis')
         </div>
     </section>
     <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">

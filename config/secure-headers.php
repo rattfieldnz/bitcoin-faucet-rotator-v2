@@ -134,6 +134,18 @@ return [
             //
         ],
 
+        'frame-src' => [
+            'allow' => [
+                'www.google.com',
+                'mellowads.com',
+                'a-ads.com',
+                'ad.a-ads.com',
+                'coinurl.com',
+                'bee-ads.com',
+                's7.addthis.com',
+            ],
+        ],
+
         'child-src' => [
             'allow' => [
                 'www.google.com',
@@ -141,7 +153,8 @@ return [
                 'a-ads.com',
                 'ad.a-ads.com',
                 'coinurl.com',
-                'bee-ads.com'
+                'bee-ads.com',
+                's7.addthis.com',
             ],
         ],
 
@@ -159,7 +172,17 @@ return [
                 'www.google.com',
                 'www.gstatic.com',
                 'maps.googleapis.com',
-                'cdn.ravenjs.com'
+                'cdn.ravenjs.com',
+                's7.addthis.com',
+                'm.addthis.com',
+                'api-public.addthis.com',
+                'addthis.com',
+                'm.addthisedge.com',
+                'www.googletagmanager.com',
+                'googletagmanager.com',
+                'graph.facebook.com',
+                'staticxx.facebook.com',
+                'widgets.pinterest.com',
             ],
 
             'hashes' => [
@@ -208,7 +231,8 @@ return [
                 'csi.gstatic.com',
                 'stats.g.doubleclick.net',
                 'www.google.com',
-                'www.google.co.nz'
+                'www.google.co.nz',
+                'm.addthis.com'
             ],
 
             'types' => [
@@ -250,15 +274,21 @@ return [
         ],
 
         'frame-ancestors' => [
-            //
+            'allow' => [
+                env('APP_URL'),
+            ],
         ],
 
         'media-src' => [
-            //
+            'allow' => [
+                env('APP_URL'),
+            ],
         ],
 
         'object-src' => [
-            //
+            'allow' => [
+                env('APP_URL'),
+            ],
         ],
 
         /*
@@ -266,7 +296,7 @@ return [
          */
 
         'plugin-types' => [
-            //
+
         ],
     ],
 

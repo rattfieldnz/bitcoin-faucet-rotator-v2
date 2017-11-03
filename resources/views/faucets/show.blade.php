@@ -3,9 +3,10 @@
 @section('content')
     <section class="content-header">
         <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
-            <h1>Faucet - {!! $faucet->name !!}</h1>
+            <h1 id="title">Faucet - {!! $faucet->name !!}</h1>
+            @include('layouts.partials.social.addthis')
         </div>
-        <div class="row" style="margin:0 0 0 0;">
+        <div class="row zero-margin">
         @if(Auth::user() != null)
             @if(Auth::user()->isAnAdmin())
 

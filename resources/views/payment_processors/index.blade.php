@@ -4,6 +4,7 @@
     <section class="content-header">
         <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
             <h1>Payment Processors</h1>
+            @include('layouts.partials.social.addthis')
         </div>
         <div class="row" style="margin:0 0 0 0;">
             @if(Auth::user() != null)

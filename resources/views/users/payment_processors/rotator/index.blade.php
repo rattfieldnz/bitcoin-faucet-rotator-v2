@@ -9,6 +9,7 @@
                         data-user-slug="{{ $userSlug }}"
                         data-payment-processor-slug="{{ $paymentProcessorSlug }}"
                 >{{ $userName }}'s {{ $paymentProcessorName }} Faucet Rotator</h1>
+                @include('layouts.partials.social.addthis')
             </div>
         </section>
         <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">

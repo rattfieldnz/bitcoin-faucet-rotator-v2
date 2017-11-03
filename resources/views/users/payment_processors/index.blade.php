@@ -6,6 +6,7 @@
             <h1 id="title" data-user-slug="{{$user->slug}}">
                 {{ $user->user_name }}'s Payment Processors
             </h1>
+            @include('layouts.partials.social.addthis')
         </div>
         <div class="row" style="margin:0 0 0 0;">
             @if(Auth::user() != null)

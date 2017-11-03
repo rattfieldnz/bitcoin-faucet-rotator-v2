@@ -4,6 +4,9 @@
     <section class="content-header">
         <div class="row {{ !empty(Auth::user()) ? 'user-profile-main-heading' : 'guest-user-profile-main-heading' }}">
             <h1 id="title" data-user-slug="{{ $user->slug }}">{{ $user->user_name }}'s Profile</h1>
+            <div style="margin-left: 0.8em;">
+                @include('layouts.partials.social.addthis')
+            </div>
         </div>
         <div class="row zero-margin">
             @if(Auth::user() != null)

@@ -4,6 +4,7 @@
     <section class="content-header">
         <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
             <h1 id="title" data-user-slug="{{ $user->slug }}">{{ $user->user_name }}'s Faucets</h1>
+            @include('layouts.partials.social.addthis')
         </div>
     </section>
     <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">

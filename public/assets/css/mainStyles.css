@@ -41640,6 +41640,10 @@ ul#navigation li.standard-nav-item ul.dropdown-menu li.sub-nav-item a:hover {
   margin: -6em 0 0 -0.25em;
 }
 
+#addthis {
+  margin: 1em 0 0 0.25em !important;
+}
+
 .guest-user-profile-main-heading {
   margin-top: -5em;
 }
@@ -41716,6 +41720,10 @@ ul#navigation li.standard-nav-item ul.dropdown-menu li.sub-nav-item a:hover {
 #faucet-rotator-nav-container #nav-list li {
   display: inline;
   list-style-type: none;
+}
+
+.addthis_sharing_toolbox {
+  margin-top: 5em !important;
 }
 
 .icheckbox_square,

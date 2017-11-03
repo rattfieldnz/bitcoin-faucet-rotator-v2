@@ -5,6 +5,7 @@
         <section class="content-header">
             <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
                 <h1 id="title" style="text-align: center;" data-payment-processor-slug="{{ $paymentProcessor->slug }}">{{ $paymentProcessor->name }} Faucet Rotator</h1>
+                @include('layouts.partials.social.addthis')
             </div>
         </section>
         <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">
