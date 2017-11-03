@@ -109,6 +109,7 @@
                             @include('users.panel._faucets')
                         </div>
                     </div>
+                    @include('layouts.partials.social.disqus')
                 </div>
             </div>
         </div>

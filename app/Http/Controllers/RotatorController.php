@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Functions\Faucets;
 use App\Helpers\Functions\PaymentProcessors;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Libraries\Seo\SeoConfig;
@@ -47,21 +48,12 @@ class RotatorController extends Controller
             WebsiteMeta::setCustomMeta($seoConfig);
         }
 
-        $config = Config::get('secure-headers.csp.child-src.allow');
-        $framesConfig = Config::get('secure-headers.csp.frame-src.allow');
-
-        $faucets = Faucet::where('is_paused', '=', false)
+        $faucets = Users::adminUser()->faucets()->where('is_paused', '=', false)
             ->where('has_low_balance', '=', false)
             ->where('deleted_at', '=', null)
             ->get(['url']);
 
-        foreach ($faucets as $f) {
-            array_push($config, parse_url($f->url)['host']);
-            array_push($framesConfig, parse_url($f->url)['host']);
-        }
-
-        Config::set('secure-headers.csp.child-src.allow', $config);
-        Config::set('secure-headers.csp.frame-src.allow', $framesConfig);
+        Faucets::setMultipleFaucetsCsp($faucets);
 
         return view('rotator.index')
             ->with('pageTitle', $pageTitle)
@@ -90,21 +82,22 @@ class RotatorController extends Controller
         $seoConfig->categoryDescription = "Bitcoin Faucet Rotator";
         WebsiteMeta::setCustomMeta($seoConfig);
 
-        $config = Config::get('secure-headers.csp.child-src.allow');
+        $disqusIdentifier = Users::adminUser()->user_name .
+            '-' . Users::adminUser()->id .
+            '-payment-processors-' . $paymentProcessor->slug . '-rotator';
+
         $faucets = $paymentProcessor->faucets()
             ->where('is_paused', '=', false)
             ->where('has_low_balance', '=', false)
             ->where('deleted_at', '=', null)
             ->get(['url']);
 
-        foreach ($faucets as $f) {
-            array_push($config, parse_url($f->url)['host']);
-        }
-
-        Config::set('secure-headers.csp.child-src.allow', $config);
+        Faucets::setMultipleFaucetsCsp($faucets);
 
         return view('payment_processors.rotator.index')
-            ->with('paymentProcessor', $paymentProcessor);
+            ->with('paymentProcessor', $paymentProcessor)
+            ->with('currentUrl', route('payment-processors.rotator', ['slug' => $paymentProcessor->slug]))
+            ->with('disqusIdentifier', $disqusIdentifier);
     }
 
     public function getUserFaucetRotator($userSlug)
@@ -141,13 +134,7 @@ class RotatorController extends Controller
         $seoConfig->categoryDescription = "User Bitcoin Faucet Rotator";
         WebsiteMeta::setCustomMeta($seoConfig);
 
-        $cspConfig = Config::get('secure-headers.csp.child-src.allow');
-
-        foreach ($faucets->get() as $f) {
-            array_push($cspConfig, parse_url($f->url)['host']);
-        }
-
-        Config::set('secure-headers.csp.child-src.allow', $cspConfig);
+        Faucets::setMultipleFaucetsCsp($faucets->get());
 
         return view('users.rotator.index')
             ->with('userName', $user->user_name)
@@ -197,18 +184,16 @@ class RotatorController extends Controller
         $seoConfig->categoryDescription = "User Bitcoin Faucet Rotator";
         WebsiteMeta::setCustomMeta($seoConfig);
 
-        $cspConfig = Config::get('secure-headers.csp.child-src.allow');
+        Faucets::setMultipleFaucetsCsp($faucets);
 
-        foreach ($faucets as $f) {
-            array_push($cspConfig, parse_url($f->url)['host']);
-        }
-
-        Config::set('secure-headers.csp.child-src.allow', $cspConfig);
+        $disqusIdentifier = 'users-' . $user->slug . $user->id . 'rotator';
 
         return view('users.payment_processors.rotator.index')
             ->with('userSlug', $user->slug)
             ->with('paymentProcessorSlug', $paymentProcessor->slug)
             ->with('userName', $user->user_name)
-            ->with('paymentProcessorName', $paymentProcessor->name);
+            ->with('paymentProcessorName', $paymentProcessor->name)
+            ->with('currentUrl', route('users.payment-processors.rotator', ['userSlug' =>$user->slug, 'paymentProcessorSlug' => $paymentProcessor->slug]))
+            ->with('disqusIdentifier', $disqusIdentifier);
     }
 }

@@ -26,6 +26,7 @@
                 @else
                     <p>{{ $user->user_name }} has not added any faucets yet.</p>
                 @endif
+                @include('layouts.partials.social.disqus')
             </div>
         </div>
     </div>

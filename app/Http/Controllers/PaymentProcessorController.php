@@ -74,8 +74,12 @@ class PaymentProcessorController extends AppBaseController
         $seoConfig->categoryDescription = 'Crypto Payment Processors';
         WebsiteMeta::setCustomMeta($seoConfig);
 
+        $disqusIdentifier = Users::adminUser()->user_name . '-' . Users::adminUser()->id . '-payment-processors-index';
+
         return view('payment_processors.index')
-            ->with('paymentProcessors', $paymentProcessors);
+            ->with('paymentProcessors', $paymentProcessors)
+            ->with('currentUrl', $seoConfig->currentUrl)
+            ->with('disqusIdentifier', $disqusIdentifier);
     }
 
     /**
@@ -138,7 +142,14 @@ class PaymentProcessorController extends AppBaseController
 
         PaymentProcessors::setMeta($paymentProcessor, Users::adminUser());
 
-        return view('payment_processors.show')->with('paymentProcessor', $paymentProcessor);
+        $disqusIdentifier = Users::adminUser()->user_name .
+            '-' . Users::adminUser()->id .
+            '-payment-processors-' . $paymentProcessor;
+
+        return view('payment_processors.show')
+            ->with('paymentProcessor', $paymentProcessor)
+            ->with('currentUrl', route('payment-processors.show', ['slug' => $paymentProcessor->slug]))
+            ->with('disqusIdentifier', $disqusIdentifier);
     }
 
     /**
@@ -189,9 +200,15 @@ class PaymentProcessorController extends AppBaseController
         $seoConfig->categoryDescription = 'Crypto Payment Processor Faucets';
         WebsiteMeta::setCustomMeta($seoConfig);
 
+        $disqusIdentifier = Users::adminUser()->user_name .
+            '-' . Users::adminUser()->id .
+            '-payment-processors-' . $paymentProcessor->slug . '-faucets-index';
+
         return view('payment_processors.faucets.index')
             ->with('faucets', $faucets)
             ->with('paymentProcessor', $paymentProcessor)
+            ->with('currentUrl', $seoConfig->currentUrl)
+            ->with('disqusIdentifier', $disqusIdentifier)
             ->with('message', $message);
     }
 
@@ -235,9 +252,13 @@ class PaymentProcessorController extends AppBaseController
         $seoConfig->categoryDescription = 'Crypto Payment Processors';
         WebsiteMeta::setCustomMeta($seoConfig);
 
+        $disqusIdentifier = $user->user_name . '-' . $user->id . '-payment-processors-list';
+
         return view('users.payment_processors.index')
             ->with('paymentProcessors', $paymentProcessors)
-            ->with('user', $user);
+            ->with('user', $user)
+            ->with('currentUrl', $seoConfig->currentUrl)
+            ->with('disqusIdentifier', $disqusIdentifier);
     }
 
     /**
@@ -288,15 +309,19 @@ class PaymentProcessorController extends AppBaseController
         $seoConfig->publishedTime = Carbon::now()->toW3CString();
         $seoConfig->modifiedTime = Carbon::now()->toW3CString();
         $seoConfig->authorName = $user->fullName();
-        $seoConfig->currentUrl = route('users.payment-processors.faucets', ['userSlug' =>  $userSlug, 'paymentProcessorSlug' => $paymentProcessorSlug]);
+        $seoConfig->currentUrl = route('users.payment-processors.faucets', ['userSlug' =>  $userSlug, 'paymentProcessorSlug' => $paymentProcessor->slug]);
         $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
         $seoConfig->categoryDescription = 'Crypto Payment Processor Faucets';
         WebsiteMeta::setCustomMeta($seoConfig);
 
+        $disqusIdentifier = $user->user_name . '-' . $user->id . '-payment-processors-list';
+
         return view('users.payment_processors.faucets.index')
             ->with('user', $user)
             ->with('faucets', $faucets)
-            ->with('paymentProcessor', $paymentProcessor);
+            ->with('paymentProcessor', $paymentProcessor)
+            ->with('currentUrl', $seoConfig->currentUrl)
+            ->with('disqusIdentifier', $disqusIdentifier);
     }
 
     /**

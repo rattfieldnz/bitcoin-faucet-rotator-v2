@@ -157,6 +157,7 @@
                             <p>Please contact the administrator if you would like this faucet re-enabled.</p>
                         @endif
                     @endif
+                    @include('layouts.partials.social.disqus')
                 </div>
             </div>
         </div>

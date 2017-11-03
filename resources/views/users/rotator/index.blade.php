@@ -23,6 +23,7 @@
                             @include('layouts.partials.misc._ajax-data-error-content')
                         </div>
                     </div>
+                    @include('layouts.partials.social.disqus')
                 </div>
             </div>
         </div>

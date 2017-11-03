@@ -33,6 +33,7 @@
             <div class="box-body">
                 @include('layouts.partials.advertising.ads')
                 @include('faucets.table')
+                @include('layouts.partials.social.disqus')
             </div>
         </div>
     </div>

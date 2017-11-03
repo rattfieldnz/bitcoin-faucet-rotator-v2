@@ -106,10 +106,14 @@ class UserFaucetsController extends Controller
         $seoConfig->categoryDescription  ="List of Faucets";
         WebsiteMeta::setCustomMeta($seoConfig);
 
+        $disqusIdentifier = $user->user_name . '-' . $user->id . '-faucets-list';
+
         return view('users.faucets.index')
             ->with('user', $user)
             ->with('faucets', $showFaucets)
             ->with('paymentProcessors', $paymentProcessors)
+            ->with('currentUrl', $seoConfig->currentUrl)
+            ->with('disqusIdentifier', $disqusIdentifier)
             ->with('message', $message);
     }
 
@@ -253,10 +257,14 @@ class UserFaucetsController extends Controller
 
                 Faucets::setSecureFaucetIframe($user, $faucet);
 
+                $disqusIdentifier = $user->user_name . '-' . $user->id . '-faucets-' . $faucet->slug;
+
                 return view('users.faucets.show')
                     ->with('user', $user)
                     ->with('faucet', $faucet)
                     ->with('faucetUrl', $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet))
+                    ->with('currentUrl', route('users.faucets.show', ['userSlug' => $user->slug, 'faucetSlug' => $faucet->slug]))
+                    ->with('disqusIdentifier', $disqusIdentifier)
                     ->with('message', $message)
                     ->with('canShowInIframe', Http::canShowInIframes($faucet->url));
             }
@@ -282,10 +290,14 @@ class UserFaucetsController extends Controller
 
                 Faucets::setSecureFaucetIframe($user, $faucet);
 
+                $disqusIdentifier = $user->user_name . '-' . $user->id . '-faucets-' . $faucet->slug;
+
                 return view('users.faucets.show')
                     ->with('user', $user)
                     ->with('faucet', $faucet)
                     ->with('faucetUrl', $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet))
+                    ->with('currentUrl', route('users.faucets.show', ['userSlug' => $user->slug, 'faucetSlug' => $faucet->slug]))
+                    ->with('disqusIdentifier', $disqusIdentifier)
                     ->with('message', $message)
                     ->with('canShowInIframe', Http::canShowInIframes($faucet->url));
             } else {
@@ -300,10 +312,14 @@ class UserFaucetsController extends Controller
 
                 Faucets::setSecureFaucetIframe($user, $faucet);
 
+                $disqusIdentifier = $user->user_name . '-' . $user->id . '-faucets-' . $faucet->slug;
+
                 return view('users.faucets.show')
                     ->with('user', $user)
                     ->with('faucet', $faucet)
                     ->with('faucetUrl', $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet))
+                    ->with('currentUrl', route('users.faucets.show', ['userSlug' => $user->slug, 'faucetSlug' => $faucet->slug]))
+                    ->with('disqusIdentifier', $disqusIdentifier)
                     ->with('message', $message)
                     ->with('canShowInIframe', Http::canShowInIframes($faucet->url));
             } else {

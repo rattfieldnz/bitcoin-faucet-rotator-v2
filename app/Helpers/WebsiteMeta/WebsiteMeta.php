@@ -126,7 +126,10 @@ class WebsiteMeta
 
     public static function disqusShortName()
     {
-        return MainMeta::firstOrFail()->disqus_shortname;
+        $shortName = env('DISQUS_SHORTNAME');
+        return !empty(MainMeta::firstOrFail()->disqus_shortname) ?
+            MainMeta::firstOrFail()->disqus_shortname :
+            $shortName;
     }
 
     public static function activatedAdBlockBlocking()

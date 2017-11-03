@@ -70,8 +70,12 @@ class UserController extends AppBaseController
         $seoConfig->categoryDescription = "List of Users";
         WebsiteMeta::setCustomMeta($seoConfig);
 
+        $disqusIdentifier = 'list-of-registered-users';
+
         return view('users.index')
-            ->with('users', $users);
+            ->with('users', $users)
+            ->with('currentUrl', $seoConfig->currentUrl)
+            ->with('disqusIdentifier', $disqusIdentifier);
     }
 
     /**
@@ -146,9 +150,13 @@ class UserController extends AppBaseController
 
                 Users::setMeta($user);
 
+                $disqusIdentifier = 'users-' . $user->slug;
+
                 return view('users.show')
                     ->with('user', $user)
                     ->with('faucets', $userFaucets)
+                    ->with('currentUrl', route('users.show', ['slug' => $user->slug]))
+                    ->with('disqusIdentifier', $disqusIdentifier)
                     ->with('message', $message);
             }
             if (!empty($user) && !$user->isDeleted()) { // If the user exists and isn't soft-deleted
@@ -157,9 +165,13 @@ class UserController extends AppBaseController
 
                 Users::setMeta($user);
 
+                $disqusIdentifier = 'users-' . $user->slug . $user->id;
+
                 return view('users.show')
                     ->with('user', $user)
-                    ->with('faucets', $userFaucets);
+                    ->with('faucets', $userFaucets)
+                    ->with('currentUrl', route('users.show', ['slug' => $user->slug]))
+                    ->with('disqusIdentifier', $disqusIdentifier);
             } else {
                 flash('User not found')->error();
                 return redirect(route('users.index'));

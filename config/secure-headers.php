@@ -143,6 +143,10 @@ return [
                 'coinurl.com',
                 'bee-ads.com',
                 's7.addthis.com',
+                'disqus.com',
+                env('DISQUS_SHORTNAME') . '.disqus.com',
+                'c.disquscdn.com',
+                'disqusads.com',
             ],
         ],
 
@@ -155,6 +159,10 @@ return [
                 'coinurl.com',
                 'bee-ads.com',
                 's7.addthis.com',
+                'disqus.com',
+                env('DISQUS_SHORTNAME') . '.disqus.com',
+                'c.disquscdn.com',
+                'disqusads.com',
             ],
         ],
 
@@ -183,6 +191,9 @@ return [
                 'graph.facebook.com',
                 'staticxx.facebook.com',
                 'widgets.pinterest.com',
+                'disqus.com',
+                env('DISQUS_SHORTNAME') . '.disqus.com',
+                'c.disquscdn.com',
             ],
 
             'hashes' => [
@@ -212,7 +223,8 @@ return [
                 'code.ionicframework.com',
                 'code.jquery.com',
                 'www.google.com',
-                'www.gstatic.com'
+                'www.gstatic.com',
+                'c.disquscdn.com',
             ],
 
             'self' => false,
@@ -232,7 +244,9 @@ return [
                 'stats.g.doubleclick.net',
                 'www.google.com',
                 'www.google.co.nz',
-                'm.addthis.com'
+                'm.addthis.com',
+                'c.disquscdn.com',
+                'referrer.disqus.com'
             ],
 
             'types' => [
@@ -264,7 +278,10 @@ return [
         ],
 
         'connect-src' => [
-            'allow' => [env('APP_URL')]
+            'allow' => [
+                env('APP_URL'),
+                'links.services.disqus.com'
+            ]
         ],
 
         'form-action' => [

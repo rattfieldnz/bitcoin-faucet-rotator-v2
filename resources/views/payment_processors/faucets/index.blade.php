@@ -55,6 +55,7 @@
                 @else
                     <p>The payment processor has been temporarily deleted. Any associated faucets will show again once this payment processor has been restored.</p>
                 @endif
+                @include('layouts.partials.social.disqus')
             </div>
         </div>
     </div>

@@ -87,6 +87,7 @@
                         <p>This faucet has been paused from showing in rotation.</p>
                         <p>Please contact the administrator if you would like this faucet re-enabled.</p>
                     @endif
+                    @include('layouts.partials.social.disqus')
                 </div>
             </div>
         </div>

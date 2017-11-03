@@ -87,9 +87,13 @@ class FaucetController extends AppBaseController
         $seoConfig->categoryDescription = "Crypto Faucets";
         WebsiteMeta::setCustomMeta($seoConfig);
 
+        $disqusIdentifier = Users::adminUser()->user_name . '-' . Users::adminUser()->id . '-faucets-index';
+
         return view('faucets.index')
             ->with('faucets', $faucets)
-            ->with('paymentProcessors', $paymentProcessors);
+            ->with('paymentProcessors', $paymentProcessors)
+            ->with('currentUrl', $seoConfig->currentUrl)
+            ->with('disqusIdentifier', $disqusIdentifier);
     }
 
     /**
@@ -176,9 +180,13 @@ class FaucetController extends AppBaseController
 
                 Faucets::setMeta($faucet, $adminUser);
 
+                $disqusIdentifier = Users::adminUser()->user_name . '-' . Users::adminUser()->id . '-faucets-' . $faucet->slug;
+
                 return view('faucets.show')
                     ->with('faucet', $faucet)
                     ->with('faucetUrl', $faucetUrl)
+                    ->with('currentUrl', route('faucets.show', ['slug' => $faucet->slug]))
+                    ->with('disqusIdentifier', $disqusIdentifier)
                     ->with('message', $message)
                     ->with('canShowInIframe', Http::canShowInIframes($faucet->url));
             }
@@ -190,9 +198,13 @@ class FaucetController extends AppBaseController
 
                 Faucets::setMeta($faucet, $adminUser);
 
+                $disqusIdentifier = Users::adminUser()->user_name . '-' . Users::adminUser()->id . '-faucets-' . $faucet->slug;
+
                 return view('faucets.show')
                     ->with('faucet', $faucet)
                     ->with('faucetUrl', $faucetUrl)
+                    ->with('currentUrl', route('faucets.show', ['slug' => $faucet->slug]))
+                    ->with('disqusIdentifier', $disqusIdentifier)
                     ->with('message', $message)
                     ->with('canShowInIframe', (boolean)Http::canShowInIframes($faucetUrl));
             } else {

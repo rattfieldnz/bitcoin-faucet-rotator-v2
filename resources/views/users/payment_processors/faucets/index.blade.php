@@ -24,6 +24,7 @@
                 @else
                     <p>That user has no faucets with this payment processor.</p>
                 @endif
+                @include('layouts.partials.social.disqus')
             </div>
         </div>
     </div>

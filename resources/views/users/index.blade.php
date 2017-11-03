@@ -37,6 +37,7 @@
                 @else
                     <p>There are no users currently registered. How about {!! link_to_route('register', 'signing up', [], ['title' => "Sign up for an account"]) !!} yourself?</p>
                 @endif
+                @include('layouts.partials.social.disqus')
             </div>
         </div>
     </div>

@@ -13,7 +13,7 @@
             @include('layouts.partials.navigation._breadcrumbs')
             <div class="box box-primary">
                 <div class="box-body">
-                    <div class="row">
+                    <div class="row zero-margin">
                         @include('layouts.partials.advertising.ads')
                         <div class="col-lg-12">
                             @include('rotator.partials.nav')
@@ -24,6 +24,7 @@
                             @include('layouts.partials.misc._ajax-data-error-content')
                         </div>
                     </div>
+                    @include('layouts.partials.social.disqus')
                 </div>
             </div>
         </div>

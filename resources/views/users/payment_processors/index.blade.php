@@ -35,6 +35,7 @@
             <div class="box-body">
                 @include('layouts.partials.advertising.ads')
                 @include('users.payment_processors.table')
+                @include('layouts.partials.social.disqus')
             </div>
         </div>
     </div>

@@ -426,12 +426,43 @@ class Faucets
      */
     public static function setSecureFaucetIframe(User $user, Faucet $faucet)
     {
+        $childFramesConfig = Config::get('secure-headers.csp.child-src.allow');
+        $framesConfig = Config::get('secure-headers.csp.frame-src.allow');
 
         if (!empty($user) && !empty($faucet)) {
             $faucetUrl = $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet);
-            Config::set('secure-headers.csp.child-src.allow', [parse_url($faucetUrl)['host']]);
-            Config::set('secure-headers.csp.frame-src.allow', [parse_url($faucetUrl)['host']]);
+
+            array_push($childFramesConfig, parse_url($faucetUrl)['host']);
+            array_push($framesConfig, parse_url($faucetUrl)['host']);
+
+            Config::set('secure-headers.csp.child-src.allow', $childFramesConfig);
+            Config::set('secure-headers.csp.frame-src.allow', $framesConfig);
         }
+    }
+
+    /**
+     * Set CSP secure iframe rules for multiple faucets.
+     * I.E: https://content-security-policy.com/.
+     *
+     * @param $faucets
+     *
+     * @return void
+     */
+    public static function setMultipleFaucetsCsp($faucets){
+
+        $config = Config::get('secure-headers.csp.child-src.allow');
+        $framesConfig = Config::get('secure-headers.csp.frame-src.allow');
+
+        foreach ($faucets as $f) {
+
+            if($f instanceof Faucet){
+                array_push($config, parse_url($f->url)['host']);
+                array_push($framesConfig, parse_url($f->url)['host']);
+            }
+        }
+
+        Config::set('secure-headers.csp.child-src.allow', $config);
+        Config::set('secure-headers.csp.frame-src.allow', $framesConfig);
     }
 
     /**
