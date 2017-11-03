@@ -141,11 +141,7 @@
 </div>
 @include('layouts.partials.content._footer')
 <!-- /.register-box -->
-@if(env('APP_ENV') == 'local')
-    <script src="{{ asset("/assets/js/mainScripts.js?". rand()) }}"></script>
-@elseif(env('APP_ENV') == 'production')
-    <script src="{{ asset("/assets/js/mainScripts.min.js?". rand()) }}"></script>
-@endif
+@include('layouts.partials.scripts._js')
 
 <script>
     $(function () {
