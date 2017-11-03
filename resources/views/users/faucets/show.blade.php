@@ -16,10 +16,10 @@
 
         <div class="box box-primary">
             <div class="box-body">
-                <div class="row zero-margin">
+                <div class="row">
                     @include('layouts.partials.advertising.ads')
-                    <p><strong>*</strong> Payout amounts are in Satoshis</p>
-                    <div id="faucet-info" class="table table-responsive">
+                    <div id="faucet-info" class="table table-responsive col-sm-12">
+                        <p><strong>*</strong> Payout amounts are in Satoshis</p>
                         <table class="table table-striped table bordered show-table-header">
                             <thead>
                             <th>URL</th>
@@ -70,24 +70,26 @@
                             </tbody>
                         </table>
                     </div>
-                    @if($faucet->is_paused == false)
-                        @if($canShowInIframe == true)
-                        <iframe sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin" src="{{ $faucetUrl }}" id="faucet-iframe"></iframe>
-                        @else
-                            <h3 style="font-size: 3em;">Sorry!</h3>
+                    <div class="col-sm-12">
+                        @if($faucet->is_paused == false)
+                            @if($canShowInIframe == true)
+                                <iframe sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin" src="{{ $faucetUrl }}" id="faucet-iframe"></iframe>
+                            @else
+                                <h3 style="font-size: 3em;">Sorry!</h3>
 
-                            <p>This faucet cannot be shown in iframes. Please
-                                {!!  link_to(
-                                    $faucetUrl,
-                                    'visit ' . $faucet->name . ' in a new window/tab',
-                                    ['target' => '_blank']) !!}.
-                            </p>
+                                <p>This faucet cannot be shown in iframes. Please
+                                    {!!  link_to(
+                                        $faucetUrl,
+                                        'visit ' . $faucet->name . ' in a new window/tab',
+                                        ['target' => '_blank']) !!}.
+                                </p>
+                            @endif
+                        @else
+                            <p>This faucet has been paused from showing in rotation.</p>
+                            <p>Please contact the administrator if you would like this faucet re-enabled.</p>
                         @endif
-                    @else
-                        <p>This faucet has been paused from showing in rotation.</p>
-                        <p>Please contact the administrator if you would like this faucet re-enabled.</p>
-                    @endif
-                    @include('layouts.partials.social.disqus')
+                        @include('layouts.partials.social.disqus')
+                    </div>
                 </div>
             </div>
         </div>

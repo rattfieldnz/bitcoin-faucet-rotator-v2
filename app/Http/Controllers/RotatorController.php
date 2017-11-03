@@ -134,11 +134,15 @@ class RotatorController extends Controller
         $seoConfig->categoryDescription = "User Bitcoin Faucet Rotator";
         WebsiteMeta::setCustomMeta($seoConfig);
 
+        $disqusIdentifier = 'users-' . $user->slug . $user->id . 'faucet-rotator';
+
         Faucets::setMultipleFaucetsCsp($faucets->get());
 
         return view('users.rotator.index')
             ->with('userName', $user->user_name)
-            ->with('userSlug', $user->slug);
+            ->with('userSlug', $user->slug)
+            ->with('currentUrl', $seoConfig->currentUrl)
+            ->with('disqusIdentifier', $disqusIdentifier);
     }
 
     function getUserPaymentProcessorFaucetRotator($userSlug, $paymentProcessorSlug)
@@ -186,7 +190,7 @@ class RotatorController extends Controller
 
         Faucets::setMultipleFaucetsCsp($faucets);
 
-        $disqusIdentifier = 'users-' . $user->slug . $user->id . 'rotator';
+        $disqusIdentifier = 'users-' . $user->slug . $user->id . '-payment-processor-' . $paymentProcessor->slug . '-rotator';
 
         return view('users.payment_processors.rotator.index')
             ->with('userSlug', $user->slug)
