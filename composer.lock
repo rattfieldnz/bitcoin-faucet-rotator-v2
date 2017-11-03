@@ -1562,16 +1562,16 @@
         },
         {
             "name": "google/apiclient",
-            "version": "v2.2.0",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "f3fadd538315d62ebd1191d89ac791468c617260"
+                "reference": "b69b8ac4bf6501793c389d4e013a79d09c85c5f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/f3fadd538315d62ebd1191d89ac791468c617260",
-                "reference": "f3fadd538315d62ebd1191d89ac791468c617260",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/b69b8ac4bf6501793c389d4e013a79d09c85c5f2",
+                "reference": "b69b8ac4bf6501793c389d4e013a79d09c85c5f2",
                 "shasum": ""
             },
             "require": {
@@ -1617,7 +1617,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-07-10T15:34:54+00:00"
+            "time": "2017-11-03T01:19:53+00:00"
         },
         {
             "name": "google/apiclient-services",
@@ -4192,16 +4192,16 @@
         },
         {
             "name": "prettus/l5-repository",
-            "version": "2.6.26",
+            "version": "2.6.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/andersao/l5-repository.git",
-                "reference": "76acf53fd4d92bbc93f2990e10dbe8c11f02d4e8"
+                "reference": "0599e7974ebfb8135e41b84c338ca3c3b8e5d2f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andersao/l5-repository/zipball/76acf53fd4d92bbc93f2990e10dbe8c11f02d4e8",
-                "reference": "76acf53fd4d92bbc93f2990e10dbe8c11f02d4e8",
+                "url": "https://api.github.com/repos/andersao/l5-repository/zipball/0599e7974ebfb8135e41b84c338ca3c3b8e5d2f5",
+                "reference": "0599e7974ebfb8135e41b84c338ca3c3b8e5d2f5",
                 "shasum": ""
             },
             "require": {
@@ -4253,7 +4253,7 @@
                 "model",
                 "repository"
             ],
-            "time": "2017-10-28T20:20:20+00:00"
+            "time": "2017-11-01T12:40:38+00:00"
         },
         {
             "name": "prettus/laravel-validation",
@@ -6351,16 +6351,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v8.3.1",
+            "version": "v8.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "b5ecb425414b1baf2ce2f82fe2849e77e51230e0"
+                "reference": "8c3490d7a810824da147161033d6ef272d7c8726"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/b5ecb425414b1baf2ce2f82fe2849e77e51230e0",
-                "reference": "b5ecb425414b1baf2ce2f82fe2849e77e51230e0",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/8c3490d7a810824da147161033d6ef272d7c8726",
+                "reference": "8c3490d7a810824da147161033d6ef272d7c8726",
                 "shasum": ""
             },
             "require": {
@@ -6417,7 +6417,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2017-10-27T06:13:31+00:00"
+            "time": "2017-11-02T02:30:46+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
@@ -6815,16 +6815,16 @@
         },
         {
             "name": "maximebf/debugbar",
-            "version": "v1.14.0",
+            "version": "v1.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "e23a98f2d65607d8aa6c7b409a513f8fdf4acdde"
+                "reference": "64251a392344e3d22f3d21c3b7c531ba96eb01d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/e23a98f2d65607d8aa6c7b409a513f8fdf4acdde",
-                "reference": "e23a98f2d65607d8aa6c7b409a513f8fdf4acdde",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/64251a392344e3d22f3d21c3b7c531ba96eb01d2",
+                "reference": "64251a392344e3d22f3d21c3b7c531ba96eb01d2",
                 "shasum": ""
             },
             "require": {
@@ -6872,7 +6872,7 @@
                 "debug",
                 "debugbar"
             ],
-            "time": "2017-08-17T07:17:00+00:00"
+            "time": "2017-09-13T12:19:36+00:00"
         },
         {
             "name": "mockery/mockery",
