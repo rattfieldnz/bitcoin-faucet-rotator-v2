@@ -29,7 +29,7 @@
         "league/csv": "^9.0",
         "michelecurletta/laravel-schedule-overview": "^1.0",
         "predis/predis": "1.1.*",
-        "santigarcor/laratrust": "^4.0",
+        "santigarcor/laratrust": "^5.0",
         "league/fractal": "^0.17.0",
         "phpoffice/phpexcel": "^1.8",
         "squareboat/sneaker": "^3.0",

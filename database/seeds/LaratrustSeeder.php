@@ -85,31 +85,11 @@ class LaratrustSeeder extends Seeder
                             ]);
 
                             $this->command->info('Creating Permission to ' . $permissionValue . ' for ' . $module);
-
-                            if (!$user->hasPermission($permission->name)) {
-                                $user->attachPermission($permission);
-                                $this->command->info('Assigning permission "' . $permission->name . '"" to user "' . $user->user_name . '"');
-                            }
+                            $user->attachPermission($permission);
+                            $this->command->info('Assigning permission "' . $permission->name . '"" to user "' . $user->user_name . '"');
                         }
                     }
                 }
-            }
-
-            $initialPermissions = [
-                Permission::where('name', 'read-users')->first(),
-                Permission::where('name', 'read-faucets')->first(),
-                Permission::where('name', 'create-user-faucets')->first(),
-                Permission::where('name', 'read-user-faucets')->first(),
-                Permission::where('name', 'update-user-faucets')->first(),
-                Permission::where('name', 'soft-delete-user-faucets')->first(),
-                Permission::where('name', 'permanent-delete-user-faucets')->first(),
-                Permission::where('name', 'restore-user-faucets')->first(),
-                Permission::where('name', 'read-payment-processors')->first(),
-            ];
-
-            foreach ($initialPermissions as $permission) {
-                $standardUser->attachPermission($permission);
-                $this->command->info('Assigning permission "' . $permission->name . '"" to user "' . $standardUser->user_name . '"');
             }
         } catch (Illuminate\Database\QueryException $e) {
         }

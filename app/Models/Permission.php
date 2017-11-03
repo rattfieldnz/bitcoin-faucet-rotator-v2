@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
-use Laratrust\LaratrustPermission;
+use Laratrust\Models\LaratrustPermission;
 
 /**
  * Class Permission

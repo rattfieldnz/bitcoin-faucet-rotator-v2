@@ -8,6 +8,7 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Libraries\Seo\SeoConfig;
 use App\Models\MainMeta;
+use App\Models\Permission;
 use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use App\Helpers\Functions\Users;
