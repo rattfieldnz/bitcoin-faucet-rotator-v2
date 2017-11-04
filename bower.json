@@ -12,23 +12,23 @@
   "dependencies": {
     "bootstrap": "~3.3.7",
     "font-awesome": "~4.7.0",
-    "select2": "~4.0.4",
-    "admin-lte": "~2.4.1",
+    "select2": "~4.0.5",
+    "admin-lte": "~2.4.2",
     "ionicons": "~2.0.1",
     "jquery": "~3.2.1",
     "iCheck": "~1.0.2",
     "jquery-ui": "^1.12.1",
     "cookieconsent": "^3.0.4",
-    "localforage": "^1.5.1",
+    "localforage": "^1.5.3",
     "datatables.net": "^1.10.16",
     "datatables.net-bs": "^2.1.1",
-    "chart.js": "chartjs#^2.7.0",
+    "chart.js": "chartjs#^2.7.1",
     "jquery-progresstimer": "^1.0.7",
-    "js-cookie": "^2.1.4"
+    "js-cookie": "^2.2.0"
   },
   "resolutions": {
     "jquery-ui": "^1.12.1",
     "jquery": "~3.2.1",
-    "chart.js": "^2.7.0"
+    "chart.js": "^2.7.1"
   }
 }
