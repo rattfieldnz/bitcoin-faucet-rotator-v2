@@ -448,14 +448,14 @@ class Faucets
      *
      * @return void
      */
-    public static function setMultipleFaucetsCsp($faucets){
+    public static function setMultipleFaucetsCsp($faucets)
+    {
 
         $config = Config::get('secure-headers.csp.child-src.allow');
         $framesConfig = Config::get('secure-headers.csp.frame-src.allow');
 
         foreach ($faucets as $f) {
-
-            if($f instanceof Faucet){
+            if ($f instanceof Faucet) {
                 array_push($config, parse_url($f->url)['host']);
                 array_push($framesConfig, parse_url($f->url)['host']);
             }
