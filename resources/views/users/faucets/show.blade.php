@@ -38,8 +38,8 @@
                                     {!! link_to($faucet->url . App\Helpers\Functions\Faucets::getUserFaucetRefCode($user, $faucet), $faucet->name, ['target' => 'blank', 'title' => $faucet->name]) !!}
                                 </td>
                                 <td>{{ $faucet->interval_minutes }}</td>
-                                <td>{{ $faucet->min_payout }}</td>
-                                <td>{{ $faucet->max_payout }}</td>
+                                <td>{{ number_format($faucet->min_payout) }}</td>
+                                <td>{{ number_format($faucet->max_payout) }}</td>
                                 <td>
                                     @if($faucet->paymentProcessors)
                                         @if(count($faucet->paymentProcessors) == 0)

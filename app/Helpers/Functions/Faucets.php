@@ -756,11 +756,11 @@ class Faucets
                 'referral_code' => $referralCode,
                 'interval_minutes' => intval($faucet->interval_minutes),
                 'min_payout' => [
-                    'display' => number_format(intval($faucet->min_payout)),
+                    'display' => number_format($faucet->min_payout),
                     'original' => intval($faucet->min_payout)
                 ],
                 'max_payout' => [
-                    'display' => number_format(intval($faucet->max_payout)),
+                    'display' => number_format($faucet->max_payout),
                     'original' => intval($faucet->max_payout)
                 ],
                 'comments' => $faucet->comments,

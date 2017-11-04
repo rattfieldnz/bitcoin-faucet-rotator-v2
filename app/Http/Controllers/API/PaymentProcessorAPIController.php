@@ -65,13 +65,13 @@ class PaymentProcessorAPIController extends AppBaseController
                 ],
                 'no_of_faucets' => count($paymentProcessorFaucets->get()),
                 'min_claimable' => [
-                    'display' => $paymentProcessorFaucets->sum('min_payout') .
-                        ' Satoshis / ' . $paymentProcessorFaucets->sum('interval_minutes') . ' minutes',
+                    'display' => number_format($paymentProcessorFaucets->sum('min_payout')) .
+                        ' Satoshis / ' . number_format($paymentProcessorFaucets->sum('interval_minutes')) . ' minutes',
                     'original' => intval($paymentProcessorFaucets->sum('min_payout'))
                 ],
                 'max_claimable' => [
-                    'display' => $paymentProcessorFaucets->sum('max_payout') .
-                        ' Satoshis / ' . $paymentProcessorFaucets->sum('interval_minutes') . ' minutes',
+                    'display' => number_format($paymentProcessorFaucets->sum('max_payout')) .
+                        ' Satoshis / ' . number_format($paymentProcessorFaucets->sum('interval_minutes')) . ' minutes',
                     'original' => intval($paymentProcessorFaucets->sum('max_payout'))
                 ]
             ];
@@ -149,13 +149,13 @@ class PaymentProcessorAPIController extends AppBaseController
                 ],
                 'no_of_faucets' => count($paymentProcessorFaucets->all()),
                 'min_claimable' => [
-                    'display' => $paymentProcessorFaucets->sum('min_payout') .
-                        ' Satoshis / ' . $paymentProcessorFaucets->sum('interval_minutes') . ' minutes',
+                    'display' => number_format($paymentProcessorFaucets->sum('min_payout')) .
+                        ' Satoshis / ' . number_format($paymentProcessorFaucets->sum('interval_minutes')) . ' minutes',
                     'original' => intval($paymentProcessorFaucets->sum('min_payout'))
                 ],
                 'max_claimable' => [
-                    'display' => $paymentProcessorFaucets->sum('max_payout') .
-                        ' Satoshis / ' . $paymentProcessorFaucets->sum('interval_minutes') . ' minutes',
+                    'display' => number_format($paymentProcessorFaucets->sum('max_payout')) .
+                        ' Satoshis / ' . number_format($paymentProcessorFaucets->sum('interval_minutes')) . ' minutes',
                     'original' => intval($paymentProcessorFaucets->sum('max_payout'))
                 ]
             ];
