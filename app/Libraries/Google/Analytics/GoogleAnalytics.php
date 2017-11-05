@@ -222,8 +222,10 @@ class GoogleAnalytics
 
             return collect($data ?? [])->map(function (array $pageRow) {
                 return [
-                    'url' => $pageRow[0], // url
-                    'pageTitle' => $pageRow[1], // pageTitle
+                    'url' => [
+                        'display' => $pageRow[0],
+                        'original' => $pageRow[1]
+                    ],
                     'uniqueVisitors' => [
                         'display' => number_format((int)$pageRow[2]),
                         'original' => (int)$pageRow[2]

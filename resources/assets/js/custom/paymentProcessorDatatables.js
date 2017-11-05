@@ -16,7 +16,7 @@ function generatePaymentProcessorsTable(data, elementToRender)
                     data: "name",
                     render: {
                         _: function(data){
-                            var link = '<a href="' + data.display + '" target="_blank" title="' + data.original + '">';
+                            var link = '<a href="' + data.display + '" title="' + data.original + '">';
                             link += data.original + '</a>';
                             return link;
                         },
@@ -28,7 +28,7 @@ function generatePaymentProcessorsTable(data, elementToRender)
                     data: "faucets",
                     render: {
                         _: function(data){
-                            var link = '<a href="' + data.display + '" target="_blank" title="' + data.original + '">';
+                            var link = '<a href="' + data.display + '" title="' + data.original + '">';
                             link += data.original + '</a>';
                             return link;
                         },
@@ -40,7 +40,7 @@ function generatePaymentProcessorsTable(data, elementToRender)
                     data: "rotator",
                     render: {
                         _: function(data){
-                            var link = '<a href="' + data.display + '" target="_blank" title="' + data.original + '">';
+                            var link = '<a href="' + data.display + '" title="' + data.original + '">';
                             link += data.original + '</a>';
                             return link;
                         },

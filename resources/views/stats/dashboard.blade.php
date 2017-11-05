@@ -73,11 +73,10 @@
                                 <div id="visitorsTable-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
                                 <div></div>
                                 <div id="visitorsTable-wrapper" class="chart">
-                                    <table id="visitorsTable" cellspacing="0" width="100%">
+                                    <table id="visitorsTable" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>URL</th>
-                                                <th>Page Title</th>
+                                                <th>Page</th>
                                                 <th>Unique Visitors</th>
                                                 <th>Page Views</th>
                                                 <th>Unique Page Views</th>
@@ -90,8 +89,7 @@
                                         <tbody></tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>URL</th>
-                                                <th>Page Title</th>
+                                                <th>Page</th>
                                                 <th>Unique Visitors</th>
                                                 <th>Page Views</th>
                                                 <th>Unique Page Views</th>

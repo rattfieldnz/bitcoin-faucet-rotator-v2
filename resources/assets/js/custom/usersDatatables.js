@@ -17,7 +17,7 @@ function generateUsersTable(data, elementToRender)
                     data: "user_name",
                     render: {
                         _: function(data){
-                            var link = '<a href="' + data.display + '" target="_blank" title="' + data.original + '">';
+                            var link = '<a href="' + data.display + '" title="' + data.original + '">';
                             link += data.original + '</a>';
                             return link;
                         },
@@ -29,7 +29,7 @@ function generateUsersTable(data, elementToRender)
                     data: "faucets",
                     render: {
                         _: function(data){
-                            var link = '<a href="' + data.display + '" target="_blank" title="' + data.original + '">';
+                            var link = '<a href="' + data.display + '" title="' + data.original + '">';
                             link += data.original + '</a>';
                             return link;
                         },

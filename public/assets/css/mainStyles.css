@@ -41220,6 +41220,7 @@ and (max-device-width : 480px) {
   margin-left: 0;
 }
 
+table#visitorsTable,
 table.faucetsTable_guest,
 table.usersTable_guest,
 table.paymentProcessorsTable_guest {

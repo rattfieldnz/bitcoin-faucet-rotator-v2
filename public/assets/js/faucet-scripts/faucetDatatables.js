@@ -16,7 +16,7 @@ function generateFaucetsTable(data, elementToRender)
                     data: "name",
                     render: {
                         _: function(data){
-                            var link = '<a href="' + data.display + '" target="_blank" title="' + data.original + '">';
+                            var link = '<a href="' + data.display + '" title="' + data.original + '">';
                             link += data.original + '</a>';
                             return link;
                         },
@@ -48,7 +48,7 @@ function generateFaucetsTable(data, elementToRender)
                     render: function (data){
                         var list = '<ul class="payment-processors-list">\n';
                         $.each(data, function(i){
-                            var link = '<a href="' + data[i].url + '" target="_blank" title="' + data[i].name + '">';
+                            var link = '<a href="' + data[i].url + '" title="' + data[i].name + '">';
                             link += data[i].name + '</a>';
                             list += '<li>' + link + '</li>';
                         });

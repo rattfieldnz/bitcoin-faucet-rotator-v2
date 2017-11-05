@@ -19,7 +19,7 @@
     margin-left: 0;
 }
 
-table.faucetsTable_guest, table.usersTable_guest, table.paymentProcessorsTable_guest{
+table#visitorsTable, table.faucetsTable_guest, table.usersTable_guest, table.paymentProcessorsTable_guest{
     width: 102.8em !important;
     min-width: 45em;
     max-width: none;

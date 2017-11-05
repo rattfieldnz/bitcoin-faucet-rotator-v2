@@ -146,10 +146,20 @@ function generateVisitorsTable(data, elementToRender)
             language: {
                 processing: "Loading...",
             },
-            order: [[2, "desc"], [3, "desc"], [4, "desc"], [5,"desc"], [6, "desc"], [7, "asc"], [8, "desc"]],
+            order: [[1, "desc"], [2, "desc"], [3, "desc"], [4,"desc"], [5, "desc"], [6, "asc"], [7, "desc"]],
             columns: [
-                {data: "url"},
-                {data: "pageTitle"},
+                {
+                    data: "url",
+                    type: "string",
+                    render: {
+                        _: function(data){
+                            var link = '<a href="' + data.display + '" title="' + data.original + '">';
+                            link += data.original + '</a>';
+                            return link;
+                        },
+                        sort: 'original'
+                    },
+                },
                 {
                     data: "uniqueVisitors",
                     type: 'num',
@@ -157,7 +167,7 @@ function generateVisitorsTable(data, elementToRender)
                         _: 'display',
                         sort: 'original'
                     }
-            },
+                },
                 {
                     data: "pageViews",
                     type: 'num',
@@ -165,7 +175,7 @@ function generateVisitorsTable(data, elementToRender)
                         _: 'display',
                         sort: 'original'
                     }
-            },
+                },
                 {
                     data: "uniquePageViews",
                     type: 'num',
@@ -173,7 +183,7 @@ function generateVisitorsTable(data, elementToRender)
                         _: 'display',
                         sort: 'original'
                     }
-            },
+                },
                 {
                     data: 'aveSessionDuration',
                     type: 'num',
@@ -181,7 +191,7 @@ function generateVisitorsTable(data, elementToRender)
                         _: 'display',
                         sort: 'original'
                     }
-            },
+                },
                 {
                     data: 'aveTimeOnPage',
                     type: 'num',
@@ -189,7 +199,7 @@ function generateVisitorsTable(data, elementToRender)
                         _: 'display',
                         sort: 'original'
                     }
-            },
+                },
                 {
                     data: "noOfBounces",
                     type: 'num',
@@ -197,10 +207,11 @@ function generateVisitorsTable(data, elementToRender)
                         _: 'display',
                         sort: 'original'
                     }
-            },
+                },
                 {data: "noOfCountries"}
             ],
             responsive: true,
+            scrollX: true,
             fnStateSave: function (settings, data) {
                 localStorage.setItem( 'VisitorsDataTable', JSON.stringify(data) );
             },
