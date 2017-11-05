@@ -41798,7 +41798,7 @@ ul#navigation li.standard-nav-item ul.dropdown-menu li.sub-nav-item a:hover {
   background: url("/assets/images/iCheck/square/purple.png") no-repeat !important;
 }
 
-@media screen and (max-height: 50em) and (min-height: 0em) {
+@media screen and (max-height: 37em) and (min-height: 0em) {
   .main-sidebar,
   .sidebar-fixed,
   #sidebar-wrapper {
