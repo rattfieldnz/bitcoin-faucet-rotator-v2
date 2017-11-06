@@ -1,0 +1,5 @@
+﻿id;name;slug;description;bootstrap_alert_class
+1;info;info;Info! This alert type indicates a neutral informative change or action.;.alert-info
+2;success;success;Success! This alert type indicates a successful or positive action.;.alert-success
+3;warning;warning;Warning! This alert type indicates a warning that might need attention.;.alert-warning
+4;danger;danger;Danger! This alert type indicates a dangerous or potentially negative action.;.alert-danger

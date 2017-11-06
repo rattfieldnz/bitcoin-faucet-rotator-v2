@@ -25,6 +25,7 @@
                 <li class="standard-nav-item">{!! link_to_route('users.index', "Users") !!}</li>
                 <li class="standard-nav-item">{!! link_to_route('privacy-policy', "Privacy Policy") !!}</li>
                 <li class="standard-nav-item">{!! link_to_route('terms-and-conditions', "Terms &amp; Conditions") !!}</li>
+                <li class="standard-nav-item">{!! link_to_route('alerts.index', "Alerts") !!}</li>
                 <li class="dropdown standard-nav-item">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Social! <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">

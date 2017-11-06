@@ -28,3 +28,7 @@
 <li class="{{ Request::is('terms-and-conditions*') ? 'active' : '' }}">
     <a href="{!! route('terms-and-conditions') !!}" title="Terms and Conditions"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Terms &amp; Conditions</span></a>
 </li>
+
+<li class="{{ Request::is('alerts*') ? 'active' : '' }}">
+    <strong><a href="{!! route('alerts.index') !!}" title="Alerts"><i class="fa fa-exclamation" aria-hidden="true"></i><span>Alerts</a></strong>
+</li>

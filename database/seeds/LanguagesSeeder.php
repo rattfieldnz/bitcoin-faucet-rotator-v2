@@ -15,8 +15,10 @@ class LanguagesSeeder extends BaseSeeder
      */
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Schema::disableForeignKeyConstraints();
         Language::truncate();
+        Schema::enableForeignKeyConstraints();
+
         $data = $this->csv_to_array(base_path() . '/database/seeds/csv_files/languages.csv', ';');
 
         try {
@@ -26,10 +28,11 @@ class LanguagesSeeder extends BaseSeeder
                     'iso_code' => Purifier::clean($d['code'], 'generalFields')
                 ]);
                 $language->save();
-                $this->command->info(
-                    "Seeding Language => Name: " . $language->name() . ", ISO Code: " . $language->isoCode()
-                );
             }
+
+            $this->command->info(
+                "Finished seeding " . count(Language::all()) . " languages."
+            );
         } catch (Exception $e) {
             error_log($e->getMessage());
         }

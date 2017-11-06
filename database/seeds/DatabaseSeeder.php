@@ -13,8 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Eloquent::unguard();
+        Schema::disableForeignKeyConstraints();
         $this->call(UsersSeeder::class);
         $this->call(FaucetsTableSeeder::class);
         $this->call(PaymentProcessorsTableSeeder::class);
@@ -26,7 +26,9 @@ class DatabaseSeeder extends Seeder
         $this->call(LaratrustSeeder::class);
         $this->call(UserPermissionsSeeder::class);
         $this->call(SocialLinksTableSeeder::class);
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-        Model::reguard();
+        $this->call(AlertIconsSeeder::class);
+        $this->call(AlertTypesSeeder::class);
+        Schema::enableForeignKeyConstraints();
+        Eloquent::reguard();
     }
 }

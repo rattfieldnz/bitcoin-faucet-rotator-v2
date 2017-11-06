@@ -33,6 +33,10 @@
         <strong><a href="{!! route('terms-and-conditions') !!}" title="Terms and Conditions">Terms &amp; Conditions</a></strong>
     </li>
 
+    <li class="{{ Request::is('alerts*') ? 'active' : '' }}">
+        <strong><a href="{!! route('alerts.index') !!}" title="Alerts">Alerts</a></strong>
+    </li>
+
 @if(Auth::guest())
     <li class="{{ Request::is('login*') ? 'active' : '' }}">
         <a href="{!! url('/login') !!}">Login</a>
