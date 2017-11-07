@@ -187,6 +187,7 @@
 <script src="{{ asset("/assets/js/ckeditor/ckeditor.js?") . "?" . rand() }}"></script>
 <script>
     CKEDITOR.replace('alert_content');
+    
     $('#alert_icon_id').selectpicker();
     $('#alert_type_id').selectpicker();
 
@@ -195,23 +196,45 @@
     var showOnlyOnHomePage = $('#show_only_on_home_page');
     var twitterSendOrSent = $('#sent_with_twitter');
 
-    generateSwitch(hideAlert, true, 1,0);
-    generateSwitch(showSiteWide, false, 1,0);
-    generateSwitch(showOnlyOnHomePage, false, 1,0);
-    generateSwitch(twitterSendOrSent, false, 1,0);
+    generateSwitch(hideAlert, true);
+    toggleState(hideAlert, [showSiteWide, showOnlyOnHomePage, twitterSendOrSent]);
 
-    function generateSwitch(elem, initState, checkedValue, uncheckedValue, onText = 'Yes', offText = 'No'){
+    generateSwitch(showSiteWide, false);
+    toggleState(showSiteWide, [showOnlyOnHomePage, hideAlert]);
 
-        if(elem !== 'undefined' && (elem.attr('type') === 'checkbox' || elem.attr('type') === 'radio')){
-            elem.on('switchChange.bootstrapSwitch', function(event,  state) {
-                this.checked === true ? elem.val(checkedValue) : elem.val(uncheckedValue);
-            });
+    generateSwitch(showOnlyOnHomePage, false);
+    toggleState(showOnlyOnHomePage, [showSiteWide, hideAlert]);
 
-            if(jQuery().bootstrapSwitch){
+    generateSwitch(twitterSendOrSent, false);
+
+    function generateSwitch(elem, initState, onText = 'Yes', offText = 'No')
+    {
+        if(jQuery().bootstrapSwitch){
+            if(elem !== 'undefined' && (elem.attr('type') === 'checkbox' || elem.attr('type') === 'radio')){
+                elem.on('switchChange.bootstrapSwitch', function(event,  state) {
+                    elem.val(parseInt(+state));
+                });
+
                 return elem.bootstrapSwitch({
                     onText: onText,
                     offText: offText,
                     state: initState
+                });
+            }
+        }
+    }
+
+    function toggleState(checkedBox, othercheckBoxes = [])
+    {
+        if(jQuery().bootstrapSwitch){
+            if(checkedBox !== 'undefined' && (checkedBox.attr('type') === 'checkbox' || checkedBox.attr('type') === 'radio')){
+                checkedBox.on('switchChange.bootstrapSwitch', function(){
+                    if(this.checked){
+                        for(var i = 0; i < othercheckBoxes.length; i++){
+                            othercheckBoxes[i].val(+!this.checked);
+                            othercheckBoxes[i].bootstrapSwitch('state', !this.checked, true);
+                        }
+                    }
                 });
             }
         }
