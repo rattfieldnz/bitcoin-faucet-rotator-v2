@@ -78,6 +78,8 @@ class Alert extends Model
         'show_site_wide' => 'sometimes|boolean',
         'show_only_on_home_page' => 'sometimes|boolean',
         'sent_with_twitter' => 'sometimes|boolean',
+        'publish_at' => 'sometimes|date|date_format:Y-m-d H:i:s',
+        'hide_at' => 'sometimes|date|date_format:Y-m-d H:i:s',
     ];
 
     /**

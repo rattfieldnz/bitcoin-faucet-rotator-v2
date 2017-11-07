@@ -42,6 +42,20 @@ gulp.task("copyfiles", function() {
     gulp.src("vendor/bower_components/bootstrap/dist/fonts/**")
         .pipe(gulp.dest("public/assets/fonts/"));
 
+    // Bootstrap Switch
+    gulp.src("vendor/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css")
+        .pipe(gulp.dest("public/assets/css/bootstrap-switch/"));
+
+    gulp.src("vendor/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js")
+        .pipe(gulp.dest("public/assets/js/bootstrap-switch/"));
+
+    // Bootstrap Select
+    gulp.src("vendor/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css")
+        .pipe(gulp.dest("public/assets/css/bootstrap-select/"));
+
+    gulp.src("vendor/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js")
+        .pipe(gulp.dest("public/assets/js/bootstrap-select/"));
+
     // Local Forage //
     gulp.src("vendor/bower_components/localforage/dist/localforage.js")
         .pipe(gulp.dest("resources/assets/js/localforage/"));
@@ -99,13 +113,6 @@ gulp.task("copyfiles", function() {
     gulp.src("vendor/bower_components/ionicons/png/**/*")
         .pipe(gulp.dest("resources/assets/img/ionicons/"));
 
-    // select2 //
-    gulp.src("vendor/bower_components/select2/dist/css/*.css")
-        .pipe(gulp.dest("resources/assets/css/select2/"));
-
-    gulp.src("vendor/bower_components/select2/dist/js/**/*.js")
-        .pipe(gulp.dest("resources/assets/js/select2/"));
-
     // Table sorter theme //
     gulp.src("resources/assets/css/table_sorter_themes/images/**")
         .pipe(gulp.dest("public/assets/images/table-sorter/"));
@@ -157,7 +164,6 @@ elixir(function(mix) {
             'js/admin-lte/app.js',
             'js/datatables/jquery.dataTables.js',
             'js/iCheck/icheck.js',
-            'js/select2/select2.full.js',
             'js/custom/jquery.doubleScroll.js',
             'js/custom/jquery.livepreview.js',
             'js/custom/jquery.tablesorter.js',
@@ -184,6 +190,12 @@ elixir(function(mix) {
 
     gulp.src("resources/assets/js/chart.js/Chart.js")
         .pipe(gulp.dest("public/assets/js/chart.js/"));
+
+    gulp.src("resources/assets/js/select2/select2.full.min.js")
+        .pipe(gulp.dest("public/assets/js/select2/"));
+
+    gulp.src("resources/assets/css/select2/select2.min.css")
+        .pipe(gulp.dest("public/assets/css/select2/"));
 
     gulp.src("resources/assets/js/custom/stats.js")
         .pipe(gulp.dest("public/assets/js/stats/"));
@@ -223,7 +235,6 @@ elixir(function(mix) {
             'resources/assets/css/font-awesome/font-awesome.css',
             //'resources/assets/css/jquery-ui/jquery-ui.css',
             'resources/assets/css/jquery-ui-custom/*.css',
-            'resources/assets/select2/select2.css',
             'resources/assets/css/iCheck/skins/_all.css',
             'resources/assets/css/datatables/dataTables.bootstrap.css',
             'resources/assets/css/ionicons/ionicons.css',
@@ -232,6 +243,7 @@ elixir(function(mix) {
             'resources/assets/css/admin-lte/AdminLTE-*.css',
             'resources/assets/css/table_sorter_themes/style.css',
             'resources/assets/css/cookieconsent/**/*.css',
+            'resources/assets/css/bootstrap-switch/bootstrap-switch.css',
             'resources/assets/css/custom.css'
         ]
     )

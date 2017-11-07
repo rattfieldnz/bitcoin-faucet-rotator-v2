@@ -30,5 +30,5 @@
 </li>
 
 <li class="{{ Request::is('alerts*') ? 'active' : '' }}">
-    <strong><a href="{!! route('alerts.index') !!}" title="Alerts"><i class="fa fa-exclamation" aria-hidden="true"></i><span>Alerts</a></strong>
+    <a href="{!! route('alerts.index') !!}" title="Alerts"><i class="fa fa-exclamation" aria-hidden="true"></i><span>Alerts</span></a>
 </li>

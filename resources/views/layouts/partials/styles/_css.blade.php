@@ -5,4 +5,4 @@
 @else
     <link rel="stylesheet" href="{{ asset("/assets/css/mainStyles.css?" . rand()) }}">
 @endif
-@yield('css')
+@stack('css')

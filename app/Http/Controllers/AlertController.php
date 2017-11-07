@@ -66,6 +66,8 @@ class AlertController extends AppBaseController
             abort(403);
         }
 
+        //dd(\App\Models\AlertIcon::all());
+
         return view('alerts.create');
     }
 

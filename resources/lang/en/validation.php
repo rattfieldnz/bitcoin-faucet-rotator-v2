@@ -180,6 +180,12 @@ return [
         ],
         'g-recaptcha-response' => [
             'required' => 'A valid captcha response is required.'
+        ],
+        'alert_icon_id' => [
+            'required' => 'An icon must be selected for this alert.'
+        ],
+        'alert_type_id' => [
+            'required' => 'An alert type must be selected for this alert.'
         ]
     ],
 
