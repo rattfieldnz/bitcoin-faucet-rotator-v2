@@ -62,7 +62,7 @@ class AlertController extends AppBaseController
      */
     public function create()
     {
-        if(!Auth::user()->isAnAdmin()){
+        if (!Auth::user()->isAnAdmin()) {
             abort(403);
         }
 
@@ -80,7 +80,7 @@ class AlertController extends AppBaseController
      */
     public function store(CreateAlertRequest $request)
     {
-        if(!Auth::user()->isAnAdmin()){
+        if (!Auth::user()->isAnAdmin()) {
             abort(403);
         }
 
@@ -132,7 +132,7 @@ class AlertController extends AppBaseController
      */
     public function edit($slug)
     {
-        if(!Auth::user()->isAnAdmin()){
+        if (!Auth::user()->isAnAdmin()) {
             abort(403);
         }
 
@@ -157,7 +157,7 @@ class AlertController extends AppBaseController
      */
     public function update($id, UpdateAlertRequest $request)
     {
-        if(!Auth::user()->isAnAdmin()){
+        if (!Auth::user()->isAnAdmin()) {
             abort(403);
         }
 
@@ -191,7 +191,7 @@ class AlertController extends AppBaseController
      */
     public function destroy($id)
     {
-        if(!Auth::user()->isAnAdmin()){
+        if (!Auth::user()->isAnAdmin()) {
             abort(403);
         }
 
@@ -225,7 +225,7 @@ class AlertController extends AppBaseController
      */
     public function destroyPermanently($id)
     {
-        if(!Auth::user()->isAnAdmin()){
+        if (!Auth::user()->isAnAdmin()) {
             abort(403);
         }
 
