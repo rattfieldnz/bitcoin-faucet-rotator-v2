@@ -124,8 +124,6 @@ class AlertRepository extends Repository implements IRepository
             'alert_type_id' => Purifier::clean($input['alert_type_id'], 'generalFields'),
             'alert_icon_id' => Purifier::clean($input['alert_icon_id'], 'generalFields'),
             'hide_alert' => Purifier::clean($input['hide_alert'], 'generalFields'),
-            'show_site_wide' => Purifier::clean($input['show_site_wide'], 'generalFields'),
-            'show_only_on_home_page' => Purifier::clean($input['show_only_on_home_page'], 'generalFields'),
             'sent_with_twitter' => Purifier::clean($input['sent_with_twitter'], 'generalFields'),
             !empty($input['twitter_message']) ? Purifier::clean($input['twitter_message'], 'generalFields') : null,
             'publish_at' => Purifier::clean($input['publish_at'], 'generalFields'),

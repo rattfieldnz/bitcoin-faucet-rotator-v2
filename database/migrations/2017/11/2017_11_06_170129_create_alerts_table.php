@@ -30,10 +30,6 @@ class CreateAlertsTable extends Migration
                 ->on('alert_icons');
             $table->boolean('hide_alert')
                 ->default(true);
-            $table->boolean('show_site_wide')
-                ->default(false);
-            $table->boolean('show_only_on_home_page')
-                ->default(false);
             $table->boolean('sent_with_twitter')->nullable()
                 ->default(false);
             $table->string('twitter_message', 255)->nullable();

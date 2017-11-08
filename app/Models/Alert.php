@@ -36,8 +36,6 @@ class Alert extends Model
         'alert_type_id',
         'alert_icon_id',
         'hide_alert',
-        'show_site_wide',
-        'show_only_on_home_page',
         'sent_with_twitter',
         'twitter_message',
         'publish_at',
@@ -58,8 +56,6 @@ class Alert extends Model
         'alert_type_id' => 'integer',
         'alert_icon_id' => 'integer',
         'hide_alert' => 'boolean',
-        'show_site_wide' => 'boolean',
-        'show_only_on_home_page' => 'boolean',
         'sent_with_twitter' => 'boolean',
         'twitter_message' => 'string'
     ];
@@ -77,8 +73,6 @@ class Alert extends Model
         'alert_type_id' => 'required|integer|exists:alert_types,id',
         'alert_icon_id' => 'required|integer|exists:alert_icons,id',
         'hide_alert' => 'sometimes|boolean',
-        'show_site_wide' => 'sometimes|boolean',
-        'show_only_on_home_page' => 'sometimes|boolean',
         'sent_with_twitter' => 'sometimes|boolean',
         'twitter_message' => 'sometimes|string|max:255',
         'publish_at' => 'sometimes|date|date_format:Y-m-d H:i:s',

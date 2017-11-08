@@ -118,32 +118,6 @@
     @endif
 </div>
 
-<!-- Show Site Wide Field -->
-<div class="form-group col-sm-6 has-feedback{{ $errors->has('show_site_wide') ? ' has-error' : '' }}">
-    {!! Form::label('show_site_wide', (empty($alert) ? 'Show ' : 'Shown ') . 'Site Wide:') !!}
-    <label class="checkbox-inline">
-        {!! Form::checkbox('show_site_wide', '0', null) !!} <span id="except-home-page"><strong>(except home page)</strong></span>
-    </label>
-    @if ($errors->has('show_site_wide'))
-        <span class="help-block">
-            <strong>{{ $errors->first('show_site_wide') }}</strong>
-        </span>
-    @endif
-</div>
-
-<!-- Show Only On Home Page Field -->
-<div class="form-group col-sm-6 has-feedback{{ $errors->has('show_only_on_home_page') ? ' has-error' : '' }}">
-    {!! Form::label('show_only_on_home_page', (empty($alert) ? 'Show ' : 'Shown ') . 'Only On Home Page:') !!}
-    <label class="checkbox-inline">
-        {!! Form::checkbox('show_only_on_home_page', '0', null) !!}
-    </label>
-    @if ($errors->has('show_only_on_home_page'))
-        <span class="help-block">
-        <strong>{{ $errors->first('show_only_on_home_page') }}</strong>
-    </span>
-    @endif
-</div>
-
 <!-- Sent With Twitter Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('sent_with_twitter') ? ' has-error' : '' }}">
     {!! Form::label('sent_with_twitter', (empty($alert) ? 'Send ' : 'Sent ') . 'to Twitter?:') !!}
@@ -215,23 +189,13 @@
     $('#alert_type_id').selectpicker();
 
     var hideAlert = $('#hide_alert');
-    var showSiteWide = $('#show_site_wide');
-    var showOnlyOnHomePage = $('#show_only_on_home_page');
     var twitterSendOrSent = $('#sent_with_twitter');
     var tweetField = $('#twitter-message-field');
     var hideAtDateField = $('#hide-at-field');
-    var exceptHomePage = $('#except-home-page');
     tweetField.hide();
-    exceptHomePage.hide();
 
     generateSwitch(hideAlert, true);
-    toggleState(hideAlert, [showOnlyOnHomePage]);
-
-    generateSwitch(showSiteWide, false);
-    toggleState(showSiteWide, [showOnlyOnHomePage]);
-
-    generateSwitch(showOnlyOnHomePage, false);
-    toggleState(showOnlyOnHomePage, [showSiteWide, hideAlert]);
+    toggleState(hideAlert, []);
 
     generateSwitch(twitterSendOrSent, false);
     toggleState(twitterSendOrSent, []);
@@ -241,18 +205,8 @@
     hideAlert.on('switchChange.bootstrapSwitch', function(event,  state) {
         if(state){
             hideAtDateField.show();
-            showSiteWide.val() == '1' && state ? exceptHomePage.show() : exceptHomePage.hide();
         } else {
             hideAtDateField.hide();
-            exceptHomePage.hide();
-        }
-    });
-    showSiteWide.on('switchChange.bootstrapSwitch', function(event,  state) {
-        state && hideAlert.val() == '1' ? exceptHomePage.show() : exceptHomePage.hide();
-    });
-    showOnlyOnHomePage.on('switchChange.bootstrapSwitch', function(event,  state) {
-        if(hideAlert.val() == '0' && showSiteWide.val() == '0'){
-            exceptHomePage.hide();
         }
     });
 
