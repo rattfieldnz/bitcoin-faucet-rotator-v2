@@ -279,6 +279,11 @@ ul#navigation li.standard-nav-item ul.dropdown-menu li.sub-nav-item a:hover
     margin-right: 0.35em;
 }
 
+.alert-tweet-field{
+    margin-top: 1.2em;
+    margin-right: 0.35em;
+}
+
 .social-link-field-rd{
     margin-top:0.9em;
     margin-right: 0.4em;

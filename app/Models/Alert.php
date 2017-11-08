@@ -39,6 +39,7 @@ class Alert extends Model
         'show_site_wide',
         'show_only_on_home_page',
         'sent_with_twitter',
+        'twitter_message',
         'publish_at',
         'hide_at'
     ];
@@ -59,7 +60,8 @@ class Alert extends Model
         'hide_alert' => 'boolean',
         'show_site_wide' => 'boolean',
         'show_only_on_home_page' => 'boolean',
-        'sent_with_twitter' => 'boolean'
+        'sent_with_twitter' => 'boolean',
+        'twitter_message' => 'string'
     ];
 
     /**
@@ -78,6 +80,7 @@ class Alert extends Model
         'show_site_wide' => 'sometimes|boolean',
         'show_only_on_home_page' => 'sometimes|boolean',
         'sent_with_twitter' => 'sometimes|boolean',
+        'twitter_message' => 'sometimes|string|max:255',
         'publish_at' => 'sometimes|date|date_format:Y-m-d H:i:s',
         'hide_at' => 'sometimes|date|date_format:Y-m-d H:i:s',
     ];

@@ -62,7 +62,7 @@
         $alertTypes = \App\Models\AlertType::all();
     ?>
     <label for="alert_type_id">Alert Type:</label>
-    <select class="alert_type_id" id="alert_type_id" name="alert_type_id" title="Select an alert type for your alert.">
+    <select class="alert_type_id" id="alert_type_id" name="alert_type_id" title="Select an alert type.">
         @foreach($alertTypes as $a)
             <option
                 value="{{ $a->id }}"
@@ -146,10 +146,15 @@
 
 <!-- Sent With Twitter Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('sent_with_twitter') ? ' has-error' : '' }}">
-    {!! Form::label('sent_with_twitter', (empty($alert) ? 'Send ' : 'Sent ') . 'to Twitter:') !!}
+    {!! Form::label('sent_with_twitter', (empty($alert) ? 'Send ' : 'Sent ') . 'to Twitter?:') !!}
     <label class="checkbox-inline">
         {!! Form::checkbox('sent_with_twitter', '0', null) !!}
     </label>
+    <div id="twitter-message-field">
+        {!! Form::label('twitter-message', 'Tweet:') !!}
+        {!! Form::text('twitter-message', null, ['class' => 'form-control', 'placeholder' => 'Enter tweet here (140 characters max. URL\'s shortened to 23 characters via Twitter).']) !!}
+        <span class="fa fa-twitter fa-2x form-control-feedback alert-tweet-field"></span>
+    </div>
     @if ($errors->has('sent_with_twitter'))
         <span class="help-block">
         <strong>{{ $errors->first('sent_with_twitter') }}</strong>
@@ -206,6 +211,8 @@
     var showSiteWide = $('#show_site_wide');
     var showOnlyOnHomePage = $('#show_only_on_home_page');
     var twitterSendOrSent = $('#sent_with_twitter');
+    var tweetField = $('#twitter-message-field');
+    tweetField.hide();
 
     generateSwitch(hideAlert, true);
     toggleState(hideAlert, [showSiteWide, showOnlyOnHomePage, twitterSendOrSent]);
@@ -217,6 +224,17 @@
     toggleState(showOnlyOnHomePage, [showSiteWide, hideAlert]);
 
     generateSwitch(twitterSendOrSent, false);
+    toggleState(twitterSendOrSent, [hideAlert]);
+    twitterSendOrSent.on('switchChange.bootstrapSwitch', function(event,  state) {
+        //console.log(hideAlert.val());
+        if(hideAlert.val() == 0){
+            state === true ? tweetField.show() : tweetField.hide();
+        }
+    });
+    hideAlert.on('switchChange.bootstrapSwitch', function(event,  state) {
+        //console.log(hideAlert.val());
+        state === true ? tweetField.hide() : null;
+    });
 
     function generateSwitch(elem, initState, onText = 'Yes', offText = 'No')
     {
