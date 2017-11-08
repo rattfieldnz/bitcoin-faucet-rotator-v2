@@ -66,8 +66,9 @@
         @foreach($alertTypes as $a)
             <option
                 value="{{ $a->id }}"
-                class="{{ str_replace('.', '', $a->bootstrap_alert_class) }}
-                {{ !empty($alertTypeId) && $a->id == $alertTypeId ? 'selected="selected"': '' }}"
+                class="alert {{ str_replace('.', '', $a->bootstrap_alert_class) }}"
+                style="margin: 0.25em 0 0.25em 0;"
+                {{ !empty($alertTypeId) && $a->id == $alertTypeId ? 'selected="selected"': '' }}
             >
                 {{ ucfirst($a->name) }}
             </option>
