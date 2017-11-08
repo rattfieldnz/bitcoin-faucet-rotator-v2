@@ -1,7 +1,7 @@
 <!-- Title Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('title') ? ' has-error' : '' }}">
     {!! Form::label('title', 'Title:') !!}
-    {!! Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Alert title goes here']) !!}
+    {!! Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Alert title goes here (max. 100 characters)']) !!}
     <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
     @if ($errors->has('title'))
         <span class="help-block">
@@ -58,11 +58,21 @@
 
 <!-- Alert Type Id Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('alert_type_id') ? ' has-error' : '' }}">
-    {!! Form::label('alert_type_id', 'Alert Type:') !!}
-    {!! Form::select('alert_type_id', \App\Models\AlertType::all()->pluck('name', 'id'),
-        !empty($alertTypeId) ? $alertTypeId : null,
-        ['class' => 'form-control'])
-    !!}
+    <?php
+        $alertTypes = \App\Models\AlertType::all();
+    ?>
+    <label for="alert_type_id">Alert Type:</label>
+    <select class="alert_type_id" id="alert_type_id" name="alert_type_id" title="Select an alert type for your alert.">
+        @foreach($alertTypes as $a)
+            <option
+                value="{{ $a->id }}"
+                class="{{ str_replace('.', '', $a->bootstrap_alert_class) }}
+                {{ !empty($alertTypeId) && $a->id == $alertTypeId ? 'selected="selected"': '' }}"
+            >
+                {{ ucfirst($a->name) }}
+            </option>
+        @endforeach
+    </select>
     @if ($errors->has('alert_type_id'))
         <span class="help-block">
             <strong>{{ $errors->first('alert_type_id') }}</strong>
@@ -187,7 +197,7 @@
 <script src="{{ asset("/assets/js/ckeditor/ckeditor.js?") . "?" . rand() }}"></script>
 <script>
     CKEDITOR.replace('alert_content');
-    
+
     $('#alert_icon_id').selectpicker();
     $('#alert_type_id').selectpicker();
 
