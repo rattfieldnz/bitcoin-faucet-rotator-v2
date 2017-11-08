@@ -100,21 +100,21 @@
     </select>
     @if ($errors->has('alert_icon_id'))
         <span class="help-block">
-        <strong>{{ $errors->first('alert_icon_id') }}</strong>
-    </span>
+            <strong>{{ $errors->first('alert_icon_id') }}</strong>
+        </span>
     @endif
 </div>
 
 <!-- Hide Alert Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('hide_alert') ? ' has-error' : '' }}">
-    {!! Form::label('hide_alert', (empty($alert) ? 'Hide ' : 'Hidden ') . 'Alert:') !!}
+    {!! Form::label('hide_alert', (empty($alert) ? 'Hide ' : 'Hidden ') . 'Alert From Home Page:') !!}
     <label class="checkbox-inline">
         {!! Form::checkbox('hide_alert', '1', null) !!}
     </label>
     @if ($errors->has('hide_alert'))
         <span class="help-block">
-        <strong>{{ $errors->first('hide_alert') }}</strong>
-    </span>
+            <strong>{{ $errors->first('hide_alert') }}</strong>
+        </span>
     @endif
 </div>
 
@@ -122,12 +122,12 @@
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('show_site_wide') ? ' has-error' : '' }}">
     {!! Form::label('show_site_wide', (empty($alert) ? 'Show ' : 'Shown ') . 'Site Wide:') !!}
     <label class="checkbox-inline">
-        {!! Form::checkbox('show_site_wide', '0', null) !!}
+        {!! Form::checkbox('show_site_wide', '0', null) !!} <span id="except-home-page"><strong>(except home page)</strong></span>
     </label>
     @if ($errors->has('show_site_wide'))
         <span class="help-block">
-        <strong>{{ $errors->first('show_site_wide') }}</strong>
-    </span>
+            <strong>{{ $errors->first('show_site_wide') }}</strong>
+        </span>
     @endif
 </div>
 
@@ -150,15 +150,10 @@
     <label class="checkbox-inline">
         {!! Form::checkbox('sent_with_twitter', '0', null) !!}
     </label>
-    <div id="twitter-message-field">
-        {!! Form::label('twitter-message', 'Tweet:') !!}
-        {!! Form::text('twitter-message', null, ['class' => 'form-control', 'placeholder' => 'Enter tweet here (140 characters max. URL\'s shortened to 23 characters via Twitter).']) !!}
-        <span class="fa fa-twitter fa-2x form-control-feedback alert-tweet-field"></span>
-    </div>
     @if ($errors->has('sent_with_twitter'))
         <span class="help-block">
-        <strong>{{ $errors->first('sent_with_twitter') }}</strong>
-    </span>
+            <strong>{{ $errors->first('sent_with_twitter') }}</strong>
+        </span>
     @endif
 </div>
 
@@ -169,20 +164,32 @@
     <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
     @if ($errors->has('publish_at'))
         <span class="help-block">
-        <strong>{{ $errors->first('publish_at') }}</strong>
-    </span>
+            <strong>{{ $errors->first('publish_at') }}</strong>
+        </span>
+    @endif
+</div>
+
+<!-- Twitter Message Field -->
+<div id="twitter-message-field" class="form-group col-sm-6 has-feedback{{ $errors->has('twitter_message') ? ' has-error' : '' }}">
+    {!! Form::label('twitter_message', 'Tweet:') !!}
+    {!! Form::text('twitter_message', null, ['class' => 'form-control', 'placeholder' => 'Enter tweet here (140 characters max. URL\'s shortened to 23 characters via Twitter).']) !!}
+    <span class="fa fa-twitter fa-2x form-control-feedback alert-tweet-field"></span>
+    @if ($errors->has('twitter_message'))
+        <span class="help-block">
+            <strong>{{ $errors->first('twitter_message') }}</strong>
+        </span>
     @endif
 </div>
 
 <!-- Hide At Field -->
-<div class="form-group col-sm-6 has-feedback{{ $errors->has('hide_at') ? ' has-error' : '' }}">
+<div id="hide-at-field" class="form-group col-sm-6 has-feedback{{ $errors->has('hide_at') ? ' has-error' : '' }}">
     {!! Form::label('hide_at', 'Hide At:') !!}
     {!! Form::date('hide_at', null, ['class' => 'form-control']) !!}
     <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
     @if ($errors->has('hide_at'))
         <span class="help-block">
-        <strong>{{ $errors->first('hide_at') }}</strong>
-    </span>
+            <strong>{{ $errors->first('hide_at') }}</strong>
+        </span>
     @endif
 </div>
 
@@ -212,28 +219,41 @@
     var showOnlyOnHomePage = $('#show_only_on_home_page');
     var twitterSendOrSent = $('#sent_with_twitter');
     var tweetField = $('#twitter-message-field');
+    var hideAtDateField = $('#hide-at-field');
+    var exceptHomePage = $('#except-home-page');
     tweetField.hide();
+    exceptHomePage.hide();
 
     generateSwitch(hideAlert, true);
-    toggleState(hideAlert, [showSiteWide, showOnlyOnHomePage, twitterSendOrSent]);
+    toggleState(hideAlert, [showOnlyOnHomePage]);
 
     generateSwitch(showSiteWide, false);
-    toggleState(showSiteWide, [showOnlyOnHomePage, hideAlert]);
+    toggleState(showSiteWide, [showOnlyOnHomePage]);
 
     generateSwitch(showOnlyOnHomePage, false);
     toggleState(showOnlyOnHomePage, [showSiteWide, hideAlert]);
 
     generateSwitch(twitterSendOrSent, false);
-    toggleState(twitterSendOrSent, [hideAlert]);
+    toggleState(twitterSendOrSent, []);
     twitterSendOrSent.on('switchChange.bootstrapSwitch', function(event,  state) {
-        //console.log(hideAlert.val());
-        if(hideAlert.val() == 0){
-            state === true ? tweetField.show() : tweetField.hide();
-        }
+        state ? tweetField.show() : tweetField.hide();
     });
     hideAlert.on('switchChange.bootstrapSwitch', function(event,  state) {
-        //console.log(hideAlert.val());
-        state === true ? tweetField.hide() : null;
+        if(state){
+            hideAtDateField.show();
+            showSiteWide.val() == '1' && state ? exceptHomePage.show() : exceptHomePage.hide();
+        } else {
+            hideAtDateField.hide();
+            exceptHomePage.hide();
+        }
+    });
+    showSiteWide.on('switchChange.bootstrapSwitch', function(event,  state) {
+        state && hideAlert.val() == '1' ? exceptHomePage.show() : exceptHomePage.hide();
+    });
+    showOnlyOnHomePage.on('switchChange.bootstrapSwitch', function(event,  state) {
+        if(hideAlert.val() == '0' && showSiteWide.val() == '0'){
+            exceptHomePage.hide();
+        }
     });
 
     function generateSwitch(elem, initState, onText = 'Yes', offText = 'No')
