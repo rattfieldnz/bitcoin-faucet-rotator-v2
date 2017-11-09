@@ -32,6 +32,16 @@ gulp.task("copyfiles", function() {
     gulp.src("vendor/bower_components/jquery-ui/themes/base/images/*")
         .pipe(gulp.dest("public/assets/images/jquery-ui/"));**/
 
+    // JQuery TimePicker AddOn
+    gulp.src("vendor/bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.css")
+        .pipe(gulp.dest("resources/assets/css/jqueryui-timepicker-addon/"));
+
+    gulp.src("vendor/bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.js")
+        .pipe(gulp.dest("resources/assets/js/jqueryui-timepicker-addon/"));
+
+    gulp.src("vendor/bower_components/jqueryui-timepicker-addon/dist/jquery-ui-sliderAccess.js")
+        .pipe(gulp.dest("resources/assets/js/jqueryui-timepicker-addon/"));
+
     // Bootstrap //
     gulp.src("vendor/bower_components/bootstrap/dist/css/bootstrap.css")
         .pipe(gulp.dest("resources/assets/css/bootstrap/"));
@@ -174,6 +184,8 @@ elixir(function(mix) {
             'js/jquery-progresstimer/jquery.progresstimer.js',
             'js/laroute/laroute.js',
             'js/js-cookie/js.cookie.js',
+            'js/jqueryui-timepicker-addon/jquery-ui-timepicker-addon.js',
+            'js/jqueryui-timepicker-addon/jquery-ui-SliderAccess.js',
             'js/custom/custom.js'
         ],
         'public/assets/js/mainScripts.js',
@@ -244,6 +256,7 @@ elixir(function(mix) {
             'resources/assets/css/table_sorter_themes/style.css',
             'resources/assets/css/cookieconsent/**/*.css',
             'resources/assets/css/bootstrap-switch/bootstrap-switch.css',
+            'resources/assets/css/jqueryui-timepicker-addon/jquery-ui-timepicker-addon.css',
             'resources/assets/css/custom.css'
         ]
     )

@@ -280,7 +280,8 @@ return [
         'connect-src' => [
             'allow' => [
                 env('APP_URL'),
-                'links.services.disqus.com'
+                'links.services.disqus.com',
+                'm.addthis.com'
             ]
         ],
 

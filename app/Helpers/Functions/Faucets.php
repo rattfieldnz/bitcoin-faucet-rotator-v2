@@ -2,7 +2,6 @@
 
 use App\Helpers\Constants;
 use App\Helpers\Social\Twitter;
-use App\Helpers\WebsiteMeta\FaucetConstants;
 use App\Http\Requests\CreateFaucetRequest;
 use App\Http\Requests\UpdateFaucetRequest;
 use App\Models\Faucet;
@@ -817,11 +816,11 @@ class Faucets
         }
 
         $placeholders = [
-            FaucetConstants::FAUCET_NAME_PLACEHOLDER => $faucet->name,
-            FaucetConstants::FAUCET_INTERVAL_PLACEHOLDER => $faucet->interval_minutes,
-            FaucetConstants::FAUCET_URL_PLACEHOLDER => route('faucets.show', ['slug' => $faucet->slug]),
-            FaucetConstants::FAUCET_MIN_PAYOUT_PLACEHOLDER => $faucet->min_payout,
-            FaucetConstants::FAUCET_MAX_PAYOUT_PLACEHOLDER => $faucet->max_payout
+            Constants::FAUCET_NAME_PLACEHOLDER => $faucet->name,
+            Constants::FAUCET_INTERVAL_PLACEHOLDER => $faucet->interval_minutes,
+            Constants::FAUCET_URL_PLACEHOLDER => route('faucets.show', ['slug' => $faucet->slug]),
+            Constants::FAUCET_MIN_PAYOUT_PLACEHOLDER => $faucet->min_payout,
+            Constants::FAUCET_MAX_PAYOUT_PLACEHOLDER => $faucet->max_payout
         ];
 
         $tweet = !empty($faucet->twitter_message) ? strtr($faucet->twitter_message, $placeholders) : "";

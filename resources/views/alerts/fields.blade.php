@@ -1,3 +1,10 @@
+<?php
+    $currentDate = \Carbon\Carbon::now();
+    $formattedCurrentDate = $currentDate->format('d/m/Y H:i:s');
+    $futureDate = $currentDate->addDay();
+    $formattedFutureDate = $futureDate->format('d/m/Y H:i:s');
+?>
+
 <!-- Title Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('title') ? ' has-error' : '' }}">
     {!! Form::label('title', 'Title:') !!}
@@ -134,7 +141,7 @@
 <!-- Publish At Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('publish_at') ? ' has-error' : '' }}">
     {!! Form::label('publish_at', 'Publish At:') !!}
-    {!! Form::date('publish_at', null, ['class' => 'form-control']) !!}
+    {!! Form::text('publish_at', null, ['class' => 'form-control', 'placeholder' => 'e.g. ' . $formattedCurrentDate]) !!}
     <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
     @if ($errors->has('publish_at'))
         <span class="help-block">
@@ -145,9 +152,10 @@
 
 <!-- Twitter Message Field -->
 <div id="twitter-message-field" class="form-group col-sm-6 has-feedback{{ $errors->has('twitter_message') ? ' has-error' : '' }}">
-    {!! Form::label('twitter_message', 'Tweet:') !!}
+    {!! Form::label('twitter_message', 'Tweet*:') !!}
     {!! Form::text('twitter_message', null, ['class' => 'form-control', 'placeholder' => 'Enter tweet here (140 characters max. URL\'s shortened to 23 characters via Twitter).']) !!}
     <span class="fa fa-twitter fa-2x form-control-feedback alert-tweet-field"></span>
+    <p><strong>* <small>Available placeholders are: [alert_title], [alert_url], [alert_summary], [alert_published_at].</small></strong></p>
     @if ($errors->has('twitter_message'))
         <span class="help-block">
             <strong>{{ $errors->first('twitter_message') }}</strong>
@@ -158,7 +166,7 @@
 <!-- Hide At Field -->
 <div id="hide-at-field" class="form-group col-sm-6 has-feedback{{ $errors->has('hide_at') ? ' has-error' : '' }}">
     {!! Form::label('hide_at', 'Hide At:') !!}
-    {!! Form::date('hide_at', null, ['class' => 'form-control']) !!}
+    {!! Form::text('hide_at', null, ['class' => 'form-control', 'placeholder' => 'e.g. ' . $formattedFutureDate]) !!}
     <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
     @if ($errors->has('hide_at'))
         <span class="help-block">
@@ -193,6 +201,9 @@
     var tweetField = $('#twitter-message-field');
     var hideAtDateField = $('#hide-at-field');
     tweetField.hide();
+
+    generateDateTimePicker($('input#hide_at'));
+    generateDateTimePicker($('input#publish_at'));
 
     generateSwitch(hideAlert, true);
     toggleState(hideAlert, []);
@@ -240,6 +251,19 @@
                     }
                 });
             }
+        }
+    }
+
+    function generateDateTimePicker(elem){
+        if(elem !== 'undefined' && elem.attr('type') === 'text' && jQuery().datetimepicker){
+            elem.datetimepicker({
+                dateFormat: "dd/mm/yy",
+                timeFormat: 'HH:mm:ss',
+                stepHour: 1,
+                stepMinute: 1,
+                stepSecond: 1,
+                sliderAccessArgs: { touchonly: false }
+            });
         }
     }
 </script>

@@ -26,7 +26,8 @@
     "jquery-progresstimer": "^1.0.7",
     "js-cookie": "^2.2.0",
     "bootstrap-switch": "^3.3.4",
-    "bootstrap-select": "^1.12.4"
+    "bootstrap-select": "^1.12.4",
+    "jqueryui-timepicker-addon": "^1.6.3"
   },
   "resolutions": {
     "jquery-ui": "^1.12.1",

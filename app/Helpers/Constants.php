@@ -21,4 +21,13 @@ class Constants
     const DATE_FORMAT_DMY = 'd-m-Y';
     const TIME_FORMAT_HIS = 'H:i:s';
     const DATETIME_FORMAT_DMY_HIS = self::DATE_FORMAT_DMY .  ' ' . self::TIME_FORMAT_HIS;
+    const FAUCET_NAME_PLACEHOLDER = "[faucet_name]";
+    const FAUCET_URL_PLACEHOLDER = "[faucet_url]";
+    const FAUCET_MIN_PAYOUT_PLACEHOLDER = "[faucet_min_payout]";
+    const FAUCET_MAX_PAYOUT_PLACEHOLDER = "[faucet_max_payout]";
+    const FAUCET_INTERVAL_PLACEHOLDER = "[faucet_interval]";
+    const ALERT_TITLE_PLACEHOLDER = '[alert_title]';
+    const ALERT_URL_PLACEHOLDER = '[alert_url]';
+    const ALERT_SUMMARY_PLACEHOLDER = '[alert_summary]';
+    const ALERT_PUBLISHED_AT_PLACEHOLDER = '[alert_published_at]';
 }
