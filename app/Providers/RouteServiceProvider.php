@@ -59,10 +59,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::group(
             [
-            'middleware' => 'web',
             'namespace' => $this->namespace,
             ],
-            function ($router) {
+            function () {
                 include base_path('routes/web.php');
 
                 include base_path('routes/sitemaps/sitemap-main.php');

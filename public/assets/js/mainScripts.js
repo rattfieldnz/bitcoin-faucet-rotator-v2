@@ -71558,4 +71558,64 @@ function clearChart(chartElement, chartContainerElement, chartHeight)
     }
 }
 
+function generateSwitch(elem, initState, onText, offText)
+{
+    if(jQuery().bootstrapSwitch){
+        if(elem !== 'undefined' && (elem.attr('type') === 'checkbox' || elem.attr('type') === 'radio')){
+            elem.on('switchChange.bootstrapSwitch', function(event,  state) {
+                if(state){
+                    console.log(+state);
+                    elem.val(parseInt(+state));
+                    elem.attr('checked', 'checked')
+                } else{
+                    console.log(+state);
+                    elem.val(parseInt(+state));
+                    elem.removeAttr('checked');
+                }
+            });
+
+            return elem.bootstrapSwitch({
+                onText: onText !== null && typeof onText !== 'undefined' ? onText : 'Yes',
+                offText: offText !== null && typeof offText !== 'undefined' ? offText : 'No',
+                state: initState
+            });
+        }
+    }
+}
+
+function toggleState(checkedBox, othercheckBoxes)
+{
+    if(jQuery().bootstrapSwitch){
+        if(checkedBox !== 'undefined' && (checkedBox.attr('type') === 'checkbox' || checkedBox.attr('type') === 'radio')){
+            checkedBox.on('switchChange.bootstrapSwitch', function(){
+                if(this.checked && Array.isArray(othercheckBoxes)){
+                    for(var i = 0; i < othercheckBoxes.length; i++){
+                        if(othercheckBoxes[i].attr('type') === 'checkbox' || othercheckBoxes[i].attr('type') === 'radio'){
+                            othercheckBoxes[i].val(+!this.checked);
+                            othercheckBoxes[i].bootstrapSwitch('state', !this.checked, true);
+                        }
+                    }
+                } else if(othercheckBoxes !== null && !Array.isArray(othercheckBoxes) &&
+                    (othercheckBoxes.attr('type') === 'checkbox' || othercheckBoxes.attr('type') === 'radio')
+                ){
+                    othercheckBoxes.val(+!this.checked);
+                    othercheckBoxes.bootstrapSwitch('state', !this.checked, true);
+                }
+            });
+        }
+    }
+}
+
+function generateDateTimePicker(elem){
+    if(elem !== 'undefined' && elem.attr('type') === 'text' && jQuery().datetimepicker){
+        elem.datetimepicker({
+            dateFormat: "dd/mm/yy",
+            timeFormat: 'HH:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1,
+            sliderAccessArgs: { touchonly: false }
+        });
+    }
+}
 //# sourceMappingURL=mainScripts.js.map

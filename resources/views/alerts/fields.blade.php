@@ -8,7 +8,7 @@
 <!-- Title Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('title') ? ' has-error' : '' }}">
     {!! Form::label('title', 'Title:') !!}
-    {!! Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Alert title goes here (max. 100 characters)']) !!}
+    {!! Form::text('title', old('title',$alert->title ?? null), ['class' => 'form-control', 'placeholder' => 'Alert title goes here (max. 100 characters)']) !!}
     <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
     @if ($errors->has('title'))
         <span class="help-block">
@@ -20,7 +20,7 @@
 <!-- Summary Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('summary') ? ' has-error' : '' }}">
     {!! Form::label('summary', 'Summary:') !!}
-    {!! Form::text('summary', null, ['class' => 'form-control', 'placeholder' => 'Alert summary goes here (max. 255 characters)']) !!}
+    {!! Form::text('summary', old('summary',$alert->summary ?? null), ['class' => 'form-control', 'placeholder' => 'Alert summary goes here (max. 255 characters)']) !!}
     <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
     @if ($errors->has('summary'))
         <span class="help-block">
@@ -35,7 +35,7 @@
     {!!
         Form::textarea(
             'content',
-            null,
+            old('summary',$alert->content ?? null),
             [
                 'class' => 'form-control',
                 'id' => 'alert_content',
@@ -54,7 +54,7 @@
 <!-- Keywords Field -->
 <div class="form-group col-sm-12 has-feedback{{ $errors->has('keywords') ? ' has-error' : '' }}">
     {!! Form::label('keywords', 'Keywords:') !!}
-    {!! Form::text('keywords', null, ['class' => 'form-control', 'placeholder' => 'Keywords goes here (max. 255 characters, separated by comma)']) !!}
+    {!! Form::text('keywords', old('keywords',$alert->keywords ?? null), ['class' => 'form-control', 'placeholder' => 'Keywords goes here (max. 255 characters, separated by comma)']) !!}
     <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
     @if ($errors->has('keywords'))
         <span class="help-block">
@@ -67,15 +67,17 @@
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('alert_type_id') ? ' has-error' : '' }}">
     <?php
         $alertTypes = \App\Models\AlertType::all();
+        $defaultAlertType = \App\Models\AlertType::where('name', '=', 'info')->first();
+        $alertTypeId = old('alert_type_id',$alert->alert_type_id ?? null);
     ?>
     <label for="alert_type_id">Alert Type:</label>
-    <select class="alert_type_id" id="alert_type_id" name="alert_type_id" title="Select an alert type.">
+    <select class="alert_type_id" id="alert_type_id" name="alert_type_id">
         @foreach($alertTypes as $a)
             <option
                 value="{{ $a->id }}"
                 class="alert {{ str_replace('.', '', $a->bootstrap_alert_class) }}"
                 style="margin: 0.25em 0 0.25em 0;"
-                {{ !empty($alertTypeId) && $a->id == $alertTypeId ? 'selected="selected"': '' }}
+                {{ !empty($alertTypeId) && $a->id  == $alertTypeId || $defaultAlertType->id == $a->id ? 'selected="selected"': '' }}
             >
                 {{ ucfirst($a->name) }}
             </option>
@@ -92,14 +94,16 @@
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('alert_icon_id') ? ' has-error' : '' }}">
     <?php
         $icons = \App\Models\AlertIcon::all();
+        $defaultIcon = \App\Models\AlertIcon::where('icon_class', '=', 'fa-info')->first();
+        $alertIconId = old('alert_icon_id',$alert->alert_icon_id ?? null);
     ?>
     <label for="alert_icon_id">FontAwesome Alert Icon:</label>
-    <select class="form-control" id="alert_icon_id" name="alert_icon_id" data-live-search="true" title="Select an icon for your alert message.">
+    <select class="form-control" id="alert_icon_id" name="alert_icon_id" data-live-search="true">
         @foreach($icons as $icon)
         <option
             value="{{ $icon->id }}"
             data-icon="fa {{ $icon->icon_class }} fa-2x"
-            {{ !empty($alertIconId) && $icon->id == $alertIconId ? 'selected="selected"': '' }}
+            {{ !empty($alertIconId) && $icon->id == $alertIconId || $icon->id == $defaultIcon->id ? 'selected="selected"': '' }}
         >
             ({{ $icon->icon_class }})
         </option>
@@ -114,9 +118,12 @@
 
 <!-- Hide Alert Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('hide_alert') ? ' has-error' : '' }}">
+    <?php
+        $hideAlert = old('hide_alert',$alert->hide_alert ?? null);
+    ?>
     {!! Form::label('hide_alert', (empty($alert) ? 'Hide ' : 'Hidden ') . 'Alert From Home Page:') !!}
     <label class="checkbox-inline">
-        {!! Form::checkbox('hide_alert', '1', null) !!}
+        {!! Form::checkbox('hide_alert', intval($hideAlert), boolval($hideAlert)) !!}
     </label>
     @if ($errors->has('hide_alert'))
         <span class="help-block">
@@ -127,9 +134,12 @@
 
 <!-- Sent With Twitter Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('sent_with_twitter') ? ' has-error' : '' }}">
+    <?php
+        $tweetSent = old('sent_with_twitter',$alert->sent_with_twitter ?? null);
+    ?>
     {!! Form::label('sent_with_twitter', (empty($alert) ? 'Send ' : 'Sent ') . 'to Twitter?:') !!}
     <label class="checkbox-inline">
-        {!! Form::checkbox('sent_with_twitter', '0', null) !!}
+        {!! Form::checkbox('sent_with_twitter', intval($tweetSent), boolval($tweetSent)) !!}
     </label>
     @if ($errors->has('sent_with_twitter'))
         <span class="help-block">
@@ -138,22 +148,19 @@
     @endif
 </div>
 
-<!-- Publish At Field -->
-<div class="form-group col-sm-6 has-feedback{{ $errors->has('publish_at') ? ' has-error' : '' }}">
-    {!! Form::label('publish_at', 'Publish At:') !!}
-    {!! Form::text('publish_at', null, ['class' => 'form-control', 'placeholder' => 'e.g. ' . $formattedCurrentDate]) !!}
-    <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
-    @if ($errors->has('publish_at'))
-        <span class="help-block">
-            <strong>{{ $errors->first('publish_at') }}</strong>
-        </span>
-    @endif
+<!-- Submit Field -->
+<div class="form-group col-sm-6">
+    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+    <a href="{!! route('alerts.index') !!}" class="btn btn-default">Cancel</a>
 </div>
 
 <!-- Twitter Message Field -->
 <div id="twitter-message-field" class="form-group col-sm-6 has-feedback{{ $errors->has('twitter_message') ? ' has-error' : '' }}">
+    <?php
+        $tweet = old('twitter_message',$alert->twitter_message ?? null);
+    ?>
     {!! Form::label('twitter_message', 'Tweet*:') !!}
-    {!! Form::text('twitter_message', null, ['class' => 'form-control', 'placeholder' => 'Enter tweet here (140 characters max. URL\'s shortened to 23 characters via Twitter).']) !!}
+    {!! Form::text('twitter_message', $tweet, ['class' => 'form-control', 'placeholder' => 'Enter tweet here (140 characters max. URL\'s shortened to 23 characters via Twitter).']) !!}
     <span class="fa fa-twitter fa-2x form-control-feedback alert-tweet-field"></span>
     <p><strong>* <small>Available placeholders are: [alert_title], [alert_url], [alert_summary], [alert_published_at].</small></strong></p>
     @if ($errors->has('twitter_message'))
@@ -161,24 +168,6 @@
             <strong>{{ $errors->first('twitter_message') }}</strong>
         </span>
     @endif
-</div>
-
-<!-- Hide At Field -->
-<div id="hide-at-field" class="form-group col-sm-6 has-feedback{{ $errors->has('hide_at') ? ' has-error' : '' }}">
-    {!! Form::label('hide_at', 'Hide At:') !!}
-    {!! Form::text('hide_at', null, ['class' => 'form-control', 'placeholder' => 'e.g. ' . $formattedFutureDate]) !!}
-    <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
-    @if ($errors->has('hide_at'))
-        <span class="help-block">
-            <strong>{{ $errors->first('hide_at') }}</strong>
-        </span>
-    @endif
-</div>
-
-<!-- Submit Field -->
-<div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('alerts.index') !!}" class="btn btn-default">Cancel</a>
 </div>
 
 @push('css')
@@ -199,72 +188,17 @@
     var hideAlert = $('#hide_alert');
     var twitterSendOrSent = $('#sent_with_twitter');
     var tweetField = $('#twitter-message-field');
-    var hideAtDateField = $('#hide-at-field');
     tweetField.hide();
 
-    generateDateTimePicker($('input#hide_at'));
-    generateDateTimePicker($('input#publish_at'));
+    generateSwitch(hideAlert, {{ boolval(intval($hideAlert)) }});
+    generateSwitch(twitterSendOrSent, {{ boolval(intval($tweetSent)) }});
 
-    generateSwitch(hideAlert, true);
-    toggleState(hideAlert, []);
-
-    generateSwitch(twitterSendOrSent, false);
-    toggleState(twitterSendOrSent, []);
     twitterSendOrSent.on('switchChange.bootstrapSwitch', function(event,  state) {
-        state ? tweetField.show() : tweetField.hide();
-    });
-    hideAlert.on('switchChange.bootstrapSwitch', function(event,  state) {
         if(state){
-            hideAtDateField.show();
-        } else {
-            hideAtDateField.hide();
+            tweetField.show();
+        } else{
+            tweetField.hide();
         }
     });
-
-    function generateSwitch(elem, initState, onText = 'Yes', offText = 'No')
-    {
-        if(jQuery().bootstrapSwitch){
-            if(elem !== 'undefined' && (elem.attr('type') === 'checkbox' || elem.attr('type') === 'radio')){
-                elem.on('switchChange.bootstrapSwitch', function(event,  state) {
-                    elem.val(parseInt(+state));
-                });
-
-                return elem.bootstrapSwitch({
-                    onText: onText,
-                    offText: offText,
-                    state: initState
-                });
-            }
-        }
-    }
-
-    function toggleState(checkedBox, othercheckBoxes = [])
-    {
-        if(jQuery().bootstrapSwitch){
-            if(checkedBox !== 'undefined' && (checkedBox.attr('type') === 'checkbox' || checkedBox.attr('type') === 'radio')){
-                checkedBox.on('switchChange.bootstrapSwitch', function(){
-                    if(this.checked){
-                        for(var i = 0; i < othercheckBoxes.length; i++){
-                            othercheckBoxes[i].val(+!this.checked);
-                            othercheckBoxes[i].bootstrapSwitch('state', !this.checked, true);
-                        }
-                    }
-                });
-            }
-        }
-    }
-
-    function generateDateTimePicker(elem){
-        if(elem !== 'undefined' && elem.attr('type') === 'text' && jQuery().datetimepicker){
-            elem.datetimepicker({
-                dateFormat: "dd/mm/yy",
-                timeFormat: 'HH:mm:ss',
-                stepHour: 1,
-                stepMinute: 1,
-                stepSecond: 1,
-                sliderAccessArgs: { touchonly: false }
-            });
-        }
-    }
 </script>
 @endpush

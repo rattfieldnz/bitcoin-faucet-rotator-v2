@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Alert;
+use Illuminate\Support\Facades\Validator;
 use InfyOm\Generator\Common\BaseRepository;
 use Mews\Purifier\Facades\Purifier;
 
@@ -121,13 +122,11 @@ class AlertRepository extends Repository implements IRepository
             'title' => Purifier::clean($input['title'], 'generalFields'),
             'summary' => Purifier::clean($input['summary'], 'generalFields'),
             'content' => Purifier::clean($input['content']),
-            'alert_type_id' => Purifier::clean($input['alert_type_id'], 'generalFields'),
-            'alert_icon_id' => Purifier::clean($input['alert_icon_id'], 'generalFields'),
-            'hide_alert' => Purifier::clean($input['hide_alert'], 'generalFields'),
-            'sent_with_twitter' => Purifier::clean($input['sent_with_twitter'], 'generalFields'),
-            !empty($input['twitter_message']) ? Purifier::clean($input['twitter_message'], 'generalFields') : null,
-            'publish_at' => Purifier::clean($input['publish_at'], 'generalFields'),
-            'hide_at' => Purifier::clean($input['hide_at'], 'generalFields')
+            'twitter_message' => Purifier::clean($input['twitter_message'], 'generalFields'),
+            'alert_type_id' => intval(Purifier::clean($input['alert_type_id'], 'generalFields')),
+            'alert_icon_id' => intval(Purifier::clean($input['alert_icon_id'], 'generalFields')),
+            'hide_alert' => intval(Purifier::clean($input['hide_alert'], 'generalFields')),
+            'sent_with_twitter' => intval(Purifier::clean($input['sent_with_twitter'], 'generalFields'))
         ];
     }
 }

@@ -33,7 +33,7 @@ class Alerts
             Constants::ALERT_TITLE_PLACEHOLDER => $alert->title,
             Constants::ALERT_URL_PLACEHOLDER => route('alerts.show', ['slug' => $alert->slug]),
             Constants::ALERT_SUMMARY_PLACEHOLDER => $alert->summary,
-            Constants::ALERT_PUBLISHED_AT_PLACEHOLDER => $alert->publish_at
+            Constants::ALERT_PUBLISHED_AT_PLACEHOLDER => $alert->created_at
         ];
 
         $tweet = !empty($alert->twitter_message) ? strtr($alert->twitter_message, $placeholders) : "";

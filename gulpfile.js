@@ -7,6 +7,7 @@ let minifyCSS = require('gulp-minify-css');
 let sourcemaps = require('gulp-sourcemaps');
 let uglify = require('gulp-uglify');
 let htmlmin = require('gulp-htmlmin');
+let gulputil = require('gulp-util');
 
 /**
  * Copy any needed files.
@@ -308,6 +309,7 @@ gulp.task('minifyjs', function(){
 function compressMainJS(){
     return gulp.src('public/assets/js/mainScripts.js')
         .pipe(uglify())
+        .on('error', function (err) { gulputil.log(gulputil.colors.red('[Error]'), err.toString()); })
         .pipe(rename("mainScripts.min.js"))
         .pipe(gulp.dest('public/assets/js/'));
 }
@@ -315,6 +317,7 @@ function compressMainJS(){
 function compressDataTablesJs(){
     return gulp.src('public/assets/js/datatables.net/datatables.js')
         .pipe(uglify())
+        .on('error', function (err) { gulputil.log(gulputil.colors.red('[Error]'), err.toString()); })
         .pipe(rename("datatables.min.js"))
         .pipe(gulp.dest('public/assets/js/datatables.net/'));
 }
@@ -329,6 +332,7 @@ function compressDataTablesCss(){
 function compressChartJsScripts(){
     return gulp.src('public/assets/js/chart.js/Chart.js')
         .pipe(uglify())
+        .on('error', function (err) { gulputil.log(gulputil.colors.red('[Error]'), err.toString()); })
         .pipe(rename("Chart.min.js"))
         .pipe(gulp.dest('public/assets/js/chart.js/'));
 }
@@ -336,6 +340,7 @@ function compressChartJsScripts(){
 function compressStatsScripts(){
     return gulp.src('public/assets/js/stats/stats.js')
         .pipe(uglify())
+        .on('error', function (err) { gulputil.log(gulputil.colors.red('[Error]'), err.toString()); })
         .pipe(rename("stats.min.js"))
         .pipe(gulp.dest('public/assets/js/stats/'));
 }
@@ -343,6 +348,7 @@ function compressStatsScripts(){
 function compressMainRotator(){
     return gulp.src('public/assets/js/rotator-scripts/mainRotator.js')
         .pipe(uglify())
+        .on('error', function (err) { gulputil.log(gulputil.colors.red('[Error]'), err.toString()); })
         .pipe(rename('mainRotator.min.js'))
         .pipe(gulp.dest('public/assets/js/rotator-scripts/'));
 }
@@ -357,6 +363,7 @@ function compressPaymentProcessorRotator(){
 function compressUserFaucetRotator(){
     return gulp.src('public/assets/js/rotator-scripts/userFaucetRotator.js')
         .pipe(uglify())
+        .on('error', function (err) { gulputil.log(gulputil.colors.red('[Error]'), err.toString()); })
         .pipe(rename('userFaucetRotator.min.js'))
         .pipe(gulp.dest('public/assets/js/rotator-scripts/'));
 }
@@ -364,6 +371,7 @@ function compressUserFaucetRotator(){
 function compressUserPaymentProcessorRotator(){
     return gulp.src('public/assets/js/rotator-scripts/userPaymentProcessorRotator.js')
         .pipe(uglify())
+        .on('error', function (err) { gulputil.log(gulputil.colors.red('[Error]'), err.toString()); })
         .pipe(rename('userPaymentProcessorRotator.min.js'))
         .pipe(gulp.dest('public/assets/js/rotator-scripts/'));
 }
@@ -371,6 +379,7 @@ function compressUserPaymentProcessorRotator(){
 function compressFaucetDatatablesScript(){
     return gulp.src('public/assets/js/faucet-scripts/faucetDatatables.js')
         .pipe(uglify())
+        .on('error', function (err) { gulputil.log(gulputil.colors.red('[Error]'), err.toString()); })
         .pipe(rename('faucetDatatables.min.js'))
         .pipe(gulp.dest('public/assets/js/faucet-scripts/'));
 }
@@ -378,6 +387,7 @@ function compressFaucetDatatablesScript(){
 function compressPaymentProcessorsDatatableScript(){
     return gulp.src('public/assets/js/payment-processor-scripts/paymentProcessorDatatables.js')
         .pipe(uglify())
+        .on('error', function (err) { gulputil.log(gulputil.colors.red('[Error]'), err.toString()); })
         .pipe(rename('paymentProcessorDatatables.min.js'))
         .pipe(gulp.dest('public/assets/js/payment-processor-scripts/'));
 }
@@ -385,6 +395,7 @@ function compressPaymentProcessorsDatatableScript(){
 function compressUsersDatatableScript(){
     return gulp.src('public/assets/js/user-scripts/usersDatatables.js')
         .pipe(uglify())
+        .on('error', function (err) { gulputil.log(gulputil.colors.red('[Error]'), err.toString()); })
         .pipe(rename('usersDatatables.min.js'))
         .pipe(gulp.dest('public/assets/js/user-scripts/'));
 }

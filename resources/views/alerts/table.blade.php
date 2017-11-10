@@ -30,7 +30,7 @@
             <td>{!! $alert->publish_at !!}</td>
             <td>{!! $alert->hide_at !!}</td>
             <td>
-                {!! Form::open(['route' => ['alerts.destroy', $alert->id], 'method' => 'delete']) !!}
+                {!! Form::open(['route' => ['alerts.delete-permanently', $alert->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! route('alerts.show', [$alert->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                     <a href="{!! route('alerts.edit', [$alert->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>

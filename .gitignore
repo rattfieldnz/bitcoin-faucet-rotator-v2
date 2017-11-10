@@ -58,3 +58,5 @@ _ide_helper_models.php
 
 # Keep views from Laravel packages.
 !/resources/views/vendor/
+
+codealike.json

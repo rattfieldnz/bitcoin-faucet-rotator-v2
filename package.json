@@ -21,6 +21,8 @@
   },
   "dependencies": {
     "gulp-htmlmin": "^3.0.0",
-    "laravel-elixir": "^6.0.0-16"
+    "gulp-util": "^3.0.8",
+    "laravel-elixir": "^6.0.0-16",
+    "npm": "^5.5.1"
   }
 }

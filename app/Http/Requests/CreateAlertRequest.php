@@ -4,6 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Alert;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 /**
  * Class CreateAlertRequest
@@ -21,7 +24,15 @@ class CreateAlertRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::user()->isAnAdmin();
+    }
+
+    public function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        $this->flash();
+        throw (new ValidationException($validator))
+            ->errorBag($this->errorBag)
+            ->redirectTo(route('alerts.create'));
     }
 
     /**

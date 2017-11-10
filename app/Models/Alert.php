@@ -38,7 +38,6 @@ class Alert extends Model
         'hide_alert',
         'sent_with_twitter',
         'twitter_message',
-        'publish_at',
         'hide_at'
     ];
 
@@ -66,17 +65,15 @@ class Alert extends Model
      * @var array
      */
     public static $rules = [
-        'title' => 'min:5|max:100|required|unique:alerts,title',
-        'summary' => 'min:25|max:255|required',
-        'content' => 'min:200|max:16777215|required',
-        'keywords' => 'sometimes|string|max:255',
+        'title' => 'required|min:5|max:100|unique:alerts,title',
+        'summary' => 'required|min:25|max:255',
+        'content' => 'required|min:200|max:16777215',
+        'keywords' => 'sometimes|nullable|string|max:255',
         'alert_type_id' => 'required|integer|exists:alert_types,id',
         'alert_icon_id' => 'required|integer|exists:alert_icons,id',
         'hide_alert' => 'sometimes|boolean',
         'sent_with_twitter' => 'sometimes|boolean',
-        'twitter_message' => 'sometimes|string|max:255',
-        'publish_at' => 'sometimes|date|date_format:Y-m-d H:i:s',
-        'hide_at' => 'sometimes|date|date_format:Y-m-d H:i:s',
+        'twitter_message' => 'required_if:sent_with_twitter,==,1|string|min:10|max:255',
     ];
 
     /**

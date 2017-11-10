@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Helpers\Functions\Users;
 use App\Http\Requests\CreateAlertRequest;
 use App\Http\Requests\UpdateAlertRequest;
+use App\Models\Alert;
 use App\Repositories\AlertRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -66,8 +68,6 @@ class AlertController extends AppBaseController
             abort(403);
         }
 
-        //dd(\App\Models\AlertIcon::all());
-
         return view('alerts.create');
     }
 
@@ -76,13 +76,15 @@ class AlertController extends AppBaseController
      *
      * @param CreateAlertRequest $request
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Response
      */
     public function store(CreateAlertRequest $request)
     {
         if (!Auth::user()->isAnAdmin()) {
             abort(403);
         }
+
+        $request->flash();
 
         $input = $request->all();
 
@@ -229,8 +231,8 @@ class AlertController extends AppBaseController
             abort(403);
         }
 
-        $alert = $this->alertRepository->findByField('slug', $id, true)->first();
-        $logAlert = $this->alertRepository->findByField('slug', $id, true)->first();
+        $alert = $this->alertRepository->findByField('id', $id, true)->first();
+        $logAlert = $this->alertRepository->findByField('id', $id, true)->first();
 
         if (empty($alert)) {
             flash('Alert not found')->error();

@@ -33,9 +33,6 @@ class CreateAlertsTable extends Migration
             $table->boolean('sent_with_twitter')->nullable()
                 ->default(false);
             $table->string('twitter_message', 255)->nullable();
-            $table->timestamp('publish_at')->nullable()
-                ->useCurrent();
-            $table->timestamp('hide_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

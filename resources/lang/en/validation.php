@@ -186,7 +186,7 @@ return [
         ],
         'alert_type_id' => [
             'required' => 'An alert type must be selected for this alert.'
-        ]
+        ],
     ],
 
     /*
