@@ -2031,12 +2031,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/adminlte-templates.git",
-                "reference": "61164131a009d1e42f06142340f8efab1e6948a5"
+                "reference": "8110978575380b6fc69ba26a979f927320b48f21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/61164131a009d1e42f06142340f8efab1e6948a5",
-                "reference": "61164131a009d1e42f06142340f8efab1e6948a5",
+                "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/8110978575380b6fc69ba26a979f927320b48f21",
+                "reference": "8110978575380b6fc69ba26a979f927320b48f21",
                 "shasum": ""
             },
             "require": {
@@ -2075,7 +2075,7 @@
                 "laravel",
                 "templates"
             ],
-            "time": "2017-09-16T05:07:29+00:00"
+            "time": "2017-11-25T04:43:54+00:00"
         },
         {
             "name": "infyomlabs/laravel-generator",
@@ -2083,16 +2083,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/laravel-generator.git",
-                "reference": "9ba56c7f5b6efb6212fcc1a08e152b464933f01d"
+                "reference": "bf34df143a6ded4a6c6483223bcf38d13d90be26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/9ba56c7f5b6efb6212fcc1a08e152b464933f01d",
-                "reference": "9ba56c7f5b6efb6212fcc1a08e152b464933f01d",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/bf34df143a6ded4a6c6483223bcf38d13d90be26",
+                "reference": "bf34df143a6ded4a6c6483223bcf38d13d90be26",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "~5.0",
+                "illuminate/support": "5.0.* || 5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
                 "laracasts/flash": "~3.0",
                 "php": ">=5.5.9",
                 "prettus/l5-repository": "~2.6"
@@ -2141,7 +2141,7 @@
                 "test",
                 "view"
             ],
-            "time": "2017-11-21T09:30:11+00:00"
+            "time": "2017-11-25T05:18:22+00:00"
         },
         {
             "name": "infyomlabs/swagger-generator",
@@ -7369,16 +7369,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "v1.7.2",
+            "version": "1.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "c9b8c6088acd19d769d4cc0ffa60a9fe34344bd6"
+                "reference": "e4ed002c67da8eceb0eb8ddb8b3847bb53c5c2bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/c9b8c6088acd19d769d4cc0ffa60a9fe34344bd6",
-                "reference": "c9b8c6088acd19d769d4cc0ffa60a9fe34344bd6",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/e4ed002c67da8eceb0eb8ddb8b3847bb53c5c2bf",
+                "reference": "e4ed002c67da8eceb0eb8ddb8b3847bb53c5c2bf",
                 "shasum": ""
             },
             "require": {
@@ -7390,7 +7390,7 @@
             },
             "require-dev": {
                 "phpspec/phpspec": "^2.5|^3.2",
-                "phpunit/phpunit": "^4.8 || ^5.6.5"
+                "phpunit/phpunit": "^4.8.35 || ^5.7"
             },
             "type": "library",
             "extra": {
@@ -7428,7 +7428,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2017-09-04T11:05:03+00:00"
+            "time": "2017-11-24T13:59:53+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -7496,16 +7496,16 @@
         },
         {
             "name": "phpunit/php-file-iterator",
-            "version": "1.4.2",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-file-iterator.git",
-                "reference": "3cc8f69b3028d0f96a9078e6295d86e9bf019be5"
+                "reference": "8ebba84e5bd74fc5fdeb916b38749016c7232f93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/3cc8f69b3028d0f96a9078e6295d86e9bf019be5",
-                "reference": "3cc8f69b3028d0f96a9078e6295d86e9bf019be5",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/8ebba84e5bd74fc5fdeb916b38749016c7232f93",
+                "reference": "8ebba84e5bd74fc5fdeb916b38749016c7232f93",
                 "shasum": ""
             },
             "require": {
@@ -7539,7 +7539,7 @@
                 "filesystem",
                 "iterator"
             ],
-            "time": "2016-10-03T07:40:28+00:00"
+            "time": "2017-11-24T15:00:59+00:00"
         },
         {
             "name": "phpunit/php-text-template",
