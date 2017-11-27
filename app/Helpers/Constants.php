@@ -30,4 +30,5 @@ class Constants
     const ALERT_URL_PLACEHOLDER = '[alert_url]';
     const ALERT_SUMMARY_PLACEHOLDER = '[alert_summary]';
     const ALERT_PUBLISHED_AT_PLACEHOLDER = '[alert_published_at]';
+    const ALERT_LOG_NAME = 'alert_management_logs';
 }

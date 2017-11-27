@@ -56,6 +56,10 @@ class AlertRepository extends Repository implements IRepository
         // Have to skip presenter to get a model not some data
         $temporarySkipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
+
+        !array_key_exists('hide_alert', $data) ? $data['hide_alert'] = 0: null;
+        !array_key_exists('sent_with_twitter', $data) ? $data['sent_with_twitter'] = 0: null;
+
         $alertData = self::cleanInput($data);
         $alert = parent::create($alertData);
         $this->skipPresenter($temporarySkipPresenter);
@@ -123,6 +127,7 @@ class AlertRepository extends Repository implements IRepository
             'summary' => Purifier::clean($input['summary'], 'generalFields'),
             'content' => Purifier::clean($input['content']),
             'twitter_message' => Purifier::clean($input['twitter_message'], 'generalFields'),
+            'keywords' => Purifier::clean($input['keywords'], 'generalFields'),
             'alert_type_id' => intval(Purifier::clean($input['alert_type_id'], 'generalFields')),
             'alert_icon_id' => intval(Purifier::clean($input['alert_icon_id'], 'generalFields')),
             'hide_alert' => intval(Purifier::clean($input['hide_alert'], 'generalFields')),

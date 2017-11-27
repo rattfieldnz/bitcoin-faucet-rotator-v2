@@ -71562,15 +71562,14 @@ function generateSwitch(elem, initState, onText, offText)
 {
     if(jQuery().bootstrapSwitch){
         if(elem !== 'undefined' && (elem.attr('type') === 'checkbox' || elem.attr('type') === 'radio')){
+
             elem.on('switchChange.bootstrapSwitch', function(event,  state) {
-                if(state){
-                    console.log(+state);
+                if(+state === 1){
+                    elem.attr('checked', 'checked');
                     elem.val(parseInt(+state));
-                    elem.attr('checked', 'checked')
                 } else{
-                    console.log(+state);
+                    elem.attr('checked', '');
                     elem.val(parseInt(+state));
-                    elem.removeAttr('checked');
                 }
             });
 

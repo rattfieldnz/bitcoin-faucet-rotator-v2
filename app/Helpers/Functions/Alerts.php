@@ -4,7 +4,10 @@
 namespace App\Helpers\Functions;
 use App\Helpers\Constants;
 use App\Helpers\Social\Twitter;
+use App\Http\Requests\CreateAlertRequest;
 use App\Models\Alert;
+use App\Repositories\AlertRepository;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class Alerts
@@ -16,6 +19,41 @@ use App\Models\Alert;
  */
 class Alerts
 {
+    private $alertRepository;
+
+    /**
+     * Alerts constructor.
+     *
+     * @param \App\Repositories\AlertRepository $alertRepository
+     */
+    public function __construct(AlertRepository $alertRepository)
+    {
+        $this->alertRepository = $alertRepository;
+    }
+
+    public function createStoreAlert(CreateAlertRequest $request){
+
+        $alert = $this->alertRepository->create($request->all());
+
+        if ($request->get('send_tweet') == 1 && env('APP_ENV') == 'production') {
+            $twitter = new Twitter(Users::adminUser());
+            $tweet = self::renderTweet($alert);
+            $twitter->sendTweet($tweet);
+        }
+
+        activity(self::logName())
+            ->performedOn($alert)
+            ->causedBy(Auth::user())
+            ->log("The alert ':subject.title' was added to the collection by :causer.user_name");
+    }
+
+    /**
+     * @return string
+     */
+    public static  function logName(): string{
+        return Constants::ALERT_LOG_NAME;
+    }
+
     /**
      * Render a tweet for an alert.
      *

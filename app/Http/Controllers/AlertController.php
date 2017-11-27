@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Functions\Alerts;
 use App\Helpers\Functions\Users;
 use App\Http\Requests\CreateAlertRequest;
 use App\Http\Requests\UpdateAlertRequest;
@@ -25,10 +26,12 @@ class AlertController extends AppBaseController
 {
     /** @var  AlertRepository */
     private $alertRepository;
+    private $alertFunctions;
 
-    public function __construct(AlertRepository $alertRepo)
+    public function __construct(AlertRepository $alertRepo, Alerts $alertFunctions)
     {
         $this->alertRepository = $alertRepo;
+        $this->alertFunctions = $alertFunctions;
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
@@ -86,16 +89,9 @@ class AlertController extends AppBaseController
 
         $request->flash();
 
-        $input = $request->all();
-
-        $alert = $this->alertRepository->create($input);
+        $this->alertFunctions->createStoreAlert($request);
 
         Flash::success('Alert saved successfully.');
-
-        activity('alert_logs')
-            ->performedOn($alert)
-            ->causedBy(Auth::user())
-            ->log("The alert ':subject.name' was added to the collection by :causer.user_name");
 
         return redirect(route('alerts.index'));
     }
