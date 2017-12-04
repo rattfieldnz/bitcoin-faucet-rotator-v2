@@ -4,17 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Functions\Alerts;
 use App\Helpers\Functions\Users;
+use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreateAlertRequest;
 use App\Http\Requests\UpdateAlertRequest;
+use App\Libraries\Seo\SeoConfig;
 use App\Models\Alert;
 use App\Repositories\AlertRepository;
 use App\Http\Controllers\AppBaseController;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Exceptions\RepositoryException;
 use Response;
 
 /**
@@ -44,20 +48,45 @@ class AlertController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $this->alertRepository->pushCriteria(new RequestCriteria($request));
-        $alerts = null;
+        try {
+            $this->alertRepository->pushCriteria(new RequestCriteria($request));
+            $alerts = null;
 
-        if (Auth::guest() || Auth::user()->hasRole('user') && !Auth::user()->isAnAdmin()) {
-            $alerts = $this->alertRepository->all();
-        } else {
-            $alerts = $this->alertRepository->withTrashed()->get();
+            if (Auth::guest() || Auth::user()->hasRole('user') && !Auth::user()->isAnAdmin()) {
+                $alerts = $this->alertRepository->all();
+            } else {
+                $alerts = $this->alertRepository->withTrashed()->get();
+            }
+
+            $seoConfig = new SeoConfig();
+            $seoConfig->title = "List of Website Alerts (" . count($alerts) . ")";
+            $seoConfig->description = "This page shows all alerts that are currently viewable to the public. There are a total of " .
+                count($alerts) . " alerts in the faucet rotator.";
+            $seoConfig->keywords = [
+                "Website Alerts",
+                "Alerts",
+                "Website Messages",
+                "Free Bitcoins",
+                "Get Free Bitcoins",
+                "Satoshis"
+            ];
+            $seoConfig->publishedTime = Carbon::now()->toW3cString();
+            $seoConfig->modifiedTime = Carbon::now()->toW3cString();
+            $seoConfig->authorName = Users::adminUser()->fullName();
+            $seoConfig->currentUrl = route('alerts.index');
+            $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
+            $seoConfig->categoryDescription = "Website Alerts";
+            WebsiteMeta::setCustomMeta($seoConfig);
+
+            $disqusIdentifier = Users::adminUser()->user_name . '-' . Users::adminUser()->id . '-alerts-index';
+
+            return view('alerts.index')
+                ->with('alerts', $alerts)
+                ->with('currentUrl', route('alerts.index'))
+                ->with('disqusIdentifier', $disqusIdentifier);
+        } catch (RepositoryException $e) {
+            abort(500, $e->getMessage());
         }
-
-        $disqusIdentifier = Users::adminUser()->user_name . '-' . Users::adminUser()->id . '-alerts-index';
-        return view('alerts.index')
-            ->with('alerts', $alerts)
-            ->with('currentUrl', route('alerts.index'))
-            ->with('disqusIdentifier', $disqusIdentifier);
     }
 
     /**
