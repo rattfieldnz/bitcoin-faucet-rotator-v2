@@ -15,8 +15,8 @@ class CreateAlertsTable extends Migration
     {
         Schema::create('alerts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title', 100)->unique();
-            $table->string('slug', 255)->unique();
+            $table->string('title', 50)->unique();
+            $table->string('slug')->unique();
             $table->string('summary', 255);
             $table->mediumText('content');
             $table->string('keywords', 255)->nullable();

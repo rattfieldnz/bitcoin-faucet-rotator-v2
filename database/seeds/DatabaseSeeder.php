@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SocialLinksTableSeeder::class);
         $this->call(AlertIconsSeeder::class);
         $this->call(AlertTypesSeeder::class);
+        $this->call(AlertSeeder::class);
         Schema::enableForeignKeyConstraints();
         Eloquent::reguard();
     }
