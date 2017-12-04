@@ -65,7 +65,7 @@ class Alert extends Model
      * @var array
      */
     public static $rules = [
-        'title' => 'required|min:5|max:100|unique:alerts,title',
+        'title' => 'min:5|max:100|required|unique:alerts,title',
         'summary' => 'required|min:25|max:255',
         'content' => 'required|min:200|max:16777215',
         'keywords' => 'sometimes|nullable|string|max:255',

@@ -4,7 +4,9 @@
     $futureDate = $currentDate->addDay();
     $formattedFutureDate = $futureDate->format('d/m/Y H:i:s');
 ?>
-
+@if(!empty($alert))
+{!! Form::hidden('id', !empty($alert) ? $alert->id : null) !!}
+@endif
 <!-- Title Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('title') ? ' has-error' : '' }}">
     {!! Form::label('title', 'Title:') !!}

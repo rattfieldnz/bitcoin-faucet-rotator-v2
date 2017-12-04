@@ -72,17 +72,16 @@ class AlertRepository extends Repository implements IRepository
      * Update the specified alert.
      *
      * @param array $data
-     * @param $id
+     * @param $slug
      *
      * @return mixed
      */
-    public function update(array $data, $id)
+    public function update(array $data, $slug)
     {
-        // Have to skip presenter to get a model not some data
         $temporarySkipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
         $alertData = self::cleanInput($data);
-        $alert = Alert::where('id', $id)->withTrashed()->first();
+        $alert = Alert::where('slug', $slug)->withTrashed()->first();
         $updatedAlert = $alert->fill($alertData);
         $this->skipPresenter($temporarySkipPresenter);
         $alert = $this->updateRelations($updatedAlert, $alertData);
@@ -99,6 +98,7 @@ class AlertRepository extends Repository implements IRepository
      * @param bool  $deleted
      *
      * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function findItemsWhere(array $where, $columns = ['*'], bool $deleted = false)
     {
@@ -122,16 +122,24 @@ class AlertRepository extends Repository implements IRepository
      */
     public static function cleanInput(array $input)
     {
-        return [
+        $inputToSanitize = [
             'title' => Purifier::clean($input['title'], 'generalFields'),
             'summary' => Purifier::clean($input['summary'], 'generalFields'),
             'content' => Purifier::clean($input['content']),
             'twitter_message' => Purifier::clean($input['twitter_message'], 'generalFields'),
             'keywords' => Purifier::clean($input['keywords'], 'generalFields'),
             'alert_type_id' => intval(Purifier::clean($input['alert_type_id'], 'generalFields')),
-            'alert_icon_id' => intval(Purifier::clean($input['alert_icon_id'], 'generalFields')),
-            'hide_alert' => intval(Purifier::clean($input['hide_alert'], 'generalFields')),
-            'sent_with_twitter' => intval(Purifier::clean($input['sent_with_twitter'], 'generalFields'))
+            'alert_icon_id' => intval(Purifier::clean($input['alert_icon_id'], 'generalFields'))
         ];
+
+        if(!empty($input['hide_alert'])){
+            $inputToSanitize['hide_alert'] = intval(Purifier::clean($input['hide_alert'], 'generalFields'));
+        }
+
+        if(!empty($input['sent_with_twitter'])){
+            $inputToSanitize['sent_with_twitter'] = intval(Purifier::clean($input['sent_with_twitter'], 'generalFields'));
+        }
+
+        return $inputToSanitize;
     }
 }
