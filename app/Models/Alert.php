@@ -81,7 +81,7 @@ class Alert extends Model
      **/
     public function alertIcon()
     {
-        return $this->belongsTo(AlertIcon::class, 'alert_icon_id', 'id)');
+        return $this->belongsTo(AlertIcon::class, 'alert_icon_id', 'id');
     }
 
     /**
