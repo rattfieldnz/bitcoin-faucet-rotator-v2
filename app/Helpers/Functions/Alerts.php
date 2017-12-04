@@ -6,7 +6,11 @@ use App\Helpers\Constants;
 use App\Helpers\Social\Twitter;
 use App\Http\Requests\CreateAlertRequest;
 use App\Models\Alert;
+use App\Models\MainMeta;
 use App\Repositories\AlertRepository;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\TwitterCard;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -90,6 +94,62 @@ class Alerts
             $twitter = new Twitter(Users::adminUser());
             $tweet = self::renderTweet($alert);
             $twitter->sendTweet($tweet);
+        }
+    }
+
+
+    /**
+     * Function to set meta data properties for SEO.
+     *
+     * @param \App\Models\Alert $alert
+     *
+     * @return void
+     */
+    public static function setMeta(Alert $alert)
+    {
+        if (!empty($alert)) {
+            $title = $alert->title . " " . env('APP_TITLE_SEPARATOR') . " " . env('APP_TITLE_APPEND');
+            $description = $alert->summary;
+            $keywords = array_map('trim', explode(',', $alert->keywords));
+            $publishedTime = $alert->created_at->toW3CString();
+            $modifiedTime = $alert->updated_at->toW3CString();
+            $author = Users::adminUser()->fullName();
+            $currentUrl = route('alerts.show', ['slug' => $alert->slug]);
+            $image = env('APP_URL') . '/assets/images/og/bitcoin.png';
+
+            SEOMeta::setTitle($title)
+                ->setTitleSeparator('|')
+                ->setDescription($description)
+                ->setKeywords($keywords)
+                ->addMeta('author', $author, 'name')
+                ->addMeta('revised', $modifiedTime, 'name')
+                ->addMeta('name', $title, 'itemprop')
+                ->addMeta('description', $description, 'itemprop')
+                ->addMeta('image', $image, 'itemprop')
+                ->addMeta('fb:admins', "871754942861947", 'property')
+                ->setCanonical($currentUrl);
+
+            OpenGraph::setTitle($title)
+                ->setUrl($currentUrl)
+                ->setSiteName(MainMeta::first()->page_main_title)
+                ->addProperty("locale", MainMeta::first()->language()->first()->isoCode())
+                ->setDescription($description)
+                ->setType('article')
+                ->addImage($image)
+                ->setArticle([
+                    'author' => $author,
+                    'published_time' => $publishedTime,
+                    'modified_time' => $modifiedTime,
+                    'section' => 'Crypto Faucets',
+                    'tag' => $keywords
+                ]);
+
+            TwitterCard::setType('summary')
+                ->addImage($image)
+                ->setTitle($title)
+                ->setDescription($description)
+                ->setUrl($currentUrl)
+                ->setSite(MainMeta::first()->twitter_username);
         }
     }
 }
