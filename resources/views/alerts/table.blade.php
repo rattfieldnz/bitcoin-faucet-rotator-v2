@@ -26,13 +26,13 @@
                 ></i>
             </td>
             <td>
-                <a href="{!! route('alerts.show', [$alert->id]) !!}" title="{!! $alert->title !!}">{!! $alert->title !!}</a></td>
+                <a href="{!! route('alerts.show', [$alert->slug]) !!}" title="{!! $alert->title !!}">{!! $alert->title !!}</a></td>
             <td>{!! $alert->summary !!}</td>
             @if(!empty(Auth::user()) && Auth::user()->isAnAdmin())
             <td>
-                {!! Form::open(['route' => ['alerts.delete-permanently', $alert->id], 'method' => 'delete']) !!}
+                {!! Form::open(['route' => ['alerts.delete-permanently', $alert->slug], 'method' => 'delete']) !!}
                 <div class='btn-group'>
-                    <a href="{!! route('alerts.edit', [$alert->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                    <a href="{!! route('alerts.edit', [$alert->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>
                 {!! Form::close() !!}

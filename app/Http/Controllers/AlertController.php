@@ -131,7 +131,7 @@ class AlertController extends AppBaseController
      */
     public function show($slug)
     {
-        $alert = $this->alertRepository->findWithoutFail($slug);
+        $alert = $this->alertRepository->findByField('slug', $slug)->first();
 
         if (empty($alert)) {
             Flash::error('Alert not found');
@@ -162,7 +162,7 @@ class AlertController extends AppBaseController
             abort(403);
         }
 
-        $alert = $this->alertRepository->findWithoutFail($slug);
+        $alert = $this->alertRepository->findByField('slug', $slug)->first();
 
         if (empty($alert)) {
             Flash::error('Alert not found');
@@ -176,18 +176,18 @@ class AlertController extends AppBaseController
     /**
      * Update the specified Alert in storage.
      *
-     * @param                    $id
+     * @param $slug
      * @param UpdateAlertRequest $request
      *
      * @return \Response
      */
-    public function update($id, UpdateAlertRequest $request)
+    public function update($slug, UpdateAlertRequest $request)
     {
         if (!Auth::user()->isAnAdmin()) {
             abort(403);
         }
 
-        $alert = $this->alertRepository->findWithoutFail($id);
+        $alert = $this->alertRepository->findByField('slug', $slug)->first();
 
         if (empty($alert)) {
             Flash::error('Alert not found');
@@ -195,7 +195,7 @@ class AlertController extends AppBaseController
             return redirect(route('alerts.index'));
         }
 
-        $alert = $this->alertRepository->update($request->all(), $id);
+        $alert = $this->alertRepository->update($request->all(), $slug);
 
         Flash::success('Alert updated successfully.');
 
@@ -210,19 +210,19 @@ class AlertController extends AppBaseController
     /**
      * Remove the specified Alert from storage.
      *
-     * @param $id
+     * @param $slug
      *
      * @return \Response
      *
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
         if (!Auth::user()->isAnAdmin()) {
             abort(403);
         }
 
-        $alert = $this->alertRepository->findWithoutFail($id);
-        $logAlert = $this->alertRepository->findWithoutFail($id);
+        $alert = $this->alertRepository->findByField('slug', $slug)->first();
+        $logAlert = $this->alertRepository->findByField('slug', $slug)->first();
 
         if (empty($alert)) {
             Flash::error('Alert not found');
@@ -230,7 +230,7 @@ class AlertController extends AppBaseController
             return redirect(route('alerts.index'));
         }
 
-        $this->alertRepository->delete($id);
+        $this->alertRepository->deleteWhere(['slug' => $alert->slug]);
 
         Flash::success('Alert deleted successfully.');
 
@@ -245,18 +245,18 @@ class AlertController extends AppBaseController
     /**
      * Destroy the specified alert permanently.
      *
-     * @param $id
+     * @param $slug
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroyPermanently($id)
+    public function destroyPermanently($slug)
     {
         if (!Auth::user()->isAnAdmin()) {
             abort(403);
         }
 
-        $alert = $this->alertRepository->findByField('id', $id, true)->first();
-        $logAlert = $this->alertRepository->findByField('id', $id, true)->first();
+        $alert = $this->alertRepository->findByField('slug', $slug, true)->first();
+        $logAlert = $this->alertRepository->findByField('slug', $slug, true)->first();
 
         if (empty($alert)) {
             flash('Alert not found')->error();
@@ -285,13 +285,13 @@ class AlertController extends AppBaseController
     /**
      * Restore a soft-deleted alert.
      *
-     * @param  $id
+     * @param  $slug
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function restoreDeleted($id)
+    public function restoreDeleted($slug)
     {
-        $alert = $this->alertRepository->findByField('slug', $id, true)->first();
+        $alert = $this->alertRepository->findByField('slug', $slug, true)->first();
         $logAlert = $alert;
 
         if (empty($alert)) {
