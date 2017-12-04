@@ -70,7 +70,7 @@
     <?php
         $alertTypes = \App\Models\AlertType::all();
         $defaultAlertType = \App\Models\AlertType::where('name', '=', 'info')->first();
-        $alertTypeId = old('alert_type_id',$alert->alert_type_id ?? null);
+        $alertTypeId = old('alert_type_id', $alert->alert_type_id ?? null);
     ?>
     <label for="alert_type_id">Alert Type:</label>
     <select class="alert_type_id" id="alert_type_id" name="alert_type_id">
@@ -97,7 +97,7 @@
     <?php
         $icons = \App\Models\AlertIcon::all();
         $defaultIcon = \App\Models\AlertIcon::where('icon_class', '=', 'fa-info')->first();
-        $alertIconId = old('alert_icon_id',$alert->alert_icon_id ?? null);
+        $alertIconId = old('alert_icon_id', $alert->alert_icon_id ?? null);
     ?>
     <label for="alert_icon_id">FontAwesome Alert Icon:</label>
     <select class="form-control" id="alert_icon_id" name="alert_icon_id" data-live-search="true">
@@ -121,7 +121,7 @@
 <!-- Hide Alert Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('hide_alert') ? ' has-error' : '' }}">
     <?php
-        $hideAlert = old('hide_alert',$alert->hide_alert ?? null);
+        $hideAlert = old('hide_alert', $alert->hide_alert ?? null);
     ?>
     {!! Form::label('hide_alert', (empty($alert) ? 'Hide ' : 'Hidden ') . 'Alert From Home Page:') !!}
     <label class="checkbox-inline">
@@ -137,7 +137,7 @@
 <!-- Sent With Twitter Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('sent_with_twitter') ? ' has-error' : '' }}">
     <?php
-        $tweetSent = old('sent_with_twitter',$alert->sent_with_twitter ?? null);
+        $tweetSent = old('sent_with_twitter', $alert->sent_with_twitter ?? null);
     ?>
     {!! Form::label('sent_with_twitter', (empty($alert) ? 'Send ' : 'Sent ') . 'to Twitter?:') !!}
     <label class="checkbox-inline">
@@ -159,7 +159,7 @@
 <!-- Twitter Message Field -->
 <div id="twitter-message-field" class="form-group col-sm-6 has-feedback{{ $errors->has('twitter_message') ? ' has-error' : '' }}">
     <?php
-        $tweet = old('twitter_message',$alert->twitter_message ?? null);
+        $tweet = old('twitter_message', $alert->twitter_message ?? null);
     ?>
     {!! Form::label('twitter_message', 'Tweet*:') !!}
     {!! Form::text('twitter_message', $tweet, ['class' => 'form-control', 'placeholder' => 'Enter tweet here (140 characters max. URL\'s shortened to 23 characters via Twitter).']) !!}
