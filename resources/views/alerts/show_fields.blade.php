@@ -1,6 +1,6 @@
-<div class="form-group" style="border: 0.25em solid #3c8dbc; padding: 0.5em; border-radius: 0.25em;">
-    {!! Form::label('summary', 'Summary:') !!}
-    <p>{!! $alert->summary !!}</p>
+<div class="form-group">
+    <h2 style="margin-top: 0;">Summary:</h2>
+    <p style="font-size:1.25em;"><strong><em>{!! $alert->summary !!}</em></strong></p>
 </div>
 
 <!-- Content Field -->
