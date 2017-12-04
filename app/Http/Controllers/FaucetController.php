@@ -191,7 +191,6 @@ class FaucetController extends AppBaseController
                     ->with('canShowInIframe', Http::canShowInIframes($faucet->url));
             }
             if (!empty($faucet) && !$faucet->isDeleted()) { // If the faucet exists and isn't soft-deleted
-
                 $faucetUrl = $faucet->url . Faucets::getUserFaucetRefCode($adminUser, $faucet);
 
                 Faucets::setSecureFaucetIframe($adminUser, $faucet);

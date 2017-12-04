@@ -179,7 +179,7 @@ class RotatorController extends Controller
         $seoConfig->authorName = $user->fullName();
         $seoConfig->currentUrl = route(
             'users.payment-processors.rotator',
-                [
+            [
                     'userSlug' => $user->slug,
                     'paymentProcessorSlug' => $paymentProcessor->slug
                 ]

@@ -578,8 +578,8 @@ class Faucets
 
             $form = Form::open(['route' => $route, 'method' => 'delete', 'style' => 'display: inline-block;']);
             $form .= Form::button(
-                    '<i class="glyphicon glyphicon-trash"></i>',
-                    [
+                '<i class="glyphicon glyphicon-trash"></i>',
+                [
                         'type' => 'submit',
                         'class' => 'btn btn-danger btn-xs',
                         'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"
@@ -609,8 +609,8 @@ class Faucets
             $form = Form::open(['route' => ['faucets.restore', $faucet->slug], 'method' => 'patch', 'style' => 'display: inline-block;']);
 
             $form .= Form::button(
-                    '<i class="glyphicon glyphicon-refresh"></i>',
-                         [
+                '<i class="glyphicon glyphicon-refresh"></i>',
+                [
                              'type' => 'submit',
                              'class' => 'btn btn-info btn-xs',
                              'onclick' => "return confirm('Are you sure you want to restore this deleted faucet?')"
@@ -748,7 +748,8 @@ class Faucets
                 'name' => [
                     'display' => route(
                         'users.faucets.show',
-                        ['userSlug' => $user->slug, 'faucetSlug' => $faucet->slug]),
+                        ['userSlug' => $user->slug, 'faucetSlug' => $faucet->slug]
+                    ),
                     'original' => $faucet->name,
                 ],
                 'url' => $faucet->url . $referralCode,

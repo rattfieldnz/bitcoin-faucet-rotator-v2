@@ -42,7 +42,9 @@ class FaucetAPIController extends AppBaseController
         $this->faucetRepository = $faucetRepo;
         $deleted = Auth::check() && Auth::user()->isAnAdmin() ? true : false;
         $this->faucetCollection = $this->faucetRepository->findItemsWhere(
-            ['is_paused' => false, 'has_low_balance' => false], ['*'], $deleted
+            ['is_paused' => false, 'has_low_balance' => false],
+            ['*'],
+            $deleted
         )->sortBy('interval_minutes')->values();
         $this->paymentProcessorRepo = $paymentProcessorRepo;
         $this->adminUser = Users::adminUser();
@@ -78,8 +80,10 @@ class FaucetAPIController extends AppBaseController
             (new FaucetsTransformer)->transform(
                 $this->adminUser,
                 $faucet,
-                    true
-            ), 'Faucet retrieved successfully');
+                true
+            ),
+            'Faucet retrieved successfully'
+        );
     }
 
     public function getFirstFaucet()
@@ -88,8 +92,10 @@ class FaucetAPIController extends AppBaseController
             (new FaucetsTransformer)->transform(
                 $this->adminUser,
                 $this->faucetCollection[0],
-                    true
-            ), 'Faucet retrieved successfully');
+                true
+            ),
+            'Faucet retrieved successfully'
+        );
     }
 
     public function getPreviousFaucet($slug)
@@ -117,8 +123,10 @@ class FaucetAPIController extends AppBaseController
                         (new FaucetsTransformer)->transform(
                             $this->adminUser,
                             $previousFaucet,
-                                true
-                        ), 'Faucet retrieved successfully');
+                            true
+                        ),
+                        'Faucet retrieved successfully'
+                    );
                 }
 
                 $previousFaucet = $this->faucetRepository->findWhere(
@@ -135,7 +143,9 @@ class FaucetAPIController extends AppBaseController
                         $this->adminUser,
                         $previousFaucet,
                         true
-                    ), 'Faucet retrieved successfully');
+                    ),
+                    'Faucet retrieved successfully'
+                );
             }
         }
         return null;
@@ -167,7 +177,9 @@ class FaucetAPIController extends AppBaseController
                             $this->adminUser,
                             $nextFaucet,
                             true
-                        ), 'Faucet retrieved successfully');
+                        ),
+                        'Faucet retrieved successfully'
+                    );
                 }
                 $nextFaucet = $this->faucetRepository->findWhere(
                     [
@@ -183,7 +195,9 @@ class FaucetAPIController extends AppBaseController
                         $this->adminUser,
                         $nextFaucet,
                         true
-                    ), 'Faucet retrieved successfully');
+                    ),
+                    'Faucet retrieved successfully'
+                );
             }
         }
         return null;
@@ -197,7 +211,9 @@ class FaucetAPIController extends AppBaseController
                 $this->adminUser,
                 $this->faucetCollection[count($this->faucetCollection) - 1],
                 true
-            ), 'Faucet retrieved successfully');
+            ),
+            'Faucet retrieved successfully'
+        );
     }
 
     public function getRandomFaucet()
@@ -238,7 +254,9 @@ class FaucetAPIController extends AppBaseController
                 $this->adminUser,
                 $faucet,
                 true
-            ), 'Faucet retrieved successfully');
+            ),
+            'Faucet retrieved successfully'
+        );
     }
 
     public function getPaymentProcessorFaucets($paymentProcessorSlug)
@@ -334,7 +352,9 @@ class FaucetAPIController extends AppBaseController
                             $this->adminUser,
                             $faucet,
                             true
-                        ), 'Faucet retrieved successfully');
+                        ),
+                        'Faucet retrieved successfully'
+                    );
                 }
 
                 $faucet = Faucet::where('is_paused', '=', false)
@@ -349,7 +369,9 @@ class FaucetAPIController extends AppBaseController
                         $this->adminUser,
                         $faucet,
                         true
-                    ), 'Faucet retrieved successfully');
+                    ),
+                    'Faucet retrieved successfully'
+                );
             }
         }
         return null;
@@ -394,7 +416,9 @@ class FaucetAPIController extends AppBaseController
                             $this->adminUser,
                             $faucet,
                             true
-                        ), 'Faucet retrieved successfully');
+                        ),
+                        'Faucet retrieved successfully'
+                    );
                 }
 
                 $faucet = Faucet::where('is_paused', '=', false)
@@ -409,7 +433,9 @@ class FaucetAPIController extends AppBaseController
                         $this->adminUser,
                         $faucet,
                         true
-                    ), 'Faucet retrieved successfully');
+                    ),
+                    'Faucet retrieved successfully'
+                );
             }
         }
         return null;
@@ -497,7 +523,8 @@ class FaucetAPIController extends AppBaseController
                     'name' => [
                         'display' => route(
                             'users.faucets.show',
-                            ['userSlug' => $user->slug, 'faucetSlug' => $userFaucets[$i]->slug]),
+                            ['userSlug' => $user->slug, 'faucetSlug' => $userFaucets[$i]->slug]
+                        ),
                         'original' => $userFaucets[$i]->name,
                     ],
                     'url' => $userFaucets[$i]->url . $referralCode,
@@ -655,7 +682,9 @@ class FaucetAPIController extends AppBaseController
                             $this->adminUser,
                             $faucet,
                             true
-                        ), 'Faucet retrieved successfully');
+                        ),
+                        'Faucet retrieved successfully'
+                    );
                 }
 
                 $faucet = Users::getFaucet($user, $array[($key - 1) < 0 ? count($array) - $key - 1 : $key - 1]);
@@ -665,7 +694,9 @@ class FaucetAPIController extends AppBaseController
                         $this->adminUser,
                         $faucet,
                         true
-                    ), 'Faucet retrieved successfully');
+                    ),
+                    'Faucet retrieved successfully'
+                );
             }
         }
     }
@@ -716,7 +747,9 @@ class FaucetAPIController extends AppBaseController
                             $this->adminUser,
                             $faucet,
                             true
-                        ), 'Faucet retrieved successfully');
+                        ),
+                        'Faucet retrieved successfully'
+                    );
                 }
 
                 $faucet = $user->faucets()
@@ -733,7 +766,9 @@ class FaucetAPIController extends AppBaseController
                         $user,
                         $faucet,
                         true
-                    ), 'Faucet retrieved successfully');
+                    ),
+                    'Faucet retrieved successfully'
+                );
             }
         }
     }
@@ -942,7 +977,9 @@ class FaucetAPIController extends AppBaseController
                             $user,
                             $faucet,
                             true
-                        ), 'User payment processor faucet retrieved successfully');
+                        ),
+                        'User payment processor faucet retrieved successfully'
+                    );
                 }
 
                 $faucet = Users::getFaucet($user, $array[$key + 1]);
@@ -952,7 +989,9 @@ class FaucetAPIController extends AppBaseController
                         $user,
                         $faucet,
                         true
-                    ), 'User payment processor faucet retrieved successfully');
+                    ),
+                    'User payment processor faucet retrieved successfully'
+                );
             }
         }
     }
@@ -1006,7 +1045,9 @@ class FaucetAPIController extends AppBaseController
                             $user,
                             $faucet,
                             true
-                        ), 'Faucet retrieved successfully');
+                        ),
+                        'Faucet retrieved successfully'
+                    );
                 }
 
                 $faucet = Users::getFaucet($user, $array[($key - 1) < 0 ? count($array) - $key - 1 : $key - 1]);
@@ -1016,7 +1057,9 @@ class FaucetAPIController extends AppBaseController
                         $user,
                         $faucet,
                         true
-                    ), 'User payment processor faucet retrieved successfully');
+                    ),
+                    'User payment processor faucet retrieved successfully'
+                );
             }
         }
     }

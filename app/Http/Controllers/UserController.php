@@ -161,7 +161,6 @@ class UserController extends AppBaseController
                     ->with('message', $message);
             }
             if (!empty($user) && !$user->isDeleted()) { // If the user exists and isn't soft-deleted
-
                 $userFaucets = $user->faucets()->get();
 
                 Users::setMeta($user);

@@ -132,11 +132,11 @@ class AlertRepository extends Repository implements IRepository
             'alert_icon_id' => intval(Purifier::clean($input['alert_icon_id'], 'generalFields'))
         ];
 
-        if(!empty($input['hide_alert'])){
+        if (!empty($input['hide_alert'])) {
             $inputToSanitize['hide_alert'] = intval(Purifier::clean($input['hide_alert'], 'generalFields'));
         }
 
-        if(!empty($input['sent_with_twitter'])){
+        if (!empty($input['sent_with_twitter'])) {
             $inputToSanitize['sent_with_twitter'] = intval(Purifier::clean($input['sent_with_twitter'], 'generalFields'));
         }
 

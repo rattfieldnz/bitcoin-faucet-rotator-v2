@@ -2,6 +2,7 @@
 
 
 namespace App\Helpers\Functions;
+
 use App\Helpers\Constants;
 use App\Helpers\Social\Twitter;
 use App\Http\Requests\CreateAlertRequest;
@@ -35,7 +36,8 @@ class Alerts
         $this->alertRepository = $alertRepository;
     }
 
-    public function createStoreAlert(CreateAlertRequest $request){
+    public function createStoreAlert(CreateAlertRequest $request)
+    {
 
         $alert = $this->alertRepository->create($request->all());
 
@@ -54,7 +56,8 @@ class Alerts
     /**
      * @return string
      */
-    public static  function logName(): string{
+    public static function logName(): string
+    {
         return Constants::ALERT_LOG_NAME;
     }
 
@@ -84,11 +87,12 @@ class Alerts
 
     /**
      * Send a tweet for an alert.
-     * 
+     *
      * @param \App\Models\Alert $alert
      * @return void
      */
-    public static function sendTweet(Alert $alert){
+    public static function sendTweet(Alert $alert)
+    {
 
         if (!empty($alert)) {
             $twitter = new Twitter(Users::adminUser());

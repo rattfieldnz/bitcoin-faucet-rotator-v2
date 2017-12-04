@@ -15,7 +15,7 @@ class AlertSeeder extends BaseSeeder
     {
         $faker = Faker\Factory::create();
 
-        for($i = 0; $i < $count; $i++){
+        for ($i = 0; $i < $count; $i++) {
             $alertTypeIds = array_values(AlertType::all()->pluck('id')->toArray());
             $alertIconIds = array_values(AlertIcon::all()->pluck('id')->toArray());
 
@@ -26,7 +26,7 @@ class AlertSeeder extends BaseSeeder
                 '<p>' . $faker->paragraph(5) . '</p>' .
                 '<p>' . $faker->paragraph(5) . '</p>' .
                 '<p>' . $faker->paragraph(5) . '</p>';
-            $keywords = implode(', ', array_unique($faker->words(random_int(5,15))));
+            $keywords = implode(', ', array_unique($faker->words(random_int(5, 15))));
             $alertTypeId = $faker->randomElement($alertTypeIds);
             $alertIconId = $faker->randomElement($alertIconIds);
 
