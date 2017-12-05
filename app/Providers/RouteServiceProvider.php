@@ -78,6 +78,7 @@ class RouteServiceProvider extends ServiceProvider
                 include base_path('routes/feeds/faucets-feed.php');
                 include base_path('routes/feeds/users-feed.php');
                 include base_path('routes/feeds/payment-processors-feed.php');
+                include base_path('routes/feeds/alerts-feed.php');
             }
         );
     }

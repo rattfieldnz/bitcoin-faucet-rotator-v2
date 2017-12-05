@@ -13,6 +13,7 @@
         {!! \Feed::link(url('users-feed'),'rss','Feed: Users',$isoCode) !!}
         {!! \Feed::link(url('faucets-feed'),'rss','Feed: Faucets',$isoCode) !!}
         {!! \Feed::link(url('payment-processors-feed'),'rss','Feed: Payment Processors',$isoCode) !!}
+        {!! \Feed::link(url('alerts-feed'),'rss','Feed: Alerts',$isoCode) !!}
 
         <!-- START Site Styles -->
         @include('layouts.partials.styles._css')
