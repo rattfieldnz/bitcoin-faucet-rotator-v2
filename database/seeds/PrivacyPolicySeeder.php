@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\PrivacyPolicy;
+
 class PrivacyPolicySeeder extends BaseSeeder
 {
     public function run()
@@ -7,7 +9,7 @@ class PrivacyPolicySeeder extends BaseSeeder
         $title = "Privacy Policy";
         $summary = "This privacy policy has been made to better serve those who are concerned with how their Personally Identifiable Information (PII) is used on our website.";
 
-        $content = '<nav class="row">
+        $content = '<div class="row" role="navigation">
 <h4 class="col-sm-1"><a href="#information-collection" title="Information Collection">Information Collection</a></h4>
 <h4 class="col-sm-1"><a href="#information-usage" title="Information Usage">Information Usage</a></h4>
 <h4 class="col-sm-1"><a href="#information-protection" title="Information Protection">Information Protection</a></h4>
@@ -16,10 +18,10 @@ class PrivacyPolicySeeder extends BaseSeeder
 <h4 class="col-sm-1"><a href="#third-party-links" title="3rd Party Links">3rd Party Links</a></h4>
 <h4 class="col-sm-1"><a href="#cal-oppa" title="CalOPPA (California Online Privacy Protection Act)">CalOPPA</a></h4>
 <h4 class="col-sm-1"><a href="#coppa" title="COPPA (Children Online Privacy Protection Act)">COPPA</a></h4>
-<h4 class="col-sm-1"><a href="#fair-information-practises" title="Fair Information Practises">Fair Information Practises</a></h4>
-</nav>
+<h4 class="col-sm-2"><a href="#fair-information-practises" title="Fair Information Practises">Fair Information Practises</a></h4>
+</div>
 
-<div class="row">
+<div class="row" style="margin-top:1em;">
 <p>This privacy policy has been compiled to better serve those who are concerned with how their \'Personally Identifiable Information\' (PII) is being used online. 
 PII, as described in US privacy law and information security, is information that can be used on its own or with other information to identify, contact, or locate 
 a single person, or to identify an individual in context. Please read our privacy policy carefully to get a clear understanding of how we collect, use, protect or 
@@ -149,16 +151,16 @@ or government agencies to investigate and/or prosecute non-compliance by data pr
 
         $keywords = "Privacy Policy, Bitcoin, Cookies, CalOPPA, California Online Privacy Protection Act, Do Not Track, COPPA, Children Online Privacy Protection Act";
 
-        $privacyPolicy = new \App\Models\PrivacyPolicy([
-            'title' => $title,
-            'short_description' => $summary,
-            'content' => $content,
-            'keywords' => $keywords
+        $privacyPolicy = new PrivacyPolicy([
+            'title' => Purifier::clean($title, 'generalFields'),
+            'short_description' => Purifier::clean($summary, 'generalFields'),
+            'content' => Purifier::clean($content),
+            'keywords' => Purifier::clean($keywords)
         ]);
 
         $privacyPolicy->save();
 
-        $this->command->info("Privacy policy hs been seeded.");
+        $this->command->info("Privacy policy has been seeded.");
 
     }
 }

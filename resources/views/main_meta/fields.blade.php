@@ -190,6 +190,7 @@
 @push('scripts')
 <script src="/assets/js/ckeditor/ckeditor.js?{{ rand()}}"></script>
 <script>
+    CKEDITOR.config.extraAllowedContent = '*(*);*{*}';
     CKEDITOR.replace('page_main_content');
 </script>
 @endpush

@@ -24,10 +24,11 @@ return [
     "settings" => [
         "default" => [
             'HTML.Doctype' => 'HTML 4.01 Transitional',
-            'HTML.Allowed' => 'div,b,strong,i,em,a[href|class|title|target],ul,ol,li'
-                .',p[style],br,span[style],img[width|height|alt|src],'
-                . 'iframe[src|scrolling|style],h1,h2,h3,h4,h5,h6,'
-                . 'dt,dl',
+            'HTML.Allowed' => 'div[class|style],b,strong,i[class|style]'
+                . ',em,a[href|class|title|target],ul[class|style],ol[class|style],li[class|style]'
+                . ',p[style],br,span[style],img[width|height|alt|src]'
+                . ',iframe[src|scrolling|style],h1[class|style],h2[class|style],h3[class|style],h4[class|style],h5[class|style],h6[class|style]'
+                . ',dt[class|style],dl[class|style]',
             'Attr.AllowedFrameTargets' => ['_blank'],
             "HTML.SafeIframe" => 'true',
             "URI.SafeIframeRegexp" => "%^(http://|https://|//)(mellowads.com|coinurl.com|a-ads.com|ad.a-ads.com|bee-ads.com)%",
