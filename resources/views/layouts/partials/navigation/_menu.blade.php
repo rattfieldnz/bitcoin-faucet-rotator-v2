@@ -21,14 +21,14 @@
     @endif
 @endif
 
-<li class="{{ Request::is('privacy-policy*') ? 'active' : '' }}">
+<li class="{{ Request::is('privacy-policy*') ? 'active' : '' }}" style="font-weight: bolder;">
     <a href="{!! route('privacy-policy') !!}" title="Privacy Policy"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Privacy Policy</span></a>
 </li>
 
-<li class="{{ Request::is('terms-and-conditions*') ? 'active' : '' }}">
+<li class="{{ Request::is('terms-and-conditions*') ? 'active' : '' }}" style="font-weight: bolder;">
     <a href="{!! route('terms-and-conditions') !!}" title="Terms and Conditions"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Terms &amp; Conditions</span></a>
 </li>
 
-<li class="{{ Request::is('alerts*') ? 'active' : '' }}">
+<li class="{{ Request::is('alerts*') ? 'active' : '' }}" style="font-weight: bolder;">
     <a href="{!! route('alerts.index') !!}" title="Alerts"><i class="fa fa-exclamation" aria-hidden="true"></i><span>Alerts</span></a>
 </li>
