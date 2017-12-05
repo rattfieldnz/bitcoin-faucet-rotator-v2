@@ -74,6 +74,7 @@ class RouteServiceProvider extends ServiceProvider
 
                 include base_path('routes/sitemaps/sitemap-faucets.php');
                 include base_path('routes/sitemaps/sitemap-payment-processors.php');
+                include base_path('routes/sitemaps/sitemap-alerts.php');
 
                 include base_path('routes/feeds/faucets-feed.php');
                 include base_path('routes/feeds/users-feed.php');

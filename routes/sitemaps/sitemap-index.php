@@ -14,6 +14,7 @@ Route::get('sitemap', function()
     $lastUserPaymentProcessorFaucet = \App\Helpers\Functions\PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor)
         ->sortByDesc('updated_at')
         ->first();
+    $alert = \App\Models\Alert::orderBy('updated_at', 'desc')->first();
 
     $sitemap->addSitemap(URL::to('sitemap-users'), $user->updated_at->toW3cString());
 
@@ -26,6 +27,8 @@ Route::get('sitemap', function()
     $sitemap->addSitemap(URL::to('sitemap-users-rotators'), $user->updated_at->toW3cString());
 
     $sitemap->addSitemap(URL::to('sitemap-users-payment-processors'), $lastUserPaymentProcessorFaucet->updated_at->toW3cString());
+
+    $sitemap->addSitemap(URL::to('sitemap-alerts'), $alert->updated_at->toW3cString());
 
     // show sitemap
     return $sitemap->render('sitemapindex');
