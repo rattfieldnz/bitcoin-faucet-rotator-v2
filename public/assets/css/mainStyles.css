@@ -41426,6 +41426,13 @@ table.show-table-header thead tr th {
   max-width: 20em;
 }
 
+.alert-custom-icon {
+  border: 0.1em solid black;
+  border-radius: 1em;
+  padding: 0.25em;
+  margin-right: 0.25em;
+}
+
 .link-box {
   width: 1.750em;
   height: 1.750em;

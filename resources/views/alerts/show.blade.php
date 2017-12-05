@@ -1,9 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+    @php
+        $alertType = $alert->alertType()->first();
+        $alertClass = $alertType->bootstrap_alert_class;
+        $alertIcon = $alert->alertIcon()->first();
+    @endphp
     <section class="content-header">
         <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
-            <h1 id="title">Alert - {!! $alert->title !!}</h1>
+            <h1 id="title">
+                <i
+                    class="fa {!!  $alertIcon->icon_class !!} alert {!! str_replace('.', '', $alertClass) !!} alert-custom-icon"
+                    title="{!! str_replace('fa-', '', $alertIcon->icon_class) !!} ({!! $alertType->name !!})"
+                ></i>
+                Alert - {!! $alert->title !!}
+            </h1>
             @include('layouts.partials.social.addthis')
         </div>
         <div class="row zero-margin">

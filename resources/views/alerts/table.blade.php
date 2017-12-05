@@ -18,11 +18,8 @@
         @endphp
         <tr>
             <td><i
-                    class="fa fa-2x {!!  $alertIcon->icon_class !!} alert {!! str_replace('.', '', $alertClass) !!}"
-                    style="border: 0.1em solid black;
-                    border-radius: 1em;
-                    padding: 0.25em;
-                    margin-right: 0.25em;" title="{!! str_replace('fa-', '', $alertIcon->icon_class) !!} ({!! $alertType->name !!})"
+                    class="fa fa-2x {!!  $alertIcon->icon_class !!} alert {!! str_replace('.', '', $alertClass) !!} alert-custom-icon"
+                    title="{!! str_replace('fa-', '', $alertIcon->icon_class) !!} ({!! $alertType->name !!})"
                 ></i>
             </td>
             <td>
