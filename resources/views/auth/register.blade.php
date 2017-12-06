@@ -18,7 +18,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="hold-transition register-page">
+<body id="guest-bg" class="hold-transition register-page">
 @include('layouts.partials.navigation._guest_navigation')
 <div class="register-box">
     <div class="register-logo">
@@ -80,7 +80,7 @@
                 <!-- Password Field -->
                 <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
                     {!! Form::label('password', 'Password:') !!}
-                    {!! Form::password('password', ['class' => 'form-control', 'placeholder' => "P@ssw0rD"]) !!}
+                    {!! Form::password('password', ['class' => 'form-control']) !!}
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     @if ($errors->has('password'))
                         <span class="help-block">
@@ -92,7 +92,7 @@
                 <!-- Password Confirm Field -->
                 <div class="form-group has-feedback{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                     {!! Form::label('password_confirmation', 'Password Confirmation:') !!}
-                    {!! Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => "P@ssw0rD"]) !!}
+                    {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     @if ($errors->has('password_confirmation'))
                         <span class="help-block">

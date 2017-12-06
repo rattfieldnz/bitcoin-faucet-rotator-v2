@@ -6,69 +6,66 @@
             <h1 id="title">Faucet - {!! $faucet->name !!}</h1>
             @include('layouts.partials.social.addthis')
         </div>
-        <div class="row zero-margin">
-        @if(Auth::user() != null)
-            @if(Auth::user()->isAnAdmin())
+        @if(!empty(Auth::user()) && Auth::user()->isAnAdmin())
+        <div class="row zero-margin buttons-row">
+            {!! Form::button(
+                '<i class="fa fa-2x fa-edit" style="vertical-align: middle; margin-right:0.25em;"></i>Edit Current Faucet',
+                [
+                    'type' => 'button',
+                    'onClick' => "location.href='" . route('faucets.edit', ['slug' => $faucet->slug]) . "'",
+                    'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-2 col-xs-12',
+                    'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;'
+                ])
+            !!}
 
+            {!! Form::button(
+                '<i class="fa fa-2x fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Add New Faucet',
+                [
+                    'type' => 'button',
+                    'onClick' => "location.href='" . route('faucets.create') . "'",
+                    'class' => 'btn btn-success col-lg-2 col-md-2 col-sm-2 col-xs-12',
+                    'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;'
+                ])
+            !!}
+
+            @if($faucet->isDeleted())
+                {!! Form::open(['route' => ['faucets.delete-permanently', $faucet->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
                 {!! Form::button(
-                    '<i class="fa fa-2x fa-edit" style="vertical-align: middle; margin-right:0.25em;"></i>Edit Current Faucet',
+                    '<i class="fa fa-2x fa-trash" style="vertical-align: middle; margin-right:0.25em;"></i>Permanently Delete',
                     [
-                        'type' => 'button',
-                        'onClick' => "location.href='" . route('faucets.edit', ['slug' => $faucet->slug]) . "'",
-                        'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-2 col-xs-12',
-                        'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;'
+                        'type' => 'submit',
+                        'class' => 'btn btn-danger col-lg-2 col-md-2 col-sm-2 col-xs-12',
+                        'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;',
+                        'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"
                     ])
                 !!}
-
+                {!! Form::close() !!}
+                {!! Form::open(['route' => ['faucets.restore', $faucet->slug], 'method' => 'patch', 'class' => 'form-inline']) !!}
                 {!! Form::button(
-                    '<i class="fa fa-2x fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Add New Faucet',
+                    '<i class="fa fa-2x fa-refresh" style="vertical-align: middle; margin-right:0.25em;"></i>Restore Current Faucet',
                     [
-                        'type' => 'button',
-                        'onClick' => "location.href='" . route('faucets.create') . "'",
-                        'class' => 'btn btn-success col-lg-2 col-md-2 col-sm-2 col-xs-12',
-                        'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;'
+                        'type' => 'submit',
+                        'class' => 'btn btn-info col-lg-2 col-md-2 col-sm-2 col-xs-12',
+                        'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;',
+                        'onclick' => "return confirm('Are you sure you want to restore this archived faucet?')"
                     ])
                 !!}
-
-                @if($faucet->isDeleted())
-                    {!! Form::open(['route' => ['faucets.delete-permanently', $faucet->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
-                    {!! Form::button(
-                        '<i class="fa fa-2x fa-trash" style="vertical-align: middle; margin-right:0.25em;"></i>Permanently Delete',
-                        [
-                            'type' => 'submit',
-                            'class' => 'btn btn-danger col-lg-2 col-md-2 col-sm-2 col-xs-12',
-                            'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;',
-                            'onclick' => "return confirm('Are you sure? The faucet will be PERMANENTLY deleted!')"
-                        ])
-                    !!}
-                    {!! Form::close() !!}
-                    {!! Form::open(['route' => ['faucets.restore', $faucet->slug], 'method' => 'patch', 'class' => 'form-inline']) !!}
-                    {!! Form::button(
-                        '<i class="fa fa-2x fa-refresh" style="vertical-align: middle; margin-right:0.25em;"></i>Restore Current Faucet',
-                        [
-                            'type' => 'submit',
-                            'class' => 'btn btn-info col-lg-2 col-md-2 col-sm-2 col-xs-12',
-                            'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;',
-                            'onclick' => "return confirm('Are you sure you want to restore this archived faucet?')"
-                        ])
-                    !!}
-                    {!! Form::close() !!}
-                @else
-                    {!! Form::open(['route' => ['faucets.destroy', 'slug' => $faucet->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
-                    {!! Form::button(
-                        '<i class="fa fa-2x fa-trash" style="vertical-align: middle; margin-right:0.25em;"></i>Archive Faucet',
-                        [
-                            'type' => 'submit',
-                            'class' => 'btn btn-warning col-lg-2 col-md-2 col-sm-2 col-xs-12',
-                            'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;',
-                            'onclick' => "return confirm('Are you sure you want to archive this faucet?')"
-                        ])
-                    !!}
-                    {!! Form::close() !!}
-                @endif
+                {!! Form::close() !!}
+            @else
+                {!! Form::open(['route' => ['faucets.destroy', 'slug' => $faucet->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
+                {!! Form::button(
+                    '<i class="fa fa-2x fa-trash" style="vertical-align: middle; margin-right:0.25em;"></i>Archive Faucet',
+                    [
+                        'type' => 'submit',
+                        'class' => 'btn btn-warning col-lg-2 col-md-2 col-sm-2 col-xs-12',
+                        'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;',
+                        'onclick' => "return confirm('Are you sure you want to archive this faucet?')"
+                    ])
+                !!}
+                {!! Form::close() !!}
             @endif
-        @endif
         </div>
+        @endif
     </section>
     <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">
         <div class="clearfix"></div>

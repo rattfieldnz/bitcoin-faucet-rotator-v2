@@ -3,7 +3,7 @@
 @section('content')
     <div class="zero-margin">
         <section class="content-header">
-            <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
+            <div class="{{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
                 <h1 style="text-align: center;">{{ $pageTitle }}</h1>
                 @include('layouts.partials.social.addthis')
             </div>

@@ -19,7 +19,7 @@
     <![endif]-->
 
 </head>
-<body class="hold-transition login-page">
+<body id="guest-bg" class="hold-transition login-page">
 @include('layouts.partials.navigation._guest_navigation')
 <div class="login-box">
     <div class="login-logo">

@@ -6,23 +6,19 @@
             <h1>Privacy Policy</h1>
             @include('layouts.partials.social.addthis')
         </div>
-        <div class="row" style="margin: 0 0 0 0;">
-            @if(Auth::user() != null)
-                @if(Auth::user()->isAnAdmin())
-
-                    {!! Form::button(
-                        '<i class="fa fa-2x fa-edit" style="vertical-align: middle; margin-right:0.25em;"></i>Edit Privacy Policy',
-                        [
-                            'type' => 'button',
-                            'onClick' => "location.href='/privacy-policy/edit'",
-                            'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-2 col-xs-12',
-                            'style' => 'margin:0.25em 0 0 0; color: white; min-width:12em;'
-                        ])
-                    !!}
-                @endif
-            @endif
-
+        @if(!empty(Auth::user()) && Auth::user()->isAnAdmin())
+        <div class="row zero-margin buttons-row">
+            {!! Form::button(
+                '<i class="fa fa-2x fa-edit" style="vertical-align: middle; margin-right:0.25em;"></i>Edit Privacy Policy',
+                [
+                    'type' => 'button',
+                    'onClick' => "location.href='/privacy-policy/edit'",
+                    'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-2 col-xs-12',
+                    'style' => 'margin:0.25em 0 0 0; color: white; min-width:12em;'
+                ])
+            !!}
         </div>
+        @endif
     </section>
     <div class="content">
         <div class="clearfix"></div>

@@ -2,13 +2,11 @@
 
 @section('content')
     <section class="content-header">
-        <div class="row {{ !empty(Auth::user()) ? 'user-profile-main-heading' : 'guest-user-profile-main-heading' }}">
+        <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
             <h1 id="title" data-user-slug="{{ $user->slug }}">{{ $user->user_name }}'s Profile</h1>
-            <div style="margin-left: 0.8em;">
-                @include('layouts.partials.social.addthis')
-            </div>
+            @include('layouts.partials.social.addthis')
         </div>
-        <div class="row zero-margin">
+        <div class="row zero-margin buttons-row">
             @if(Auth::user() != null)
                 @if(Auth::user() == $user ||Auth::user()->isAnAdmin())
                     <?php

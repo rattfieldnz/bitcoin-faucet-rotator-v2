@@ -15,6 +15,8 @@
         {!! \Feed::link(url('payment-processors-feed'),'rss','Feed: Payment Processors',$isoCode) !!}
         {!! \Feed::link(url('alerts-feed'),'rss','Feed: Alerts',$isoCode) !!}
 
+        <link rel="shortcut icon" href="{{ asset("/assets/images/bitcoin-16x16.ico") }}">
+
         <!-- START Site Styles -->
         @include('layouts.partials.styles._css')
         <!-- END Site Styles -->

@@ -6,7 +6,7 @@
 
 @section('content')
     <section class="content-header">
-        <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
+        <div class="row auth-page-title">
             <h1>Stats</h1>
             <h3>From <span id="date-from-display"></span> to <span id="date-to-display"></span></h3>
         </div>
@@ -59,7 +59,7 @@
                 <div class="row zero-margin">
                     <!-- /.col (LEFT) -->
                     <!-- VISITORS TABLE -->
-                    <div class="box box-info col-md-12">
+                    <div class="box box-primary col-md-12">
                         <div class="box-header with-border">
                             <h3 class="box-title">Most Popular Pages</h3>
 
@@ -108,7 +108,7 @@
 
                 <div class="row zero-margin">
                     <!-- COUNTRIES MAP -->
-                    <div class="box box-info col-md-12">
+                    <div class="box box-primary col-md-12">
                         <div class="box-header with-border">
                             <h3 class="box-title">Visitor Countries</h3>
 
@@ -129,7 +129,7 @@
                 </div>
                 <div class="row zero-margin">
                     <!-- DONUT CHART -->
-                    <div class="box box-danger col-md-12">
+                    <div class="box box-primary col-md-12">
                         <div class="box-header with-border">
                             <h3 class="box-title">Browser Usage (by visits)</h3>
 

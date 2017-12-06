@@ -6,7 +6,7 @@
             <h1>Users</h1>
             @include('layouts.partials.social.addthis')
         </div>
-        <div class="row" style="margin:0 0 0 0;">
+        <div class="row zero-margin buttons-row">
             @if(Auth::user() != null)
                 @if(Auth::user()->isAnAdmin())
                     {!! Form::button(

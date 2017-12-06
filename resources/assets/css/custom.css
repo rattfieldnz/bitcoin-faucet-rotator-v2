@@ -86,16 +86,30 @@ table.show-table-header thead tr th{
     white-space: normal;
 }
 
+.breadcrumb{
+    background-color: rgba(255,255, 255, 0.75) !important;
+}
+
+table.dataTable tbody tr:nth-child(even) td {
+    background-color: rgba(255,255, 255, 0.3) !important;
+}
+
+table.dataTable tbody tr:nth-child(odd) td {
+    background-color: rgba(255,255, 255, 0.5) !important;
+}
+
 .footer-custom{
     margin: 0 !important;
     width:100%;
     height: auto;
     text-align: center;
+    background-color: rgba(255,255, 255, 0.75);
 }
 
 #main-wrapper{
     min-height: 100%;
     height: auto !important;
+    background-color: transparent;
 }
 
 .footer-custom-guest{
@@ -103,9 +117,14 @@ table.show-table-header thead tr th{
     width:100%;
     height: auto;
     margin-left:0;
+    background-color: rgba(255,255, 255, 0.75);
 }
 
-.footer-custom .social-links-row, .footer-custom-guest .social-links-row{
+#footer-custom{
+    background-color: rgba(255,255, 255, 0.75);
+}
+
+#footer-custom .social-links-row, .footer-custom-guest .social-links-row{
     display: block;
     min-width: 20em;
     max-width: 20em;
@@ -188,7 +207,7 @@ table.show-table-header thead tr th{
 }
 
 #auth-content-bg{
-    background-color: #222d32;
+    background-color: transparent;
 }
 
 #auth-content-logo{
@@ -197,10 +216,6 @@ table.show-table-header thead tr th{
 
 #auth-header{
     position:fixed; width:100%;
-}
-
-.content-guest{
-    border-bottom:1px solid #d2d6de;
 }
 
 #navigation, #navigation-right{
@@ -427,19 +442,27 @@ ul#navigation li.standard-nav-item ul.dropdown-menu li.sub-nav-item a:hover
 }
 
 .user-profile-main-heading, .settings-heading{
-    margin-top:2em;
+    margin:4em 0 0 0;
+    background-color: rgba(255,255, 255, 0.75) !important;
 }
 
 .auth-page-title{
-    margin:2em 0 0 -0.25em;
+    margin:4em 0 0 0;
+    background-color: rgba(255,255, 255, 0.75) !important;
 }
 
 .guest-page-title{
-    margin:-6em 0 0 -0.25em;
+    margin:-4.75em 0 0 -0.25em;
+    background-color: rgba(255,255, 255, 0.75) !important;
 }
 
 #addthis{
-    margin: 1em 0 0 0.25em !important;
+    margin: 1em 0 0 1.25em !important;
+}
+
+.buttons-row{
+    background-color: rgba(255,255, 255, 0.75) !important;
+    padding: 0 0 0.3em 0.25em;
 }
 
 .guest-user-profile-main-heading{
@@ -481,23 +504,33 @@ ul#navigation li.standard-nav-item ul.dropdown-menu li.sub-nav-item a:hover
 }
 
 #navbar-guest{
-    background-color: transparent;
+    background-color: rgba(255,255, 255, 0.75);
     border:0;
     width: auto;
+}
+
+.content-wrapper{
+    background-color: transparent !important;
+}
+
+.content, #content{
+    background-color: transparent !important;
+}
+
+.box-primary, .login-box, .register-box{
+    background-color: rgba(255,255, 255, 0.75) !important;
+}
+
+.login-box-body, .register-box-body, .box-body{
+    background-color: transparent !important;
 }
 
 #guest-bg, #auth-bg{
     min-width: 20em !important;
     height: 100%;
     overflow-y: scroll;
-}
-
-#guest-bg{
-    background-color:#d2d6de;
-}
-
-#auth-bg{
-    background-color: #ecf0f5;
+    background: url("/assets/images/bitcoins.jpg") no-repeat center center fixed;
+    background-size: cover;
 }
 
 #faucet-rotator-nav-container {
