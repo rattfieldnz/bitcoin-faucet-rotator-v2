@@ -161,6 +161,5 @@ or government agencies to investigate and/or prosecute non-compliance by data pr
         $privacyPolicy->save();
 
         $this->command->info("Privacy policy has been seeded.");
-
     }
 }
