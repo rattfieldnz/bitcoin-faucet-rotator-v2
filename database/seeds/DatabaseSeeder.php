@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AlertTypesSeeder::class);
         $this->call(AlertSeeder::class);
         $this->call(PrivacyPolicySeeder::class);
+        $this->call(TermsAndConditionsSeeder::class);
         Schema::enableForeignKeyConstraints();
         Eloquent::reguard();
     }
