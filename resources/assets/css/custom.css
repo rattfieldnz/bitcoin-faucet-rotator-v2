@@ -452,7 +452,7 @@ ul#navigation li.standard-nav-item ul.dropdown-menu li.sub-nav-item a:hover
 }
 
 .guest-page-title{
-    margin:-4.75em 0 0 -0.25em;
+    margin:-4.75em 0 0 0;
     background-color: rgba(255,255, 255, 0.75) !important;
 }
 
