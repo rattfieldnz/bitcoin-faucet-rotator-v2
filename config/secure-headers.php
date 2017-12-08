@@ -195,6 +195,7 @@ return [
                 'widgets.pinterest.com',
                 'disqus.com',
                 env('DISQUS_SHORTNAME') . '.disqus.com',
+                'cdn.tynt.com',
                 'c.disquscdn.com',
             ],
 
