@@ -173,7 +173,6 @@ elixir(function(mix) {
             'js/bootstrap/bootstrap.js',
             'js/localforage/localforage.js',
             'js/admin-lte/app.js',
-            'js/datatables/jquery.dataTables.js',
             'js/iCheck/icheck.js',
             'js/custom/jquery.doubleScroll.js',
             'js/custom/jquery.livepreview.js',
