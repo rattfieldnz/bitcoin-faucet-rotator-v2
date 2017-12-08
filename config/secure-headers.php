@@ -196,6 +196,8 @@ return [
                 'disqus.com',
                 env('DISQUS_SHORTNAME') . '.disqus.com',
                 'cdn.tynt.com',
+                'ic.tynt.com',
+                'sc.tynt.com',
                 'c.disquscdn.com',
             ],
 
