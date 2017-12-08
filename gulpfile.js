@@ -99,7 +99,7 @@ gulp.task("copyfiles", function() {
         .pipe(gulp.dest("resources/assets/img/datatables/"));
 
     gulp.src("vendor/bower_components/datatables/media/js/*.js")
-        .pipe(gulp.dest("resources/assets/js/datatables/"));
+        .pipe(gulp.dest("resources/assets/js/datatables.net/"));
 
     // iCheck //
     gulp.src("vendor/bower_components/iCheck/skins/**/*.css")
