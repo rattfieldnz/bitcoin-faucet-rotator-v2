@@ -26,7 +26,7 @@ Before you begin installing the script, please make sure your server meets the f
 * XML PHP Extension
 * Enable [Mod Rewrite](https://www.digitalocean.com/community/tutorials/how-to-rewrite-urls-with-mod_rewrite-for-apache-on-ubuntu-16-04), [Mod Headers](https://www.garron.me/en/bits/enable-mod-headers-apache-2.html) for Apache 
 * Install [Composer](https://getcomposer.org/doc/00-intro.md)
-* Optional (if contributing): [Node.js](https://nodejs.org/en/download/package-manager/), Node Package Manager (comes with NodeJS), and [Bower](https://bower.io/#install-bower)*
+* Install [Node.js](https://nodejs.org/en/download/package-manager/), Node Package Manager (comes with NodeJS), and [Bower](https://bower.io/#install-bower)*
 
 *As the first version of this project is now 'legacy', it was built with a less-modern package manager called Bower. Eventually, this project will move to using the more modern approach the current Laravel version uses (see [https://laravel.com/docs/5.5/mix](https://laravel.com/docs/5.5/mix)).
 
@@ -42,18 +42,17 @@ For example, I would navigate to '/var/www' and issue the following command:
 
 ### Step 2
 
-Once the cloning process has completed, go into the repository folder (or the directory you cloned the repository into), 
-and issue the following command:
+Make the 'setup' script executable by running the following command: `chmod u+x setup-project`.
 
-    composer self-update && composer install
+Once you have ran the command above, you may begin installing the project's dependencies by running the following command: 
 
-The first part of the command will update the Composer installation, then the second part will install all necessary dependencies required.
+`./setup-project`
 
 This process can take a few minutes, depending on your server resources and bandwidth speed.
 
 ### Step 3
 
-Once the Composer process has finished, we will need to edit the .env.example file with the related configuration values. 
+Once Step 2 has finished, we will need to edit the .env.example file with the related configuration values. 
 
 I am currently using MySQL as the DBMS for this site, but you can also use others - such as PostgreSQL.
 
@@ -77,20 +76,6 @@ If you encounter difficulty with this step, please let me know, and I will use f
 will have been seeded from the .env file you created in Step three. You can edit these when you log in to the script.
 
 ### Step 5
-
-Since this script is built on Laravel, it needs the 'storage' directory to have the correct access and ownership privileges to store cache and log files.
-
-To do this, you can execute the following command - which will recursively alter access and write permissions on the folder:
-
-    chgrp -R www-data storage && chmod -R 775 storage
-
-### Step 6
-
-To enable Laravel to function properly for this script, run the following command:
-
-    php artisan key:generate
-
-### Step 7
 
 If you have a Linux-based server (as I am using), and are using Apache, use the following command to create an Apache sites file for your script:
 
@@ -117,52 +102,13 @@ Once you have created this file, enter the following into it:
 
 Once this file has the above in it, execute the following commands to load it into Apache:
 
-> a2ensite yourdomain.com.conf && service apache2 reload
+`a2ensite yourdomain.com.conf && service apache2 reload`
 
-### Step 8
+### Step 6
 
 Barring any potential errors in the previous installation, the script should be successful installed. Visit yourdomain.com in a (modern) web browser to see the functioning script in action.
 
 ___
-
-## OPTIONAL STEPS (if you plan on contributing to this project)
-
-### Step 9
-
-After the command in Step five has been executed, you will need to set up the initial styling sources of the script - specified in the 'bower.json' file.
-
-This script uses Bootstrap and Font Awesome styling for the 'simple' design. If you have installed Bower, execute this command:
-
-    bower install
-
-If you are logged in as the root user, append '--allow-root' to this command (it's generally not recommended to run scripts as root).
-
-### Step 10
-
-To bring all the relevant CSS files into one, and the same for Javascript files, this script relies on third-party libraries specified in the 'package.json' file.
-
-If you have installed Node.JS and Node Package Manager, execute the following command:
-
-    npm install
-
-This may take a few minutes to finish, depending on your server's resources and bandwidth speed.
-
-### Step 11
-
-With Step seven complete, we can now process css in the SASS files, combine and minify our CSS, and combine/minify our Javascript files. To do this, execute the following commands:
-
-    gulp copyfiles
-    gulp
-    gulp minifycss
-    gulp minifyjs
-
-The first command copies jQuery, Bootstrap, FontAwesome, JQuery UI, CKEditor files to directories specified in the 'gulpfile.js' file.
-
-The second command compiles SASS into CSS, combines CSS files into a single unified file, and combines Javascript/JQuery files into a unified Javascript file.
-
-The third and fourth commands do as you might think - minify CSS and Javascript scripts respectively.
-    
-**NOTE:** Depending on your setup, you may experience errors relating to the dependencies. You may need to install each of the dependencies manually. To install each of the dependencies manually, open the ‘package.json’ file to see the required dependencies, then go ‘npm install dependencyName’ for each package (e.g. npm install bootstrap-sass, npm install gulp, etc). You can also install these globally by using npm –g dependencyName. As a precaution, before running the ‘gulp commands’, I suggest you also run ‘npm rebuild node-sass’ or just ‘npm rebuild’ when installing and updating these dependencies. A reference for this is at http://stackoverflow.com/questions/27257424/nodejs-npm-how-to-reinstall-recompile-copied-app-packages.
 
 ### Notes
 

@@ -1,0 +1,17 @@
+composer self-update && composer install;
+npm install --force;
+bower install --force;
+chown -R www-data:www-data storage/;
+chmod -R 755 storage/;
+chmod -R 755 bootstrap/;
+composer dump-autoload --optimize;
+php artisan optimize;
+php artisan clear-compiled;
+php artisan cache:clear;
+php artisan view:clear;
+php artisan laroute:generate;
+php artisan key:generate;
+gulp copyfiles;
+gulp;
+gulp minifycss;
+gulp minifyjs;

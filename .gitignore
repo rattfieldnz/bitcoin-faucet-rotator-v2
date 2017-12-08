@@ -18,7 +18,6 @@ resources/assets/fonts
 
 resources/assets/img
 
-resources/assets/js/admin-lte
 resources/assets/js/blockadblock
 resources/assets/js/bootstrap
 resources/assets/js/datatables
@@ -53,10 +52,9 @@ _ide_helper_models.php
 # PHP CS Fixer
 .php_cs.cache
 
-# Custom script for clearing caches
-/clearcompiledcache
-
 # Keep views from Laravel packages.
 !/resources/views/vendor/
 
 codealike.json
+
+npm-debug.log

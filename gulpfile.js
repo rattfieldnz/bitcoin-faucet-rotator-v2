@@ -186,7 +186,7 @@ elixir(function(mix) {
             'js/laroute/laroute.js',
             'js/js-cookie/js.cookie.js',
             'js/jqueryui-timepicker-addon/jquery-ui-timepicker-addon.js',
-            'js/jqueryui-timepicker-addon/jquery-ui-SliderAccess.js',
+            'js/jqueryui-timepicker-addon/jquery-ui-sliderAccess.js',
             'js/custom/custom.js'
         ],
         'public/assets/js/mainScripts.js',
