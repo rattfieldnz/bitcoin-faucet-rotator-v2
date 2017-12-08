@@ -1,6 +1,6 @@
 composer self-update && composer install;
-npm install --force;
-bower install --force;
+npm install;
+bower install --allow-root;
 chown -R www-data:www-data storage/;
 chmod -R 755 storage/;
 chmod -R 755 bootstrap/;
@@ -11,7 +11,7 @@ php artisan cache:clear;
 php artisan view:clear;
 php artisan laroute:generate;
 php artisan key:generate;
+php artisan passport:install;
 gulp copyfiles;
 gulp;
-gulp minifycss;
 gulp minifyjs;
