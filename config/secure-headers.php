@@ -198,6 +198,7 @@ return [
                 'cdn.tynt.com',
                 'ic.tynt.com',
                 'sc.tynt.com',
+                'de.tynt.com',
                 'c.disquscdn.com',
             ],
 
@@ -251,7 +252,11 @@ return [
                 'www.google.co.nz',
                 'm.addthis.com',
                 'c.disquscdn.com',
-                'referrer.disqus.com'
+                'referrer.disqus.com',
+                'cdn.tynt.com',
+                'ic.tynt.com',
+                'sc.tynt.com',
+                'de.tynt.com',
             ],
 
             'types' => [
