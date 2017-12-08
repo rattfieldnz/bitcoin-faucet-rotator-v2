@@ -169,6 +169,8 @@ return [
         'script-src' => [
             'allow' => [
                 env('APP_URL'),
+                'cloudflare.com',
+                'ajax.cloudflare.com',
                 'cdnjs.cloudflare.com',
                 'cdn.datatables.net',
                 'ajax.googleapis.com',
