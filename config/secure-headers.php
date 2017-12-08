@@ -257,6 +257,7 @@ return [
                 'ic.tynt.com',
                 'sc.tynt.com',
                 'de.tynt.com',
+                'i.simpli.fi',
             ],
 
             'types' => [
