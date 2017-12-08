@@ -16,7 +16,10 @@ class LaratrustSeeder extends Seeder
     public function run()
     {
         $user = User::where('is_admin', '=', true)->first();
-        $standardUser = User::where('slug', '=', 'bobisbob')->first();
+
+        if (env('APP_ENV') == 'local') {
+            $standardUser = User::where('slug', '=', 'bobisbob')->first();
+        }
 
         $this->command->info('Truncating Role and Permission tables');
         try {
@@ -66,7 +69,10 @@ class LaratrustSeeder extends Seeder
 
         $this->command->info('Attaching \'owner\' role to user that has \'is_admin\' set to true.');
         $user->attachRole(Role::where('name', '=', 'owner')->first());
-        $standardUser->attachRole(Role::where('name', '=', 'user')->first());
+
+        if (env('APP_ENV') == 'local') {
+            $standardUser->attachRole(Role::where('name', '=', 'user')->first());
+        }
 
         // creating user with permissions
         try {
