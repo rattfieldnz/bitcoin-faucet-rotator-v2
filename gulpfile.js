@@ -92,13 +92,13 @@ gulp.task("copyfiles", function() {
         .pipe(gulp.dest("resources/assets/js/admin-lte/"));
 
     // DataTables //
-    gulp.src("vendor/bower_components/datatables/media/css/*.css")
+    gulp.src("vendor/bower_components/datatables.net/media/css/*.css")
         .pipe(gulp.dest("resources/assets/css/datatables/"));
 
-    gulp.src("vendor/bower_components/datatables/media/images/**")
+    gulp.src("vendor/bower_components/datatables.net/media/images/**")
         .pipe(gulp.dest("resources/assets/img/datatables/"));
 
-    gulp.src("vendor/bower_components/datatables/media/js/*.js")
+    gulp.src("vendor/bower_components/datatables.net/media/js/*.js")
         .pipe(gulp.dest("resources/assets/js/datatables.net/"));
 
     // iCheck //
