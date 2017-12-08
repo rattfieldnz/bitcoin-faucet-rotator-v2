@@ -13,22 +13,24 @@ class UserPermissionsSeeder extends Seeder
      */
     public function run()
     {
-        $standardUser = User::where('slug', '=', 'bobisbob')->first();
-        $initialPermissions = [
-            Permission::where('name', 'read-users')->first(),
-            Permission::where('name', 'read-faucets')->first(),
-            Permission::where('name', 'create-user-faucets')->first(),
-            Permission::where('name', 'read-user-faucets')->first(),
-            Permission::where('name', 'update-user-faucets')->first(),
-            Permission::where('name', 'soft-delete-user-faucets')->first(),
-            Permission::where('name', 'permanent-delete-user-faucets')->first(),
-            Permission::where('name', 'restore-user-faucets')->first(),
-            Permission::where('name', 'read-payment-processors')->first(),
-        ];
+        if (env('APP_ENV') == 'local') {
+            $standardUser = User::where('slug', '=', 'bobisbob')->first();
+            $initialPermissions = [
+                Permission::where('name', 'read-users')->first(),
+                Permission::where('name', 'read-faucets')->first(),
+                Permission::where('name', 'create-user-faucets')->first(),
+                Permission::where('name', 'read-user-faucets')->first(),
+                Permission::where('name', 'update-user-faucets')->first(),
+                Permission::where('name', 'soft-delete-user-faucets')->first(),
+                Permission::where('name', 'permanent-delete-user-faucets')->first(),
+                Permission::where('name', 'restore-user-faucets')->first(),
+                Permission::where('name', 'read-payment-processors')->first(),
+            ];
 
-        foreach ($initialPermissions as $permission) {
-            $standardUser->attachPermission($permission);
-            $this->command->info('Assigning permission "' . $permission->name . '"" to user "' . $standardUser->user_name . '"');
+            foreach ($initialPermissions as $permission) {
+                $standardUser->attachPermission($permission);
+                $this->command->info('Assigning permission "' . $permission->name . '"" to user "' . $standardUser->user_name . '"');
+            }
         }
     }
 }
