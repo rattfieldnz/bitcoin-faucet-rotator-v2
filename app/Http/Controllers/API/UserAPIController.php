@@ -61,10 +61,7 @@ class UserAPIController extends AppBaseController
                     'display' => route('users.faucets', ['slug' => $systemUsers[$i]->slug]),
                     'original' => 'View ' . $systemUsers[$i]->user_name . '\'s faucets'
                 ],
-                'no_of_faucets' => (Auth::check() && (Auth::user()->isAnAdmin() || Auth::user() === $systemUsers[$i])) ?
-                    count($systemUsers[$i]->faucets()->wherePivot('referral_code', '!=', null)
-                        ->orWhereNull('referral_code')->get()) :
-                    count($systemUsers[$i]->faucets()->wherePivot('referral_code', '!=', null)->get()),
+                'no_of_faucets' => count($systemUsers[$i]->faucets()->wherePivot('referral_code', '!=', null)->get()),
                 'payment_processors' => [
                     'display' => route('users.payment-processors', ['userSlug' => $systemUsers[$i]->slug]),
                     'original' => 'View ' . $systemUsers[$i]->user_name .'\'s faucets grouped by payment processors'
