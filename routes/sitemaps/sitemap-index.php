@@ -14,7 +14,8 @@ Route::get('sitemap', function()
     $lastUserPaymentProcessorFaucet = \App\Helpers\Functions\PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor)
         ->sortByDesc('updated_at')
         ->first();
-    $alert = \App\Models\Alert::orderBy('updated_at', 'desc')->first();
+    $alertLazyLoad = \App\Models\Alert::orderBy('updated_at', 'desc');
+    $alert = !empty($alertLazyLoad) ? $alertLazyLoad->first() : null;
 
     $userDate = !empty($user) ? $user->updated_at->toW3cString() : \Carbon\Carbon::now()->toW3cString();
     $sitemap->addSitemap(URL::to('sitemap-users'), $userDate);
