@@ -20,6 +20,10 @@
         <!-- START Site Styles -->
         @include('layouts.partials.styles._css')
         <!-- END Site Styles -->
+
+        <!-- START Google Analytics tracking -->
+        @stack('google-analytics')
+        <!-- END Google Analytics tracking -->
     </head>
     <body class="skin-blue sidebar-mini" id="{{ empty(Auth::user()) ? 'guest-bg' : 'auth-bg' }}">
         <div id="main-wrapper">
@@ -35,9 +39,5 @@
         <!-- START Site Scripts/JS -->
         @include('layouts.partials.scripts._js')
         <!-- END Site Scripts/JS -->
-
-        <!-- START Google Analytics tracking -->
-        @stack('google-analytics')
-        <!-- END Google Analytics tracking -->
     </body>
 </html>
