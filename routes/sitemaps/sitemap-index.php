@@ -16,19 +16,24 @@ Route::get('sitemap', function()
         ->first();
     $alert = \App\Models\Alert::orderBy('updated_at', 'desc')->first();
 
-    $sitemap->addSitemap(URL::to('sitemap-users'), $user->updated_at->toW3cString());
+    $userDate = !empty($user) ? $user->updated_at->toW3cString() : \Carbon\Carbon::now()->toW3cString();
+    $sitemap->addSitemap(URL::to('sitemap-users'), $userDate);
 
+    $faucetDate = !empty($faucet) ? $faucet->updated_at->toW3cString() : \Carbon\Carbon::now()->toW3cString();
     $sitemap->addSitemap(URL::to('sitemap-faucets'), $faucet->updated_at->toW3cString());
 
-    $sitemap->addSitemap(URL::to('sitemap-payment-processors'), $paymentProcessor->updated_at->toW3cString());
+    $ppDate = !empty($paymentProcessor) ? $paymentProcessor->updated_at->toW3cString() : \Carbon\Carbon::now()->toW3cString();
+    $sitemap->addSitemap(URL::to('sitemap-payment-processors'), $ppDate);
 
-    $sitemap->addSitemap(URL::to('sitemap-users-faucets'), $user->updated_at->toW3cString());
+    $sitemap->addSitemap(URL::to('sitemap-users-faucets'), $userDate);
 
-    $sitemap->addSitemap(URL::to('sitemap-users-rotators'), $user->updated_at->toW3cString());
+    $sitemap->addSitemap(URL::to('sitemap-users-rotators'), $userDate);
 
-    $sitemap->addSitemap(URL::to('sitemap-users-payment-processors'), $lastUserPaymentProcessorFaucet->updated_at->toW3cString());
+    $ppFaucetDate = !empty($lastUserPaymentProcessorFaucet) ? $lastUserPaymentProcessorFaucet->updated_at->toW3cString() : \Carbon\Carbon::now()->toW3cString();
+    $sitemap->addSitemap(URL::to('sitemap-users-payment-processors'), $ppFaucetDate);
 
-    $sitemap->addSitemap(URL::to('sitemap-alerts'), $alert->updated_at->toW3cString());
+    $alertDate = !empty($alert) ? $alert->updated_at->toW3cString() : \Carbon\Carbon::now()->toW3cString();
+    $sitemap->addSitemap(URL::to('sitemap-alerts'), $alertDate);
 
     // show sitemap
     return $sitemap->render('sitemapindex');
