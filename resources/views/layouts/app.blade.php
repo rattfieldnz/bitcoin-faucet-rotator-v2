@@ -37,7 +37,7 @@
         <!-- END Site Scripts/JS -->
 
         <!-- START Google Analytics tracking -->
-        @include('layouts.partials.tracking._google_analytics')
+        @stack('google-analytics')
         <!-- END Google Analytics tracking -->
     </body>
 </html>
