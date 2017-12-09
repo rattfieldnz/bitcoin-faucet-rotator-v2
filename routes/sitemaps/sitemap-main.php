@@ -46,7 +46,8 @@ Route::get('sitemap-main', function() {
         $alert = \App\Models\Alert::where('deleted_at', '=', null)
             ->orderBy('updated_at', 'desc')
             ->get()->first();
-        $sitemap->add(route('alerts.index'), $alert->updated_at->toW3cString(), '1.0', 'daily');
+        $alertDate = !empty($alert) ? $alert->updated_at->toW3cString() : \Carbon\Carbon::now()->toW3cString();
+        $sitemap->add(route('alerts.index'), $alertDate, '1.0', 'daily');
     }
 
     return $sitemap->render('xml');

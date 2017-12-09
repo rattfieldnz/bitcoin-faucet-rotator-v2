@@ -20,7 +20,7 @@ Route::get('sitemap', function()
     $sitemap->addSitemap(URL::to('sitemap-users'), $userDate);
 
     $faucetDate = !empty($faucet) ? $faucet->updated_at->toW3cString() : \Carbon\Carbon::now()->toW3cString();
-    $sitemap->addSitemap(URL::to('sitemap-faucets'), $faucet->updated_at->toW3cString());
+    $sitemap->addSitemap(URL::to('sitemap-faucets'), $faucetDate);
 
     $ppDate = !empty($paymentProcessor) ? $paymentProcessor->updated_at->toW3cString() : \Carbon\Carbon::now()->toW3cString();
     $sitemap->addSitemap(URL::to('sitemap-payment-processors'), $ppDate);
