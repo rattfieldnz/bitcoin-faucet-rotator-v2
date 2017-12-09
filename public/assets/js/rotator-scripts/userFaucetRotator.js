@@ -134,16 +134,10 @@ $(function () {
                 } else {
                     iframe.hide();
                     noIframeContent.hide();
-                    var errorCode = $('#error-code');
                     var errorMessage = $('#error-message');
-                    var sentryId = $('#sentry-id');
                     if (
-                        typeof errorCode !== 'undefined' &&
-                        typeof errorMessage !== 'undefined' &&
-                        typeof sentryId !== 'undefined') {
-                        errorCode.text(jqXHR.responseJSON.code);
-                        errorMessage.text(jqXHR.responseJSON.message);
-                        sentryId.text(jqXHR.responseJSON.sentryID);
+                        typeof errorMessage !== 'undefined') {
+                        errorMessage.text("This user does not have any faucets at this time.");
                         ajaxErrorContent.show();
                     }
                 }
