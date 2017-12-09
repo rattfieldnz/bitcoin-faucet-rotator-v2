@@ -32,7 +32,7 @@ class SendRandomFaucetTweet extends Command
         $user = Users::adminUser();
         $twitter = new Twitter($user);
 
-        if (!empty($twitter) && env('APP_ENV') == 'production') {
+        if (!empty($twitter) && !empty($user) && env('APP_ENV') == 'production') {
             $twitter->sendRandomFaucetTweet();
         }
     }

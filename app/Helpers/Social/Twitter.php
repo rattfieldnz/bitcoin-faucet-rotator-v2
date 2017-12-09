@@ -64,9 +64,7 @@ class Twitter
      */
     public function sendRandomFaucetTweet()
     {
-        $faucetIds = Faucet::where('id', '>', 0)
-            ->where('deleted_at', '=', 'null')
-            ->pluck('id')->toArray();
+        $faucetIds = Faucet::pluck('id')->toArray();
         shuffle($faucetIds);
         $randomNumber = array_slice($faucetIds, 0, 1);
 
