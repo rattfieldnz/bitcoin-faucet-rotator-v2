@@ -630,7 +630,11 @@ class FaucetAPIController extends AppBaseController
             }
         }
 
-        $userFaucet = (new FaucetsTransformer)->transform($user, $faucets->first(), true);
+        $userFaucet = null;
+
+        if(!empty($faucets) && !empty($faucets->first())){
+            $userFaucet = (new FaucetsTransformer)->transform($user, $faucets->first(), true);
+        }
 
         return $this->sendResponse($userFaucet, 'User faucet retrieved successfully');
     }
