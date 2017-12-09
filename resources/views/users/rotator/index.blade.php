@@ -25,7 +25,9 @@
                             @include('layouts.partials.misc._ajax-data-error-content')
                         </div>
                         @else
+                            <div class="col-lg-12">
                             <p>{{ $userName }} has not added any faucets yet.</p>
+                            </div>
                         @endif
                     </div>
                     @include('layouts.partials.social.disqus')

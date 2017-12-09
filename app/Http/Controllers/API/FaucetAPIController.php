@@ -632,7 +632,7 @@ class FaucetAPIController extends AppBaseController
 
         $userFaucet = null;
 
-        if(!empty($faucets) && !empty($faucets->first())){
+        if (!empty($faucets) && !empty($faucets->first())) {
             $userFaucet = (new FaucetsTransformer)->transform($user, $faucets->first(), true);
         }
 
