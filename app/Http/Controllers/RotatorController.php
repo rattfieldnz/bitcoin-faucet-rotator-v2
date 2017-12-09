@@ -141,6 +141,7 @@ class RotatorController extends Controller
         return view('users.rotator.index')
             ->with('userName', $user->user_name)
             ->with('userSlug', $user->slug)
+            ->with('faucetsCount', count($faucets->get()))
             ->with('currentUrl', $seoConfig->currentUrl)
             ->with('disqusIdentifier', $disqusIdentifier);
     }
