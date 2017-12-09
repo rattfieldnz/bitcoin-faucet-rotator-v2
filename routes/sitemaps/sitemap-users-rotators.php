@@ -14,7 +14,11 @@ Route::get('sitemap-users-rotators', function() {
                 ->sortByDesc('updated_at')
                 ->first();
 
-            $sitemap->add($url, $lastFaucet->updated_at->toW3cString(), '1.0', 'daily');
+            $dateString = !empty($lastFaucet) && !empty($lastFaucet->updated_at) ?
+                $lastFaucet->updated_at->toW3cString() :
+                \Carbon\Carbon::now()->toW3cString();
+
+            $sitemap->add($url, $dateString, '1.0', 'daily');
         }
 
     }
