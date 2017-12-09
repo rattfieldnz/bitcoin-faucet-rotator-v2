@@ -84,51 +84,69 @@ $(function () {
         var noIframeContent = $('#show-no-iframe-content');
 
         $.ajax(apiUrl, {
-            success: function (data.data) {
+            success: function (data) {
 
                 iframe.attr('src', '');
 
-                noIframeContent.hide();
-                ajaxErrorContent.hide();
-                var editFaucetLink = $('#edit-faucet-link');
+                if(data.data !== null){
 
-                iframeUrl = data.data.url;
-                currentFaucetSlug = data.data.slug;
-
-                if (Boolean(data.data.can_show_in_iframes) === true) {
-                    iframe.show();
                     noIframeContent.hide();
-                    iframe.attr('src', iframeUrl);
-                } else {
-                    iframe.hide();
-                    noIframeContent.find('#faucet-link').attr('href', iframeUrl);
-                    noIframeContent.find('#faucet-link').attr('title', 'View "' + data.data.name + '" faucet in a new window');
+                    ajaxErrorContent.hide();
+                    var editFaucetLink = $('#edit-faucet-link');
 
-                    if (typeof editFaucetLink !== 'undefined') {
-                        var editFaucetRoute = laroute.route(
-                            'users.faucets.edit',
-                            { userSlug : userSlug, faucetSlug : currentFaucetSlug }
-                        );
+                    iframeUrl = data.data.url;
+                    currentFaucetSlug = data.data.slug;
 
-                        editFaucetLink.attr('href', editFaucetRoute);
+                    if (Boolean(data.data.can_show_in_iframes) === true) {
+                        iframe.show();
+                        noIframeContent.hide();
+                        iframe.attr('src', iframeUrl);
+                    } else {
+                        iframe.hide();
+                        noIframeContent.find('#faucet-link').attr('href', iframeUrl);
+                        noIframeContent.find('#faucet-link').attr('title', 'View "' + data.data.name + '" faucet in a new window');
+
+                        if (typeof editFaucetLink !== 'undefined') {
+                            var editFaucetRoute = laroute.route(
+                                'users.faucets.edit',
+                                { userSlug : userSlug, faucetSlug : currentFaucetSlug }
+                            );
+
+                            editFaucetLink.attr('href', editFaucetRoute);
+                        }
+
+                        noIframeContent.show();
                     }
 
-                    noIframeContent.show();
+                    var currentFaucetRoute = laroute.route(
+                        'users.faucets.show',
+                        { userSlug : userSlug, faucetSlug : currentFaucetSlug }
+                    );
+
+                    $('#current').attr('href', currentFaucetRoute);
+
+                    var faucetListsRoute = laroute.route(
+                        'users.faucets',
+                        { userSlug : userSlug }
+                    );
+
+                    $('#list_of_faucets').attr('href', faucetListsRoute);
+                } else {
+                    iframe.hide();
+                    noIframeContent.hide();
+                    var errorCode = $('#error-code');
+                    var errorMessage = $('#error-message');
+                    var sentryId = $('#sentry-id');
+                    if (
+                        typeof errorCode !== 'undefined' &&
+                        typeof errorMessage !== 'undefined' &&
+                        typeof sentryId !== 'undefined') {
+                        errorCode.text(jqXHR.responseJSON.code);
+                        errorMessage.text(jqXHR.responseJSON.message);
+                        sentryId.text(jqXHR.responseJSON.sentryID);
+                        ajaxErrorContent.show();
+                    }
                 }
-
-                var currentFaucetRoute = laroute.route(
-                    'users.faucets.show',
-                    { userSlug : userSlug, faucetSlug : currentFaucetSlug }
-                );
-
-                $('#current').attr('href', currentFaucetRoute);
-
-                var faucetListsRoute = laroute.route(
-                    'users.faucets',
-                    { userSlug : userSlug }
-                );
-
-                $('#list_of_faucets').attr('href', faucetListsRoute);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if (typeof jqXHR.responseJSON.status !== 'undefined' && jqXHR.responseJSON.status === 'error') {
