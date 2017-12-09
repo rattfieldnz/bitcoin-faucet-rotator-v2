@@ -84,7 +84,7 @@ $(function () {
         var noIframeContent = $('#show-no-iframe-content');
 
         $.ajax(apiUrl, {
-            success: function (data) {
+            success: function (data.data) {
 
                 iframe.attr('src', '');
 
