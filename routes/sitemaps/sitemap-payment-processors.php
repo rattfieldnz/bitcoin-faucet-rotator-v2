@@ -5,7 +5,7 @@ Route::get('sitemap-payment-processors', function() {
 
     if (!$sitemap->isCached()) {
 
-        $paymentProcessors = \App\Models\PaymentProcessor::where('deleted_at', '=', null)->get();
+        $paymentProcessors = \App\Models\PaymentProcessor::all();
 
         foreach($paymentProcessors as $p){
             $url = route('payment-processors.show', ['slug' => $p->slug]);

@@ -3,8 +3,8 @@
 Route::get('sitemap-users-payment-processors', function() {
     $sitemap = App::make('sitemap');
 
-    $users = \App\Models\User::where('deleted_at', '=', null)->get();
-    $paymentProcessors = \App\Models\PaymentProcessor::where('deleted_at', '=', null)->get();
+    $users = \App\Models\User::all();
+    $paymentProcessors = \App\Models\PaymentProcessor::all();
 
     if (!$sitemap->isCached()) {
 

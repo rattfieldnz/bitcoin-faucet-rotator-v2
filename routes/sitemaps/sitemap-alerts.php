@@ -5,7 +5,7 @@ Route::get('sitemap-alerts', function() {
 
     if (!$sitemap->isCached()) {
 
-        $alerts = \App\Models\Alert::where('deleted_at', '=', null)->get();
+        $alerts = \App\Models\Alert::all();
 
         $sitemap->add(route('alerts.index'), \Carbon\Carbon::now()->toW3cString(), '1.0', 'daily');
 

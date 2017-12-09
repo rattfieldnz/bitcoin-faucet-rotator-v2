@@ -5,7 +5,7 @@ Route::get('sitemap-faucets', function() {
 
     if (!$sitemap->isCached()) {
 
-        $faucets = \App\Models\Faucet::where('deleted_at', '=', null)->get();
+        $faucets = \App\Models\Faucet::all();
 
         foreach($faucets as $f){
             $url = route('faucets.show', ['slug' => $f->slug]);

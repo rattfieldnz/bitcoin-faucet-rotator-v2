@@ -3,7 +3,7 @@
 Route::get('sitemap-users-faucets', function() {
     $sitemap = App::make('sitemap');
 
-    $users = \App\Models\User::where('deleted_at', '=', null)->get();
+    $users = \App\Models\User::all();
 
     if (!$sitemap->isCached()) {
 

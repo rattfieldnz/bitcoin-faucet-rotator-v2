@@ -5,7 +5,7 @@ Route::get('sitemap-users', function() {
 
     if (!$sitemap->isCached()) {
 
-        $users = \App\Models\User::where('deleted_at', '=', null)->get();
+        $users = \App\Models\User::all();
 
         foreach($users as $u){
             $url = route('users.show', ['slug' => $u->slug]);
