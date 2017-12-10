@@ -21,7 +21,7 @@ Route::get('alerts-feed', function() {
         $feed->logo = env('APP_URL') . '/assets/images/og/bitcoin.png';
         $feed->link = url('alerts-feed');
         $feed->setDateFormat('datetime'); // 'datetime', 'timestamp' or 'carbon'
-        $feed->pubdate = $alerts[0]->created_at;
+        $feed->pubdate = !empty($alerts[0]) ? $alerts[0]->created_at : \Carbon\Carbon::now();
         $feed->lang = 'en';
         $feed->setShortening(true); // true or false
         $feed->setTextLimit(160); // maximum length of description text
