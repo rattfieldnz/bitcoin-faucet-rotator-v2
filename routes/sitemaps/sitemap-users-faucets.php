@@ -11,8 +11,10 @@ Route::get('sitemap-users-faucets', function() {
             $faucets = \App\Helpers\Functions\Users::getFaucets($u);
 
             foreach($faucets as $f){
-                $url = route('users.faucets.show', ['userSlug' => $u->slug, 'faucetSlug' => $f->slug]);
-                $sitemap->add($url, $f->updated_at->toW3cString(), '1.0', 'daily');
+                if(!empty($f->pivot->referral_code)){
+                    $url = route('users.faucets.show', ['userSlug' => $u->slug, 'faucetSlug' => $f->slug]);
+                    $sitemap->add($url, $f->updated_at->toW3cString(), '1.0', 'daily');
+                }
             }
         }
 
