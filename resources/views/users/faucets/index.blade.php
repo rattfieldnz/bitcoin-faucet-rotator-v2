@@ -6,6 +6,19 @@
             <h1 id="title" data-user-slug="{{ $user->slug }}">{{ $user->user_name }}'s Faucets</h1>
             @include('layouts.partials.social.addthis')
         </div>
+        @if(!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id))
+            <div class="row zero-margin buttons-row">
+                {!! Form::button(
+                    '<i class="fa fa-2x fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Manage Faucet',
+                    [
+                        'type' => 'button',
+                        'onClick' => "location.href='" . route('users.show', ['slug' => $user->slug]) . "#faucets'",
+                        'class' => 'btn btn-primary btn-success col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                        'style' => 'margin:0.25em 0 0 0; color: white; min-width:12em;'
+                    ])
+                !!}
+            </div>
+        @endif
     </section>
     <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">
         @include('adminlte-templates::common.errors')
