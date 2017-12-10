@@ -13,7 +13,7 @@
                     [
                         'type' => 'button',
                         'onClick' => "location.href='" . route('users.show', ['slug' => $user->slug]) . "#faucets'",
-                        'class' => 'btn btn-primary btn-info col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                        'class' => 'btn btn-primary col-lg-2 col-md-2 col-sm-3 col-xs-12',
                         'style' => 'margin:0.25em 0 0 0; color: white; min-width:12em;'
                     ])
                 !!}
