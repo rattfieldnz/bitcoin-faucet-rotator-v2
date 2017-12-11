@@ -117,7 +117,7 @@ class PrivacyPolicyController extends AppBaseController
             return redirect(route('privacy-policy.index'));
         }
 
-        return view('privacy_policies.show')->with('privacyPolicy', $privacyPolicy);
+        return view('privacy_policy.show')->with('privacyPolicy', $privacyPolicy);
     }
 
     /**

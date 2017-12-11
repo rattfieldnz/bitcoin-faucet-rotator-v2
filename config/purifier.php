@@ -24,11 +24,11 @@ return [
     "settings" => [
         "default" => [
             'HTML.Doctype' => 'HTML 4.01 Transitional',
-            'HTML.Allowed' => 'div[class|style],b,strong,i[class|style]'
-                . ',em,a[href|class|title|target],ul[class|style],ol[class|style],li[class|style]'
-                . ',p[style],br,span[style],img[width|height|alt|src]'
-                . ',iframe[src|scrolling|style],h1[class|style],h2[class|style],h3[class|style],h4[class|style],h5[class|style],h6[class|style]'
-                . ',dt[class|style],dl[class|style]',
+            'HTML.Allowed' => 'div[class|style|id],b,strong,i[class|style|id]'
+                . ',em,a[class|style|id|title|target],ul[class|style|id],ol[class|style|id],li[class|style|id]'
+                . ',p[class|style|id],br,span[class|style|id],img[width|height|alt|src|class|style|id]'
+                . ',iframe[src|scrolling|class|style|id],h1[class|style|id],h2[class|style|id],h3[class|style|id],h4[class|style|id],h5[class|style|id],h6[class|style|id]'
+                . ',dt[class|style|id],dl[class|style|id]',
             'Attr.AllowedFrameTargets' => ['_blank'],
             "HTML.SafeIframe" => 'true',
             "URI.SafeIframeRegexp" => "%^(http://|https://|//)(mellowads.com|coinurl.com|a-ads.com|ad.a-ads.com|bee-ads.com)%",
