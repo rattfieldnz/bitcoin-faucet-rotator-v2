@@ -163,13 +163,13 @@ class PrivacyPolicyController extends AppBaseController
         if (empty($privacyPolicy)) {
             Flash::error('Privacy Policy not found');
 
-            return redirect(route('privacy-policy.index'));
+            return redirect(route('privacy-policy'));
         }
 
         $privacyPolicy = $this->privacyPolicyRepository->update($request->all(), $id);
 
         Flash::success('Privacy Policy updated successfully.');
 
-        return redirect(route('privacy-policy.index'));
+        return redirect(route('privacy-policy'));
     }
 }
