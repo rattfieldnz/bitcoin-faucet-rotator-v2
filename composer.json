@@ -50,7 +50,8 @@
         "asm89/stack-cors": "^1.1",
         "jaybizzle/laravel-migrations-organiser": "4.*",
         "laravel/tinker": "^1.0",
-        "snowfire/beautymail": "dev-master"
+        "snowfire/beautymail": "dev-master",
+        "phpseclib/phpseclib": "~2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.6",

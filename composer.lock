@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f23a0e2777c1fa8040edd1e2f3f62dd",
+    "content-hash": "a32c2caebafb42e5432bb2b30af18479",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -635,16 +635,16 @@
         },
         {
             "name": "cviebrock/eloquent-sluggable",
-            "version": "4.3.0",
+            "version": "4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cviebrock/eloquent-sluggable.git",
-                "reference": "2407515c00bd4148c6ce8156f5f82e1a6349cac3"
+                "reference": "4c491cb28b18dd8efe075fa781845163fedbcbb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cviebrock/eloquent-sluggable/zipball/2407515c00bd4148c6ce8156f5f82e1a6349cac3",
-                "reference": "2407515c00bd4148c6ce8156f5f82e1a6349cac3",
+                "url": "https://api.github.com/repos/cviebrock/eloquent-sluggable/zipball/4c491cb28b18dd8efe075fa781845163fedbcbb0",
+                "reference": "4c491cb28b18dd8efe075fa781845163fedbcbb0",
                 "shasum": ""
             },
             "require": {
@@ -693,7 +693,7 @@
                 "slug",
                 "sluggable"
             ],
-            "time": "2017-08-31T18:16:01+00:00"
+            "time": "2017-12-12T19:15:16+00:00"
         },
         {
             "name": "defuse/php-encryption",
@@ -1637,16 +1637,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.37",
+            "version": "v0.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "75fb5412eec7cfc9f78ac0f8d23e907ce07c2330"
+                "reference": "b7df3c72e7d7b4d9b7931d48ada036e57600c9de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/75fb5412eec7cfc9f78ac0f8d23e907ce07c2330",
-                "reference": "75fb5412eec7cfc9f78ac0f8d23e907ce07c2330",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/b7df3c72e7d7b4d9b7931d48ada036e57600c9de",
+                "reference": "b7df3c72e7d7b4d9b7931d48ada036e57600c9de",
                 "shasum": ""
             },
             "require": {
@@ -1670,20 +1670,20 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-12-02T00:23:18+00:00"
+            "time": "2017-12-10T00:23:17+00:00"
         },
         {
             "name": "google/auth",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-auth-library-php.git",
-                "reference": "548d27d670f0236dc5258fa4cdde6e7b63464cfd"
+                "reference": "f3fc99fd621f339ee3d4de01bd6a709ed1396116"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-auth-library-php/zipball/548d27d670f0236dc5258fa4cdde6e7b63464cfd",
-                "reference": "548d27d670f0236dc5258fa4cdde6e7b63464cfd",
+                "url": "https://api.github.com/repos/google/google-auth-library-php/zipball/f3fc99fd621f339ee3d4de01bd6a709ed1396116",
+                "reference": "f3fc99fd621f339ee3d4de01bd6a709ed1396116",
                 "shasum": ""
             },
             "require": {
@@ -1696,7 +1696,9 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^1.11",
-                "phpunit/phpunit": "3.7.*"
+                "guzzlehttp/promises": "0.1.1|^1.3",
+                "phpunit/phpunit": "^4.8.36",
+                "sebastian/comparator": ">=1.2.3"
             },
             "type": "library",
             "autoload": {
@@ -1715,7 +1717,7 @@
                 "google",
                 "oauth2"
             ],
-            "time": "2017-10-10T17:01:45+00:00"
+            "time": "2017-12-06T21:27:53+00:00"
         },
         {
             "name": "greggilbert/recaptcha",
@@ -2531,16 +2533,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.5.24",
+            "version": "v5.5.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "06135405bb1f736dac5e9529ed1541fc446c9c0f"
+                "reference": "0a5b6112f325c56ae5a6679c08a0a10723153fe0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/06135405bb1f736dac5e9529ed1541fc446c9c0f",
-                "reference": "06135405bb1f736dac5e9529ed1541fc446c9c0f",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/0a5b6112f325c56ae5a6679c08a0a10723153fe0",
+                "reference": "0a5b6112f325c56ae5a6679c08a0a10723153fe0",
                 "shasum": ""
             },
             "require": {
@@ -2620,6 +2622,7 @@
                 "guzzlehttp/guzzle": "Required to use the Mailgun and Mandrill mail drivers and the ping methods on schedules (~6.0).",
                 "laravel/tinker": "Required to use the tinker console command (~1.0).",
                 "league/flysystem-aws-s3-v3": "Required to use the Flysystem S3 driver (~1.0).",
+                "league/flysystem-cached-adapter": "Required to use Flysystem caching (~1.0).",
                 "league/flysystem-rackspace": "Required to use the Flysystem Rackspace driver (~1.0).",
                 "nexmo/client": "Required to use the Nexmo transport (~1.0).",
                 "pda/pheanstalk": "Required to use the beanstalk queue driver (~3.0).",
@@ -2660,7 +2663,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-12-07T01:28:21+00:00"
+            "time": "2017-12-11T14:59:28+00:00"
         },
         {
             "name": "laravel/passport",
@@ -5070,16 +5073,16 @@
         },
         {
             "name": "spatie/laravel-activitylog",
-            "version": "2.3.1",
+            "version": "2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-activitylog.git",
-                "reference": "11f933aebe1eeb04f683c4d74118bd4caaea9fe1"
+                "reference": "126d7399ee6d269af5f6190a8407f747acf490e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/11f933aebe1eeb04f683c4d74118bd4caaea9fe1",
-                "reference": "11f933aebe1eeb04f683c4d74118bd4caaea9fe1",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/126d7399ee6d269af5f6190a8407f747acf490e5",
+                "reference": "126d7399ee6d269af5f6190a8407f747acf490e5",
                 "shasum": ""
             },
             "require": {
@@ -5137,7 +5140,7 @@
                 "spatie",
                 "user"
             ],
-            "time": "2017-11-13T10:31:04+00:00"
+            "time": "2017-12-13T21:13:56+00:00"
         },
         {
             "name": "spatie/laravel-analytics",
@@ -7081,16 +7084,16 @@
         },
         {
             "name": "pdepend/pdepend",
-            "version": "2.5.1",
+            "version": "2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pdepend/pdepend.git",
-                "reference": "9392319cbed95b12756945354c8b22be314b9c2b"
+                "reference": "9daf26d0368d4a12bed1cacae1a9f3a6f0adf239"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pdepend/pdepend/zipball/9392319cbed95b12756945354c8b22be314b9c2b",
-                "reference": "9392319cbed95b12756945354c8b22be314b9c2b",
+                "url": "https://api.github.com/repos/pdepend/pdepend/zipball/9daf26d0368d4a12bed1cacae1a9f3a6f0adf239",
+                "reference": "9daf26d0368d4a12bed1cacae1a9f3a6f0adf239",
                 "shasum": ""
             },
             "require": {
@@ -7117,7 +7120,7 @@
                 "BSD-3-Clause"
             ],
             "description": "Official version of pdepend to be handled with Composer",
-            "time": "2017-12-06T21:23:07+00:00"
+            "time": "2017-12-13T13:21:38+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -8455,16 +8458,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.1.1",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "d667e245d5dcd4d7bf80f26f2c947d476b66213e"
+                "reference": "ba816f2e1bacc16278792c78b67c730dfff064a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/d667e245d5dcd4d7bf80f26f2c947d476b66213e",
-                "reference": "d667e245d5dcd4d7bf80f26f2c947d476b66213e",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/ba816f2e1bacc16278792c78b67c730dfff064a6",
+                "reference": "ba816f2e1bacc16278792c78b67c730dfff064a6",
                 "shasum": ""
             },
             "require": {
@@ -8502,7 +8505,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-10-16T22:40:25+00:00"
+            "time": "2017-12-12T21:36:10+00:00"
         },
         {
             "name": "symfony/config",
