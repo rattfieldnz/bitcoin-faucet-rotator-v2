@@ -732,46 +732,36 @@ class FaucetAPIController extends AppBaseController
 
         foreach ($array as $key => $value) {
             if ($value == $faucetSlug) {
+
+                $nextFaucetSlug = null;
+
                 // Increase key to find next one.
                 if ($key + 1 > count($array) - 1) {
+
                     // If addition is greater than number of faucets,
                     // We are at end of the collection.
                     // Go to first faucet in the collection.
-                    $faucet = $user->faucets()
-                        ->where('faucets.is_paused', '=', false)
-                        ->where('faucets.has_low_balance', '=', false)
-                        ->where('faucets.slug', '=', $array[0])
-                        ->wherePivot('referral_code', '!=', null)
-                        ->orderBy('faucets.interval_minutes')
-                        ->first();
-
-                    return $this->sendResponse(
-                        (new FaucetsTransformer)->transform(
-                            $this->adminUser,
-                            $faucet,
-                            true
-                        ),
-                        'Faucet retrieved successfully'
-                    );
+                    $nextFaucetSlug = $array[0];
                 } else {
-
-                    $faucet = $user->faucets()
-                        ->where('faucets.is_paused', '=', false)
-                        ->where('faucets.has_low_balance', '=', false)
-                        ->where('faucets.slug', '=', $array[$key + 1])
-                        ->wherePivot('referral_code', '!=', null)
-                        ->orderBy('faucets.interval_minutes')
-                        ->first();
-
-                    return $this->sendResponse(
-                        (new FaucetsTransformer)->transform(
-                            $user,
-                            $faucet,
-                            true
-                        ),
-                        'Faucet retrieved successfully'
-                    );
+                    $nextFaucetSlug = $array[$key + 1];
                 }
+
+                $faucet = $user->faucets()
+                    ->where('faucets.is_paused', '=', false)
+                    ->where('faucets.has_low_balance', '=', false)
+                    ->where('faucets.slug', '=', $nextFaucetSlug)
+                    ->wherePivot('referral_code', '!=', null)
+                    ->orderBy('faucets.interval_minutes')
+                    ->first();
+
+                return $this->sendResponse(
+                    (new FaucetsTransformer)->transform(
+                        $user,
+                        $faucet,
+                        true
+                    ),
+                    'Faucet retrieved successfully'
+                );
             }
         }
     }
