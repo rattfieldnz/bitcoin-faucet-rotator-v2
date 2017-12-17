@@ -26,6 +26,7 @@ $(function () {
             'user.next-faucet',
             { userSlug : userSlug, faucetSlug : currentFaucetSlug }
         );
+
         generateFaucet(route);
     });
 
@@ -125,6 +126,8 @@ $(function () {
                         'users.faucets.show',
                         { userSlug : userSlug, faucetSlug : currentFaucetSlug }
                     );
+
+                    console.log(currentFaucetRoute);
 
                     $('#current').attr('href', currentFaucetRoute);
 

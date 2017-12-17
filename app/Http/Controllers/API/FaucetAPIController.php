@@ -753,24 +753,25 @@ class FaucetAPIController extends AppBaseController
                         ),
                         'Faucet retrieved successfully'
                     );
+                } else {
+
+                    $faucet = $user->faucets()
+                        ->where('faucets.is_paused', '=', false)
+                        ->where('faucets.has_low_balance', '=', false)
+                        ->where('faucets.slug', '=', $array[$key + 1])
+                        ->wherePivot('referral_code', '!=', null)
+                        ->orderBy('faucets.interval_minutes')
+                        ->first();
+
+                    return $this->sendResponse(
+                        (new FaucetsTransformer)->transform(
+                            $user,
+                            $faucet,
+                            true
+                        ),
+                        'Faucet retrieved successfully'
+                    );
                 }
-
-                $faucet = $user->faucets()
-                    ->where('faucets.is_paused', '=', false)
-                    ->where('faucets.has_low_balance', '=', false)
-                    ->where('faucets.slug', '=', $array[$key + 1])
-                    ->wherePivot('referral_code', '!=', null)
-                    ->orderBy('faucets.interval_minutes')
-                    ->first();
-
-                return $this->sendResponse(
-                    (new FaucetsTransformer)->transform(
-                        $user,
-                        $faucet,
-                        true
-                    ),
-                    'Faucet retrieved successfully'
-                );
             }
         }
     }
