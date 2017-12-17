@@ -11,6 +11,7 @@ use Illuminate\Session\TokenMismatchException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Log;
+use Sentry;
 use Symfony\Component\Debug\Exception\FatalErrorException;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -85,10 +86,10 @@ class Handler extends ExceptionHandler
                     'error',
                     $statusCode,
                     !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage($statusCode),
-                    $this->sentryID
+                    Sentry::getLastEventID()
                 );
             } else {
-                return response()->view('errors.' . $statusCode, ['sentryID' => $this->sentryID], $statusCode);
+                return response()->view('errors.' . $statusCode, ['sentryID' => Sentry::getLastEventID()], $statusCode);
             }
         }
 
@@ -110,12 +111,12 @@ class Handler extends ExceptionHandler
                     'error',
                     500,
                     !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500),
-                    $this->sentryID
+                    Sentry::getLastEventID()
                 );
             } else {
                 return response()->view('errors.500', [
                     'message' => !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500),
-                    'sentryID' => $this->sentryID
+                    'sentryID' => Sentry::getLastEventID()
                 ], 500);
             }
         }
@@ -130,7 +131,7 @@ class Handler extends ExceptionHandler
                     'error',
                     404,
                     $item . " was not found",
-                    $this->sentryID
+                    Sentry::getLastEventID()
                 );
             } else {
                 return response()->view('errors.404', compact('item'), 404);
@@ -145,7 +146,7 @@ class Handler extends ExceptionHandler
                     'error',
                     404,
                     "The page/url was not found",
-                    $this->sentryID
+                    Sentry::getLastEventID()
                 );
             } else {
                 return response()->view('errors.404', compact('item'), 404);
@@ -158,12 +159,12 @@ class Handler extends ExceptionHandler
                     'error',
                     500,
                     "Google Analytics API daily usage exceeded!",
-                    $this->sentryID
+                    Sentry::getLastEventID()
                 );
             } else {
                 return response()->view('errors.500', [
                     'message' => "Google Analytics API daily usage exceeded!",
-                    'sentryID' => $this->sentryID
+                    'sentryID' => Sentry::getLastEventID()
                 ], 500);
             }
         }
@@ -174,12 +175,12 @@ class Handler extends ExceptionHandler
                     'error',
                     500,
                     !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500),
-                    $this->sentryID
+                    Sentry::getLastEventID()
                 );
             } else {
                 return response()->view('errors.500', [
                     'message' => $e->getMessage(),
-                    'sentryID' => $this->sentryID
+                    'sentryID' => Sentry::getLastEventID()
                 ], 500);
             }
         }
@@ -190,12 +191,12 @@ class Handler extends ExceptionHandler
                     'error',
                     500,
                     !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500),
-                    $this->sentryID
+                    Sentry::getLastEventID()
                 );
             } else {
                 return response()->view('errors.500', [
                     'message' => !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500),
-                    'sentryID' => $this->sentryID
+                    'sentryID' => Sentry::getLastEventID()
                 ], 500);
             }
         }
@@ -203,7 +204,7 @@ class Handler extends ExceptionHandler
         // Default is to render an error 500 page
         return response()->view('errors.500', [
             'message' => !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500),
-            'sentryID' => $this->sentryID
+            'sentryID' => Sentry::getLastEventID()
         ], 500);
     }
 }
