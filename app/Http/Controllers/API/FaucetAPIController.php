@@ -30,8 +30,8 @@ use Yajra\DataTables\Facades\DataTables;
 class FaucetAPIController extends AppBaseController
 {
     /**
- * @var  FaucetRepository
-*/
+     * @var  FaucetRepository
+     */
     private $faucetRepository;
     private $faucetCollection;
     private $paymentProcessorRepo;
@@ -726,7 +726,12 @@ class FaucetAPIController extends AppBaseController
             );
         }
 
-        $userFaucets = Users::getFaucets($user);
+        $userFaucets = $user->faucets()
+            ->where('faucets.is_paused', '=', false)
+            ->where('faucets.has_low_balance', '=', false)
+            ->wherePivot('referral_code', '!=', null)
+            ->orderBy('faucets.interval_minutes')
+            ->get();
 
         $array = array_column($userFaucets->toArray(), 'slug');
 

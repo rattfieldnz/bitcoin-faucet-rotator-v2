@@ -19,9 +19,6 @@ $(function () {
     $('#next_faucet').click(function (event) {
         event.preventDefault();
 
-        console.log("User:" + userSlug);
-        console.log("Faucet: " + currentFaucetSlug + "\n\n");
-
         var route = laroute.route(
             'user.next-faucet',
             { userSlug : userSlug, faucetSlug : currentFaucetSlug }
@@ -126,8 +123,6 @@ $(function () {
                         'users.faucets.show',
                         { userSlug : userSlug, faucetSlug : currentFaucetSlug }
                     );
-
-                    console.log(currentFaucetRoute);
 
                     $('#current').attr('href', currentFaucetRoute);
 
