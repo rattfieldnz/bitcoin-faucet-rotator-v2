@@ -743,7 +743,7 @@ class FaucetAPIController extends AppBaseController
                     // Go to first faucet in the collection.
                     $nextFaucetSlug = $array[0];
                 } else {
-                    $nextFaucetSlug = $array[$key];
+                    $nextFaucetSlug = $array[$key + 1];
                 }
 
                 $faucet = $user->faucets()
