@@ -19,6 +19,9 @@ $(function () {
     $('#next_faucet').click(function (event) {
         event.preventDefault();
 
+        console.log("User:" + userSlug);
+        console.log("Faucet: " + currentFaucetSlug + "\n\n");
+
         var route = laroute.route(
             'user.next-faucet',
             { userSlug : userSlug, faucetSlug : currentFaucetSlug }
