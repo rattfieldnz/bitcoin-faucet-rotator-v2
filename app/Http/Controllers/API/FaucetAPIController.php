@@ -516,67 +516,64 @@ class FaucetAPIController extends AppBaseController
 
         for ($i = 0; $i < count($userFaucets); $i++) {
             $referralCode = Faucets::getUserFaucetRefCode($user, $userFaucets[$i]);
-            if ((Auth::check() && (Auth::user()->id == $user->id || Auth::user()->isAnAdmin())) ||
-                (!Auth::check() && !empty($referralCode))
-            ) {
-                $data = [
-                    'name' => [
-                        'display' => route(
-                            'users.faucets.show',
-                            ['userSlug' => $user->slug, 'faucetSlug' => $userFaucets[$i]->slug]
-                        ),
-                        'original' => $userFaucets[$i]->name,
-                    ],
-                    'url' => $userFaucets[$i]->url . $referralCode,
-                    'referral_code' => $referralCode,
-                    'interval_minutes' => intval($userFaucets[$i]->interval_minutes),
-                    'min_payout' => [
-                        'display' => number_format(intval($userFaucets[$i]->min_payout)),
-                        'original' => intval($userFaucets[$i]->min_payout)
-                    ],
-                    'max_payout' => [
-                        'display' => number_format(intval($userFaucets[$i]->max_payout)),
-                        'original' => intval($userFaucets[$i]->max_payout)
-                    ],
-                    'comments' => $userFaucets[$i]->comments,
-                    'is_paused' => [
-                        'display' => $userFaucets[$i]->is_paused == true ? "Yes" : "No",
-                        'original' => $userFaucets[$i]->is_paused
-                    ],
-                    'slug' => $userFaucets[$i]->slug,
-                    'has_low_balance' => $userFaucets[$i]->has_low_balance,
-                ];
 
-                $paymentProcessors = $userFaucets[$i]->paymentProcessors()->get();
+            $data = [
+                'name' => [
+                    'display' => route(
+                        'users.faucets.show',
+                        ['userSlug' => $user->slug, 'faucetSlug' => $userFaucets[$i]->slug]
+                    ),
+                    'original' => $userFaucets[$i]->name,
+                ],
+                'url' => $userFaucets[$i]->url . $referralCode,
+                'referral_code' => $referralCode,
+                'interval_minutes' => intval($userFaucets[$i]->interval_minutes),
+                'min_payout' => [
+                    'display' => number_format(intval($userFaucets[$i]->min_payout)),
+                    'original' => intval($userFaucets[$i]->min_payout)
+                ],
+                'max_payout' => [
+                    'display' => number_format(intval($userFaucets[$i]->max_payout)),
+                    'original' => intval($userFaucets[$i]->max_payout)
+                ],
+                'comments' => $userFaucets[$i]->comments,
+                'is_paused' => [
+                    'display' => $userFaucets[$i]->is_paused == true ? "Yes" : "No",
+                    'original' => $userFaucets[$i]->is_paused
+                ],
+                'slug' => $userFaucets[$i]->slug,
+                'has_low_balance' => $userFaucets[$i]->has_low_balance,
+            ];
 
-                if (count($paymentProcessors) != 0) {
-                    $data['payment_processors'] = [];
-                    foreach ($paymentProcessors as $p) {
-                        array_push(
-                            $data['payment_processors'],
-                            [
-                                'name' => $p->name,
-                                'url' => route(
-                                    'users.payment-processors.faucets',
-                                    ['userSlug' => $user->slug, 'paymentProcessorSlug' => $p->slug]
-                                )
-                            ]
-                        );
-                    }
+            $paymentProcessors = $userFaucets[$i]->paymentProcessors()->get();
+
+            if (count($paymentProcessors) != 0) {
+                $data['payment_processors'] = [];
+                foreach ($paymentProcessors as $p) {
+                    array_push(
+                        $data['payment_processors'],
+                        [
+                            'name' => $p->name,
+                            'url' => route(
+                                'users.payment-processors.faucets',
+                                ['userSlug' => $user->slug, 'paymentProcessorSlug' => $p->slug]
+                            )
+                        ]
+                    );
                 }
-                if (Auth::check() && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)) {
-                    $data['id'] = intval($userFaucets[$i]->id);
-
-                    $data['referral_code_form'] = Form::hidden('faucet_id[]', $userFaucets[$i]->id) .
-                        Form::text(
-                            'referral_code[]',
-                            Faucets::getUserFaucetRefCode($user, $userFaucets[$i]),
-                            ['class' => 'form-control', 'placeholder' => 'ABCDEF123456']
-                        );
-                }
-
-                $faucets->push($data);
             }
+            if (Auth::check() && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)) {
+                $data['id'] = intval($userFaucets[$i]->id);
+
+                $data['referral_code_form'] = Form::hidden('faucet_id[]', $userFaucets[$i]->id) .
+                    Form::text(
+                        'referral_code[]',
+                        Faucets::getUserFaucetRefCode($user, $userFaucets[$i]),
+                        ['class' => 'form-control', 'placeholder' => 'ABCDEF123456']
+                    );
+            }
+
+            $faucets->push($data);
         }
 
         return Datatables::of($faucets)->rawColumns(['referral_code_form'])->make(true);
