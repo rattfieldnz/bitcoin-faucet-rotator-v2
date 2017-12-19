@@ -1637,16 +1637,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.38",
+            "version": "v0.39",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "b7df3c72e7d7b4d9b7931d48ada036e57600c9de"
+                "reference": "d20b726adcc93f1617e420dc352a3ecb112c458d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/b7df3c72e7d7b4d9b7931d48ada036e57600c9de",
-                "reference": "b7df3c72e7d7b4d9b7931d48ada036e57600c9de",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/d20b726adcc93f1617e420dc352a3ecb112c458d",
+                "reference": "d20b726adcc93f1617e420dc352a3ecb112c458d",
                 "shasum": ""
             },
             "require": {
@@ -1670,7 +1670,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-12-10T00:23:17+00:00"
+            "time": "2017-12-18T00:23:19+00:00"
         },
         {
             "name": "google/auth",
@@ -2533,16 +2533,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.5.25",
+            "version": "v5.5.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "0a5b6112f325c56ae5a6679c08a0a10723153fe0"
+                "reference": "d7e6a7aab600c5cfae595ea22074ac3c536cbc28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/0a5b6112f325c56ae5a6679c08a0a10723153fe0",
-                "reference": "0a5b6112f325c56ae5a6679c08a0a10723153fe0",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/d7e6a7aab600c5cfae595ea22074ac3c536cbc28",
+                "reference": "d7e6a7aab600c5cfae595ea22074ac3c536cbc28",
                 "shasum": ""
             },
             "require": {
@@ -2663,7 +2663,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-12-11T14:59:28+00:00"
+            "time": "2017-12-18T14:15:59+00:00"
         },
         {
             "name": "laravel/passport",
@@ -2736,16 +2736,16 @@
         },
         {
             "name": "laravel/tinker",
-            "version": "v1.0.2",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/tinker.git",
-                "reference": "203978fd67f118902acff95925847e70b72e3daf"
+                "reference": "852c2abe0b0991555a403f1c0583e64de6acb4a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/tinker/zipball/203978fd67f118902acff95925847e70b72e3daf",
-                "reference": "203978fd67f118902acff95925847e70b72e3daf",
+                "url": "https://api.github.com/repos/laravel/tinker/zipball/852c2abe0b0991555a403f1c0583e64de6acb4a6",
+                "reference": "852c2abe0b0991555a403f1c0583e64de6acb4a6",
                 "shasum": ""
             },
             "require": {
@@ -2754,7 +2754,7 @@
                 "illuminate/support": "~5.1",
                 "php": ">=5.5.9",
                 "psy/psysh": "0.7.*|0.8.*",
-                "symfony/var-dumper": "~3.0"
+                "symfony/var-dumper": "~3.0|~4.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.0|~5.0"
@@ -2795,7 +2795,7 @@
                 "laravel",
                 "psysh"
             ],
-            "time": "2017-07-13T13:11:05+00:00"
+            "time": "2017-12-18T16:25:11+00:00"
         },
         {
             "name": "laravelcollective/html",
@@ -4834,16 +4834,16 @@
         },
         {
             "name": "santigarcor/laratrust",
-            "version": "5.0.3",
+            "version": "5.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/santigarcor/laratrust.git",
-                "reference": "dcded937608c4b8e356968597903925a61fa06c5"
+                "reference": "3ce89acb860cbc5feb821f688f9875a9c2dca541"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/dcded937608c4b8e356968597903925a61fa06c5",
-                "reference": "dcded937608c4b8e356968597903925a61fa06c5",
+                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/3ce89acb860cbc5feb821f688f9875a9c2dca541",
+                "reference": "3ce89acb860cbc5feb821f688f9875a9c2dca541",
                 "shasum": ""
             },
             "require": {
@@ -4899,7 +4899,7 @@
                 "rbac",
                 "roles"
             ],
-            "time": "2017-12-02T21:56:51+00:00"
+            "time": "2017-12-18T22:34:07+00:00"
         },
         {
             "name": "sentry/sentry",
@@ -6028,16 +6028,16 @@
         },
         {
             "name": "symfony/psr-http-message-bridge",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/psr-http-message-bridge.git",
-                "reference": "b2098405d8644f6dc4c36febcee6a77c0fdecdff"
+                "reference": "c2b757934f2d9681a287e662efbc27c41fe8ef86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/psr-http-message-bridge/zipball/b2098405d8644f6dc4c36febcee6a77c0fdecdff",
-                "reference": "b2098405d8644f6dc4c36febcee6a77c0fdecdff",
+                "url": "https://api.github.com/repos/symfony/psr-http-message-bridge/zipball/c2b757934f2d9681a287e662efbc27c41fe8ef86",
+                "reference": "c2b757934f2d9681a287e662efbc27c41fe8ef86",
                 "shasum": ""
             },
             "require": {
@@ -6084,7 +6084,7 @@
                 "http-message",
                 "psr-7"
             ],
-            "time": "2017-07-23T09:13:43+00:00"
+            "time": "2017-12-19T00:31:44+00:00"
         },
         {
             "name": "symfony/routing",
@@ -8458,16 +8458,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.2.0",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "ba816f2e1bacc16278792c78b67c730dfff064a6"
+                "reference": "4064632daf602552d40dcff30a1658ab76fc1621"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/ba816f2e1bacc16278792c78b67c730dfff064a6",
-                "reference": "ba816f2e1bacc16278792c78b67c730dfff064a6",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/4064632daf602552d40dcff30a1658ab76fc1621",
+                "reference": "4064632daf602552d40dcff30a1658ab76fc1621",
                 "shasum": ""
             },
             "require": {
@@ -8505,7 +8505,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-12-12T21:36:10+00:00"
+            "time": "2017-12-18T00:24:01+00:00"
         },
         {
             "name": "symfony/config",
