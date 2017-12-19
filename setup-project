@@ -14,5 +14,4 @@ php artisan key:generate;
 php artisan passport:install;
 gulp copyfiles;
 gulp;
-gulp minifycss;
 gulp minifyjs;
