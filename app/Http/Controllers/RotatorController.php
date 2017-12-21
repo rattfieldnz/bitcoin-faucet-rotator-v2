@@ -197,6 +197,7 @@ class RotatorController extends Controller
             ->with('userSlug', $user->slug)
             ->with('paymentProcessorSlug', $paymentProcessor->slug)
             ->with('userName', $user->user_name)
+            ->with('faucetsCount', count($faucets))
             ->with('paymentProcessorName', $paymentProcessor->name)
             ->with('currentUrl', route('users.payment-processors.rotator', ['userSlug' =>$user->slug, 'paymentProcessorSlug' => $paymentProcessor->slug]))
             ->with('disqusIdentifier', $disqusIdentifier);
