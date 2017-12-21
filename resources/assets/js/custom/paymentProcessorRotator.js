@@ -131,7 +131,11 @@ $(function () {
                 $('#list_of_faucets').attr('href', faucetListsRoute);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                if (typeof jqXHR.responseJSON.status !== 'undefined' && jqXHR.responseJSON.status === 'error') {
+                if (
+                    jqXHR.responseJSON.status !== null &&
+                    typeof jqXHR.responseJSON.status !== 'undefined' &&
+                    jqXHR.responseJSON.status === 'error'
+                ) {
                     iframe.hide();
                     noIframeContent.hide();
                     var errorCode = $('#error-code');

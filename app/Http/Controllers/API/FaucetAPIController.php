@@ -847,9 +847,10 @@ class FaucetAPIController extends AppBaseController
         $paymentProcessorFaucets = new Collection();
 
         for ($i = 0; $i < count($faucets); $i++) {
-            $data = Faucets::userFaucetData($faucets[$i], $user);
-
-            $paymentProcessorFaucets->push($data);
+            if(!empty($faucets[$i])){
+                $data = Faucets::userFaucetData($faucets[$i], $user);
+                $paymentProcessorFaucets->push($data);
+            }
         }
 
         return Datatables::of($paymentProcessorFaucets)->rawColumns(['referral_code_form'])->make(true);
@@ -914,6 +915,20 @@ class FaucetAPIController extends AppBaseController
 
         if ($user->isAnAdmin()) {
             return $this->getFirstPaymentProcessorFaucet($paymentProcessor->slug);
+        }
+
+        $faucets = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor);
+
+        if(count($faucets->all()) == 0){
+            $errorMessage = 'The first faucet does not exist, or the user has no faucets using the "' . $paymentProcessor->name . '" payment processor.';
+            return $this->sendResponse(
+                [
+                    'status' => 'error',
+                    'code' => 404,
+                    'message' => $errorMessage
+                ],
+                $errorMessage
+            );
         }
 
         $faucet = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor)->first();

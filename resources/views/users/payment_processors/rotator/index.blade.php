@@ -18,6 +18,7 @@
                 <div class="box-body">
                     <div class="row">
                         @include('layouts.partials.advertising.ads')
+                        @if($faucetsCount != 0)
                         <div class="col-lg-12">
                             @include('users.payment_processors.rotator.partials.nav')
                         </div>
@@ -26,6 +27,11 @@
                             @include('layouts.partials.misc._no-iframe-faucet-content')
                             @include('layouts.partials.misc._ajax-data-error-content')
                         </div>
+                        @else
+                            <div class="col-lg-12">
+                                <p>{{ $userName }} has not added any faucets yet.</p>
+                            </div>
+                        @endif
                     </div>
                     @include('layouts.partials.social.disqus')
                 </div>

@@ -120,7 +120,11 @@ $(function () {
                 $('#current').attr('href', currentFaucetRoute);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                if (typeof jqXHR.responseJSON.status !== 'undefined' && jqXHR.responseJSON.status === 'error') {
+                if (
+                    jqXHR.responseJSON.status !== null &&
+                    typeof jqXHR.responseJSON.status !== 'undefined' &&
+                    jqXHR.responseJSON.status === 'error'
+                ) {
                     iframe.hide();
                     noIframeContent.hide();
                     var errorCode = $('#error-code');
