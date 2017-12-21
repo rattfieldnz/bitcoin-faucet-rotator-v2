@@ -122,9 +122,16 @@ $(function () {
             error: function (jqXHR, textStatus, errorThrown) {
                 if (jqXHR.responseJSON !== null &&
                     typeof jqXHR.responseJSON !== 'undefined' &&
-                    jqXHR.responseJSON.status !== null &&
-                    typeof jqXHR.responseJSON.status !== 'undefined' &&
-                    jqXHR.responseJSON.status === 'error'
+                    (
+                        jqXHR.responseJSON.status !== null &&
+                        typeof jqXHR.responseJSON.status !== 'undefined' &&
+                        jqXHR.responseJSON.status === 'error'
+                    ) ||
+                    (
+                        String(jqXHR.responseJSON.code).charAt(0) === '3' ||
+                        String(jqXHR.responseJSON.code).charAt(0) === '4' ||
+                        String(jqXHR.responseJSON.code).charAt(0) === '5'
+                    )
                 ) {
                     iframe.hide();
                     noIframeContent.hide();
