@@ -120,7 +120,8 @@ $(function () {
                 $('#current').attr('href', currentFaucetRoute);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                if (
+                if (jqXHR.responseJSON !== null &&
+                    typeof jqXHR.responseJSON !== 'undefined' &&
                     jqXHR.responseJSON.status !== null &&
                     typeof jqXHR.responseJSON.status !== 'undefined' &&
                     jqXHR.responseJSON.status === 'error'
