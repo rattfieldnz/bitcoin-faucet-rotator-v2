@@ -122,9 +122,8 @@ $(function () {
                 $('#current').attr('href', currentFaucetRoute);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                var message = typeof jqXHR.responseJSON.errorThrown.message !== 'undefined' ?
-                    jqXHR.responseJSON.errorThrown.message :
-                    "Error: " + textStatus;
+                var message = typeof errorThrown.message !== 'undefined' ?
+                    errorThrown.message : "Error: " + textStatus;
                 if (
                     textStatus === 'timeout' ||
                     jqXHR.responseJSON !== null &&

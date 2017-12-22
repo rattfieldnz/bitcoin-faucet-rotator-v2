@@ -122,6 +122,8 @@ $(function () {
                 $('#current').attr('href', currentFaucetRoute);
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                var message = typeof errorThrown.message !== 'undefined' ?
+                    errorThrown.message : "Error: " + textStatus;
                 if (
                     textStatus === 'timeout' ||
                     jqXHR.responseJSON !== null &&
@@ -140,7 +142,6 @@ $(function () {
                     var errorCode = $('#error-code');
                     var errorMessage = $('#error-message');
                     var sentryId = $('#sentry-id');
-                    var message = typeof jqXHR.responseJSON.message !== 'undefined' ? jqXHR.responseJSON.message : "Error: " + textStatus;
                     if (
                         typeof errorCode !== 'undefined' &&
                         typeof errorMessage !== 'undefined' &&
