@@ -122,16 +122,17 @@ $(function () {
                 $('#current').attr('href', currentFaucetRoute);
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                var httpStatus = jqXHR.responseJSON.status;
                 if (
                     textStatus === 'timeout' ||
                     jqXHR.responseJSON !== null &&
                     typeof jqXHR.responseJSON !== 'undefined' &&
                     (
-                        (jqXHR.responseJSON.status !== 'undefined' && jqXHR.responseJSON.status !== null) &&
+                        (typeof httpStatus !== 'undefined' && httpStatus !== null) &&
                         (
-                            String(jqXHR.responseJSON.status).charAt(0) === '3' ||
-                            String(jqXHR.responseJSON.status).charAt(0) === '4' ||
-                            String(jqXHR.responseJSON.status).charAt(0) === '5'
+                            String(httpStatus).charAt(0) === '3' ||
+                            String(httpStatus).charAt(0) === '4' ||
+                            String(httpStatus).charAt(0) === '5'
                         )
                     )
                 ) {
@@ -144,11 +145,10 @@ $(function () {
                         typeof errorCode !== 'undefined' &&
                         typeof errorMessage !== 'undefined' &&
                         typeof sentryId !== 'undefined') {
-                        errorCode.text(jqXHR.responseJSON.status !== 'undefined' ? jqXHR.responseJSON.status : textStatus);
+                        errorCode.text(httpStatus !== 'undefined' ? httpStatus : textStatus);
                         errorMessage.text(jqXHR.responseJSON.message);
                         sentryId.text(jqXHR.responseJSON.sentryID);
                         ajaxErrorContent.show();
-                        console.log("Error: " + jqXHR.responseJSON.status + ", Message: " + jqXHR.responseJSON.message);
                     }
                 }
             }
