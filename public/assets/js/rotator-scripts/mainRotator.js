@@ -80,7 +80,9 @@ $(function () {
         var ajaxErrorContent = $('#show-ajax-data-error-content');
         var noIframeContent = $('#show-no-iframe-content');
 
-        $.ajax(apiUrl, {
+        $.ajax({
+            url: apiUrl,
+            timeout: 5000,
             success: function (data) {
                 iframe.attr('src', '');
 
@@ -121,7 +123,7 @@ $(function () {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if (
-                    textStatus === 'timeout' || 
+                    textStatus === 'timeout' ||
                     jqXHR.responseJSON !== null &&
                     typeof jqXHR.responseJSON !== 'undefined' &&
                     (
