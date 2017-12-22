@@ -121,6 +121,7 @@ $(function () {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if (
+                    textStatus === 'timeout' || 
                     jqXHR.responseJSON !== null &&
                     typeof jqXHR.responseJSON !== 'undefined' &&
                     (
