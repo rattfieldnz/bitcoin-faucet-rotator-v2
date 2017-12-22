@@ -120,18 +120,21 @@ $(function () {
                 $('#current').attr('href', currentFaucetRoute);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                if (jqXHR.responseJSON !== null &&
+                if (
+                    jqXHR.responseJSON !== null &&
                     typeof jqXHR.responseJSON !== 'undefined' &&
                     (
                         jqXHR.responseJSON.status !== null &&
                         typeof jqXHR.responseJSON.status !== 'undefined' &&
                         jqXHR.responseJSON.status === 'error'
                     ) ||
-                    jqXHR.responseJSON.code !== 'undefined' &&
                     (
-                        String(jqXHR.responseJSON.code).charAt(0) === '3' ||
-                        String(jqXHR.responseJSON.code).charAt(0) === '4' ||
-                        String(jqXHR.responseJSON.code).charAt(0) === '5'
+                        (jqXHR.responseJSON.code !== 'undefined' && jqXHR.responseJSON.code !== null) &&
+                        (
+                            String(jqXHR.responseJSON.code).charAt(0) === '3' ||
+                            String(jqXHR.responseJSON.code).charAt(0) === '4' ||
+                            String(jqXHR.responseJSON.code).charAt(0) === '5'
+                        )
                     )
                 ) {
                     iframe.hide();
