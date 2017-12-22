@@ -141,14 +141,12 @@ $(function () {
                     noIframeContent.hide();
                     var errorCode = $('#error-code');
                     var errorMessage = $('#error-message');
-                    var sentryId = $('#sentry-id');
                     if (
                         typeof errorCode !== 'undefined' &&
                         typeof errorMessage !== 'undefined' &&
                         typeof sentryId !== 'undefined') {
                         errorCode.text(textStatus);
                         errorMessage.text(message);
-                        sentryId.text(jqXHR.responseJSON.sentryID);
                         ajaxErrorContent.show();
                     }
                 }
