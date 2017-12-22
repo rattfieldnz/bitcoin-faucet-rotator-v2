@@ -127,7 +127,7 @@ $(function () {
                     jqXHR.responseJSON !== null &&
                     typeof jqXHR.responseJSON !== 'undefined' &&
                     (
-                        (jqXHR.responseJSON.status !== 'undefined' && jqXHR.responseJSON.status !== null) &&
+                        (typeof jqXHR.responseJSON.status !== 'undefined' && jqXHR.responseJSON.status !== null) &&
                         (
                             String(jqXHR.responseJSON.status).charAt(0) === '3' ||
                             String(jqXHR.responseJSON.status).charAt(0) === '4' ||
@@ -140,12 +140,13 @@ $(function () {
                     var errorCode = $('#error-code');
                     var errorMessage = $('#error-message');
                     var sentryId = $('#sentry-id');
+                    var message = typeof jqXHR.responseJSON.message !== 'undefined' ? jqXHR.responseJSON.message : "Error: " + textStatus;
                     if (
                         typeof errorCode !== 'undefined' &&
                         typeof errorMessage !== 'undefined' &&
                         typeof sentryId !== 'undefined') {
                         errorCode.text(textStatus);
-                        errorMessage.text(jqXHR.responseJSON.message);
+                        errorMessage.text(message);
                         sentryId.text(jqXHR.responseJSON.sentryID);
                         ajaxErrorContent.show();
                     }
