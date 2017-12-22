@@ -122,14 +122,14 @@ $(function () {
                 $('#current').attr('href', currentFaucetRoute);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                var message = typeof errorThrown.message !== 'undefined' ?
-                    errorThrown.message : "Error: " + textStatus;
+                console.log("Error thrown: " + errorThrown + ", TextStatus: " + textStatus);
+                var message = typeof errorThrown !== 'undefined' ?
+                    errorThrown : "Error: " + errorThrown;
                 if (
-                    textStatus === 'timeout' ||
-                    jqXHR.responseJSON !== null &&
-                    typeof jqXHR.responseJSON !== 'undefined' &&
+                    (textStatus === 'timeout' || errorThrown === 'timeout') ||
+                    (jqXHR.responseJSON !== null || typeof jqXHR.responseJSON !== 'undefined') &&
                     (
-                        (typeof jqXHR.responseJSON.status !== 'undefined' && jqXHR.responseJSON.status !== null) &&
+                        (jqXHR.responseJSON.status !== null || typeof jqXHR.responseJSON.status !== 'undefined') &&
                         (
                             String(jqXHR.responseJSON.status).charAt(0) === '3' ||
                             String(jqXHR.responseJSON.status).charAt(0) === '4' ||
@@ -142,9 +142,7 @@ $(function () {
                     var errorCode = $('#error-code');
                     var errorMessage = $('#error-message');
                     if (
-                        typeof errorCode !== 'undefined' &&
-                        typeof errorMessage !== 'undefined' &&
-                        typeof sentryId !== 'undefined') {
+                        typeof errorCode !== 'undefined' && typeof errorMessage !== 'undefined') {
                         errorCode.text(textStatus);
                         errorMessage.text(message);
                         ajaxErrorContent.show();
