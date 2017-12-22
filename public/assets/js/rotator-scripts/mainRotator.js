@@ -144,11 +144,10 @@ $(function () {
                         typeof errorCode !== 'undefined' &&
                         typeof errorMessage !== 'undefined' &&
                         typeof sentryId !== 'undefined') {
-                        errorCode.text(jqXHR.responseJSON.status !== 'undefined' ? jqXHR.responseJSON.status : textStatus);
+                        errorCode.text(textStatus);
                         errorMessage.text(jqXHR.responseJSON.message);
                         sentryId.text(jqXHR.responseJSON.sentryID);
                         ajaxErrorContent.show();
-                        console.log("Error: " + jqXHR.responseJSON.status + ", Message: " + jqXHR.responseJSON.message);
                     }
                 }
             }
