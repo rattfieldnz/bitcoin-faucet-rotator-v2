@@ -127,6 +127,7 @@ $(function () {
                         typeof jqXHR.responseJSON.status !== 'undefined' &&
                         jqXHR.responseJSON.status === 'error'
                     ) ||
+                    jqXHR.responseJSON.code !== 'undefined' &&
                     (
                         String(jqXHR.responseJSON.code).charAt(0) === '3' ||
                         String(jqXHR.responseJSON.code).charAt(0) === '4' ||
