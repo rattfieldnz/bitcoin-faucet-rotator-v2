@@ -157,13 +157,13 @@ class FaucetController extends AppBaseController
         $message = null;
         $referralCode = null;
 
-        if (Auth::guest() && !empty($faucet) && $faucet->isDeleted()) { // If the visitor is a guest, faucet exists, and faucet is soft-deleted
+        if (Auth::guest() && (!empty($faucet) && $faucet->isDeleted())) { // If the visitor is a guest, faucet exists, and faucet is soft-deleted
             flash('Faucet not found')->error();
             return redirect(route('faucets.index'));
         } elseif (!Auth::guest()  // If the visitor isn't a guest visitor,
             && Auth::user()->hasRole('user')  // If the visitor is an authenticated user with 'user' role
             && !Auth::user()->isAnAdmin()  // If the visitor is an authenticated user, but without 'owner' role,
-            && $faucet->isDeleted() // If the faucet has been soft-deleted
+            && (!empty($faucet) && $faucet->isDeleted()) // If the faucet has been soft-deleted
         ) {
             flash('Faucet not found')->error();
             return redirect(route('faucets.index'));

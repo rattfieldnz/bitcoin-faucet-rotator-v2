@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Helpers\Functions\Faucets;
+use App\Helpers\Functions\Http;
 use App\Helpers\Functions\PaymentProcessors;
 use App\Helpers\Functions\Users;
 use App\Models\Faucet;
@@ -46,6 +47,7 @@ class FaucetAPIController extends AppBaseController
             ['*'],
             $deleted
         )->sortBy('interval_minutes')->values();
+
         $this->paymentProcessorRepo = $paymentProcessorRepo;
         $this->adminUser = Users::adminUser();
     }
@@ -57,6 +59,7 @@ class FaucetAPIController extends AppBaseController
         $faucets = new Collection();
 
         for ($i = 0; $i < count($this->faucetCollection); $i++) {
+
             $data = Faucets::faucetData($this->faucetCollection[$i]);
 
             $faucets->push($data);
@@ -88,14 +91,21 @@ class FaucetAPIController extends AppBaseController
 
     public function getFirstFaucet()
     {
-        return $this->sendResponse(
-            (new FaucetsTransformer)->transform(
-                $this->adminUser,
-                $this->faucetCollection[0],
-                true
-            ),
-            'Faucet retrieved successfully'
-        );
+        $timedOutCount = 0;
+        if(Http::urlTimeOut($this->faucetCollection[0]->url) == false){
+            $timedOutCount += 1;
+        }
+
+        if(!empty($this->faucetCollection[$timedOutCount])){
+            return $this->sendResponse(
+                (new FaucetsTransformer)->transform(
+                    $this->adminUser,
+                    $this->faucetCollection[$timedOutCount],
+                    true
+                ),
+                'Faucet retrieved successfully'
+            );
+        }
     }
 
     public function getPreviousFaucet($slug)
@@ -106,34 +116,48 @@ class FaucetAPIController extends AppBaseController
         foreach ($faucetSlugs as $key => $value) {
             if ($value == $slug) {
                 // Decrement key to find previous one.
+
+                $timedOutCount = 0;
+
                 if ($key - 1 < 0) {
                     // If subtracted value is negative,
                     // we are at beginning of faucet collection array.
                     // Go to last faucet in the collection.
-                    $previousFaucet = $this->faucetRepository->findWhere(
-                        [
-                            'is_paused' => false,
-                            'has_low_balance' => false,
-                            'slug' => $faucetSlugs[count($faucetSlugs) - 1],
-                            'deleted_at' => null
-                        ]
-                    )->first();
 
-                    return $this->sendResponse(
-                        (new FaucetsTransformer)->transform(
-                            $this->adminUser,
-                            $previousFaucet,
-                            true
-                        ),
-                        'Faucet retrieved successfully'
-                    );
+                    if(Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url) == false){
+                        $timedOutCount += 1;
+                    }
+
+                    if(!empty($faucetSlugs[(count($faucetSlugs) - 1) - $timedOutCount])){
+                        $previousFaucet = $this->faucetRepository->findWhere(
+                            [
+                                'is_paused' => false,
+                                'has_low_balance' => false,
+                                'slug' => $faucetSlugs[(count($faucetSlugs) - 1) - $timedOutCount],
+                                'deleted_at' => null
+                            ]
+                        )->first();
+
+                        return $this->sendResponse(
+                            (new FaucetsTransformer)->transform(
+                                $this->adminUser,
+                                $previousFaucet,
+                                true
+                            ),
+                            'Faucet retrieved successfully'
+                        );
+                    }
+                }
+
+                if(Http::urlTimeOut($this->faucetCollection[$key - 1]->url) == false){
+                    $timedOutCount += 1;
                 }
 
                 $previousFaucet = $this->faucetRepository->findWhere(
                     [
                         'is_paused' => false,
                         'has_low_balance' => false,
-                        'slug' => $faucetSlugs[$key - 1],
+                        'slug' => $faucetSlugs[($key - 1) - $timedOutCount],
                         'deleted_at' => null
                     ]
                 )->first();
@@ -158,16 +182,51 @@ class FaucetAPIController extends AppBaseController
 
         foreach ($faucetSlugs as $key => $value) {
             if ($value == $slug) {
+
+                $timedOutCount = 0;
+
                 // Increase key to find next one.
                 if ($key + 1 > count($faucetSlugs) - 1) {
                     // If addition is greater than number of faucets,
                     // We are at end of the collection.
                     // Go to first faucet in the collection.
+
+                    if(Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url) == false){
+                        $timedOutCount += 1;
+                    }
+
+                    if(!empty($faucetSlugs[$timedOutCount])){
+
+                        $nextFaucet = $this->faucetRepository->findWhere(
+                            [
+                                'is_paused' => false,
+                                'has_low_balance' => false,
+                                'slug' => $faucetSlugs[$timedOutCount],
+                                'deleted_at' => null
+                            ]
+                        )->first();
+
+                        return $this->sendResponse(
+                            (new FaucetsTransformer)->transform(
+                                $this->adminUser,
+                                $nextFaucet,
+                                true
+                            ),
+                            'Faucet retrieved successfully'
+                        );
+                    }
+                }
+
+                if(Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url) == false){
+                    $timedOutCount += 1;
+                }
+
+                if(!empty($faucetSlugs[($key + 1) + $timedOutCount])){
                     $nextFaucet = $this->faucetRepository->findWhere(
                         [
                             'is_paused' => false,
                             'has_low_balance' => false,
-                            'slug' => $faucetSlugs[0],
+                            'slug' => $faucetSlugs[($key + 1) + $timedOutCount],
                             'deleted_at' => null
                         ]
                     )->first();
@@ -181,23 +240,6 @@ class FaucetAPIController extends AppBaseController
                         'Faucet retrieved successfully'
                     );
                 }
-                $nextFaucet = $this->faucetRepository->findWhere(
-                    [
-                        'is_paused' => false,
-                        'has_low_balance' => false,
-                        'slug' => $faucetSlugs[$key + 1],
-                        'deleted_at' => null
-                    ]
-                )->first();
-
-                return $this->sendResponse(
-                    (new FaucetsTransformer)->transform(
-                        $this->adminUser,
-                        $nextFaucet,
-                        true
-                    ),
-                    'Faucet retrieved successfully'
-                );
             }
         }
         return null;

@@ -116,6 +116,27 @@ class Http
     }
 
     /**
+     * Check if a URL request times out.
+     *
+     * @param     $url
+     * @param int $timeout
+     *
+     * @return bool
+     */
+    public static function urlTimeOut($url, int $timeout = 5): bool {
+        if(!empty($url)){
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+            return $response;
+        }
+    }
+
+    /**
      * Return an array of known HTTP statuses.
      *
      * @see https://gist.github.com/henriquemoody/6580488

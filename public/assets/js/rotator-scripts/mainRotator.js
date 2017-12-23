@@ -80,75 +80,79 @@ $(function () {
         var ajaxErrorContent = $('#show-ajax-data-error-content');
         var noIframeContent = $('#show-no-iframe-content');
 
-        $.ajax({
-            url: apiUrl,
-            timeout: 5000,
-            success: function (data) {
-                iframe.attr('src', '');
+        var getFaucet = function() {
+            $.ajax({
+                url: apiUrl,
+                success: function (data) {
+                    iframe.attr('src', '');
 
-                noIframeContent.hide();
-                ajaxErrorContent.hide();
-                var editFaucetLink = $('#edit-faucet-link');
-
-                iframeUrl = data.data.url;
-                currentFaucetSlug = data.data.slug;
-
-                if (Boolean(data.data.can_show_in_iframes) === true) {
-                    iframe.show();
                     noIframeContent.hide();
-                    iframe.attr('src', iframeUrl);
-                } else {
-                    iframe.hide();
-                    noIframeContent.find('#faucet-link').attr('href', iframeUrl);
-                    noIframeContent.find('#faucet-link').attr('title', 'View "' + data.data.name + '" faucet in a new window');
+                    ajaxErrorContent.hide();
+                    var editFaucetLink = $('#edit-faucet-link');
 
-                    if (typeof editFaucetLink !== 'undefined') {
-                        var editFaucetRoute = laroute.route(
-                            'faucets.edit',
-                            { slug : currentFaucetSlug }
-                        );
+                    iframeUrl = data.data.url;
+                    currentFaucetSlug = data.data.slug;
 
-                        editFaucetLink.attr('href', editFaucetRoute);
+                    if (Boolean(data.data.can_show_in_iframes) === true) {
+                        iframe.show();
+                        noIframeContent.hide();
+                        iframe.attr('src', iframeUrl);
+                    } else {
+                        iframe.hide();
+                        noIframeContent.find('#faucet-link').attr('href', iframeUrl);
+                        noIframeContent.find('#faucet-link').attr('title', 'View "' + data.data.name + '" faucet in a new window');
+
+                        if (typeof editFaucetLink !== 'undefined') {
+                            var editFaucetRoute = laroute.route(
+                                'faucets.edit',
+                                {slug: currentFaucetSlug}
+                            );
+
+                            editFaucetLink.attr('href', editFaucetRoute);
+                        }
+
+                        noIframeContent.show();
                     }
 
-                    noIframeContent.show();
-                }
+                    var currentFaucetRoute = laroute.route(
+                        'faucet.show',
+                        {slug: currentFaucetSlug}
+                    );
 
-                var currentFaucetRoute = laroute.route(
-                    'faucet.show',
-                    { slug : currentFaucetSlug }
-                );
-
-                $('#current').attr('href', currentFaucetRoute);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("Error thrown: " + errorThrown + ", TextStatus: " + textStatus);
-                var message = typeof errorThrown !== 'undefined' ?
-                    errorThrown : "Error: " + errorThrown;
-                if (
-                    (textStatus === 'timeout' || errorThrown === 'timeout') ||
-                    (jqXHR.responseJSON !== null || typeof jqXHR.responseJSON !== 'undefined') &&
-                    (
-                        (jqXHR.responseJSON.status !== null || typeof jqXHR.responseJSON.status !== 'undefined') &&
-                        (
-                            String(jqXHR.responseJSON.status).charAt(0) === '3' ||
-                            String(jqXHR.responseJSON.status).charAt(0) === '4' ||
-                            String(jqXHR.responseJSON.status).charAt(0) === '5'
-                        )
-                    )
-                ) {
-                    iframe.hide();
-                    noIframeContent.hide();
-                    var errorCode = $('#error-code');
-                    var errorMessage = $('#error-message');
+                    $('#current').attr('href', currentFaucetRoute);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    var message = typeof errorThrown !== 'undefined' ?
+                        errorThrown : "Error: " + errorThrown;
                     if (
-                        typeof errorCode !== 'undefined' && typeof errorMessage !== 'undefined') {
-                        errorCode.text(textStatus);
-                        errorMessage.text(message);
-                        ajaxErrorContent.show();
+                        (textStatus === 'timeout' || errorThrown === 'timeout') ||
+                        (jqXHR.responseJSON !== null && typeof jqXHR.responseJSON !== 'undefined') &&
+                        (
+                            (jqXHR.responseJSON.status !== null && typeof jqXHR.responseJSON.status !== 'undefined') &&
+                            (
+                                String(jqXHR.responseJSON.status).charAt(0) === '3' ||
+                                String(jqXHR.responseJSON.status).charAt(0) === '4' ||
+                                String(jqXHR.responseJSON.status).charAt(0) === '5'
+                            )
+                        )
+                    ) {
+                        iframe.hide();
+                        noIframeContent.hide();
+                        var errorCode = $('#error-code');
+                        var errorMessage = $('#error-message');
+                        if (
+                            typeof errorCode !== 'undefined' && typeof errorMessage !== 'undefined') {
+                            errorCode.text(textStatus);
+                            errorMessage.text(message);
+                            ajaxErrorContent.show();
+                        }
+
+                        getFaucet();
                     }
                 }
-            }
-        });
+            });
+        };
+
+        getFaucet();
     }
 });

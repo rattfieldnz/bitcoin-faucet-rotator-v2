@@ -12,6 +12,7 @@ use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\TwitterCard;
 use Carbon\Carbon;
 use Form;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Laracasts\Flash\Flash as LaracastsFlash;
 use App\Models\PaymentProcessor;
@@ -826,6 +827,33 @@ class Faucets
 
         $tweet = !empty($faucet->twitter_message) ? strtr($faucet->twitter_message, $placeholders) : "";
         return $tweet;
+    }
+
+    /**
+     * Get faucets whose url's have not timed out.
+     *
+     * @param int                                $timedout
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function excludeTimedOutFaucets(int $timedout = 5): Collection{
+
+        $deleted = Auth::check() && Auth::user()->isAnAdmin() ? true : false;
+        $faucets = $this->faucetRepository->findItemsWhere(
+            ['is_paused' => false, 'has_low_balance' => false],
+            ['*'],
+            $deleted
+        )->sortBy('interval_minutes')->values();
+
+        $filtered = collect();
+
+        foreach($faucets as $f){
+            if(Http::urlTimeOut($f->url, $timedout) != false){
+                $filtered->push($f);
+            }
+        }
+
+        return $filtered;
     }
 
     /**
