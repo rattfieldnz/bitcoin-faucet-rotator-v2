@@ -83,6 +83,7 @@ $(function () {
         var getFaucet = function() {
             $.ajax({
                 url: apiUrl,
+                timeout: 2000,
                 success: function (data) {
                     iframe.attr('src', '');
 

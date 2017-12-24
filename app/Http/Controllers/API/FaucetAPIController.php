@@ -92,7 +92,7 @@ class FaucetAPIController extends AppBaseController
     public function getFirstFaucet()
     {
         $timedOutCount = 0;
-        if(Http::urlTimeOut($this->faucetCollection[0]->url) == false){
+        if(Http::urlTimeOut($this->faucetCollection[0]->url, 2) == false){
             $timedOutCount += 1;
         }
 
@@ -124,7 +124,7 @@ class FaucetAPIController extends AppBaseController
                     // we are at beginning of faucet collection array.
                     // Go to last faucet in the collection.
 
-                    if(Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url) == false){
+                    if(Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url, 2) == false){
                         $timedOutCount += 1;
                     }
 
@@ -149,7 +149,7 @@ class FaucetAPIController extends AppBaseController
                     }
                 }
 
-                if(Http::urlTimeOut($this->faucetCollection[$key - 1]->url) == false){
+                if(Http::urlTimeOut($this->faucetCollection[$key - 1]->url, 2) == false){
                     $timedOutCount += 1;
                 }
 
@@ -191,7 +191,7 @@ class FaucetAPIController extends AppBaseController
                     // We are at end of the collection.
                     // Go to first faucet in the collection.
 
-                    if(Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url) == false){
+                    if(Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url, 2) == false){
                         $timedOutCount += 1;
                     }
 
@@ -217,7 +217,7 @@ class FaucetAPIController extends AppBaseController
                     }
                 }
 
-                if(Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url) == false){
+                if(Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url, 2) == false){
                     $timedOutCount += 1;
                 }
 
