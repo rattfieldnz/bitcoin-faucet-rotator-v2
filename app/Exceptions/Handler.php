@@ -85,8 +85,7 @@ class Handler extends ExceptionHandler
                 return Http::jsonException(
                     'error',
                     $statusCode,
-                    !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage($statusCode),
-                    Sentry::getLastEventID()
+                    !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage($statusCode)
                 );
             } else {
                 return response()->view('errors.' . $statusCode, ['sentryID' => Sentry::getLastEventID()], $statusCode);
@@ -110,8 +109,7 @@ class Handler extends ExceptionHandler
                 return Http::jsonException(
                     'error',
                     500,
-                    !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500),
-                    Sentry::getLastEventID()
+                    !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500)
                 );
             } else {
                 return response()->view('errors.500', [
@@ -130,8 +128,7 @@ class Handler extends ExceptionHandler
                 return Http::jsonException(
                     'error',
                     404,
-                    $item . " was not found",
-                    Sentry::getLastEventID()
+                    $item . " was not found"
                 );
             } else {
                 return response()->view('errors.404', compact('item'), 404);
@@ -145,8 +142,7 @@ class Handler extends ExceptionHandler
                 return Http::jsonException(
                     'error',
                     404,
-                    "The page/url was not found",
-                    Sentry::getLastEventID()
+                    "The page/url was not found"
                 );
             } else {
                 return response()->view('errors.404', compact('item'), 404);
@@ -158,8 +154,7 @@ class Handler extends ExceptionHandler
                 return Http::jsonException(
                     'error',
                     500,
-                    "Google Analytics API daily usage exceeded!",
-                    Sentry::getLastEventID()
+                    "Google Analytics API daily usage exceeded!"
                 );
             } else {
                 return response()->view('errors.500', [
@@ -174,8 +169,7 @@ class Handler extends ExceptionHandler
                 return Http::jsonException(
                     'error',
                     500,
-                    !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500),
-                    Sentry::getLastEventID()
+                    !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500)
                 );
             } else {
                 return response()->view('errors.500', [
@@ -190,8 +184,7 @@ class Handler extends ExceptionHandler
                 return Http::jsonException(
                     'error',
                     500,
-                    !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500),
-                    Sentry::getLastEventID()
+                    !empty($e->getMessage()) ? $e->getMessage() : Http::getHttpMessage(500)
                 );
             } else {
                 return response()->view('errors.500', [

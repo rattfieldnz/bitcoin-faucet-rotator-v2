@@ -5,6 +5,7 @@ namespace App\Helpers\Functions;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use Sentry;
 
 /**
  * Class Http
@@ -79,22 +80,20 @@ class Http
      * @param string $status
      * @param int    $code
      * @param string $message
-     * @param string $sentryID
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public static function jsonException(
         string $status = 'error',
         int $code = 500,
-        string $message = 'An error has occurred',
-        string $sentryID
+        string $message = 'An error has occurred'
     ): JsonResponse {
     
         return response()->json(
             [
                 'status' => $status,
                 'code' => $code,
-                'sentryID' => $sentryID,
+                'sentryID' => Sentry::getLastEventID(),
                 'message' => $message,
             ],
             $code
