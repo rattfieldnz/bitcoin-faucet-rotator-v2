@@ -70,23 +70,11 @@ class FaucetAPIController extends AppBaseController
 
     public function show($slug)
     {
-
         $faucet = $this->faucetRepository->findWhere(
             ['is_paused' => false, 'has_low_balance' => false, 'slug' => $slug, 'deleted_at' => null]
         )->first();
 
-        if (empty($faucet)) {
-            return $this->sendError('Faucet not found', 404);
-        }
-
-        return $this->sendResponse(
-            (new FaucetsTransformer)->transform(
-                $this->adminUser,
-                $faucet,
-                true
-            ),
-            'Faucet retrieved successfully'
-        );
+        return Faucets::faucetJsonResponse($faucet, Users::adminUser());
     }
 
     public function getFirstFaucet()
@@ -97,21 +85,13 @@ class FaucetAPIController extends AppBaseController
         }
 
         if(!empty($this->faucetCollection[$timedOutCount])){
-            return $this->sendResponse(
-                (new FaucetsTransformer)->transform(
-                    $this->adminUser,
-                    $this->faucetCollection[$timedOutCount],
-                    true
-                ),
-                'Faucet retrieved successfully'
-            );
+            return Faucets::faucetJsonResponse($this->faucetCollection[$timedOutCount], Users::adminUser());
         }
     }
 
     public function getPreviousFaucet($slug)
     {
         $faucetSlugs = array_column($this->faucetCollection->toArray(), 'slug');
-        $previousFaucet = null;
 
         foreach ($faucetSlugs as $key => $value) {
             if ($value == $slug) {
@@ -119,60 +99,24 @@ class FaucetAPIController extends AppBaseController
 
                 $timedOutCount = 0;
 
-                if ($key - 1 < 0) {
-                    // If subtracted value is negative,
-                    // we are at beginning of faucet collection array.
-                    // Go to last faucet in the collection.
-
-                    if(Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url, 5) == false){
-                        $timedOutCount += 1;
-                    }
-
-                    if(!empty($faucetSlugs[(count($faucetSlugs) - 1) - $timedOutCount])){
-                        $previousFaucet = $this->faucetRepository->findWhere(
-                            [
-                                'is_paused' => false,
-                                'has_low_balance' => false,
-                                'slug' => $faucetSlugs[(count($faucetSlugs) - 1) - $timedOutCount],
-                                'deleted_at' => null
-                            ]
-                        )->first();
-
-                        return $this->sendResponse(
-                            (new FaucetsTransformer)->transform(
-                                $this->adminUser,
-                                $previousFaucet,
-                                true
-                            ),
-                            'Faucet retrieved successfully'
-                        );
-                    }
-                }
-
-                if(Http::urlTimeOut($this->faucetCollection[$key - 1]->url, 5) == false){
+                if(Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url, 5) == false){
                     $timedOutCount += 1;
                 }
+
+                $prevSlug = $key - 1 < 0 ? $faucetSlugs[(count($faucetSlugs) - 1) - $timedOutCount] : $faucetSlugs[($key - 1) - $timedOutCount];
 
                 $previousFaucet = $this->faucetRepository->findWhere(
                     [
                         'is_paused' => false,
                         'has_low_balance' => false,
-                        'slug' => $faucetSlugs[($key - 1) - $timedOutCount],
+                        'slug' => $prevSlug,
                         'deleted_at' => null
                     ]
                 )->first();
 
-                return $this->sendResponse(
-                    (new FaucetsTransformer)->transform(
-                        $this->adminUser,
-                        $previousFaucet,
-                        true
-                    ),
-                    'Faucet retrieved successfully'
-                );
+                return Faucets::faucetJsonResponse($previousFaucet, Users::adminUser());
             }
         }
-        return null;
     }
 
     public function getNextFaucet($slug)
@@ -247,27 +191,16 @@ class FaucetAPIController extends AppBaseController
 
     public function getLastFaucet()
     {
-
-        return $this->sendResponse(
-            (new FaucetsTransformer)->transform(
-                $this->adminUser,
-                $this->faucetCollection[count($this->faucetCollection) - 1],
-                true
-            ),
-            'Faucet retrieved successfully'
-        );
+        return Faucets::faucetJsonResponse($this->faucetCollection[count($this->faucetCollection) - 1], Users::adminUser());
     }
 
     public function getRandomFaucet()
     {
-
         $faucets = $this->faucetCollection;
 
         $randomIndex = rand(0, count($faucets) - 1);
 
-        $faucet = (new FaucetsTransformer)->transform($this->adminUser, $faucets[$randomIndex], false);
-
-        return $this->sendResponse($faucet, 'Faucet retrieved successfully');
+        return Faucets::faucetJsonResponse($faucets[$randomIndex], Users::adminUser());
     }
 
     /* End points for payment processor rotator */
@@ -291,14 +224,7 @@ class FaucetAPIController extends AppBaseController
             ->where('faucets.slug', '=', $faucetSlug)
             ->first();
 
-        return $this->sendResponse(
-            (new FaucetsTransformer)->transform(
-                $this->adminUser,
-                $faucet,
-                true
-            ),
-            'Faucet retrieved successfully'
-        );
+        return Faucets::faucetJsonResponse($faucet, Users::adminUser());
     }
 
     public function getPaymentProcessorFaucets($paymentProcessorSlug)
@@ -352,9 +278,7 @@ class FaucetAPIController extends AppBaseController
             ->orderBy('faucets.interval_minutes')
             ->get();
 
-        $faucet = (new FaucetsTransformer)->transform($this->adminUser, $faucets[0], false);
-
-        return $this->sendResponse($faucet, 'Faucet retrieved successfully');
+        return Faucets::faucetJsonResponse($faucets[0], Users::adminUser());
     }
 
     public function getPreviousPaymentProcessorFaucet($paymentProcessorSlug, $faucetSlug)
@@ -377,46 +301,28 @@ class FaucetAPIController extends AppBaseController
 
         foreach ($array as $key => $value) {
             if ($value == $faucetSlug) {
+
                 // Increase key to find next one.
                 if ($key - 1 > count($array) - 1) {
+
                     // If addition is greater than number of faucets,
                     // We are at end of the collection.
                     // Go to first faucet in the collection.
-                    $faucet = Faucet::where('is_paused', '=', false)
-                        ->where('has_low_balance', '=', false)
-                        ->where('deleted_at', '=', null)
-                        ->where('slug', '=', $array[0])
-                        ->orderBy('interval_minutes')
-                        ->first();
-
-                    return $this->sendResponse(
-                        (new FaucetsTransformer)->transform(
-                            $this->adminUser,
-                            $faucet,
-                            true
-                        ),
-                        'Faucet retrieved successfully'
-                    );
+                    $prevFaucetSlug = $array[0];
+                } else {
+                    $prevFaucetSlug = $array[$key - 1];
                 }
 
                 $faucet = Faucet::where('is_paused', '=', false)
                     ->where('has_low_balance', '=', false)
                     ->where('deleted_at', '=', null)
-                    ->where('slug', '=', $array[($key - 1) < 0 ? count($array) - $key - 1 : $key - 1])
+                    ->where('slug', '=', $prevFaucetSlug)
                     ->orderBy('interval_minutes')
                     ->first();
 
-                return $this->sendResponse(
-                    (new FaucetsTransformer)->transform(
-                        $this->adminUser,
-                        $faucet,
-                        true
-                    ),
-                    'Faucet retrieved successfully'
-                );
+                return Faucets::faucetJsonResponse($faucet, Users::adminUser());
             }
         }
-        return null;
     }
 
     public function getNextPaymentProcessorFaucet($paymentProcessorSlug, $faucetSlug)
@@ -442,45 +348,28 @@ class FaucetAPIController extends AppBaseController
         foreach ($array as $key => $value) {
             if ($value == $faucetSlug) {
                 // Increase key to find next one.
+
+                // Increase key to find next one.
                 if ($key + 1 > count($array) - 1) {
+
                     // If addition is greater than number of faucets,
                     // We are at end of the collection.
                     // Go to first faucet in the collection.
-                    $faucet = Faucet::where('is_paused', '=', false)
-                        ->where('has_low_balance', '=', false)
-                        ->where('deleted_at', '=', null)
-                        ->where('slug', '=', $array[0])
-                        ->orderBy('interval_minutes')
-                        ->first();
-
-                    return $this->sendResponse(
-                        (new FaucetsTransformer)->transform(
-                            $this->adminUser,
-                            $faucet,
-                            true
-                        ),
-                        'Faucet retrieved successfully'
-                    );
+                    $nextFaucetSlug = $array[0];
+                } else {
+                    $nextFaucetSlug = $array[$key + 1];
                 }
 
                 $faucet = Faucet::where('is_paused', '=', false)
                     ->where('has_low_balance', '=', false)
                     ->where('deleted_at', '=', null)
-                    ->where('slug', '=', $array[$key + 1])
+                    ->where('slug', '=', $nextFaucetSlug)
                     ->orderBy('interval_minutes')
                     ->first();
 
-                return $this->sendResponse(
-                    (new FaucetsTransformer)->transform(
-                        $this->adminUser,
-                        $faucet,
-                        true
-                    ),
-                    'Faucet retrieved successfully'
-                );
+                return Faucets::faucetJsonResponse($faucet, Users::adminUser());
             }
         }
-        return null;
     }
 
     public function getLastPaymentProcessorFaucet($paymentProcessorSlug)
@@ -503,9 +392,7 @@ class FaucetAPIController extends AppBaseController
             ->orderBy('faucets.interval_minutes')
             ->get();
 
-        $faucet = (new FaucetsTransformer)->transform($this->adminUser, $faucets[count($faucets) - 1], true);
-
-        return $this->sendResponse($faucet, 'Faucet retrieved successfully');
+        return Faucets::faucetJsonResponse($faucets[count($faucets) - 1], Users::adminUser());
     }
 
     public function getRandomPaymentProcessorFaucet($paymentProcessorSlug)
@@ -530,9 +417,7 @@ class FaucetAPIController extends AppBaseController
 
         $randomIndex = rand(0, count($faucets) - 1);
 
-        $faucet = (new FaucetsTransformer)->transform($this->adminUser, $faucets[$randomIndex], false);
-
-        return $this->sendResponse($faucet, 'Faucet retrieved successfully');
+        return Faucets::faucetJsonResponse($faucets[$randomIndex], Users::adminUser());
     }
 
     /* End points for user's main rotator */
@@ -635,16 +520,7 @@ class FaucetAPIController extends AppBaseController
 
         $faucet = Users::getFaucet($user, $faucetSlug);
 
-        if (empty($faucet)) {
-            return $this->sendResponse(
-                ['status' => 'error', 'code' => 404, 'message' => 'User faucet not found.'],
-                "User faucet not found."
-            );
-        }
-
-        $faucet = (new FaucetsTransformer)->transform($user, $faucet, true);
-
-        return $this->sendResponse($faucet, 'User faucet retrieved successfully');
+        return Faucets::faucetJsonResponse($faucet, $user);
     }
 
     public function getFirstUserFaucet($userSlug)
@@ -669,13 +545,7 @@ class FaucetAPIController extends AppBaseController
             }
         }
 
-        $userFaucet = null;
-
-        if (!empty($faucets) && !empty($faucets->first())) {
-            $userFaucet = (new FaucetsTransformer)->transform($user, $faucets->first(), true);
-        }
-
-        return $this->sendResponse($userFaucet, 'User faucet retrieved successfully');
+        return Faucets::faucetJsonResponse($faucets->first(), $user);
     }
 
     public function getPreviousUserFaucet($userSlug, $faucetSlug)
@@ -713,33 +583,16 @@ class FaucetAPIController extends AppBaseController
 
         foreach ($array as $key => $value) {
             if ($value == $faucetSlug) {
+
                 // Increase key to find next one.
-                if ($key - 1 > count($array) - 1) {
-                    // If addition is greater than number of faucets,
-                    // We are at end of the collection.
-                    // Go to first faucet in the collection.
-                    $faucet = Users::getFaucet($user, $array[0]);
+                // If addition is greater than number of faucets,
+                // We are at end of the collection.
+                // Go to first faucet in the collection.
+                $faucetData = ($key - 1 > count($array) - 1) ? $array[0] : ($array[($key - 1) < 0 ? count($array) - $key - 1 : $key - 1]);
 
-                    return $this->sendResponse(
-                        (new FaucetsTransformer)->transform(
-                            $this->adminUser,
-                            $faucet,
-                            true
-                        ),
-                        'Faucet retrieved successfully'
-                    );
-                }
+                $faucet = Users::getFaucet($user, $faucetData);
 
-                $faucet = Users::getFaucet($user, $array[($key - 1) < 0 ? count($array) - $key - 1 : $key - 1]);
-
-                return $this->sendResponse(
-                    (new FaucetsTransformer)->transform(
-                        $this->adminUser,
-                        $faucet,
-                        true
-                    ),
-                    'Faucet retrieved successfully'
-                );
+                return Faucets::faucetJsonResponse($faucet, $user);
             }
         }
     }
@@ -777,8 +630,6 @@ class FaucetAPIController extends AppBaseController
         foreach ($array as $key => $value) {
             if ($value == $faucetSlug) {
 
-                $nextFaucetSlug = null;
-
                 // Increase key to find next one.
                 if ($key + 1 > count($array) - 1) {
 
@@ -798,14 +649,7 @@ class FaucetAPIController extends AppBaseController
                     ->orderBy('faucets.interval_minutes')
                     ->first();
 
-                return $this->sendResponse(
-                    (new FaucetsTransformer)->transform(
-                        $user,
-                        $faucet,
-                        true
-                    ),
-                    'Faucet retrieved successfully'
-                );
+                return Faucets::faucetJsonResponse($faucet, $user);
             }
         }
     }
@@ -1018,32 +862,14 @@ class FaucetAPIController extends AppBaseController
         foreach ($array as $key => $value) {
             if ($value == $faucet->slug) {
                 // Increase key to find next one.
-                if ($key + 1 > count($array) - 1) {
-                    // If addition is greater than number of faucets,
-                    // We are at end of the collection.
-                    // Go to first faucet in the collection.
-                    $faucet = Users::getFaucet($user, $array[0]);
+                // If addition is greater than number of faucets,
+                // We are at end of the collection.
+                // Go to first faucet in the collection.
+                $faucetData = ($key + 1 > count($array) - 1) ? $array[0] : $array[$key + 1];
 
-                    return $this->sendResponse(
-                        (new FaucetsTransformer)->transform(
-                            $user,
-                            $faucet,
-                            true
-                        ),
-                        'User payment processor faucet retrieved successfully'
-                    );
-                }
+                $faucet = Users::getFaucet($user, $faucetData);
 
-                $faucet = Users::getFaucet($user, $array[$key + 1]);
-
-                return $this->sendResponse(
-                    (new FaucetsTransformer)->transform(
-                        $user,
-                        $faucet,
-                        true
-                    ),
-                    'User payment processor faucet retrieved successfully'
-                );
+                return Faucets::faucetJsonResponse($faucet, $user);
             }
         }
     }
@@ -1082,36 +908,17 @@ class FaucetAPIController extends AppBaseController
         $faucets = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor);
 
         $array = array_column($faucets->toArray(), 'slug');
-
         foreach ($array as $key => $value) {
             if ($value == $faucet->slug) {
-                // Increase key to find next one.
-                if ($key - 1 > count($array) - 1) {
-                    // If addition is greater than number of faucets,
-                    // We are at end of the collection.
-                    // Go to first faucet in the collection.
-                    $faucet = Users::getFaucet($user, $array[0]);
+                // Decrease key to find next one.
+                // If key is greater than number of faucets,
+                // We are at end of the collection.
+                // Go to first faucet in the collection.
+                $faucetData = ($key - 1 > count($array) - 1) ? $array[0] : ($array[($key - 1) < 0 ? count($array) - $key - 1 : $key - 1]);
 
-                    return $this->sendResponse(
-                        (new FaucetsTransformer)->transform(
-                            $user,
-                            $faucet,
-                            true
-                        ),
-                        'Faucet retrieved successfully'
-                    );
-                }
+                $faucet = Users::getFaucet($user, $faucetData);
 
-                $faucet = Users::getFaucet($user, $array[($key - 1) < 0 ? count($array) - $key - 1 : $key - 1]);
-
-                return $this->sendResponse(
-                    (new FaucetsTransformer)->transform(
-                        $user,
-                        $faucet,
-                        true
-                    ),
-                    'User payment processor faucet retrieved successfully'
-                );
+                return Faucets::faucetJsonResponse($faucet, $user);
             }
         }
     }

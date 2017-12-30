@@ -7,11 +7,14 @@ use App\Http\Requests\UpdateFaucetRequest;
 use App\Models\Faucet;
 use App\Models\MainMeta;
 use App\Models\User;
+use App\Transformers\FaucetsTransformer;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\TwitterCard;
 use Carbon\Carbon;
 use Form;
+use InfyOm\Generator\Utils\ResponseUtil;
+use Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Laracasts\Flash\Flash as LaracastsFlash;
@@ -854,6 +857,26 @@ class Faucets
         }
 
         return $filtered;
+    }
+
+    public static function faucetJsonResponse(Faucet $faucet, User $user){
+        if(empty($user)){
+            Response::json(ResponseUtil::makeResponse("User not found.", null));
+        }
+
+        if(empty($faucet)){
+            $message = "Faucet not found.";
+            $json = ['status' => 'error', 'code' => 404, 'message' => 'Faucet not found.'];
+        } else {
+            $message = "Faucet retrieved successfully.";
+            $json = (new FaucetsTransformer)->transform(
+                $user,
+                $faucet,
+                true
+            );
+        }
+
+        return Response::json(ResponseUtil::makeResponse($message, $json));
     }
 
     /**

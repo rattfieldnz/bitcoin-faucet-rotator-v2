@@ -375,24 +375,25 @@ class Users
      * @param \App\Models\User $user
      * @param                  $faucetSlug
      *
-     * @return \App\Models\Faucet
+     * @return \App\Models\Faucet|null
      */
     public static function getFaucet(User $user, $faucetSlug): Faucet
     {
-        $deletedAtOperator = Auth::check() && ($user->isAnAdmin() || $user === Auth::user()) ? '!=' : '=';
-
         $faucet = $user->faucets()
             ->where('faucets.is_paused', '=', false)
             ->where('faucets.has_low_balance', '=', false)
-            ->where('faucets.deleted_at', $deletedAtOperator, null)
             ->where('slug', '=', $faucetSlug);
 
-        if (Auth::check() && (Auth::user()->isAnAdmin() || $user === Auth::user())) {
-            return $faucet->first();
+        if(!empty($faucet)){
+            if (Auth::check() && (Auth::user()->isAnAdmin() || $user === Auth::user())) {
+                return $faucet->first();
+            } else {
+                return $faucet
+                    ->wherePivot('referral_code', '!=', null)
+                    ->first();
+            }
         } else {
-            return $faucet
-                ->wherePivot('referral_code', '!=', null)
-                ->first();
+            return null;
         }
     }
 
