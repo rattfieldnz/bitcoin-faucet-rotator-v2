@@ -74,6 +74,13 @@ class FaucetAPIController extends AppBaseController
             ['is_paused' => false, 'has_low_balance' => false, 'slug' => $slug, 'deleted_at' => null]
         )->first();
 
+        if (empty($faucet)) {
+            return $this->sendResponse(
+                ['status' => 'error', 'code' => 404, 'message' => 'Faucet not found.'],
+                "Faucet not found."
+            );
+        }
+
         return Faucets::faucetJsonResponse($faucet, Users::adminUser());
     }
 
