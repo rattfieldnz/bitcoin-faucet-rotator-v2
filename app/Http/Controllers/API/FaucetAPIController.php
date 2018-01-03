@@ -445,38 +445,48 @@ class FaucetAPIController extends AppBaseController
         }
 
         $userFaucets = Users::getFaucets($user);
+        $mainFaucets = Faucet::where('deleted_at', '!=', null)
+            ->where('is_paused', '=', false)
+            ->where('has_low_balance', '=', false)
+            ->orderBy('interval_minutes')
+            ->get();
 
         $faucets = new Collection();
 
-        for ($i = 0; $i < count($userFaucets); $i++) {
-            $referralCode = Faucets::getUserFaucetRefCode($user, $userFaucets[$i]);
+        for ($i = 0; $i < count($mainFaucets); $i++) {
+            $referralCode = Faucets::getUserFaucetRefCode($user, $mainFaucets[$i]);
+
+            $faucetRoute = !empty(Users::getFaucet($user, $mainFaucets[$i]->slug)) ? route(
+                'users.faucets.show',
+                ['userSlug' => $user->slug, 'faucetSlug' => $mainFaucets[$i]->slug]
+            ) : route(
+                'faucets.show',
+                ['slug' => $mainFaucets[$i]->slug]
+            );
 
             $data = [
                 'name' => [
-                    'display' => route(
-                        'users.faucets.show',
-                        ['userSlug' => $user->slug, 'faucetSlug' => $userFaucets[$i]->slug]
-                    ),
-                    'original' => $userFaucets[$i]->name,
+                    'display' => $faucetRoute,
+                    'original' => $mainFaucets[$i]->name,
                 ],
-                'url' => $userFaucets[$i]->url . $referralCode,
+                'url' => $mainFaucets[$i]->url . $referralCode,
                 'referral_code' => $referralCode,
-                'interval_minutes' => intval($userFaucets[$i]->interval_minutes),
+                'interval_minutes' => intval($mainFaucets[$i]->interval_minutes),
                 'min_payout' => [
-                    'display' => number_format(intval($userFaucets[$i]->min_payout)),
-                    'original' => intval($userFaucets[$i]->min_payout)
+                    'display' => number_format(intval($mainFaucets[$i]->min_payout)),
+                    'original' => intval($mainFaucets[$i]->min_payout)
                 ],
                 'max_payout' => [
-                    'display' => number_format(intval($userFaucets[$i]->max_payout)),
-                    'original' => intval($userFaucets[$i]->max_payout)
+                    'display' => number_format(intval($mainFaucets[$i]->max_payout)),
+                    'original' => intval($mainFaucets[$i]->max_payout)
                 ],
-                'comments' => $userFaucets[$i]->comments,
+                'comments' => $mainFaucets[$i]->comments,
                 'is_paused' => [
-                    'display' => $userFaucets[$i]->is_paused == true ? "Yes" : "No",
-                    'original' => $userFaucets[$i]->is_paused
+                    'display' => $mainFaucets[$i]->is_paused == true ? "Yes" : "No",
+                    'original' => $mainFaucets[$i]->is_paused
                 ],
-                'slug' => $userFaucets[$i]->slug,
-                'has_low_balance' => $userFaucets[$i]->has_low_balance,
+                'slug' => $mainFaucets[$i]->slug,
+                'has_low_balance' => $mainFaucets[$i]->has_low_balance,
             ];
 
             $paymentProcessors = $userFaucets[$i]->paymentProcessors()->get();
