@@ -444,13 +444,14 @@ class FaucetAPIController extends AppBaseController
             return $this->index();
         }
 
-        $operator = Auth::check() && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id) ? '<>' : '!=';
-
         $userFaucets = $user->faucets()
-                ->where('faucets.is_paused', '=', false)
-                ->where('faucets.has_low_balance', '=', false)
-                ->where('faucets.deleted_at', '=', null)
-                ->where('referral_code', $operator, null)
+            ->where('faucets.is_paused', '=', false)
+            ->where('faucets.has_low_balance', '=', false)
+            ->where('faucets.deleted_at', '=', null);
+
+        $userFaucets = Auth::check() && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id) ?
+            $userFaucets->orderBy('faucets.interval_minutes')->get() :
+            $userFaucets->where('referral_code', '!=', null)
                 ->orderBy('faucets.interval_minutes')->get();
 
         $faucets = new Collection();
