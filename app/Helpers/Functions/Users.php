@@ -377,7 +377,7 @@ class Users
      *
      * @return \App\Models\Faucet|null
      */
-    public static function getFaucet(User $user, $faucetSlug): Faucet
+    public static function getFaucet(User $user, $faucetSlug)
     {
         $faucet = $user->faucets()
             ->where('faucets.is_paused', '=', false)
