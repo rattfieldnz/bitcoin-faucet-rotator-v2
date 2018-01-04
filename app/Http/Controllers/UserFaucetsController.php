@@ -16,6 +16,7 @@ use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Mews\Purifier\Facades\Purifier;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -107,6 +108,11 @@ class UserFaucetsController extends Controller
         WebsiteMeta::setCustomMeta($seoConfig);
 
         $disqusIdentifier = $user->user_name . '-' . $user->id . '-faucets-list';
+
+        dd(DB::table('referral_info')
+            ->where('faucet_id', '=', 2)
+            ->where('user_id', '=', $user->id)
+            ->get());
 
         return view('users.faucets.index')
             ->with('user', $user)

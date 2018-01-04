@@ -377,26 +377,30 @@ class Faucets
      */
     public static function setUserFaucetRefCode(User $user, Faucet $faucet, $refCode = null)
     {
-        $user = User::where('slug', $user->slug)->withTrashed()->first();
-
-        //If there is no such user, about to 404 page.
-        if (empty($user) || ($user->isDeleted() && (Auth::check() && !Auth::user()->isAnAdmin()))) {
-            flash('User not found')->error();
-            return redirect(route('users.index'));
-        }
-
-        if (empty($faucet) && ($faucet->isDeleted() && (Auth::check() && !Auth::user()->isAnAdmin()))) {
-            return null;
-        }
 
         $refCode = empty($refCode) ? null : Purifier::clean($refCode, 'generalFields');
-        DB::table('referral_info')->where(
-            [
-                ['faucet_id', '=', $faucet->id],
-                ['user_id', '=', $user->id]
-            ]
-        )->update(['referral_code' => $refCode]);
 
+        $f = DB::table('referral_info')
+            ->where('faucet_id', '=', $faucet->id)
+            ->where('user_id', '=', $user->id)
+            ->get();
+
+        if(empty($f)){
+            DB::table('referral_info')->insert(
+                [
+                    'faucet_id' => $faucet->id,
+                    'user_id' => $user->id,
+                    'referral_code' => $refCode
+                ]
+            );
+        } else {
+            DB::table('referral_info')->where(
+                [
+                    ['faucet_id', '=', $faucet->id],
+                    ['user_id', '=', $user->id]
+                ]
+            )->update(['referral_code' => $refCode]);
+        }
     }
 
     /**
