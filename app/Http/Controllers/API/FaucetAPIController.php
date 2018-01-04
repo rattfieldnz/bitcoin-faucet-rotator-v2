@@ -452,8 +452,8 @@ class FaucetAPIController extends AppBaseController
             ->orderBy('faucets.interval_minutes')->get();
 
         $mainFaucets = Auth::check() && Auth::user()->isAnAdmin() ?
-            Faucet::all() :
-            Faucet::where('deleted_at', '=', null)->get();
+            Faucet::withTrashed()->get() :
+            Faucet::withoutTrashed()->get();
 
         $userFaucets = Auth::check() && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id) ?
             $mainFaucets : $showFaucets;
