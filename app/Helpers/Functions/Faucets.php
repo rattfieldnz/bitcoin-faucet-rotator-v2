@@ -385,7 +385,7 @@ class Faucets
             ->where('user_id', '=', $user->id)
             ->get();
 
-        if(empty($f)){
+        if(empty($f) || count($f) == 0){
             DB::table('referral_info')->insert(
                 [
                     'faucet_id' => $faucet->id,
