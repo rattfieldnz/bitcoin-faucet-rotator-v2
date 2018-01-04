@@ -109,11 +109,6 @@ class UserFaucetsController extends Controller
 
         $disqusIdentifier = $user->user_name . '-' . $user->id . '-faucets-list';
 
-        dd(DB::table('referral_info')
-            ->where('faucet_id', '=', 2)
-            ->where('user_id', '=', $user->id)
-            ->get());
-
         return view('users.faucets.index')
             ->with('user', $user)
             ->with('faucets', $showFaucets)
