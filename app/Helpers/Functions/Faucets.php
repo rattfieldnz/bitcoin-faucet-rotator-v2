@@ -393,7 +393,7 @@ class Faucets
 
         // See if the user already has the associated faucet. If not,
         // create a new referral record.
-        $f = $user->faucets()->where('faucet_id', '=', $faucet->id)->first();
+        $f = $user->faucets()->wherePivot('faucet_id', '=', $faucet->id)->first();
 
         if(empty($f)){
 
