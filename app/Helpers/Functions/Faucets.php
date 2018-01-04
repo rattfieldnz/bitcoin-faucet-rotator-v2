@@ -391,6 +391,22 @@ class Faucets
 
         $refCode = empty($refCode) ? null : Purifier::clean($refCode, 'generalFields');
 
+        // See if the user already has the associated faucet. If not,
+        // create a new referral record.
+        $f = $user->faucets()->where('faucet_id', '=', $faucet->id)
+            ->where('user_id', '=', $user->id)->first();
+
+        if(empty($f)){
+
+            $newFaucetData = [
+                'user_id' => $user->id,
+                'faucet_id' => $faucet->id,
+                'referral_code' => $refCode
+            ];
+
+            self::createStoreUserFaucet($newFaucetData);
+        }
+
         DB::table('referral_info')->where(
             [
                 ['faucet_id', '=', $faucet->id],
