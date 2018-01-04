@@ -393,7 +393,7 @@ class Faucets
 
         // See if the user already has the associated faucet. If not,
         // create a new referral record.
-        $f = $user->faucets()->wherePivot('faucet_id', '=', $faucet->id)->first();
+        $f = $user->faucets()->where('faucet_id', '=', $faucet->id)->first();
 
         if(empty($f)){
 
@@ -404,14 +404,15 @@ class Faucets
             ];
 
             self::createStoreUserFaucet($newFaucetData);
+        } else {
+            DB::table('referral_info')->where(
+                [
+                    ['faucet_id', '=', $faucet->id],
+                    ['user_id', '=', $user->id]
+                ]
+            )->update(['referral_code' => $refCode]);
         }
 
-        DB::table('referral_info')->where(
-            [
-                ['faucet_id', '=', $faucet->id],
-                ['user_id', '=', $user->id]
-            ]
-        )->update(['referral_code' => $refCode]);
     }
 
     /**
