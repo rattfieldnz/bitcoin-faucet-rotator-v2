@@ -5502,12 +5502,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "eac760b414cf1f64362c3dd047b989e4db121332"
+                "reference": "e66394bc7610e69279bfdb3ab11b4fe65403f556"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/eac760b414cf1f64362c3dd047b989e4db121332",
-                "reference": "eac760b414cf1f64362c3dd047b989e4db121332",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/e66394bc7610e69279bfdb3ab11b4fe65403f556",
+                "reference": "e66394bc7610e69279bfdb3ab11b4fe65403f556",
                 "shasum": ""
             },
             "require": {
@@ -5547,7 +5547,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2017-12-14T19:40:10+00:00"
+            "time": "2018-01-03T07:37:34+00:00"
         },
         {
             "name": "symfony/debug",
@@ -8644,12 +8644,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "d6d6612fe42491023aa348b19e594f37fff6baff"
+                "reference": "7be75b2f2e8beadf619e7aaabf1beca723c13bcb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/d6d6612fe42491023aa348b19e594f37fff6baff",
-                "reference": "d6d6612fe42491023aa348b19e594f37fff6baff",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/7be75b2f2e8beadf619e7aaabf1beca723c13bcb",
+                "reference": "7be75b2f2e8beadf619e7aaabf1beca723c13bcb",
                 "shasum": ""
             },
             "require": {
@@ -8692,7 +8692,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2017-12-27T10:16:13+00:00"
+            "time": "2018-01-02T15:47:46+00:00"
         },
         {
             "name": "symfony/filesystem",

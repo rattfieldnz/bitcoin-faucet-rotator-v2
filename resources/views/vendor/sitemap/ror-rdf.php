@@ -1,9 +1,9 @@
 <?= '<'.'?'.'xml version="1.0" encoding="UTF-8"?>'."\n"; ?>
 <rdf:RDF xmlns="http://rorweb.com/0.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <Resource rdf:about="sitemap">
-	<title><?= $channel['title'] ?></title>
-	<url><?= $channel['link'] ?></url>
-	<type>sitemap</type>
+    <title><?= $channel['title'] ?></title>
+    <url><?= $channel['link'] ?></url>
+    <type>sitemap</type>
 </Resource>
 <?php foreach ($items as $item) : ?>
 <Resource>

@@ -385,7 +385,7 @@ class Faucets
             ->where('user_id', '=', $user->id)
             ->get();
 
-        if(empty($f) || count($f) == 0){
+        if (empty($f) || count($f) == 0) {
             DB::table('referral_info')->insert(
                 [
                     'faucet_id' => $faucet->id,
@@ -843,7 +843,8 @@ class Faucets
      *
      * @return \Illuminate\Support\Collection
      */
-    public function excludeTimedOutFaucets(int $timedout = 5): Collection{
+    public function excludeTimedOutFaucets(int $timedout = 5): Collection
+    {
 
         $deleted = Auth::check() && Auth::user()->isAnAdmin() ? true : false;
         $faucets = $this->faucetRepository->findItemsWhere(
@@ -854,8 +855,8 @@ class Faucets
 
         $filtered = collect();
 
-        foreach($faucets as $f){
-            if(Http::urlTimeOut($f->url, $timedout) != false){
+        foreach ($faucets as $f) {
+            if (Http::urlTimeOut($f->url, $timedout) != false) {
                 $filtered->push($f);
             }
         }
@@ -863,12 +864,13 @@ class Faucets
         return $filtered;
     }
 
-    public static function faucetJsonResponse(Faucet $faucet, User $user){
-        if(empty($user)){
+    public static function faucetJsonResponse(Faucet $faucet, User $user)
+    {
+        if (empty($user)) {
             Response::json(ResponseUtil::makeResponse("User not found.", null));
         }
 
-        if(empty($faucet)){
+        if (empty($faucet)) {
             $message = "Faucet not found.";
             $json = ['status' => 'error', 'code' => 404, 'message' => 'Faucet not found.'];
         } else {

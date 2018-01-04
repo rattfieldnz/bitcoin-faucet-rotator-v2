@@ -122,8 +122,9 @@ class Http
      *
      * @return bool
      */
-    public static function urlTimeOut($url, int $timeout = 5): bool {
-        if(!empty($url)){
+    public static function urlTimeOut($url, int $timeout = 5): bool
+    {
+        if (!empty($url)) {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

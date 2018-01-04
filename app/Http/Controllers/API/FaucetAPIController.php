@@ -59,7 +59,6 @@ class FaucetAPIController extends AppBaseController
         $faucets = new Collection();
 
         for ($i = 0; $i < count($this->faucetCollection); $i++) {
-
             $data = Faucets::faucetData($this->faucetCollection[$i]);
 
             $faucets->push($data);
@@ -87,11 +86,11 @@ class FaucetAPIController extends AppBaseController
     public function getFirstFaucet()
     {
         $timedOutCount = 0;
-        if(Http::urlTimeOut($this->faucetCollection[0]->url, 5) == false){
+        if (Http::urlTimeOut($this->faucetCollection[0]->url, 5) == false) {
             $timedOutCount += 1;
         }
 
-        if(!empty($this->faucetCollection[$timedOutCount])){
+        if (!empty($this->faucetCollection[$timedOutCount])) {
             return Faucets::faucetJsonResponse($this->faucetCollection[$timedOutCount], Users::adminUser());
         }
     }
@@ -106,7 +105,7 @@ class FaucetAPIController extends AppBaseController
 
                 $timedOutCount = 0;
 
-                if(Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url, 5) == false){
+                if (Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url, 5) == false) {
                     $timedOutCount += 1;
                 }
 
@@ -133,7 +132,6 @@ class FaucetAPIController extends AppBaseController
 
         foreach ($faucetSlugs as $key => $value) {
             if ($value == $slug) {
-
                 $timedOutCount = 0;
 
                 // Increase key to find next one.
@@ -142,12 +140,11 @@ class FaucetAPIController extends AppBaseController
                     // We are at end of the collection.
                     // Go to first faucet in the collection.
 
-                    if(Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url, 5) == false){
+                    if (Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url, 5) == false) {
                         $timedOutCount += 1;
                     }
 
-                    if(!empty($faucetSlugs[$timedOutCount])){
-
+                    if (!empty($faucetSlugs[$timedOutCount])) {
                         $nextFaucet = $this->faucetRepository->findWhere(
                             [
                                 'is_paused' => false,
@@ -168,11 +165,11 @@ class FaucetAPIController extends AppBaseController
                     }
                 }
 
-                if(Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url, 5) == false){
+                if (Http::urlTimeOut($this->faucetCollection[count($faucetSlugs) - 1]->url, 5) == false) {
                     $timedOutCount += 1;
                 }
 
-                if(!empty($faucetSlugs[($key + 1) + $timedOutCount])){
+                if (!empty($faucetSlugs[($key + 1) + $timedOutCount])) {
                     $nextFaucet = $this->faucetRepository->findWhere(
                         [
                             'is_paused' => false,
@@ -308,10 +305,8 @@ class FaucetAPIController extends AppBaseController
 
         foreach ($array as $key => $value) {
             if ($value == $faucetSlug) {
-
                 // Increase key to find next one.
                 if ($key - 1 > count($array) - 1) {
-
                     // If addition is greater than number of faucets,
                     // We are at end of the collection.
                     // Go to first faucet in the collection.
@@ -358,7 +353,6 @@ class FaucetAPIController extends AppBaseController
 
                 // Increase key to find next one.
                 if ($key + 1 > count($array) - 1) {
-
                     // If addition is greater than number of faucets,
                     // We are at end of the collection.
                     // Go to first faucet in the collection.
@@ -607,7 +601,6 @@ class FaucetAPIController extends AppBaseController
 
         foreach ($array as $key => $value) {
             if ($value == $faucetSlug) {
-
                 // Increase key to find next one.
                 // If addition is greater than number of faucets,
                 // We are at end of the collection.
@@ -653,10 +646,8 @@ class FaucetAPIController extends AppBaseController
 
         foreach ($array as $key => $value) {
             if ($value == $faucetSlug) {
-
                 // Increase key to find next one.
                 if ($key + 1 > count($array) - 1) {
-
                     // If addition is greater than number of faucets,
                     // We are at end of the collection.
                     // Go to first faucet in the collection.
@@ -757,7 +748,7 @@ class FaucetAPIController extends AppBaseController
         $paymentProcessorFaucets = new Collection();
 
         for ($i = 0; $i < count($faucets); $i++) {
-            if(!empty($faucets[$i])){
+            if (!empty($faucets[$i])) {
                 $data = Faucets::userFaucetData($faucets[$i], $user);
                 $paymentProcessorFaucets->push($data);
             }
@@ -829,7 +820,7 @@ class FaucetAPIController extends AppBaseController
 
         $faucets = PaymentProcessors::userPaymentProcessorFaucets($user, $paymentProcessor);
 
-        if(count($faucets->all()) == 0){
+        if (count($faucets->all()) == 0) {
             $errorMessage = 'The first faucet does not exist, or the user has no faucets using the "' . $paymentProcessor->name . '" payment processor.';
             return $this->sendResponse(
                 [

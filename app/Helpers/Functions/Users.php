@@ -384,7 +384,7 @@ class Users
             ->where('faucets.has_low_balance', '=', false)
             ->where('slug', '=', $faucetSlug);
 
-        if(!empty($faucet)){
+        if (!empty($faucet)) {
             if (Auth::check() && (Auth::user()->isAnAdmin() || $user === Auth::user())) {
                 return $faucet->first();
             } else {
