@@ -1,6 +1,8 @@
 composer self-update && composer install;
-npm install --save;
-yarn install --save;
+mkdir node_modules && mkdir node_modules/@bower_components;
+npm -g install yarn --save;
+yarn install --save --force;
+yarn postinstall;
 chown -R www-data:www-data storage/;
 chmod -R 755 storage/;
 chmod -R 755 bootstrap/;
@@ -14,4 +16,5 @@ php artisan key:generate;
 php artisan passport:install;
 gulp copyfiles;
 gulp;
+gulp minifycss;
 gulp minifyjs;
