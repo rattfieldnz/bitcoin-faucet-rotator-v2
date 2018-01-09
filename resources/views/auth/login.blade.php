@@ -92,14 +92,5 @@
 @include('layouts.partials.content._footer')
 <!-- /.login-box -->
 @include('layouts.partials.scripts._js')
-<script>
-    $(function () {
-        $('#remember-me-checkbox input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' // optional
-        });
-    });
-</script>
 </body>
 </html>

@@ -29229,16 +29229,13 @@ ul#navigation li.standard-nav-item ul.dropdown-menu li.sub-nav-item a:hover {
 }
 
 #remember-me-checkbox #checkbox {
-  position: absolute;
-  top: -20%;
-  left: -20%;
   display: block;
   width: 140%;
   height: 140%;
-  margin-left: 0em !important;
+  margin: -2em 0 0 0 !important;
   padding: 0;
   background: rgb(255, 255, 255);
-  border: 0;
+  border: 2px solid #3c8dbc !important;
   opacity: 1 !important;
 }
 
