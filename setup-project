@@ -1,6 +1,6 @@
 composer self-update && composer install;
 npm install --save;
-bower install --allow-root --save;
+yarn install --save;
 chown -R www-data:www-data storage/;
 chmod -R 755 storage/;
 chmod -R 755 bootstrap/;

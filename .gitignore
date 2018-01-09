@@ -58,3 +58,5 @@ _ide_helper_models.php
 codealike.json
 
 npm-debug.log
+.yarnclean
+*.log

@@ -17,111 +17,111 @@ let gulputil = require('gulp-util');
 gulp.task("copyfiles", function() {
 
     // Copy jQuery
-    gulp.src("vendor/bower_components/jquery/dist/jquery.js")
+    gulp.src("node_modules/@bower_components/jquery/dist/jquery.js")
         .pipe(gulp.dest("resources/assets/js/jquery/"));
 
     // JQuery UI //
-    /**gulp.src("vendor/bower_components/jquery-ui/ui/**")
+    /**gulp.src("node_modules/@bower_components/jquery-ui/ui/**")
         .pipe(gulp.dest("resources/assets/js/jquery-ui/"));
 
-    gulp.src("vendor/bower_components/jquery-ui/jquery-ui.js")
+    gulp.src("node_modules/@bower_components/jquery-ui/jquery-ui.js")
         .pipe(gulp.dest("resources/assets/js/jquery-ui/"));
 
-    gulp.src("vendor/bower_components/jquery-ui/themes/base/jquery-ui.css")
+    gulp.src("node_modules/@bower_components/jquery-ui/themes/base/jquery-ui.css")
         .pipe(gulp.dest("resources/assets/css/jquery-ui/"));
 
-    gulp.src("vendor/bower_components/jquery-ui/themes/base/images/*")
+    gulp.src("node_modules/@bower_components/jquery-ui/themes/base/images/*")
         .pipe(gulp.dest("public/assets/images/jquery-ui/"));**/
 
     // JQuery TimePicker AddOn
-    gulp.src("vendor/bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.css")
+    gulp.src("node_modules/@bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.css")
         .pipe(gulp.dest("resources/assets/css/jqueryui-timepicker-addon/"));
 
-    gulp.src("vendor/bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.js")
+    gulp.src("node_modules/@bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.js")
         .pipe(gulp.dest("resources/assets/js/jqueryui-timepicker-addon/"));
 
-    gulp.src("vendor/bower_components/jqueryui-timepicker-addon/dist/jquery-ui-sliderAccess.js")
+    gulp.src("node_modules/@bower_components/jqueryui-timepicker-addon/dist/jquery-ui-sliderAccess.js")
         .pipe(gulp.dest("resources/assets/js/jqueryui-timepicker-addon/"));
 
     // Bootstrap //
-    gulp.src("vendor/bower_components/bootstrap/dist/css/bootstrap.css")
+    gulp.src("node_modules/@bower_components/bootstrap/dist/css/bootstrap.css")
         .pipe(gulp.dest("resources/assets/css/bootstrap/"));
 
-    gulp.src("vendor/bower_components/bootstrap/dist/js/bootstrap.js")
+    gulp.src("node_modules/@bower_components/bootstrap/dist/js/bootstrap.js")
         .pipe(gulp.dest("resources/assets/js/bootstrap/"));
 
-    gulp.src("vendor/bower_components/bootstrap/dist/fonts/**")
+    gulp.src("node_modules/@bower_components/bootstrap/dist/fonts/**")
         .pipe(gulp.dest("public/assets/fonts/"));
 
     // Bootstrap Switch
-    gulp.src("vendor/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css")
+    gulp.src("node_modules/@bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css")
         .pipe(gulp.dest("public/assets/css/bootstrap-switch/"));
 
-    gulp.src("vendor/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js")
+    gulp.src("node_modules/@bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js")
         .pipe(gulp.dest("public/assets/js/bootstrap-switch/"));
 
     // Bootstrap Select
-    gulp.src("vendor/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css")
+    gulp.src("node_modules/@bower_components/bootstrap-select/dist/css/bootstrap-select.min.css")
         .pipe(gulp.dest("public/assets/css/bootstrap-select/"));
 
-    gulp.src("vendor/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js")
+    gulp.src("node_modules/@bower_components/bootstrap-select/dist/js/bootstrap-select.min.js")
         .pipe(gulp.dest("public/assets/js/bootstrap-select/"));
 
     // Local Forage //
-    gulp.src("vendor/bower_components/localforage/dist/localforage.js")
+    gulp.src("node_modules/@bower_components/localforage/dist/localforage.js")
         .pipe(gulp.dest("resources/assets/js/localforage/"));
 
     // Font Awesome //
-    gulp.src("vendor/bower_components/font-awesome/css/font-awesome.css")
+    gulp.src("node_modules/@bower_components/font-awesome/css/font-awesome.css")
         .pipe(gulp.dest("resources/assets/css/font-awesome"));
 
-    gulp.src("vendor/bower_components/font-awesome/fonts/**")
+    gulp.src("node_modules/@bower_components/font-awesome/fonts/**")
         .pipe(gulp.dest("public/assets/fonts/"));
 
     // AdminLTE
-    gulp.src("vendor/bower_components/admin-lte/dist/css/**/*.css")
+    gulp.src("node_modules/@bower_components/admin-lte/dist/css/**/*.css")
         .pipe(gulp.dest("resources/assets/css/admin-lte/"));
 
-    gulp.src("vendor/bower_components/admin-lte/bootstrap/css/*.css.map")
+    gulp.src("node_modules/@bower_components/admin-lte/bootstrap/css/*.css.map")
         .pipe(gulp.dest("public/assets/css/"));
 
-    gulp.src("vendor/bower_components/admin-lte/dist/img/**/*")
+    gulp.src("node_modules/@bower_components/admin-lte/dist/img/**/*")
         .pipe(gulp.dest("resources/assets/img/admin-lte/"));
 
-    gulp.src("vendor/bower_components/admin-lte/dist/js/app.js")
+    gulp.src("node_modules/@bower_components/admin-lte/dist/js/app.js")
         .pipe(gulp.dest("resources/assets/js/admin-lte/"));
 
     // DataTables //
-    gulp.src("vendor/bower_components/datatables.net/media/css/*.css")
+    gulp.src("node_modules/@bower_components/datatables.net/media/css/*.css")
         .pipe(gulp.dest("resources/assets/css/datatables/"));
 
-    gulp.src("vendor/bower_components/datatables.net/media/images/**")
+    gulp.src("node_modules/@bower_components/datatables.net/media/images/**")
         .pipe(gulp.dest("resources/assets/img/datatables/"));
 
-    gulp.src("vendor/bower_components/datatables.net/media/js/*.js")
+    gulp.src("node_modules/@bower_components/datatables.net/media/js/*.js")
         .pipe(gulp.dest("resources/assets/js/datatables.net/"));
 
     // iCheck //
-    gulp.src("vendor/bower_components/iCheck/skins/**/*.css")
+    gulp.src("node_modules/@bower_components/iCheck/skins/**/*.css")
         .pipe(gulp.dest("resources/assets/css/iCheck/skins/"));
 
-    gulp.src("vendor/bower_components/iCheck/skins/**/*.png")
+    gulp.src("node_modules/@bower_components/iCheck/skins/**/*.png")
         .pipe(gulp.dest("public/assets/images/iCheck/"));
 
-    gulp.src("vendor/bower_components/iCheck/skins/*.png")
+    gulp.src("node_modules/@bower_components/iCheck/skins/*.png")
         .pipe(gulp.dest("public/assets/images/iCheck/"));
 
-    gulp.src("vendor/bower_components/iCheck/icheck.js")
+    gulp.src("node_modules/@bower_components/iCheck/icheck.js")
         .pipe(gulp.dest("resources/assets/js/iCheck/"));
 
     // ionicons //
-    gulp.src("vendor/bower_components/ionicons/css/*.css")
+    gulp.src("node_modules/@bower_components/ionicons/css/*.css")
         .pipe(gulp.dest("resources/assets/css/ionicons/"));
 
-    gulp.src("vendor/bower_components/ionicons/fonts/**")
+    gulp.src("node_modules/@bower_components/ionicons/fonts/**")
         .pipe(gulp.dest("resources/assets/fonts/"));
 
-    gulp.src("vendor/bower_components/ionicons/png/**/*")
+    gulp.src("node_modules/@bower_components/ionicons/png/**/*")
         .pipe(gulp.dest("resources/assets/img/ionicons/"));
 
     // Table sorter theme //
@@ -129,33 +129,33 @@ gulp.task("copyfiles", function() {
         .pipe(gulp.dest("public/assets/images/table-sorter/"));
 
     // Cookie Consent //
-    gulp.src("vendor/bower_components/cookieconsent/src/styles/**/*.css")
+    gulp.src("node_modules/@bower_components/cookieconsent/src/styles/**/*.css")
         .pipe(gulp.dest("resources/assets/css/cookieconsent/"));
 
-    gulp.src("vendor/bower_components/cookieconsent/src/cookieconsent.js")
+    gulp.src("node_modules/@bower_components/cookieconsent/src/cookieconsent.js")
         .pipe(gulp.dest("resources/assets/js/cookieconsent/"));
 
     // DataTables Core
-    gulp.src("vendor/bower_components/datatables.net/js/jquery.dataTables.js")
+    gulp.src("node_modules/@bower_components/datatables.net/js/jquery.dataTables.js")
         .pipe(gulp.dest("resources/assets/js/datatables.net/"));
 
     // DataTables Bootstrap
-    gulp.src("vendor/bower_components/datatables.net-bs/css/dataTables.bootstrap.css")
+    gulp.src("node_modules/@bower_components/datatables.net-bs/css/dataTables.bootstrap.css")
         .pipe(gulp.dest("resources/assets/css/datatables.net/"));
 
-    gulp.src("vendor/bower_components/datatables.net-bs/js/dataTables.bootstrap.js")
+    gulp.src("node_modules/@bower_components/datatables.net-bs/js/dataTables.bootstrap.js")
         .pipe(gulp.dest("resources/assets/js/datatables.net/"));
 
     // ChartJS
-    gulp.src("vendor/bower_components/chart.js/dist/Chart.js")
+    gulp.src("node_modules/@bower_components/chart.js/dist/Chart.js")
         .pipe(gulp.dest("resources/assets/js/chart.js/"));
 
     // JQuery Progress Timer (for progress bars)
-    gulp.src("vendor/bower_components/jquery-progresstimer/dist/js/jquery.progresstimer.js")
+    gulp.src("node_modules/@bower_components/jquery-progresstimer/dist/js/jquery.progresstimer.js")
         .pipe(gulp.dest("resources/assets/js/jquery-progresstimer/"));
 
     // JS Cookie
-    gulp.src("vendor/bower_components/js-cookie/src/js.cookie.js")
+    gulp.src("node_modules/@bower_components/js-cookie/src/js.cookie.js")
         .pipe(gulp.dest("resources/assets/js/js-cookie/"));
 
 });

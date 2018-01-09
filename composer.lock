@@ -1638,16 +1638,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.40",
+            "version": "v0.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "5f474421169fc2d830cb46035cbc27f88c53ba8f"
+                "reference": "b3715dfaad3cd91304c84bf3ce36c5cade851b35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/5f474421169fc2d830cb46035cbc27f88c53ba8f",
-                "reference": "5f474421169fc2d830cb46035cbc27f88c53ba8f",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/b3715dfaad3cd91304c84bf3ce36c5cade851b35",
+                "reference": "b3715dfaad3cd91304c84bf3ce36c5cade851b35",
                 "shasum": ""
             },
             "require": {
@@ -1671,7 +1671,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-12-23T00:23:13+00:00"
+            "time": "2018-01-06T00:23:20+00:00"
         },
         {
             "name": "google/auth",
@@ -5154,16 +5154,16 @@
         },
         {
             "name": "spatie/laravel-analytics",
-            "version": "3.3.0",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-analytics.git",
-                "reference": "85c2198131bf3822f3fc270e362223ee6406a436"
+                "reference": "7fee273f730b02013b93b7c968ed8c72cd5205c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-analytics/zipball/85c2198131bf3822f3fc270e362223ee6406a436",
-                "reference": "85c2198131bf3822f3fc270e362223ee6406a436",
+                "url": "https://api.github.com/repos/spatie/laravel-analytics/zipball/7fee273f730b02013b93b7c968ed8c72cd5205c1",
+                "reference": "7fee273f730b02013b93b7c968ed8c72cd5205c1",
                 "shasum": ""
             },
             "require": {
@@ -5175,7 +5175,7 @@
                 "php": "^7.0"
             },
             "require-dev": {
-                "mockery/mockery": "^0.9.5",
+                "mockery/mockery": "^1.0",
                 "orchestra/testbench": "~3.4.6|~3.5.0",
                 "phpunit/phpunit": "^6.1"
             },
@@ -5217,7 +5217,7 @@
                 "retrieve",
                 "spatie"
             ],
-            "time": "2017-11-03T08:54:13+00:00"
+            "time": "2018-01-08T14:38:23+00:00"
         },
         {
             "name": "spatie/string",
