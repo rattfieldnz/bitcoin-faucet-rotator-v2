@@ -1,4 +1,5 @@
 chmod -R 755 bootstrap;
+mkdir bootstrap/cache;
 composer self-update && composer install;
 mkdir node_modules && mkdir node_modules/@bower_components;
 npm -g install yarn --save;
