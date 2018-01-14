@@ -70,7 +70,7 @@ class Faucets
             }
         }
 
-        Users::adminUser()->faucets()->sync([$faucet->id => ['referral_code' => $referralCode]]);
+        Users::adminUser()->faucets()->attach([$faucet->id => ['referral_code' => $referralCode]]);
 
         if ($request->get('send_tweet') == 1 && env('APP_ENV') == 'production') {
             $twitter = new Twitter(Users::adminUser());
