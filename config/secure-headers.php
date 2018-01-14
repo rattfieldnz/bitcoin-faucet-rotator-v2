@@ -263,7 +263,8 @@ return [
                 'de.tynt.com',
                 'i.simpli.fi',
                 'imgur.com',
-                'i.imgur.com'
+                'i.imgur.com',
+                'bitfun.co'
             ],
 
             'types' => [
