@@ -264,7 +264,8 @@ return [
                 'i.simpli.fi',
                 'imgur.com',
                 'i.imgur.com',
-                'bitfun.co'
+                'bitfun.co',
+                'mellowads.com'
             ],
 
             'types' => [
