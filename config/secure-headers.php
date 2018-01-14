@@ -147,6 +147,8 @@ return [
                 env('DISQUS_SHORTNAME') . '.disqus.com',
                 'c.disquscdn.com',
                 'disqusads.com',
+                'imgur.com',
+                'i.imgur.com'
             ],
         ],
 
@@ -163,6 +165,8 @@ return [
                 env('DISQUS_SHORTNAME') . '.disqus.com',
                 'c.disquscdn.com',
                 'disqusads.com',
+                'imgur.com',
+                'i.imgur.com'
             ],
         ],
 
@@ -258,6 +262,8 @@ return [
                 'sc.tynt.com',
                 'de.tynt.com',
                 'i.simpli.fi',
+                'imgur.com',
+                'i.imgur.com'
             ],
 
             'types' => [
