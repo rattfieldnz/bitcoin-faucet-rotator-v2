@@ -5,11 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <title>Bitcoin Faucet Rotator Login Page</title>
-    @if(env('APP_ENV') == 'local')
-        <link rel="stylesheet" href="{{ asset("/assets/css/mainStyles.css?". rand()) }}">
-    @elseif(env('APP_ENV') == 'production')
-        <link rel="stylesheet" href="{{ asset("/assets/css/mainStyles.min.css?". rand()) }}">
-    @endif
+    @include('layouts.partials.styles._css')
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

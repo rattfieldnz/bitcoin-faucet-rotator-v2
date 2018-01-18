@@ -3,6 +3,6 @@
 @elseif(env('APP_ENV') == 'production')
     <link rel="stylesheet" href="{{ asset("/assets/css/mainStyles.min.css?" . rand()) }}">
 @else
-    <link rel="stylesheet" href="{{ asset("/assets/css/mainStyles.css?" . rand()) }}">
+    <link rel="stylesheet" href="{{ asset("/assets/css/mainStyles.min.css?" . rand()) }}">
 @endif
 @stack('css')

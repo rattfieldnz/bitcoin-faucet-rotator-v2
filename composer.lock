@@ -1638,16 +1638,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.41",
+            "version": "v0.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "b3715dfaad3cd91304c84bf3ce36c5cade851b35"
+                "reference": "873421bf7cd0cab613da792124db04e203ff196b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/b3715dfaad3cd91304c84bf3ce36c5cade851b35",
-                "reference": "b3715dfaad3cd91304c84bf3ce36c5cade851b35",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/873421bf7cd0cab613da792124db04e203ff196b",
+                "reference": "873421bf7cd0cab613da792124db04e203ff196b",
                 "shasum": ""
             },
             "require": {
@@ -1671,7 +1671,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2018-01-06T00:23:20+00:00"
+            "time": "2018-01-13T00:23:28+00:00"
         },
         {
             "name": "google/auth",
@@ -2534,16 +2534,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.5.28",
+            "version": "v5.5.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "cfafae1f2043208390a7c984e3070696f4969605"
+                "reference": "a47b50a5981c0cf0139939dfaea4191784b65acb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/cfafae1f2043208390a7c984e3070696f4969605",
-                "reference": "cfafae1f2043208390a7c984e3070696f4969605",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/a47b50a5981c0cf0139939dfaea4191784b65acb",
+                "reference": "a47b50a5981c0cf0139939dfaea4191784b65acb",
                 "shasum": ""
             },
             "require": {
@@ -2664,7 +2664,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-12-26T16:24:40+00:00"
+            "time": "2018-01-16T15:39:45+00:00"
         },
         {
             "name": "laravel/passport",
@@ -4230,16 +4230,16 @@
         },
         {
             "name": "prettus/l5-repository",
-            "version": "2.6.30",
+            "version": "2.6.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/andersao/l5-repository.git",
-                "reference": "e70bb0da553024836c1a27946de274b995a589b6"
+                "reference": "c328a0a7de4e98716b7bda238a058be1092fbffb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andersao/l5-repository/zipball/e70bb0da553024836c1a27946de274b995a589b6",
-                "reference": "e70bb0da553024836c1a27946de274b995a589b6",
+                "url": "https://api.github.com/repos/andersao/l5-repository/zipball/c328a0a7de4e98716b7bda238a058be1092fbffb",
+                "reference": "c328a0a7de4e98716b7bda238a058be1092fbffb",
                 "shasum": ""
             },
             "require": {
@@ -4289,7 +4289,7 @@
                 "model",
                 "repository"
             ],
-            "time": "2018-01-13T16:21:44+00:00"
+            "time": "2018-01-16T19:14:01+00:00"
         },
         {
             "name": "prettus/laravel-validation",
