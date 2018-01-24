@@ -15,7 +15,6 @@
  *
  * @link http://htmlpurifier.org/live/configdoc/plain.html
  */
-
 return [
     'encoding'      => 'UTF-8',
     'finalize'      => true,
@@ -25,6 +24,7 @@ return [
         "default" => [
             'HTML.Doctype' => 'HTML 4.01 Transitional',
             'Attr.EnableID' => true,
+            'Attr.ID.HTML5' => true,
             'HTML.Allowed' => 'div[class|style|id],b,strong,i[class|style|id]'
                 . ',em,a[class|style|id|title|target|href],ul[class|style|id],ol[class|style|id],li[class|style|id]'
                 . ',p[class|style|id],br,span[class|style|id],img[width|height|alt|src|class|style|id]'
