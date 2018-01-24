@@ -24,6 +24,7 @@ return [
     "settings" => [
         "default" => [
             'HTML.Doctype' => 'HTML 4.01 Transitional',
+            'Attr.EnableID' => true,
             'HTML.Allowed' => 'div[class|style|id],b,strong,i[class|style|id]'
                 . ',em,a[class|style|id|title|target|href],ul[class|style|id],ol[class|style|id],li[class|style|id]'
                 . ',p[class|style|id],br,span[class|style|id],img[width|height|alt|src|class|style|id]'
