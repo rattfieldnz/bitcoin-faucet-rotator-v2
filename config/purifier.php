@@ -15,6 +15,15 @@
  *
  * @link http://htmlpurifier.org/live/configdoc/plain.html
  */
+
+$config = HTMLPurifier_Config::createDefault();
+$config->set('Core.Encoding', $this->config->get('purifier.encoding'));
+$config->set('Cache.SerializerPath', $this->config->get('purifier.cachePath'));
+if ( ! $this->config->get('purifier.finalize')) {
+    $config->autoFinalize = false;
+}
+$config->loadArray($this->getConfig());
+
 return [
     'encoding'      => 'UTF-8',
     'finalize'      => true,
