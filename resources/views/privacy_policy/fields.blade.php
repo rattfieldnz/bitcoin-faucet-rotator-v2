@@ -57,6 +57,7 @@
 @push('scripts')
 <script src="/assets/js/ckeditor/ckeditor.js?{{ rand()}}"></script>
 <script>
+    CKEDITOR.config.allowedContent = true;
     CKEDITOR.config.extraAllowedContent = '*(*);*{*}';
     CKEDITOR.replace('main_content');
 </script>
