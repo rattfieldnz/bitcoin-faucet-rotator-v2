@@ -92,13 +92,13 @@ gulp.task("copyfiles", function() {
         .pipe(gulp.dest("resources/assets/js/admin-lte/"));
 
     // DataTables //
-    gulp.src("node_modules/@bower_components/datatables.net/media/css/*.css")
-        .pipe(gulp.dest("resources/assets/css/datatables/"));
+    gulp.src("node_modules/@bower_components/datatables.net-bs/css/dataTables.bootstrap.css")
+        .pipe(gulp.dest("resources/assets/css/datatables.net/"));
 
-    gulp.src("node_modules/@bower_components/datatables.net/media/images/**")
-        .pipe(gulp.dest("resources/assets/img/datatables/"));
+    gulp.src("node_modules/@bower_components/datatables.net-bs/js/dataTables.bootstrap.js")
+        .pipe(gulp.dest("resources/assets/js/datatables.net/"));
 
-    gulp.src("node_modules/@bower_components/datatables.net/media/js/*.js")
+    gulp.src("node_modules/@bower_components/datatables.net/js/jquery.dataTables.js")
         .pipe(gulp.dest("resources/assets/js/datatables.net/"));
 
     // iCheck //
@@ -134,17 +134,6 @@ gulp.task("copyfiles", function() {
 
     gulp.src("node_modules/@bower_components/cookieconsent/src/cookieconsent.js")
         .pipe(gulp.dest("resources/assets/js/cookieconsent/"));
-
-    // DataTables Core
-    gulp.src("node_modules/@bower_components/datatables.net/js/jquery.dataTables.js")
-        .pipe(gulp.dest("resources/assets/js/datatables.net/"));
-
-    // DataTables Bootstrap
-    gulp.src("node_modules/@bower_components/datatables.net-bs/css/dataTables.bootstrap.css")
-        .pipe(gulp.dest("resources/assets/css/datatables.net/"));
-
-    gulp.src("node_modules/@bower_components/datatables.net-bs/js/dataTables.bootstrap.js")
-        .pipe(gulp.dest("resources/assets/js/datatables.net/"));
 
     // ChartJS
     gulp.src("node_modules/@bower_components/chart.js/dist/Chart.js")
@@ -248,7 +237,7 @@ elixir(function(mix) {
             //'resources/assets/css/jquery-ui/jquery-ui.css',
             'resources/assets/css/jquery-ui-custom/*.css',
             'resources/assets/css/iCheck/skins/_all.css',
-            'resources/assets/css/datatables/dataTables.bootstrap.css',
+            'resources/assets/css/datatables.net/dataTables.bootstrap.css',
             'resources/assets/css/ionicons/ionicons.css',
             'resources/assets/css/admin-lte/skins/_all-skins.css',
             'resources/assets/css/admin-lte/AdminLTE.css',
