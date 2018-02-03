@@ -179,6 +179,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Roumen\Feed\FeedServiceProvider::class,
         Snowfire\Beautymail\BeautymailServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -251,6 +252,7 @@ return [
         'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Feed' => Roumen\Feed\Feed::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

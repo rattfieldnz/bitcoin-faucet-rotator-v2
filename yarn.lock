@@ -125,8 +125,8 @@
   resolved "https://codeload.github.com/FortAwesome/Font-Awesome/tar.gz/a8386aae19e200ddb0f6845b5feeee5eb7013687"
 
 "@bower_components/fullcalendar@fullcalendar/fullcalendar#^3.4.0", fullcalendar@fullcalendar/fullcalendar#^3.4.0:
-  version "3.8.0"
-  resolved "https://codeload.github.com/fullcalendar/fullcalendar/tar.gz/2765b9fded569c5861d28251569e1e642723210b"
+  version "3.8.2"
+  resolved "https://codeload.github.com/fullcalendar/fullcalendar/tar.gz/1fa2865dae0f49957c90025c5495eb6de7b6a2e7"
   dependencies:
     jquery "2 - 3"
     moment "^2.9.0"
@@ -174,7 +174,7 @@
   version "1.12.1"
   resolved "https://codeload.github.com/components/jqueryui/tar.gz/44ecf3794cc56b65954cc19737234a3119d036cc"
 
-"@bower_components/jquery@jquery/jquery-dist#1.9.1 - 3", "jquery@jquery/jquery-dist#1.9.1 - 3":
+"@bower_components/jquery@jquery/jquery-dist#1.9.1 - 3":
   version "3.3.1"
   resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/9e8ec3d10fad04748176144f108d7355662ae75e"
 
@@ -287,8 +287,8 @@ acorn@4.X, acorn@^4.0.3:
   resolved "https://registry.npmjs.org/acorn/-/acorn-4.0.13.tgz#105495ae5361d697bd195c825192e1ad7f253787"
 
 acorn@5.X, acorn@^5.0.3, acorn@^5.2.1:
-  version "5.3.0"
-  resolved "https://registry.npmjs.org/acorn/-/acorn-5.3.0.tgz#7446d39459c54fb49a80e6ee6478149b940ec822"
+  version "5.4.1"
+  resolved "https://registry.npmjs.org/acorn/-/acorn-5.4.1.tgz#fdc58d9d17f4a4e98d102ded826a9b9759125102"
 
 agent-base@4, agent-base@^4.1.0:
   version "4.2.0"
@@ -990,8 +990,8 @@ camelcase@^4.0.0, camelcase@^4.1.0:
   resolved "https://registry.npmjs.org/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
 caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000798"
-  resolved "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30000798.tgz#92f26f77f89cc2a4d60487f41e0b3d2a6c3fe341"
+  version "1.0.30000801"
+  resolved "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30000801.tgz#a1d49def94c4e5aca5ccf1d58812e4668fac19d4"
 
 capture-stack-trace@^1.0.0:
   version "1.0.0"
@@ -1535,7 +1535,7 @@ debug@2, debug@2.X, debug@^2.2.0, debug@^2.3.3:
   dependencies:
     ms "2.0.0"
 
-debuglog@*, debuglog@^1.0.1:
+debuglog@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/debuglog/-/debuglog-1.0.1.tgz#aa24ffb9ac3df9a2351837cfb2d279360cd78492"
 
@@ -1729,8 +1729,8 @@ editor@~1.0.0:
   resolved "https://registry.npmjs.org/editor/-/editor-1.0.0.tgz#60c7f87bd62bcc6a894fa8ccd6afb7823a24f742"
 
 electron-to-chromium@^1.2.7:
-  version "1.3.31"
-  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.31.tgz#00d832cba9fe2358652b0c48a8816c8e3a037e9f"
+  version "1.3.32"
+  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.32.tgz#11d0684c0840e003c4be8928f8ac5f35dbc2b4e6"
 
 elliptic@^6.0.0:
   version "6.4.0"
@@ -2163,8 +2163,8 @@ fstream@^1.0.0, fstream@^1.0.2:
     rimraf "2"
 
 fullcalendar@^3.4.0:
-  version "3.8.0"
-  resolved "https://registry.npmjs.org/fullcalendar/-/fullcalendar-3.8.0.tgz#4c0fe494a62b0a8d640c6de8eb883b49a212b5dc"
+  version "3.8.2"
+  resolved "https://registry.npmjs.org/fullcalendar/-/fullcalendar-3.8.2.tgz#ef7dc77b89134bbe6163e51136f7a1f8bfc1d807"
   dependencies:
     jquery "2 - 3"
     moment "^2.9.0"
@@ -2566,10 +2566,10 @@ gulp-rename@^1.2.2:
   resolved "https://registry.npmjs.org/gulp-rename/-/gulp-rename-1.2.2.tgz#3ad4428763f05e2764dec1c67d868db275687817"
 
 gulp-rev-replace@^0.4.3:
-  version "0.4.3"
-  resolved "https://registry.npmjs.org/gulp-rev-replace/-/gulp-rev-replace-0.4.3.tgz#72b51848f5f093ad4b77b1d2411081eb78acd46e"
+  version "0.4.4"
+  resolved "https://registry.npmjs.org/gulp-rev-replace/-/gulp-rev-replace-0.4.4.tgz#9696854131024baf264010b1f51ff8a1382ab94a"
   dependencies:
-    gulp-util "^3.0.7"
+    plugin-error "^0.1.2"
     through2 "^2.0.0"
 
 gulp-rev@^7.0.0:
@@ -2968,7 +2968,7 @@ import-regex@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/import-regex/-/import-regex-1.1.0.tgz#a55c52e4c705c765ca210e9242a06bbcc8aa7f66"
 
-imurmurhash@*, imurmurhash@^0.1.4:
+imurmurhash@^0.1.4:
   version "0.1.4"
   resolved "https://registry.npmjs.org/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
 
@@ -3633,10 +3633,6 @@ lodash._basefor@^3.0.0:
   version "3.0.3"
   resolved "https://registry.npmjs.org/lodash._basefor/-/lodash._basefor-3.0.3.tgz#7550b4e9218ef09fad24343b612021c79b4c20c2"
 
-lodash._baseindexof@*:
-  version "3.1.0"
-  resolved "https://registry.npmjs.org/lodash._baseindexof/-/lodash._baseindexof-3.1.0.tgz#fe52b53a1c6761e42618d654e4a25789ed61822c"
-
 lodash._basetostring@^3.0.0:
   version "3.0.1"
   resolved "https://registry.npmjs.org/lodash._basetostring/-/lodash._basetostring-3.0.1.tgz#d1861d877f824a52f669832dcaf3ee15566a07d5"
@@ -3652,13 +3648,9 @@ lodash._basevalues@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/lodash._basevalues/-/lodash._basevalues-3.0.0.tgz#5b775762802bde3d3297503e26300820fdf661b7"
 
-lodash._bindcallback@*, lodash._bindcallback@^3.0.0:
+lodash._bindcallback@^3.0.0:
   version "3.0.1"
   resolved "https://registry.npmjs.org/lodash._bindcallback/-/lodash._bindcallback-3.0.1.tgz#e531c27644cf8b57a99e17ed95b35c748789392e"
-
-lodash._cacheindexof@*:
-  version "3.0.2"
-  resolved "https://registry.npmjs.org/lodash._cacheindexof/-/lodash._cacheindexof-3.0.2.tgz#3dc69ac82498d2ee5e3ce56091bafd2adc7bde92"
 
 lodash._createassigner@^3.0.0:
   version "3.1.1"
@@ -3668,17 +3660,11 @@ lodash._createassigner@^3.0.0:
     lodash._isiterateecall "^3.0.0"
     lodash.restparam "^3.0.0"
 
-lodash._createcache@*:
-  version "3.1.2"
-  resolved "https://registry.npmjs.org/lodash._createcache/-/lodash._createcache-3.1.2.tgz#56d6a064017625e79ebca6b8018e17440bdcf093"
-  dependencies:
-    lodash._getnative "^3.0.0"
-
 lodash._createset@~4.0.0:
   version "4.0.3"
   resolved "https://registry.npmjs.org/lodash._createset/-/lodash._createset-4.0.3.tgz#0f4659fbb09d75194fa9e2b88a6644d363c9fe26"
 
-lodash._getnative@*, lodash._getnative@^3.0.0:
+lodash._getnative@^3.0.0:
   version "3.9.1"
   resolved "https://registry.npmjs.org/lodash._getnative/-/lodash._getnative-3.9.1.tgz#570bc7dede46d61cdcde687d65d3eecbaa3aaff5"
 
@@ -3782,7 +3768,7 @@ lodash.pick@^4.2.1:
   version "4.4.0"
   resolved "https://registry.npmjs.org/lodash.pick/-/lodash.pick-4.4.0.tgz#52f05610fff9ded422611441ed1fc123a03001b3"
 
-lodash.restparam@*, lodash.restparam@^3.0.0:
+lodash.restparam@^3.0.0:
   version "3.6.1"
   resolved "https://registry.npmjs.org/lodash.restparam/-/lodash.restparam-3.6.1.tgz#936a4e309ef330a7645ed4145986c85ae5b20805"
 
@@ -4069,8 +4055,8 @@ mime@^1.2.11:
   resolved "https://registry.npmjs.org/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
 
 mimic-fn@^1.0.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/mimic-fn/-/mimic-fn-1.1.0.tgz#e667783d92e89dbd342818b5230b9d62a672ad18"
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/mimic-fn/-/mimic-fn-1.2.0.tgz#820c86a39334640e99516928bd03fca88057d022"
 
 minimalistic-assert@^1.0.0:
   version "1.0.0"
@@ -5139,8 +5125,8 @@ raphael@^2.2.7:
     eve-raphael "0.5.0"
 
 rc@^1.0.1, rc@^1.1.6:
-  version "1.2.4"
-  resolved "https://registry.npmjs.org/rc/-/rc-1.2.4.tgz#a0f606caae2a3b862bbd0ef85482c0125b315fa3"
+  version "1.2.5"
+  resolved "https://registry.npmjs.org/rc/-/rc-1.2.5.tgz#275cd687f6e3b36cc756baa26dfee80a790301fd"
   dependencies:
     deep-extend "~0.4.0"
     ini "~1.3.0"
@@ -5282,7 +5268,7 @@ readable-stream@~2.1.0:
     string_decoder "~0.10.x"
     util-deprecate "~1.0.1"
 
-readdir-scoped-modules@*, readdir-scoped-modules@^1.0.0:
+readdir-scoped-modules@^1.0.0:
   version "1.0.2"
   resolved "https://registry.npmjs.org/readdir-scoped-modules/-/readdir-scoped-modules-1.0.2.tgz#9fafa37d286be5d92cbaebdee030dc9b5f406747"
   dependencies:
@@ -6100,8 +6086,8 @@ tar@^2.0.0:
     inherits "2"
 
 tar@^4.0.2, tar@^4.2.0:
-  version "4.3.0"
-  resolved "https://registry.npmjs.org/tar/-/tar-4.3.0.tgz#11351be1c7944c59dd197850119c2081d8bc7fe5"
+  version "4.3.2"
+  resolved "https://registry.npmjs.org/tar/-/tar-4.3.2.tgz#ef4e813c7cfd2eb261da107753fb8ba15ab8954b"
   dependencies:
     chownr "^1.0.1"
     fs-minipass "^1.2.3"
@@ -6422,7 +6408,7 @@ v8flags@^2.0.2:
   dependencies:
     user-home "^1.1.1"
 
-validate-npm-package-license@*, validate-npm-package-license@^3.0.1:
+validate-npm-package-license@^3.0.1:
   version "3.0.1"
   resolved "https://registry.npmjs.org/validate-npm-package-license/-/validate-npm-package-license-3.0.1.tgz#2804babe712ad3379459acfbe24746ab2c303fbc"
   dependencies:
