@@ -1581,16 +1581,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.44",
+            "version": "v0.45",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "7f1b3a3f387fc3435f27003977ebf5989f8bcca2"
+                "reference": "35909fbc909bf9f9e0d36dd05b62f4b1d5ffe3ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/7f1b3a3f387fc3435f27003977ebf5989f8bcca2",
-                "reference": "7f1b3a3f387fc3435f27003977ebf5989f8bcca2",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/35909fbc909bf9f9e0d36dd05b62f4b1d5ffe3ae",
+                "reference": "35909fbc909bf9f9e0d36dd05b62f4b1d5ffe3ae",
                 "shasum": ""
             },
             "require": {
@@ -1614,7 +1614,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2018-01-28T00:23:18+00:00"
+            "time": "2018-02-03T00:23:12+00:00"
         },
         {
             "name": "google/auth",
@@ -2535,16 +2535,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.5.33",
+            "version": "v5.5.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "ef7880e665390f999f4def7c9f78133636f973cf"
+                "reference": "1de7c0aec13eadbdddc2d1ba4019b064b2c6b966"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/ef7880e665390f999f4def7c9f78133636f973cf",
-                "reference": "ef7880e665390f999f4def7c9f78133636f973cf",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/1de7c0aec13eadbdddc2d1ba4019b064b2c6b966",
+                "reference": "1de7c0aec13eadbdddc2d1ba4019b064b2c6b966",
                 "shasum": ""
             },
             "require": {
@@ -2665,7 +2665,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-01-30T15:06:13+00:00"
+            "time": "2018-02-06T15:36:55+00:00"
         },
         {
             "name": "laravel/passport",
@@ -2924,16 +2924,16 @@
         },
         {
             "name": "league/csv",
-            "version": "9.1.1",
+            "version": "9.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/csv.git",
-                "reference": "66118f5c2a7e4da77e743e69f74773c63b73e8f9"
+                "reference": "90bedd96fa3e3d2a988be985b9b1ee29cdb38301"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/csv/zipball/66118f5c2a7e4da77e743e69f74773c63b73e8f9",
-                "reference": "66118f5c2a7e4da77e743e69f74773c63b73e8f9",
+                "url": "https://api.github.com/repos/thephpleague/csv/zipball/90bedd96fa3e3d2a988be985b9b1ee29cdb38301",
+                "reference": "90bedd96fa3e3d2a988be985b9b1ee29cdb38301",
                 "shasum": ""
             },
             "require": {
@@ -2984,7 +2984,7 @@
                 "read",
                 "write"
             ],
-            "time": "2017-11-28T08:29:49+00:00"
+            "time": "2018-02-05T14:07:11+00:00"
         },
         {
             "name": "league/event",
@@ -4987,16 +4987,16 @@
         },
         {
             "name": "santigarcor/laratrust",
-            "version": "5.0.7",
+            "version": "5.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/santigarcor/laratrust.git",
-                "reference": "4ec9c60da8a15a59a8457074cc7234a9924abc69"
+                "reference": "ae86b729850bcb0dba0189cdbdf3f379046f18b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/4ec9c60da8a15a59a8457074cc7234a9924abc69",
-                "reference": "4ec9c60da8a15a59a8457074cc7234a9924abc69",
+                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/ae86b729850bcb0dba0189cdbdf3f379046f18b8",
+                "reference": "ae86b729850bcb0dba0189cdbdf3f379046f18b8",
                 "shasum": ""
             },
             "require": {
@@ -5052,7 +5052,7 @@
                 "rbac",
                 "roles"
             ],
-            "time": "2018-01-23T23:41:30+00:00"
+            "time": "2018-01-26T15:01:00+00:00"
         },
         {
             "name": "sentry/sentry",
@@ -5655,12 +5655,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "e66394bc7610e69279bfdb3ab11b4fe65403f556"
+                "reference": "544655f1fc078a9cd839fdda2b7b1e64627c826a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/e66394bc7610e69279bfdb3ab11b4fe65403f556",
-                "reference": "e66394bc7610e69279bfdb3ab11b4fe65403f556",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/544655f1fc078a9cd839fdda2b7b1e64627c826a",
+                "reference": "544655f1fc078a9cd839fdda2b7b1e64627c826a",
                 "shasum": ""
             },
             "require": {
@@ -5700,7 +5700,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-03T07:37:34+00:00"
+            "time": "2018-02-03T14:55:07+00:00"
         },
         {
             "name": "symfony/debug",
