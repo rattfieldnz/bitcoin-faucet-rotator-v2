@@ -230,30 +230,30 @@
         },
         {
             "name": "barryvdh/laravel-ide-helper",
-            "version": "v2.4.1",
+            "version": "v2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-ide-helper.git",
-                "reference": "2b1273c45e2f8df7a625563e2283a17c14f02ae8"
+                "reference": "5c304db44fba8e9c4aa0c09739e59f7be7736fdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-ide-helper/zipball/2b1273c45e2f8df7a625563e2283a17c14f02ae8",
-                "reference": "2b1273c45e2f8df7a625563e2283a17c14f02ae8",
+                "url": "https://api.github.com/repos/barryvdh/laravel-ide-helper/zipball/5c304db44fba8e9c4aa0c09739e59f7be7736fdd",
+                "reference": "5c304db44fba8e9c4aa0c09739e59f7be7736fdd",
                 "shasum": ""
             },
             "require": {
                 "barryvdh/reflection-docblock": "^2.0.4",
-                "illuminate/console": "^5.0,<5.6",
-                "illuminate/filesystem": "^5.0,<5.6",
-                "illuminate/support": "^5.0,<5.6",
+                "illuminate/console": "^5.0,<5.7",
+                "illuminate/filesystem": "^5.0,<5.7",
+                "illuminate/support": "^5.0,<5.7",
                 "php": ">=5.4.0",
                 "symfony/class-loader": "^2.3|^3.0"
             },
             "require-dev": {
                 "doctrine/dbal": "~2.3",
-                "illuminate/config": "^5.0,<5.6",
-                "illuminate/view": "^5.0,<5.6",
+                "illuminate/config": "^5.0,<5.7",
+                "illuminate/view": "^5.0,<5.7",
                 "phpunit/phpunit": "4.*",
                 "scrutinizer/ocular": "~1.1",
                 "squizlabs/php_codesniffer": "~2.3"
@@ -299,7 +299,7 @@
                 "phpstorm",
                 "sublime"
             ],
-            "time": "2017-07-16T00:24:12+00:00"
+            "time": "2018-02-08T07:56:07+00:00"
         },
         {
             "name": "barryvdh/reflection-docblock",
@@ -5056,16 +5056,16 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "1.8.2",
+            "version": "1.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "3241b135120c25d6522e46246386df0ab48e13c5"
+                "reference": "512661046e403dc5eb5ae192d5a6cda10e068a95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/3241b135120c25d6522e46246386df0ab48e13c5",
-                "reference": "3241b135120c25d6522e46246386df0ab48e13c5",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/512661046e403dc5eb5ae192d5a6cda10e068a95",
+                "reference": "512661046e403dc5eb5ae192d5a6cda10e068a95",
                 "shasum": ""
             },
             "require": {
@@ -5116,7 +5116,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2017-12-21T16:05:46+00:00"
+            "time": "2018-02-07T11:26:52+00:00"
         },
         {
             "name": "sentry/sentry-laravel",
@@ -5226,29 +5226,28 @@
         },
         {
             "name": "spatie/laravel-activitylog",
-            "version": "2.4.1",
+            "version": "2.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-activitylog.git",
-                "reference": "65927f3f3ac1d2215c30ddb681791162c7d40689"
+                "reference": "bded09c8f6c15c611b53a3e4be2944b6194f1a36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/65927f3f3ac1d2215c30ddb681791162c7d40689",
-                "reference": "65927f3f3ac1d2215c30ddb681791162c7d40689",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/bded09c8f6c15c611b53a3e4be2944b6194f1a36",
+                "reference": "bded09c8f6c15c611b53a3e4be2944b6194f1a36",
                 "shasum": ""
             },
             "require": {
-                "illuminate/config": "~5.5.0",
-                "illuminate/database": "~5.5.0",
-                "illuminate/support": "~5.5.0",
+                "illuminate/config": "~5.5.0|~5.6.0",
+                "illuminate/database": "~5.5.0|~5.6.0",
+                "illuminate/support": "~5.5.0|~5.6.0",
                 "php": "^7.0",
                 "spatie/string": "^2.1"
             },
             "require-dev": {
-                "orchestra/database": "~3.5.0",
-                "orchestra/testbench": "~3.5.0",
-                "phpunit/phpunit": "~6.2"
+                "orchestra/testbench": "~3.5.0|~3.6.0",
+                "phpunit/phpunit": "^6.2|^7.0"
             },
             "type": "library",
             "extra": {
@@ -5293,34 +5292,34 @@
                 "spatie",
                 "user"
             ],
-            "time": "2018-01-22T22:49:53+00:00"
+            "time": "2018-02-08T07:27:59+00:00"
         },
         {
             "name": "spatie/laravel-analytics",
-            "version": "3.4.0",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-analytics.git",
-                "reference": "7fee273f730b02013b93b7c968ed8c72cd5205c1"
+                "reference": "bc9cefe861ee5337b628b515ab09f8af7a5077e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-analytics/zipball/7fee273f730b02013b93b7c968ed8c72cd5205c1",
-                "reference": "7fee273f730b02013b93b7c968ed8c72cd5205c1",
+                "url": "https://api.github.com/repos/spatie/laravel-analytics/zipball/bc9cefe861ee5337b628b515ab09f8af7a5077e9",
+                "reference": "bc9cefe861ee5337b628b515ab09f8af7a5077e9",
                 "shasum": ""
             },
             "require": {
                 "google/apiclient": "^2.0",
-                "illuminate/contracts": "~5.4.0|~5.5.0",
-                "illuminate/support": "~5.4.0|~5.5.0",
+                "illuminate/contracts": "~5.4.0|~5.5.0|~5.6.0",
+                "illuminate/support": "~5.4.0|~5.5.0|~5.6.0",
                 "madewithlove/illuminate-psr-cache-bridge": "^1.0",
                 "nesbot/carbon": "^1.21",
                 "php": "^7.0"
             },
             "require-dev": {
                 "mockery/mockery": "^1.0",
-                "orchestra/testbench": "~3.4.6|~3.5.0",
-                "phpunit/phpunit": "^6.1"
+                "orchestra/testbench": "~3.4.6|~3.5.0|~3.6.0",
+                "phpunit/phpunit": "^6.1|^7.0"
             },
             "type": "library",
             "extra": {
@@ -5360,7 +5359,7 @@
                 "retrieve",
                 "spatie"
             ],
-            "time": "2018-01-08T14:38:23+00:00"
+            "time": "2018-02-08T09:39:06+00:00"
         },
         {
             "name": "spatie/string",
@@ -6893,26 +6892,26 @@
     "packages-dev": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v3.1.0",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "01a859752094e00aa8548832312366753272f8af"
+                "reference": "f0018d359a2ad6968ad11b283283a925e017f3c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/01a859752094e00aa8548832312366753272f8af",
-                "reference": "01a859752094e00aa8548832312366753272f8af",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/f0018d359a2ad6968ad11b283283a925e017f3c9",
+                "reference": "f0018d359a2ad6968ad11b283283a925e017f3c9",
                 "shasum": ""
             },
             "require": {
-                "illuminate/routing": "5.5.x",
-                "illuminate/session": "5.5.x",
-                "illuminate/support": "5.5.x",
-                "maximebf/debugbar": "~1.14.0",
+                "illuminate/routing": "5.5.x|5.6.x",
+                "illuminate/session": "5.5.x|5.6.x",
+                "illuminate/support": "5.5.x|5.6.x",
+                "maximebf/debugbar": "~1.15.0",
                 "php": ">=7.0",
-                "symfony/debug": "^3",
-                "symfony/finder": "^3"
+                "symfony/debug": "^3|^4",
+                "symfony/finder": "^3|^4"
             },
             "require-dev": {
                 "illuminate/framework": "5.5.x"
@@ -6920,7 +6919,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.2-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -6957,7 +6956,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2017-09-18T13:32:46+00:00"
+            "time": "2018-02-07T08:29:09+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -7174,22 +7173,22 @@
         },
         {
             "name": "maximebf/debugbar",
-            "version": "v1.14.1",
+            "version": "v1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "64251a392344e3d22f3d21c3b7c531ba96eb01d2"
+                "reference": "30e7d60937ee5f1320975ca9bc7bcdd44d500f07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/64251a392344e3d22f3d21c3b7c531ba96eb01d2",
-                "reference": "64251a392344e3d22f3d21c3b7c531ba96eb01d2",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/30e7d60937ee5f1320975ca9bc7bcdd44d500f07",
+                "reference": "30e7d60937ee5f1320975ca9bc7bcdd44d500f07",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
                 "psr/log": "^1.0",
-                "symfony/var-dumper": "^2.6|^3.0"
+                "symfony/var-dumper": "^2.6|^3.0|^4.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.0|^5.0"
@@ -7231,7 +7230,7 @@
                 "debug",
                 "debugbar"
             ],
-            "time": "2017-09-13T12:19:36+00:00"
+            "time": "2017-12-15T11:13:46+00:00"
         },
         {
             "name": "mockery/mockery",
