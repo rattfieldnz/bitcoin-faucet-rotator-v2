@@ -21,6 +21,11 @@ use Carbon\Carbon;
  */
 class GoogleAnalytics
 {
+	/**
+	* @var $translateUrlPath Temporary bug fix - error is thrown when querying ga:pagePath%3D%3D
+	* and the page path begins with '/translate'.
+	*/
+	public static $translateUrlPath = "/translate";
 
     /**
      * Get list of countries and number of sessions for given number of days.
@@ -333,7 +338,7 @@ class GoogleAnalytics
      */
     public static function getNoOfCountries(Period $period, $urlPath) : int
     {
-        if (!empty($period)) {
+        if (!empty($period) && substr($urlPath,0, strlen(self::$translateUrlPath)) != self::$translateUrlPath) {
             $results = Analytics::performQuery(
                 $period,
                 'ga:sessions',
