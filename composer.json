@@ -1,14 +1,20 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "name": "rattfieldnz/bitcoin-faucet-rotator-v2",
+    "description": "A database-driven bitcoin faucet rotator built with Laravel version 5.5.*.",
     "keywords": [
-        "framework",
-        "laravel"
+      "laravel56",
+      "laravel",
+      "laravel-framework",
+      "bitcoin",
+      "bitcoin-faucet-rotator",
+      "php71",
+      "mysql",
+      "linux-server"
     ],
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=7.0",
         "laravel/framework": "^5.5",
         "laravel/passport": "^4.0",
         "cviebrock/eloquent-sluggable": "^4.3",
