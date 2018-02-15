@@ -52007,7 +52007,7 @@ $(document).ready(function () {
       elements: {
         header: '<span class="cc-header">{{header}}</span>&nbsp;',
         message: '<span id="cookieconsent:desc" class="cc-message">{{message}}</span>',
-        messagelink: '<span id="cookieconsent:desc" class="cc-message">{{message}} <a aria-label="learn more about cookies" role=button tabindex="0" class="cc-link" href="{{href}}" target="_blank">{{link}}</a></span>',
+        messagelink: '<span id="cookieconsent:desc" class="cc-message">{{message}} <a aria-label="learn more about cookies" role=button tabindex="0" class="cc-link" href="{{href}}" rel="noopener noreferrer nofollow" target="_blank">{{link}}</a></span>',
         dismiss: '<a aria-label="dismiss cookie message" role=button tabindex="0" class="cc-btn cc-dismiss">{{dismiss}}</a>',
         allow: '<a aria-label="allow cookies" role=button tabindex="0"  class="cc-btn cc-allow">{{allow}}</a>',
         deny: '<a aria-label="deny cookies" role=button tabindex="0" class="cc-btn cc-deny">{{deny}}</a>',
@@ -52061,7 +52061,7 @@ $(document).ready(function () {
       //    -block (default, no extra classes)
       //    -edgeless
       //    -classic
-      // use your own style name and use `.cc-theme-STYLENAME` class in CSS to edit .
+      // use your own style name and use `.cc-theme-STYLENAME` class in CSS to edit.
       // Note: style "wire" is used for the configurator, but has no CSS styles of its own, only palette is used.
       theme: 'block',
 
@@ -52097,7 +52097,7 @@ $(document).ready(function () {
       // set value as time in milliseconds to autodismiss after set time
       dismissOnTimeout: false,
 
-      // The application automatically decideds whether the popup should open.
+      // The application automatically decide whether the popup should open.
       // Set this to false to prevent this from happening and to allow you to control the behaviour yourself
       autoOpen: true,
 
