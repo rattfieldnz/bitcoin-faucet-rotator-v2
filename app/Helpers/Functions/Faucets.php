@@ -58,19 +58,24 @@ class Faucets
 
         $faucet = $this->faucetRepository->create($input);
 
-        $paymentProcessors = $request->get('payment_processors');
         $referralCode = $request->get('referral_code');
 
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        //$faucet->first()->paymentProcessors()->detach();
+        $paymentProcessorIds = $request->get('payment_processors');
 
-        if (count($paymentProcessors) >= 1) {
-            foreach ($paymentProcessors as $paymentProcessorId) {
-                $faucet->first()->paymentProcessors()->attach((int)$paymentProcessorId);
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        if (count($paymentProcessorIds) == 1) {
+            $paymentProcessors = PaymentProcessor::where('id', $paymentProcessorIds[0]);
+            $faucet->first()->paymentProcessors()->attach((int)$paymentProcessors->first()->id);
+        } elseif (count($paymentProcessorIds) >= 1) {
+            $paymentProcessors = PaymentProcessor::whereIn('id', $paymentProcessorIds);
+            foreach ($paymentProcessors as $p) {
+                $faucet->first()->paymentProcessors()->attach((int)$p->id);
             }
         }
 
         Users::adminUser()->faucets()->attach([$faucet->id => ['referral_code' => $referralCode]]);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
         if ($request->get('send_tweet') == 1 && env('APP_ENV') == 'production') {
             $twitter = new Twitter(Users::adminUser());
@@ -78,8 +83,6 @@ class Faucets
 
             $twitter->sendTweet($tweet);
         }
-
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
         activity(self::faucetLogName())
             ->performedOn($faucet)
