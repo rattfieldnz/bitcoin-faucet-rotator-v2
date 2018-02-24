@@ -54,27 +54,35 @@ class Faucets
      */
     public function createStoreFaucet(CreateFaucetRequest $request)
     {
-        $input = $request->except('payment_processors', 'slug', 'referral_code', 'send_tweet');
 
+        $input = $request->except('payment_processors', 'slug', 'referral_code', 'send_tweet');
         $faucet = $this->faucetRepository->create($input);
 
-        $referralCode = $request->get('referral_code');
-
+        $paymentProcessors = $request->get('payment_processors');
         $paymentProcessorIds = $request->get('payment_processors');
 
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        $referralCodeData = $request->get('referral_code');
+        $referralCode = !empty($referralCodeData) ? $referralCodeData : null;
+
         if (count($paymentProcessorIds) == 1) {
             $paymentProcessors = PaymentProcessor::where('id', $paymentProcessorIds[0]);
-            $faucet->first()->paymentProcessors()->attach((int)$paymentProcessors->first()->id);
         } elseif (count($paymentProcessorIds) >= 1) {
             $paymentProcessors = PaymentProcessor::whereIn('id', $paymentProcessorIds);
-            foreach ($paymentProcessors as $p) {
-                $faucet->first()->paymentProcessors()->attach((int)$p->id);
-            }
         }
 
-        Users::adminUser()->faucets()->attach([$faucet->id => ['referral_code' => $referralCode]]);
+        $toAddPaymentProcessorIds = [];
 
+        foreach ($paymentProcessors->pluck('id')->toArray() as $key => $value) {
+            array_push($toAddPaymentProcessorIds, (int)$value);
+        }
+
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        if (count($toAddPaymentProcessorIds) > 1) {
+            $faucet->paymentProcessors()->sync($toAddPaymentProcessorIds);
+        } elseif (count($toAddPaymentProcessorIds) == 1) {
+            $faucet->paymentProcessors()->sync([$toAddPaymentProcessorIds[0]]);
+        }
+        Users::adminUser()->faucets()->attach([$faucet->id => ['referral_code' => $referralCode]]);
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
         if ($request->get('send_tweet') == 1 && env('APP_ENV') == 'production') {
