@@ -62,7 +62,7 @@ class Faucets
         $referralCode = $request->get('referral_code');
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        $faucet->first()->paymentProcessors()->detach();
+        //$faucet->first()->paymentProcessors()->detach();
 
         if (count($paymentProcessors) >= 1) {
             foreach ($paymentProcessors as $paymentProcessorId) {
