@@ -10,7 +10,7 @@
   version "1.0.2"
   resolved "https://codeload.github.com/HubSpot/pace/tar.gz/c6846cbf6b928e9903b569269fa9fbf32f2554f4"
 
-"@bower_components/admin-lte@almasaeed2010/AdminLTE#~2.4.2", admin-lte@almasaeed2010/AdminLTE#~2.4.2:
+"@bower_components/admin-lte@almasaeed2010/AdminLTE#~2.4.3", admin-lte@almasaeed2010/AdminLTE#~2.4.2:
   version "2.4.2"
   resolved "https://codeload.github.com/almasaeed2010/AdminLTE/tar.gz/b3acb63ac56b13eb45b36e628b384a9a2507b50e"
   dependencies:
