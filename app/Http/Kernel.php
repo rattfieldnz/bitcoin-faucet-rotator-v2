@@ -30,7 +30,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrustProxies::class,
         \Matthewbdaly\ETagMiddleware\ETag::class,
         \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
-        /**\GrahamCampbell\HTMLMin\Http\Middleware\MinifyMiddleware::class**/
+        \HTMLMin\HTMLMin\Http\Middleware\MinifyMiddleware::class
     ];
 
     /**
