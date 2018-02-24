@@ -54,36 +54,23 @@ class Faucets
      */
     public function createStoreFaucet(CreateFaucetRequest $request)
     {
-
         $input = $request->except('payment_processors', 'slug', 'referral_code', 'send_tweet');
+
         $faucet = $this->faucetRepository->create($input);
 
         $paymentProcessors = $request->get('payment_processors');
-        $paymentProcessorIds = $request->get('payment_processors');
-
-        $referralCodeData = $request->get('referral_code');
-        $referralCode = !empty($referralCodeData) ? $referralCodeData : null;
-
-        if (count($paymentProcessorIds) == 1) {
-            $paymentProcessors = PaymentProcessor::where('id', $paymentProcessorIds[0]);
-        } elseif (count($paymentProcessorIds) >= 1) {
-            $paymentProcessors = PaymentProcessor::whereIn('id', $paymentProcessorIds);
-        }
-
-        $toAddPaymentProcessorIds = [];
-
-        foreach ($paymentProcessors->pluck('id')->toArray() as $key => $value) {
-            array_push($toAddPaymentProcessorIds, (int)$value);
-        }
+        $referralCode = $request->get('referral_code');
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        if (count($toAddPaymentProcessorIds) > 1) {
-            $faucet->paymentProcessors()->sync($toAddPaymentProcessorIds);
-        } elseif (count($toAddPaymentProcessorIds) == 1) {
-            $faucet->paymentProcessors()->sync([$toAddPaymentProcessorIds[0]]);
+        //$faucet->first()->paymentProcessors()->detach();
+
+        if (count($paymentProcessors) >= 1) {
+            foreach ($paymentProcessors as $paymentProcessorId) {
+                $faucet->first()->paymentProcessors()->syncWithoutDetaching((int)$paymentProcessorId);
+            }
         }
+
         Users::adminUser()->faucets()->attach([$faucet->id => ['referral_code' => $referralCode]]);
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
         if ($request->get('send_tweet') == 1 && env('APP_ENV') == 'production') {
             $twitter = new Twitter(Users::adminUser());
@@ -91,6 +78,8 @@ class Faucets
 
             $twitter->sendTweet($tweet);
         }
+
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
         activity(self::faucetLogName())
             ->performedOn($faucet)
