@@ -66,7 +66,7 @@ class Faucets
 
         if (count($paymentProcessors) >= 1) {
             foreach ($paymentProcessors as $paymentProcessorId) {
-                $faucet->first()->paymentProcessors()->syncWithoutDetaching((int)$paymentProcessorId);
+                $faucet->first()->paymentProcessors()->attach((int)$paymentProcessorId);
             }
         }
 
