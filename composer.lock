@@ -1581,16 +1581,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.47",
+            "version": "v0.48",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "f4ab0ea8aff4659cf67e3f733b3ab441c30baf5d"
+                "reference": "e8f3d6c4da47274ff375ee1d62b7a0ba6969d039"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/f4ab0ea8aff4659cf67e3f733b3ab441c30baf5d",
-                "reference": "f4ab0ea8aff4659cf67e3f733b3ab441c30baf5d",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/e8f3d6c4da47274ff375ee1d62b7a0ba6969d039",
+                "reference": "e8f3d6c4da47274ff375ee1d62b7a0ba6969d039",
                 "shasum": ""
             },
             "require": {
@@ -1614,7 +1614,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2018-02-17T00:23:05+00:00"
+            "time": "2018-02-25T00:23:11+00:00"
         },
         {
             "name": "google/auth",
@@ -2215,20 +2215,20 @@
         },
         {
             "name": "jaybizzle/laravel-migrations-organiser",
-            "version": "v4.1.1",
+            "version": "v4.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Laravel-Migrations-Organiser.git",
-                "reference": "ab91a64437a0bb16bd9ad222d5d14124acec5645"
+                "reference": "a3516f0834f4293298134885939f9aeb7d924469"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Laravel-Migrations-Organiser/zipball/ab91a64437a0bb16bd9ad222d5d14124acec5645",
-                "reference": "ab91a64437a0bb16bd9ad222d5d14124acec5645",
+                "url": "https://api.github.com/repos/JayBizzle/Laravel-Migrations-Organiser/zipball/a3516f0834f4293298134885939f9aeb7d924469",
+                "reference": "a3516f0834f4293298134885939f9aeb7d924469",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "5.3.*|5.4.*|5.5.*",
+                "illuminate/support": "5.3.*|5.4.*|5.5.*|5.6.*",
                 "php": ">=5.6.4"
             },
             "require-dev": {
@@ -2278,7 +2278,7 @@
                 "organiser",
                 "organize"
             ],
-            "time": "2017-10-04T20:22:47+00:00"
+            "time": "2018-02-26T07:57:01+00:00"
         },
         {
             "name": "jeremeamia/SuperClosure",
@@ -3432,26 +3432,26 @@
         },
         {
             "name": "matthewbdaly/laravel-etag-middleware",
-            "version": "v1.0.3",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthewbdaly/laravel-etag-middleware.git",
-                "reference": "244cc7ba3bff25bc76ad867dbdb6e55818fc25bd"
+                "reference": "4c08485469e6e2b735ad52e54f8a9da010c2ca20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matthewbdaly/laravel-etag-middleware/zipball/244cc7ba3bff25bc76ad867dbdb6e55818fc25bd",
-                "reference": "244cc7ba3bff25bc76ad867dbdb6e55818fc25bd",
+                "url": "https://api.github.com/repos/matthewbdaly/laravel-etag-middleware/zipball/4c08485469e6e2b735ad52e54f8a9da010c2ca20",
+                "reference": "4c08485469e6e2b735ad52e54f8a9da010c2ca20",
                 "shasum": ""
             },
             "require": {
-                "illuminate/http": "5.1.x|5.2.x|5.3.x|5.4.x|5.5.x",
-                "illuminate/support": "5.1.x|5.2.x|5.3.x|5.4.x|5.5.x",
+                "illuminate/http": "5.1.x|5.2.x|5.3.x|5.4.x|5.5.x|5.6.x",
+                "illuminate/support": "5.1.x|5.2.x|5.3.x|5.4.x|5.5.x|5.6.x",
                 "symfony/http-foundation": "~2.7|~3.0",
                 "symfony/http-kernel": "~2.7|~3.0"
             },
             "require-dev": {
-                "mockery/mockery": "^0.9.7",
+                "mockery/mockery": "^1.0",
                 "phpunit/phpunit": "^4.8|^5.2",
                 "satooshi/php-coveralls": "^1.0",
                 "squizlabs/php_codesniffer": "^2.8"
@@ -3480,7 +3480,7 @@
                 "laravel",
                 "middleware"
             ],
-            "time": "2017-11-08T22:12:49+00:00"
+            "time": "2018-02-25T09:15:08+00:00"
         },
         {
             "name": "mews/purifier",
@@ -6893,16 +6893,16 @@
     "packages-dev": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v3.1.2",
+            "version": "v3.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "59a7a08d84111a5b2407fb58b9d74af3ebe430e7"
+                "reference": "664fa434e26febf04d60df0368303cf0fe14f63a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/59a7a08d84111a5b2407fb58b9d74af3ebe430e7",
-                "reference": "59a7a08d84111a5b2407fb58b9d74af3ebe430e7",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/664fa434e26febf04d60df0368303cf0fe14f63a",
+                "reference": "664fa434e26febf04d60df0368303cf0fe14f63a",
                 "shasum": ""
             },
             "require": {
@@ -6957,7 +6957,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2018-02-07T19:51:45+00:00"
+            "time": "2018-02-25T13:31:58+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -8017,16 +8017,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "6.5.6",
+            "version": "6.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3330ef26ade05359d006041316ed0fa9e8e3cefe"
+                "reference": "6bd77b57707c236833d2b57b968e403df060c9d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3330ef26ade05359d006041316ed0fa9e8e3cefe",
-                "reference": "3330ef26ade05359d006041316ed0fa9e8e3cefe",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6bd77b57707c236833d2b57b968e403df060c9d9",
+                "reference": "6bd77b57707c236833d2b57b968e403df060c9d9",
                 "shasum": ""
             },
             "require": {
@@ -8097,7 +8097,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-02-01T05:57:37+00:00"
+            "time": "2018-02-26T07:01:09+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
