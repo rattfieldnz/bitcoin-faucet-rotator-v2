@@ -162,7 +162,6 @@ return [
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
         Laratrust\LaratrustServiceProvider::class,
-        SquareBoat\Sneaker\SneakerServiceProvider::class,
         Bepsvpt\SecureHeaders\SecureHeadersServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,

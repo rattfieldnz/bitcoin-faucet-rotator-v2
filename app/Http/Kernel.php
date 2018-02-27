@@ -27,8 +27,8 @@ class Kernel extends HttpKernel
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
         \App\Http\Middleware\Cors::class,
         \App\Http\Middleware\VerifyCsrfToken::class,
-        \App\Http\Middleware\TrustProxies::class,
-        \Matthewbdaly\ETagMiddleware\ETag::class,
+        \Fideloper\Proxy\TrustProxies::class,
+        \App\Libraries\Matthewbdaly\ETagMiddleware\ETag::class,
         \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
         \HTMLMin\HTMLMin\Http\Middleware\MinifyMiddleware::class
     ];

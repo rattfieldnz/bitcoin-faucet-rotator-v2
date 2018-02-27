@@ -6,7 +6,7 @@ The steps below outline the instructions needed to install the script.
 
 ## Installation 
 
-At the time of writing these instructions, this script uses [Laravel version 5.5.*](https://laravel.com/docs/5.5/). When new stable releases of Laravel are made, and are compatible with this project, this version will change.
+At the time of writing these instructions, this script uses [Laravel version 5.6.*](https://laravel.com/docs/5.6/). When new stable releases of Laravel are made, and are compatible with this project, this version will change.
 
 These instructions are for Linux-based servers using Apache 2.4+. If you have servers powered by other operating systems (e.g. Windows, MAC OS, etc.), please let me know, and feel free to contribute installation instructions for said operating system/s.
 
@@ -18,17 +18,17 @@ If you experience any issues with installation, please [log them as issues](http
 
 Before you begin installing the script, please make sure your server meets the following specifications:
 
-* PHP version - 7.0 or greater
+* PHP version - 7.1.3 or greater
 * OpenSSL PHP Extension
 * PDO PHP Extension
 * Mbstring PHP Extension
 * Tokenizer PHP Extension
 * XML PHP Extension
+* Ctype PHP Extension
+* JSON PHP Extension
 * Enable [Mod Rewrite](https://www.digitalocean.com/community/tutorials/how-to-rewrite-urls-with-mod_rewrite-for-apache-on-ubuntu-16-04), [Mod Headers](https://www.garron.me/en/bits/enable-mod-headers-apache-2.html) for Apache 
 * Install [Composer](https://getcomposer.org/doc/00-intro.md)
-* Install [Node.js](https://nodejs.org/en/download/package-manager/), Node Package Manager (comes with NodeJS), and [Bower](https://bower.io/#install-bower)*
-
-*As the first version of this project is now 'legacy', it was built with a less-modern package manager called Bower. Eventually, this project will move to using the more modern approach the current Laravel version uses (see [https://laravel.com/docs/5.5/mix](https://laravel.com/docs/5.5/mix)).
+* Install [Node.js](https://nodejs.org/en/download/package-manager/), Node Package Manager (comes with NodeJS), and [Yarn](https://yarnpkg.com/en/).
 
 ---
 
@@ -73,7 +73,7 @@ The first part of the command creates the database tables, and the second part s
 If you encounter difficulty with this step, please let me know, and I will use feedback to make necessary modifications.
 
 <strong>NOTE:</strong> To get referral income from the faucets, you will need to replace my referral codes with your own. Your user credentials to log in 
-will have been seeded from the .env file you created in Step three. You can edit these when you log in to the script.
+will have been seeded from the .env file you created in Step 3. You can edit these when you log in to the script.
 
 ### Step 5
 
