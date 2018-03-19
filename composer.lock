@@ -404,16 +404,16 @@
         },
         {
             "name": "bepsvpt/secure-headers",
-            "version": "4.1.0",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BePsvPT/secure-headers.git",
-                "reference": "76965664f1727a053734ac4fe7297905c6af18c8"
+                "reference": "d57de9eb9643cd948fc47260a672fcb759967e87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BePsvPT/secure-headers/zipball/76965664f1727a053734ac4fe7297905c6af18c8",
-                "reference": "76965664f1727a053734ac4fe7297905c6af18c8",
+                "url": "https://api.github.com/repos/BePsvPT/secure-headers/zipball/d57de9eb9643cd948fc47260a672fcb759967e87",
+                "reference": "d57de9eb9643cd948fc47260a672fcb759967e87",
                 "shasum": ""
             },
             "require": {
@@ -426,7 +426,7 @@
                 "codeclimate/php-test-reporter": "0.4.*",
                 "doctrine/instantiator": "1.0.*",
                 "orchestra/testbench": "3.5.*",
-                "phpunit/phpunit": "6.0.*"
+                "phpunit/phpunit": "6.5.*"
             },
             "type": "library",
             "extra": {
@@ -461,7 +461,7 @@
                 "https",
                 "laravel"
             ],
-            "time": "2017-09-01T12:27:38+00:00"
+            "time": "2018-03-11T01:11:57+00:00"
         },
         {
             "name": "cocur/slugify",
@@ -534,12 +534,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/creativeorange/gravatar.git",
-                "reference": "a0e84f0c8e8922ad151168d6ebd8db6a1b2d8cd2"
+                "reference": "9affd46be10f1ebb11d5d9f03440f804c09f2b59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/creativeorange/gravatar/zipball/a0e84f0c8e8922ad151168d6ebd8db6a1b2d8cd2",
-                "reference": "a0e84f0c8e8922ad151168d6ebd8db6a1b2d8cd2",
+                "url": "https://api.github.com/repos/creativeorange/gravatar/zipball/9affd46be10f1ebb11d5d9f03440f804c09f2b59",
+                "reference": "9affd46be10f1ebb11d5d9f03440f804c09f2b59",
                 "shasum": ""
             },
             "require": {
@@ -1534,16 +1534,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.49",
+            "version": "v0.51",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "7552d7d1bb92e933fc93088014c8c2555c0feab6"
+                "reference": "c3d936baf3eacc002f6183530355fe4fba19b0fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/7552d7d1bb92e933fc93088014c8c2555c0feab6",
-                "reference": "7552d7d1bb92e933fc93088014c8c2555c0feab6",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/c3d936baf3eacc002f6183530355fe4fba19b0fb",
+                "reference": "c3d936baf3eacc002f6183530355fe4fba19b0fb",
                 "shasum": ""
             },
             "require": {
@@ -1567,7 +1567,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2018-03-04T00:24:05+00:00"
+            "time": "2018-03-18T00:23:20+00:00"
         },
         {
             "name": "google/auth",
@@ -2081,16 +2081,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.6.11",
+            "version": "v5.6.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "195ba6a67bdad2a23105c7ab410cd43e0f20bb73"
+                "reference": "82d8165d1ea86bdd81ddfa1db9343fa19e7d1450"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/195ba6a67bdad2a23105c7ab410cd43e0f20bb73",
-                "reference": "195ba6a67bdad2a23105c7ab410cd43e0f20bb73",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/82d8165d1ea86bdd81ddfa1db9343fa19e7d1450",
+                "reference": "82d8165d1ea86bdd81ddfa1db9343fa19e7d1450",
                 "shasum": ""
             },
             "require": {
@@ -2099,7 +2099,7 @@
                 "erusev/parsedown": "~1.7",
                 "ext-mbstring": "*",
                 "ext-openssl": "*",
-                "league/flysystem": "~1.0",
+                "league/flysystem": "^1.0.8",
                 "monolog/monolog": "~1.12",
                 "nesbot/carbon": "^1.24.1",
                 "php": "^7.1.3",
@@ -2215,20 +2215,20 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-03-09T16:53:27+00:00"
+            "time": "2018-03-14T17:29:38+00:00"
         },
         {
             "name": "laravel/passport",
-            "version": "v5.0.1",
+            "version": "v5.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/passport.git",
-                "reference": "7239e8cdbca9d7f24be40461fe2abc26583adaa2"
+                "reference": "9dbcc3d6f8f20f1a83cbef73bbb563ce59e43ded"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/passport/zipball/7239e8cdbca9d7f24be40461fe2abc26583adaa2",
-                "reference": "7239e8cdbca9d7f24be40461fe2abc26583adaa2",
+                "url": "https://api.github.com/repos/laravel/passport/zipball/9dbcc3d6f8f20f1a83cbef73bbb563ce59e43ded",
+                "reference": "9dbcc3d6f8f20f1a83cbef73bbb563ce59e43ded",
                 "shasum": ""
             },
             "require": {
@@ -2284,7 +2284,7 @@
                 "oauth",
                 "passport"
             ],
-            "time": "2018-03-06T14:21:38+00:00"
+            "time": "2018-03-15T12:39:02+00:00"
         },
         {
             "name": "laravelcollective/html",
@@ -2414,16 +2414,16 @@
         },
         {
             "name": "league/csv",
-            "version": "9.1.2",
+            "version": "9.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/csv.git",
-                "reference": "90bedd96fa3e3d2a988be985b9b1ee29cdb38301"
+                "reference": "0d0b12f1a0093a6c39014a5d118f6ba4274539ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/csv/zipball/90bedd96fa3e3d2a988be985b9b1ee29cdb38301",
-                "reference": "90bedd96fa3e3d2a988be985b9b1ee29cdb38301",
+                "url": "https://api.github.com/repos/thephpleague/csv/zipball/0d0b12f1a0093a6c39014a5d118f6ba4274539ee",
+                "reference": "0d0b12f1a0093a6c39014a5d118f6ba4274539ee",
                 "shasum": ""
             },
             "require": {
@@ -2433,6 +2433,9 @@
             "require-dev": {
                 "ext-curl": "*",
                 "friendsofphp/php-cs-fixer": "^2.0",
+                "phpstan/phpstan": "^0.9.2",
+                "phpstan/phpstan-phpunit": "^0.9.4",
+                "phpstan/phpstan-strict-rules": "^0.9.0",
                 "phpunit/phpunit": "^6.0"
             },
             "suggest": {
@@ -2474,7 +2477,7 @@
                 "read",
                 "write"
             ],
-            "time": "2018-02-05T14:07:11+00:00"
+            "time": "2018-03-12T07:20:01+00:00"
         },
         {
             "name": "league/event",
@@ -3119,16 +3122,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.24.1",
+            "version": "1.24.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "ef12cbd8ba5ce624f0a6a95e0850c4cc13e71e41"
+                "reference": "bba6c6e410c6b4317e37a9474aeaa753808c3875"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/ef12cbd8ba5ce624f0a6a95e0850c4cc13e71e41",
-                "reference": "ef12cbd8ba5ce624f0a6a95e0850c4cc13e71e41",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/bba6c6e410c6b4317e37a9474aeaa753808c3875",
+                "reference": "bba6c6e410c6b4317e37a9474aeaa753808c3875",
                 "shasum": ""
             },
             "require": {
@@ -3168,7 +3171,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2018-03-09T15:49:34+00:00"
+            "time": "2018-03-10T10:10:14+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -4471,16 +4474,16 @@
         },
         {
             "name": "spatie/laravel-analytics",
-            "version": "3.4.1",
+            "version": "3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-analytics.git",
-                "reference": "bc9cefe861ee5337b628b515ab09f8af7a5077e9"
+                "reference": "f53bcede0bf11836413006a7c85aa39f52cb71c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-analytics/zipball/bc9cefe861ee5337b628b515ab09f8af7a5077e9",
-                "reference": "bc9cefe861ee5337b628b515ab09f8af7a5077e9",
+                "url": "https://api.github.com/repos/spatie/laravel-analytics/zipball/f53bcede0bf11836413006a7c85aa39f52cb71c1",
+                "reference": "f53bcede0bf11836413006a7c85aa39f52cb71c1",
                 "shasum": ""
             },
             "require": {
@@ -4492,6 +4495,7 @@
                 "php": "^7.0"
             },
             "require-dev": {
+                "league/flysystem": ">=1.0.8",
                 "mockery/mockery": "^1.0",
                 "orchestra/testbench": "~3.4.6|~3.5.0|~3.6.0",
                 "phpunit/phpunit": "^6.1|^7.0"
@@ -4534,7 +4538,7 @@
                 "retrieve",
                 "spatie"
             ],
-            "time": "2018-02-08T09:39:06+00:00"
+            "time": "2018-03-14T19:11:03+00:00"
         },
         {
             "name": "spatie/string",
@@ -5841,16 +5845,16 @@
     "packages-dev": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v3.1.3",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "664fa434e26febf04d60df0368303cf0fe14f63a"
+                "reference": "7a91480cc6e597caed5117a3c5d685f06d35c5a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/664fa434e26febf04d60df0368303cf0fe14f63a",
-                "reference": "664fa434e26febf04d60df0368303cf0fe14f63a",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/7a91480cc6e597caed5117a3c5d685f06d35c5a1",
+                "reference": "7a91480cc6e597caed5117a3c5d685f06d35c5a1",
                 "shasum": ""
             },
             "require": {
@@ -5905,7 +5909,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2018-02-25T13:31:58+00:00"
+            "time": "2018-03-06T08:35:31+00:00"
         },
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -8711,12 +8715,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "2bb5d3101cc01f4fe580e536daf4f1959bc2d24d"
+                "reference": "dcaa7fb67de9051fa157d1ca196ba3a2e789ab26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/2bb5d3101cc01f4fe580e536daf4f1959bc2d24d",
-                "reference": "2bb5d3101cc01f4fe580e536daf4f1959bc2d24d",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/dcaa7fb67de9051fa157d1ca196ba3a2e789ab26",
+                "reference": "dcaa7fb67de9051fa157d1ca196ba3a2e789ab26",
                 "shasum": ""
             },
             "require": {
@@ -8759,7 +8763,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2018-02-22T10:48:49+00:00"
+            "time": "2018-03-13T12:30:05+00:00"
         },
         {
             "name": "symfony/filesystem",
