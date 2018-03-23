@@ -104,6 +104,12 @@ Once this file has the above in it, execute the following commands to load it in
 
 `a2ensite yourdomain.com.conf && service apache2 reload`
 
+#### NOTE: 
+If you are running this in a local testing environment, add `AccessFileName .htaccess-dev` below the DocumentRoot line above.
+I have encountered authentication issues (e.g. not being able to log in) due to settings in the main .htaccess file, and have found 
+that only having the default .htaccess in my local testing environment removes the issues I was having. I plan on using a process of 
+elimination to see what exact .htaccess setting are causing the issues, and will report my findings here.
+
 ### Step 6
 
 Barring any potential errors in the previous installation, the script should be successful installed. Visit yourdomain.com in a (modern) web browser to see the functioning script in action.
