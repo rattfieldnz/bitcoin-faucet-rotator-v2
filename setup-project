@@ -1,21 +1,22 @@
-chmod -R 755 bootstrap;
 mkdir bootstrap/cache;
-composer self-update && composer install;
-mkdir node_modules && mkdir node_modules/@bower_components;
-npm -g install yarn --save;
-yarn install --save --force;
-yarn postinstall;
 chown -R www-data:www-data storage/;
-chmod -R 755 storage/;
-chmod -R 755 bootstrap/;
+chmod -R 0755 storage/;
+chmod -R 0755 bootstrap/;
+
+composer self-update && composer install;
 composer dump-autoload --optimize;
-php artisan optimize;
 php artisan clear-compiled;
 php artisan cache:clear;
 php artisan view:clear;
 php artisan laroute:generate;
 php artisan key:generate;
 php artisan passport:install;
+
+sudo chmod -R ug+rwx /usr/lib/node_modules;
+mkdir node_modules && mkdir node_modules/@bower_components;
+sudo npm -g install yarn --save --force;
+yarn install --save --force;
+yarn postinstall;
 gulp copyfiles;
 gulp;
 gulp minifycss;
