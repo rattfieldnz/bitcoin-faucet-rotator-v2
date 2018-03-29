@@ -1534,16 +1534,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.51",
+            "version": "v0.52",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "c3d936baf3eacc002f6183530355fe4fba19b0fb"
+                "reference": "0241c1f3fde173a8c08c4ba23d6078b21c129fe2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/c3d936baf3eacc002f6183530355fe4fba19b0fb",
-                "reference": "c3d936baf3eacc002f6183530355fe4fba19b0fb",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/0241c1f3fde173a8c08c4ba23d6078b21c129fe2",
+                "reference": "0241c1f3fde173a8c08c4ba23d6078b21c129fe2",
                 "shasum": ""
             },
             "require": {
@@ -1567,7 +1567,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2018-03-18T00:23:20+00:00"
+            "time": "2018-03-24T00:23:04+00:00"
         },
         {
             "name": "google/auth",
@@ -1670,16 +1670,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "6.3.0",
+            "version": "6.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699"
+                "reference": "68d0ea14d5a3f42a20e87632a5f84931e2709c90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/f4db5a78a5ea468d4831de7f0bf9d9415e348699",
-                "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/68d0ea14d5a3f42a20e87632a5f84931e2709c90",
+                "reference": "68d0ea14d5a3f42a20e87632a5f84931e2709c90",
                 "shasum": ""
             },
             "require": {
@@ -1689,7 +1689,7 @@
             },
             "require-dev": {
                 "ext-curl": "*",
-                "phpunit/phpunit": "^4.0 || ^5.0",
+                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.4",
                 "psr/log": "^1.0"
             },
             "suggest": {
@@ -1698,7 +1698,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.2-dev"
+                    "dev-master": "6.3-dev"
                 }
             },
             "autoload": {
@@ -1731,7 +1731,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2017-06-22T18:50:49+00:00"
+            "time": "2018-03-26T16:33:04+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -2081,16 +2081,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.6.12",
+            "version": "v5.6.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "82d8165d1ea86bdd81ddfa1db9343fa19e7d1450"
+                "reference": "fba33e59fd43661933e9cecb84dfb0a64c5323ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/82d8165d1ea86bdd81ddfa1db9343fa19e7d1450",
-                "reference": "82d8165d1ea86bdd81ddfa1db9343fa19e7d1450",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/fba33e59fd43661933e9cecb84dfb0a64c5323ce",
+                "reference": "fba33e59fd43661933e9cecb84dfb0a64c5323ce",
                 "shasum": ""
             },
             "require": {
@@ -2215,7 +2215,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-03-14T17:29:38+00:00"
+            "time": "2018-03-28T14:17:03+00:00"
         },
         {
             "name": "laravel/passport",
@@ -2288,16 +2288,16 @@
         },
         {
             "name": "laravelcollective/html",
-            "version": "v5.6.3",
+            "version": "v5.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LaravelCollective/html.git",
-                "reference": "41cd9291a69bd24f2184e504be041348a87308a8"
+                "reference": "623a150c91e2d3f92eeee9f9eda58a841e3cb548"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/41cd9291a69bd24f2184e504be041348a87308a8",
-                "reference": "41cd9291a69bd24f2184e504be041348a87308a8",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/623a150c91e2d3f92eeee9f9eda58a841e3cb548",
+                "reference": "623a150c91e2d3f92eeee9f9eda58a841e3cb548",
                 "shasum": ""
             },
             "require": {
@@ -2352,7 +2352,7 @@
             ],
             "description": "HTML and Form Builders for the Laravel Framework",
             "homepage": "https://laravelcollective.com",
-            "time": "2018-02-12T14:19:42+00:00"
+            "time": "2018-03-16T16:57:31+00:00"
         },
         {
             "name": "lcobucci/jwt",
@@ -5721,16 +5721,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v8.4.1",
+            "version": "v8.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "cb052ed2608c266b1f942e1f845b8275696cd798"
+                "reference": "eab6cc583ae778d056c5caf21b70db803d956e14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/cb052ed2608c266b1f942e1f845b8275696cd798",
-                "reference": "cb052ed2608c266b1f942e1f845b8275696cd798",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/eab6cc583ae778d056c5caf21b70db803d956e14",
+                "reference": "eab6cc583ae778d056c5caf21b70db803d956e14",
                 "shasum": ""
             },
             "require": {
@@ -5746,6 +5746,7 @@
             },
             "suggest": {
                 "yajra/laravel-datatables-buttons": "Plugin for server-side exporting of dataTable.",
+                "yajra/laravel-datatables-editor": "Plugin to use Datatables Editor (requires a license).",
                 "yajra/laravel-datatables-fractal": "Plugin for server-side response using Fractal.",
                 "yajra/laravel-datatables-html": "Plugin for server-side HTML builder of dataTable."
             },
@@ -5787,7 +5788,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2018-02-16T08:22:10+00:00"
+            "time": "2018-03-28T16:31:13+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
