@@ -25,6 +25,7 @@
         <strong><i class="fa fa-2x fa-bitcoin"></i>itcoin Faucet Rotator</strong>
         @include('layouts.partials.social.addthis')
     </div>
+    @include('layouts.partials.site_wide_alerts._alert-content')
     <div class="register-box-body">
         <p class="login-box-msg"><strong>Register a new membership</strong></p>
         <form method="post" action="{{ url('/register') }}">

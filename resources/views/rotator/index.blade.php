@@ -2,12 +2,13 @@
 
 @section('content')
     <div class="zero-margin">
-        <section class="content-header">
+        <section class="content-header" style="margin-bottom: 1em;">
             <div class="{{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
                 <h1 style="text-align: center;">{{ $pageTitle }}</h1>
                 @include('layouts.partials.social.addthis')
             </div>
         </section>
+        @include('layouts.partials.site_wide_alerts._alert-content')
         <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">
             <div class="box box-primary">
                 <div class="box-body">

@@ -6,6 +6,7 @@
             <h1>Add a Faucet</h1>
         </div>
     </section>
+    @include('layouts.partials.site_wide_alerts._alert-content')
     <div class="content">
         @include('adminlte-templates::common.errors')
         <div class="clearfix"></div>

@@ -21,8 +21,9 @@
     <div class="login-logo">
         <strong><i class="fa fa-2x fa-bitcoin"></i>itcoin Faucet Rotator</strong>
         @include('layouts.partials.social.addthis')
-    </div>
 
+    </div>
+    @include('layouts.partials.site_wide_alerts._alert-content')
     <!-- /.login-logo -->
     <div class="login-box-body">
         <div class="clearfix"></div>

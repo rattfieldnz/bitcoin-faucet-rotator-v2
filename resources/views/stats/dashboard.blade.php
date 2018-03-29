@@ -5,12 +5,13 @@
 @endsection
 
 @section('content')
-    <section class="content-header">
+    <section class="content-header" style="margin-bottom: 1em;">
         <div class="row auth-page-title">
             <h1>Stats</h1>
             <h3>From <span id="date-from-display"></span> to <span id="date-to-display"></span></h3>
         </div>
     </section>
+    @include('layouts.partials.site_wide_alerts._alert-content')
     <div class="content">
         <div class="clearfix"></div>
 

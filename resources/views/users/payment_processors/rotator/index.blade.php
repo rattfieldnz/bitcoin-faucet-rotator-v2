@@ -12,6 +12,7 @@
                 @include('layouts.partials.social.addthis')
             </div>
         </section>
+        @include('layouts.partials.site_wide_alerts._alert-content')
         <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">
             @include('layouts.partials.navigation._breadcrumbs')
             <div class="box box-primary">

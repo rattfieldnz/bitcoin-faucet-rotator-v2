@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="content-header">
+    <section class="content-header" style="margin-bottom: 1em;">
         <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">
             <h1 id="title" data-user-slug="{{ $user->slug }}">{{ $user->user_name }}'s Profile</h1>
             @include('layouts.partials.social.addthis')
@@ -81,6 +81,7 @@
             @endif
         </div>
     </section>
+    @include('layouts.partials.site_wide_alerts._alert-content')
     <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">
         <div class="clearfix"></div>
         @include('flash::message')

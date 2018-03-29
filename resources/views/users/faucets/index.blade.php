@@ -20,6 +20,7 @@
             </div>
         @endif
     </section>
+    @include('layouts.partials.site_wide_alerts._alert-content')
     <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">
         @include('adminlte-templates::common.errors')
         <div class="clearfix"></div>

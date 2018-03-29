@@ -22,6 +22,7 @@
             @endif
         </div>
     </section>
+    @include('layouts.partials.site_wide_alerts._alert-content')
     <div class="content {{ empty(Auth::user()) ? 'content-guest' : '' }}">
         <div class="clearfix"></div>
 
