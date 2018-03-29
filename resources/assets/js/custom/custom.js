@@ -469,7 +469,7 @@ function generateSwitch(elem, initState, onText, offText)
                     elem.attr('checked', 'checked');
                     elem.val(parseInt(+state));
                 } else{
-                    elem.attr('checked', '');
+                    elem.attr('checked', 'checked');
                     elem.val(parseInt(+state));
                 }
             });

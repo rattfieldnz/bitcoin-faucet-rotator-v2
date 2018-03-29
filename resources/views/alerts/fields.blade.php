@@ -97,7 +97,7 @@
     <?php
         $icons = \App\Models\AlertIcon::all();
         $defaultIcon = \App\Models\AlertIcon::where('icon_class', '=', 'fa-info')->first();
-        $alertIconId = old('alert_icon_id', $alert->alert_icon_id ?? null);
+        $alertIconId = old('alert_icon_id', !empty($alert) ? $alert->alert_icon_id : $defaultIcon->id);
     ?>
     <label for="alert_icon_id">FontAwesome Alert Icon:</label>
     <select class="form-control" id="alert_icon_id" name="alert_icon_id" data-live-search="true">
@@ -105,7 +105,7 @@
         <option
             value="{{ $icon->id }}"
             data-icon="fa {{ $icon->icon_class }} fa-2x"
-            {{ !empty($alertIconId) && $icon->id == $alertIconId || $icon->id == $defaultIcon->id ? 'selected="selected"': '' }}
+            {{ !empty($alertIconId) && $icon->id == $alertIconId ? 'selected="selected"': '' }}
         >
             ({{ $icon->icon_class }})
         </option>
@@ -121,12 +121,18 @@
 <!-- Hide Alert Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('hide_alert') ? ' has-error' : '' }}">
     <?php
-        $hideAlert = old('hide_alert', $alert->hide_alert ?? null);
+        $hideAlert = intval(old('hide_alert', !empty($alert) ? $alert->hide_alert : false));
     ?>
-    {!! Form::label('hide_alert', (empty($alert) ? 'Hide ' : 'Hidden ') . 'Alert From Home Page:') !!}
-    <label class="checkbox-inline">
-        {!! Form::checkbox('hide_alert', intval($hideAlert), boolval($hideAlert)) !!}
-    </label>
+    {!! Form::label('hide_alert', (empty($alert) ? 'Hide ' : 'Hidden ') . 'Alert From Home Page:', ['style' => 'margin-right:1em;']) !!}
+    <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary{{ $hideAlert == 1 ? ' active' : '' }}">
+            {{ Form::radio('hide_alert', 1, $hideAlert == 1 ? true : false, ['id' => 'hide_alert_yes', $hideAlert == 1 ? 'checked' : '']) }} Yes
+        </label>
+        <label class="btn btn-primary{{ $hideAlert == 0 ? ' active' : '' }}">
+            {{ Form::radio('hide_alert', 0, $hideAlert == 0 ? true : false, ['id' => 'hide_alert_no', $hideAlert == 0 ? 'checked' : '']) }} No
+        </label>
+    </div>
+
     @if ($errors->has('hide_alert'))
         <span class="help-block">
             <strong>{{ $errors->first('hide_alert') }}</strong>
@@ -137,12 +143,17 @@
 <!-- Sent With Twitter Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('sent_with_twitter') ? ' has-error' : '' }}">
     <?php
-        $tweetSent = old('sent_with_twitter', $alert->sent_with_twitter ?? null);
+        $tweetSent = intval(old('sent_with_twitter', !empty($alert) ? $alert->sent_with_twitter : false));
     ?>
-    {!! Form::label('sent_with_twitter', (empty($alert) ? 'Send ' : 'Sent ') . 'to Twitter?:') !!}
-    <label class="checkbox-inline">
-        {!! Form::checkbox('sent_with_twitter', intval($tweetSent), boolval($tweetSent)) !!}
-    </label>
+    {!! Form::label('sent_with_twitter', (empty($alert) ? 'Send ' : 'Sent ') . 'to Twitter?:', ['style' => 'margin-right:1em;']) !!}
+    <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary{{ $tweetSent == 1 ? ' active' : '' }}">
+            {{ Form::radio('sent_with_twitter', 1, $tweetSent == 1 ? true : false, ['id' => 'sent_with_twitter_yes', $tweetSent == 1 ? 'checked' : '']) }} Yes
+        </label>
+        <label class="btn btn-primary{{ $tweetSent == 0 ? ' active' : '' }}">
+            {{ Form::radio('sent_with_twitter', 0, $tweetSent == 0 ? true : false, ['id' => 'sent_with_twitter_no', $tweetSent == 0 ? 'checked' : '']) }} No
+        </label>
+    </div>
     @if ($errors->has('sent_with_twitter'))
         <span class="help-block">
             <strong>{{ $errors->first('sent_with_twitter') }}</strong>
@@ -172,14 +183,7 @@
     @endif
 </div>
 
-@push('css')
-    <link rel="stylesheet" href="{{ asset("/assets/css/bootstrap-switch/bootstrap-switch.min.css?" . rand()) }}">
-    <link rel="stylesheet" href="{{ asset("/assets/css/bootstrap-select/bootstrap-select.min.css?" . rand()) }}">
-@endpush
-
 @push('scripts')
-<script src="{{ asset("/assets/js/bootstrap-switch/bootstrap-switch.min.js") . "?" . rand() }}"></script>
-<script src="{{ asset("/assets/js/bootstrap-select/bootstrap-select.min.js") . "?" . rand() }}"></script>
 <script src="{{ asset("/assets/js/ckeditor/ckeditor.js?") . "?" . rand() }}"></script>
 <script>
     CKEDITOR.replace('alert_content');
@@ -187,19 +191,22 @@
     $('#alert_icon_id').selectpicker();
     $('#alert_type_id').selectpicker();
 
-    var hideAlert = $('#hide_alert');
-    var twitterSendOrSent = $('#sent_with_twitter');
     var tweetField = $('#twitter-message-field');
-    tweetField.hide();
+    var sentWithTwitter = $('input[type=radio][name=sent_with_twitter]');
 
-    generateSwitch(hideAlert, {{ boolval(intval($hideAlert)) }});
-    generateSwitch(twitterSendOrSent, {{ boolval(intval($tweetSent)) }});
+    if(parseInt(sentWithTwitter.val()) === 0){
+        tweetField.hide();
+    }
 
-    twitterSendOrSent.on('switchChange.bootstrapSwitch', function(event,  state) {
-        if(state){
-            tweetField.show();
-        } else{
-            tweetField.hide();
+    sentWithTwitter.on('change', function() {
+        switch(parseInt($(this).val())) {
+            case 1:
+                tweetField.show();
+
+                break;
+            case 0:
+                tweetField.hide();
+                break;
         }
     });
 </script>

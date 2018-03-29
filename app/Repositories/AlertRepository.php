@@ -78,6 +78,7 @@ class AlertRepository extends Repository implements IRepository
      */
     public function update(array $data, $slug)
     {
+        //dd($data);
         $temporarySkipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
         $alertData = self::cleanInput($data);
@@ -129,16 +130,10 @@ class AlertRepository extends Repository implements IRepository
             'twitter_message' => Purifier::clean($input['twitter_message'], 'generalFields'),
             'keywords' => Purifier::clean($input['keywords'], 'generalFields'),
             'alert_type_id' => intval(Purifier::clean($input['alert_type_id'], 'generalFields')),
-            'alert_icon_id' => intval(Purifier::clean($input['alert_icon_id'], 'generalFields'))
+            'alert_icon_id' => intval(Purifier::clean($input['alert_icon_id'], 'generalFields')),
+            'hide_alert' => intval(Purifier::clean($input['hide_alert'], 'generalFields')),
+            'sent_with_twitter' => intval(Purifier::clean($input['sent_with_twitter'], 'generalFields'))
         ];
-
-        if (!empty($input['hide_alert'])) {
-            $inputToSanitize['hide_alert'] = intval(Purifier::clean($input['hide_alert'], 'generalFields'));
-        }
-
-        if (!empty($input['sent_with_twitter'])) {
-            $inputToSanitize['sent_with_twitter'] = intval(Purifier::clean($input['sent_with_twitter'], 'generalFields'));
-        }
 
         return $inputToSanitize;
     }

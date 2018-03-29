@@ -54,18 +54,18 @@ gulp.task("copyfiles", function() {
         .pipe(gulp.dest("public/assets/fonts/"));
 
     // Bootstrap Switch
-    gulp.src("node_modules/@bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css")
-        .pipe(gulp.dest("public/assets/css/bootstrap-switch/"));
+    gulp.src("node_modules/@bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css")
+        .pipe(gulp.dest("resources/assets/css/bootstrap-switch/"));
 
-    gulp.src("node_modules/@bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js")
-        .pipe(gulp.dest("public/assets/js/bootstrap-switch/"));
+    gulp.src("node_modules/@bower_components/bootstrap-switch/dist/js/bootstrap-switch.js")
+        .pipe(gulp.dest("resources/assets/js/bootstrap-switch/"));
 
     // Bootstrap Select
-    gulp.src("node_modules/@bower_components/bootstrap-select/dist/css/bootstrap-select.min.css")
-        .pipe(gulp.dest("public/assets/css/bootstrap-select/"));
+    gulp.src("node_modules/@bower_components/bootstrap-select/dist/css/bootstrap-select.css")
+        .pipe(gulp.dest("resources/assets/css/bootstrap-select/"));
 
-    gulp.src("node_modules/@bower_components/bootstrap-select/dist/js/bootstrap-select.min.js")
-        .pipe(gulp.dest("public/assets/js/bootstrap-select/"));
+    gulp.src("node_modules/@bower_components/bootstrap-select/dist/js/bootstrap-select.js")
+        .pipe(gulp.dest("resources/assets/js/bootstrap-select/"));
 
     // Local Forage //
     gulp.src("node_modules/@bower_components/localforage/dist/localforage.js")
@@ -175,6 +175,8 @@ elixir(function(mix) {
             'js/js-cookie/js.cookie.js',
             'js/jqueryui-timepicker-addon/jquery-ui-timepicker-addon.js',
             'js/jqueryui-timepicker-addon/jquery-ui-sliderAccess.js',
+            'js/bootstrap-select/bootstrap-select.js',
+            'js/bootstrap-switch/bootstrap-switch.js',
             'js/custom/custom.js'
         ],
         'public/assets/js/mainScripts.js',
@@ -247,6 +249,8 @@ elixir(function(mix) {
             'resources/assets/css/cookieconsent/**/*.css',
             'resources/assets/css/bootstrap-switch/bootstrap-switch.css',
             'resources/assets/css/jqueryui-timepicker-addon/jquery-ui-timepicker-addon.css',
+            'resources/assets/css/bootstrap-select/bootstrap-select.css',
+            'resources/assets/css/bootstrap-switch/bootstrap-switch.css',
             'resources/assets/css/custom.css'
         ]
     )
