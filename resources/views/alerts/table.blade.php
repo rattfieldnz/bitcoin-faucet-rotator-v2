@@ -27,12 +27,21 @@
             <td>{!! $alert->summary !!}</td>
             @if(!empty(Auth::user()) && Auth::user()->isAnAdmin())
             <td>
-                {!! Form::open(['route' => ['alerts.delete-permanently', $alert->slug], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! route('alerts.edit', [$alert->slug]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                    @if(!$alert->isDeleted())
+                        {!! Form::open(['route' => ['alerts.delete-temporarily', $alert->slug], 'method' => 'delete']) !!}
+                        {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-warning btn-xs', 'onclick' => "return confirm('Are you sure you want to archive/delete this alert?')"]) !!}
+                        {!! Form::close() !!}
+                        {!! Form::open(['route' => ['alerts.delete-permanently', $alert->slug], 'method' => 'delete']) !!}
+                        {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure you want to PERMANENTLY DELETE this alert?')"]) !!}
+                        {!! Form::close() !!}
+                    @else
+                        {!! Form::open(['route' => ['alerts.restore', $alert->slug], 'method' => 'patch']) !!}
+                        {!! Form::button('<i class="glyphicon glyphicon-refresh"></i>', ['type' => 'submit', 'class' => 'btn btn-info btn-xs', 'onclick' => "return confirm('Are you sure you want to restore this archived/deleted alert?')"]) !!}
+                        {!! Form::close() !!}
+                    @endif
                 </div>
-                {!! Form::close() !!}
             </td>
             @endif
         </tr>

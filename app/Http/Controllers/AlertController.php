@@ -280,8 +280,6 @@ class AlertController extends AppBaseController
         return redirect(route('alerts.index'));
     }
 
-
-
     /**
      * Restore a soft-deleted alert.
      *

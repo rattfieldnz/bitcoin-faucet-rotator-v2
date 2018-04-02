@@ -166,7 +166,15 @@ Route::get('settings', ['as' => 'settings', 'uses' => 'SettingsController@index'
 Route::resource('social-networks', 'SocialNetworksController');
 
 Route::delete(
-    'alerts/{id}/delete-permanently',
+    'alerts/{slug}/delete-temporarily',
+    [
+        'as' => 'alerts.delete-temporarily',
+        'uses' => 'AlertController@destroy'
+    ]
+);
+
+Route::delete(
+    'alerts/{slug}/delete-permanently',
     [
         'as' => 'alerts.delete-permanently',
         'uses' => 'AlertController@destroyPermanently'
@@ -174,10 +182,10 @@ Route::delete(
 );
 
 Route::patch(
-    'alerts/{id}/restore',
+    'alerts/{slug}/restore',
     [
         'as' => 'alerts.restore',
-        'uses' => 'AlertController@restore'
+        'uses' => 'AlertController@restoreDeleted'
     ]
 );
 
