@@ -530,16 +530,16 @@
         },
         {
             "name": "creativeorange/gravatar",
-            "version": "1.0.10",
+            "version": "v1.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/creativeorange/gravatar.git",
-                "reference": "9affd46be10f1ebb11d5d9f03440f804c09f2b59"
+                "reference": "4459b68a853ffdb1c2abbf9419214df46371889b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/creativeorange/gravatar/zipball/9affd46be10f1ebb11d5d9f03440f804c09f2b59",
-                "reference": "9affd46be10f1ebb11d5d9f03440f804c09f2b59",
+                "url": "https://api.github.com/repos/creativeorange/gravatar/zipball/4459b68a853ffdb1c2abbf9419214df46371889b",
+                "reference": "4459b68a853ffdb1c2abbf9419214df46371889b",
                 "shasum": ""
             },
             "require": {
@@ -547,6 +547,16 @@
                 "php": ">=5.4.0"
             },
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Creativeorange\\Gravatar\\GravatarServiceProvider"
+                    ],
+                    "aliases": {
+                        "Gravatar": "Creativeorange\\Gravatar\\Facades\\Gravatar"
+                    }
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Creativeorange\\Gravatar\\": "src/"
@@ -564,13 +574,13 @@
                     "role": "Developer"
                 }
             ],
-            "description": "A Laravel 5.0, 5.1, 5.2 and 5.3 gravatar package for retrieving gravatar image URLs or checking the existance of an image.",
+            "description": "Gravatar for Laravel 5.0.x through 5.5.x package for retrieving gravatar image URLs or checking the existance of an image.",
             "keywords": [
                 "avatar",
                 "gravatar",
                 "laravel"
             ],
-            "time": "2017-02-15T22:07:40+00:00"
+            "time": "2018-03-29T22:10:58+00:00"
         },
         {
             "name": "cviebrock/eloquent-sluggable",
@@ -1534,16 +1544,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.52",
+            "version": "v0.53",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "0241c1f3fde173a8c08c4ba23d6078b21c129fe2"
+                "reference": "c4d60266450b53819a6d4f2f89269c292f20f12a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/0241c1f3fde173a8c08c4ba23d6078b21c129fe2",
-                "reference": "0241c1f3fde173a8c08c4ba23d6078b21c129fe2",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/c4d60266450b53819a6d4f2f89269c292f20f12a",
+                "reference": "c4d60266450b53819a6d4f2f89269c292f20f12a",
                 "shasum": ""
             },
             "require": {
@@ -1567,7 +1577,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2018-03-24T00:23:04+00:00"
+            "time": "2018-03-31T00:22:57+00:00"
         },
         {
             "name": "google/auth",
@@ -2081,16 +2091,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.6.14",
+            "version": "v5.6.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "fba33e59fd43661933e9cecb84dfb0a64c5323ce"
+                "reference": "baa42cf6bdd942523fafece21ec16a1843c6db0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/fba33e59fd43661933e9cecb84dfb0a64c5323ce",
-                "reference": "fba33e59fd43661933e9cecb84dfb0a64c5323ce",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/baa42cf6bdd942523fafece21ec16a1843c6db0f",
+                "reference": "baa42cf6bdd942523fafece21ec16a1843c6db0f",
                 "shasum": ""
             },
             "require": {
@@ -2215,7 +2225,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-03-28T14:17:03+00:00"
+            "time": "2018-03-30T13:29:58+00:00"
         },
         {
             "name": "laravel/passport",
@@ -7841,16 +7851,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.8.17",
+            "version": "v0.8.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "5069b70e8c4ea492c2b5939b6eddc78bfe41cfec"
+                "reference": "5357b1cffc8fb375d6a9e3c86d5c82dd38a40834"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/5069b70e8c4ea492c2b5939b6eddc78bfe41cfec",
-                "reference": "5069b70e8c4ea492c2b5939b6eddc78bfe41cfec",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/5357b1cffc8fb375d6a9e3c86d5c82dd38a40834",
+                "reference": "5357b1cffc8fb375d6a9e3c86d5c82dd38a40834",
                 "shasum": ""
             },
             "require": {
@@ -7909,7 +7919,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2017-12-28T16:14:16+00:00"
+            "time": "2018-04-02T05:41:44+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
