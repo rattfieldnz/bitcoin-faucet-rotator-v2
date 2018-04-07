@@ -162,13 +162,11 @@ class TermsAndConditionsController extends AppBaseController
         if (empty($termsAndConditions)) {
             Flash::error('Terms And Conditions not found');
 
-            return redirect(route('terms-and-conditions.index'));
+            return redirect(route('terms-and-conditions.create'));
         }
-
-        $termsAndConditions = $this->termsAndConditionsRepository->update($request->all(), $id);
 
         Flash::success('Terms And Conditions updated successfully.');
 
-        return redirect(route('terms-and-conditions.index'));
+        return redirect(route('terms-and-conditions'));
     }
 }

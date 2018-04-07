@@ -157,7 +157,7 @@ Route::get('terms-and-conditions/edit', ['as' => 'terms-and-conditions.edit', 'u
 
 Route::resource('terms-and-conditions', 'TermsAndConditionsController');
 
-Route::get('terms-and-conditions', ['as' => 'terms-and-conditions', 'uses' => 'TermsAndConditionsController@index']);
+Route::get('terms-and-conditions', ['as' => 'terms-and-conditions', 'uses' => 'TermsAndConditionsController@show']);
 
 Route::get('stats', ['as' => 'stats.index', 'uses' => 'StatsController@index']);
 
