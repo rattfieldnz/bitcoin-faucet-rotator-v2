@@ -113,10 +113,23 @@ class TermsAndConditionsController extends AppBaseController
         if (empty($termsAndConditions)) {
             Flash::error('Terms And Conditions not found');
 
-            return redirect(route('terms-and-conditions.index'));
+            return redirect(route('terms-and-conditions.create'));
         }
 
-        return view('terms_and_conditions.show')->with('termsAndConditions', $termsAndConditions);
+        $seoConfig = new SeoConfig();
+        $seoConfig->title = !empty($termsAndConditions->title) ? $termsAndConditions->title : "Terms and Conditions";
+        $seoConfig->description = $termsAndConditions->short_description;
+        $seoConfig->keywords = array_map('trim', explode(',', $termsAndConditions->keywords));
+        $seoConfig->publishedTime = $termsAndConditions->created_at->toW3CString();
+        $seoConfig->modifiedTime = $termsAndConditions->updated_at->toW3CString();
+        $seoConfig->authorName = Users::adminUser()->fullName();
+        $seoConfig->currentUrl = route('terms-and-conditions');
+        $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
+        $seoConfig->categoryDescription = "Terms and Conditions";
+        WebsiteMeta::setCustomMeta($seoConfig);
+
+        return view('terms_and_conditions.show')
+            ->with('termsAndConditions', $termsAndConditions);
     }
 
     /**
