@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Validator\Exceptions\ValidatorException;
 use Response;
 
 /**
@@ -36,6 +37,7 @@ class TermsAndConditionsController extends AppBaseController
      * @param Request $request
      *
      * @return \Illuminate\View\View|\Response
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function index(Request $request)
     {
@@ -89,6 +91,7 @@ class TermsAndConditionsController extends AppBaseController
      * @param CreateTermsAndConditionsRequest $request
      *
      * @return Response
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function store(CreateTermsAndConditionsRequest $request)
     {
@@ -163,10 +166,11 @@ class TermsAndConditionsController extends AppBaseController
     /**
      * Update the specified TermsAndConditions in storage.
      *
-     * @param  int              $id
+     * @param  int                            $id
      * @param UpdateTermsAndConditionsRequest $request
      *
      * @return Response
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function update($id, UpdateTermsAndConditionsRequest $request)
     {
@@ -177,6 +181,8 @@ class TermsAndConditionsController extends AppBaseController
 
             return redirect(route('terms-and-conditions.create'));
         }
+
+        $termsAndConditions = $this->termsAndConditionsRepository->update($request->all(), $id);
 
         Flash::success('Terms And Conditions updated successfully.');
 
