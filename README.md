@@ -4,10 +4,6 @@ After a few months of coding, development, and security testing, I proudly bring
 
 ![Guest view of home page](https://i.imgur.com/gx2YfnQ.png)
 
-___
-NOTE: As of 9th December 2017, until further notice, this script is in a 'beta' state. During this period, I will be analysing: user feedback, potential bugs in a production environment, working out feasibility for new/requested features, performance issues. During this period especially, your contributions, ideas, and feedback will be most welcome. A demo beta version will be made available at [http://beta.freebtc.website](http://beta.freebtc.website).
-___
-
 This script enables you to start your very own bitcoin faucet rotator, for which you can earn varying amounts of referral income. The main purpose of this script is to allow 'small-time'/beginner bitcoin enthusiasts to earn free bitcoins faster than manually surfing hundreds of bitcoin faucets. With a solid marketing campaign, your referral income is limited only by your potential. If you are new to Bitcoins, you can view [their official documentation](https://bitcoin.org/en/) to find out more. 
 
 This version comes with many extra features - namely:
