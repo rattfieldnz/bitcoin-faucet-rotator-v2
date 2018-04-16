@@ -1546,16 +1546,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.54",
+            "version": "v0.55",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "ae39592553eb08e30b2f414e750de4868f7ea086"
+                "reference": "3b7d2e2c5567fa1d10d97ddece715af3ae8c80ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/ae39592553eb08e30b2f414e750de4868f7ea086",
-                "reference": "ae39592553eb08e30b2f414e750de4868f7ea086",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/3b7d2e2c5567fa1d10d97ddece715af3ae8c80ec",
+                "reference": "3b7d2e2c5567fa1d10d97ddece715af3ae8c80ec",
                 "shasum": ""
             },
             "require": {
@@ -1579,7 +1579,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2018-04-07T00:23:23+00:00"
+            "time": "2018-04-15T00:23:16+00:00"
         },
         {
             "name": "google/auth",
@@ -3600,16 +3600,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.10",
+            "version": "2.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "d305b780829ea4252ed9400b3f5937c2c99b51d4"
+                "reference": "7053f06f91b3de78e143d430e55a8f7889efc08b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/d305b780829ea4252ed9400b3f5937c2c99b51d4",
-                "reference": "d305b780829ea4252ed9400b3f5937c2c99b51d4",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/7053f06f91b3de78e143d430e55a8f7889efc08b",
+                "reference": "7053f06f91b3de78e143d430e55a8f7889efc08b",
                 "shasum": ""
             },
             "require": {
@@ -3688,7 +3688,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2018-02-19T04:29:13+00:00"
+            "time": "2018-04-15T16:55:05+00:00"
         },
         {
             "name": "predis/predis",
