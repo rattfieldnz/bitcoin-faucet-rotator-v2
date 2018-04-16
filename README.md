@@ -69,6 +69,6 @@ Want to talk about this repository, coding in general, etc? Get in touch with me
 
 If you would like to see interesting news and items about Bitcoin, You may like/follow/visit the following social media profiles:
 
-- [https://www.facebook.com/freebtc.website](https://www.facebook.com/freebtc.website)
-- [https://twitter.com/freebtcwebsite](https://twitter.com/freebtcwebsite) 
-- [https://freebtcwebsite.tumblr.com/](https://freebtcwebsite.tumblr.com/)
+- [https://www.facebook.com/thebitcoinrotator](https://www.facebook.com/thebitcoinrotator)
+- [https://twitter.com/thebtcrotator](https://twitter.com/thebtcrotator) 
+- [https://thebitcoinrotator.tumblr.com/](https://thebitcoinrotator.tumblr.com)
