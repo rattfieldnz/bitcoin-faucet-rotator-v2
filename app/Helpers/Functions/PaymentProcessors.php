@@ -124,18 +124,14 @@ class PaymentProcessors
             return null;
         }
 
-        $userFaucets = User::where('id', '=', $user->id)
-            ->first()
-            ->faucets();
-
         $faucets = $paymentProcessor->faucets();
 
         if (!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->id == $user->id)) {
-            $userFaucets = $userFaucets->withTrashed()->get()->pluck('id')->toArray();
+            $userFaucets = $user->faucets()->withTrashed()->get()->pluck('id')->toArray();
 
             return $faucets->withTrashed()->get()->whereIn('id', $userFaucets);
         } else {
-            $userFaucets = $userFaucets
+            $userFaucets = $user->faucets()
                 ->wherePivot('referral_code', '!=', null)
                 ->get()
                 ->pluck('id')

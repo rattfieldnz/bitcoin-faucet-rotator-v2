@@ -148,7 +148,7 @@ class RotatorController extends Controller
 
     function getUserPaymentProcessorFaucetRotator($userSlug, $paymentProcessorSlug)
     {
-        $user = $this->userRepository->findByField('slug', $userSlug)->first();
+        $user = $this->userRepository->findByField('slug', $userSlug)->where('deleted_at', '=', null)->first();
         $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->first();
 
         if (empty($user)) {
