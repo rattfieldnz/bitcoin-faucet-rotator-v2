@@ -21,6 +21,7 @@ use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\TwitterCard;
 use Creativeorange\Gravatar\Facades\Gravatar;
+use Exception;
 use Form;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -166,6 +167,27 @@ class Users
         } else {
             return false;
         }
+    }
+
+    /**
+     * Purge archived users
+     *
+     * @return array
+     */
+    public function purgeArchivedUsers()
+    {
+
+        $userIds = $this->userRepository->onlyTrashed()->get()->pluck('id')->toArray();
+
+        DB::table('referral_info')
+            ->whereIn('user_id', $userIds)
+            ->delete();
+
+        DB::table('users')
+            ->whereIn('id', $userIds)
+            ->delete();
+
+        return ['purged' => true, 'count' => count($userIds)];
     }
 
     /**

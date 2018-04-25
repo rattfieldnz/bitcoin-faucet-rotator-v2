@@ -92,12 +92,22 @@ abstract class Repository extends BaseRepository
     }
 
     /**
-     * Retrieve trashed / soft-deleted models.
+     * Retrieve all models, including trashed / soft-deleted.
      *
      * @return mixed
      */
     public function withTrashed()
     {
         return $this->model->withTrashed();
+    }
+
+    /**
+     * Retrieve only trashed / soft-deleted models.
+     *
+     * @return mixed
+     */
+    public function onlyTrashed()
+    {
+        return $this->model->onlyTrashed();
     }
 }

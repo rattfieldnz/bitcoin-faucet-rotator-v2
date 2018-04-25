@@ -6,6 +6,7 @@
             <h1>Faucets</h1>
             @include('layouts.partials.social.addthis')
         </div>
+
         @if(!empty(Auth::user()) && Auth::user()->isAnAdmin())
         <div class="row zero-margin buttons-row">
             {!! Form::button(

@@ -321,4 +321,22 @@ class UserController extends AppBaseController
 
         return redirect(route('users.index'));
     }
+
+    /**
+     * Purge all archived / soft-deleted users.
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function purgeArchivedUsers()
+    {
+        Functions::userCanAccessArea(Auth::user(), 'users.purge-archived', [], []);
+
+        $purged = $this->userFunctions->purgeArchivedUsers();
+
+        $purgedCount = $purged['count'];
+
+        flash(($purgedCount == 0 ? 'No' : $purgedCount) . ' archived users were permanently deleted!')->success();
+
+        return redirect(route('users.index'));
+    }
 }

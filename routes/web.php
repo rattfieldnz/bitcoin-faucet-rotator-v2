@@ -127,6 +127,14 @@ Route::delete(
         ]
 );
 
+Route::delete(
+    'purge-deleted-users',
+    [
+        'as' => 'users.purge-archived',
+        'uses' => 'UserController@purgeArchivedUsers'
+    ]
+);
+
 Route::patch(
     'users/{slug}/restore',
     [
