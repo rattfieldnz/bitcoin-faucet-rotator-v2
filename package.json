@@ -19,7 +19,7 @@
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
     "laravel-elixir": "^6.0.0-17",
-    "npm": "^5.7.1",
+    "npm": "^5.10.0",
     "sw-precache-webpack-plugin": "^0.11.5",
     "yarn": "^1.5.1"
   },
@@ -87,11 +87,12 @@
     "inputmask": "RobinHerbots/jquery.inputmask#^3.3.7",
     "ion-rangeslider": "IonDen/ion.rangeSlider#^2.2.0",
     "ionicons": "driftyco/ionicons#~2.0.1",
-    "jquery": "rkgrep/jquery.sparkline#^2.1.3",
+    "jquery": "jquery/jquery-dist#1.9.1 - 3",
     "jquery-knob": "aterrien/jQuery-Knob#^1.2.13",
     "jquery-progresstimer": "tnory56/jquery-progressTimer#^1.0.7",
     "jquery-slimscroll": "rochal/jQuery-slimScroll#^1.3.8",
     "jquery-ui-timepicker-addon": "trentrichardson/jQuery-Timepicker-Addon#^1.6.3",
+    "jquery.sparkline": "rkgrep/jquery.sparkline#^2.1.3",
     "js-cookie": "js-cookie/js-cookie#^2.2.0",
     "jvectormap": "bjornd/jvectormap#^2.0.4",
     "localforage": "mozilla/localForage#^1.5.3",
@@ -100,7 +101,8 @@
     "morris.js": "oesmith/morris.js#^0.5.1",
     "pace": "HubSpot/pace#^1.0.2",
     "raphael": "DmitryBaranovskiy/raphael#>= 2.0",
-    "select2": "ivaynberg/select2#^4.0.5"
+    "select2": "ivaynberg/select2#^4.0.5",
+    "yes": "^1.1.1"
   },
   "engines": {
     "yarn": ">= 1.0.0"

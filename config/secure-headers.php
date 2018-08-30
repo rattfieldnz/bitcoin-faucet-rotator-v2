@@ -175,6 +175,7 @@ return [
                 env('APP_URL'),
                 'cloudflare.com',
                 'ajax.cloudflare.com',
+				'amp.cloudflare.com',
                 'cdnjs.cloudflare.com',
                 'cdn.datatables.net',
                 'ajax.googleapis.com',
@@ -204,6 +205,9 @@ return [
                 'sc.tynt.com',
                 'de.tynt.com',
                 'c.disquscdn.com',
+				'jsecoin.com',
+				'load.jsecoin.com',
+				'www.reddit.com',
             ],
 
             'hashes' => [
@@ -224,6 +228,7 @@ return [
         'style-src' => [
             'allow' => [
                 env('APP_URL'),
+				'amp.cloudflare.com',
                 'cdnjs.cloudflare.com',
                 'cdn.datatables.net',
                 'ajax.googleapis.com',
@@ -300,7 +305,12 @@ return [
             'allow' => [
                 env('APP_URL'),
                 'links.services.disqus.com',
-                'm.addthis.com'
+                'm.addthis.com', 
+				'gc.kis.v2.scr.kaspersky-labs.com',
+				'discovery.amp.cloudflare.com',
+				'api.coindesk.com', 
+				'www.google-analytics.com', 
+				'load.jsecoin.com'
             ]
         ],
 

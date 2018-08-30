@@ -20,12 +20,20 @@
         <!-- START Site Styles -->
         @include('layouts.partials.styles._css')
         <!-- END Site Styles -->
+		
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MWB3XF7');</script>
 
         <!-- START Google Analytics tracking -->
         @stack('google-analytics')
         <!-- END Google Analytics tracking -->
     </head>
     <body class="skin-blue sidebar-mini" id="{{ empty(Auth::user()) ? 'guest-bg' : 'auth-bg' }}">
+	<!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWB3XF7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
         <div id="main-wrapper">
             <!-- START Main Content -->
             @include('layouts.partials._main_content')
