@@ -3,7 +3,7 @@ let sass = require('gulp-ruby-sass');
 let rename = require('gulp-rename');
 let elixir = require('laravel-elixir');
 let concatCSS = require('gulp-concat-css');
-let minifyCSS = require('gulp-minify-css');
+let cleanCSS = require('gulp-clean-css');
 let sourcemaps = require('gulp-sourcemaps');
 let uglify = require('gulp-uglify');
 let htmlmin = require('gulp-htmlmin');
@@ -279,7 +279,7 @@ gulp.task('minifycss', function(){
     // Minify CSS
     compressDataTablesCss();
     return gulp.src('public/assets/css/mainStyles.css')
-        .pipe(minifyCSS())
+        .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(rename('mainStyles.min.css'))
         .pipe(gulp.dest('public/assets/css/'));
 
@@ -317,7 +317,7 @@ function compressDataTablesJs(){
 
 function compressDataTablesCss(){
     return gulp.src('public/assets/css/datatables.net/datatables.css')
-        .pipe(minifyCSS())
+        .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(rename('datatables.min.css'))
         .pipe(gulp.dest('public/assets/css/datatables.net/'));
 }
