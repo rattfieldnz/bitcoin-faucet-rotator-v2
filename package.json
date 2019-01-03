@@ -10,9 +10,9 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.10.0",
     "gulp-concat-css": "^3.1.0",
     "gulp-htmlmin": "^4.0.0",
-    "gulp-clean-css": "^3.10.0",
     "gulp-rename": "^1.4",
     "gulp-ruby-sass": "^3.0.0",
     "gulp-sourcemaps": "^2.6.4",
@@ -21,7 +21,7 @@
     "laravel-elixir": "^6.0.0-18",
     "npm": "^6.4.1",
     "sw-precache-webpack-plugin": "^0.11.5",
-    "yarn": "^1.9.4"
+    "yarn": "^1.12.1"
   },
   "dependencies": {
     "@bower_components/Flot": "flot/flot#^0.8.3",
@@ -64,7 +64,7 @@
     "@bower_components/raphael": "DmitryBaranovskiy/raphael#^2.2.7",
     "@bower_components/select2": "ivaynberg/select2#^4.0.5",
     "Flot": "flot/flot#^0.8.3",
-    "admin-lte": "almasaeed2010/AdminLTE#~2.4.3",
+    "admin-lte": "almasaeed2010/AdminLTE#~2.4.8",
     "bootstrap": "twbs/bootstrap#~3.3.7",
     "bootstrap-colorpicker": "itsjavi/bootstrap-colorpicker#^3.0.3",
     "bootstrap-datepicker": "eternicode/bootstrap-datepicker#^1.8.0",
@@ -79,6 +79,7 @@
     "cookieconsent": "insites/cookieconsent#^3.1.0",
     "datatables.net": "DataTables/Dist-DataTables#^1.10.19",
     "datatables.net-bs": "DataTables/Dist-DataTables-Bootstrap#^2.1.1",
+    "daterangepicker": "dangrossman/bootstrap-daterangepicker#^3.0.3",
     "eve": "tomasAlabes/eve#0.5.0",
     "fastclick": "ftlabs/fastclick#^1.0.6",
     "font-awesome": "FortAwesome/Font-Awesome#~4.7.0",
@@ -100,7 +101,7 @@
     "moment": "moment/moment#^2.22.2",
     "morris.js": "oesmith/morris.js#^0.5.1",
     "pace": "HubSpot/pace#^1.0.2",
-    "raphael": "DmitryBaranovskiy/raphael#>= 2.0",
+    "raphael": "DmitryBaranovskiy/raphael#^2.2.7",
     "select2": "ivaynberg/select2#^4.0.5",
     "yes": "^1.1.1"
   },

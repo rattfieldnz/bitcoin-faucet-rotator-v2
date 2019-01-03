@@ -141,9 +141,6 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
-        Prettus\Repository\Providers\RepositoryServiceProvider::class,
-        \InfyOm\Generator\InfyOmGeneratorServiceProvider::class,
-        InfyOm\AdminLTETemplates\AdminLTETemplatesServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
         Laratrust\LaratrustServiceProvider::class,
@@ -161,7 +158,7 @@ return [
         Jaybizzle\MigrationsOrganiser\MigrationsOrganiserServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-        Roumen\Feed\FeedServiceProvider::class,
+        Laravelium\Feed\FeedServiceProvider::class,
         Snowfire\Beautymail\BeautymailServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         /*

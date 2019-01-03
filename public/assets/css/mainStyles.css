@@ -28509,7 +28509,7 @@ table.tablesorter thead tr .header {
   display: none;
 }
 /*!
- * Bootstrap-select v1.13.2 (https://developer.snapappointments.com/bootstrap-select)
+ * Bootstrap-select v1.13.5 (https://developer.snapappointments.com/bootstrap-select)
  *
  * Copyright 2012-2018 SnapAppointments, LLC
  * Licensed under MIT (https://github.com/snapappointments/bootstrap-select/blob/master/LICENSE)
@@ -28524,6 +28524,7 @@ select.selectpicker {
 .bootstrap-select {
   width: 220px \0;
   /*IE9 and below*/
+  vertical-align: middle;
 }
 
 .bootstrap-select > .dropdown-toggle {
@@ -28608,6 +28609,7 @@ select.selectpicker {
   width: 220px;
 }
 
+.bootstrap-select > select.mobile-device:focus + .dropdown-toggle,
 .bootstrap-select .dropdown-toggle:focus {
   outline: thin dotted #333333 !important;
   outline: 5px auto -webkit-focus-ring-color !important;

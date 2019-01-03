@@ -31383,7 +31383,7 @@ if (typeof jQuery === 'undefined') {
 
 /*!
     localForage -- Offline Storage, Improved
-    Version 1.7.2
+    Version 1.7.3
     https://localforage.github.io/localForage
     (c) 2013-2017 Mozilla, Apache License 2.0
 */
@@ -54180,8 +54180,8 @@ if (typeof jQuery === "undefined") {
         var routes = {
 
             absolute: true,
-            rootUrl: 'http://freebtc.192.168.22.10.xip.io',
-            routes : [{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/open","name":"debugbar.openhandler","action":"Barryvdh\Debugbar\Controllers\OpenHandlerController@handle"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/clockwork\/{id}","name":"debugbar.clockwork","action":"Barryvdh\Debugbar\Controllers\OpenHandlerController@clockwork"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/assets\/stylesheets","name":"debugbar.assets.css","action":"Barryvdh\Debugbar\Controllers\AssetController@css"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/assets\/javascript","name":"debugbar.assets.js","action":"Barryvdh\Debugbar\Controllers\AssetController@js"},{"host":null,"methods":["DELETE"],"uri":"_debugbar\/cache\/{key}\/{tags?}","name":"debugbar.cache.delete","action":"Barryvdh\Debugbar\Controllers\CacheController@delete"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/authorize","name":null,"action":"\Laravel\Passport\Http\Controllers\AuthorizationController@authorize"},{"host":null,"methods":["POST"],"uri":"oauth\/authorize","name":null,"action":"\Laravel\Passport\Http\Controllers\ApproveAuthorizationController@approve"},{"host":null,"methods":["DELETE"],"uri":"oauth\/authorize","name":null,"action":"\Laravel\Passport\Http\Controllers\DenyAuthorizationController@deny"},{"host":null,"methods":["POST"],"uri":"oauth\/token","name":null,"action":"\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/tokens","name":null,"action":"\Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@forUser"},{"host":null,"methods":["DELETE"],"uri":"oauth\/tokens\/{token_id}","name":null,"action":"\Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@destroy"},{"host":null,"methods":["POST"],"uri":"oauth\/token\/refresh","name":null,"action":"\Laravel\Passport\Http\Controllers\TransientTokenController@refresh"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/clients","name":null,"action":"\Laravel\Passport\Http\Controllers\ClientController@forUser"},{"host":null,"methods":["POST"],"uri":"oauth\/clients","name":null,"action":"\Laravel\Passport\Http\Controllers\ClientController@store"},{"host":null,"methods":["PUT"],"uri":"oauth\/clients\/{client_id}","name":null,"action":"\Laravel\Passport\Http\Controllers\ClientController@update"},{"host":null,"methods":["DELETE"],"uri":"oauth\/clients\/{client_id}","name":null,"action":"\Laravel\Passport\Http\Controllers\ClientController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/scopes","name":null,"action":"\Laravel\Passport\Http\Controllers\ScopeController@all"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/personal-access-tokens","name":null,"action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@forUser"},{"host":null,"methods":["POST"],"uri":"oauth\/personal-access-tokens","name":null,"action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@store"},{"host":null,"methods":["DELETE"],"uri":"oauth\/personal-access-tokens\/{token_id}","name":null,"action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets","name":"faucets","action":"App\Http\Controllers\API\FaucetAPIController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets\/{slug}","name":"faucets.show","action":"App\Http\Controllers\API\FaucetAPIController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/first-faucet","name":"faucets.first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets\/{slug}\/previous-faucet","name":"faucets.previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets\/{slug}\/next-faucet","name":"faucets.next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/last-faucet","name":"faucets.last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/random-faucet","name":"faucets.random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users","name":"users","action":"App\Http\Controllers\API\UserAPIController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets","name":"user.faucets","action":"App\Http\Controllers\API\FaucetAPIController@getUserFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets\/{faucetSlug}","name":"user.faucet","action":"App\Http\Controllers\API\FaucetAPIController@getUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/first-faucet","name":"user.first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets\/{faucetSlug}\/next-faucet","name":"user.next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets\/{faucetSlug}\/previous-faucet","name":"user.previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/last-faucet","name":"user.last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/random-faucet","name":"user.random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors","name":"user.payment-processors","action":"App\Http\Controllers\API\PaymentProcessorAPIController@userPaymentProcessors"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets","name":"user.payment-processor-faucets","action":"App\Http\Controllers\API\FaucetAPIController@getUserPaymentProcessorFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}","name":"user.payment-processor-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/first-faucet","name":"user.payment-processor-first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/next-faucet","name":"user.payment-processor-next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/previous-faucet","name":"user.payment-processor-previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/last-faucet","name":"user.payment-processor-last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/random-faucet","name":"user.payment-processor-random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors","name":"payment-processors","action":"App\Http\Controllers\API\PaymentProcessorAPIController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{slug}","name":"payment-processors.show","action":"App\Http\Controllers\API\PaymentProcessorAPIController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}","name":"payment-processor.faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets","name":"payment-processor.faucets","action":"App\Http\Controllers\API\FaucetAPIController@getPaymentProcessorFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/first-faucet","name":"payment-processor.first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/previous-faucet","name":"payment-processor.previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/next-faucet","name":"payment-processor.next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/last-faucet","name":"payment-processor.last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/random-faucet","name":"payment-processor.random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/top-pages\/from\/{dateFrom}\/to\/{dateTo}\/quantity\/{quantity?}","name":"stats.top-pages-between-dates","action":"App\Http\Controllers\API\StatsAPIController@getPagesVisited"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/visits-and-page-views\/from\/{dateFrom}\/to\/{dateTo}\/quantity\/{quantity?}","name":"stats.visits-and-page-views","action":"App\Http\Controllers\API\StatsAPIController@getVisitorsAndPageViews"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/top-x-browsers\/from\/{dateFrom}\/to\/{dateTo}\/max-browsers\/{maxBrowsers?}","name":"stats.top-x-browsers","action":"App\Http\Controllers\API\StatsAPIController@getTopBrowsersAndVisitors"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/countries-and-visitors\/from\/{dateFrom}\/to\/{dateTo}","name":"stats.countries-and-visitors","action":"App\Http\Controllers\API\StatsAPIController@getCountriesAndVisitors"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{slug}","name":"users.show","action":"App\Http\Controllers\API\UserAPIController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"login","name":"login","action":"App\Http\Controllers\Auth\LoginController@showLoginForm"},{"host":null,"methods":["POST"],"uri":"login","name":null,"action":"App\Http\Controllers\Auth\LoginController@login"},{"host":null,"methods":["POST"],"uri":"logout","name":"logout","action":"App\Http\Controllers\Auth\LoginController@logout"},{"host":null,"methods":["GET","HEAD"],"uri":"register","name":"register","action":"App\Http\Controllers\Auth\RegisterController@showRegistrationForm"},{"host":null,"methods":["POST"],"uri":"register","name":null,"action":"App\Http\Controllers\Auth\RegisterController@register"},{"host":null,"methods":["GET","HEAD"],"uri":"password\/reset","name":"password.request","action":"App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm"},{"host":null,"methods":["POST"],"uri":"password\/email","name":"password.email","action":"App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail"},{"host":null,"methods":["GET","HEAD"],"uri":"password\/reset\/{token}","name":"password.reset","action":"App\Http\Controllers\Auth\ResetPasswordController@showResetForm"},{"host":null,"methods":["POST"],"uri":"password\/reset","name":null,"action":"App\Http\Controllers\Auth\ResetPasswordController@reset"},{"host":null,"methods":["GET","HEAD"],"uri":"logout","name":null,"action":"\App\Http\Controllers\Auth\LoginController@logout"},{"host":null,"methods":["GET","HEAD"],"uri":"\/","name":"home","action":"App\Http\Controllers\RotatorController@index"},{"host":null,"methods":["DELETE"],"uri":"faucets\/{slug}\/delete-permanently","name":"faucets.delete-permanently","action":"App\Http\Controllers\FaucetController@destroyPermanently"},{"host":null,"methods":["PATCH"],"uri":"faucets\/{slug}\/restore","name":"faucets.restore","action":"App\Http\Controllers\FaucetController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/create","name":"faucets.create","action":"App\Http\Controllers\FaucetController@create"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{slug}\/edit","name":"faucets.edit","action":"App\Http\Controllers\FaucetController@edit"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{slug}","name":"faucet.show","action":"App\Http\Controllers\FaucetController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/faucets","name":"users.faucets","action":"App\Http\Controllers\UserFaucetsController@index"},{"host":null,"methods":["POST"],"uri":"users\/{userSlug}\/faucets\/store","name":"users.faucets.store","action":"App\Http\Controllers\UserFaucetsController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/faucets\/{faucetSlug}","name":"users.faucets.show","action":"App\Http\Controllers\UserFaucetsController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors","name":"users.payment-processors","action":"App\Http\Controllers\PaymentProcessorController@userPaymentProcessors"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets","name":"users.payment-processors.faucets","action":"App\Http\Controllers\PaymentProcessorController@userPaymentProcessorFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/rotator","name":"users.payment-processors.rotator","action":"App\Http\Controllers\RotatorController@getUserPaymentProcessorFaucetRotator"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/faucets\/{faucetSlug}\/edit","name":null,"action":"Closure"},{"host":null,"methods":["PATCH"],"uri":"users\/{userSlug}\/faucets\/update-multiple","name":"users.faucets.update-multiple","action":"App\Http\Controllers\UserFaucetsController@updateMultiple"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/rotator","name":"users.rotator","action":"App\Http\Controllers\RotatorController@getUserFaucetRotator"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets","name":"faucets.index","action":"App\Http\Controllers\FaucetController@index"},{"host":null,"methods":["POST"],"uri":"faucets","name":"faucets.store","action":"App\Http\Controllers\FaucetController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{faucet}","name":"faucets.show","action":"App\Http\Controllers\FaucetController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{faucet}\/edit","name":"faucets.edit","action":"App\Http\Controllers\FaucetController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"faucets\/{faucet}","name":"faucets.update","action":"App\Http\Controllers\FaucetController@update"},{"host":null,"methods":["DELETE"],"uri":"faucets\/{faucet}","name":"faucets.destroy","action":"App\Http\Controllers\FaucetController@destroy"},{"host":null,"methods":["DELETE"],"uri":"payment-processors\/{slug}\/delete-permanently","name":"payment-processors.delete-permanently","action":"App\Http\Controllers\PaymentProcessorController@destroyPermanently"},{"host":null,"methods":["PATCH"],"uri":"payment-processors\/{slug}\/restore","name":"payment-processors.restore","action":"App\Http\Controllers\PaymentProcessorController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{slug}\/faucets","name":"payment-processors.faucets","action":"App\Http\Controllers\PaymentProcessorController@faucets"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{slug}\/rotator","name":"payment-processors.rotator","action":"App\Http\Controllers\RotatorController@getPaymentProcessorFaucetRotator"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors","name":"payment-processors.index","action":"App\Http\Controllers\PaymentProcessorController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/create","name":"payment-processors.create","action":"App\Http\Controllers\PaymentProcessorController@create"},{"host":null,"methods":["POST"],"uri":"payment-processors","name":"payment-processors.store","action":"App\Http\Controllers\PaymentProcessorController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{payment_processor}","name":"payment-processors.show","action":"App\Http\Controllers\PaymentProcessorController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{payment_processor}\/edit","name":"payment-processors.edit","action":"App\Http\Controllers\PaymentProcessorController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"payment-processors\/{payment_processor}","name":"payment-processors.update","action":"App\Http\Controllers\PaymentProcessorController@update"},{"host":null,"methods":["DELETE"],"uri":"payment-processors\/{payment_processor}","name":"payment-processors.destroy","action":"App\Http\Controllers\PaymentProcessorController@destroy"},{"host":null,"methods":["DELETE"],"uri":"users\/{slug}\/delete-permanently","name":"users.delete-permanently","action":"App\Http\Controllers\UserController@destroyPermanently"},{"host":null,"methods":["DELETE"],"uri":"purge-deleted-users","name":"users.purge-archived","action":"App\Http\Controllers\UserController@purgeArchivedUsers"},{"host":null,"methods":["PATCH"],"uri":"users\/{slug}\/restore","name":"users.restore","action":"App\Http\Controllers\UserController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"users","name":"users.index","action":"App\Http\Controllers\UserController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/create","name":"users.create","action":"App\Http\Controllers\UserController@create"},{"host":null,"methods":["POST"],"uri":"users","name":"users.store","action":"App\Http\Controllers\UserController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{user}","name":"users.show","action":"App\Http\Controllers\UserController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{user}\/edit","name":"users.edit","action":"App\Http\Controllers\UserController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"users\/{user}","name":"users.update","action":"App\Http\Controllers\UserController@update"},{"host":null,"methods":["DELETE"],"uri":"users\/{user}","name":"users.destroy","action":"App\Http\Controllers\UserController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta","name":"main-meta.index","action":"App\Http\Controllers\MainMetaController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta\/create","name":"main-meta.create","action":"App\Http\Controllers\MainMetaController@create"},{"host":null,"methods":["POST"],"uri":"main-meta","name":"main-meta.store","action":"App\Http\Controllers\MainMetaController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta\/{main_metum}","name":"main-meta.show","action":"App\Http\Controllers\MainMetaController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta\/{main_metum}\/edit","name":"main-meta.edit","action":"App\Http\Controllers\MainMetaController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"main-meta\/{main_metum}","name":"main-meta.update","action":"App\Http\Controllers\MainMetaController@update"},{"host":null,"methods":["DELETE"],"uri":"main-meta\/{main_metum}","name":"main-meta.destroy","action":"App\Http\Controllers\MainMetaController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block","name":"ad-block.index","action":"App\Http\Controllers\AdBlockController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block\/create","name":"ad-block.create","action":"App\Http\Controllers\AdBlockController@create"},{"host":null,"methods":["POST"],"uri":"ad-block","name":"ad-block.store","action":"App\Http\Controllers\AdBlockController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block\/{ad_block}","name":"ad-block.show","action":"App\Http\Controllers\AdBlockController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block\/{ad_block}\/edit","name":"ad-block.edit","action":"App\Http\Controllers\AdBlockController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"ad-block\/{ad_block}","name":"ad-block.update","action":"App\Http\Controllers\AdBlockController@update"},{"host":null,"methods":["DELETE"],"uri":"ad-block\/{ad_block}","name":"ad-block.destroy","action":"App\Http\Controllers\AdBlockController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config","name":"twitter-config.index","action":"App\Http\Controllers\TwitterConfigController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config\/create","name":"twitter-config.create","action":"App\Http\Controllers\TwitterConfigController@create"},{"host":null,"methods":["POST"],"uri":"twitter-config","name":"twitter-config.store","action":"App\Http\Controllers\TwitterConfigController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config\/{twitter_config}","name":"twitter-config.show","action":"App\Http\Controllers\TwitterConfigController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config\/{twitter_config}\/edit","name":"twitter-config.edit","action":"App\Http\Controllers\TwitterConfigController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"twitter-config\/{twitter_config}","name":"twitter-config.update","action":"App\Http\Controllers\TwitterConfigController@update"},{"host":null,"methods":["DELETE"],"uri":"twitter-config\/{twitter_config}","name":"twitter-config.destroy","action":"App\Http\Controllers\TwitterConfigController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"roles","name":"roles.index","action":"App\Http\Controllers\RoleController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"roles\/create","name":"roles.create","action":"App\Http\Controllers\RoleController@create"},{"host":null,"methods":["POST"],"uri":"roles","name":"roles.store","action":"App\Http\Controllers\RoleController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"roles\/{role}","name":"roles.show","action":"App\Http\Controllers\RoleController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"roles\/{role}\/edit","name":"roles.edit","action":"App\Http\Controllers\RoleController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"roles\/{role}","name":"roles.update","action":"App\Http\Controllers\RoleController@update"},{"host":null,"methods":["DELETE"],"uri":"roles\/{role}","name":"roles.destroy","action":"App\Http\Controllers\RoleController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions","name":"permissions.index","action":"App\Http\Controllers\PermissionController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions\/create","name":"permissions.create","action":"App\Http\Controllers\PermissionController@create"},{"host":null,"methods":["POST"],"uri":"permissions","name":"permissions.store","action":"App\Http\Controllers\PermissionController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions\/{permission}","name":"permissions.show","action":"App\Http\Controllers\PermissionController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions\/{permission}\/edit","name":"permissions.edit","action":"App\Http\Controllers\PermissionController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"permissions\/{permission}","name":"permissions.update","action":"App\Http\Controllers\PermissionController@update"},{"host":null,"methods":["DELETE"],"uri":"permissions\/{permission}","name":"permissions.destroy","action":"App\Http\Controllers\PermissionController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/edit","name":"privacy-policy.edit","action":"App\Http\Controllers\PrivacyPolicyController@edit"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy","name":"privacy-policy","action":"App\Http\Controllers\PrivacyPolicyController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/create","name":"privacy-policy.create","action":"App\Http\Controllers\PrivacyPolicyController@create"},{"host":null,"methods":["POST"],"uri":"privacy-policy","name":"privacy-policy.store","action":"App\Http\Controllers\PrivacyPolicyController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/{privacy_policy}","name":"privacy-policy.show","action":"App\Http\Controllers\PrivacyPolicyController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/{privacy_policy}\/edit","name":"privacy-policy.edit","action":"App\Http\Controllers\PrivacyPolicyController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"privacy-policy\/{privacy_policy}","name":"privacy-policy.update","action":"App\Http\Controllers\PrivacyPolicyController@update"},{"host":null,"methods":["DELETE"],"uri":"privacy-policy\/{privacy_policy}","name":"privacy-policy.destroy","action":"App\Http\Controllers\PrivacyPolicyController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/edit","name":"terms-and-conditions.edit","action":"App\Http\Controllers\TermsAndConditionsController@edit"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions","name":"terms-and-conditions","action":"App\Http\Controllers\TermsAndConditionsController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/create","name":"terms-and-conditions.create","action":"App\Http\Controllers\TermsAndConditionsController@create"},{"host":null,"methods":["POST"],"uri":"terms-and-conditions","name":"terms-and-conditions.store","action":"App\Http\Controllers\TermsAndConditionsController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/{terms_and_condition}","name":"terms-and-conditions.show","action":"App\Http\Controllers\TermsAndConditionsController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/{terms_and_condition}\/edit","name":"terms-and-conditions.edit","action":"App\Http\Controllers\TermsAndConditionsController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"terms-and-conditions\/{terms_and_condition}","name":"terms-and-conditions.update","action":"App\Http\Controllers\TermsAndConditionsController@update"},{"host":null,"methods":["DELETE"],"uri":"terms-and-conditions\/{terms_and_condition}","name":"terms-and-conditions.destroy","action":"App\Http\Controllers\TermsAndConditionsController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"stats","name":"stats.index","action":"App\Http\Controllers\StatsController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"settings","name":"settings","action":"App\Http\Controllers\SettingsController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks","name":"social-networks.index","action":"App\Http\Controllers\SocialNetworksController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks\/create","name":"social-networks.create","action":"App\Http\Controllers\SocialNetworksController@create"},{"host":null,"methods":["POST"],"uri":"social-networks","name":"social-networks.store","action":"App\Http\Controllers\SocialNetworksController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks\/{social_network}","name":"social-networks.show","action":"App\Http\Controllers\SocialNetworksController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks\/{social_network}\/edit","name":"social-networks.edit","action":"App\Http\Controllers\SocialNetworksController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"social-networks\/{social_network}","name":"social-networks.update","action":"App\Http\Controllers\SocialNetworksController@update"},{"host":null,"methods":["DELETE"],"uri":"social-networks\/{social_network}","name":"social-networks.destroy","action":"App\Http\Controllers\SocialNetworksController@destroy"},{"host":null,"methods":["DELETE"],"uri":"alerts\/{slug}\/delete-temporarily","name":"alerts.delete-temporarily","action":"App\Http\Controllers\AlertController@destroy"},{"host":null,"methods":["DELETE"],"uri":"alerts\/{slug}\/delete-permanently","name":"alerts.delete-permanently","action":"App\Http\Controllers\AlertController@destroyPermanently"},{"host":null,"methods":["PATCH"],"uri":"alerts\/{slug}\/restore","name":"alerts.restore","action":"App\Http\Controllers\AlertController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts","name":"alerts.index","action":"App\Http\Controllers\AlertController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts\/create","name":"alerts.create","action":"App\Http\Controllers\AlertController@create"},{"host":null,"methods":["POST"],"uri":"alerts","name":"alerts.store","action":"App\Http\Controllers\AlertController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts\/{alert}","name":"alerts.show","action":"App\Http\Controllers\AlertController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts\/{alert}\/edit","name":"alerts.edit","action":"App\Http\Controllers\AlertController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"alerts\/{alert}","name":"alerts.update","action":"App\Http\Controllers\AlertController@update"},{"host":null,"methods":["DELETE"],"uri":"alerts\/{alert}","name":"alerts.destroy","action":"App\Http\Controllers\AlertController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types","name":"alert-types.index","action":"App\Http\Controllers\AlertTypeController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types\/create","name":"alert-types.create","action":"App\Http\Controllers\AlertTypeController@create"},{"host":null,"methods":["POST"],"uri":"alert-types","name":"alert-types.store","action":"App\Http\Controllers\AlertTypeController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types\/{alert_type}","name":"alert-types.show","action":"App\Http\Controllers\AlertTypeController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types\/{alert_type}\/edit","name":"alert-types.edit","action":"App\Http\Controllers\AlertTypeController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"alert-types\/{alert_type}","name":"alert-types.update","action":"App\Http\Controllers\AlertTypeController@update"},{"host":null,"methods":["DELETE"],"uri":"alert-types\/{alert_type}","name":"alert-types.destroy","action":"App\Http\Controllers\AlertTypeController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-main","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users-faucets","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users-rotators","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users-payment-processors","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-faucets","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-payment-processors","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-alerts","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets-feed","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"users-feed","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors-feed","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts-feed","name":null,"action":"Closure"}],
+            rootUrl: 'http://thebitcoinrotator.192.168.22.10.xip.io',
+            routes : [{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/open","name":"debugbar.openhandler","action":"Barryvdh\Debugbar\Controllers\OpenHandlerController@handle"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/clockwork\/{id}","name":"debugbar.clockwork","action":"Barryvdh\Debugbar\Controllers\OpenHandlerController@clockwork"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/assets\/stylesheets","name":"debugbar.assets.css","action":"Barryvdh\Debugbar\Controllers\AssetController@css"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/assets\/javascript","name":"debugbar.assets.js","action":"Barryvdh\Debugbar\Controllers\AssetController@js"},{"host":null,"methods":["DELETE"],"uri":"_debugbar\/cache\/{key}\/{tags?}","name":"debugbar.cache.delete","action":"Barryvdh\Debugbar\Controllers\CacheController@delete"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/authorize","name":"passport.authorizations.authorize","action":"\Laravel\Passport\Http\Controllers\AuthorizationController@authorize"},{"host":null,"methods":["POST"],"uri":"oauth\/authorize","name":"passport.authorizations.approve","action":"\Laravel\Passport\Http\Controllers\ApproveAuthorizationController@approve"},{"host":null,"methods":["DELETE"],"uri":"oauth\/authorize","name":"passport.authorizations.deny","action":"\Laravel\Passport\Http\Controllers\DenyAuthorizationController@deny"},{"host":null,"methods":["POST"],"uri":"oauth\/token","name":"passport.token","action":"\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/tokens","name":"passport.tokens.index","action":"\Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@forUser"},{"host":null,"methods":["DELETE"],"uri":"oauth\/tokens\/{token_id}","name":"passport.tokens.destroy","action":"\Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@destroy"},{"host":null,"methods":["POST"],"uri":"oauth\/token\/refresh","name":"passport.token.refresh","action":"\Laravel\Passport\Http\Controllers\TransientTokenController@refresh"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/clients","name":"passport.clients.index","action":"\Laravel\Passport\Http\Controllers\ClientController@forUser"},{"host":null,"methods":["POST"],"uri":"oauth\/clients","name":"passport.clients.store","action":"\Laravel\Passport\Http\Controllers\ClientController@store"},{"host":null,"methods":["PUT"],"uri":"oauth\/clients\/{client_id}","name":"passport.clients.update","action":"\Laravel\Passport\Http\Controllers\ClientController@update"},{"host":null,"methods":["DELETE"],"uri":"oauth\/clients\/{client_id}","name":"passport.clients.destroy","action":"\Laravel\Passport\Http\Controllers\ClientController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/scopes","name":"passport.scopes.index","action":"\Laravel\Passport\Http\Controllers\ScopeController@all"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/personal-access-tokens","name":"passport.personal.tokens.index","action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@forUser"},{"host":null,"methods":["POST"],"uri":"oauth\/personal-access-tokens","name":"passport.personal.tokens.store","action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@store"},{"host":null,"methods":["DELETE"],"uri":"oauth\/personal-access-tokens\/{token_id}","name":"passport.personal.tokens.destroy","action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets","name":"faucets","action":"App\Http\Controllers\API\FaucetAPIController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets\/{slug}","name":"faucets.show","action":"App\Http\Controllers\API\FaucetAPIController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/first-faucet","name":"faucets.first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets\/{slug}\/previous-faucet","name":"faucets.previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets\/{slug}\/next-faucet","name":"faucets.next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/last-faucet","name":"faucets.last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/random-faucet","name":"faucets.random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users","name":"users","action":"App\Http\Controllers\API\UserAPIController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets","name":"user.faucets","action":"App\Http\Controllers\API\FaucetAPIController@getUserFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets\/{faucetSlug}","name":"user.faucet","action":"App\Http\Controllers\API\FaucetAPIController@getUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/first-faucet","name":"user.first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets\/{faucetSlug}\/next-faucet","name":"user.next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets\/{faucetSlug}\/previous-faucet","name":"user.previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/last-faucet","name":"user.last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/random-faucet","name":"user.random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors","name":"user.payment-processors","action":"App\Http\Controllers\API\PaymentProcessorAPIController@userPaymentProcessors"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets","name":"user.payment-processor-faucets","action":"App\Http\Controllers\API\FaucetAPIController@getUserPaymentProcessorFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}","name":"user.payment-processor-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/first-faucet","name":"user.payment-processor-first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/next-faucet","name":"user.payment-processor-next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/previous-faucet","name":"user.payment-processor-previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/last-faucet","name":"user.payment-processor-last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/random-faucet","name":"user.payment-processor-random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors","name":"payment-processors","action":"App\Http\Controllers\API\PaymentProcessorAPIController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{slug}","name":"payment-processors.show","action":"App\Http\Controllers\API\PaymentProcessorAPIController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}","name":"payment-processor.faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets","name":"payment-processor.faucets","action":"App\Http\Controllers\API\FaucetAPIController@getPaymentProcessorFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/first-faucet","name":"payment-processor.first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/previous-faucet","name":"payment-processor.previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/next-faucet","name":"payment-processor.next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/last-faucet","name":"payment-processor.last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/random-faucet","name":"payment-processor.random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/top-pages\/from\/{dateFrom}\/to\/{dateTo}\/quantity\/{quantity?}","name":"stats.top-pages-between-dates","action":"App\Http\Controllers\API\StatsAPIController@getPagesVisited"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/visits-and-page-views\/from\/{dateFrom}\/to\/{dateTo}\/quantity\/{quantity?}","name":"stats.visits-and-page-views","action":"App\Http\Controllers\API\StatsAPIController@getVisitorsAndPageViews"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/top-x-browsers\/from\/{dateFrom}\/to\/{dateTo}\/max-browsers\/{maxBrowsers?}","name":"stats.top-x-browsers","action":"App\Http\Controllers\API\StatsAPIController@getTopBrowsersAndVisitors"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/countries-and-visitors\/from\/{dateFrom}\/to\/{dateTo}","name":"stats.countries-and-visitors","action":"App\Http\Controllers\API\StatsAPIController@getCountriesAndVisitors"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{slug}","name":"users.show","action":"App\Http\Controllers\API\UserAPIController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"login","name":"login","action":"App\Http\Controllers\Auth\LoginController@showLoginForm"},{"host":null,"methods":["POST"],"uri":"login","name":null,"action":"App\Http\Controllers\Auth\LoginController@login"},{"host":null,"methods":["POST"],"uri":"logout","name":"logout","action":"App\Http\Controllers\Auth\LoginController@logout"},{"host":null,"methods":["GET","HEAD"],"uri":"register","name":"register","action":"App\Http\Controllers\Auth\RegisterController@showRegistrationForm"},{"host":null,"methods":["POST"],"uri":"register","name":null,"action":"App\Http\Controllers\Auth\RegisterController@register"},{"host":null,"methods":["GET","HEAD"],"uri":"password\/reset","name":"password.request","action":"App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm"},{"host":null,"methods":["POST"],"uri":"password\/email","name":"password.email","action":"App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail"},{"host":null,"methods":["GET","HEAD"],"uri":"password\/reset\/{token}","name":"password.reset","action":"App\Http\Controllers\Auth\ResetPasswordController@showResetForm"},{"host":null,"methods":["POST"],"uri":"password\/reset","name":null,"action":"App\Http\Controllers\Auth\ResetPasswordController@reset"},{"host":null,"methods":["GET","HEAD"],"uri":"logout","name":null,"action":"\App\Http\Controllers\Auth\LoginController@logout"},{"host":null,"methods":["GET","HEAD"],"uri":"\/","name":"home","action":"App\Http\Controllers\RotatorController@index"},{"host":null,"methods":["DELETE"],"uri":"faucets\/{slug}\/delete-permanently","name":"faucets.delete-permanently","action":"App\Http\Controllers\FaucetController@destroyPermanently"},{"host":null,"methods":["PATCH"],"uri":"faucets\/{slug}\/restore","name":"faucets.restore","action":"App\Http\Controllers\FaucetController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/create","name":"faucets.create","action":"App\Http\Controllers\FaucetController@create"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{slug}\/edit","name":"faucets.edit","action":"App\Http\Controllers\FaucetController@edit"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{slug}","name":"faucet.show","action":"App\Http\Controllers\FaucetController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/faucets","name":"users.faucets","action":"App\Http\Controllers\UserFaucetsController@index"},{"host":null,"methods":["POST"],"uri":"users\/{userSlug}\/faucets\/store","name":"users.faucets.store","action":"App\Http\Controllers\UserFaucetsController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/faucets\/{faucetSlug}","name":"users.faucets.show","action":"App\Http\Controllers\UserFaucetsController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors","name":"users.payment-processors","action":"App\Http\Controllers\PaymentProcessorController@userPaymentProcessors"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets","name":"users.payment-processors.faucets","action":"App\Http\Controllers\PaymentProcessorController@userPaymentProcessorFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/rotator","name":"users.payment-processors.rotator","action":"App\Http\Controllers\RotatorController@getUserPaymentProcessorFaucetRotator"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/faucets\/{faucetSlug}\/edit","name":null,"action":"Closure"},{"host":null,"methods":["PATCH"],"uri":"users\/{userSlug}\/faucets\/update-multiple","name":"users.faucets.update-multiple","action":"App\Http\Controllers\UserFaucetsController@updateMultiple"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/rotator","name":"users.rotator","action":"App\Http\Controllers\RotatorController@getUserFaucetRotator"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets","name":"faucets.index","action":"App\Http\Controllers\FaucetController@index"},{"host":null,"methods":["POST"],"uri":"faucets","name":"faucets.store","action":"App\Http\Controllers\FaucetController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{faucet}","name":"faucets.show","action":"App\Http\Controllers\FaucetController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{faucet}\/edit","name":"faucets.edit","action":"App\Http\Controllers\FaucetController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"faucets\/{faucet}","name":"faucets.update","action":"App\Http\Controllers\FaucetController@update"},{"host":null,"methods":["DELETE"],"uri":"faucets\/{faucet}","name":"faucets.destroy","action":"App\Http\Controllers\FaucetController@destroy"},{"host":null,"methods":["DELETE"],"uri":"payment-processors\/{slug}\/delete-permanently","name":"payment-processors.delete-permanently","action":"App\Http\Controllers\PaymentProcessorController@destroyPermanently"},{"host":null,"methods":["PATCH"],"uri":"payment-processors\/{slug}\/restore","name":"payment-processors.restore","action":"App\Http\Controllers\PaymentProcessorController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{slug}\/faucets","name":"payment-processors.faucets","action":"App\Http\Controllers\PaymentProcessorController@faucets"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{slug}\/rotator","name":"payment-processors.rotator","action":"App\Http\Controllers\RotatorController@getPaymentProcessorFaucetRotator"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors","name":"payment-processors.index","action":"App\Http\Controllers\PaymentProcessorController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/create","name":"payment-processors.create","action":"App\Http\Controllers\PaymentProcessorController@create"},{"host":null,"methods":["POST"],"uri":"payment-processors","name":"payment-processors.store","action":"App\Http\Controllers\PaymentProcessorController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{payment_processor}","name":"payment-processors.show","action":"App\Http\Controllers\PaymentProcessorController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{payment_processor}\/edit","name":"payment-processors.edit","action":"App\Http\Controllers\PaymentProcessorController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"payment-processors\/{payment_processor}","name":"payment-processors.update","action":"App\Http\Controllers\PaymentProcessorController@update"},{"host":null,"methods":["DELETE"],"uri":"payment-processors\/{payment_processor}","name":"payment-processors.destroy","action":"App\Http\Controllers\PaymentProcessorController@destroy"},{"host":null,"methods":["DELETE"],"uri":"users\/{slug}\/delete-permanently","name":"users.delete-permanently","action":"App\Http\Controllers\UserController@destroyPermanently"},{"host":null,"methods":["DELETE"],"uri":"purge-deleted-users","name":"users.purge-archived","action":"App\Http\Controllers\UserController@purgeArchivedUsers"},{"host":null,"methods":["PATCH"],"uri":"users\/{slug}\/restore","name":"users.restore","action":"App\Http\Controllers\UserController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"users","name":"users.index","action":"App\Http\Controllers\UserController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/create","name":"users.create","action":"App\Http\Controllers\UserController@create"},{"host":null,"methods":["POST"],"uri":"users","name":"users.store","action":"App\Http\Controllers\UserController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{user}","name":"users.show","action":"App\Http\Controllers\UserController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{user}\/edit","name":"users.edit","action":"App\Http\Controllers\UserController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"users\/{user}","name":"users.update","action":"App\Http\Controllers\UserController@update"},{"host":null,"methods":["DELETE"],"uri":"users\/{user}","name":"users.destroy","action":"App\Http\Controllers\UserController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta","name":"main-meta.index","action":"App\Http\Controllers\MainMetaController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta\/create","name":"main-meta.create","action":"App\Http\Controllers\MainMetaController@create"},{"host":null,"methods":["POST"],"uri":"main-meta","name":"main-meta.store","action":"App\Http\Controllers\MainMetaController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta\/{main_metum}","name":"main-meta.show","action":"App\Http\Controllers\MainMetaController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta\/{main_metum}\/edit","name":"main-meta.edit","action":"App\Http\Controllers\MainMetaController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"main-meta\/{main_metum}","name":"main-meta.update","action":"App\Http\Controllers\MainMetaController@update"},{"host":null,"methods":["DELETE"],"uri":"main-meta\/{main_metum}","name":"main-meta.destroy","action":"App\Http\Controllers\MainMetaController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block","name":"ad-block.index","action":"App\Http\Controllers\AdBlockController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block\/create","name":"ad-block.create","action":"App\Http\Controllers\AdBlockController@create"},{"host":null,"methods":["POST"],"uri":"ad-block","name":"ad-block.store","action":"App\Http\Controllers\AdBlockController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block\/{ad_block}","name":"ad-block.show","action":"App\Http\Controllers\AdBlockController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block\/{ad_block}\/edit","name":"ad-block.edit","action":"App\Http\Controllers\AdBlockController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"ad-block\/{ad_block}","name":"ad-block.update","action":"App\Http\Controllers\AdBlockController@update"},{"host":null,"methods":["DELETE"],"uri":"ad-block\/{ad_block}","name":"ad-block.destroy","action":"App\Http\Controllers\AdBlockController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config","name":"twitter-config.index","action":"App\Http\Controllers\TwitterConfigController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config\/create","name":"twitter-config.create","action":"App\Http\Controllers\TwitterConfigController@create"},{"host":null,"methods":["POST"],"uri":"twitter-config","name":"twitter-config.store","action":"App\Http\Controllers\TwitterConfigController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config\/{twitter_config}","name":"twitter-config.show","action":"App\Http\Controllers\TwitterConfigController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config\/{twitter_config}\/edit","name":"twitter-config.edit","action":"App\Http\Controllers\TwitterConfigController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"twitter-config\/{twitter_config}","name":"twitter-config.update","action":"App\Http\Controllers\TwitterConfigController@update"},{"host":null,"methods":["DELETE"],"uri":"twitter-config\/{twitter_config}","name":"twitter-config.destroy","action":"App\Http\Controllers\TwitterConfigController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"roles","name":"roles.index","action":"App\Http\Controllers\RoleController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"roles\/create","name":"roles.create","action":"App\Http\Controllers\RoleController@create"},{"host":null,"methods":["POST"],"uri":"roles","name":"roles.store","action":"App\Http\Controllers\RoleController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"roles\/{role}","name":"roles.show","action":"App\Http\Controllers\RoleController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"roles\/{role}\/edit","name":"roles.edit","action":"App\Http\Controllers\RoleController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"roles\/{role}","name":"roles.update","action":"App\Http\Controllers\RoleController@update"},{"host":null,"methods":["DELETE"],"uri":"roles\/{role}","name":"roles.destroy","action":"App\Http\Controllers\RoleController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions","name":"permissions.index","action":"App\Http\Controllers\PermissionController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions\/create","name":"permissions.create","action":"App\Http\Controllers\PermissionController@create"},{"host":null,"methods":["POST"],"uri":"permissions","name":"permissions.store","action":"App\Http\Controllers\PermissionController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions\/{permission}","name":"permissions.show","action":"App\Http\Controllers\PermissionController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions\/{permission}\/edit","name":"permissions.edit","action":"App\Http\Controllers\PermissionController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"permissions\/{permission}","name":"permissions.update","action":"App\Http\Controllers\PermissionController@update"},{"host":null,"methods":["DELETE"],"uri":"permissions\/{permission}","name":"permissions.destroy","action":"App\Http\Controllers\PermissionController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/edit","name":"privacy-policy.edit","action":"App\Http\Controllers\PrivacyPolicyController@edit"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy","name":"privacy-policy","action":"App\Http\Controllers\PrivacyPolicyController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/create","name":"privacy-policy.create","action":"App\Http\Controllers\PrivacyPolicyController@create"},{"host":null,"methods":["POST"],"uri":"privacy-policy","name":"privacy-policy.store","action":"App\Http\Controllers\PrivacyPolicyController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/{privacy_policy}","name":"privacy-policy.show","action":"App\Http\Controllers\PrivacyPolicyController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/{privacy_policy}\/edit","name":"privacy-policy.edit","action":"App\Http\Controllers\PrivacyPolicyController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"privacy-policy\/{privacy_policy}","name":"privacy-policy.update","action":"App\Http\Controllers\PrivacyPolicyController@update"},{"host":null,"methods":["DELETE"],"uri":"privacy-policy\/{privacy_policy}","name":"privacy-policy.destroy","action":"App\Http\Controllers\PrivacyPolicyController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/edit","name":"terms-and-conditions.edit","action":"App\Http\Controllers\TermsAndConditionsController@edit"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions","name":"terms-and-conditions","action":"App\Http\Controllers\TermsAndConditionsController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/create","name":"terms-and-conditions.create","action":"App\Http\Controllers\TermsAndConditionsController@create"},{"host":null,"methods":["POST"],"uri":"terms-and-conditions","name":"terms-and-conditions.store","action":"App\Http\Controllers\TermsAndConditionsController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/{terms_and_condition}","name":"terms-and-conditions.show","action":"App\Http\Controllers\TermsAndConditionsController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/{terms_and_condition}\/edit","name":"terms-and-conditions.edit","action":"App\Http\Controllers\TermsAndConditionsController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"terms-and-conditions\/{terms_and_condition}","name":"terms-and-conditions.update","action":"App\Http\Controllers\TermsAndConditionsController@update"},{"host":null,"methods":["DELETE"],"uri":"terms-and-conditions\/{terms_and_condition}","name":"terms-and-conditions.destroy","action":"App\Http\Controllers\TermsAndConditionsController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"stats","name":"stats.index","action":"App\Http\Controllers\StatsController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"settings","name":"settings","action":"App\Http\Controllers\SettingsController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks","name":"social-networks.index","action":"App\Http\Controllers\SocialNetworksController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks\/create","name":"social-networks.create","action":"App\Http\Controllers\SocialNetworksController@create"},{"host":null,"methods":["POST"],"uri":"social-networks","name":"social-networks.store","action":"App\Http\Controllers\SocialNetworksController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks\/{social_network}","name":"social-networks.show","action":"App\Http\Controllers\SocialNetworksController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks\/{social_network}\/edit","name":"social-networks.edit","action":"App\Http\Controllers\SocialNetworksController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"social-networks\/{social_network}","name":"social-networks.update","action":"App\Http\Controllers\SocialNetworksController@update"},{"host":null,"methods":["DELETE"],"uri":"social-networks\/{social_network}","name":"social-networks.destroy","action":"App\Http\Controllers\SocialNetworksController@destroy"},{"host":null,"methods":["DELETE"],"uri":"alerts\/{slug}\/delete-temporarily","name":"alerts.delete-temporarily","action":"App\Http\Controllers\AlertController@destroy"},{"host":null,"methods":["DELETE"],"uri":"alerts\/{slug}\/delete-permanently","name":"alerts.delete-permanently","action":"App\Http\Controllers\AlertController@destroyPermanently"},{"host":null,"methods":["PATCH"],"uri":"alerts\/{slug}\/restore","name":"alerts.restore","action":"App\Http\Controllers\AlertController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts","name":"alerts.index","action":"App\Http\Controllers\AlertController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts\/create","name":"alerts.create","action":"App\Http\Controllers\AlertController@create"},{"host":null,"methods":["POST"],"uri":"alerts","name":"alerts.store","action":"App\Http\Controllers\AlertController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts\/{alert}","name":"alerts.show","action":"App\Http\Controllers\AlertController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts\/{alert}\/edit","name":"alerts.edit","action":"App\Http\Controllers\AlertController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"alerts\/{alert}","name":"alerts.update","action":"App\Http\Controllers\AlertController@update"},{"host":null,"methods":["DELETE"],"uri":"alerts\/{alert}","name":"alerts.destroy","action":"App\Http\Controllers\AlertController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types","name":"alert-types.index","action":"App\Http\Controllers\AlertTypeController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types\/create","name":"alert-types.create","action":"App\Http\Controllers\AlertTypeController@create"},{"host":null,"methods":["POST"],"uri":"alert-types","name":"alert-types.store","action":"App\Http\Controllers\AlertTypeController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types\/{alert_type}","name":"alert-types.show","action":"App\Http\Controllers\AlertTypeController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types\/{alert_type}\/edit","name":"alert-types.edit","action":"App\Http\Controllers\AlertTypeController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"alert-types\/{alert_type}","name":"alert-types.update","action":"App\Http\Controllers\AlertTypeController@update"},{"host":null,"methods":["DELETE"],"uri":"alert-types\/{alert_type}","name":"alert-types.destroy","action":"App\Http\Controllers\AlertTypeController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-main","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users-faucets","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users-rotators","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users-payment-processors","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-faucets","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-payment-processors","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-alerts","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets-feed","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"users-feed","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors-feed","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts-feed","name":null,"action":"Closure"}],
             prefix: '',
 
             route : function (name, parameters, route) {
@@ -56919,7 +56919,7 @@ if (typeof jQuery === "undefined") {
 
 })(jQuery);
 /*!
- * Bootstrap-select v1.13.2 (https://developer.snapappointments.com/bootstrap-select)
+ * Bootstrap-select v1.13.5 (https://developer.snapappointments.com/bootstrap-select)
  *
  * Copyright 2012-2018 SnapAppointments, LLC
  * Licensed under MIT (https://github.com/snapappointments/bootstrap-select/blob/master/LICENSE)
@@ -56945,6 +56945,57 @@ if (typeof jQuery === "undefined") {
 (function ($) {
   'use strict';
 
+  // Polyfill for browsers with no classList support
+  // Remove in v2
+  if (!('classList' in document.createElement('_'))) {
+    (function (view) {
+      if (!('Element' in view)) return;
+
+      var classListProp = 'classList',
+          protoProp = 'prototype',
+          elemCtrProto = view.Element[protoProp],
+          objCtr = Object,
+          classListGetter = function () {
+            var $elem = $(this);
+
+            return {
+              add: function (classes) {
+                return $elem.addClass(classes);
+              },
+              remove: function (classes) {
+                return $elem.removeClass(classes);
+              },
+              toggle: function (classes, force) {
+                return $elem.toggleClass(classes, force);
+              },
+              contains: function (classes) {
+                return $elem.hasClass(classes);
+              }
+            }
+          };
+
+      if (objCtr.defineProperty) {
+        var classListPropDesc = {
+          get: classListGetter,
+          enumerable: true,
+          configurable: true
+        };
+        try {
+          objCtr.defineProperty(elemCtrProto, classListProp, classListPropDesc);
+        } catch (ex) { // IE 8 doesn't support enumerable:true
+          // adding undefined to fight this issue https://github.com/eligrey/classList.js/issues/36
+          // modernie IE8-MSW7 machine has IE8 8.0.6001.18702 and is affected
+          if (ex.number === undefined || ex.number === -0x7FF5EC54) {
+            classListPropDesc.enumerable = false;
+            objCtr.defineProperty(elemCtrProto, classListProp, classListPropDesc);
+          }
+        }
+      } else if (objCtr[protoProp].__defineGetter__) {
+        elemCtrProto.__defineGetter__(classListProp, classListGetter);
+      }
+    }(window));
+  }
+
   var testElement = document.createElement('_');
 
   testElement.classList.toggle('c3', false);
@@ -56954,7 +57005,7 @@ if (typeof jQuery === "undefined") {
   if (testElement.classList.contains('c3')) {
     var _toggle = DOMTokenList.prototype.toggle;
 
-    DOMTokenList.prototype.toggle = function(token, force) {
+    DOMTokenList.prototype.toggle = function (token, force) {
       if (1 in arguments && !this.contains(token) === !force) {
         return force;
       } else {
@@ -56963,14 +57014,16 @@ if (typeof jQuery === "undefined") {
     };
   }
 
+  testElement = null;
+
   // shallow array comparison
   function isEqual (array1, array2) {
-    return array1.length === array2.length && array1.every(function(element, index) {
-      return element === array2[index]; 
+    return array1.length === array2.length && array1.every(function (element, index) {
+      return element === array2[index];
     });
   };
 
-  //<editor-fold desc="Shims">
+  // <editor-fold desc="Shims">
   if (!String.prototype.startsWith) {
     (function () {
       'use strict'; // needed to support `apply`/`call` with `undefined`/`null`
@@ -57032,20 +57085,21 @@ if (typeof jQuery === "undefined") {
       o, // object
       k, // key
       r  // result array
-      ){
+    ) {
       // initialize object and result
-      r=[];
+      r = [];
       // iterate over object keys
-      for (k in o)
-          // fill result array with non-prototypical keys
+      for (k in o) {
+        // fill result array with non-prototypical keys
         r.hasOwnProperty.call(o, k) && r.push(k);
+      }
       // return result
       return r;
     };
   }
 
   // much faster than $.val()
-  function getSelectValues(select) {
+  function getSelectValues (select) {
     var result = [];
     var options = select && select.options;
     var opt;
@@ -57079,7 +57133,7 @@ if (typeof jQuery === "undefined") {
     return valHooks._set.apply(this, arguments);
   };
 
-  var changed_arguments = null;
+  var changedArguments = null;
 
   var EventIsSupported = (function () {
     try {
@@ -57116,15 +57170,15 @@ if (typeof jQuery === "undefined") {
       this.trigger(eventName);
     }
   };
-  //</editor-fold>
+  // </editor-fold>
 
-  function stringSearch(li, searchString, method, normalize) {
+  function stringSearch (li, searchString, method, normalize) {
     var stringTypes = [
-        'content',
-        'subtext',
-        'tokens'
-      ],
-      searchSuccess = false;
+          'content',
+          'subtext',
+          'tokens'
+        ],
+        searchSuccess = false;
 
     for (var i = 0; i < stringTypes.length; i++) {
       var stringType = stringTypes[i],
@@ -57154,38 +57208,97 @@ if (typeof jQuery === "undefined") {
     return searchSuccess;
   }
 
-  function toInteger(value) {
+  function toInteger (value) {
     return parseInt(value, 10) || 0;
   }
 
-  /**
-   * Remove all diatrics from the given text.
-   * @access private
-   * @param {String} text
-   * @returns {String}
-   */
-  function normalizeToBase(text) {
-    var rExps = [
-      {re: /[\xC0-\xC6]/g, ch: "A"},
-      {re: /[\xE0-\xE6]/g, ch: "a"},
-      {re: /[\xC8-\xCB]/g, ch: "E"},
-      {re: /[\xE8-\xEB]/g, ch: "e"},
-      {re: /[\xCC-\xCF]/g, ch: "I"},
-      {re: /[\xEC-\xEF]/g, ch: "i"},
-      {re: /[\xD2-\xD6]/g, ch: "O"},
-      {re: /[\xF2-\xF6]/g, ch: "o"},
-      {re: /[\xD9-\xDC]/g, ch: "U"},
-      {re: /[\xF9-\xFC]/g, ch: "u"},
-      {re: /[\xC7-\xE7]/g, ch: "c"},
-      {re: /[\xD1]/g, ch: "N"},
-      {re: /[\xF1]/g, ch: "n"}
-    ];
-    $.each(rExps, function () {
-      text = text ? text.replace(this.re, this.ch) : '';
-    });
-    return text;
-  }
+  // Borrowed from Lodash (_.deburr)
+  /** Used to map Latin Unicode letters to basic Latin letters. */
+  var deburredLetters = {
+    // Latin-1 Supplement block.
+    '\xc0': 'A',  '\xc1': 'A', '\xc2': 'A', '\xc3': 'A', '\xc4': 'A', '\xc5': 'A',
+    '\xe0': 'a',  '\xe1': 'a', '\xe2': 'a', '\xe3': 'a', '\xe4': 'a', '\xe5': 'a',
+    '\xc7': 'C',  '\xe7': 'c',
+    '\xd0': 'D',  '\xf0': 'd',
+    '\xc8': 'E',  '\xc9': 'E', '\xca': 'E', '\xcb': 'E',
+    '\xe8': 'e',  '\xe9': 'e', '\xea': 'e', '\xeb': 'e',
+    '\xcc': 'I',  '\xcd': 'I', '\xce': 'I', '\xcf': 'I',
+    '\xec': 'i',  '\xed': 'i', '\xee': 'i', '\xef': 'i',
+    '\xd1': 'N',  '\xf1': 'n',
+    '\xd2': 'O',  '\xd3': 'O', '\xd4': 'O', '\xd5': 'O', '\xd6': 'O', '\xd8': 'O',
+    '\xf2': 'o',  '\xf3': 'o', '\xf4': 'o', '\xf5': 'o', '\xf6': 'o', '\xf8': 'o',
+    '\xd9': 'U',  '\xda': 'U', '\xdb': 'U', '\xdc': 'U',
+    '\xf9': 'u',  '\xfa': 'u', '\xfb': 'u', '\xfc': 'u',
+    '\xdd': 'Y',  '\xfd': 'y', '\xff': 'y',
+    '\xc6': 'Ae', '\xe6': 'ae',
+    '\xde': 'Th', '\xfe': 'th',
+    '\xdf': 'ss',
+    // Latin Extended-A block.
+    '\u0100': 'A',  '\u0102': 'A', '\u0104': 'A',
+    '\u0101': 'a',  '\u0103': 'a', '\u0105': 'a',
+    '\u0106': 'C',  '\u0108': 'C', '\u010a': 'C', '\u010c': 'C',
+    '\u0107': 'c',  '\u0109': 'c', '\u010b': 'c', '\u010d': 'c',
+    '\u010e': 'D',  '\u0110': 'D', '\u010f': 'd', '\u0111': 'd',
+    '\u0112': 'E',  '\u0114': 'E', '\u0116': 'E', '\u0118': 'E', '\u011a': 'E',
+    '\u0113': 'e',  '\u0115': 'e', '\u0117': 'e', '\u0119': 'e', '\u011b': 'e',
+    '\u011c': 'G',  '\u011e': 'G', '\u0120': 'G', '\u0122': 'G',
+    '\u011d': 'g',  '\u011f': 'g', '\u0121': 'g', '\u0123': 'g',
+    '\u0124': 'H',  '\u0126': 'H', '\u0125': 'h', '\u0127': 'h',
+    '\u0128': 'I',  '\u012a': 'I', '\u012c': 'I', '\u012e': 'I', '\u0130': 'I',
+    '\u0129': 'i',  '\u012b': 'i', '\u012d': 'i', '\u012f': 'i', '\u0131': 'i',
+    '\u0134': 'J',  '\u0135': 'j',
+    '\u0136': 'K',  '\u0137': 'k', '\u0138': 'k',
+    '\u0139': 'L',  '\u013b': 'L', '\u013d': 'L', '\u013f': 'L', '\u0141': 'L',
+    '\u013a': 'l',  '\u013c': 'l', '\u013e': 'l', '\u0140': 'l', '\u0142': 'l',
+    '\u0143': 'N',  '\u0145': 'N', '\u0147': 'N', '\u014a': 'N',
+    '\u0144': 'n',  '\u0146': 'n', '\u0148': 'n', '\u014b': 'n',
+    '\u014c': 'O',  '\u014e': 'O', '\u0150': 'O',
+    '\u014d': 'o',  '\u014f': 'o', '\u0151': 'o',
+    '\u0154': 'R',  '\u0156': 'R', '\u0158': 'R',
+    '\u0155': 'r',  '\u0157': 'r', '\u0159': 'r',
+    '\u015a': 'S',  '\u015c': 'S', '\u015e': 'S', '\u0160': 'S',
+    '\u015b': 's',  '\u015d': 's', '\u015f': 's', '\u0161': 's',
+    '\u0162': 'T',  '\u0164': 'T', '\u0166': 'T',
+    '\u0163': 't',  '\u0165': 't', '\u0167': 't',
+    '\u0168': 'U',  '\u016a': 'U', '\u016c': 'U', '\u016e': 'U', '\u0170': 'U', '\u0172': 'U',
+    '\u0169': 'u',  '\u016b': 'u', '\u016d': 'u', '\u016f': 'u', '\u0171': 'u', '\u0173': 'u',
+    '\u0174': 'W',  '\u0175': 'w',
+    '\u0176': 'Y',  '\u0177': 'y', '\u0178': 'Y',
+    '\u0179': 'Z',  '\u017b': 'Z', '\u017d': 'Z',
+    '\u017a': 'z',  '\u017c': 'z', '\u017e': 'z',
+    '\u0132': 'IJ', '\u0133': 'ij',
+    '\u0152': 'Oe', '\u0153': 'oe',
+    '\u0149': "'n", '\u017f': 's'
+  };
 
+  /** Used to match Latin Unicode letters (excluding mathematical operators). */
+  var reLatin = /[\xc0-\xd6\xd8-\xf6\xf8-\xff\u0100-\u017f]/g;
+
+  /** Used to compose unicode character classes. */
+  var rsComboMarksRange = '\\u0300-\\u036f',
+      reComboHalfMarksRange = '\\ufe20-\\ufe2f',
+      rsComboSymbolsRange = '\\u20d0-\\u20ff',
+      rsComboMarksExtendedRange = '\\u1ab0-\\u1aff',
+      rsComboMarksSupplementRange = '\\u1dc0-\\u1dff',
+      rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange + rsComboMarksExtendedRange + rsComboMarksSupplementRange;
+
+  /** Used to compose unicode capture groups. */
+  var rsCombo = '[' + rsComboRange + ']';
+
+  /**
+   * Used to match [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks) and
+   * [combining diacritical marks for symbols](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks_for_Symbols).
+   */
+  var reComboMark = RegExp(rsCombo, 'g');
+
+  function deburrLetter (key) {
+    return deburredLetters[key];
+  };
+
+  function normalizeToBase (string) {
+    string = string.toString();
+    return string && string.replace(reLatin, deburrLetter).replace(reComboMark, '');
+  }
 
   // List of HTML entities for escaping.
   var escapeMap = {
@@ -57196,7 +57309,7 @@ if (typeof jQuery === "undefined") {
     "'": '&#x27;',
     '`': '&#x60;'
   };
-  
+
   var unescapeMap = {
     '&amp;': '&',
     '&lt;': '<',
@@ -57299,14 +57412,18 @@ if (typeof jQuery === "undefined") {
     version.full = ($.fn.dropdown.Constructor.VERSION || '').split(' ')[0].split('.');
     version.major = version.full[0];
     version.success = true;
-  }
-  catch(err) {
+  } catch (err) {
     console.warn(
       'There was an issue retrieving Bootstrap\'s version. ' +
       'Ensure Bootstrap is being loaded before bootstrap-select and there is no namespace collision. ' +
-      'If loading Bootstrap asynchronously, the version may need to be manually specified via $.fn.selectpicker.Constructor.BootstrapVersion.'
-    , err);
+      'If loading Bootstrap asynchronously, the version may need to be manually specified via $.fn.selectpicker.Constructor.BootstrapVersion.',
+      err
+    );
   }
+
+  var selectId = 0;
+
+  var EVENT_KEY = '.bs.select';
 
   var classNames = {
     DISABLED: 'disabled',
@@ -57334,7 +57451,6 @@ if (typeof jQuery === "undefined") {
 
   var REGEXP_ARROW = new RegExp(keyCodes.ARROW_UP + '|' + keyCodes.ARROW_DOWN);
   var REGEXP_TAB_OR_ESCAPE = new RegExp('^' + keyCodes.TAB + '$|' + keyCodes.ESCAPE);
-  var REGEXP_ENTER_OR_SPACE = new RegExp(keyCodes.ENTER + '|' + keyCodes.SPACE);
 
   var Selectpicker = function (element, options) {
     var that = this;
@@ -57389,7 +57505,7 @@ if (typeof jQuery === "undefined") {
       this.options.windowPadding = [winPad, winPad, winPad, winPad];
     }
 
-    //Expose public methods
+    // Expose public methods
     this.val = Selectpicker.prototype.val;
     this.render = Selectpicker.prototype.render;
     this.refresh = Selectpicker.prototype.refresh;
@@ -57404,7 +57520,7 @@ if (typeof jQuery === "undefined") {
     this.init();
   };
 
-  Selectpicker.VERSION = '1.13.2';
+  Selectpicker.VERSION = '1.13.5';
 
   Selectpicker.BootstrapVersion = version.major;
 
@@ -57413,7 +57529,7 @@ if (typeof jQuery === "undefined") {
     noneSelectedText: 'Nothing selected',
     noneResultsText: 'No results matched {0}',
     countSelectedText: function (numSelected, numTotal) {
-      return (numSelected == 1) ? "{0} item selected" : "{0} items selected";
+      return (numSelected == 1) ? '{0} item selected' : '{0} items selected';
     },
     maxOptionsText: function (numAll, numGroup) {
       return [
@@ -57473,6 +57589,8 @@ if (typeof jQuery === "undefined") {
       var that = this,
           id = this.$element.attr('id');
 
+      this.selectId = selectId++;
+
       this.$element.addClass('bs-select-hidden');
 
       this.multiple = this.$element.prop('multiple');
@@ -57504,7 +57622,7 @@ if (typeof jQuery === "undefined") {
       if (this.options.container) {
         this.selectPosition();
       } else {
-        this.$element.on('hide.bs.select', function () {
+        this.$element.on('hide' + EVENT_KEY, function () {
           if (that.isVirtual()) {
             // empty menu on close
             var menuInner = that.$menuInner[0],
@@ -57523,17 +57641,17 @@ if (typeof jQuery === "undefined") {
       this.$newElement.on({
         'hide.bs.dropdown': function (e) {
           that.$menuInner.attr('aria-expanded', false);
-          that.$element.trigger('hide.bs.select', e);
+          that.$element.trigger('hide' + EVENT_KEY, e);
         },
         'hidden.bs.dropdown': function (e) {
-          that.$element.trigger('hidden.bs.select', e);
+          that.$element.trigger('hidden' + EVENT_KEY, e);
         },
         'show.bs.dropdown': function (e) {
           that.$menuInner.attr('aria-expanded', true);
-          that.$element.trigger('show.bs.select', e);
+          that.$element.trigger('show' + EVENT_KEY, e);
         },
         'shown.bs.dropdown': function (e) {
-          that.$element.trigger('shown.bs.select', e);
+          that.$element.trigger('shown' + EVENT_KEY, e);
         }
       });
 
@@ -57541,28 +57659,27 @@ if (typeof jQuery === "undefined") {
         this.$element.on('invalid', function () {
           that.$button.addClass('bs-invalid');
 
-          that.$element.on({
-            'shown.bs.select': function () {
+          that.$element
+            .on('shown' + EVENT_KEY + '.invalid', function () {
               that.$element
                 .val(that.$element.val()) // set the value to hide the validation message in Chrome when menu is opened
-                .off('shown.bs.select');
-            },
-            'rendered.bs.select': function () {
+                .off('shown' + EVENT_KEY + '.invalid');
+            })
+            .on('rendered' + EVENT_KEY, function () {
               // if select is no longer invalid, remove the bs-invalid class
               if (this.validity.valid) that.$button.removeClass('bs-invalid');
-              that.$element.off('rendered.bs.select');
-            }
-          });
+              that.$element.off('rendered' + EVENT_KEY);
+            });
 
-          that.$button.on('blur.bs.select', function () {
+          that.$button.on('blur' + EVENT_KEY, function () {
             that.$element.focus().blur();
-            that.$button.off('blur.bs.select');
+            that.$button.off('blur' + EVENT_KEY);
           });
         });
       }
 
       setTimeout(function () {
-        that.$element.trigger('loaded.bs.select');
+        that.$element.trigger('loaded' + EVENT_KEY);
       });
     },
 
@@ -57571,61 +57688,87 @@ if (typeof jQuery === "undefined") {
       // If we are multiple or showTick option is set, then add the show-tick class
       var showTick = (this.multiple || this.options.showTick) ? ' show-tick' : '',
           autofocus = this.autofocus ? ' autofocus' : '';
+
       // Elements
-      var header = this.options.header ? '<div class="' + classNames.POPOVERHEADER + '"><button type="button" class="close" aria-hidden="true">&times;</button>' + this.options.header + '</div>' : '';
-      var searchbox = this.options.liveSearch ?
-      '<div class="bs-searchbox">' +
-      '<input type="text" class="form-control" autocomplete="off"' +
-      (null === this.options.liveSearchPlaceholder ? '' : ' placeholder="' + htmlEscape(this.options.liveSearchPlaceholder) + '"') + ' role="textbox" aria-label="Search">' +
-      '</div>'
-          : '';
-      var actionsbox = this.multiple && this.options.actionsBox ?
-      '<div class="bs-actionsbox">' +
-      '<div class="btn-group btn-group-sm btn-block">' +
-      '<button type="button" class="actions-btn bs-select-all btn ' + classNames.BUTTONCLASS + '">' +
-      this.options.selectAllText +
-      '</button>' +
-      '<button type="button" class="actions-btn bs-deselect-all btn ' + classNames.BUTTONCLASS + '">' +
-      this.options.deselectAllText +
-      '</button>' +
-      '</div>' +
-      '</div>'
-          : '';
-      var donebutton = this.multiple && this.options.doneButton ?
-      '<div class="bs-donebutton">' +
-      '<div class="btn-group btn-block">' +
-      '<button type="button" class="btn btn-sm ' + classNames.BUTTONCLASS + '">' +
-      this.options.doneButtonText +
-      '</button>' +
-      '</div>' +
-      '</div>'
-          : '';
-      var drop =
-          '<div class="dropdown bootstrap-select' + showTick + '">' +
+      var drop,
+          header = '',
+          searchbox = '',
+          actionsbox = '',
+          donebutton = '';
+
+      if (this.options.header) {
+        header =
+          '<div class="' + classNames.POPOVERHEADER + '">' +
+            '<button type="button" class="close" aria-hidden="true">&times;</button>' +
+              this.options.header +
+          '</div>';
+      }
+
+      if (this.options.liveSearch) {
+        searchbox =
+          '<div class="bs-searchbox">' +
+            '<input type="text" class="form-control" autocomplete="off"' +
+              (
+                this.options.liveSearchPlaceholder === null ? ''
+                :
+                ' placeholder="' + htmlEscape(this.options.liveSearchPlaceholder) + '"'
+              ) +
+              ' role="textbox" aria-label="Search">' +
+          '</div>';
+      }
+
+      if (this.multiple && this.options.actionsBox) {
+        actionsbox =
+          '<div class="bs-actionsbox">' +
+            '<div class="btn-group btn-group-sm btn-block">' +
+              '<button type="button" class="actions-btn bs-select-all btn ' + classNames.BUTTONCLASS + '">' +
+                this.options.selectAllText +
+              '</button>' +
+              '<button type="button" class="actions-btn bs-deselect-all btn ' + classNames.BUTTONCLASS + '">' +
+                this.options.deselectAllText +
+              '</button>' +
+            '</div>' +
+          '</div>';
+      }
+
+      if (this.multiple && this.options.doneButton) {
+        donebutton =
+          '<div class="bs-donebutton">' +
+            '<div class="btn-group btn-block">' +
+              '<button type="button" class="btn btn-sm ' + classNames.BUTTONCLASS + '">' +
+                this.options.doneButtonText +
+              '</button>' +
+            '</div>' +
+          '</div>';
+      }
+
+      drop =
+        '<div class="dropdown bootstrap-select' + showTick + '">' +
           '<button type="button" class="' + this.options.styleBase + ' dropdown-toggle" ' + (this.options.display === 'static' ? 'data-display="static"' : '') + 'data-toggle="dropdown"' + autofocus + ' role="button">' +
-          '<div class="filter-option">' +
-            '<div class="filter-option-inner">' +
-              '<div class="filter-option-inner-inner"></div>' +
-            '</div> ' +
-          '</div>' +
-          (version.major === '4' ?
-            '' :
-          '<span class="bs-caret">' +
-          this.options.template.caret +
-          '</span>'
-          ) +
+            '<div class="filter-option">' +
+              '<div class="filter-option-inner">' +
+                '<div class="filter-option-inner-inner"></div>' +
+              '</div> ' +
+            '</div>' +
+            (
+              version.major === '4' ? ''
+              :
+              '<span class="bs-caret">' +
+                this.options.template.caret +
+              '</span>'
+            ) +
           '</button>' +
           '<div class="' + classNames.MENU + ' ' + (version.major === '4' ? '' : classNames.SHOW) + '" role="combobox">' +
-          header +
-          searchbox +
-          actionsbox +
-          '<div class="inner ' + classNames.SHOW + '" role="listbox" aria-expanded="false" tabindex="-1">' +
-              '<ul class="' + classNames.MENU + ' inner ' + (version.major === '4' ? classNames.SHOW : '') + '">' +
-              '</ul>' +
+            header +
+            searchbox +
+            actionsbox +
+            '<div class="inner ' + classNames.SHOW + '" role="listbox" aria-expanded="false" tabindex="-1">' +
+                '<ul class="' + classNames.MENU + ' inner ' + (version.major === '4' ? classNames.SHOW : '') + '">' +
+                '</ul>' +
+            '</div>' +
+            donebutton +
           '</div>' +
-          donebutton +
-          '</div>' +
-          '</div>';
+        '</div>';
 
       return $(drop);
     },
@@ -57656,7 +57799,7 @@ if (typeof jQuery === "undefined") {
     },
 
     isVirtual: function () {
-      return (this.options.virtualScroll !== false) && this.selectpicker.main.elements.length >= this.options.virtualScroll || this.options.virtualScroll === true;
+      return (this.options.virtualScroll !== false) && (this.selectpicker.main.elements.length >= this.options.virtualScroll) || this.options.virtualScroll === true;
     },
 
     createView: function (isSearching, scrollTop) {
@@ -57666,12 +57809,9 @@ if (typeof jQuery === "undefined") {
 
       this.selectpicker.current = isSearching ? this.selectpicker.search : this.selectpicker.main;
 
-      var $lis;
       var active = [];
       var selected;
       var prevActive;
-      var activeIndex;
-      var prevActiveIndex;
 
       this.setPositionData();
 
@@ -57682,14 +57822,14 @@ if (typeof jQuery === "undefined") {
         that.noScroll = false;
       });
 
-      function scroll(scrollTop, init) {
+      function scroll (scrollTop, init) {
         var size = that.selectpicker.current.elements.length,
             chunks = [],
             chunkSize,
             chunkCount,
             firstChunk,
             lastChunk,
-            currentChunk = undefined,
+            currentChunk,
             prevPositions,
             positionIsDifferent,
             previousElements,
@@ -57711,20 +57851,20 @@ if (typeof jQuery === "undefined") {
         chunkCount = Math.round(size / chunkSize) || 1; // number of chunks
 
         for (var i = 0; i < chunkCount; i++) {
-          var end_of_chunk = (i + 1) * chunkSize;
+          var endOfChunk = (i + 1) * chunkSize;
 
           if (i === chunkCount - 1) {
-            end_of_chunk = size;
+            endOfChunk = size;
           }
 
           chunks[i] = [
             (i) * chunkSize + (!i ? 0 : 1),
-            end_of_chunk
+            endOfChunk
           ];
 
           if (!size) break;
 
-          if (currentChunk === undefined && scrollTop <= that.selectpicker.current.data[end_of_chunk - 1].position - that.sizeInfo.menuInnerHeight) {
+          if (currentChunk === undefined && scrollTop <= that.selectpicker.current.data[endOfChunk - 1].position - that.sizeInfo.menuInnerHeight) {
             currentChunk = i;
           }
         }
@@ -57775,11 +57915,11 @@ if (typeof jQuery === "undefined") {
 
           // if searching, check to make sure the list has actually been updated before updating DOM
           // this prevents unnecessary repaints
-          if ( isSearching || (isVirtual === false && init) ) menuIsDifferent = !isEqual(previousElements, that.selectpicker.view.visibleElements);
+          if (isSearching || (isVirtual === false && init)) menuIsDifferent = !isEqual(previousElements, that.selectpicker.view.visibleElements);
 
           // if virtual scroll is disabled and not searching,
           // menu should never need to be updated more than once
-          if ( (init || isVirtual === true) && menuIsDifferent ) {
+          if ((init || isVirtual === true) && menuIsDifferent) {
             var menuInner = that.$menuInner[0],
                 menuFragment = document.createDocumentFragment(),
                 emptyMenu = menuInner.firstChild.cloneNode(false),
@@ -57795,7 +57935,7 @@ if (typeof jQuery === "undefined") {
             }
 
             if (isVirtual === true) {
-              marginTop = (that.selectpicker.view.position0 === 0 ? 0 : that.selectpicker.current.data[that.selectpicker.view.position0 - 1].position),
+              marginTop = (that.selectpicker.view.position0 === 0 ? 0 : that.selectpicker.current.data[that.selectpicker.view.position0 - 1].position);
               marginBottom = (that.selectpicker.view.position1 > size - 1 ? 0 : that.selectpicker.current.data[size - 1].position - that.selectpicker.current.data[that.selectpicker.view.position1 - 1].position);
 
               menuInner.firstChild.style.marginTop = marginTop + 'px';
@@ -57834,14 +57974,19 @@ if (typeof jQuery === "undefined") {
         }
       }
 
-      $(window).off('resize.createView').on('resize.createView', function () {
-        scroll(that.$menuInner[0].scrollTop);
-      });
+      $(window)
+        .off('resize' + EVENT_KEY + '.' + this.selectId + '.createView')
+        .on('resize' + EVENT_KEY + '.' + this.selectId + '.createView', function () {
+          var isActive = that.$newElement.hasClass(classNames.SHOW);
+
+          if (isActive) scroll(that.$menuInner[0].scrollTop);
+        });
     },
 
     createLi: function () {
       var that = this,
           mainElements = [],
+          hiddenOptions = {},
           widestOption,
           availableOptionsCount = 0,
           widestOptionLength = 0,
@@ -57853,17 +57998,21 @@ if (typeof jQuery === "undefined") {
       if (!this.selectpicker.view.titleOption) this.selectpicker.view.titleOption = document.createElement('option');
 
       var elementTemplates = {
-          span: document.createElement('span'),
-          subtext: document.createElement('small'),
-          a: document.createElement('a'),
-          li: document.createElement('li'),
-          whitespace: document.createTextNode("\u00A0")
-        },
-        checkMark = elementTemplates.span.cloneNode(false),
-        fragment = document.createDocumentFragment();
+            span: document.createElement('span'),
+            subtext: document.createElement('small'),
+            a: document.createElement('a'),
+            li: document.createElement('li'),
+            whitespace: document.createTextNode('\u00A0')
+          },
+          checkMark,
+          fragment = document.createDocumentFragment();
 
-      checkMark.className = that.options.iconBase + ' ' + that.options.tickIcon + ' check-mark';
-      elementTemplates.a.appendChild(checkMark);
+      if (that.options.showTick || that.multiple) {
+        checkMark = elementTemplates.span.cloneNode(false);
+        checkMark.className = that.options.iconBase + ' ' + that.options.tickIcon + ' check-mark';
+        elementTemplates.a.appendChild(checkMark);
+      }
+
       elementTemplates.a.setAttribute('role', 'option');
 
       elementTemplates.subtext.className = 'text-muted';
@@ -57874,12 +58023,11 @@ if (typeof jQuery === "undefined") {
       // Helper functions
       /**
        * @param content
-       * @param [index]
        * @param [classes]
        * @param [optgroup]
        * @returns {HTMLElement}
        */
-      var generateLI = function (content, index, classes, optgroup) {
+      var generateLI = function (content, classes, optgroup) {
         var li = elementTemplates.li.cloneNode(false);
 
         if (content) {
@@ -57890,8 +58038,8 @@ if (typeof jQuery === "undefined") {
           }
         }
 
-        if (typeof classes !== 'undefined' && '' !== classes) li.className = classes;
-        if (typeof optgroup !== 'undefined' && null !== optgroup) li.classList.add('optgroup-' + optgroup);
+        if (typeof classes !== 'undefined' && classes !== '') li.className = classes;
+        if (typeof optgroup !== 'undefined' && optgroup !== null) li.classList.add('optgroup-' + optgroup);
 
         return li;
       };
@@ -57913,7 +58061,7 @@ if (typeof jQuery === "undefined") {
           }
         }
 
-        if (typeof classes !== 'undefined' & '' !== classes) a.className = classes;
+        if (typeof classes !== 'undefined' && classes !== '') a.className = classes;
         if (version.major === '4') a.classList.add('dropdown-item');
         if (inline) a.setAttribute('style', inline);
 
@@ -58037,11 +58185,13 @@ if (typeof jQuery === "undefined") {
             isDisabled = this.disabled || isOptgroupDisabled,
             prevHiddenIndex,
             showDivider = this.previousElementSibling && this.previousElementSibling.tagName === 'OPTGROUP',
-            textElement;
+            textElement,
+            labelElement,
+            prevHidden;
 
         var parentData = $parent.data();
 
-        if (thisData.hidden === true || that.options.hideDisabled && (isDisabled && !isOptgroup || isOptgroupDisabled)) {
+        if ((thisData.hidden === true || this.hidden) || (that.options.hideDisabled && (isDisabled || isOptgroupDisabled))) {
           // set prevHiddenIndex - the index of the first hidden option in a group of hidden options
           // used to determine whether or not a divider should be placed after an optgroup if there are
           // hidden options between the optgroup and the first visible option
@@ -58050,12 +58200,17 @@ if (typeof jQuery === "undefined") {
 
           liIndex--;
 
+          hiddenOptions[index] = {
+            type: 'hidden',
+            data: thisData
+          }
+
           // if previous element is not an optgroup
           if (!showDivider) {
             if (prevHiddenIndex !== undefined) {
               // select the element **before** the first hidden element in the group
-              var prevHidden = $selectOptions[prevHiddenIndex].previousElementSibling;
-              
+              prevHidden = $selectOptions[prevHiddenIndex].previousElementSibling;
+
               if (prevHidden && prevHidden.tagName === 'OPTGROUP' && !prevHidden.disabled) {
                 showDivider = true;
               }
@@ -58067,7 +58222,6 @@ if (typeof jQuery === "undefined") {
             mainElements.push(
               generateLI(
                 false,
-                null,
                 classNames.DIVIDER,
                 optID + 'div'
               )
@@ -58094,9 +58248,16 @@ if (typeof jQuery === "undefined") {
             }
           }
 
-          var optGroupClass = ' ' + parent.className || '';
+          var optGroupClass = ' ' + parent.className || '',
+              previousOption = this.previousElementSibling;
 
-          if (!this.previousElementSibling) { // Is it the first option of the optgroup?
+          prevHiddenIndex = thisData.prevHiddenIndex;
+
+          if (prevHiddenIndex !== undefined) {
+            previousOption = $selectOptions[prevHiddenIndex].previousElementSibling;
+          }
+
+          if (!previousOption) { // Is it the first option of the optgroup?
             optID += 1;
 
             // Get the opt group label
@@ -58110,7 +58271,6 @@ if (typeof jQuery === "undefined") {
               mainElements.push(
                 generateLI(
                   false,
-                  null,
                   classNames.DIVIDER,
                   optID + 'div'
                 )
@@ -58122,26 +58282,21 @@ if (typeof jQuery === "undefined") {
             }
             liIndex++;
 
-            var labelElement = generateLabel({
-                  labelEscaped: labelEscaped,
-                  labelSubtext: labelSubtext,
-                  labelIcon: labelIcon
-                });
+            labelElement = generateLabel({
+              labelEscaped: labelEscaped,
+              labelSubtext: labelSubtext,
+              labelIcon: labelIcon
+            });
 
-            mainElements.push(generateLI(labelElement, null, 'dropdown-header' + optGroupClass, optID));
+            mainElements.push(generateLI(labelElement, 'dropdown-header' + optGroupClass, optID));
             mainData.push({
               content: labelEscaped,
               subtext: labelSubtext,
               type: 'optgroup-label',
               optID: optID
             });
-            
-            headerIndex = liIndex - 1;
-          }
 
-          if (that.options.hideDisabled && isDisabled || thisData.hidden === true) {
-            liIndex--;
-            return;
+            headerIndex = liIndex - 1;
           }
 
           textElement = generateText({
@@ -58151,7 +58306,7 @@ if (typeof jQuery === "undefined") {
             optionIcon: icon
           });
 
-          mainElements.push(generateLI(generateA(textElement, 'opt ' + optionClass + optGroupClass, inline), index, '', optID));
+          mainElements.push(generateLI(generateA(textElement, 'opt ' + optionClass + optGroupClass, inline), '', optID));
           mainData.push({
             content: optionContent || text,
             subtext: subtext,
@@ -58166,7 +58321,7 @@ if (typeof jQuery === "undefined") {
 
           availableOptionsCount++;
         } else if (thisData.divider === true) {
-          mainElements.push(generateLI(false, index, classNames.DIVIDER));
+          mainElements.push(generateLI(false, classNames.DIVIDER));
           mainData.push({
             type: 'divider',
             originalIndex: index,
@@ -58179,8 +58334,8 @@ if (typeof jQuery === "undefined") {
 
             if (prevHiddenIndex !== undefined) {
               // select the element **before** the first hidden element in the group
-              var prevHidden = $selectOptions[prevHiddenIndex].previousElementSibling;
-              
+              prevHidden = $selectOptions[prevHiddenIndex].previousElementSibling;
+
               if (prevHidden && prevHidden.tagName === 'OPTGROUP' && !prevHidden.disabled) {
                 showDivider = true;
               }
@@ -58192,7 +58347,6 @@ if (typeof jQuery === "undefined") {
             mainElements.push(
               generateLI(
                 false,
-                null,
                 classNames.DIVIDER,
                 optID + 'div'
               )
@@ -58210,7 +58364,7 @@ if (typeof jQuery === "undefined") {
             optionIcon: icon
           });
 
-          mainElements.push(generateLI(generateA(textElement, optionClass, inline), index));
+          mainElements.push(generateLI(generateA(textElement, optionClass, inline)));
           mainData.push({
             content: optionContent || text,
             subtext: subtext,
@@ -58251,6 +58405,7 @@ if (typeof jQuery === "undefined") {
 
       this.selectpicker.main.elements = mainElements;
       this.selectpicker.main.data = mainData;
+      this.selectpicker.main.hidden = hiddenOptions;
 
       this.selectpicker.current = this.selectpicker.main;
 
@@ -58272,17 +58427,16 @@ if (typeof jQuery === "undefined") {
 
       this.tabIndex();
 
-      for (var i = 0, len = this.selectpicker.main.elements.length; i < len; i++) {
-        var index = this.selectpicker.main.map.originalIndex[i],
-            option = $selectOptions[index];
+      for (var index = 0, len = $selectOptions.length; index < len; index++) {
+        var i = that.selectpicker.main.map.newIndex[index],
+            option = $selectOptions[index],
+            optionData = that.selectpicker.main.data[i] || that.selectpicker.main.hidden[index];
 
-        if (option && option.selected) {
+        if (option && option.selected && optionData) {
           selectedItems.push(option);
 
-          if (selectedItemsInTitle.length < 100 && that.options.selectedTextFormat !== 'count' || selectedItems.length === 1) {
-            if (that.options.hideDisabled && (option.disabled || option.parentNode.tagName === 'OPTGROUP' && option.parentNode.disabled)) return;
-
-            var thisData = this.selectpicker.main.data[i].data,
+          if ((selectedItemsInTitle.length < 100 && that.options.selectedTextFormat !== 'count') || selectedItems.length === 1) {
+            var thisData = optionData.data,
                 icon = thisData.icon && that.options.showIcon ? '<i class="' + that.options.iconBase + ' ' + thisData.icon + '"></i> ' : '',
                 subtext,
                 titleItem;
@@ -58306,8 +58460,8 @@ if (typeof jQuery === "undefined") {
         }
       }
 
-      //Fixes issue in IE10 occurring when no default option is selected and at least one option is disabled
-      //Convert all the values into a comma delimited string
+      // Fixes issue in IE10 occurring when no default option is selected and at least one option is disabled
+      // Convert all the values into a comma delimited string
       var title = !this.multiple ? selectedItemsInTitle[0] : selectedItemsInTitle.join(this.options.multipleSeparator);
 
       // add ellipsis
@@ -58334,16 +58488,16 @@ if (typeof jQuery === "undefined") {
         title = this.options.title;
       }
 
-      //If we dont have a title, then use the default, or if nothing is set at all, use the not selected text
+      // If the select doesn't have a title, then use the default, or if nothing is set at all, use noneSelectedText
       if (!title) {
         title = typeof this.options.title !== 'undefined' ? this.options.title : this.options.noneSelectedText;
       }
 
-      //strip all HTML tags and trim the result, then unescape any escaped tags
+      // strip all HTML tags and trim the result, then unescape any escaped tags
       this.$button[0].title = htmlUnescape(title.replace(/<[^>]*>?/g, '').trim());
       this.$button.find('.filter-option-inner-inner')[0].innerHTML = title;
 
-      this.$element.trigger('rendered.bs.select');
+      this.$element.trigger('rendered' + EVENT_KEY);
     },
 
     /**
@@ -58355,7 +58509,7 @@ if (typeof jQuery === "undefined") {
         this.$newElement.addClass(this.$element.attr('class').replace(/selectpicker|mobile-device|bs-select-hidden|validate\[.*\]/gi, ''));
       }
 
-      var buttonClass = style ? style : this.options.style;
+      var buttonClass = style || this.options.style;
 
       if (status == 'add') {
         this.$button.addClass(buttonClass);
@@ -58384,12 +58538,13 @@ if (typeof jQuery === "undefined") {
           header = this.options.header && this.$menu.find('.' + classNames.POPOVERHEADER).length > 0 ? this.$menu.find('.' + classNames.POPOVERHEADER)[0].cloneNode(true) : null,
           search = this.options.liveSearch ? document.createElement('div') : null,
           actions = this.options.actionsBox && this.multiple && this.$menu.find('.bs-actionsbox').length > 0 ? this.$menu.find('.bs-actionsbox')[0].cloneNode(true) : null,
-          doneButton = this.options.doneButton && this.multiple && this.$menu.find('.bs-donebutton').length > 0 ? this.$menu.find('.bs-donebutton')[0].cloneNode(true) : null;
+          doneButton = this.options.doneButton && this.multiple && this.$menu.find('.bs-donebutton').length > 0 ? this.$menu.find('.bs-donebutton')[0].cloneNode(true) : null,
+          firstOption = this.$element.find('option')[0];
 
       this.sizeInfo.selectWidth = this.$newElement[0].offsetWidth;
 
       text.className = 'text';
-      a.className = 'dropdown-item ' + this.$element.find('option')[0].className;
+      a.className = 'dropdown-item ' + (firstOption ? firstOption.className : '');
       newElement.className = this.$menu[0].parentNode.className + ' ' + classNames.SHOW;
       newElement.style.width = this.sizeInfo.selectWidth + 'px';
       if (this.options.width === 'auto') menu.style.minWidth = 0;
@@ -58399,7 +58554,7 @@ if (typeof jQuery === "undefined") {
       divider.className = classNames.DIVIDER;
       dropdownHeader.className = 'dropdown-header';
 
-      text.appendChild(document.createTextNode('Inner text'));
+      text.appendChild(document.createTextNode('\u200b'));
       a.appendChild(text);
       li.appendChild(a);
       dropdownHeader.appendChild(text.cloneNode(true));
@@ -58448,7 +58603,7 @@ if (typeof jQuery === "undefined") {
                   toInteger(menuStyle ? menuStyle.borderLeftWidth : $menu.css('borderLeftWidth')) +
                   toInteger(menuStyle ? menuStyle.borderRightWidth : $menu.css('borderRightWidth'))
           },
-          menuExtras =  {
+          menuExtras = {
             vert: menuPadding.vert +
                   toInteger(menuStyle ? menuStyle.marginTop : $menu.css('marginTop')) +
                   toInteger(menuStyle ? menuStyle.marginBottom : $menu.css('marginBottom')) + 2,
@@ -58499,9 +58654,9 @@ if (typeof jQuery === "undefined") {
       var winPad = that.options.windowPadding;
 
       this.sizeInfo.selectOffsetTop = pos.top - containerPos.top - $window.scrollTop();
-      this.sizeInfo.selectOffsetBot = $window.height() - this.sizeInfo.selectOffsetTop - this.sizeInfo['selectHeight'] - containerPos.top - winPad[2];
+      this.sizeInfo.selectOffsetBot = $window.height() - this.sizeInfo.selectOffsetTop - this.sizeInfo.selectHeight - containerPos.top - winPad[2];
       this.sizeInfo.selectOffsetLeft = pos.left - containerPos.left - $window.scrollLeft();
-      this.sizeInfo.selectOffsetRight = $window.width() - this.sizeInfo.selectOffsetLeft - this.sizeInfo['selectWidth'] - containerPos.left - winPad[1];
+      this.sizeInfo.selectOffsetRight = $window.width() - this.sizeInfo.selectOffsetLeft - this.sizeInfo.selectWidth - containerPos.left - winPad[1];
       this.sizeInfo.selectOffsetTop -= winPad[0];
       this.sizeInfo.selectOffsetLeft -= winPad[3];
     },
@@ -58509,14 +58664,14 @@ if (typeof jQuery === "undefined") {
     setMenuSize: function (isAuto) {
       this.getSelectPosition();
 
-      var selectWidth = this.sizeInfo['selectWidth'],
-          liHeight = this.sizeInfo['liHeight'],
-          headerHeight = this.sizeInfo['headerHeight'],
-          searchHeight = this.sizeInfo['searchHeight'],
-          actionsHeight = this.sizeInfo['actionsHeight'],
-          doneButtonHeight = this.sizeInfo['doneButtonHeight'],
-          divHeight = this.sizeInfo['dividerHeight'],
-          menuPadding = this.sizeInfo['menuPadding'],
+      var selectWidth = this.sizeInfo.selectWidth,
+          liHeight = this.sizeInfo.liHeight,
+          headerHeight = this.sizeInfo.headerHeight,
+          searchHeight = this.sizeInfo.searchHeight,
+          actionsHeight = this.sizeInfo.actionsHeight,
+          doneButtonHeight = this.sizeInfo.doneButtonHeight,
+          divHeight = this.sizeInfo.dividerHeight,
+          menuPadding = this.sizeInfo.menuPadding,
           menuInnerHeight,
           menuHeight,
           divLength = 0,
@@ -58559,7 +58714,7 @@ if (typeof jQuery === "undefined") {
       }
 
       if (this.options.dropdownAlignRight === 'auto') {
-        this.$menu.toggleClass(classNames.MENURIGHT, this.sizeInfo.selectOffsetLeft > this.sizeInfo.selectOffsetRight && this.sizeInfo.selectOffsetRight < (this.$menu[0].offsetWidth - selectWidth));
+        this.$menu.toggleClass(classNames.MENURIGHT, this.sizeInfo.selectOffsetLeft > this.sizeInfo.selectOffsetRight && this.sizeInfo.selectOffsetRight < (this.sizeInfo.totalMenuWidth - selectWidth));
       }
 
       this.$menu.css({
@@ -58574,7 +58729,7 @@ if (typeof jQuery === "undefined") {
         'min-height': menuInnerMinHeight + 'px'
       });
 
-      this.sizeInfo['menuInnerHeight'] = menuInnerHeight;
+      this.sizeInfo.menuInnerHeight = menuInnerHeight;
 
       if (this.selectpicker.current.data.length && this.selectpicker.current.data[this.selectpicker.current.data.length - 1].position > this.sizeInfo.menuInnerHeight) {
         this.sizeInfo.hasScrollBar = true;
@@ -58600,15 +58755,20 @@ if (typeof jQuery === "undefined") {
       this.setMenuSize();
 
       if (this.options.size === 'auto') {
-        this.$searchbox.off('input.setMenuSize propertychange.setMenuSize').on('input.setMenuSize propertychange.setMenuSize', function() {
-          return that.setMenuSize();
-        });
-        $window.off('resize.setMenuSize scroll.setMenuSize').on('resize.setMenuSize scroll.setMenuSize', function() {
-          return that.setMenuSize();
-        });
+        this.$searchbox
+          .off('input.setMenuSize propertychange.setMenuSize')
+          .on('input.setMenuSize propertychange.setMenuSize', function () {
+            return that.setMenuSize();
+          });
+
+        $window
+          .off('resize' + EVENT_KEY + '.' + this.selectId + '.setMenuSize' + ' scroll' + EVENT_KEY + '.' + this.selectId + '.setMenuSize')
+          .on('resize' + EVENT_KEY + '.' + this.selectId + '.setMenuSize' + ' scroll' + EVENT_KEY + '.' + this.selectId + '.setMenuSize', function () {
+            return that.setMenuSize();
+          });
       } else if (this.options.size && this.options.size != 'auto' && this.selectpicker.current.elements.length > this.options.size) {
         this.$searchbox.off('input.setMenuSize propertychange.setMenuSize');
-        $window.off('resize.setMenuSize scroll.setMenuSize');
+        $window.off('resize' + EVENT_KEY + '.' + this.selectId + '.setMenuSize' + ' scroll' + EVENT_KEY + '.' + this.selectId + '.setMenuSize');
       }
 
       if (refresh) {
@@ -58629,7 +58789,7 @@ if (typeof jQuery === "undefined") {
       var that = this;
 
       if (this.options.width === 'auto') {
-        requestAnimationFrame(function() {
+        requestAnimationFrame(function () {
           that.$menu.css('min-width', '0');
           that.liHeight();
           that.setMenuSize();
@@ -58674,7 +58834,11 @@ if (typeof jQuery === "undefined") {
           getPlacement = function ($element) {
             var containerPosition = {},
                 // fall back to dropdown's default display setting if display is not manually set
-                display = that.options.display || $.fn.dropdown.Constructor.Default.display;
+                display = that.options.display || (
+                  // Bootstrap 3 doesn't have $.fn.dropdown.Constructor.Default
+                  $.fn.dropdown.Constructor.Default ? $.fn.dropdown.Constructor.Default.display
+                  : false
+                );
 
             that.$bsContainer.addClass($element.attr('class').replace(/form-control|fit-width/gi, '')).toggleClass(classNames.DROPUP, $element.hasClass(classNames.DROPUP));
             pos = $element.offset();
@@ -58691,11 +58855,11 @@ if (typeof jQuery === "undefined") {
 
             // Bootstrap 4+ uses Popper for menu positioning
             if (version.major < 4 || display === 'static') {
-              containerPosition['top'] = pos.top - containerPos.top + actualHeight;
-              containerPosition['left'] = pos.left - containerPos.left;
+              containerPosition.top = pos.top - containerPos.top + actualHeight;
+              containerPosition.left = pos.left - containerPos.left;
             }
 
-            containerPosition['width'] = $element[0].offsetWidth;
+            containerPosition.width = $element[0].offsetWidth;
 
             that.$bsContainer.css(containerPosition);
           };
@@ -58713,11 +58877,15 @@ if (typeof jQuery === "undefined") {
           .append(that.$menu);
       });
 
-      $(window).on('resize scroll', function () {
-        getPlacement(that.$newElement);
-      });
+      $(window)
+        .off('resize' + EVENT_KEY + '.' + this.selectId + ' scroll' + EVENT_KEY + '.' + this.selectId)
+        .on('resize' + EVENT_KEY + '.' + this.selectId + ' scroll' + EVENT_KEY + '.' + this.selectId, function () {
+          var isActive = that.$newElement.hasClass(classNames.SHOW);
 
-      this.$element.on('hide.bs.select', function () {
+          if (isActive) getPlacement(that.$newElement);
+        });
+
+      this.$element.on('hide' + EVENT_KEY, function () {
         that.$menu.data('height', that.$menu.height());
         that.$bsContainer.detach();
       });
@@ -58740,7 +58908,7 @@ if (typeof jQuery === "undefined") {
 
             that.setDisabled(
               index,
-              option.disabled || option.parentNode.tagName === 'OPTGROUP' && option.parentNode.disabled,
+              option.disabled || (option.parentNode.tagName === 'OPTGROUP' && option.parentNode.disabled),
               liIndex,
               li
             );
@@ -58773,7 +58941,7 @@ if (typeof jQuery === "undefined") {
           //  - when the menu is first being opened, OR
           //  - after a search has been performed, OR
           //  - when retainActive is false when selecting a new option (i.e. index of the newly selected option is not the same as the current activeIndex)
-          keepActive = thisIsActive || selected && !this.multiple && !activeIndexIsSet;
+          keepActive = thisIsActive || (selected && !this.multiple && !activeIndexIsSet);
 
       if (!liIndex) liIndex = this.selectpicker.main.map.newIndex[index];
       if (!li) li = this.selectpicker.main.elements[liIndex];
@@ -58803,10 +58971,8 @@ if (typeof jQuery === "undefined") {
           prevActiveIndex = this.selectpicker.main.map.newIndex[this.prevActiveIndex];
           prevActive = this.selectpicker.main.elements[prevActiveIndex];
 
-          prevActive.classList.toggle('selected', selected);
           prevActive.classList.remove('active');
           if (prevActive.firstChild) {
-            prevActive.firstChild.classList.toggle('selected', selected);
             prevActive.firstChild.classList.remove('active');
           }
         }
@@ -58878,7 +59044,7 @@ if (typeof jQuery === "undefined") {
     },
 
     tabIndex: function () {
-      if (this.$element.data('tabindex') !== this.$element.attr('tabindex') && 
+      if (this.$element.data('tabindex') !== this.$element.attr('tabindex') &&
         (this.$element.attr('tabindex') !== -98 && this.$element.attr('tabindex') !== '-98')) {
         this.$element.data('tabindex', this.$element.attr('tabindex'));
         this.$button.attr('tabindex', this.$element.data('tabindex'));
@@ -58895,12 +59061,12 @@ if (typeof jQuery === "undefined") {
 
       this.$button.on('keyup', function (e) {
         if (/(32)/.test(e.keyCode.toString(10)) && $document.data('spaceSelect')) {
-            e.preventDefault();
-            $document.data('spaceSelect', false);
+          e.preventDefault();
+          $document.data('spaceSelect', false);
         }
       });
 
-      this.$newElement.on('show.bs.dropdown', function() {
+      this.$newElement.on('show.bs.dropdown', function () {
         if (version.major > 3 && !that.dropdown) {
           that.dropdown = that.$button.data('bs.dropdown');
           that.dropdown._menu = that.$menu[0];
@@ -58929,7 +59095,7 @@ if (typeof jQuery === "undefined") {
         }
       }
 
-      this.$element.on('shown.bs.select', function () {
+      this.$element.on('shown' + EVENT_KEY, function () {
         if (that.$menuInner[0].scrollTop !== that.selectpicker.view.scrollTop) {
           that.$menuInner[0].scrollTop = that.selectpicker.view.scrollTop;
         }
@@ -58938,7 +59104,7 @@ if (typeof jQuery === "undefined") {
           requestAnimationFrame(checkPopperExists);
         } else {
           setFocus();
-        }        
+        }
       });
 
       this.$menuInner.on('click', 'li a', function (e, retainActive) {
@@ -58956,7 +59122,7 @@ if (typeof jQuery === "undefined") {
 
         e.preventDefault();
 
-        //Don't run if we have been disabled
+        // Don't run if the select is disabled
         if (!that.isDisabled() && !$this.parent().hasClass(classNames.DISABLED)) {
           var $options = that.$element.find('option'),
               $option = $options.eq(clickedIndex),
@@ -58965,7 +59131,7 @@ if (typeof jQuery === "undefined") {
               $optgroupOptions = $optgroup.find('option'),
               maxOptions = that.options.maxOptions,
               maxOptionsGrp = $optgroup.data('maxOptions') || false;
-              
+
           if (clickedIndex === that.activeIndex) retainActive = true;
 
           if (!retainActive) {
@@ -59027,13 +59193,13 @@ if (typeof jQuery === "undefined") {
                   if (maxOptions && maxReached) {
                     $notify.append($('<div>' + maxTxt + '</div>'));
                     triggerChange = false;
-                    that.$element.trigger('maxReached.bs.select');
+                    that.$element.trigger('maxReached' + EVENT_KEY);
                   }
 
                   if (maxOptionsGrp && maxReachedGrp) {
                     $notify.append($('<div>' + maxTxtGrp + '</div>'));
                     triggerChange = false;
-                    that.$element.trigger('maxReachedGrp.bs.select');
+                    that.$element.trigger('maxReachedGrp' + EVENT_KEY);
                   }
 
                   setTimeout(function () {
@@ -59058,7 +59224,7 @@ if (typeof jQuery === "undefined") {
           if (triggerChange) {
             if ((prevValue != getSelectValues(that.$element[0]) && that.multiple) || (prevIndex != that.$element.prop('selectedIndex') && !that.multiple)) {
               // $option.prop('selected') is current option state (selected/unselected). prevValue is the value of the select prior to being changed.
-              changed_arguments = [clickedIndex, $option.prop('selected'), prevValue];
+              changedArguments = [clickedIndex, $option.prop('selected'), prevValue];
               that.$element
                 .triggerNative('change');
             }
@@ -59116,18 +59282,18 @@ if (typeof jQuery === "undefined") {
       this.$element.on({
         'change': function () {
           that.render();
-          that.$element.trigger('changed.bs.select', changed_arguments);
-          changed_arguments = null;
+          that.$element.trigger('changed' + EVENT_KEY, changedArguments);
+          changedArguments = null;
         },
         'focus': function () {
-          that.$button.focus();
+          if (!that.options.mobile) that.$button.focus();
         }
       });
     },
 
     liveSearchListener: function () {
       var that = this,
-          no_results = document.createElement('li');
+          noResults = document.createElement('li');
 
       this.$button.on('click.bs.dropdown.data-api', function () {
         if (!!that.$searchbox.val()) {
@@ -59141,7 +59307,7 @@ if (typeof jQuery === "undefined") {
 
       this.$searchbox.on('input propertychange', function () {
         var searchValue = that.$searchbox.val();
-        
+
         that.selectpicker.search.map.newIndex = {};
         that.selectpicker.search.map.originalIndex = {};
         that.selectpicker.search.elements = [];
@@ -59155,6 +59321,8 @@ if (typeof jQuery === "undefined") {
               cacheArr = [],
               searchStyle = that._searchStyle(),
               normalizeSearch = that.options.liveSearchNormalize;
+
+          if (normalizeSearch) q = normalizeToBase(q);
 
           that._$lisSelected = that.$menuInner.find('.selected');
 
@@ -59173,7 +59341,7 @@ if (typeof jQuery === "undefined") {
 
               cache[li.headerIndex] = true;
               cacheArr.push(li.headerIndex);
-              
+
               cache[li.lastIndex + 1] = true;
             }
 
@@ -59185,8 +59353,8 @@ if (typeof jQuery === "undefined") {
                 prevIndex = cacheArr[i - 1],
                 li = that.selectpicker.main.data[index],
                 liPrev = that.selectpicker.main.data[prevIndex];
-                
-            if ( li.type !== 'divider' || ( li.type === 'divider' && liPrev && liPrev.type !== 'divider' && cacheLen - 1 !== i ) ) {
+
+            if (li.type !== 'divider' || (li.type === 'divider' && liPrev && liPrev.type !== 'divider' && cacheLen - 1 !== i)) {
               that.selectpicker.search.data.push(li);
               searchMatch.push(that.selectpicker.main.elements[index]);
 
@@ -59204,9 +59372,9 @@ if (typeof jQuery === "undefined") {
           that.createView(true);
 
           if (!searchMatch.length) {
-            no_results.className = 'no-results';
-            no_results.innerHTML = that.options.noneResultsText.replace('{0}', '"' + htmlEscape(searchValue) + '"');
-            that.$menuInner[0].firstChild.appendChild(no_results);
+            noResults.className = 'no-results';
+            noResults.innerHTML = that.options.noneResultsText.replace('{0}', '"' + htmlEscape(searchValue) + '"');
+            that.$menuInner[0].firstChild.appendChild(noResults);
           }
         } else {
           that.$menuInner.scrollTop(0);
@@ -59262,7 +59430,7 @@ if (typeof jQuery === "undefined") {
 
       this.togglePlaceholder();
 
-      changed_arguments = [null, null, prevValue];
+      changedArguments = [null, null, prevValue];
 
       this.$element
         .triggerNative('change');
@@ -59308,9 +59476,9 @@ if (typeof jQuery === "undefined") {
         !isActive &&
         (
           isArrowKey ||
-          e.which >= 48 && e.which <= 57 ||
-          e.which >= 96 && e.which <= 105 ||
-          e.which >= 65 && e.which <= 90
+          (e.which >= 48 && e.which <= 57) ||
+          (e.which >= 96 && e.which <= 105) ||
+          (e.which >= 65 && e.which <= 90)
         )
       ) {
         that.$button.trigger('click.bs.dropdown.data-api');
@@ -59388,7 +59556,7 @@ if (typeof jQuery === "undefined") {
           liActive.classList.add('active');
           if (liActive.firstChild) liActive.firstChild.classList.add('active');
         }
-        
+
         that.activeIndex = that.selectpicker.current.map.originalIndex[liActiveIndex];
 
         that.selectpicker.view.currentActive = liActive;
@@ -59401,8 +59569,7 @@ if (typeof jQuery === "undefined") {
           $this.focus();
         }
       } else if (
-        !$this.is('input') &&
-        !REGEXP_TAB_OR_ESCAPE.test(e.which) ||
+        (!$this.is('input') && !REGEXP_TAB_OR_ESCAPE.test(e.which)) ||
         (e.which === keyCodes.SPACE && that.selectpicker.keydown.keyHistory)
       ) {
         var searchMatch,
@@ -59462,7 +59629,7 @@ if (typeof jQuery === "undefined") {
           } else {
             offset = activeLi.position - that.sizeInfo.menuInnerHeight;
             // if the option is already visible at the current scroll position, just keep it the same
-            updateScroll = activeLi.position > scrollTop + that.sizeInfo.menuInnerHeight;         
+            updateScroll = activeLi.position > scrollTop + that.sizeInfo.menuInnerHeight;
           }
 
           liActive = that.selectpicker.current.elements[searchMatch];
@@ -59522,7 +59689,7 @@ if (typeof jQuery === "undefined") {
 
       this.setSize(true);
 
-      this.$element.trigger('refreshed.bs.select');
+      this.$element.trigger('refreshed' + EVENT_KEY);
     },
 
     hide: function () {
@@ -59548,15 +59715,17 @@ if (typeof jQuery === "undefined") {
       }
 
       this.$element
-        .off('.bs.select')
+        .off(EVENT_KEY)
         .removeData('selectpicker')
         .removeClass('bs-select-hidden selectpicker');
+
+      $(window).off(EVENT_KEY + '.' + this.selectId);
     }
   };
 
   // SELECTPICKER PLUGIN DEFINITION
   // ==============================
-  function Plugin(option) {
+  function Plugin (option) {
     // get the args of the outer function..
     var args = arguments;
     // The arguments of the function are explicitly re-defined from the argument list, because the shift causes them
@@ -59570,9 +59739,8 @@ if (typeof jQuery === "undefined") {
       // try to retreive it again
       try {
         version.full = ($.fn.dropdown.Constructor.VERSION || '').split(' ')[0].split('.');
-      }
-      // fall back to use BootstrapVersion
-      catch(err) {
+      } catch (err) {
+        // fall back to use BootstrapVersion
         version.full = Selectpicker.BootstrapVersion.split(' ')[0].split('.');
       }
 
@@ -59618,7 +59786,7 @@ if (typeof jQuery === "undefined") {
     });
 
     if (typeof value !== 'undefined') {
-      //noinspection JSUnusedAssignment
+      // noinspection JSUnusedAssignment
       return value;
     } else {
       return chain;
@@ -59637,15 +59805,15 @@ if (typeof jQuery === "undefined") {
   };
 
   $(document)
-      .off('keydown.bs.dropdown.data-api')
-      .on('keydown.bs.select', '.bootstrap-select [data-toggle="dropdown"], .bootstrap-select [role="listbox"], .bs-searchbox input', Selectpicker.prototype.keydown)
-      .on('focusin.modal', '.bootstrap-select [data-toggle="dropdown"], .bootstrap-select [role="listbox"], .bs-searchbox input', function (e) {
-        e.stopPropagation();
-      });
+    .off('keydown.bs.dropdown.data-api')
+    .on('keydown' + EVENT_KEY, '.bootstrap-select [data-toggle="dropdown"], .bootstrap-select [role="listbox"], .bootstrap-select .bs-searchbox input', Selectpicker.prototype.keydown)
+    .on('focusin.modal', '.bootstrap-select [data-toggle="dropdown"], .bootstrap-select [role="listbox"], .bootstrap-select .bs-searchbox input', function (e) {
+      e.stopPropagation();
+    });
 
   // SELECTPICKER DATA-API
   // =====================
-  $(window).on('load.bs.select.data-api', function () {
+  $(window).on('load' + EVENT_KEY + '.data-api', function () {
     $('.selectpicker').each(function () {
       var $selectpicker = $(this);
       Plugin.call($selectpicker, $selectpicker.data());
