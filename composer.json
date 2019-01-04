@@ -86,14 +86,17 @@
         ],
         "post-create-project-cmd": [
             "php artisan key:generate",
-            "chmod u+rwx beautymail_fix"
+            "chmod u+rwx beautymail_fix",
+            "chmod u+rwx clear_reset"
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "./beautymail_fix"
+            "./beautymail_fix",
+            "./clear_reset"
         ],
         "post-update-cmd": [
             "./beautymail_fix",
+            "./clear_reset",
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan ide-helper:generate",
             "php artisan ide-helper:models",
