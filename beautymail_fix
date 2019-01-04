@@ -1,0 +1,3 @@
+cp resources/views/layouts/beautymailfix_sunny.blade.php vendor/snowfire/beautymail/src/views/templates/beautymailfix_sunny.blade.php;
+rm vendor/snowfire/beautymail/src/views/templates/sunny.blade.php;
+mv vendor/snowfire/beautymail/src/views/templates/beautymailfix_sunny.blade.php vendor/snowfire/beautymail/src/views/templates/sunny.blade.php;
