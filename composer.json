@@ -1,6 +1,6 @@
 {
     "name": "rattfieldnz/bitcoin-faucet-rotator-v2",
-    "description": "A database-driven bitcoin faucet rotator built with Laravel version 5.5.*.",
+    "description": "A database-driven bitcoin faucet rotator built with Laravel version 5.7.*.",
     "keywords": [
       "laravel56",
       "laravel",

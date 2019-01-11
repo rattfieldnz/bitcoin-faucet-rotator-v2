@@ -86,7 +86,7 @@ class Users
         $faucets = Faucet::all();
 
         foreach ($faucets as $f) {
-            $f->users()->attach($user->id, ['faucet_id' => $f->id, 'referral_code' => null]);
+            $f->users()->attach($user->id, ['faucet_id' => $f->id, 'referral_code' => Faucets::getUserFaucetRefCode(Users::adminUser(), $f)]);
         }
 
         if (!empty(Auth::user()) && Auth::user()->isAnAdmin()) {
