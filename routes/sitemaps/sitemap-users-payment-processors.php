@@ -19,23 +19,25 @@ Route::get('sitemap-users-payment-processors', function() {
                     ->sortByDesc('updated_at')
                     ->first();
 
-                $faucetsList = route(
-                    'users.payment-processors.faucets',
-                    [
-                        'userSlug' => $u->slug,
-                        'paymentProcessorSlug' => $p->slug
-                    ]
-                );
+                if(!empty($lastFaucet)){
+                    $faucetsList = route(
+                        'users.payment-processors.faucets',
+                        [
+                            'userSlug' => $u->slug,
+                            'paymentProcessorSlug' => $p->slug
+                        ]
+                    );
 
-                $sitemap->add($faucetsList, $lastFaucet->updated_at->toW3cString(), '1.0', 'daily');
+                    $sitemap->add($faucetsList, $lastFaucet->updated_at->toW3cString(), '1.0', 'daily');
 
-                $rotatorList = route('users.payment-processors.rotator',
-                    [
-                        'userSlug' => $u->slug,
-                        'paymentProcessorSlug' => $p->slug
-                    ]
-                );
-                $sitemap->add($rotatorList, $lastFaucet->updated_at->toW3cString(), '1.0', 'daily');
+                    $rotatorList = route('users.payment-processors.rotator',
+                        [
+                            'userSlug' => $u->slug,
+                            'paymentProcessorSlug' => $p->slug
+                        ]
+                    );
+                    $sitemap->add($rotatorList, $lastFaucet->updated_at->toW3cString(), '1.0', 'daily');
+                }
             }
         }
 
