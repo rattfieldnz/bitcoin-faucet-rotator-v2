@@ -7,7 +7,7 @@
     <title>Bitcoin Faucet Rotator Registration Page</title>
     @if(env('APP_ENV') == 'local')
         <link rel="stylesheet" href="{{ asset("/assets/css/mainStyles.css?". rand()) }}">
-    @elseif(env('APP_ENV') == 'production')
+    @else
         <link rel="stylesheet" href="{{ asset("/assets/css/mainStyles.min.css?". rand()) }}">
     @endif
 
