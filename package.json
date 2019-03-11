@@ -69,7 +69,7 @@
     "bootstrap-colorpicker": "itsjavi/bootstrap-colorpicker#^3.0.3",
     "bootstrap-datepicker": "eternicode/bootstrap-datepicker#^1.8.0",
     "bootstrap-daterangepicker": "dangrossman/bootstrap-daterangepicker#^3.0.3",
-    "bootstrap-select": "silviomoreto/bootstrap-select#^1.13.2",
+    "bootstrap-select": "1.13.6",
     "bootstrap-slider": "pammacdotnet/bootstrap-slider#*",
     "bootstrap-switch": "nostalgiaz/bootstrap-switch#^3.3.4",
     "bootstrap-timepicker": "jdewit/bootstrap-timepicker#^0.5.2",
