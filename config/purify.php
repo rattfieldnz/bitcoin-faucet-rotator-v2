@@ -16,6 +16,9 @@ return [
     */
 
     'settings' => [
+        'HTML.Doctype' => 'XHTML 1.0 Transitional',
+        'Attr.EnableID' => true,
+        'Attr.ID.HTML5' => true,
 
         'HTML.Allowed' => 'div[class|style|id],b,strong,i[class|style|id]'
             . ',em,a[class|style|id|title|target|href],ul[class|style|id],ol[class|style|id],li[class|style|id]'
@@ -48,19 +51,6 @@ return [
         */
 
         'Cache.SerializerPath' => storage_path('purify'),
-
-        /*
-        |--------------------------------------------------------------------------
-        | HTML.Doctype
-        |--------------------------------------------------------------------------
-        |
-        | Doctype to use during filtering.
-        |
-        | http://htmlpurifier.org/live/configdoc/plain.html#HTML.Doctype
-        |
-        */
-
-        'HTML.Doctype' => 'XHTML 1.0 Transitional',
 
         /*
         |--------------------------------------------------------------------------
