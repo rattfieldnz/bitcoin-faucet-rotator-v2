@@ -31,7 +31,6 @@ return [
     'AutoFormat.AutoParagraph' => true,
     'AutoFormat.RemoveEmpty'   => true,
     'settings'      => [
-        'default' => [
         'test'    => [
             'Attr.EnableID' => 'true',
         ],
