@@ -19,7 +19,7 @@
 return [
     'Core.Encoding'      => 'UTF-8',
     'finalize'      => true,
-    'Cache.SerializerPath'     => storage_path('app/purifier'),
+    'Cache.SerializerPath'     => storage_path('purifier'),
     'cacheFileMode' => 0755,
     'HTML.Doctype'             => 'HTML 4.01 Transitional',
     'HTML.Allowed' => 'div[class|style|id],b,strong,i[class|style|id]'
