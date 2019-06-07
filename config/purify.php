@@ -32,7 +32,7 @@ return [
         'cachePath'     => storage_path('app/purify'),
         'cacheFileMode' => 0755,
         "default" => [
-            'HTML.Doctype' => 'HTML 4.01 Transitional',
+            'HTML.Doctype' => 'XHTML 1.0 Transitional',
             'Attr.EnableID' => true,
             'Attr.ID.HTML5' => true,
             'HTML.Allowed' => 'div[class|style|id],b,strong,i[class|style|id]'
