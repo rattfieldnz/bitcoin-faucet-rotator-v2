@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\AdBlock;
 use InfyOm\Generator\Common\BaseRepository;
-use Mews\Purifier\Facades\Purifier;
 use Stevebauman\Purify\Facades\Purify;
 
 /**
