@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 class PurifySetupProvider extends ServiceProvider
 {
     const DEFINITION_ID = 'default';
-    const DEFINITION_REV = 1;
+    const DEFINITION_REV = '1';
 
     /**
      * Bootstrap the application services.
