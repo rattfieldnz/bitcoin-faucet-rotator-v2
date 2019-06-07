@@ -77,7 +77,7 @@ class AdBlockRepository extends BaseRepository implements IRepository
     public static function cleanInput(array $input)
     {
         $config = [
-            'HTML.Doctype' => 'HTML 4.01 Transitional',
+            'HTML.Doctype' => 'XHTML 1.0 Transitional',
             'HTML.Allowed' => '',
             'AutoFormat.AutoParagraph' => false,
             'AutoFormat.Linkify' => false,
