@@ -25,6 +25,9 @@ return [
             . ',p[class|style|id],br,span[class|style|id],img[width|height|alt|src|class|style|id]'
             . ',iframe[src|width|height|frameborder|scrolling|class|style|id|data-aa],h1[class|style|id],h2[class|style|id],h3[class|style|id],h4[class|style|id],h5[class|style|id],h6[class|style|id]'
             . ',dt[class|style|id],dl[class|style|id]',
+        'Attr.AllowedFrameTargets' => ['_blank'],
+        "HTML.SafeIframe" => 'true',
+        "URI.SafeIframeRegexp" => "%^(http://|https://|//)(mellowads.com|coinurl.com|a-ads.com|ad.a-ads.com|bee-ads.com)%",
 
         /*
         |--------------------------------------------------------------------------
