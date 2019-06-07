@@ -22,17 +22,16 @@ return [
     'cachePath'     => storage_path('app/purifier'),
     'cacheFileMode' => 0755,
     'HTML.Doctype'             => 'HTML 4.01 Transitional',
+    'HTML.Allowed' => 'div[class|style|id],b,strong,i[class|style|id]'
+        . ',em,a[class|style|id|title|target|href],ul[class|style|id],ol[class|style|id],li[class|style|id]'
+        . ',p[class|style|id],br,span[class|style|id],img[width|height|alt|src|class|style|id]'
+        . ',iframe[src|scrolling|class|style|id|data-aa],h1[class|style|id],h2[class|style|id],h3[class|style|id],h4[class|style|id],h5[class|style|id],h6[class|style|id]'
+        . ',dt[class|style|id],dl[class|style|id]',
+    'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
+    'AutoFormat.AutoParagraph' => true,
+    'AutoFormat.RemoveEmpty'   => true,
     'settings'      => [
         'default' => [
-            'HTML.Allowed' => 'div[class|style|id],b,strong,i[class|style|id]'
-                . ',em,a[class|style|id|title|target|href],ul[class|style|id],ol[class|style|id],li[class|style|id]'
-                . ',p[class|style|id],br,span[class|style|id],img[width|height|alt|src|class|style|id]'
-                . ',iframe[src|scrolling|class|style|id|data-aa],h1[class|style|id],h2[class|style|id],h3[class|style|id],h4[class|style|id],h5[class|style|id],h6[class|style|id]'
-                . ',dt[class|style|id],dl[class|style|id]',
-            'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
-            'AutoFormat.AutoParagraph' => true,
-            'AutoFormat.RemoveEmpty'   => true,
-        ],
         'test'    => [
             'Attr.EnableID' => 'true',
         ],
