@@ -19,7 +19,6 @@ return [
         'HTML.Doctype' => 'XHTML 1.0 Transitional',
         'Attr.EnableID' => true,
         'Attr.ID.HTML5' => true,
-        'finalize' => true,
 
         'HTML.Allowed' => 'div[class|style|id],b,strong,i[class|style|id]'
             . ',em,a[class|style|id|title|target|href],ul[class|style|id],ol[class|style|id],li[class|style|id]'
