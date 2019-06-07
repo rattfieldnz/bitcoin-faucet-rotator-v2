@@ -19,11 +19,13 @@ return [
         'HTML.Doctype' => 'XHTML 1.0 Transitional',
         'Attr.EnableID' => true,
         'Attr.ID.HTML5' => true,
+        'finalize' => true,
+        'preload'  => false,
 
         'HTML.Allowed' => 'div[class|style|id],b,strong,i[class|style|id]'
             . ',em,a[class|style|id|title|target|href],ul[class|style|id],ol[class|style|id],li[class|style|id]'
             . ',p[class|style|id],br,span[class|style|id],img[width|height|alt|src|class|style|id]'
-            . ',iframe[src|scrolling|class|style|id|data-aa],h1[class|style|id],h2[class|style|id],h3[class|style|id],h4[class|style|id],h5[class|style|id],h6[class|style|id]'
+            . ',iframe[src|width|height|frameborder|scrolling|class|style|id|data-aa],h1[class|style|id],h2[class|style|id],h3[class|style|id],h4[class|style|id],h5[class|style|id],h6[class|style|id]'
             . ',dt[class|style|id],dl[class|style|id]',
 
         /*
