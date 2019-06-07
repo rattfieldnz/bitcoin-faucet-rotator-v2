@@ -21,9 +21,9 @@ return [
     'finalize'      => true,
     'cachePath'     => storage_path('app/purifier'),
     'cacheFileMode' => 0755,
+    'HTML.Doctype'             => 'HTML 4.01 Transitional',
     'settings'      => [
         'default' => [
-            'HTML.Doctype'             => 'HTML 4.01 Transitional',
             'HTML.Allowed' => 'div[class|style|id],b,strong,i[class|style|id]'
                 . ',em,a[class|style|id|title|target|href],ul[class|style|id],ol[class|style|id],li[class|style|id]'
                 . ',p[class|style|id],br,span[class|style|id],img[width|height|alt|src|class|style|id]'
