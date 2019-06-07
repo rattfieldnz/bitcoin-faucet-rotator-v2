@@ -8,8 +8,6 @@ use Illuminate\Support\ServiceProvider;
 
 class PurifySetupProvider extends ServiceProvider
 {
-    const DEFINITION_ID = 'trix-editor';
-    const DEFINITION_REV = 1;
 
     /**
      * Bootstrap the application services.
@@ -23,9 +21,6 @@ class PurifySetupProvider extends ServiceProvider
 
         /** @var \HTMLPurifier_Config $config */
         $config = $purifier->config;
-
-        $config->set('HTML.DefinitionID', static::DEFINITION_ID);
-        $config->set('HTML.DefinitionRev', static::DEFINITION_REV);
 
         if ($def = $config->maybeGetRawHTMLDefinition()) {
             $this->setupDefinitions($def);
