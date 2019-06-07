@@ -144,14 +144,6 @@ return [
 
         'AutoFormat.RemoveEmpty' => false,
 
-        'custom_attributes' => [
-            ['a', 'target', 'Enum#_blank,_self,_target,_top'],
-            ['iframe', 'data-aa', 'Text'],
-        ],
-        'custom_elements' => [
-            ['u', 'Inline', 'Inline', 'Common'],
-        ],
-
     ],
 
 ];
