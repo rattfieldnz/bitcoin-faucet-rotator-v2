@@ -144,13 +144,6 @@ return [
 
         'AutoFormat.RemoveEmpty' => false,
 
-        "generalFields" => [
-            'HTML.Doctype' => 'HTML 4.01 Transitional',
-            'HTML.Allowed' => '',
-            'AutoFormat.AutoParagraph' => false,
-            'AutoFormat.Linkify' => false,
-        ],
-
         'custom_definition' => [
             'id'  => 'html5-definitions',
             'rev' => 1,
