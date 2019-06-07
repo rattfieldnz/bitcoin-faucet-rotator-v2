@@ -1,5 +1,7 @@
 <?php
 
+use App\Providers\PurifySetupProvider;
+
 return [
 
     /*
@@ -162,6 +164,7 @@ return [
         Laravelium\Feed\FeedServiceProvider::class,
         Snowfire\Beautymail\BeautymailServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -169,6 +172,8 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\PurifySetupProvider::class,
+
         App\Providers\Validation\ValidationServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
 
