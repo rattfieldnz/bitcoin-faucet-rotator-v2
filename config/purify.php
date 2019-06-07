@@ -30,14 +30,10 @@ return [
     'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
     'AutoFormat.AutoParagraph' => true,
     'AutoFormat.RemoveEmpty'   => true,
+    'Attr.EnableID' => 'true',
+    "HTML.SafeIframe"      => 'true',
+    "URI.SafeIframeRegexp" => "%^(http://|https://|//)(www.youtube.com/embed/|player.vimeo.com/video/)%",
     'settings'      => [
-        'test'    => [
-            'Attr.EnableID' => 'true',
-        ],
-        "youtube" => [
-            "HTML.SafeIframe"      => 'true',
-            "URI.SafeIframeRegexp" => "%^(http://|https://|//)(www.youtube.com/embed/|player.vimeo.com/video/)%",
-        ],
         'custom_definition' => [
             'id'  => 'html5-definitions',
             'rev' => 1,
