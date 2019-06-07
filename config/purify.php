@@ -23,11 +23,6 @@ return [
             . ',iframe[src|scrolling|class|style|id|data-aa],h1[class|style|id],h2[class|style|id],h3[class|style|id],h4[class|style|id],h5[class|style|id],h6[class|style|id]'
             . ',dt[class|style|id],dl[class|style|id]',
 
-        'custom_attributes' => [
-            ['a', 'target', 'Enum#_blank,_self,_target,_top'],
-            ['iframe', 'data-aa', 'Text'],
-        ],
-
         /*
         |--------------------------------------------------------------------------
         | Core.Encoding
@@ -141,6 +136,11 @@ return [
 
         'AutoFormat.RemoveEmpty' => false,
 
+    ],
+
+    'custom_attributes' => [
+        ['a', 'target', 'Enum#_blank,_self,_target,_top'],
+        ['iframe', 'data-aa', 'Text'],
     ],
 
 ];
