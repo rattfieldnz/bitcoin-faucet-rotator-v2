@@ -16,7 +16,7 @@ return [
     */
 
     'settings' => [
-        'HTML.Doctype' => 'HTML5',
+        'HTML.Doctype' => 'HTML 4.01 Transitional',
         'Attr.EnableID' => true,
         'Attr.ID.HTML5' => true,
 
