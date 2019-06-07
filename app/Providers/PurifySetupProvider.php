@@ -53,5 +53,8 @@ class PurifySetupProvider extends ServiceProvider
     protected function setupDefinitions(HTMLPurifier_HTMLDefinition $def)
     {
         $def->addAttribute('iframe', 'data-aa', 'Text');
+        $def->addAttribute('iframe', 'style', 'Text');
+        $def->addAttribute('iframe', 'scrolling', 'Text');
+        $def->addAttribute('iframe', 'allowtransparency', 'Text');
     }
 }
