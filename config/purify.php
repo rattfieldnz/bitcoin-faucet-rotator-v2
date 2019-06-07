@@ -15,6 +15,9 @@ return [
     |
     */
 
+
+    'Cache.SerializerPath' => storage_path('purify'),
+
     'settings' => [
 
         /*
