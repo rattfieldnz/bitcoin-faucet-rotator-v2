@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\AdBlock;
 use InfyOm\Generator\Common\BaseRepository;
 use Mews\Purifier\Facades\Purifier;
+use Stevebauman\Purify\Facades\Purify;
 
 /**
  * Class AdBlockRepository
@@ -76,8 +77,16 @@ class AdBlockRepository extends BaseRepository implements IRepository
      */
     public static function cleanInput(array $input)
     {
-        $input['ad_content'] = Purifier::clean($input['ad_content']);
-        $input['user_id'] = Purifier::clean($input['user_id'], 'generalFields');
+        $config = [
+            'HTML.Doctype' => 'HTML 4.01 Transitional',
+            'HTML.Allowed' => '',
+            'AutoFormat.AutoParagraph' => false,
+            'AutoFormat.Linkify' => false,
+        ];
+        //$input['ad_content'] = Purifier::clean($input['ad_content']);
+        $input['ad_content'] = Purify::clean($input['ad_content']);
+        //$input['user_id'] = Purifier::clean($input['user_id'], 'generalFields');
+        $input['user_id'] = Purify::clean($input['user_id'], $config);
 
         return $input;
     }

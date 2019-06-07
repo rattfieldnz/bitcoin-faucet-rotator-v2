@@ -29,7 +29,7 @@ return [
             'HTML.Allowed' => 'div[class|style|id],b,strong,i[class|style|id]'
                 . ',em,a[class|style|id|title|target|href],ul[class|style|id],ol[class|style|id],li[class|style|id]'
                 . ',p[class|style|id],br,span[class|style|id],img[width|height|alt|src|class|style|id]'
-                . ',iframe[src|scrolling|class|style|id],h1[class|style|id],h2[class|style|id],h3[class|style|id],h4[class|style|id],h5[class|style|id],h6[class|style|id]'
+                . ',iframe[src|scrolling|class|style|id|data-aa],h1[class|style|id],h2[class|style|id],h3[class|style|id],h4[class|style|id],h5[class|style|id],h6[class|style|id]'
                 . ',dt[class|style|id],dl[class|style|id]',
             'Attr.AllowedFrameTargets' => ['_blank'],
             "HTML.SafeIframe" => 'true',
@@ -105,6 +105,7 @@ return [
         ],
         'custom_attributes' => [
             ['a', 'target', 'Enum#_blank,_self,_target,_top'],
+			['iframe', 'data-aa', 'Text'],
         ],
         'custom_elements' => [
             ['u', 'Inline', 'Inline', 'Common'],

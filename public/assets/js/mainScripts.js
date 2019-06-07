@@ -29004,8 +29004,8 @@ return jQuery;
 
 }));
 /*!
- * Bootstrap v3.4.0 (https://getbootstrap.com/)
- * Copyright 2011-2018 Twitter, Inc.
+ * Bootstrap v3.4.1 (https://getbootstrap.com/)
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under the MIT license
  */
 
@@ -29022,10 +29022,10 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: transition.js v3.4.0
+ * Bootstrap: transition.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#transitions
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -29082,10 +29082,10 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: alert.js v3.4.0
+ * Bootstrap: alert.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#alerts
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -29101,7 +29101,7 @@ if (typeof jQuery === 'undefined') {
     $(el).on('click', dismiss, this.close)
   }
 
-  Alert.VERSION = '3.4.0'
+  Alert.VERSION = '3.4.1'
 
   Alert.TRANSITION_DURATION = 150
 
@@ -29178,10 +29178,10 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: button.js v3.4.0
+ * Bootstrap: button.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#buttons
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -29198,7 +29198,7 @@ if (typeof jQuery === 'undefined') {
     this.isLoading = false
   }
 
-  Button.VERSION  = '3.4.0'
+  Button.VERSION  = '3.4.1'
 
   Button.DEFAULTS = {
     loadingText: 'loading...'
@@ -29304,10 +29304,10 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: carousel.js v3.4.0
+ * Bootstrap: carousel.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#carousel
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -29335,7 +29335,7 @@ if (typeof jQuery === 'undefined') {
       .on('mouseleave.bs.carousel', $.proxy(this.cycle, this))
   }
 
-  Carousel.VERSION  = '3.4.0'
+  Carousel.VERSION  = '3.4.1'
 
   Carousel.TRANSITION_DURATION = 600
 
@@ -29551,10 +29551,10 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: collapse.js v3.4.0
+ * Bootstrap: collapse.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#collapse
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -29582,7 +29582,7 @@ if (typeof jQuery === 'undefined') {
     if (this.options.toggle) this.toggle()
   }
 
-  Collapse.VERSION  = '3.4.0'
+  Collapse.VERSION  = '3.4.1'
 
   Collapse.TRANSITION_DURATION = 350
 
@@ -29764,10 +29764,10 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: dropdown.js v3.4.0
+ * Bootstrap: dropdown.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#dropdowns
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -29784,7 +29784,7 @@ if (typeof jQuery === 'undefined') {
     $(element).on('click.bs.dropdown', this.toggle)
   }
 
-  Dropdown.VERSION = '3.4.0'
+  Dropdown.VERSION = '3.4.1'
 
   function getParent($this) {
     var selector = $this.attr('data-target')
@@ -29794,7 +29794,7 @@ if (typeof jQuery === 'undefined') {
       selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
     }
 
-    var $parent = selector && $(document).find(selector)
+    var $parent = selector !== '#' ? $(document).find(selector) : null
 
     return $parent && $parent.length ? $parent : $this.parent()
   }
@@ -29930,10 +29930,10 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: modal.js v3.4.0
+ * Bootstrap: modal.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#modals
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -29965,7 +29965,7 @@ if (typeof jQuery === 'undefined') {
     }
   }
 
-  Modal.VERSION = '3.4.0'
+  Modal.VERSION = '3.4.1'
 
   Modal.TRANSITION_DURATION = 300
   Modal.BACKDROP_TRANSITION_DURATION = 150
@@ -30289,17 +30289,147 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: tooltip.js v3.4.0
+ * Bootstrap: tooltip.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#tooltip
  * Inspired by the original jQuery.tipsy by Jason Frame
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
-
 +function ($) {
   'use strict';
+
+  var DISALLOWED_ATTRIBUTES = ['sanitize', 'whiteList', 'sanitizeFn']
+
+  var uriAttrs = [
+    'background',
+    'cite',
+    'href',
+    'itemtype',
+    'longdesc',
+    'poster',
+    'src',
+    'xlink:href'
+  ]
+
+  var ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i
+
+  var DefaultWhitelist = {
+    // Global attributes allowed on any supplied element below.
+    '*': ['class', 'dir', 'id', 'lang', 'role', ARIA_ATTRIBUTE_PATTERN],
+    a: ['target', 'href', 'title', 'rel'],
+    area: [],
+    b: [],
+    br: [],
+    col: [],
+    code: [],
+    div: [],
+    em: [],
+    hr: [],
+    h1: [],
+    h2: [],
+    h3: [],
+    h4: [],
+    h5: [],
+    h6: [],
+    i: [],
+    img: ['src', 'alt', 'title', 'width', 'height'],
+    li: [],
+    ol: [],
+    p: [],
+    pre: [],
+    s: [],
+    small: [],
+    span: [],
+    sub: [],
+    sup: [],
+    strong: [],
+    u: [],
+    ul: []
+  }
+
+  /**
+   * A pattern that recognizes a commonly useful subset of URLs that are safe.
+   *
+   * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
+   */
+  var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi
+
+  /**
+   * A pattern that matches safe data URLs. Only matches image, video and audio types.
+   *
+   * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
+   */
+  var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+/]+=*$/i
+
+  function allowedAttribute(attr, allowedAttributeList) {
+    var attrName = attr.nodeName.toLowerCase()
+
+    if ($.inArray(attrName, allowedAttributeList) !== -1) {
+      if ($.inArray(attrName, uriAttrs) !== -1) {
+        return Boolean(attr.nodeValue.match(SAFE_URL_PATTERN) || attr.nodeValue.match(DATA_URL_PATTERN))
+      }
+
+      return true
+    }
+
+    var regExp = $(allowedAttributeList).filter(function (index, value) {
+      return value instanceof RegExp
+    })
+
+    // Check if a regular expression validates the attribute.
+    for (var i = 0, l = regExp.length; i < l; i++) {
+      if (attrName.match(regExp[i])) {
+        return true
+      }
+    }
+
+    return false
+  }
+
+  function sanitizeHtml(unsafeHtml, whiteList, sanitizeFn) {
+    if (unsafeHtml.length === 0) {
+      return unsafeHtml
+    }
+
+    if (sanitizeFn && typeof sanitizeFn === 'function') {
+      return sanitizeFn(unsafeHtml)
+    }
+
+    // IE 8 and below don't support createHTMLDocument
+    if (!document.implementation || !document.implementation.createHTMLDocument) {
+      return unsafeHtml
+    }
+
+    var createdDocument = document.implementation.createHTMLDocument('sanitization')
+    createdDocument.body.innerHTML = unsafeHtml
+
+    var whitelistKeys = $.map(whiteList, function (el, i) { return i })
+    var elements = $(createdDocument.body).find('*')
+
+    for (var i = 0, len = elements.length; i < len; i++) {
+      var el = elements[i]
+      var elName = el.nodeName.toLowerCase()
+
+      if ($.inArray(elName, whitelistKeys) === -1) {
+        el.parentNode.removeChild(el)
+
+        continue
+      }
+
+      var attributeList = $.map(el.attributes, function (el) { return el })
+      var whitelistedAttributes = [].concat(whiteList['*'] || [], whiteList[elName] || [])
+
+      for (var j = 0, len2 = attributeList.length; j < len2; j++) {
+        if (!allowedAttribute(attributeList[j], whitelistedAttributes)) {
+          el.removeAttribute(attributeList[j].nodeName)
+        }
+      }
+    }
+
+    return createdDocument.body.innerHTML
+  }
 
   // TOOLTIP PUBLIC CLASS DEFINITION
   // ===============================
@@ -30316,7 +30446,7 @@ if (typeof jQuery === 'undefined') {
     this.init('tooltip', element, options)
   }
 
-  Tooltip.VERSION  = '3.4.0'
+  Tooltip.VERSION  = '3.4.1'
 
   Tooltip.TRANSITION_DURATION = 150
 
@@ -30333,7 +30463,10 @@ if (typeof jQuery === 'undefined') {
     viewport: {
       selector: 'body',
       padding: 0
-    }
+    },
+    sanitize : true,
+    sanitizeFn : null,
+    whiteList : DefaultWhitelist
   }
 
   Tooltip.prototype.init = function (type, element, options) {
@@ -30374,13 +30507,25 @@ if (typeof jQuery === 'undefined') {
   }
 
   Tooltip.prototype.getOptions = function (options) {
-    options = $.extend({}, this.getDefaults(), this.$element.data(), options)
+    var dataAttributes = this.$element.data()
+
+    for (var dataAttr in dataAttributes) {
+      if (dataAttributes.hasOwnProperty(dataAttr) && $.inArray(dataAttr, DISALLOWED_ATTRIBUTES) !== -1) {
+        delete dataAttributes[dataAttr]
+      }
+    }
+
+    options = $.extend({}, this.getDefaults(), dataAttributes, options)
 
     if (options.delay && typeof options.delay == 'number') {
       options.delay = {
         show: options.delay,
         hide: options.delay
       }
+    }
+
+    if (options.sanitize) {
+      options.template = sanitizeHtml(options.template, options.whiteList, options.sanitizeFn)
     }
 
     return options
@@ -30596,7 +30741,16 @@ if (typeof jQuery === 'undefined') {
     var $tip  = this.tip()
     var title = this.getTitle()
 
-    $tip.find('.tooltip-inner')[this.options.html ? 'html' : 'text'](title)
+    if (this.options.html) {
+      if (this.options.sanitize) {
+        title = sanitizeHtml(title, this.options.whiteList, this.options.sanitizeFn)
+      }
+
+      $tip.find('.tooltip-inner').html(title)
+    } else {
+      $tip.find('.tooltip-inner').text(title)
+    }
+
     $tip.removeClass('fade in top bottom left right')
   }
 
@@ -30777,6 +30931,9 @@ if (typeof jQuery === 'undefined') {
     })
   }
 
+  Tooltip.prototype.sanitizeHtml = function (unsafeHtml) {
+    return sanitizeHtml(unsafeHtml, this.options.whiteList, this.options.sanitizeFn)
+  }
 
   // TOOLTIP PLUGIN DEFINITION
   // =========================
@@ -30810,10 +30967,10 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: popover.js v3.4.0
+ * Bootstrap: popover.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#popovers
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -30830,7 +30987,7 @@ if (typeof jQuery === 'undefined') {
 
   if (!$.fn.tooltip) throw new Error('Popover requires tooltip.js')
 
-  Popover.VERSION  = '3.4.0'
+  Popover.VERSION  = '3.4.1'
 
   Popover.DEFAULTS = $.extend({}, $.fn.tooltip.Constructor.DEFAULTS, {
     placement: 'right',
@@ -30856,10 +31013,25 @@ if (typeof jQuery === 'undefined') {
     var title   = this.getTitle()
     var content = this.getContent()
 
-    $tip.find('.popover-title')[this.options.html ? 'html' : 'text'](title)
-    $tip.find('.popover-content').children().detach().end()[ // we use append for html objects to maintain js events
-      this.options.html ? (typeof content == 'string' ? 'html' : 'append') : 'text'
-    ](content)
+    if (this.options.html) {
+      var typeContent = typeof content
+
+      if (this.options.sanitize) {
+        title = this.sanitizeHtml(title)
+
+        if (typeContent === 'string') {
+          content = this.sanitizeHtml(content)
+        }
+      }
+
+      $tip.find('.popover-title').html(title)
+      $tip.find('.popover-content').children().detach().end()[
+        typeContent === 'string' ? 'html' : 'append'
+      ](content)
+    } else {
+      $tip.find('.popover-title').text(title)
+      $tip.find('.popover-content').children().detach().end().text(content)
+    }
 
     $tip.removeClass('fade top bottom left right in')
 
@@ -30919,10 +31091,10 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: scrollspy.js v3.4.0
+ * Bootstrap: scrollspy.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#scrollspy
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -30948,7 +31120,7 @@ if (typeof jQuery === 'undefined') {
     this.process()
   }
 
-  ScrollSpy.VERSION  = '3.4.0'
+  ScrollSpy.VERSION  = '3.4.1'
 
   ScrollSpy.DEFAULTS = {
     offset: 10
@@ -31092,10 +31264,10 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: tab.js v3.4.0
+ * Bootstrap: tab.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#tabs
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -31112,7 +31284,7 @@ if (typeof jQuery === 'undefined') {
     // jscs:enable requireDollarBeforejQueryAssignment
   }
 
-  Tab.VERSION = '3.4.0'
+  Tab.VERSION = '3.4.1'
 
   Tab.TRANSITION_DURATION = 150
 
@@ -31248,10 +31420,10 @@ if (typeof jQuery === 'undefined') {
 }(jQuery);
 
 /* ========================================================================
- * Bootstrap: affix.js v3.4.0
+ * Bootstrap: affix.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#affix
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -31279,7 +31451,7 @@ if (typeof jQuery === 'undefined') {
     this.checkPosition()
   }
 
-  Affix.VERSION  = '3.4.0'
+  Affix.VERSION  = '3.4.1'
 
   Affix.RESET    = 'affix affix-top affix-bottom'
 
@@ -52287,7 +52459,7 @@ $(document).ready(function () {
 
     setCookie: function(name, value, expiryDays, domain, path, secure) {
       var exdate = new Date();
-      exdate.setDate(exdate.getDate() + (expiryDays || 365));
+      exdate.setHours(exdate.getHours() + ((expiryDays || 365) * 24));
 
       var cookie = [
         name + '=' + value,
@@ -52491,7 +52663,7 @@ $(document).ready(function () {
         allow: 'Allow cookies',
         deny: 'Decline',
         link: 'Learn more',
-        href: 'https://cookiesandyou.com',
+        href: 'https://www.cookiesandyou.com',
         close: '&#x274c;',
         target: '_blank',
         policy: 'Cookie Policy'
@@ -53309,6 +53481,7 @@ $(document).ready(function () {
             close(true);
 
             window.removeEventListener('click', onWindowClick);
+            window.removeEventListener('touchend', onWindowClick);
             this.onWindowClick = null;
           }
         }.bind(this);
@@ -53316,6 +53489,7 @@ $(document).ready(function () {
         if (this.options.enabled) {
           this.onWindowClick = onWindowClick;
           window.addEventListener('click', onWindowClick);
+          window.addEventListener('touchend', onWindowClick);
         }
       }
     }
@@ -54212,7 +54386,7 @@ if (typeof jQuery === "undefined") {
 
             absolute: true,
             rootUrl: 'http://thebitcoinrotator.192.168.22.10.xip.io',
-            routes : [{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/open","name":"debugbar.openhandler","action":"Barryvdh\Debugbar\Controllers\OpenHandlerController@handle"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/clockwork\/{id}","name":"debugbar.clockwork","action":"Barryvdh\Debugbar\Controllers\OpenHandlerController@clockwork"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/assets\/stylesheets","name":"debugbar.assets.css","action":"Barryvdh\Debugbar\Controllers\AssetController@css"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/assets\/javascript","name":"debugbar.assets.js","action":"Barryvdh\Debugbar\Controllers\AssetController@js"},{"host":null,"methods":["DELETE"],"uri":"_debugbar\/cache\/{key}\/{tags?}","name":"debugbar.cache.delete","action":"Barryvdh\Debugbar\Controllers\CacheController@delete"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/authorize","name":"passport.authorizations.authorize","action":"\Laravel\Passport\Http\Controllers\AuthorizationController@authorize"},{"host":null,"methods":["POST"],"uri":"oauth\/authorize","name":"passport.authorizations.approve","action":"\Laravel\Passport\Http\Controllers\ApproveAuthorizationController@approve"},{"host":null,"methods":["DELETE"],"uri":"oauth\/authorize","name":"passport.authorizations.deny","action":"\Laravel\Passport\Http\Controllers\DenyAuthorizationController@deny"},{"host":null,"methods":["POST"],"uri":"oauth\/token","name":"passport.token","action":"\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/tokens","name":"passport.tokens.index","action":"\Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@forUser"},{"host":null,"methods":["DELETE"],"uri":"oauth\/tokens\/{token_id}","name":"passport.tokens.destroy","action":"\Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@destroy"},{"host":null,"methods":["POST"],"uri":"oauth\/token\/refresh","name":"passport.token.refresh","action":"\Laravel\Passport\Http\Controllers\TransientTokenController@refresh"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/clients","name":"passport.clients.index","action":"\Laravel\Passport\Http\Controllers\ClientController@forUser"},{"host":null,"methods":["POST"],"uri":"oauth\/clients","name":"passport.clients.store","action":"\Laravel\Passport\Http\Controllers\ClientController@store"},{"host":null,"methods":["PUT"],"uri":"oauth\/clients\/{client_id}","name":"passport.clients.update","action":"\Laravel\Passport\Http\Controllers\ClientController@update"},{"host":null,"methods":["DELETE"],"uri":"oauth\/clients\/{client_id}","name":"passport.clients.destroy","action":"\Laravel\Passport\Http\Controllers\ClientController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/scopes","name":"passport.scopes.index","action":"\Laravel\Passport\Http\Controllers\ScopeController@all"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/personal-access-tokens","name":"passport.personal.tokens.index","action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@forUser"},{"host":null,"methods":["POST"],"uri":"oauth\/personal-access-tokens","name":"passport.personal.tokens.store","action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@store"},{"host":null,"methods":["DELETE"],"uri":"oauth\/personal-access-tokens\/{token_id}","name":"passport.personal.tokens.destroy","action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets","name":"faucets","action":"App\Http\Controllers\API\FaucetAPIController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets\/{slug}","name":"faucets.show","action":"App\Http\Controllers\API\FaucetAPIController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/first-faucet","name":"faucets.first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets\/{slug}\/previous-faucet","name":"faucets.previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets\/{slug}\/next-faucet","name":"faucets.next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/last-faucet","name":"faucets.last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/random-faucet","name":"faucets.random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users","name":"users","action":"App\Http\Controllers\API\UserAPIController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets","name":"user.faucets","action":"App\Http\Controllers\API\FaucetAPIController@getUserFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets\/{faucetSlug}","name":"user.faucet","action":"App\Http\Controllers\API\FaucetAPIController@getUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/first-faucet","name":"user.first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets\/{faucetSlug}\/next-faucet","name":"user.next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets\/{faucetSlug}\/previous-faucet","name":"user.previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/last-faucet","name":"user.last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/random-faucet","name":"user.random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors","name":"user.payment-processors","action":"App\Http\Controllers\API\PaymentProcessorAPIController@userPaymentProcessors"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets","name":"user.payment-processor-faucets","action":"App\Http\Controllers\API\FaucetAPIController@getUserPaymentProcessorFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}","name":"user.payment-processor-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/first-faucet","name":"user.payment-processor-first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/next-faucet","name":"user.payment-processor-next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/previous-faucet","name":"user.payment-processor-previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/last-faucet","name":"user.payment-processor-last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/random-faucet","name":"user.payment-processor-random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors","name":"payment-processors","action":"App\Http\Controllers\API\PaymentProcessorAPIController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{slug}","name":"payment-processors.show","action":"App\Http\Controllers\API\PaymentProcessorAPIController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}","name":"payment-processor.faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets","name":"payment-processor.faucets","action":"App\Http\Controllers\API\FaucetAPIController@getPaymentProcessorFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/first-faucet","name":"payment-processor.first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/previous-faucet","name":"payment-processor.previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/next-faucet","name":"payment-processor.next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/last-faucet","name":"payment-processor.last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/random-faucet","name":"payment-processor.random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/top-pages\/from\/{dateFrom}\/to\/{dateTo}\/quantity\/{quantity?}","name":"stats.top-pages-between-dates","action":"App\Http\Controllers\API\StatsAPIController@getPagesVisited"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/visits-and-page-views\/from\/{dateFrom}\/to\/{dateTo}\/quantity\/{quantity?}","name":"stats.visits-and-page-views","action":"App\Http\Controllers\API\StatsAPIController@getVisitorsAndPageViews"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/top-x-browsers\/from\/{dateFrom}\/to\/{dateTo}\/max-browsers\/{maxBrowsers?}","name":"stats.top-x-browsers","action":"App\Http\Controllers\API\StatsAPIController@getTopBrowsersAndVisitors"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/countries-and-visitors\/from\/{dateFrom}\/to\/{dateTo}","name":"stats.countries-and-visitors","action":"App\Http\Controllers\API\StatsAPIController@getCountriesAndVisitors"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{slug}","name":"users.show","action":"App\Http\Controllers\API\UserAPIController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"login","name":"login","action":"App\Http\Controllers\Auth\LoginController@showLoginForm"},{"host":null,"methods":["POST"],"uri":"login","name":null,"action":"App\Http\Controllers\Auth\LoginController@login"},{"host":null,"methods":["POST"],"uri":"logout","name":"logout","action":"App\Http\Controllers\Auth\LoginController@logout"},{"host":null,"methods":["GET","HEAD"],"uri":"register","name":"register","action":"App\Http\Controllers\Auth\RegisterController@showRegistrationForm"},{"host":null,"methods":["POST"],"uri":"register","name":null,"action":"App\Http\Controllers\Auth\RegisterController@register"},{"host":null,"methods":["GET","HEAD"],"uri":"password\/reset","name":"password.request","action":"App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm"},{"host":null,"methods":["POST"],"uri":"password\/email","name":"password.email","action":"App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail"},{"host":null,"methods":["GET","HEAD"],"uri":"password\/reset\/{token}","name":"password.reset","action":"App\Http\Controllers\Auth\ResetPasswordController@showResetForm"},{"host":null,"methods":["POST"],"uri":"password\/reset","name":"password.update","action":"App\Http\Controllers\Auth\ResetPasswordController@reset"},{"host":null,"methods":["GET","HEAD"],"uri":"logout","name":null,"action":"\App\Http\Controllers\Auth\LoginController@logout"},{"host":null,"methods":["GET","HEAD"],"uri":"\/","name":"home","action":"App\Http\Controllers\RotatorController@index"},{"host":null,"methods":["DELETE"],"uri":"faucets\/{slug}\/delete-permanently","name":"faucets.delete-permanently","action":"App\Http\Controllers\FaucetController@destroyPermanently"},{"host":null,"methods":["PATCH"],"uri":"faucets\/{slug}\/restore","name":"faucets.restore","action":"App\Http\Controllers\FaucetController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/create","name":"faucets.create","action":"App\Http\Controllers\FaucetController@create"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{slug}\/edit","name":"faucets.edit","action":"App\Http\Controllers\FaucetController@edit"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{slug}","name":"faucet.show","action":"App\Http\Controllers\FaucetController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/faucets","name":"users.faucets","action":"App\Http\Controllers\UserFaucetsController@index"},{"host":null,"methods":["POST"],"uri":"users\/{userSlug}\/faucets\/store","name":"users.faucets.store","action":"App\Http\Controllers\UserFaucetsController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/faucets\/{faucetSlug}","name":"users.faucets.show","action":"App\Http\Controllers\UserFaucetsController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors","name":"users.payment-processors","action":"App\Http\Controllers\PaymentProcessorController@userPaymentProcessors"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets","name":"users.payment-processors.faucets","action":"App\Http\Controllers\PaymentProcessorController@userPaymentProcessorFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/rotator","name":"users.payment-processors.rotator","action":"App\Http\Controllers\RotatorController@getUserPaymentProcessorFaucetRotator"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/faucets\/{faucetSlug}\/edit","name":null,"action":"Closure"},{"host":null,"methods":["PATCH"],"uri":"users\/{userSlug}\/faucets\/update-multiple","name":"users.faucets.update-multiple","action":"App\Http\Controllers\UserFaucetsController@updateMultiple"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/rotator","name":"users.rotator","action":"App\Http\Controllers\RotatorController@getUserFaucetRotator"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets","name":"faucets.index","action":"App\Http\Controllers\FaucetController@index"},{"host":null,"methods":["POST"],"uri":"faucets","name":"faucets.store","action":"App\Http\Controllers\FaucetController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{faucet}","name":"faucets.show","action":"App\Http\Controllers\FaucetController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{faucet}\/edit","name":"faucets.edit","action":"App\Http\Controllers\FaucetController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"faucets\/{faucet}","name":"faucets.update","action":"App\Http\Controllers\FaucetController@update"},{"host":null,"methods":["DELETE"],"uri":"faucets\/{faucet}","name":"faucets.destroy","action":"App\Http\Controllers\FaucetController@destroy"},{"host":null,"methods":["DELETE"],"uri":"payment-processors\/{slug}\/delete-permanently","name":"payment-processors.delete-permanently","action":"App\Http\Controllers\PaymentProcessorController@destroyPermanently"},{"host":null,"methods":["PATCH"],"uri":"payment-processors\/{slug}\/restore","name":"payment-processors.restore","action":"App\Http\Controllers\PaymentProcessorController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{slug}\/faucets","name":"payment-processors.faucets","action":"App\Http\Controllers\PaymentProcessorController@faucets"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{slug}\/rotator","name":"payment-processors.rotator","action":"App\Http\Controllers\RotatorController@getPaymentProcessorFaucetRotator"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors","name":"payment-processors.index","action":"App\Http\Controllers\PaymentProcessorController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/create","name":"payment-processors.create","action":"App\Http\Controllers\PaymentProcessorController@create"},{"host":null,"methods":["POST"],"uri":"payment-processors","name":"payment-processors.store","action":"App\Http\Controllers\PaymentProcessorController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{payment_processor}","name":"payment-processors.show","action":"App\Http\Controllers\PaymentProcessorController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{payment_processor}\/edit","name":"payment-processors.edit","action":"App\Http\Controllers\PaymentProcessorController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"payment-processors\/{payment_processor}","name":"payment-processors.update","action":"App\Http\Controllers\PaymentProcessorController@update"},{"host":null,"methods":["DELETE"],"uri":"payment-processors\/{payment_processor}","name":"payment-processors.destroy","action":"App\Http\Controllers\PaymentProcessorController@destroy"},{"host":null,"methods":["DELETE"],"uri":"users\/{slug}\/delete-permanently","name":"users.delete-permanently","action":"App\Http\Controllers\UserController@destroyPermanently"},{"host":null,"methods":["DELETE"],"uri":"purge-deleted-users","name":"users.purge-archived","action":"App\Http\Controllers\UserController@purgeArchivedUsers"},{"host":null,"methods":["PATCH"],"uri":"users\/{slug}\/restore","name":"users.restore","action":"App\Http\Controllers\UserController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"users","name":"users.index","action":"App\Http\Controllers\UserController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/create","name":"users.create","action":"App\Http\Controllers\UserController@create"},{"host":null,"methods":["POST"],"uri":"users","name":"users.store","action":"App\Http\Controllers\UserController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{user}","name":"users.show","action":"App\Http\Controllers\UserController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{user}\/edit","name":"users.edit","action":"App\Http\Controllers\UserController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"users\/{user}","name":"users.update","action":"App\Http\Controllers\UserController@update"},{"host":null,"methods":["DELETE"],"uri":"users\/{user}","name":"users.destroy","action":"App\Http\Controllers\UserController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta","name":"main-meta.index","action":"App\Http\Controllers\MainMetaController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta\/create","name":"main-meta.create","action":"App\Http\Controllers\MainMetaController@create"},{"host":null,"methods":["POST"],"uri":"main-meta","name":"main-meta.store","action":"App\Http\Controllers\MainMetaController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta\/{main_metum}","name":"main-meta.show","action":"App\Http\Controllers\MainMetaController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta\/{main_metum}\/edit","name":"main-meta.edit","action":"App\Http\Controllers\MainMetaController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"main-meta\/{main_metum}","name":"main-meta.update","action":"App\Http\Controllers\MainMetaController@update"},{"host":null,"methods":["DELETE"],"uri":"main-meta\/{main_metum}","name":"main-meta.destroy","action":"App\Http\Controllers\MainMetaController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block","name":"ad-block.index","action":"App\Http\Controllers\AdBlockController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block\/create","name":"ad-block.create","action":"App\Http\Controllers\AdBlockController@create"},{"host":null,"methods":["POST"],"uri":"ad-block","name":"ad-block.store","action":"App\Http\Controllers\AdBlockController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block\/{ad_block}","name":"ad-block.show","action":"App\Http\Controllers\AdBlockController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block\/{ad_block}\/edit","name":"ad-block.edit","action":"App\Http\Controllers\AdBlockController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"ad-block\/{ad_block}","name":"ad-block.update","action":"App\Http\Controllers\AdBlockController@update"},{"host":null,"methods":["DELETE"],"uri":"ad-block\/{ad_block}","name":"ad-block.destroy","action":"App\Http\Controllers\AdBlockController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config","name":"twitter-config.index","action":"App\Http\Controllers\TwitterConfigController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config\/create","name":"twitter-config.create","action":"App\Http\Controllers\TwitterConfigController@create"},{"host":null,"methods":["POST"],"uri":"twitter-config","name":"twitter-config.store","action":"App\Http\Controllers\TwitterConfigController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config\/{twitter_config}","name":"twitter-config.show","action":"App\Http\Controllers\TwitterConfigController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config\/{twitter_config}\/edit","name":"twitter-config.edit","action":"App\Http\Controllers\TwitterConfigController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"twitter-config\/{twitter_config}","name":"twitter-config.update","action":"App\Http\Controllers\TwitterConfigController@update"},{"host":null,"methods":["DELETE"],"uri":"twitter-config\/{twitter_config}","name":"twitter-config.destroy","action":"App\Http\Controllers\TwitterConfigController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"roles","name":"roles.index","action":"App\Http\Controllers\RoleController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"roles\/create","name":"roles.create","action":"App\Http\Controllers\RoleController@create"},{"host":null,"methods":["POST"],"uri":"roles","name":"roles.store","action":"App\Http\Controllers\RoleController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"roles\/{role}","name":"roles.show","action":"App\Http\Controllers\RoleController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"roles\/{role}\/edit","name":"roles.edit","action":"App\Http\Controllers\RoleController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"roles\/{role}","name":"roles.update","action":"App\Http\Controllers\RoleController@update"},{"host":null,"methods":["DELETE"],"uri":"roles\/{role}","name":"roles.destroy","action":"App\Http\Controllers\RoleController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions","name":"permissions.index","action":"App\Http\Controllers\PermissionController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions\/create","name":"permissions.create","action":"App\Http\Controllers\PermissionController@create"},{"host":null,"methods":["POST"],"uri":"permissions","name":"permissions.store","action":"App\Http\Controllers\PermissionController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions\/{permission}","name":"permissions.show","action":"App\Http\Controllers\PermissionController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions\/{permission}\/edit","name":"permissions.edit","action":"App\Http\Controllers\PermissionController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"permissions\/{permission}","name":"permissions.update","action":"App\Http\Controllers\PermissionController@update"},{"host":null,"methods":["DELETE"],"uri":"permissions\/{permission}","name":"permissions.destroy","action":"App\Http\Controllers\PermissionController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/edit","name":"privacy-policy.edit","action":"App\Http\Controllers\PrivacyPolicyController@edit"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy","name":"privacy-policy","action":"App\Http\Controllers\PrivacyPolicyController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/create","name":"privacy-policy.create","action":"App\Http\Controllers\PrivacyPolicyController@create"},{"host":null,"methods":["POST"],"uri":"privacy-policy","name":"privacy-policy.store","action":"App\Http\Controllers\PrivacyPolicyController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/{privacy_policy}","name":"privacy-policy.show","action":"App\Http\Controllers\PrivacyPolicyController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/{privacy_policy}\/edit","name":"privacy-policy.edit","action":"App\Http\Controllers\PrivacyPolicyController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"privacy-policy\/{privacy_policy}","name":"privacy-policy.update","action":"App\Http\Controllers\PrivacyPolicyController@update"},{"host":null,"methods":["DELETE"],"uri":"privacy-policy\/{privacy_policy}","name":"privacy-policy.destroy","action":"App\Http\Controllers\PrivacyPolicyController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/edit","name":"terms-and-conditions.edit","action":"App\Http\Controllers\TermsAndConditionsController@edit"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions","name":"terms-and-conditions","action":"App\Http\Controllers\TermsAndConditionsController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/create","name":"terms-and-conditions.create","action":"App\Http\Controllers\TermsAndConditionsController@create"},{"host":null,"methods":["POST"],"uri":"terms-and-conditions","name":"terms-and-conditions.store","action":"App\Http\Controllers\TermsAndConditionsController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/{terms_and_condition}","name":"terms-and-conditions.show","action":"App\Http\Controllers\TermsAndConditionsController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/{terms_and_condition}\/edit","name":"terms-and-conditions.edit","action":"App\Http\Controllers\TermsAndConditionsController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"terms-and-conditions\/{terms_and_condition}","name":"terms-and-conditions.update","action":"App\Http\Controllers\TermsAndConditionsController@update"},{"host":null,"methods":["DELETE"],"uri":"terms-and-conditions\/{terms_and_condition}","name":"terms-and-conditions.destroy","action":"App\Http\Controllers\TermsAndConditionsController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"stats","name":"stats.index","action":"App\Http\Controllers\StatsController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"settings","name":"settings","action":"App\Http\Controllers\SettingsController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks","name":"social-networks.index","action":"App\Http\Controllers\SocialNetworksController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks\/create","name":"social-networks.create","action":"App\Http\Controllers\SocialNetworksController@create"},{"host":null,"methods":["POST"],"uri":"social-networks","name":"social-networks.store","action":"App\Http\Controllers\SocialNetworksController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks\/{social_network}","name":"social-networks.show","action":"App\Http\Controllers\SocialNetworksController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks\/{social_network}\/edit","name":"social-networks.edit","action":"App\Http\Controllers\SocialNetworksController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"social-networks\/{social_network}","name":"social-networks.update","action":"App\Http\Controllers\SocialNetworksController@update"},{"host":null,"methods":["DELETE"],"uri":"social-networks\/{social_network}","name":"social-networks.destroy","action":"App\Http\Controllers\SocialNetworksController@destroy"},{"host":null,"methods":["DELETE"],"uri":"alerts\/{slug}\/delete-temporarily","name":"alerts.delete-temporarily","action":"App\Http\Controllers\AlertController@destroy"},{"host":null,"methods":["DELETE"],"uri":"alerts\/{slug}\/delete-permanently","name":"alerts.delete-permanently","action":"App\Http\Controllers\AlertController@destroyPermanently"},{"host":null,"methods":["PATCH"],"uri":"alerts\/{slug}\/restore","name":"alerts.restore","action":"App\Http\Controllers\AlertController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts","name":"alerts.index","action":"App\Http\Controllers\AlertController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts\/create","name":"alerts.create","action":"App\Http\Controllers\AlertController@create"},{"host":null,"methods":["POST"],"uri":"alerts","name":"alerts.store","action":"App\Http\Controllers\AlertController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts\/{alert}","name":"alerts.show","action":"App\Http\Controllers\AlertController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts\/{alert}\/edit","name":"alerts.edit","action":"App\Http\Controllers\AlertController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"alerts\/{alert}","name":"alerts.update","action":"App\Http\Controllers\AlertController@update"},{"host":null,"methods":["DELETE"],"uri":"alerts\/{alert}","name":"alerts.destroy","action":"App\Http\Controllers\AlertController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types","name":"alert-types.index","action":"App\Http\Controllers\AlertTypeController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types\/create","name":"alert-types.create","action":"App\Http\Controllers\AlertTypeController@create"},{"host":null,"methods":["POST"],"uri":"alert-types","name":"alert-types.store","action":"App\Http\Controllers\AlertTypeController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types\/{alert_type}","name":"alert-types.show","action":"App\Http\Controllers\AlertTypeController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types\/{alert_type}\/edit","name":"alert-types.edit","action":"App\Http\Controllers\AlertTypeController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"alert-types\/{alert_type}","name":"alert-types.update","action":"App\Http\Controllers\AlertTypeController@update"},{"host":null,"methods":["DELETE"],"uri":"alert-types\/{alert_type}","name":"alert-types.destroy","action":"App\Http\Controllers\AlertTypeController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-main","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users-faucets","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users-rotators","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users-payment-processors","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-faucets","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-payment-processors","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-alerts","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets-feed","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"users-feed","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors-feed","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts-feed","name":null,"action":"Closure"}],
+            routes : [{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/open","name":"debugbar.openhandler","action":"Barryvdh\Debugbar\Controllers\OpenHandlerController@handle"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/clockwork\/{id}","name":"debugbar.clockwork","action":"Barryvdh\Debugbar\Controllers\OpenHandlerController@clockwork"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/telescope\/{id}","name":"debugbar.telescope","action":"Barryvdh\Debugbar\Controllers\TelescopeController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/assets\/stylesheets","name":"debugbar.assets.css","action":"Barryvdh\Debugbar\Controllers\AssetController@css"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/assets\/javascript","name":"debugbar.assets.js","action":"Barryvdh\Debugbar\Controllers\AssetController@js"},{"host":null,"methods":["DELETE"],"uri":"_debugbar\/cache\/{key}\/{tags?}","name":"debugbar.cache.delete","action":"Barryvdh\Debugbar\Controllers\CacheController@delete"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/authorize","name":"passport.authorizations.authorize","action":"\Laravel\Passport\Http\Controllers\AuthorizationController@authorize"},{"host":null,"methods":["POST"],"uri":"oauth\/authorize","name":"passport.authorizations.approve","action":"\Laravel\Passport\Http\Controllers\ApproveAuthorizationController@approve"},{"host":null,"methods":["DELETE"],"uri":"oauth\/authorize","name":"passport.authorizations.deny","action":"\Laravel\Passport\Http\Controllers\DenyAuthorizationController@deny"},{"host":null,"methods":["POST"],"uri":"oauth\/token","name":"passport.token","action":"\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/tokens","name":"passport.tokens.index","action":"\Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@forUser"},{"host":null,"methods":["DELETE"],"uri":"oauth\/tokens\/{token_id}","name":"passport.tokens.destroy","action":"\Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@destroy"},{"host":null,"methods":["POST"],"uri":"oauth\/token\/refresh","name":"passport.token.refresh","action":"\Laravel\Passport\Http\Controllers\TransientTokenController@refresh"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/clients","name":"passport.clients.index","action":"\Laravel\Passport\Http\Controllers\ClientController@forUser"},{"host":null,"methods":["POST"],"uri":"oauth\/clients","name":"passport.clients.store","action":"\Laravel\Passport\Http\Controllers\ClientController@store"},{"host":null,"methods":["PUT"],"uri":"oauth\/clients\/{client_id}","name":"passport.clients.update","action":"\Laravel\Passport\Http\Controllers\ClientController@update"},{"host":null,"methods":["DELETE"],"uri":"oauth\/clients\/{client_id}","name":"passport.clients.destroy","action":"\Laravel\Passport\Http\Controllers\ClientController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/scopes","name":"passport.scopes.index","action":"\Laravel\Passport\Http\Controllers\ScopeController@all"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/personal-access-tokens","name":"passport.personal.tokens.index","action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@forUser"},{"host":null,"methods":["POST"],"uri":"oauth\/personal-access-tokens","name":"passport.personal.tokens.store","action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@store"},{"host":null,"methods":["DELETE"],"uri":"oauth\/personal-access-tokens\/{token_id}","name":"passport.personal.tokens.destroy","action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets","name":"faucets","action":"App\Http\Controllers\API\FaucetAPIController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets\/{slug}","name":"faucets.show","action":"App\Http\Controllers\API\FaucetAPIController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/first-faucet","name":"faucets.first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets\/{slug}\/previous-faucet","name":"faucets.previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets\/{slug}\/next-faucet","name":"faucets.next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/last-faucet","name":"faucets.last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/random-faucet","name":"faucets.random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users","name":"users","action":"App\Http\Controllers\API\UserAPIController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets","name":"user.faucets","action":"App\Http\Controllers\API\FaucetAPIController@getUserFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets\/{faucetSlug}","name":"user.faucet","action":"App\Http\Controllers\API\FaucetAPIController@getUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/first-faucet","name":"user.first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets\/{faucetSlug}\/next-faucet","name":"user.next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets\/{faucetSlug}\/previous-faucet","name":"user.previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/last-faucet","name":"user.last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/random-faucet","name":"user.random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors","name":"user.payment-processors","action":"App\Http\Controllers\API\PaymentProcessorAPIController@userPaymentProcessors"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets","name":"user.payment-processor-faucets","action":"App\Http\Controllers\API\FaucetAPIController@getUserPaymentProcessorFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}","name":"user.payment-processor-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/first-faucet","name":"user.payment-processor-first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/next-faucet","name":"user.payment-processor-next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/previous-faucet","name":"user.payment-processor-previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/last-faucet","name":"user.payment-processor-last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/random-faucet","name":"user.payment-processor-random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors","name":"payment-processors","action":"App\Http\Controllers\API\PaymentProcessorAPIController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{slug}","name":"payment-processors.show","action":"App\Http\Controllers\API\PaymentProcessorAPIController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}","name":"payment-processor.faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets","name":"payment-processor.faucets","action":"App\Http\Controllers\API\FaucetAPIController@getPaymentProcessorFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/first-faucet","name":"payment-processor.first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/previous-faucet","name":"payment-processor.previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/next-faucet","name":"payment-processor.next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/last-faucet","name":"payment-processor.last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/random-faucet","name":"payment-processor.random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/top-pages\/from\/{dateFrom}\/to\/{dateTo}\/quantity\/{quantity?}","name":"stats.top-pages-between-dates","action":"App\Http\Controllers\API\StatsAPIController@getPagesVisited"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/visits-and-page-views\/from\/{dateFrom}\/to\/{dateTo}\/quantity\/{quantity?}","name":"stats.visits-and-page-views","action":"App\Http\Controllers\API\StatsAPIController@getVisitorsAndPageViews"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/top-x-browsers\/from\/{dateFrom}\/to\/{dateTo}\/max-browsers\/{maxBrowsers?}","name":"stats.top-x-browsers","action":"App\Http\Controllers\API\StatsAPIController@getTopBrowsersAndVisitors"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/countries-and-visitors\/from\/{dateFrom}\/to\/{dateTo}","name":"stats.countries-and-visitors","action":"App\Http\Controllers\API\StatsAPIController@getCountriesAndVisitors"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{slug}","name":"users.show","action":"App\Http\Controllers\API\UserAPIController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"login","name":"login","action":"App\Http\Controllers\Auth\LoginController@showLoginForm"},{"host":null,"methods":["POST"],"uri":"login","name":null,"action":"App\Http\Controllers\Auth\LoginController@login"},{"host":null,"methods":["POST"],"uri":"logout","name":"logout","action":"App\Http\Controllers\Auth\LoginController@logout"},{"host":null,"methods":["GET","HEAD"],"uri":"register","name":"register","action":"App\Http\Controllers\Auth\RegisterController@showRegistrationForm"},{"host":null,"methods":["POST"],"uri":"register","name":null,"action":"App\Http\Controllers\Auth\RegisterController@register"},{"host":null,"methods":["GET","HEAD"],"uri":"password\/reset","name":"password.request","action":"App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm"},{"host":null,"methods":["POST"],"uri":"password\/email","name":"password.email","action":"App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail"},{"host":null,"methods":["GET","HEAD"],"uri":"password\/reset\/{token}","name":"password.reset","action":"App\Http\Controllers\Auth\ResetPasswordController@showResetForm"},{"host":null,"methods":["POST"],"uri":"password\/reset","name":"password.update","action":"App\Http\Controllers\Auth\ResetPasswordController@reset"},{"host":null,"methods":["GET","HEAD"],"uri":"logout","name":null,"action":"\App\Http\Controllers\Auth\LoginController@logout"},{"host":null,"methods":["GET","HEAD"],"uri":"\/","name":"home","action":"App\Http\Controllers\RotatorController@index"},{"host":null,"methods":["DELETE"],"uri":"faucets\/{slug}\/delete-permanently","name":"faucets.delete-permanently","action":"App\Http\Controllers\FaucetController@destroyPermanently"},{"host":null,"methods":["PATCH"],"uri":"faucets\/{slug}\/restore","name":"faucets.restore","action":"App\Http\Controllers\FaucetController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/create","name":"faucets.create","action":"App\Http\Controllers\FaucetController@create"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{slug}\/edit","name":"faucets.edit","action":"App\Http\Controllers\FaucetController@edit"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{slug}","name":"faucet.show","action":"App\Http\Controllers\FaucetController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/faucets","name":"users.faucets","action":"App\Http\Controllers\UserFaucetsController@index"},{"host":null,"methods":["POST"],"uri":"users\/{userSlug}\/faucets\/store","name":"users.faucets.store","action":"App\Http\Controllers\UserFaucetsController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/faucets\/{faucetSlug}","name":"users.faucets.show","action":"App\Http\Controllers\UserFaucetsController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors","name":"users.payment-processors","action":"App\Http\Controllers\PaymentProcessorController@userPaymentProcessors"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets","name":"users.payment-processors.faucets","action":"App\Http\Controllers\PaymentProcessorController@userPaymentProcessorFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/rotator","name":"users.payment-processors.rotator","action":"App\Http\Controllers\RotatorController@getUserPaymentProcessorFaucetRotator"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/faucets\/{faucetSlug}\/edit","name":null,"action":"Closure"},{"host":null,"methods":["PATCH"],"uri":"users\/{userSlug}\/faucets\/update-multiple","name":"users.faucets.update-multiple","action":"App\Http\Controllers\UserFaucetsController@updateMultiple"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/rotator","name":"users.rotator","action":"App\Http\Controllers\RotatorController@getUserFaucetRotator"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets","name":"faucets.index","action":"App\Http\Controllers\FaucetController@index"},{"host":null,"methods":["POST"],"uri":"faucets","name":"faucets.store","action":"App\Http\Controllers\FaucetController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{faucet}","name":"faucets.show","action":"App\Http\Controllers\FaucetController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{faucet}\/edit","name":"faucets.edit","action":"App\Http\Controllers\FaucetController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"faucets\/{faucet}","name":"faucets.update","action":"App\Http\Controllers\FaucetController@update"},{"host":null,"methods":["DELETE"],"uri":"faucets\/{faucet}","name":"faucets.destroy","action":"App\Http\Controllers\FaucetController@destroy"},{"host":null,"methods":["DELETE"],"uri":"payment-processors\/{slug}\/delete-permanently","name":"payment-processors.delete-permanently","action":"App\Http\Controllers\PaymentProcessorController@destroyPermanently"},{"host":null,"methods":["PATCH"],"uri":"payment-processors\/{slug}\/restore","name":"payment-processors.restore","action":"App\Http\Controllers\PaymentProcessorController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{slug}\/faucets","name":"payment-processors.faucets","action":"App\Http\Controllers\PaymentProcessorController@faucets"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{slug}\/rotator","name":"payment-processors.rotator","action":"App\Http\Controllers\RotatorController@getPaymentProcessorFaucetRotator"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors","name":"payment-processors.index","action":"App\Http\Controllers\PaymentProcessorController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/create","name":"payment-processors.create","action":"App\Http\Controllers\PaymentProcessorController@create"},{"host":null,"methods":["POST"],"uri":"payment-processors","name":"payment-processors.store","action":"App\Http\Controllers\PaymentProcessorController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{payment_processor}","name":"payment-processors.show","action":"App\Http\Controllers\PaymentProcessorController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{payment_processor}\/edit","name":"payment-processors.edit","action":"App\Http\Controllers\PaymentProcessorController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"payment-processors\/{payment_processor}","name":"payment-processors.update","action":"App\Http\Controllers\PaymentProcessorController@update"},{"host":null,"methods":["DELETE"],"uri":"payment-processors\/{payment_processor}","name":"payment-processors.destroy","action":"App\Http\Controllers\PaymentProcessorController@destroy"},{"host":null,"methods":["DELETE"],"uri":"users\/{slug}\/delete-permanently","name":"users.delete-permanently","action":"App\Http\Controllers\UserController@destroyPermanently"},{"host":null,"methods":["DELETE"],"uri":"purge-deleted-users","name":"users.purge-archived","action":"App\Http\Controllers\UserController@purgeArchivedUsers"},{"host":null,"methods":["PATCH"],"uri":"users\/{slug}\/restore","name":"users.restore","action":"App\Http\Controllers\UserController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"users","name":"users.index","action":"App\Http\Controllers\UserController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/create","name":"users.create","action":"App\Http\Controllers\UserController@create"},{"host":null,"methods":["POST"],"uri":"users","name":"users.store","action":"App\Http\Controllers\UserController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{user}","name":"users.show","action":"App\Http\Controllers\UserController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{user}\/edit","name":"users.edit","action":"App\Http\Controllers\UserController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"users\/{user}","name":"users.update","action":"App\Http\Controllers\UserController@update"},{"host":null,"methods":["DELETE"],"uri":"users\/{user}","name":"users.destroy","action":"App\Http\Controllers\UserController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta","name":"main-meta.index","action":"App\Http\Controllers\MainMetaController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta\/create","name":"main-meta.create","action":"App\Http\Controllers\MainMetaController@create"},{"host":null,"methods":["POST"],"uri":"main-meta","name":"main-meta.store","action":"App\Http\Controllers\MainMetaController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta\/{main_metum}","name":"main-meta.show","action":"App\Http\Controllers\MainMetaController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta\/{main_metum}\/edit","name":"main-meta.edit","action":"App\Http\Controllers\MainMetaController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"main-meta\/{main_metum}","name":"main-meta.update","action":"App\Http\Controllers\MainMetaController@update"},{"host":null,"methods":["DELETE"],"uri":"main-meta\/{main_metum}","name":"main-meta.destroy","action":"App\Http\Controllers\MainMetaController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block","name":"ad-block.index","action":"App\Http\Controllers\AdBlockController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block\/create","name":"ad-block.create","action":"App\Http\Controllers\AdBlockController@create"},{"host":null,"methods":["POST"],"uri":"ad-block","name":"ad-block.store","action":"App\Http\Controllers\AdBlockController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block\/{ad_block}","name":"ad-block.show","action":"App\Http\Controllers\AdBlockController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block\/{ad_block}\/edit","name":"ad-block.edit","action":"App\Http\Controllers\AdBlockController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"ad-block\/{ad_block}","name":"ad-block.update","action":"App\Http\Controllers\AdBlockController@update"},{"host":null,"methods":["DELETE"],"uri":"ad-block\/{ad_block}","name":"ad-block.destroy","action":"App\Http\Controllers\AdBlockController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config","name":"twitter-config.index","action":"App\Http\Controllers\TwitterConfigController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config\/create","name":"twitter-config.create","action":"App\Http\Controllers\TwitterConfigController@create"},{"host":null,"methods":["POST"],"uri":"twitter-config","name":"twitter-config.store","action":"App\Http\Controllers\TwitterConfigController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config\/{twitter_config}","name":"twitter-config.show","action":"App\Http\Controllers\TwitterConfigController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config\/{twitter_config}\/edit","name":"twitter-config.edit","action":"App\Http\Controllers\TwitterConfigController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"twitter-config\/{twitter_config}","name":"twitter-config.update","action":"App\Http\Controllers\TwitterConfigController@update"},{"host":null,"methods":["DELETE"],"uri":"twitter-config\/{twitter_config}","name":"twitter-config.destroy","action":"App\Http\Controllers\TwitterConfigController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"roles","name":"roles.index","action":"App\Http\Controllers\RoleController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"roles\/create","name":"roles.create","action":"App\Http\Controllers\RoleController@create"},{"host":null,"methods":["POST"],"uri":"roles","name":"roles.store","action":"App\Http\Controllers\RoleController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"roles\/{role}","name":"roles.show","action":"App\Http\Controllers\RoleController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"roles\/{role}\/edit","name":"roles.edit","action":"App\Http\Controllers\RoleController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"roles\/{role}","name":"roles.update","action":"App\Http\Controllers\RoleController@update"},{"host":null,"methods":["DELETE"],"uri":"roles\/{role}","name":"roles.destroy","action":"App\Http\Controllers\RoleController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions","name":"permissions.index","action":"App\Http\Controllers\PermissionController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions\/create","name":"permissions.create","action":"App\Http\Controllers\PermissionController@create"},{"host":null,"methods":["POST"],"uri":"permissions","name":"permissions.store","action":"App\Http\Controllers\PermissionController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions\/{permission}","name":"permissions.show","action":"App\Http\Controllers\PermissionController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions\/{permission}\/edit","name":"permissions.edit","action":"App\Http\Controllers\PermissionController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"permissions\/{permission}","name":"permissions.update","action":"App\Http\Controllers\PermissionController@update"},{"host":null,"methods":["DELETE"],"uri":"permissions\/{permission}","name":"permissions.destroy","action":"App\Http\Controllers\PermissionController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/edit","name":"privacy-policy.edit","action":"App\Http\Controllers\PrivacyPolicyController@edit"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy","name":"privacy-policy","action":"App\Http\Controllers\PrivacyPolicyController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/create","name":"privacy-policy.create","action":"App\Http\Controllers\PrivacyPolicyController@create"},{"host":null,"methods":["POST"],"uri":"privacy-policy","name":"privacy-policy.store","action":"App\Http\Controllers\PrivacyPolicyController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/{privacy_policy}","name":"privacy-policy.show","action":"App\Http\Controllers\PrivacyPolicyController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/{privacy_policy}\/edit","name":"privacy-policy.edit","action":"App\Http\Controllers\PrivacyPolicyController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"privacy-policy\/{privacy_policy}","name":"privacy-policy.update","action":"App\Http\Controllers\PrivacyPolicyController@update"},{"host":null,"methods":["DELETE"],"uri":"privacy-policy\/{privacy_policy}","name":"privacy-policy.destroy","action":"App\Http\Controllers\PrivacyPolicyController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/edit","name":"terms-and-conditions.edit","action":"App\Http\Controllers\TermsAndConditionsController@edit"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions","name":"terms-and-conditions","action":"App\Http\Controllers\TermsAndConditionsController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/create","name":"terms-and-conditions.create","action":"App\Http\Controllers\TermsAndConditionsController@create"},{"host":null,"methods":["POST"],"uri":"terms-and-conditions","name":"terms-and-conditions.store","action":"App\Http\Controllers\TermsAndConditionsController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/{terms_and_condition}","name":"terms-and-conditions.show","action":"App\Http\Controllers\TermsAndConditionsController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/{terms_and_condition}\/edit","name":"terms-and-conditions.edit","action":"App\Http\Controllers\TermsAndConditionsController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"terms-and-conditions\/{terms_and_condition}","name":"terms-and-conditions.update","action":"App\Http\Controllers\TermsAndConditionsController@update"},{"host":null,"methods":["DELETE"],"uri":"terms-and-conditions\/{terms_and_condition}","name":"terms-and-conditions.destroy","action":"App\Http\Controllers\TermsAndConditionsController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"stats","name":"stats.index","action":"App\Http\Controllers\StatsController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"settings","name":"settings","action":"App\Http\Controllers\SettingsController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks","name":"social-networks.index","action":"App\Http\Controllers\SocialNetworksController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks\/create","name":"social-networks.create","action":"App\Http\Controllers\SocialNetworksController@create"},{"host":null,"methods":["POST"],"uri":"social-networks","name":"social-networks.store","action":"App\Http\Controllers\SocialNetworksController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks\/{social_network}","name":"social-networks.show","action":"App\Http\Controllers\SocialNetworksController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks\/{social_network}\/edit","name":"social-networks.edit","action":"App\Http\Controllers\SocialNetworksController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"social-networks\/{social_network}","name":"social-networks.update","action":"App\Http\Controllers\SocialNetworksController@update"},{"host":null,"methods":["DELETE"],"uri":"social-networks\/{social_network}","name":"social-networks.destroy","action":"App\Http\Controllers\SocialNetworksController@destroy"},{"host":null,"methods":["DELETE"],"uri":"alerts\/{slug}\/delete-temporarily","name":"alerts.delete-temporarily","action":"App\Http\Controllers\AlertController@destroy"},{"host":null,"methods":["DELETE"],"uri":"alerts\/{slug}\/delete-permanently","name":"alerts.delete-permanently","action":"App\Http\Controllers\AlertController@destroyPermanently"},{"host":null,"methods":["PATCH"],"uri":"alerts\/{slug}\/restore","name":"alerts.restore","action":"App\Http\Controllers\AlertController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts","name":"alerts.index","action":"App\Http\Controllers\AlertController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts\/create","name":"alerts.create","action":"App\Http\Controllers\AlertController@create"},{"host":null,"methods":["POST"],"uri":"alerts","name":"alerts.store","action":"App\Http\Controllers\AlertController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts\/{alert}","name":"alerts.show","action":"App\Http\Controllers\AlertController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts\/{alert}\/edit","name":"alerts.edit","action":"App\Http\Controllers\AlertController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"alerts\/{alert}","name":"alerts.update","action":"App\Http\Controllers\AlertController@update"},{"host":null,"methods":["DELETE"],"uri":"alerts\/{alert}","name":"alerts.destroy","action":"App\Http\Controllers\AlertController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types","name":"alert-types.index","action":"App\Http\Controllers\AlertTypeController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types\/create","name":"alert-types.create","action":"App\Http\Controllers\AlertTypeController@create"},{"host":null,"methods":["POST"],"uri":"alert-types","name":"alert-types.store","action":"App\Http\Controllers\AlertTypeController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types\/{alert_type}","name":"alert-types.show","action":"App\Http\Controllers\AlertTypeController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types\/{alert_type}\/edit","name":"alert-types.edit","action":"App\Http\Controllers\AlertTypeController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"alert-types\/{alert_type}","name":"alert-types.update","action":"App\Http\Controllers\AlertTypeController@update"},{"host":null,"methods":["DELETE"],"uri":"alert-types\/{alert_type}","name":"alert-types.destroy","action":"App\Http\Controllers\AlertTypeController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-main","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users-faucets","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users-rotators","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users-payment-processors","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-faucets","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-payment-processors","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-alerts","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets-feed","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"users-feed","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors-feed","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts-feed","name":null,"action":"Closure"}],
             prefix: '',
 
             route : function (name, parameters, route) {
@@ -56950,9 +57124,9 @@ if (typeof jQuery === "undefined") {
 
 })(jQuery);
 /*!
- * Bootstrap-select v1.13.5 (https://developer.snapappointments.com/bootstrap-select)
+ * Bootstrap-select v1.13.10 (https://developer.snapappointments.com/bootstrap-select)
  *
- * Copyright 2012-2018 SnapAppointments, LLC
+ * Copyright 2012-2019 SnapAppointments, LLC
  * Licensed under MIT (https://github.com/snapappointments/bootstrap-select/blob/master/LICENSE)
  */
 
@@ -56976,6 +57150,128 @@ if (typeof jQuery === "undefined") {
 (function ($) {
   'use strict';
 
+  var DISALLOWED_ATTRIBUTES = ['sanitize', 'whiteList', 'sanitizeFn'];
+
+  var uriAttrs = [
+    'background',
+    'cite',
+    'href',
+    'itemtype',
+    'longdesc',
+    'poster',
+    'src',
+    'xlink:href'
+  ];
+
+  var ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
+
+  var DefaultWhitelist = {
+    // Global attributes allowed on any supplied element below.
+    '*': ['class', 'dir', 'id', 'lang', 'role', 'tabindex', 'style', ARIA_ATTRIBUTE_PATTERN],
+    a: ['target', 'href', 'title', 'rel'],
+    area: [],
+    b: [],
+    br: [],
+    col: [],
+    code: [],
+    div: [],
+    em: [],
+    hr: [],
+    h1: [],
+    h2: [],
+    h3: [],
+    h4: [],
+    h5: [],
+    h6: [],
+    i: [],
+    img: ['src', 'alt', 'title', 'width', 'height'],
+    li: [],
+    ol: [],
+    p: [],
+    pre: [],
+    s: [],
+    small: [],
+    span: [],
+    sub: [],
+    sup: [],
+    strong: [],
+    u: [],
+    ul: []
+  }
+
+  /**
+   * A pattern that recognizes a commonly useful subset of URLs that are safe.
+   *
+   * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
+   */
+  var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
+
+  /**
+   * A pattern that matches safe data URLs. Only matches image, video and audio types.
+   *
+   * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
+   */
+  var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+/]+=*$/i;
+
+  function allowedAttribute (attr, allowedAttributeList) {
+    var attrName = attr.nodeName.toLowerCase()
+
+    if ($.inArray(attrName, allowedAttributeList) !== -1) {
+      if ($.inArray(attrName, uriAttrs) !== -1) {
+        return Boolean(attr.nodeValue.match(SAFE_URL_PATTERN) || attr.nodeValue.match(DATA_URL_PATTERN))
+      }
+
+      return true
+    }
+
+    var regExp = $(allowedAttributeList).filter(function (index, value) {
+      return value instanceof RegExp
+    })
+
+    // Check if a regular expression validates the attribute.
+    for (var i = 0, l = regExp.length; i < l; i++) {
+      if (attrName.match(regExp[i])) {
+        return true
+      }
+    }
+
+    return false
+  }
+
+  function sanitizeHtml (unsafeElements, whiteList, sanitizeFn) {
+    if (sanitizeFn && typeof sanitizeFn === 'function') {
+      return sanitizeFn(unsafeElements);
+    }
+
+    var whitelistKeys = Object.keys(whiteList);
+
+    for (var i = 0, len = unsafeElements.length; i < len; i++) {
+      var elements = unsafeElements[i].querySelectorAll('*');
+
+      for (var j = 0, len2 = elements.length; j < len2; j++) {
+        var el = elements[j];
+        var elName = el.nodeName.toLowerCase();
+
+        if (whitelistKeys.indexOf(elName) === -1) {
+          el.parentNode.removeChild(el);
+
+          continue;
+        }
+
+        var attributeList = [].slice.call(el.attributes);
+        var whitelistedAttributes = [].concat(whiteList['*'] || [], whiteList[elName] || []);
+
+        for (var k = 0, len3 = attributeList.length; k < len3; k++) {
+          var attr = attributeList[k];
+
+          if (!allowedAttribute(attr, whitelistedAttributes)) {
+            el.removeAttribute(attr.nodeName);
+          }
+        }
+      }
+    }
+  }
+
   // Polyfill for browsers with no classList support
   // Remove in v2
   if (!('classList' in document.createElement('_'))) {
@@ -56991,9 +57287,11 @@ if (typeof jQuery === "undefined") {
 
             return {
               add: function (classes) {
+                classes = Array.prototype.slice.call(arguments).join(' ');
                 return $elem.addClass(classes);
               },
               remove: function (classes) {
+                classes = Array.prototype.slice.call(arguments).join(' ');
                 return $elem.removeClass(classes);
               },
               toggle: function (classes, force) {
@@ -57028,6 +57326,21 @@ if (typeof jQuery === "undefined") {
   }
 
   var testElement = document.createElement('_');
+
+  testElement.classList.add('c1', 'c2');
+
+  if (!testElement.classList.contains('c2')) {
+    var _add = DOMTokenList.prototype.add,
+        _remove = DOMTokenList.prototype.remove;
+
+    DOMTokenList.prototype.add = function () {
+      Array.prototype.forEach.call(arguments, _add.bind(this));
+    }
+
+    DOMTokenList.prototype.remove = function () {
+      Array.prototype.forEach.call(arguments, _remove.bind(this));
+    }
+  }
 
   testElement.classList.toggle('c3', false);
 
@@ -57129,25 +57442,53 @@ if (typeof jQuery === "undefined") {
     };
   }
 
-  // much faster than $.val()
-  function getSelectValues (select) {
-    var result = [];
-    var options = select && select.options;
-    var opt;
+  if (HTMLSelectElement && !HTMLSelectElement.prototype.hasOwnProperty('selectedOptions')) {
+    Object.defineProperty(HTMLSelectElement.prototype, 'selectedOptions', {
+      get: function () {
+        return this.querySelectorAll(':checked');
+      }
+    });
+  }
 
-    if (select.multiple) {
-      for (var i = 0, len = options.length; i < len; i++) {
-        opt = options[i];
+  function getSelectedOptions (select, ignoreDisabled) {
+    var selectedOptions = select.selectedOptions,
+        options = [],
+        opt;
 
-        if (opt.selected) {
-          result.push(opt.value || opt.text);
+    if (ignoreDisabled) {
+      for (var i = 0, len = selectedOptions.length; i < len; i++) {
+        opt = selectedOptions[i];
+
+        if (!(opt.disabled || opt.parentNode.tagName === 'OPTGROUP' && opt.parentNode.disabled)) {
+          options.push(opt);
         }
       }
-    } else {
-      result = select.value;
+
+      return options;
     }
 
-    return result;
+    return selectedOptions;
+  }
+
+  // much faster than $.val()
+  function getSelectValues (select, selectedOptions) {
+    var value = [],
+        options = selectedOptions || select.selectedOptions,
+        opt;
+
+    for (var i = 0, len = options.length; i < len; i++) {
+      opt = options[i];
+
+      if (!(opt.disabled || opt.parentNode.tagName === 'OPTGROUP' && opt.parentNode.disabled)) {
+        value.push(opt.value || opt.text);
+      }
+    }
+
+    if (!select.multiple) {
+      return !value.length ? null : value[0];
+    }
+
+    return value;
   }
 
   // set data-selected on select element if the value has been programmatically selected
@@ -57205,7 +57546,7 @@ if (typeof jQuery === "undefined") {
 
   function stringSearch (li, searchString, method, normalize) {
     var stringTypes = [
-          'content',
+          'display',
           'subtext',
           'tokens'
         ],
@@ -57219,7 +57560,7 @@ if (typeof jQuery === "undefined") {
         string = string.toString();
 
         // Strip HTML tags. This isn't perfect, but it's much faster than any other method
-        if (stringType === 'content') {
+        if (stringType === 'display') {
           string = string.replace(/<[^>]+>/g, '');
         }
 
@@ -57341,15 +57682,6 @@ if (typeof jQuery === "undefined") {
     '`': '&#x60;'
   };
 
-  var unescapeMap = {
-    '&amp;': '&',
-    '&lt;': '<',
-    '&gt;': '>',
-    '&quot;': '"',
-    '&#x27;': "'",
-    '&#x60;': '`'
-  };
-
   // Functions for escaping and unescaping strings to/from HTML interpolation.
   var createEscaper = function (map) {
     var escaper = function (match) {
@@ -57366,7 +57698,6 @@ if (typeof jQuery === "undefined") {
   };
 
   var htmlEscape = createEscaper(escapeMap);
-  var htmlUnescape = createEscaper(unescapeMap);
 
   /**
    * ------------------------------------------------------------------------
@@ -57444,12 +57775,7 @@ if (typeof jQuery === "undefined") {
     version.major = version.full[0];
     version.success = true;
   } catch (err) {
-    console.warn(
-      'There was an issue retrieving Bootstrap\'s version. ' +
-      'Ensure Bootstrap is being loaded before bootstrap-select and there is no namespace collision. ' +
-      'If loading Bootstrap asynchronously, the version may need to be manually specified via $.fn.selectpicker.Constructor.BootstrapVersion.',
-      err
-    );
+    // do nothing
   }
 
   var selectId = 0;
@@ -57466,22 +57792,140 @@ if (typeof jQuery === "undefined") {
     MENULEFT: 'dropdown-menu-left',
     // to-do: replace with more advanced template/customization options
     BUTTONCLASS: 'btn-default',
-    POPOVERHEADER: 'popover-title'
+    POPOVERHEADER: 'popover-title',
+    ICONBASE: 'glyphicon',
+    TICKICON: 'glyphicon-ok'
   }
 
   var Selector = {
     MENU: '.' + classNames.MENU
   }
 
-  if (version.major === '4') {
-    classNames.DIVIDER = 'dropdown-divider';
-    classNames.SHOW = 'show';
-    classNames.BUTTONCLASS = 'btn-light';
-    classNames.POPOVERHEADER = 'popover-header';
+  var elementTemplates = {
+    span: document.createElement('span'),
+    i: document.createElement('i'),
+    subtext: document.createElement('small'),
+    a: document.createElement('a'),
+    li: document.createElement('li'),
+    whitespace: document.createTextNode('\u00A0'),
+    fragment: document.createDocumentFragment()
   }
+
+  elementTemplates.a.setAttribute('role', 'option');
+  elementTemplates.subtext.className = 'text-muted';
+
+  elementTemplates.text = elementTemplates.span.cloneNode(false);
+  elementTemplates.text.className = 'text';
+
+  elementTemplates.checkMark = elementTemplates.span.cloneNode(false);
 
   var REGEXP_ARROW = new RegExp(keyCodes.ARROW_UP + '|' + keyCodes.ARROW_DOWN);
   var REGEXP_TAB_OR_ESCAPE = new RegExp('^' + keyCodes.TAB + '$|' + keyCodes.ESCAPE);
+
+  var generateOption = {
+    li: function (content, classes, optgroup) {
+      var li = elementTemplates.li.cloneNode(false);
+
+      if (content) {
+        if (content.nodeType === 1 || content.nodeType === 11) {
+          li.appendChild(content);
+        } else {
+          li.innerHTML = content;
+        }
+      }
+
+      if (typeof classes !== 'undefined' && classes !== '') li.className = classes;
+      if (typeof optgroup !== 'undefined' && optgroup !== null) li.classList.add('optgroup-' + optgroup);
+
+      return li;
+    },
+
+    a: function (text, classes, inline) {
+      var a = elementTemplates.a.cloneNode(true);
+
+      if (text) {
+        if (text.nodeType === 11) {
+          a.appendChild(text);
+        } else {
+          a.insertAdjacentHTML('beforeend', text);
+        }
+      }
+
+      if (typeof classes !== 'undefined' && classes !== '') a.className = classes;
+      if (version.major === '4') a.classList.add('dropdown-item');
+      if (inline) a.setAttribute('style', inline);
+
+      return a;
+    },
+
+    text: function (options, useFragment) {
+      var textElement = elementTemplates.text.cloneNode(false),
+          subtextElement,
+          iconElement;
+
+      if (options.content) {
+        textElement.innerHTML = options.content;
+      } else {
+        textElement.textContent = options.text;
+
+        if (options.icon) {
+          var whitespace = elementTemplates.whitespace.cloneNode(false);
+
+          // need to use <i> for icons in the button to prevent a breaking change
+          // note: switch to span in next major release
+          iconElement = (useFragment === true ? elementTemplates.i : elementTemplates.span).cloneNode(false);
+          iconElement.className = options.iconBase + ' ' + options.icon;
+
+          elementTemplates.fragment.appendChild(iconElement);
+          elementTemplates.fragment.appendChild(whitespace);
+        }
+
+        if (options.subtext) {
+          subtextElement = elementTemplates.subtext.cloneNode(false);
+          subtextElement.textContent = options.subtext;
+          textElement.appendChild(subtextElement);
+        }
+      }
+
+      if (useFragment === true) {
+        while (textElement.childNodes.length > 0) {
+          elementTemplates.fragment.appendChild(textElement.childNodes[0]);
+        }
+      } else {
+        elementTemplates.fragment.appendChild(textElement);
+      }
+
+      return elementTemplates.fragment;
+    },
+
+    label: function (options) {
+      var textElement = elementTemplates.text.cloneNode(false),
+          subtextElement,
+          iconElement;
+
+      textElement.innerHTML = options.label;
+
+      if (options.icon) {
+        var whitespace = elementTemplates.whitespace.cloneNode(false);
+
+        iconElement = elementTemplates.span.cloneNode(false);
+        iconElement.className = options.iconBase + ' ' + options.icon;
+
+        elementTemplates.fragment.appendChild(iconElement);
+        elementTemplates.fragment.appendChild(whitespace);
+      }
+
+      if (options.subtext) {
+        subtextElement = elementTemplates.subtext.cloneNode(false);
+        subtextElement.textContent = options.subtext;
+        textElement.appendChild(subtextElement);
+      }
+
+      elementTemplates.fragment.appendChild(textElement);
+
+      return elementTemplates.fragment;
+    }
+  }
 
   var Selectpicker = function (element, options) {
     var that = this;
@@ -57498,20 +57942,9 @@ if (typeof jQuery === "undefined") {
     this.$menu = null;
     this.options = options;
     this.selectpicker = {
-      main: {
-        // store originalIndex (key) and newIndex (value) in this.selectpicker.main.map.newIndex for fast accessibility
-        // allows us to do this.main.elements[this.selectpicker.main.map.newIndex[index]] to select an element based on the originalIndex
-        map: {
-          newIndex: {},
-          originalIndex: {}
-        }
-      },
-      current: {
-        map: {}
-      }, // current changes if a search is in progress
-      search: {
-        map: {}
-      },
+      main: {},
+      search: {},
+      current: {}, // current changes if a search is in progress
       view: {},
       keydown: {
         keyHistory: '',
@@ -57551,9 +57984,7 @@ if (typeof jQuery === "undefined") {
     this.init();
   };
 
-  Selectpicker.VERSION = '1.13.5';
-
-  Selectpicker.BootstrapVersion = version.major;
+  Selectpicker.VERSION = '1.13.10';
 
   // part of this is duplicated in i18n/defaults-en_US.js. Make sure to update both.
   Selectpicker.DEFAULTS = {
@@ -57591,8 +58022,8 @@ if (typeof jQuery === "undefined") {
     liveSearchNormalize: false,
     liveSearchStyle: 'contains',
     actionsBox: false,
-    iconBase: 'glyphicon',
-    tickIcon: 'glyphicon-ok',
+    iconBase: classNames.ICONBASE,
+    tickIcon: classNames.TICKICON,
     showTick: false,
     template: {
       caret: '<span class="caret"></span>'
@@ -57603,14 +58034,11 @@ if (typeof jQuery === "undefined") {
     dropdownAlignRight: false,
     windowPadding: 0,
     virtualScroll: 600,
-    display: false
+    display: false,
+    sanitize: true,
+    sanitizeFn: null,
+    whiteList: DefaultWhitelist
   };
-
-  if (version.major === '4') {
-    Selectpicker.DEFAULTS.style = 'btn-light';
-    Selectpicker.DEFAULTS.iconBase = '';
-    Selectpicker.DEFAULTS.tickIcon = 'bs-ok-default';
-  }
 
   Selectpicker.prototype = {
 
@@ -57620,25 +58048,31 @@ if (typeof jQuery === "undefined") {
       var that = this,
           id = this.$element.attr('id');
 
-      this.selectId = selectId++;
+      selectId++;
+      this.selectId = 'bs-select-' + selectId;
 
-      this.$element.addClass('bs-select-hidden');
+      this.$element[0].classList.add('bs-select-hidden');
 
       this.multiple = this.$element.prop('multiple');
       this.autofocus = this.$element.prop('autofocus');
+
+      if (this.$element[0].classList.contains('show-tick')) {
+        this.options.showTick = true;
+      }
+
       this.$newElement = this.createDropdown();
-      this.createLi();
       this.$element
         .after(this.$newElement)
         .prependTo(this.$newElement);
+
       this.$button = this.$newElement.children('button');
       this.$menu = this.$newElement.children(Selector.MENU);
       this.$menuInner = this.$menu.children('.inner');
       this.$searchbox = this.$menu.find('input');
 
-      this.$element.removeClass('bs-select-hidden');
+      this.$element[0].classList.remove('bs-select-hidden');
 
-      if (this.options.dropdownAlignRight === true) this.$menu.addClass(classNames.MENURIGHT);
+      if (this.options.dropdownAlignRight === true) this.$menu[0].classList.add(classNames.MENURIGHT);
 
       if (typeof id !== 'undefined') {
         this.$button.attr('data-id', id);
@@ -57646,9 +58080,16 @@ if (typeof jQuery === "undefined") {
 
       this.checkDisabled();
       this.clickListener();
-      if (this.options.liveSearch) this.liveSearchListener();
-      this.render();
+
+      if (this.options.liveSearch) {
+        this.liveSearchListener();
+        this.focusedParent = this.$searchbox[0];
+      } else {
+        this.focusedParent = this.$menuInner[0];
+      }
+
       this.setStyle();
+      this.render();
       this.setWidth();
       if (this.options.container) {
         this.selectPosition();
@@ -57671,14 +58112,12 @@ if (typeof jQuery === "undefined") {
 
       this.$newElement.on({
         'hide.bs.dropdown': function (e) {
-          that.$menuInner.attr('aria-expanded', false);
           that.$element.trigger('hide' + EVENT_KEY, e);
         },
         'hidden.bs.dropdown': function (e) {
           that.$element.trigger('hidden' + EVENT_KEY, e);
         },
         'show.bs.dropdown': function (e) {
-          that.$menuInner.attr('aria-expanded', true);
           that.$element.trigger('show' + EVENT_KEY, e);
         },
         'shown.bs.dropdown': function (e) {
@@ -57687,8 +58126,8 @@ if (typeof jQuery === "undefined") {
       });
 
       if (that.$element[0].hasAttribute('required')) {
-        this.$element.on('invalid', function () {
-          that.$button.addClass('bs-invalid');
+        this.$element.on('invalid' + EVENT_KEY, function () {
+          that.$button[0].classList.add('bs-invalid');
 
           that.$element
             .on('shown' + EVENT_KEY + '.invalid', function () {
@@ -57698,18 +58137,19 @@ if (typeof jQuery === "undefined") {
             })
             .on('rendered' + EVENT_KEY, function () {
               // if select is no longer invalid, remove the bs-invalid class
-              if (this.validity.valid) that.$button.removeClass('bs-invalid');
+              if (this.validity.valid) that.$button[0].classList.remove('bs-invalid');
               that.$element.off('rendered' + EVENT_KEY);
             });
 
           that.$button.on('blur' + EVENT_KEY, function () {
-            that.$element.focus().blur();
+            that.$element.trigger('focus').trigger('blur');
             that.$button.off('blur' + EVENT_KEY);
           });
         });
       }
 
       setTimeout(function () {
+        that.createLi();
         that.$element.trigger('loaded' + EVENT_KEY);
       });
     },
@@ -57718,7 +58158,13 @@ if (typeof jQuery === "undefined") {
       // Options
       // If we are multiple or showTick option is set, then add the show-tick class
       var showTick = (this.multiple || this.options.showTick) ? ' show-tick' : '',
+          multiselectable = this.multiple ? ' aria-multiselectable="true"' : '',
+          inputGroup = '',
           autofocus = this.autofocus ? ' autofocus' : '';
+
+      if (version.major < 4 && this.$element.parent().hasClass('input-group')) {
+        inputGroup = ' input-group-btn';
+      }
 
       // Elements
       var drop,
@@ -57744,7 +58190,7 @@ if (typeof jQuery === "undefined") {
                 :
                 ' placeholder="' + htmlEscape(this.options.liveSearchPlaceholder) + '"'
               ) +
-              ' role="textbox" aria-label="Search">' +
+              ' role="combobox" aria-label="Search" aria-controls="' + this.selectId + '" aria-autocomplete="list">' +
           '</div>';
       }
 
@@ -57774,8 +58220,8 @@ if (typeof jQuery === "undefined") {
       }
 
       drop =
-        '<div class="dropdown bootstrap-select' + showTick + '">' +
-          '<button type="button" class="' + this.options.styleBase + ' dropdown-toggle" ' + (this.options.display === 'static' ? 'data-display="static"' : '') + 'data-toggle="dropdown"' + autofocus + ' role="button">' +
+        '<div class="dropdown bootstrap-select' + showTick + inputGroup + '">' +
+          '<button type="button" class="' + this.options.styleBase + ' dropdown-toggle" ' + (this.options.display === 'static' ? 'data-display="static"' : '') + 'data-toggle="dropdown"' + autofocus + ' role="combobox" aria-owns="' + this.selectId + '" aria-haspopup="listbox" aria-expanded="false">' +
             '<div class="filter-option">' +
               '<div class="filter-option-inner">' +
                 '<div class="filter-option-inner-inner"></div>' +
@@ -57789,12 +58235,12 @@ if (typeof jQuery === "undefined") {
               '</span>'
             ) +
           '</button>' +
-          '<div class="' + classNames.MENU + ' ' + (version.major === '4' ? '' : classNames.SHOW) + '" role="combobox">' +
+          '<div class="' + classNames.MENU + ' ' + (version.major === '4' ? '' : classNames.SHOW) + '">' +
             header +
             searchbox +
             actionsbox +
-            '<div class="inner ' + classNames.SHOW + '" role="listbox" aria-expanded="false" tabindex="-1">' +
-                '<ul class="' + classNames.MENU + ' inner ' + (version.major === '4' ? classNames.SHOW : '') + '">' +
+            '<div class="inner ' + classNames.SHOW + '" role="listbox" id="' + this.selectId + '" tabindex="-1" ' + multiselectable + '>' +
+                '<ul class="' + classNames.MENU + ' inner ' + (version.major === '4' ? classNames.SHOW : '') + '" role="presentation">' +
                 '</ul>' +
             '</div>' +
             donebutton +
@@ -57806,6 +58252,7 @@ if (typeof jQuery === "undefined") {
 
     setPositionData: function () {
       this.selectpicker.view.canHighlight = [];
+      this.selectpicker.view.size = 0;
 
       for (var i = 0; i < this.selectpicker.current.data.length; i++) {
         var li = this.selectpicker.current.data[i],
@@ -57825,6 +58272,11 @@ if (typeof jQuery === "undefined") {
 
         this.selectpicker.view.canHighlight.push(canHighlight);
 
+        if (canHighlight) {
+          this.selectpicker.view.size++;
+          li.posinset = this.selectpicker.view.size;
+        }
+
         li.position = (i === 0 ? 0 : this.selectpicker.current.data[i - 1].position) + li.height;
       }
     },
@@ -57833,18 +58285,34 @@ if (typeof jQuery === "undefined") {
       return (this.options.virtualScroll !== false) && (this.selectpicker.main.elements.length >= this.options.virtualScroll) || this.options.virtualScroll === true;
     },
 
-    createView: function (isSearching, scrollTop) {
-      scrollTop = scrollTop || 0;
-
-      var that = this;
+    createView: function (isSearching, setSize, refresh) {
+      var that = this,
+          scrollTop = 0,
+          active = [],
+          selected,
+          prevActive;
 
       this.selectpicker.current = isSearching ? this.selectpicker.search : this.selectpicker.main;
 
-      var active = [];
-      var selected;
-      var prevActive;
-
       this.setPositionData();
+
+      if (setSize) {
+        if (refresh) {
+          scrollTop = this.$menuInner[0].scrollTop;
+        } else if (!that.multiple) {
+          var element = that.$element[0],
+              selectedIndex = (element.options[element.selectedIndex] || {}).liIndex;
+
+          if (typeof selectedIndex === 'number' && that.options.size !== false) {
+            var selectedData = that.selectpicker.main.data[selectedIndex],
+                position = selectedData && selectedData.position;
+
+            if (position) {
+              scrollTop = position - ((that.sizeInfo.menuInnerHeight + that.sizeInfo.liHeight) / 2);
+            }
+          }
+        }
+      }
 
       scroll(scrollTop, true);
 
@@ -57908,39 +58376,40 @@ if (typeof jQuery === "undefined") {
         firstChunk = Math.max(0, currentChunk - 1);
         lastChunk = Math.min(chunkCount - 1, currentChunk + 1);
 
-        that.selectpicker.view.position0 = Math.max(0, chunks[firstChunk][0]) || 0;
-        that.selectpicker.view.position1 = Math.min(size, chunks[lastChunk][1]) || 0;
+        that.selectpicker.view.position0 = isVirtual === false ? 0 : (Math.max(0, chunks[firstChunk][0]) || 0);
+        that.selectpicker.view.position1 = isVirtual === false ? size : (Math.min(size, chunks[lastChunk][1]) || 0);
 
         positionIsDifferent = prevPositions[0] !== that.selectpicker.view.position0 || prevPositions[1] !== that.selectpicker.view.position1;
 
         if (that.activeIndex !== undefined) {
-          prevActive = that.selectpicker.current.elements[that.selectpicker.current.map.newIndex[that.prevActiveIndex]];
-          active = that.selectpicker.current.elements[that.selectpicker.current.map.newIndex[that.activeIndex]];
-          selected = that.selectpicker.current.elements[that.selectpicker.current.map.newIndex[that.selectedIndex]];
+          prevActive = that.selectpicker.main.elements[that.prevActiveIndex];
+          active = that.selectpicker.main.elements[that.activeIndex];
+          selected = that.selectpicker.main.elements[that.selectedIndex];
 
           if (init) {
             if (that.activeIndex !== that.selectedIndex) {
-              active.classList.remove('active');
-              if (active.firstChild) active.firstChild.classList.remove('active');
+              that.defocusItem(active);
             }
             that.activeIndex = undefined;
           }
 
-          if (that.activeIndex && that.activeIndex !== that.selectedIndex && selected && selected.length) {
-            selected.classList.remove('active');
-            if (selected.firstChild) selected.firstChild.classList.remove('active');
+          if (that.activeIndex && that.activeIndex !== that.selectedIndex) {
+            that.defocusItem(selected);
           }
         }
 
-        if (that.prevActiveIndex !== undefined && that.prevActiveIndex !== that.activeIndex && that.prevActiveIndex !== that.selectedIndex && prevActive && prevActive.length) {
-          prevActive.classList.remove('active');
-          if (prevActive.firstChild) prevActive.firstChild.classList.remove('active');
+        if (that.prevActiveIndex !== undefined && that.prevActiveIndex !== that.activeIndex && that.prevActiveIndex !== that.selectedIndex) {
+          that.defocusItem(prevActive);
         }
 
         if (init || positionIsDifferent) {
           previousElements = that.selectpicker.view.visibleElements ? that.selectpicker.view.visibleElements.slice() : [];
 
-          that.selectpicker.view.visibleElements = that.selectpicker.current.elements.slice(that.selectpicker.view.position0, that.selectpicker.view.position1);
+          if (isVirtual === false) {
+            that.selectpicker.view.visibleElements = that.selectpicker.current.elements;
+          } else {
+            that.selectpicker.view.visibleElements = that.selectpicker.current.elements.slice(that.selectpicker.view.position0, that.selectpicker.view.position1);
+          }
 
           that.setOptionStatus();
 
@@ -57956,13 +58425,35 @@ if (typeof jQuery === "undefined") {
                 emptyMenu = menuInner.firstChild.cloneNode(false),
                 marginTop,
                 marginBottom,
-                elements = isVirtual === true ? that.selectpicker.view.visibleElements : that.selectpicker.current.elements;
+                elements = that.selectpicker.view.visibleElements,
+                toSanitize = [];
 
             // replace the existing UL with an empty one - this is faster than $.empty()
             menuInner.replaceChild(emptyMenu, menuInner.firstChild);
 
             for (var i = 0, visibleElementsLen = elements.length; i < visibleElementsLen; i++) {
-              menuFragment.appendChild(elements[i]);
+              var element = elements[i],
+                  elText,
+                  elementData;
+
+              if (that.options.sanitize) {
+                elText = element.lastChild;
+
+                if (elText) {
+                  elementData = that.selectpicker.current.data[i + that.selectpicker.view.position0];
+
+                  if (elementData && elementData.content && !elementData.sanitized) {
+                    toSanitize.push(elText);
+                    elementData.sanitized = true;
+                  }
+                }
+              }
+
+              menuFragment.appendChild(element);
+            }
+
+            if (that.options.sanitize && toSanitize.length) {
+              sanitizeHtml(toSanitize, that.options.whiteList, that.options.sanitizeFn);
             }
 
             if (isVirtual === true) {
@@ -57971,6 +58462,9 @@ if (typeof jQuery === "undefined") {
 
               menuInner.firstChild.style.marginTop = marginTop + 'px';
               menuInner.firstChild.style.marginBottom = marginBottom + 'px';
+            } else {
+              menuInner.firstChild.style.marginTop = 0;
+              menuInner.firstChild.style.marginBottom = 0;
             }
 
             menuInner.firstChild.appendChild(menuFragment);
@@ -57980,7 +58474,7 @@ if (typeof jQuery === "undefined") {
         that.prevActiveIndex = that.activeIndex;
 
         if (!that.options.liveSearch) {
-          that.$menuInner.focus();
+          that.$menuInner.trigger('focus');
         } else if (isSearching && init) {
           var index = 0,
               newActive;
@@ -57991,17 +58485,11 @@ if (typeof jQuery === "undefined") {
 
           newActive = that.selectpicker.view.visibleElements[index];
 
-          if (that.selectpicker.view.currentActive) {
-            that.selectpicker.view.currentActive.classList.remove('active');
-            if (that.selectpicker.view.currentActive.firstChild) that.selectpicker.view.currentActive.firstChild.classList.remove('active');
-          }
+          that.defocusItem(that.selectpicker.view.currentActive);
 
-          if (newActive) {
-            newActive.classList.add('active');
-            if (newActive.firstChild) newActive.firstChild.classList.add('active');
-          }
+          that.activeIndex = (that.selectpicker.current.data[index] || {}).index;
 
-          that.activeIndex = that.selectpicker.current.map.originalIndex[index];
+          that.focusItem(newActive);
         }
       }
 
@@ -58014,155 +58502,40 @@ if (typeof jQuery === "undefined") {
         });
     },
 
-    createLi: function () {
-      var that = this,
-          mainElements = [],
-          hiddenOptions = {},
-          widestOption,
-          availableOptionsCount = 0,
-          widestOptionLength = 0,
-          mainData = [],
-          optID = 0,
-          headerIndex = 0,
-          liIndex = -1; // increment liIndex whenever a new <li> element is created to ensure newIndex is correct
+    focusItem: function (li, liData, noStyle) {
+      if (li) {
+        liData = liData || this.selectpicker.main.data[this.activeIndex];
+        var a = li.firstChild;
 
-      if (!this.selectpicker.view.titleOption) this.selectpicker.view.titleOption = document.createElement('option');
+        if (a) {
+          a.setAttribute('aria-setsize', this.selectpicker.view.size);
+          a.setAttribute('aria-posinset', liData.posinset);
 
-      var elementTemplates = {
-            span: document.createElement('span'),
-            subtext: document.createElement('small'),
-            a: document.createElement('a'),
-            li: document.createElement('li'),
-            whitespace: document.createTextNode('\u00A0')
-          },
-          checkMark,
-          fragment = document.createDocumentFragment();
-
-      if (that.options.showTick || that.multiple) {
-        checkMark = elementTemplates.span.cloneNode(false);
-        checkMark.className = that.options.iconBase + ' ' + that.options.tickIcon + ' check-mark';
-        elementTemplates.a.appendChild(checkMark);
+          if (noStyle !== true) {
+            this.focusedParent.setAttribute('aria-activedescendant', a.id);
+            li.classList.add('active');
+            a.classList.add('active');
+          }
+        }
       }
+    },
 
-      elementTemplates.a.setAttribute('role', 'option');
-
-      elementTemplates.subtext.className = 'text-muted';
-
-      elementTemplates.text = elementTemplates.span.cloneNode(false);
-      elementTemplates.text.className = 'text';
-
-      // Helper functions
-      /**
-       * @param content
-       * @param [classes]
-       * @param [optgroup]
-       * @returns {HTMLElement}
-       */
-      var generateLI = function (content, classes, optgroup) {
-        var li = elementTemplates.li.cloneNode(false);
-
-        if (content) {
-          if (content.nodeType === 1 || content.nodeType === 11) {
-            li.appendChild(content);
-          } else {
-            li.innerHTML = content;
-          }
-        }
-
-        if (typeof classes !== 'undefined' && classes !== '') li.className = classes;
-        if (typeof optgroup !== 'undefined' && optgroup !== null) li.classList.add('optgroup-' + optgroup);
-
-        return li;
-      };
-
-      /**
-       * @param text
-       * @param [classes]
-       * @param [inline]
-       * @returns {string}
-       */
-      var generateA = function (text, classes, inline) {
-        var a = elementTemplates.a.cloneNode(true);
-
-        if (text) {
-          if (text.nodeType === 11) {
-            a.appendChild(text);
-          } else {
-            a.insertAdjacentHTML('beforeend', text);
-          }
-        }
-
-        if (typeof classes !== 'undefined' && classes !== '') a.className = classes;
-        if (version.major === '4') a.classList.add('dropdown-item');
-        if (inline) a.setAttribute('style', inline);
-
-        return a;
-      };
-
-      var generateText = function (options) {
-        var textElement = elementTemplates.text.cloneNode(false),
-            optionSubtextElement,
-            optionIconElement;
-
-        if (options.optionContent) {
-          textElement.innerHTML = options.optionContent;
-        } else {
-          textElement.textContent = options.text;
-
-          if (options.optionIcon) {
-            var whitespace = elementTemplates.whitespace.cloneNode(false);
-
-            optionIconElement = elementTemplates.span.cloneNode(false);
-            optionIconElement.className = that.options.iconBase + ' ' + options.optionIcon;
-
-            fragment.appendChild(optionIconElement);
-            fragment.appendChild(whitespace);
-          }
-
-          if (options.optionSubtext) {
-            optionSubtextElement = elementTemplates.subtext.cloneNode(false);
-            optionSubtextElement.innerHTML = options.optionSubtext;
-            textElement.appendChild(optionSubtextElement);
-          }
-        }
-
-        fragment.appendChild(textElement);
-
-        return fragment;
-      };
-
-      var generateLabel = function (options) {
-        var labelTextElement = elementTemplates.text.cloneNode(false),
-            labelSubtextElement,
-            labelIconElement;
-
-        labelTextElement.innerHTML = options.labelEscaped;
-
-        if (options.labelIcon) {
-          var whitespace = elementTemplates.whitespace.cloneNode(false);
-
-          labelIconElement = elementTemplates.span.cloneNode(false);
-          labelIconElement.className = that.options.iconBase + ' ' + options.labelIcon;
-
-          fragment.appendChild(labelIconElement);
-          fragment.appendChild(whitespace);
-        }
-
-        if (options.labelSubtext) {
-          labelSubtextElement = elementTemplates.subtext.cloneNode(false);
-          labelSubtextElement.textContent = options.labelSubtext;
-          labelTextElement.appendChild(labelSubtextElement);
-        }
-
-        fragment.appendChild(labelTextElement);
-
-        return fragment;
+    defocusItem: function (li) {
+      if (li) {
+        li.classList.remove('active');
+        if (li.firstChild) li.firstChild.classList.remove('active');
       }
+    },
+
+    setPlaceholder: function () {
+      var updateIndex = false;
 
       if (this.options.title && !this.multiple) {
-        // this option doesn't create a new <li> element, but does add a new option, so liIndex is decreased
-        // since newIndex is recalculated on every refresh, liIndex needs to be decreased even if the titleOption is already appended
-        liIndex--;
+        if (!this.selectpicker.view.titleOption) this.selectpicker.view.titleOption = document.createElement('option');
+
+        // this option doesn't create a new <li> element, but does add a new option at the start,
+        // so startIndex should increase to prevent having to check every option for the bs-title-option class
+        updateIndex = true;
 
         var element = this.$element[0],
             isSelected = false,
@@ -58190,258 +58563,198 @@ if (typeof jQuery === "undefined") {
         if (isSelected) element.selectedIndex = 0;
       }
 
-      var $selectOptions = this.$element.find('option');
+      return updateIndex;
+    },
 
-      $selectOptions.each(function (index) {
-        var $this = $(this);
+    createLi: function () {
+      var that = this,
+          iconBase = this.options.iconBase,
+          optionSelector = ':not([hidden]):not([data-hidden="true"])',
+          mainElements = [],
+          mainData = [],
+          widestOptionLength = 0,
+          optID = 0,
+          startIndex = this.setPlaceholder() ? 1 : 0; // append the titleOption if necessary and skip the first option in the loop
 
-        liIndex++;
+      if (this.options.hideDisabled) optionSelector += ':not(:disabled)';
 
-        if ($this.hasClass('bs-title-option')) return;
+      if ((that.options.showTick || that.multiple) && !elementTemplates.checkMark.parentNode) {
+        elementTemplates.checkMark.className = iconBase + ' ' + that.options.tickIcon + ' check-mark';
+        elementTemplates.a.appendChild(elementTemplates.checkMark);
+      }
 
-        var thisData = $this.data();
+      var selectOptions = this.$element[0].querySelectorAll('select > *' + optionSelector);
 
-        // Get the class and text for the option
-        var optionClass = this.className || '',
-            inline = htmlEscape(this.style.cssText),
-            optionContent = thisData.content,
-            text = this.textContent,
-            tokens = thisData.tokens,
-            subtext = thisData.subtext,
-            icon = thisData.icon,
-            $parent = $this.parent(),
-            parent = $parent[0],
-            isOptgroup = parent.tagName === 'OPTGROUP',
-            isOptgroupDisabled = isOptgroup && parent.disabled,
-            isDisabled = this.disabled || isOptgroupDisabled,
-            prevHiddenIndex,
-            showDivider = this.previousElementSibling && this.previousElementSibling.tagName === 'OPTGROUP',
-            textElement,
-            labelElement,
-            prevHidden;
+      function addDivider (config) {
+        var previousData = mainData[mainData.length - 1];
 
-        var parentData = $parent.data();
-
-        if ((thisData.hidden === true || this.hidden) || (that.options.hideDisabled && (isDisabled || isOptgroupDisabled))) {
-          // set prevHiddenIndex - the index of the first hidden option in a group of hidden options
-          // used to determine whether or not a divider should be placed after an optgroup if there are
-          // hidden options between the optgroup and the first visible option
-          prevHiddenIndex = thisData.prevHiddenIndex;
-          $this.next().data('prevHiddenIndex', (prevHiddenIndex !== undefined ? prevHiddenIndex : index));
-
-          liIndex--;
-
-          hiddenOptions[index] = {
-            type: 'hidden',
-            data: thisData
-          }
-
-          // if previous element is not an optgroup
-          if (!showDivider) {
-            if (prevHiddenIndex !== undefined) {
-              // select the element **before** the first hidden element in the group
-              prevHidden = $selectOptions[prevHiddenIndex].previousElementSibling;
-
-              if (prevHidden && prevHidden.tagName === 'OPTGROUP' && !prevHidden.disabled) {
-                showDivider = true;
-              }
-            }
-          }
-
-          if (showDivider && mainData[mainData.length - 1].type !== 'divider') {
-            liIndex++;
-            mainElements.push(
-              generateLI(
-                false,
-                classNames.DIVIDER,
-                optID + 'div'
-              )
-            );
-            mainData.push({
-              type: 'divider',
-              optID: optID
-            });
-          }
-
+        // ensure optgroup doesn't create back-to-back dividers
+        if (
+          previousData &&
+          previousData.type === 'divider' &&
+          (previousData.optID || config.optID)
+        ) {
           return;
         }
 
-        if (isOptgroup && thisData.divider !== true) {
-          if (that.options.hideDisabled && isDisabled) {
-            if (parentData.allOptionsDisabled === undefined) {
-              var $options = $parent.children();
-              $parent.data('allOptionsDisabled', $options.filter(':disabled').length === $options.length);
-            }
+        config = config || {};
+        config.type = 'divider';
 
-            if ($parent.data('allOptionsDisabled')) {
-              liIndex--;
-              return;
-            }
-          }
+        mainElements.push(
+          generateOption.li(
+            false,
+            classNames.DIVIDER,
+            (config.optID ? config.optID + 'div' : undefined)
+          )
+        );
 
-          var optGroupClass = ' ' + parent.className || '',
-              previousOption = this.previousElementSibling;
+        mainData.push(config);
+      }
 
-          prevHiddenIndex = thisData.prevHiddenIndex;
+      function addOption (option, config) {
+        config = config || {};
 
-          if (prevHiddenIndex !== undefined) {
-            previousOption = $selectOptions[prevHiddenIndex].previousElementSibling;
-          }
+        config.divider = option.getAttribute('data-divider') === 'true';
 
-          if (!previousOption) { // Is it the first option of the optgroup?
-            optID += 1;
-
-            // Get the opt group label
-            var label = parent.label,
-                labelEscaped = htmlEscape(label),
-                labelSubtext = parentData.subtext,
-                labelIcon = parentData.icon;
-
-            if (index !== 0 && mainElements.length > 0) { // Is it NOT the first option of the select && are there elements in the dropdown?
-              liIndex++;
-              mainElements.push(
-                generateLI(
-                  false,
-                  classNames.DIVIDER,
-                  optID + 'div'
-                )
-              );
-              mainData.push({
-                type: 'divider',
-                optID: optID
-              });
-            }
-            liIndex++;
-
-            labelElement = generateLabel({
-              labelEscaped: labelEscaped,
-              labelSubtext: labelSubtext,
-              labelIcon: labelIcon
-            });
-
-            mainElements.push(generateLI(labelElement, 'dropdown-header' + optGroupClass, optID));
-            mainData.push({
-              content: labelEscaped,
-              subtext: labelSubtext,
-              type: 'optgroup-label',
-              optID: optID
-            });
-
-            headerIndex = liIndex - 1;
-          }
-
-          textElement = generateText({
-            text: text,
-            optionContent: optionContent,
-            optionSubtext: subtext,
-            optionIcon: icon
-          });
-
-          mainElements.push(generateLI(generateA(textElement, 'opt ' + optionClass + optGroupClass, inline), '', optID));
-          mainData.push({
-            content: optionContent || text,
-            subtext: subtext,
-            tokens: tokens,
-            type: 'option',
-            optID: optID,
-            headerIndex: headerIndex,
-            lastIndex: headerIndex + parent.childElementCount,
-            originalIndex: index,
-            data: thisData
-          });
-
-          availableOptionsCount++;
-        } else if (thisData.divider === true) {
-          mainElements.push(generateLI(false, classNames.DIVIDER));
-          mainData.push({
-            type: 'divider',
-            originalIndex: index,
-            data: thisData
+        if (config.divider) {
+          addDivider({
+            optID: config.optID
           });
         } else {
-          // if previous element is not an optgroup and hideDisabled is true
-          if (!showDivider && that.options.hideDisabled) {
-            prevHiddenIndex = thisData.prevHiddenIndex;
+          var liIndex = mainData.length,
+              cssText = option.style.cssText,
+              inlineStyle = cssText ? htmlEscape(cssText) : '',
+              optionClass = (option.className || '') + (config.optgroupClass || '');
 
-            if (prevHiddenIndex !== undefined) {
-              // select the element **before** the first hidden element in the group
-              prevHidden = $selectOptions[prevHiddenIndex].previousElementSibling;
+          if (config.optID) optionClass = 'opt ' + optionClass;
 
-              if (prevHidden && prevHidden.tagName === 'OPTGROUP' && !prevHidden.disabled) {
-                showDivider = true;
-              }
-            }
+          config.text = option.textContent;
+
+          config.content = option.getAttribute('data-content');
+          config.tokens = option.getAttribute('data-tokens');
+          config.subtext = option.getAttribute('data-subtext');
+          config.icon = option.getAttribute('data-icon');
+          config.iconBase = iconBase;
+
+          var textElement = generateOption.text(config);
+          var liElement = generateOption.li(
+            generateOption.a(
+              textElement,
+              optionClass,
+              inlineStyle
+            ),
+            '',
+            config.optID
+          );
+
+          if (liElement.firstChild) {
+            liElement.firstChild.id = that.selectId + '-' + liIndex;
           }
 
-          if (showDivider && mainData[mainData.length - 1].type !== 'divider') {
-            liIndex++;
-            mainElements.push(
-              generateLI(
-                false,
-                classNames.DIVIDER,
-                optID + 'div'
-              )
-            );
-            mainData.push({
-              type: 'divider',
-              optID: optID
-            });
+          mainElements.push(liElement);
+
+          option.liIndex = liIndex;
+
+          config.display = config.content || config.text;
+          config.type = 'option';
+          config.index = liIndex;
+          config.option = option;
+          config.disabled = config.disabled || option.disabled;
+
+          mainData.push(config);
+
+          var combinedLength = 0;
+
+          // count the number of characters in the option - not perfect, but should work in most cases
+          if (config.display) combinedLength += config.display.length;
+          if (config.subtext) combinedLength += config.subtext.length;
+          // if there is an icon, ensure this option's width is checked
+          if (config.icon) combinedLength += 1;
+
+          if (combinedLength > widestOptionLength) {
+            widestOptionLength = combinedLength;
+
+            // guess which option is the widest
+            // use this when calculating menu width
+            // not perfect, but it's fast, and the width will be updating accordingly when scrolling
+            that.selectpicker.view.widestOption = mainElements[mainElements.length - 1];
+          }
+        }
+      }
+
+      function addOptgroup (index, selectOptions) {
+        var optgroup = selectOptions[index],
+            previous = selectOptions[index - 1],
+            next = selectOptions[index + 1],
+            options = optgroup.querySelectorAll('option' + optionSelector);
+
+        if (!options.length) return;
+
+        var config = {
+              label: htmlEscape(optgroup.label),
+              subtext: optgroup.getAttribute('data-subtext'),
+              icon: optgroup.getAttribute('data-icon'),
+              iconBase: iconBase
+            },
+            optgroupClass = ' ' + (optgroup.className || ''),
+            headerIndex,
+            lastIndex;
+
+        optID++;
+
+        if (previous) {
+          addDivider({ optID: optID });
+        }
+
+        var labelElement = generateOption.label(config);
+
+        mainElements.push(
+          generateOption.li(labelElement, 'dropdown-header' + optgroupClass, optID)
+        );
+
+        mainData.push({
+          display: config.label,
+          subtext: config.subtext,
+          type: 'optgroup-label',
+          optID: optID
+        });
+
+        for (var j = 0, len = options.length; j < len; j++) {
+          var option = options[j];
+
+          if (j === 0) {
+            headerIndex = mainData.length - 1;
+            lastIndex = headerIndex + len;
           }
 
-          textElement = generateText({
-            text: text,
-            optionContent: optionContent,
-            optionSubtext: subtext,
-            optionIcon: icon
+          addOption(option, {
+            headerIndex: headerIndex,
+            lastIndex: lastIndex,
+            optID: optID,
+            optgroupClass: optgroupClass,
+            disabled: optgroup.disabled
           });
-
-          mainElements.push(generateLI(generateA(textElement, optionClass, inline)));
-          mainData.push({
-            content: optionContent || text,
-            subtext: subtext,
-            tokens: tokens,
-            type: 'option',
-            originalIndex: index,
-            data: thisData
-          });
-
-          availableOptionsCount++;
         }
 
-        that.selectpicker.main.map.newIndex[index] = liIndex;
-        that.selectpicker.main.map.originalIndex[liIndex] = index;
-
-        // get the most recent option info added to mainData
-        var _mainDataLast = mainData[mainData.length - 1];
-
-        _mainDataLast.disabled = isDisabled;
-
-        var combinedLength = 0;
-
-        // count the number of characters in the option - not perfect, but should work in most cases
-        if (_mainDataLast.content) combinedLength += _mainDataLast.content.length;
-        if (_mainDataLast.subtext) combinedLength += _mainDataLast.subtext.length;
-        // if there is an icon, ensure this option's width is checked
-        if (icon) combinedLength += 1;
-
-        if (combinedLength > widestOptionLength) {
-          widestOptionLength = combinedLength;
-
-          // guess which option is the widest
-          // use this when calculating menu width
-          // not perfect, but it's fast, and the width will be updating accordingly when scrolling
-          widestOption = mainElements[mainElements.length - 1];
+        if (next) {
+          addDivider({ optID: optID });
         }
-      });
+      }
+
+      for (var len = selectOptions.length; startIndex < len; startIndex++) {
+        var item = selectOptions[startIndex];
+
+        if (item.tagName !== 'OPTGROUP') {
+          addOption(item, {});
+        } else {
+          addOptgroup(startIndex, selectOptions);
+        }
+      }
 
       this.selectpicker.main.elements = mainElements;
       this.selectpicker.main.data = mainData;
-      this.selectpicker.main.hidden = hiddenOptions;
 
       this.selectpicker.current = this.selectpicker.main;
-
-      this.selectpicker.view.widestOption = widestOption;
-      this.selectpicker.view.availableOptionsCount = availableOptionsCount; // faster way to get # of available options without filter
     },
 
     findLis: function () {
@@ -58449,64 +58762,87 @@ if (typeof jQuery === "undefined") {
     },
 
     render: function () {
-      var that = this,
-          $selectOptions = this.$element.find('option'),
-          selectedItems = [],
-          selectedItemsInTitle = [];
+      // ensure titleOption is appended and selected (if necessary) before getting selectedOptions
+      this.setPlaceholder();
 
-      this.togglePlaceholder();
+      var that = this,
+          element = this.$element[0],
+          selectedOptions = getSelectedOptions(element, this.options.hideDisabled),
+          selectedCount = selectedOptions.length,
+          button = this.$button[0],
+          buttonInner = button.querySelector('.filter-option-inner-inner'),
+          multipleSeparator = document.createTextNode(this.options.multipleSeparator),
+          titleFragment = elementTemplates.fragment.cloneNode(false),
+          showCount,
+          countMax,
+          hasContent = false;
+
+      button.classList.toggle('bs-placeholder', that.multiple ? !selectedCount : !getSelectValues(element, selectedOptions));
 
       this.tabIndex();
 
-      for (var index = 0, len = $selectOptions.length; index < len; index++) {
-        var i = that.selectpicker.main.map.newIndex[index],
-            option = $selectOptions[index],
-            optionData = that.selectpicker.main.data[i] || that.selectpicker.main.hidden[index];
+      if (this.options.selectedTextFormat === 'static') {
+        titleFragment = generateOption.text({ text: this.options.title }, true);
+      } else {
+        showCount = this.multiple && this.options.selectedTextFormat.indexOf('count') !== -1 && selectedCount > 1;
 
-        if (option && option.selected && optionData) {
-          selectedItems.push(option);
-
-          if ((selectedItemsInTitle.length < 100 && that.options.selectedTextFormat !== 'count') || selectedItems.length === 1) {
-            var thisData = optionData.data,
-                icon = thisData.icon && that.options.showIcon ? '<i class="' + that.options.iconBase + ' ' + thisData.icon + '"></i> ' : '',
-                subtext,
-                titleItem;
-
-            if (that.options.showSubtext && thisData.subtext && !that.multiple) {
-              subtext = ' <small class="text-muted">' + thisData.subtext + '</small>';
-            } else {
-              subtext = '';
-            }
-
-            if (option.title) {
-              titleItem = option.title;
-            } else if (thisData.content && that.options.showContent) {
-              titleItem = thisData.content.toString();
-            } else {
-              titleItem = icon + option.innerHTML.trim() + subtext;
-            }
-
-            selectedItemsInTitle.push(titleItem);
-          }
+        // determine if the number of selected options will be shown (showCount === true)
+        if (showCount) {
+          countMax = this.options.selectedTextFormat.split('>');
+          showCount = (countMax.length > 1 && selectedCount > countMax[1]) || (countMax.length === 1 && selectedCount >= 2);
         }
-      }
 
-      // Fixes issue in IE10 occurring when no default option is selected and at least one option is disabled
-      // Convert all the values into a comma delimited string
-      var title = !this.multiple ? selectedItemsInTitle[0] : selectedItemsInTitle.join(this.options.multipleSeparator);
+        // only loop through all selected options if the count won't be shown
+        if (showCount === false) {
+          for (var selectedIndex = 0; selectedIndex < selectedCount; selectedIndex++) {
+            if (selectedIndex < 50) {
+              var option = selectedOptions[selectedIndex],
+                  titleOptions = {},
+                  thisData = {
+                    content: option.getAttribute('data-content'),
+                    subtext: option.getAttribute('data-subtext'),
+                    icon: option.getAttribute('data-icon')
+                  };
 
-      // add ellipsis
-      if (selectedItems.length > 50) title += '...';
+              if (this.multiple && selectedIndex > 0) {
+                titleFragment.appendChild(multipleSeparator.cloneNode(false));
+              }
 
-      // If this is a multiselect, and selectedTextFormat is count, then show 1 of 2 selected etc..
-      if (this.multiple && this.options.selectedTextFormat.indexOf('count') !== -1) {
-        var max = this.options.selectedTextFormat.split('>');
+              if (option.title) {
+                titleOptions.text = option.title;
+              } else if (thisData.content && that.options.showContent) {
+                titleOptions.content = thisData.content.toString();
+                hasContent = true;
+              } else {
+                if (that.options.showIcon) {
+                  titleOptions.icon = thisData.icon;
+                  titleOptions.iconBase = this.options.iconBase;
+                }
+                if (that.options.showSubtext && !that.multiple && thisData.subtext) titleOptions.subtext = ' ' + thisData.subtext;
+                titleOptions.text = option.textContent.trim();
+              }
 
-        if ((max.length > 1 && selectedItems.length > max[1]) || (max.length === 1 && selectedItems.length >= 2)) {
-          var totalCount = this.selectpicker.view.availableOptionsCount,
-              tr8nText = (typeof this.options.countSelectedText === 'function') ? this.options.countSelectedText(selectedItems.length, totalCount) : this.options.countSelectedText;
+              titleFragment.appendChild(generateOption.text(titleOptions, true));
+            } else {
+              break;
+            }
+          }
 
-          title = tr8nText.replace('{0}', selectedItems.length.toString()).replace('{1}', totalCount.toString());
+          // add ellipsis
+          if (selectedCount > 49) {
+            titleFragment.appendChild(document.createTextNode('...'));
+          }
+        } else {
+          var optionSelector = ':not([hidden]):not([data-hidden="true"]):not([data-divider="true"])';
+          if (this.options.hideDisabled) optionSelector += ':not(:disabled)';
+
+          // If this is a multiselect, and selectedTextFormat is count, then show 1 of 2 selected, etc.
+          var totalCount = this.$element[0].querySelectorAll('select > option' + optionSelector + ', optgroup' + optionSelector + ' option' + optionSelector).length,
+              tr8nText = (typeof this.options.countSelectedText === 'function') ? this.options.countSelectedText(selectedCount, totalCount) : this.options.countSelectedText;
+
+          titleFragment = generateOption.text({
+            text: tr8nText.replace('{0}', selectedCount.toString()).replace('{1}', totalCount.toString())
+          }, true);
         }
       }
 
@@ -58515,18 +58851,35 @@ if (typeof jQuery === "undefined") {
         this.options.title = this.$element.attr('title');
       }
 
-      if (this.options.selectedTextFormat == 'static') {
-        title = this.options.title;
-      }
-
       // If the select doesn't have a title, then use the default, or if nothing is set at all, use noneSelectedText
-      if (!title) {
-        title = typeof this.options.title !== 'undefined' ? this.options.title : this.options.noneSelectedText;
+      if (!titleFragment.childNodes.length) {
+        titleFragment = generateOption.text({
+          text: typeof this.options.title !== 'undefined' ? this.options.title : this.options.noneSelectedText
+        }, true);
       }
 
       // strip all HTML tags and trim the result, then unescape any escaped tags
-      this.$button[0].title = htmlUnescape(title.replace(/<[^>]*>?/g, '').trim());
-      this.$button.find('.filter-option-inner-inner')[0].innerHTML = title;
+      button.title = titleFragment.textContent.replace(/<[^>]*>?/g, '').trim();
+
+      if (this.options.sanitize && hasContent) {
+        sanitizeHtml([titleFragment], that.options.whiteList, that.options.sanitizeFn);
+      }
+
+      buttonInner.innerHTML = '';
+      buttonInner.appendChild(titleFragment);
+
+      if (version.major < 4 && this.$newElement[0].classList.contains('bs3-has-addon')) {
+        var filterExpand = button.querySelector('.filter-expand'),
+            clone = buttonInner.cloneNode(true);
+
+        clone.className = 'filter-expand';
+
+        if (filterExpand) {
+          button.replaceChild(clone, filterExpand);
+        } else {
+          button.appendChild(clone);
+        }
+      }
 
       this.$element.trigger('rendered' + EVENT_KEY);
     },
@@ -58535,20 +58888,40 @@ if (typeof jQuery === "undefined") {
      * @param [style]
      * @param [status]
      */
-    setStyle: function (style, status) {
+    setStyle: function (newStyle, status) {
+      var button = this.$button[0],
+          newElement = this.$newElement[0],
+          style = this.options.style.trim(),
+          buttonClass;
+
       if (this.$element.attr('class')) {
         this.$newElement.addClass(this.$element.attr('class').replace(/selectpicker|mobile-device|bs-select-hidden|validate\[.*\]/gi, ''));
       }
 
-      var buttonClass = style || this.options.style;
+      if (version.major < 4) {
+        newElement.classList.add('bs3');
+
+        if (newElement.parentNode.classList.contains('input-group') &&
+            (newElement.previousElementSibling || newElement.nextElementSibling) &&
+            (newElement.previousElementSibling || newElement.nextElementSibling).classList.contains('input-group-addon')
+        ) {
+          newElement.classList.add('bs3-has-addon');
+        }
+      }
+
+      if (newStyle) {
+        buttonClass = newStyle.trim();
+      } else {
+        buttonClass = style;
+      }
 
       if (status == 'add') {
-        this.$button.addClass(buttonClass);
+        if (buttonClass) button.classList.add.apply(button.classList, buttonClass.split(' '));
       } else if (status == 'remove') {
-        this.$button.removeClass(buttonClass);
+        if (buttonClass) button.classList.remove.apply(button.classList, buttonClass.split(' '));
       } else {
-        this.$button.removeClass(this.options.style);
-        this.$button.addClass(buttonClass);
+        if (style) button.classList.remove.apply(button.classList, style.split(' '));
+        if (buttonClass) button.classList.add.apply(button.classList, buttonClass.split(' '));
       }
     },
 
@@ -58613,7 +58986,7 @@ if (typeof jQuery === "undefined") {
 
       document.body.appendChild(newElement);
 
-      var liHeight = a.offsetHeight,
+      var liHeight = li.offsetHeight,
           dropdownHeaderHeight = dropdownHeader ? dropdownHeader.offsetHeight : 0,
           headerHeight = header ? header.offsetHeight : 0,
           searchHeight = search ? search.offsetHeight : 0,
@@ -58674,7 +59047,7 @@ if (typeof jQuery === "undefined") {
           $container = $(that.options.container),
           containerPos;
 
-      if (that.options.container && !$container.is('body')) {
+      if (that.options.container && $container.length && !$container.is('body')) {
         containerPos = $container.offset();
         containerPos.top += parseInt($container.css('borderTopWidth'));
         containerPos.left += parseInt($container.css('borderLeftWidth'));
@@ -58760,7 +59133,8 @@ if (typeof jQuery === "undefined") {
         'min-height': menuInnerMinHeight + 'px'
       });
 
-      this.sizeInfo.menuInnerHeight = menuInnerHeight;
+      // ensure menuInnerHeight is always a positive number to prevent issues calculating chunkSize in createView
+      this.sizeInfo.menuInnerHeight = Math.max(menuInnerHeight, 1);
 
       if (this.selectpicker.current.data.length && this.selectpicker.current.data[this.selectpicker.current.data.length - 1].position > this.sizeInfo.menuInnerHeight) {
         this.sizeInfo.hasScrollBar = true;
@@ -58779,41 +59153,29 @@ if (typeof jQuery === "undefined") {
       if (this.options.size === false) return;
 
       var that = this,
-          $window = $(window),
-          selectedIndex,
-          offset = 0;
+          $window = $(window);
 
       this.setMenuSize();
 
-      if (this.options.size === 'auto') {
+      if (this.options.liveSearch) {
         this.$searchbox
           .off('input.setMenuSize propertychange.setMenuSize')
           .on('input.setMenuSize propertychange.setMenuSize', function () {
             return that.setMenuSize();
           });
+      }
 
+      if (this.options.size === 'auto') {
         $window
           .off('resize' + EVENT_KEY + '.' + this.selectId + '.setMenuSize' + ' scroll' + EVENT_KEY + '.' + this.selectId + '.setMenuSize')
           .on('resize' + EVENT_KEY + '.' + this.selectId + '.setMenuSize' + ' scroll' + EVENT_KEY + '.' + this.selectId + '.setMenuSize', function () {
             return that.setMenuSize();
           });
       } else if (this.options.size && this.options.size != 'auto' && this.selectpicker.current.elements.length > this.options.size) {
-        this.$searchbox.off('input.setMenuSize propertychange.setMenuSize');
         $window.off('resize' + EVENT_KEY + '.' + this.selectId + '.setMenuSize' + ' scroll' + EVENT_KEY + '.' + this.selectId + '.setMenuSize');
       }
 
-      if (refresh) {
-        offset = this.$menuInner[0].scrollTop;
-      } else if (!that.multiple) {
-        selectedIndex = that.selectpicker.main.map.newIndex[that.$element[0].selectedIndex];
-
-        if (typeof selectedIndex === 'number' && that.options.size !== false) {
-          offset = that.sizeInfo.liHeight * selectedIndex;
-          offset = offset - (that.sizeInfo.menuInnerHeight / 2) + (that.sizeInfo.liHeight / 2);
-        }
-      }
-
-      that.createView(false, offset);
+      that.createView(false, true, refresh);
     },
 
     setWidth: function () {
@@ -58822,18 +59184,21 @@ if (typeof jQuery === "undefined") {
       if (this.options.width === 'auto') {
         requestAnimationFrame(function () {
           that.$menu.css('min-width', '0');
-          that.liHeight();
-          that.setMenuSize();
 
-          // Get correct width if element is hidden
-          var $selectClone = that.$newElement.clone().appendTo('body'),
-              btnWidth = $selectClone.css('width', 'auto').children('button').outerWidth();
+          that.$element.on('loaded' + EVENT_KEY, function () {
+            that.liHeight();
+            that.setMenuSize();
 
-          $selectClone.remove();
+            // Get correct width if element is hidden
+            var $selectClone = that.$newElement.clone().appendTo('body'),
+                btnWidth = $selectClone.css('width', 'auto').children('button').outerWidth();
 
-          // Set width to whatever's larger, button title or longest option
-          that.sizeInfo.selectWidth = Math.max(that.sizeInfo.totalMenuWidth, btnWidth);
-          that.$newElement.css('width', that.sizeInfo.selectWidth + 'px');
+            $selectClone.remove();
+
+            // Set width to whatever's larger, button title or longest option
+            that.sizeInfo.selectWidth = Math.max(that.sizeInfo.totalMenuWidth, btnWidth);
+            that.$newElement.css('width', that.sizeInfo.selectWidth + 'px');
+          });
         });
       } else if (this.options.width === 'fit') {
         // Remove inline min-width so width can be changed from 'auto'
@@ -58850,7 +59215,7 @@ if (typeof jQuery === "undefined") {
       }
       // Remove fit-width class if width is changed programmatically
       if (this.$newElement.hasClass('fit-width') && this.options.width !== 'fit') {
-        this.$newElement.removeClass('fit-width');
+        this.$newElement[0].classList.remove('fit-width');
       }
     },
 
@@ -58922,33 +59287,27 @@ if (typeof jQuery === "undefined") {
       });
     },
 
-    setOptionStatus: function () {
-      var that = this,
-          $selectOptions = this.$element.find('option');
+    setOptionStatus: function (selectedOnly) {
+      var that = this;
 
       that.noScroll = false;
 
       if (that.selectpicker.view.visibleElements && that.selectpicker.view.visibleElements.length) {
         for (var i = 0; i < that.selectpicker.view.visibleElements.length; i++) {
-          var index = that.selectpicker.current.map.originalIndex[i + that.selectpicker.view.position0], // faster than $(li).data('originalIndex')
-              option = $selectOptions[index];
+          var liData = that.selectpicker.current.data[i + that.selectpicker.view.position0],
+              option = liData.option;
 
           if (option) {
-            var liIndex = this.selectpicker.main.map.newIndex[index],
-                li = this.selectpicker.main.elements[liIndex];
-
-            that.setDisabled(
-              index,
-              option.disabled || (option.parentNode.tagName === 'OPTGROUP' && option.parentNode.disabled),
-              liIndex,
-              li
-            );
+            if (selectedOnly !== true) {
+              that.setDisabled(
+                liData.index,
+                liData.disabled
+              );
+            }
 
             that.setSelected(
-              index,
-              option.selected,
-              liIndex,
-              li
+              liData.index,
+              option.selected
             );
           }
         }
@@ -58959,10 +59318,11 @@ if (typeof jQuery === "undefined") {
      * @param {number} index - the index of the option that is being changed
      * @param {boolean} selected - true if the option is being selected, false if being deselected
      */
-    setSelected: function (index, selected, liIndex, li) {
-      var activeIndexIsSet = this.activeIndex !== undefined,
+    setSelected: function (index, selected) {
+      var li = this.selectpicker.main.elements[index],
+          liData = this.selectpicker.main.data[index],
+          activeIndexIsSet = this.activeIndex !== undefined,
           thisIsActive = this.activeIndex === index,
-          prevActiveIndex,
           prevActive,
           a,
           // if current option is already active
@@ -58974,8 +59334,7 @@ if (typeof jQuery === "undefined") {
           //  - when retainActive is false when selecting a new option (i.e. index of the newly selected option is not the same as the current activeIndex)
           keepActive = thisIsActive || (selected && !this.multiple && !activeIndexIsSet);
 
-      if (!liIndex) liIndex = this.selectpicker.main.map.newIndex[index];
-      if (!li) li = this.selectpicker.main.elements[liIndex];
+      liData.selected = selected;
 
       a = li.firstChild;
 
@@ -58984,29 +59343,33 @@ if (typeof jQuery === "undefined") {
       }
 
       li.classList.toggle('selected', selected);
-      li.classList.toggle('active', keepActive);
 
       if (keepActive) {
+        this.focusItem(li, liData);
         this.selectpicker.view.currentActive = li;
         this.activeIndex = index;
+      } else {
+        this.defocusItem(li);
       }
 
       if (a) {
         a.classList.toggle('selected', selected);
-        a.classList.toggle('active', keepActive);
-        a.setAttribute('aria-selected', selected);
-      }
 
-      if (!keepActive) {
-        if (!activeIndexIsSet && selected && this.prevActiveIndex !== undefined) {
-          prevActiveIndex = this.selectpicker.main.map.newIndex[this.prevActiveIndex];
-          prevActive = this.selectpicker.main.elements[prevActiveIndex];
-
-          prevActive.classList.remove('active');
-          if (prevActive.firstChild) {
-            prevActive.firstChild.classList.remove('active');
+        if (selected) {
+          a.setAttribute('aria-selected', true);
+        } else {
+          if (this.multiple) {
+            a.setAttribute('aria-selected', false);
+          } else {
+            a.removeAttribute('aria-selected');
           }
         }
+      }
+
+      if (!keepActive && !activeIndexIsSet && selected && this.prevActiveIndex !== undefined) {
+        prevActive = this.selectpicker.main.elements[this.prevActiveIndex];
+
+        this.defocusItem(prevActive);
       }
     },
 
@@ -59014,11 +59377,11 @@ if (typeof jQuery === "undefined") {
      * @param {number} index - the index of the option that is being disabled
      * @param {boolean} disabled - true if the option is being disabled, false if being enabled
      */
-    setDisabled: function (index, disabled, liIndex, li) {
-      var a;
+    setDisabled: function (index, disabled) {
+      var li = this.selectpicker.main.elements[index],
+          a;
 
-      if (!liIndex) liIndex = this.selectpicker.main.map.newIndex[index];
-      if (!li) li = this.selectpicker.main.elements[liIndex];
+      this.selectpicker.main.data[index].disabled = disabled;
 
       a = li.firstChild;
 
@@ -59027,11 +59390,11 @@ if (typeof jQuery === "undefined") {
       if (a) {
         if (version.major === '4') a.classList.toggle(classNames.DISABLED, disabled);
 
-        a.setAttribute('aria-disabled', disabled);
-
         if (disabled) {
+          a.setAttribute('aria-disabled', disabled);
           a.setAttribute('tabindex', -1);
         } else {
+          a.removeAttribute('aria-disabled');
           a.setAttribute('tabindex', 0);
         }
       }
@@ -59045,11 +59408,11 @@ if (typeof jQuery === "undefined") {
       var that = this;
 
       if (this.isDisabled()) {
-        this.$newElement.addClass(classNames.DISABLED);
+        this.$newElement[0].classList.add(classNames.DISABLED);
         this.$button.addClass(classNames.DISABLED).attr('tabindex', -1).attr('aria-disabled', true);
       } else {
-        if (this.$button.hasClass(classNames.DISABLED)) {
-          this.$newElement.removeClass(classNames.DISABLED);
+        if (this.$button[0].classList.contains(classNames.DISABLED)) {
+          this.$newElement[0].classList.remove(classNames.DISABLED);
           this.$button.removeClass(classNames.DISABLED).attr('aria-disabled', false);
         }
 
@@ -59058,20 +59421,9 @@ if (typeof jQuery === "undefined") {
         }
       }
 
-      this.$button.click(function () {
+      this.$button.on('click', function () {
         return !that.isDisabled();
       });
-    },
-
-    togglePlaceholder: function () {
-      // much faster than calling $.val()
-      var element = this.$element[0],
-          selectedIndex = element.selectedIndex,
-          nothingSelected = selectedIndex === -1;
-
-      if (!nothingSelected && !element.options[selectedIndex].value) nothingSelected = true;
-
-      this.$button.toggleClass('bs-placeholder', nothingSelected);
     },
 
     tabIndex: function () {
@@ -59112,9 +59464,9 @@ if (typeof jQuery === "undefined") {
 
       function setFocus () {
         if (that.options.liveSearch) {
-          that.$searchbox.focus();
+          that.$searchbox.trigger('focus');
         } else {
-          that.$menuInner.focus();
+          that.$menuInner.trigger('focus');
         }
       }
 
@@ -59138,12 +59490,25 @@ if (typeof jQuery === "undefined") {
         }
       });
 
+      // ensure posinset and setsize are correct before selecting an option via a click
+      this.$menuInner.on('mouseenter', 'li a', function (e) {
+        var hoverLi = this.parentElement,
+            position0 = that.isVirtual() ? that.selectpicker.view.position0 : 0,
+            index = Array.prototype.indexOf.call(hoverLi.parentElement.children, hoverLi),
+            hoverData = that.selectpicker.current.data[index + position0];
+
+        that.focusItem(hoverLi, hoverData, true);
+      });
+
       this.$menuInner.on('click', 'li a', function (e, retainActive) {
         var $this = $(this),
+            element = that.$element[0],
             position0 = that.isVirtual() ? that.selectpicker.view.position0 : 0,
-            clickedIndex = that.selectpicker.current.map.originalIndex[$this.parent().index() + position0],
-            prevValue = getSelectValues(that.$element[0]),
-            prevIndex = that.$element.prop('selectedIndex'),
+            clickedData = that.selectpicker.current.data[$this.parent().index() + position0],
+            clickedIndex = clickedData.index,
+            prevValue = getSelectValues(element),
+            prevIndex = element.selectedIndex,
+            prevOption = element.options[prevIndex],
             triggerChange = true;
 
         // Don't close on multi choice menu
@@ -59156,8 +59521,9 @@ if (typeof jQuery === "undefined") {
         // Don't run if the select is disabled
         if (!that.isDisabled() && !$this.parent().hasClass(classNames.DISABLED)) {
           var $options = that.$element.find('option'),
-              $option = $options.eq(clickedIndex),
-              state = $option.prop('selected'),
+              option = clickedData.option,
+              $option = $(option),
+              state = option.selected,
               $optgroup = $option.parent('optgroup'),
               $optgroupOptions = $optgroup.find('option'),
               maxOptions = that.options.maxOptions,
@@ -59171,14 +59537,14 @@ if (typeof jQuery === "undefined") {
           }
 
           if (!that.multiple) { // Deselect all others if not multi select box
-            $options.prop('selected', false);
-            $option.prop('selected', true);
+            prevOption.selected = false;
+            option.selected = true;
             that.setSelected(clickedIndex, true);
           } else { // Toggle the one we have chosen if we are multi select.
-            $option.prop('selected', !state);
+            option.selected = !state;
 
             that.setSelected(clickedIndex, !state);
-            $this.blur();
+            $this.trigger('blur');
 
             if (maxOptions !== false || maxOptionsGrp !== false) {
               var maxReached = maxOptions < $options.filter(':selected').length,
@@ -59246,16 +59612,16 @@ if (typeof jQuery === "undefined") {
           }
 
           if (!that.multiple || (that.multiple && that.options.maxOptions === 1)) {
-            that.$button.focus();
+            that.$button.trigger('focus');
           } else if (that.options.liveSearch) {
-            that.$searchbox.focus();
+            that.$searchbox.trigger('focus');
           }
 
           // Trigger select 'change'
           if (triggerChange) {
-            if ((prevValue != getSelectValues(that.$element[0]) && that.multiple) || (prevIndex != that.$element.prop('selectedIndex') && !that.multiple)) {
+            if (that.multiple || prevIndex !== element.selectedIndex) {
               // $option.prop('selected') is current option state (selected/unselected). prevValue is the value of the select prior to being changed.
-              changedArguments = [clickedIndex, $option.prop('selected'), prevValue];
+              changedArguments = [option.index, $option.prop('selected'), prevValue];
               that.$element
                 .triggerNative('change');
             }
@@ -59268,9 +59634,9 @@ if (typeof jQuery === "undefined") {
           e.preventDefault();
           e.stopPropagation();
           if (that.options.liveSearch && !$(e.target).hasClass('close')) {
-            that.$searchbox.focus();
+            that.$searchbox.trigger('focus');
           } else {
-            that.$button.focus();
+            that.$button.trigger('focus');
           }
         }
       });
@@ -59279,14 +59645,14 @@ if (typeof jQuery === "undefined") {
         e.preventDefault();
         e.stopPropagation();
         if (that.options.liveSearch) {
-          that.$searchbox.focus();
+          that.$searchbox.trigger('focus');
         } else {
-          that.$button.focus();
+          that.$button.trigger('focus');
         }
       });
 
       this.$menu.on('click', '.' + classNames.POPOVERHEADER + ' .close', function () {
-        that.$button.click();
+        that.$button.trigger('click');
       });
 
       this.$searchbox.on('click', function (e) {
@@ -59295,9 +59661,9 @@ if (typeof jQuery === "undefined") {
 
       this.$menu.on('click', '.actions-btn', function (e) {
         if (that.options.liveSearch) {
-          that.$searchbox.focus();
+          that.$searchbox.trigger('focus');
         } else {
-          that.$button.focus();
+          that.$button.trigger('focus');
         }
 
         e.preventDefault();
@@ -59310,16 +59676,15 @@ if (typeof jQuery === "undefined") {
         }
       });
 
-      this.$element.on({
-        'change': function () {
+      this.$element
+        .on('change' + EVENT_KEY, function () {
           that.render();
           that.$element.trigger('changed' + EVENT_KEY, changedArguments);
           changedArguments = null;
-        },
-        'focus': function () {
-          if (!that.options.mobile) that.$button.focus();
-        }
-      });
+        })
+        .on('focus' + EVENT_KEY, function () {
+          if (!that.options.mobile) that.$button.trigger('focus');
+        });
     },
 
     liveSearchListener: function () {
@@ -59339,8 +59704,6 @@ if (typeof jQuery === "undefined") {
       this.$searchbox.on('input propertychange', function () {
         var searchValue = that.$searchbox.val();
 
-        that.selectpicker.search.map.newIndex = {};
-        that.selectpicker.search.map.originalIndex = {};
         that.selectpicker.search.elements = [];
         that.selectpicker.search.data = [];
 
@@ -59388,11 +59751,6 @@ if (typeof jQuery === "undefined") {
             if (li.type !== 'divider' || (li.type === 'divider' && liPrev && liPrev.type !== 'divider' && cacheLen - 1 !== i)) {
               that.selectpicker.search.data.push(li);
               searchMatch.push(that.selectpicker.main.elements[index]);
-
-              if (li.hasOwnProperty('originalIndex')) {
-                that.selectpicker.search.map.newIndex[li.originalIndex] = searchMatch.length - 1;
-                that.selectpicker.search.map.originalIndex[searchMatch.length - 1] = li.originalIndex;
-              }
             }
           }
 
@@ -59419,10 +59777,33 @@ if (typeof jQuery === "undefined") {
     },
 
     val: function (value) {
+      var element = this.$element[0];
+
       if (typeof value !== 'undefined') {
+        var prevValue = getSelectValues(element);
+
+        changedArguments = [null, null, prevValue];
+
         this.$element
           .val(value)
-          .triggerNative('change');
+          .trigger('changed' + EVENT_KEY, changedArguments);
+
+        if (this.$newElement.hasClass(classNames.SHOW)) {
+          if (this.multiple) {
+            this.setOptionStatus(true);
+          } else {
+            var liSelectedIndex = (element.options[element.selectedIndex] || {}).liIndex;
+
+            if (typeof liSelectedIndex === 'number') {
+              this.setSelected(this.selectedIndex, false);
+              this.setSelected(liSelectedIndex, true);
+            }
+          }
+        }
+
+        this.render();
+
+        changedArguments = null;
 
         return this.$element;
       } else {
@@ -59434,32 +59815,29 @@ if (typeof jQuery === "undefined") {
       if (!this.multiple) return;
       if (typeof status === 'undefined') status = true;
 
-      var $selectOptions = this.$element.find('option'),
+      var element = this.$element[0],
           previousSelected = 0,
           currentSelected = 0,
-          prevValue = getSelectValues(this.$element[0]);
+          prevValue = getSelectValues(element);
 
-      this.$element.addClass('bs-select-hidden');
+      element.classList.add('bs-select-hidden');
 
-      for (var i = 0; i < this.selectpicker.current.elements.length; i++) {
+      for (var i = 0, len = this.selectpicker.current.elements.length; i < len; i++) {
         var liData = this.selectpicker.current.data[i],
-            index = this.selectpicker.current.map.originalIndex[i], // faster than $(li).data('originalIndex')
-            option = $selectOptions[index];
+            option = liData.option;
 
-        if (option && !option.disabled && liData.type !== 'divider') {
-          if (option.selected) previousSelected++;
+        if (option && !liData.disabled && liData.type !== 'divider') {
+          if (liData.selected) previousSelected++;
           option.selected = status;
-          if (option.selected) currentSelected++;
+          if (status) currentSelected++;
         }
       }
 
-      this.$element.removeClass('bs-select-hidden');
+      element.classList.remove('bs-select-hidden');
 
       if (previousSelected === currentSelected) return;
 
       this.setOptionStatus();
-
-      this.togglePlaceholder();
 
       changedArguments = [null, null, prevValue];
 
@@ -59513,25 +59891,26 @@ if (typeof jQuery === "undefined") {
         )
       ) {
         that.$button.trigger('click.bs.dropdown.data-api');
+
+        if (that.options.liveSearch) {
+          that.$searchbox.trigger('focus');
+          return;
+        }
       }
 
       if (e.which === keyCodes.ESCAPE && isActive) {
         e.preventDefault();
-        that.$button.trigger('click.bs.dropdown.data-api').focus();
+        that.$button.trigger('click.bs.dropdown.data-api').trigger('focus');
       }
 
       if (isArrowKey) { // if up or down
         if (!$items.length) return;
 
-        // $items.index/.filter is too slow with a large list and no virtual scroll
-        index = isVirtual === true ? $items.index($items.filter('.active')) : that.selectpicker.current.map.newIndex[that.activeIndex];
-
-        if (index === undefined) index = -1;
+        liActive = that.selectpicker.main.elements[that.activeIndex];
+        index = liActive ? Array.prototype.indexOf.call(liActive.parentElement.children, liActive) : -1;
 
         if (index !== -1) {
-          liActive = that.selectpicker.current.elements[index + position0];
-          liActive.classList.remove('active');
-          if (liActive.firstChild) liActive.firstChild.classList.remove('active');
+          that.defocusItem(liActive);
         }
 
         if (e.which === keyCodes.ARROW_UP) { // up
@@ -59583,21 +59962,18 @@ if (typeof jQuery === "undefined") {
 
         liActive = that.selectpicker.current.elements[liActiveIndex];
 
-        if (liActive) {
-          liActive.classList.add('active');
-          if (liActive.firstChild) liActive.firstChild.classList.add('active');
-        }
+        that.activeIndex = that.selectpicker.current.data[liActiveIndex].index;
 
-        that.activeIndex = that.selectpicker.current.map.originalIndex[liActiveIndex];
+        that.focusItem(liActive);
 
         that.selectpicker.view.currentActive = liActive;
 
         if (updateScroll) that.$menuInner[0].scrollTop = offset;
 
         if (that.options.liveSearch) {
-          that.$searchbox.focus();
+          that.$searchbox.trigger('focus');
         } else {
-          $this.focus();
+          $this.trigger('focus');
         }
       } else if (
         (!$this.is('input') && !REGEXP_TAB_OR_ESCAPE.test(e.which)) ||
@@ -59629,8 +60005,7 @@ if (typeof jQuery === "undefined") {
           hasMatch = stringSearch(li, keyHistory, 'startsWith', true);
 
           if (hasMatch && that.selectpicker.view.canHighlight[i]) {
-            li.index = i;
-            matches.push(li.originalIndex);
+            matches.push(li.index);
           }
         }
 
@@ -59650,9 +60025,9 @@ if (typeof jQuery === "undefined") {
             }
           }
 
-          searchMatch = that.selectpicker.current.map.newIndex[matches[matchIndex]];
+          searchMatch = matches[matchIndex];
 
-          activeLi = that.selectpicker.current.data[searchMatch];
+          activeLi = that.selectpicker.main.data[searchMatch];
 
           if (scrollTop - activeLi.position > 0) {
             offset = activeLi.position - activeLi.height;
@@ -59663,16 +60038,17 @@ if (typeof jQuery === "undefined") {
             updateScroll = activeLi.position > scrollTop + that.sizeInfo.menuInnerHeight;
           }
 
-          liActive = that.selectpicker.current.elements[searchMatch];
-          liActive.classList.add('active');
-          if (liActive.firstChild) liActive.firstChild.classList.add('active');
+          liActive = that.selectpicker.main.elements[searchMatch];
+
           that.activeIndex = matches[matchIndex];
 
-          liActive.firstChild.focus();
+          that.focusItem(liActive);
+
+          if (liActive) liActive.firstChild.focus();
 
           if (updateScroll) that.$menuInner[0].scrollTop = offset;
 
-          $this.focus();
+          $this.trigger('focus');
         }
       }
 
@@ -59689,7 +60065,7 @@ if (typeof jQuery === "undefined") {
 
         if (!that.options.liveSearch || e.which !== keyCodes.SPACE) {
           that.$menuInner.find('.active a').trigger('click', true); // retain active class
-          $this.focus();
+          $this.trigger('focus');
 
           if (!that.options.liveSearch) {
             // Prevent screen from scrolling if the user hits the spacebar
@@ -59702,7 +60078,7 @@ if (typeof jQuery === "undefined") {
     },
 
     mobile: function () {
-      this.$element.addClass('mobile-device');
+      this.$element[0].classList.add('mobile-device');
     },
 
     refresh: function () {
@@ -59710,12 +60086,10 @@ if (typeof jQuery === "undefined") {
       var config = $.extend({}, this.options, this.$element.data());
       this.options = config;
 
-      this.selectpicker.main.map.newIndex = {};
-      this.selectpicker.main.map.originalIndex = {};
-      this.createLi();
       this.checkDisabled();
-      this.render();
       this.setStyle();
+      this.render();
+      this.createLi();
       this.setWidth();
 
       this.setSize(true);
@@ -59771,19 +60145,44 @@ if (typeof jQuery === "undefined") {
       try {
         version.full = ($.fn.dropdown.Constructor.VERSION || '').split(' ')[0].split('.');
       } catch (err) {
-        // fall back to use BootstrapVersion
-        version.full = Selectpicker.BootstrapVersion.split(' ')[0].split('.');
+        // fall back to use BootstrapVersion if set
+        if (Selectpicker.BootstrapVersion) {
+          version.full = Selectpicker.BootstrapVersion.split(' ')[0].split('.');
+        } else {
+          version.full = [version.major, '0', '0'];
+
+          console.warn(
+            'There was an issue retrieving Bootstrap\'s version. ' +
+            'Ensure Bootstrap is being loaded before bootstrap-select and there is no namespace collision. ' +
+            'If loading Bootstrap asynchronously, the version may need to be manually specified via $.fn.selectpicker.Constructor.BootstrapVersion.',
+            err
+          );
+        }
       }
 
       version.major = version.full[0];
       version.success = true;
+    }
 
-      if (version.major === '4') {
-        classNames.DIVIDER = 'dropdown-divider';
-        classNames.SHOW = 'show';
-        classNames.BUTTONCLASS = 'btn-light';
-        Selectpicker.DEFAULTS.style = classNames.BUTTONCLASS = 'btn-light';
-        classNames.POPOVERHEADER = 'popover-header';
+    if (version.major === '4') {
+      // some defaults need to be changed if using Bootstrap 4
+      // check to see if they have already been manually changed before forcing them to update
+      var toUpdate = [];
+
+      if (Selectpicker.DEFAULTS.style === classNames.BUTTONCLASS) toUpdate.push({ name: 'style', className: 'BUTTONCLASS' });
+      if (Selectpicker.DEFAULTS.iconBase === classNames.ICONBASE) toUpdate.push({ name: 'iconBase', className: 'ICONBASE' });
+      if (Selectpicker.DEFAULTS.tickIcon === classNames.TICKICON) toUpdate.push({ name: 'tickIcon', className: 'TICKICON' });
+
+      classNames.DIVIDER = 'dropdown-divider';
+      classNames.SHOW = 'show';
+      classNames.BUTTONCLASS = 'btn-light';
+      classNames.POPOVERHEADER = 'popover-header';
+      classNames.ICONBASE = '';
+      classNames.TICKICON = 'bs-ok-default';
+
+      for (var i = 0; i < toUpdate.length; i++) {
+        var option = toUpdate[i];
+        Selectpicker.DEFAULTS[option.name] = classNames[option.className];
       }
     }
 
@@ -59795,8 +60194,16 @@ if (typeof jQuery === "undefined") {
             options = typeof _option == 'object' && _option;
 
         if (!data) {
-          var config = $.extend({}, Selectpicker.DEFAULTS, $.fn.selectpicker.defaults || {}, $this.data(), options);
-          config.template = $.extend({}, Selectpicker.DEFAULTS.template, ($.fn.selectpicker.defaults ? $.fn.selectpicker.defaults.template : {}), $this.data().template, options.template);
+          var dataAttributes = $this.data();
+
+          for (var dataAttr in dataAttributes) {
+            if (dataAttributes.hasOwnProperty(dataAttr) && $.inArray(dataAttr, DISALLOWED_ATTRIBUTES) !== -1) {
+              delete dataAttributes[dataAttr];
+            }
+          }
+
+          var config = $.extend({}, Selectpicker.DEFAULTS, $.fn.selectpicker.defaults || {}, dataAttributes, options);
+          config.template = $.extend({}, Selectpicker.DEFAULTS.template, ($.fn.selectpicker.defaults ? $.fn.selectpicker.defaults.template : {}), dataAttributes.template, options.template);
           $this.data('selectpicker', (data = new Selectpicker(this, config)));
         } else if (options) {
           for (var i in options) {
@@ -59854,7 +60261,7 @@ if (typeof jQuery === "undefined") {
 
 
 }));
-
+//# sourceMappingURL=bootstrap-select.js.map
 /**
   * bootstrap-switch - Turn checkboxes and radio buttons into toggle switches.
   *
