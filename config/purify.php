@@ -1,70 +1,41 @@
 <?php
+/**
+ * Ok, glad you are here
+ * first we get a config instance, and set the settings
+ * $config = HTMLPurifier_Config::createDefault();
+ * $config->set('Core.Encoding', $this->config->get('purifier.encoding'));
+ * $config->set('Cache.SerializerPath', $this->config->get('purifier.cachePath'));
+ * if ( ! $this->config->get('purifier.finalize')) {
+ *     $config->autoFinalize = false;
+ * }
+ * $config->loadArray($this->getConfig());
+ *
+ * You must NOT delete the default settings
+ * anything in settings should be compacted with params that needed to instance HTMLPurifier_Config.
+ *
+ * @link http://htmlpurifier.org/live/configdoc/plain.html
+ */
 
 return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Settings
-    |--------------------------------------------------------------------------
-    |
-    | The configuration settings array is passed directly to HTMLPurifier.
-    |
-    | Feel free to add / remove / customize these attributes as you wish.
-    |
-    | Documentation: http://htmlpurifier.org/live/configdoc/plain.html
-    |
-    */
-
-    'settings' => [
-
-        /*
-        |--------------------------------------------------------------------------
-        | Core.Encoding
-        |--------------------------------------------------------------------------
-        |
-        | The encoding to convert input to.
-        |
-        | http://htmlpurifier.org/live/configdoc/plain.html#Core.Encoding
-        |
-        */
-        'encoding'      => 'UTF-8',
-        'finalize'      => true,
-        'cachePath'     => storage_path('app/purify'),
-        'cacheFileMode' => 0755,
-        "default" => [
-            'HTML.Doctype' => 'XHTML 1.0 Transitional',
-            'Attr.EnableID' => true,
-            'Attr.ID.HTML5' => true,
-            'HTML.Allowed' => 'div[class|style|id],b,strong,i[class|style|id]'
-                . ',em,a[class|style|id|title|target|href],ul[class|style|id],ol[class|style|id],li[class|style|id]'
-                . ',p[class|style|id],br,span[class|style|id],img[width|height|alt|src|class|style|id]'
-                . ',iframe[src|scrolling|class|style|id|data-aa],h1[class|style|id],h2[class|style|id],h3[class|style|id],h4[class|style|id],h5[class|style|id],h6[class|style|id]'
-                . ',dt[class|style|id],dl[class|style|id]',
-
-            'Attr.AllowedFrameTargets' => ['_blank'],
-
-            "HTML.SafeIframe" => 'true',
-
-            "URI.SafeIframeRegexp" => "%^(http://|https://|//)(mellowads.com|coinurl.com|a-ads.com|ad.a-ads.com|bee-ads.com)%",
-
-            'HTML.ForbiddenElements' => '',
-
-            'CSS.AllowedProperties' => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
-
-            'AutoFormat.AutoParagraph' => false,
-
-            'AutoFormat.RemoveEmpty' => false,
+    'encoding'      => 'UTF-8',
+    'finalize'      => true,
+    'cachePath'     => storage_path('app/purifier'),
+    'cacheFileMode' => 0755,
+    'settings'      => [
+        'default' => [
+            'HTML.Doctype'             => 'HTML 4.01 Transitional',
+            'HTML.Allowed'             => 'div,b,strong,i,em,u,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src]',
+            'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
+            'AutoFormat.AutoParagraph' => true,
+            'AutoFormat.RemoveEmpty'   => true,
         ],
-
         'test'    => [
             'Attr.EnableID' => 'true',
         ],
-
         "youtube" => [
             "HTML.SafeIframe"      => 'true',
             "URI.SafeIframeRegexp" => "%^(http://|https://|//)(www.youtube.com/embed/|player.vimeo.com/video/)%",
         ],
-
         'custom_definition' => [
             'id'  => 'html5-definitions',
             'rev' => 1,
@@ -100,6 +71,7 @@ return [
                     'src' => 'URI',
                     'type' => 'Text',
                 ]],
+
                 // http://developers.whatwg.org/text-level-semantics.html
                 ['s',    'Inline', 'Inline', 'Common'],
                 ['var',  'Inline', 'Inline', 'Common'],
@@ -122,16 +94,12 @@ return [
                 ['tr', 'border', 'Text'],
             ],
         ],
-
         'custom_attributes' => [
             ['a', 'target', 'Enum#_blank,_self,_target,_top'],
-            ['iframe', 'data-aa', 'Text'],
         ],
-
         'custom_elements' => [
             ['u', 'Inline', 'Inline', 'Common'],
         ],
-
     ],
 
 ];
