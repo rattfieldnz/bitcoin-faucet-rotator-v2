@@ -20,7 +20,6 @@ return [
         'Attr.EnableID' => true,
         'Attr.ID.HTML5' => true,
         'finalize' => true,
-        'preload'  => false,
 
         'HTML.Allowed' => 'div[class|style|id],b,strong,i[class|style|id]'
             . ',em,a[class|style|id|title|target|href],ul[class|style|id],ol[class|style|id],li[class|style|id]'
