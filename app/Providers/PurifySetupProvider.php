@@ -26,6 +26,8 @@ class PurifySetupProvider extends ServiceProvider
 
         $config->set('HTML.DefinitionID', static::DEFINITION_ID);
 
+        $config->set('HTML.DefinitionID', static::DEFINITION_REV);
+
         if ($def = $config->maybeGetRawHTMLDefinition()) {
             $this->setupDefinitions($def);
         }
