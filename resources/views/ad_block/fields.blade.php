@@ -21,6 +21,9 @@
 @push('scripts')
 <script src="/assets/js/ckeditor/ckeditor.js?{{ rand()}}"></script>
 <script>
+    CKEDITOR.ckeditor({
+        extraAllowedContent: '*[*]{*}(*)'
+    });
     CKEDITOR.replace( 'ad_content');
 </script>
 @endpush
