@@ -29,6 +29,11 @@ return [
         "HTML.SafeIframe" => 'true',
         "URI.SafeIframeRegexp" => "%^(http://|https://|//)(mellowads.com|coinurl.com|a-ads.com|ad.a-ads.com|bee-ads.com)%",
 
+        'custom_attributes' => [
+            ['a', 'target', 'Enum#_blank,_self,_target,_top'],
+            ['iframe', 'data-aa', 'Text'],
+        ],
+
         /*
         |--------------------------------------------------------------------------
         | Core.Encoding
@@ -116,11 +121,6 @@ return [
 
         'AutoFormat.RemoveEmpty' => false,
 
-    ],
-
-    'custom_attributes' => [
-        ['a', 'target', 'Enum#_blank,_self,_target,_top'],
-        ['iframe', 'data-aa', 'Text'],
     ],
 
 ];
