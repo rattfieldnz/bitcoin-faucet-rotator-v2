@@ -1,7 +1,5 @@
 <?php
 
-use App\Providers\PurifySetupProvider;
-
 return [
 
     /*
@@ -157,7 +155,7 @@ return [
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         Optimus\ApiConsumer\Provider\LaravelServiceProvider::class,
-        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+        Sentry\Laravel\ServiceProvider::class,
         Jaybizzle\MigrationsOrganiser\MigrationsOrganiserServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
