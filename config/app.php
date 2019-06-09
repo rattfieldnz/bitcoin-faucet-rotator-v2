@@ -143,7 +143,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
-        Stevebauman\Purify\PurifyServiceProvider::class, ///====================///
+        Stevebauman\Purify\PurifyServiceProvider::class,
         Laratrust\LaratrustServiceProvider::class,
         Bepsvpt\SecureHeaders\SecureHeadersServiceProvider::class,
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
@@ -210,7 +210,7 @@ return [
         'Mail' => Illuminate\Support\Facades\Mail::class,
         'Password' => Illuminate\Support\Facades\Password::class,
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
-        'Purify' => Stevebauman\Purify\Facades\Purify::class, ///====================///
+        'Purify' => Stevebauman\Purify\Facades\Purify::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,
         'Redis' => Illuminate\Support\Facades\Redis::class,
@@ -235,9 +235,9 @@ return [
         'HTMLMin' => \HTMLMin\HTMLMin\Facades\HTMLMin::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
-        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
+        'Sentry' => Sentry\Laravel\Facade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'Feed' => Roumen\Feed\Feed::class,
+        'Feed' => Laravelium\Feed\Feed::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
