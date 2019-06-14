@@ -7,8 +7,5 @@
         <p>
             @include('layouts.partials.navigation._footer_alternate_menu')
         </p>
-        <p class="word-wrap-white-space">
-            View the original <strong><a href="http://freebtc.website" title="Bitcoin Faucet Rotator">Bitcoin Faucet Rotator</a></strong>.
-        </p>
     </div>
 </footer>
