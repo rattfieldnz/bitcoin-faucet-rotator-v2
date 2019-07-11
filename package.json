@@ -63,7 +63,6 @@
     "@bower_components/morris.js": "oesmith/morris.js#^0.5.1",
     "@bower_components/raphael": "DmitryBaranovskiy/raphael#^2.2.8",
     "@bower_components/select2": "ivaynberg/select2#^4.0.7",
-
     "Flot": "flot/flot#^3.1.1",
     "admin-lte": "almasaeed2010/AdminLTE#~2.4.10",
     "bootstrap": "twbs/bootstrap#~3.4.1",
