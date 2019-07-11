@@ -6,7 +6,9 @@
     "copyfiles": "gulp copyfiles",
     "minifycss": "gulp minifycss",
     "minifyjs": "gulp minifyjs",
-    "postinstall": "node -e \"try { require('fs').symlinkSync(require('path').resolve('node_modules/@bower_components'), 'vendor/bower_components', 'junction') } catch (e) { }\""
+    "postinstall": "node -e \"try { require('fs').symlinkSync(require('path').resolve('node_modules/@bower_components'), 'vendor/bower_components', 'junction') } catch (e) { }\"",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
@@ -103,9 +105,11 @@
     "pace": "HubSpot/pace#^1.0.2",
     "raphael": "DmitryBaranovskiy/raphael#^2.2.8",
     "select2": "ivaynberg/select2#^4.0.7",
-    "yes": "^1.1.1"
+    "yes": "^1.1.1",
+    "snyk": "^1.192.6"
   },
   "engines": {
     "yarn": ">= 1.16.0"
-  }
+  },
+  "snyk": true
 }
