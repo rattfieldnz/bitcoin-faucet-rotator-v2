@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e31339734ef95896fa2e55594e1b898b",
+    "content-hash": "2e7692cf249c55b3af38ad12ac59e8f7",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1008,6 +1008,61 @@
                 "php"
             ],
             "time": "2019-06-08T11:03:04+00:00"
+        },
+        {
+            "name": "dougsisk/laravel-block-referral-spam",
+            "version": "1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DougSisk/Laravel-BlockReferralSpam.git",
+                "reference": "71ed81b79e3c4a687111631c9eb0bcdb1a795bf1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DougSisk/Laravel-BlockReferralSpam/zipball/71ed81b79e3c4a687111631c9eb0bcdb1a795bf1",
+                "reference": "71ed81b79e3c4a687111631c9eb0bcdb1a795bf1",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "^5.5",
+                "matomo/referrer-spam-blacklist": "@dev",
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "orchestra/testbench-browser-kit": "~3.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DougSisk\\BlockReferralSpam\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Doug Sisk",
+                    "homepage": "http://dougsisk.com"
+                }
+            ],
+            "description": "Blocks referral spam using middleware for Laravel 5.5+",
+            "homepage": "https://github.com/DougSisk/Laravel-BlockReferralSpam",
+            "keywords": [
+                "block",
+                "laravel",
+                "middleware",
+                "referer",
+                "referral",
+                "spam"
+            ],
+            "time": "2018-05-01T02:29:37+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -3230,6 +3285,31 @@
                 "vector"
             ],
             "time": "2018-11-04T22:12:12+00:00"
+        },
+        {
+            "name": "matomo/referrer-spam-blacklist",
+            "version": "3.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/matomo-org/referrer-spam-blacklist.git",
+                "reference": "465dbd48d0735f7f0828c7ce2a348c9165f17606"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/matomo-org/referrer-spam-blacklist/zipball/465dbd48d0735f7f0828c7ce2a348c9165f17606",
+                "reference": "465dbd48d0735f7f0828c7ce2a348c9165f17606",
+                "shasum": ""
+            },
+            "replace": {
+                "piwik/referrer-spam-blacklist": "*"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC0-1.0"
+            ],
+            "description": "Community-contributed list of referrer spammers",
+            "time": "2019-05-30T21:27:14+00:00"
         },
         {
             "name": "mews/purifier",
