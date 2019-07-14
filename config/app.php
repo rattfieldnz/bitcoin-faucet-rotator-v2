@@ -162,6 +162,7 @@ return [
         Laravelium\Feed\FeedServiceProvider::class,
         Snowfire\Beautymail\BeautymailServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        RachidLaasri\LaravelInstaller\Providers\LaravelInstallerServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -19,7 +19,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Commands\SendRandomFaucetTweet::class
+        \App\Console\Commands\SendRandomFaucetTweet::class,
+        \App\Console\Commands\RunPhpFile::class
     ];
 
     /**

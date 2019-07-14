@@ -20,7 +20,7 @@ return [
     'final' => [
         'key' => true,
         'publish' => false
-    ],    
+    ],
     'requirements' => [
         'php' => [
             'openssl',
@@ -55,7 +55,7 @@ return [
     | Environment Form Wizard Validation Rules & Messages
     |--------------------------------------------------------------------------
     |
-    | This are the default form vield validation rules. Available Rules:
+    | This are the default form field validation rules. Available Rules:
     | https://laravel.com/docs/5.4/validation#available-validation-rules
     |
     */
@@ -66,8 +66,7 @@ return [
                 'environment'           => 'required|string|max:50',
                 'environment_custom'    => 'required_if:environment,other|max:50',
                 'app_debug'             => [
-                    'required',
-                    Rule::in(['true', 'false']),
+                    'required|boolean'
                 ],
                 'app_log_level'         => 'required|string|max:50',
                 'app_url'               => 'required|url',
@@ -99,7 +98,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Installed Middlware Options
+    | Installed Middleware Options
     |--------------------------------------------------------------------------
     | Different available status switch configuration for the
     | canInstall middleware located in `canInstall.php`.
@@ -122,9 +121,9 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Selected Installed Middlware Option
+    | Selected Installed Middleware Option
     |--------------------------------------------------------------------------
-    | The selected option fo what happens when an installer intance has been
+    | The selected option fo what happens when an installer instance has been
     | Default output is to `/resources/views/error/404.blade.php` if none.
     | The available middleware options include:
     | route, abort, dump, 404, default, ''
@@ -142,5 +141,15 @@ return [
     |
     */
     'updaterEnabled' => 'true',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Custom PHP script
+    |--------------------------------------------------------------------------
+    | Path where php script is located, relative to your project's root
+    | folder. e.g. 'custom-scripts/YOURPHPSCRIPT.php.
+    |
+    */
+    'pathToCustomScript' => '',
 
 ];

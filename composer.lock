@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "94058b71cdde54ecf4e1e96a11f279d3",
+    "content-hash": "e31339734ef95896fa2e55594e1b898b",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1010,61 +1010,6 @@
             "time": "2019-06-08T11:03:04+00:00"
         },
         {
-            "name": "dougsisk/laravel-block-referral-spam",
-            "version": "1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/DougSisk/Laravel-BlockReferralSpam.git",
-                "reference": "71ed81b79e3c4a687111631c9eb0bcdb1a795bf1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/DougSisk/Laravel-BlockReferralSpam/zipball/71ed81b79e3c4a687111631c9eb0bcdb1a795bf1",
-                "reference": "71ed81b79e3c4a687111631c9eb0bcdb1a795bf1",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/http": "^5.5",
-                "matomo/referrer-spam-blacklist": "@dev",
-                "php": ">=7.0.0"
-            },
-            "require-dev": {
-                "orchestra/testbench-browser-kit": "~3.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "DougSisk\\BlockReferralSpam\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Doug Sisk",
-                    "homepage": "http://dougsisk.com"
-                }
-            ],
-            "description": "Blocks referral spam using middleware for Laravel 5.5+",
-            "homepage": "https://github.com/DougSisk/Laravel-BlockReferralSpam",
-            "keywords": [
-                "block",
-                "laravel",
-                "middleware",
-                "referer",
-                "referral",
-                "spam"
-            ],
-            "time": "2018-05-01T02:29:37+00:00"
-        },
-        {
             "name": "dragonmantank/cron-expression",
             "version": "v2.3.0",
             "source": {
@@ -1429,7 +1374,6 @@
         },
         {
             "name": "google/apiclient-services",
-<<<<<<< HEAD
             "version": "v0.104",
             "source": {
                 "type": "git",
@@ -1440,18 +1384,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/d41fea99f90d7935bd57cf654bf271072fe584f1",
                 "reference": "d41fea99f90d7935bd57cf654bf271072fe584f1",
-=======
-            "version": "v0.103",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/googleapis/google-api-php-client-services.git",
-                "reference": "01f9ada6e0f37515419cbf457144ccefee70e522"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/01f9ada6e0f37515419cbf457144ccefee70e522",
-                "reference": "01f9ada6e0f37515419cbf457144ccefee70e522",
->>>>>>> a97a8869b6a2ab6a4947aac2c1114122d9304e6f
                 "shasum": ""
             },
             "require": {
@@ -1475,11 +1407,7 @@
             "keywords": [
                 "google"
             ],
-<<<<<<< HEAD
             "time": "2019-06-23T00:23:39+00:00"
-=======
-            "time": "2019-06-16T00:23:11+00:00"
->>>>>>> a97a8869b6a2ab6a4947aac2c1114122d9304e6f
         },
         {
             "name": "google/auth",
@@ -2166,7 +2094,6 @@
         },
         {
             "name": "laravel/framework",
-<<<<<<< HEAD
             "version": "v5.8.28",
             "source": {
                 "type": "git",
@@ -2177,18 +2104,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/framework/zipball/341fb54bea9693cada2a5b8d398621a57f82862d",
                 "reference": "341fb54bea9693cada2a5b8d398621a57f82862d",
-=======
-            "version": "v5.8.23",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/framework.git",
-                "reference": "02d242212348bddd048702f5dee8dab693ac830b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/02d242212348bddd048702f5dee8dab693ac830b",
-                "reference": "02d242212348bddd048702f5dee8dab693ac830b",
->>>>>>> a97a8869b6a2ab6a4947aac2c1114122d9304e6f
                 "shasum": ""
             },
             "require": {
@@ -2322,24 +2237,20 @@
                 "framework",
                 "laravel"
             ],
-<<<<<<< HEAD
             "time": "2019-07-09T14:00:02+00:00"
-=======
-            "time": "2019-06-13T21:08:56+00:00"
->>>>>>> a97a8869b6a2ab6a4947aac2c1114122d9304e6f
         },
         {
             "name": "laravel/passport",
-            "version": "v7.3.1",
+            "version": "v7.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/passport.git",
-                "reference": "89c81aa8ced151f8e67f47972e1dab71d60e90b4"
+                "reference": "a738f62b72b9982c043c9d52e5d0438f999c630a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/passport/zipball/89c81aa8ced151f8e67f47972e1dab71d60e90b4",
-                "reference": "89c81aa8ced151f8e67f47972e1dab71d60e90b4",
+                "url": "https://api.github.com/repos/laravel/passport/zipball/a738f62b72b9982c043c9d52e5d0438f999c630a",
+                "reference": "a738f62b72b9982c043c9d52e5d0438f999c630a",
                 "shasum": ""
             },
             "require": {
@@ -2396,7 +2307,7 @@
                 "oauth",
                 "passport"
             ],
-            "time": "2019-07-02T15:36:59+00:00"
+            "time": "2019-07-11T21:16:43+00:00"
         },
         {
             "name": "laravelcollective/html",
@@ -3321,31 +3232,6 @@
             "time": "2018-11-04T22:12:12+00:00"
         },
         {
-            "name": "matomo/referrer-spam-blacklist",
-            "version": "3.10.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/matomo-org/referrer-spam-blacklist.git",
-                "reference": "465dbd48d0735f7f0828c7ce2a348c9165f17606"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/matomo-org/referrer-spam-blacklist/zipball/465dbd48d0735f7f0828c7ce2a348c9165f17606",
-                "reference": "465dbd48d0735f7f0828c7ce2a348c9165f17606",
-                "shasum": ""
-            },
-            "replace": {
-                "piwik/referrer-spam-blacklist": "*"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "CC0-1.0"
-            ],
-            "description": "Community-contributed list of referrer spammers",
-            "time": "2019-05-30T21:27:14+00:00"
-        },
-        {
             "name": "mews/purifier",
             "version": "2.1.4",
             "source": {
@@ -3545,7 +3431,6 @@
         },
         {
             "name": "nesbot/carbon",
-<<<<<<< HEAD
             "version": "2.20.0",
             "source": {
                 "type": "git",
@@ -3556,18 +3441,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/bc671b896c276795fad8426b0aa24e8ade0f2498",
                 "reference": "bc671b896c276795fad8426b0aa24e8ade0f2498",
-=======
-            "version": "2.19.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "adcad3f3af52d0ad4ad7b05f43aa58243b6ca67b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/adcad3f3af52d0ad4ad7b05f43aa58243b6ca67b",
-                "reference": "adcad3f3af52d0ad4ad7b05f43aa58243b6ca67b",
->>>>>>> a97a8869b6a2ab6a4947aac2c1114122d9304e6f
                 "shasum": ""
             },
             "require": {
@@ -3614,11 +3487,7 @@
                 "datetime",
                 "time"
             ],
-<<<<<<< HEAD
             "time": "2019-06-25T10:00:57+00:00"
-=======
-            "time": "2019-06-07T09:56:45+00:00"
->>>>>>> a97a8869b6a2ab6a4947aac2c1114122d9304e6f
         },
         {
             "name": "nikic/php-parser",
@@ -4571,7 +4440,6 @@
         },
         {
             "name": "phpseclib/phpseclib",
-<<<<<<< HEAD
             "version": "2.0.20",
             "source": {
                 "type": "git",
@@ -4582,18 +4450,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/d6819a55b05e123db1e881d8b230d57f912126be",
                 "reference": "d6819a55b05e123db1e881d8b230d57f912126be",
-=======
-            "version": "2.0.18",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "60519001db8d791215a822efd366d24cafee9e63"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/60519001db8d791215a822efd366d24cafee9e63",
-                "reference": "60519001db8d791215a822efd366d24cafee9e63",
->>>>>>> a97a8869b6a2ab6a4947aac2c1114122d9304e6f
                 "shasum": ""
             },
             "require": {
@@ -4672,11 +4528,7 @@
                 "x.509",
                 "x509"
             ],
-<<<<<<< HEAD
             "time": "2019-06-23T16:33:11+00:00"
-=======
-            "time": "2019-06-13T06:15:54+00:00"
->>>>>>> a97a8869b6a2ab6a4947aac2c1114122d9304e6f
         },
         {
             "name": "predis/predis",
@@ -5293,6 +5145,21 @@
                 "uuid"
             ],
             "time": "2018-07-19T23:38:55+00:00"
+        },
+        {
+            "name": "rattfieldnz/laravel-installer",
+            "version": "4.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rattfieldnz/LaravelInstaller.git",
+                "reference": "4.0.3"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    ""
+                ]
+            }
         },
         {
             "name": "santigarcor/laratrust",
@@ -9546,7 +9413,6 @@
         },
         {
             "name": "phpunit/phpunit",
-<<<<<<< HEAD
             "version": "8.2.4",
             "source": {
                 "type": "git",
@@ -9557,18 +9423,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/25fe0b5031b24722f66a75ad479a074cccc1bb37",
                 "reference": "25fe0b5031b24722f66a75ad479a074cccc1bb37",
-=======
-            "version": "8.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "24b6cfcec34c1167ee1d90b7cb22bee324af319f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/24b6cfcec34c1167ee1d90b7cb22bee324af319f",
-                "reference": "24b6cfcec34c1167ee1d90b7cb22bee324af319f",
->>>>>>> a97a8869b6a2ab6a4947aac2c1114122d9304e6f
                 "shasum": ""
             },
             "require": {
@@ -9638,11 +9492,7 @@
                 "testing",
                 "xunit"
             ],
-<<<<<<< HEAD
             "time": "2019-07-03T08:30:33+00:00"
-=======
-            "time": "2019-06-15T07:25:54+00:00"
->>>>>>> a97a8869b6a2ab6a4947aac2c1114122d9304e6f
         },
         {
             "name": "psy/psysh",
@@ -9717,56 +9567,6 @@
                 "shell"
             ],
             "time": "2018-10-13T15:16:03+00:00"
-        },
-        {
-            "name": "rachidlaasri/laravel-installer",
-            "version": "4.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/RachidLaasri/LaravelInstaller.git",
-                "reference": "8063eda959fdee8b337e6ea543603e169e843897"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/RachidLaasri/LaravelInstaller/zipball/8063eda959fdee8b337e6ea543603e169e843897",
-                "reference": "8063eda959fdee8b337e6ea543603e169e843897",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "RachidLaasri\\LaravelInstaller\\Providers\\LaravelInstallerServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "RachidLaasri\\LaravelInstaller\\": "src/"
-                },
-                "files": [
-                    "src/Helpers/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rachid Laasri",
-                    "email": "rashidlaasri@gmail.com"
-                },
-                {
-                    "name": "Jeremy Kenedy",
-                    "email": "jeremykenedy@gmail.com"
-                }
-            ],
-            "description": "Laravel web installer",
-            "time": "2018-04-30T18:57:04+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
