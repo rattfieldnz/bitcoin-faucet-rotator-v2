@@ -13,6 +13,7 @@ class AlertSeeder extends BaseSeeder
 
     private function createAlerts($count = 1)
     {
+        Alert::truncate();
         $faker = Faker\Factory::create();
 
         for ($i = 0; $i < $count; $i++) {

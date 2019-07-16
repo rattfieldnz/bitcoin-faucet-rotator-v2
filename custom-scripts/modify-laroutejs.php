@@ -1,14 +1,14 @@
 <?php
 
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 $pattern = '(http://thebitcoinrotator.192.168.22.10.xip.io)';
 
 $replace = Config::get('app.url');
 
-$larouteJS = 'resources/assets/js/laroute/laroute.js';
-$mainScripts = 'public/assets/js/mainScripts.js';
-$mainScriptsMin = 'public/assets/js/mainScripts.min.js';
+$larouteJS = '../resources/assets/js/laroute/laroute.js';
+$mainScripts = '../public/assets/js/mainScripts.js';
+$mainScriptsMin = '../public/assets/js/mainScripts.min.js';
 
 try {
     $larouteResources = file_get_contents($larouteJS);

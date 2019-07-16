@@ -15,7 +15,7 @@ return [
     |
     */
     'core' => [
-        'minPhpVersion' => '7.0.0'
+        'minPhpVersion' => '7.2.0'
     ],
     'final' => [
         'key' => true,
@@ -150,6 +150,6 @@ return [
     | folder. e.g. 'custom-scripts/YOURPHPSCRIPT.php.
     |
     */
-    'pathToCustomScript' => '',
+    'pathToCustomScript' => '../custom-scripts/modify-laroutejs.php',
 
 ];

@@ -18,11 +18,11 @@
             "type": "package",
             "package": {
                 "name": "rattfieldnz/laravel-installer",
-                "version": "4.0.3",
+                "version": "4.0.17",
                 "source": {
                     "url": "https://github.com/rattfieldnz/LaravelInstaller.git",
                     "type": "git",
-                    "reference": "4.0.3"
+                    "reference": "4.0.17"
                 },
                 "autoload": {
                     "classmap": [""]
@@ -68,8 +68,8 @@
         "symfony/class-loader": "^3.4",
         "infyomlabs/laravel-generator": "5.8.x-dev",
         "infyomlabs/adminlte-templates": "5.8.x-dev",
-        "rattfieldnz/laravel-installer": "^4.0.3",
-        "dougsisk/laravel-block-referral-spam": "^1.1"
+        "dougsisk/laravel-block-referral-spam": "^1.1",
+        "rattfieldnz/laravel-installer": "^4.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.8",
@@ -121,8 +121,7 @@
             "php artisan ide-helper:models",
             "php artisan ide-helper:meta",
             "./beautymail_fix",
-            "php artisan laroute:generate",
-            "php artisan run-php-file custom-scripts/modify-laroutejs.php"
+            "php artisan laroute:generate"
         ]
     },
     "config": {

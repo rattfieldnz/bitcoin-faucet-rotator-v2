@@ -22,6 +22,7 @@ class FaucetPaymentProcessorsTableSeeder extends BaseSeeder
     {
         $paymentProcessors = PaymentProcessor::all();
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        DB::table('faucet_payment_processor')->truncate();
         foreach ($paymentProcessors as $paymentProcessor) {
             switch ($paymentProcessor->name) {
                 case 'Direct':

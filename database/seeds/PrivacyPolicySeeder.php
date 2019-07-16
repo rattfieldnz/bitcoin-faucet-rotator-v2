@@ -6,6 +6,7 @@ class PrivacyPolicySeeder extends BaseSeeder
 {
     public function run()
     {
+        PrivacyPolicy::truncate();
         $title = "Privacy Policy";
         $summary = "This privacy policy has been made to better serve those who are concerned with how their Personally Identifiable Information (PII) is used on our website.";
 

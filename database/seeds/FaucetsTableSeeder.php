@@ -20,6 +20,8 @@ class FaucetsTableSeeder extends BaseSeeder
     public function run()
     {
         Faucet::truncate();
+        DB::table('referral_info')->truncate();
+
         $data = $this->csv_to_array(base_path() . '/database/seeds/csv_files/faucets.csv', ';');
         $user = User::where('user_name', 'admin')->first();
         $standardUser = User::where('slug', '=', 'bobisbob')->first();

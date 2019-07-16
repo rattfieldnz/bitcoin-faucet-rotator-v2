@@ -14,6 +14,9 @@ class UserPermissionsSeeder extends Seeder
     public function run()
     {
         if (env('APP_ENV') == 'local') {
+
+            DB::table('permission_user')->truncate();
+
             $standardUser = User::where('slug', '=', 'bobisbob')->first();
             $initialPermissions = [
                 Permission::where('name', 'read-users')->first(),

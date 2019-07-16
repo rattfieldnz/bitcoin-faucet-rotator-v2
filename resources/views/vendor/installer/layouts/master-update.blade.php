@@ -24,15 +24,15 @@
                 </div>
                 <ul class="step">
                     <li class="step__divider"></li>
-                    <li class="step__item {{ isActive('LaravelUpdater::final') }}">
+                    <li class="step__item {{ InstallerHelper::isActive('LaravelUpdater::final') }}">
                         <i class="step__icon fa fa-database" aria-hidden="true"></i>
                     </li>
                     <li class="step__divider"></li>
-                    <li class="step__item {{ isActive('LaravelUpdater::overview') }}">
+                    <li class="step__item {{ InstallerHelper::isActive('LaravelUpdater::overview') }}">
                         <i class="step__icon fa fa-reorder" aria-hidden="true"></i>
                     </li>
                     <li class="step__divider"></li>
-                    <li class="step__item {{ isActive('LaravelUpdater::welcome') }}">
+                    <li class="step__item {{ InstallerHelper::isActive('LaravelUpdater::welcome') }}">
                         <i class="step__icon fa fa-refresh" aria-hidden="true"></i>
                     </li>
                     <li class="step__divider"></li>

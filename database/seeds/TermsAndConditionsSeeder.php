@@ -6,6 +6,8 @@ class TermsAndConditionsSeeder extends BaseSeeder
 {
     public function run()
     {
+        TermsAndConditions::truncate();
+
         $title = "Terms and Conditions";
         $summary = "This page displays a set of terms and conditions for using this website. Abiding by these will give you a better user experience.";
 
