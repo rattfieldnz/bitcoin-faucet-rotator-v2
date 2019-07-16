@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b257eae2056cb2f9dbfabbe6b6bc4835",
+    "content-hash": "e500bc9e417d80c6c240ecad029753d8",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -5235,11 +5235,11 @@
         },
         {
             "name": "rattfieldnz/laravel-installer",
-            "version": "4.0.17",
+            "version": "4.0.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rattfieldnz/LaravelInstaller.git",
-                "reference": "4.0.17"
+                "reference": "4.0.18"
             },
             "type": "library",
             "autoload": {
