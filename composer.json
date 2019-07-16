@@ -121,7 +121,8 @@
             "php artisan ide-helper:models",
             "php artisan ide-helper:meta",
             "./beautymail_fix",
-            "php artisan laroute:generate"
+            "php artisan laroute:generate",
+            "php artisan run-php-file custom-scripts/modify-laroutejs.php"
         ]
     },
     "config": {
