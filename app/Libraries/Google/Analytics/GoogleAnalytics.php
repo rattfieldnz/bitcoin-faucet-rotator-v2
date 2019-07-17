@@ -345,7 +345,7 @@ class GoogleAnalytics
                 ['dimensions' => 'ga:country', 'filters' => 'ga:pagePath%3D%3D' . $urlPath]
             );
 
-            return count($results['rows']);
+            return !empty($results['rows']) ? count($results['rows']) : 0;
         } else {
             return 0;
         }
