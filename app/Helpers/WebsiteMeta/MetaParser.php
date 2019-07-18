@@ -105,8 +105,7 @@ class MetaParser
         // protocol specific
         if (mb_substr($addr, 0, 2) === '//') {
             return ($parsed['scheme']) . '://' . mb_substr($addr, 2);
-        } // otherwise if the address should go to the top of the tree
-        elseif ($addr{0} === '/') {
+        } elseif ($addr{0} === '/') { // otherwise if the address should go to the top of the tree
             return ($parsed['scheme']) . '://' . ($parsed['host']) .
             ($addr);
         }

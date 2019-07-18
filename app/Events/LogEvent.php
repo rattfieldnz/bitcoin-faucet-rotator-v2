@@ -20,7 +20,10 @@ class LogEvent extends Event
 {
     use SerializesModels;
 
-    public $user, $subject, $description, $ipAddress;
+    public $user;
+    public $subject;
+    public $description;
+    public $ipAddress;
 
     /**
      * LogEvent constructor.

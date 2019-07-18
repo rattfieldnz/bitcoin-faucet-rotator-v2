@@ -146,7 +146,7 @@ class RotatorController extends Controller
             ->with('disqusIdentifier', $disqusIdentifier);
     }
 
-    function getUserPaymentProcessorFaucetRotator($userSlug, $paymentProcessorSlug)
+    public function getUserPaymentProcessorFaucetRotator($userSlug, $paymentProcessorSlug)
     {
         $user = $this->userRepository->findByField('slug', $userSlug)->where('deleted_at', '=', null)->first();
         $paymentProcessor = PaymentProcessor::where('slug', '=', $paymentProcessorSlug)->first();

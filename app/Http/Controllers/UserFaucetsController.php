@@ -269,8 +269,7 @@ class UserFaucetsController extends Controller
                     ->with('message', $message)
                     ->with('canShowInIframe', Http::canShowInIframes($faucet->url));
             }
-        } // If the user's faucet exists, and main admin faucet is soft-deleted.
-        elseif (!empty($faucet) && $mainFaucet->isDeleted()) {
+        } elseif (!empty($faucet) && $mainFaucet->isDeleted()) {
             //If the authenticated user is an owner or standard user, or the faucet's user is currently authenticated.
             if (!empty(Auth::user()) && (Auth::user()->isAnAdmin() || Auth::user()->hasRole('user')) || $user === Auth::user()) {
                 if (Auth::user()->id == $user->id) {
