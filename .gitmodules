@@ -1,0 +1,3 @@
+[submodule "vendor/rattfieldnz/laravel-installer"]
+	path = vendor/rattfieldnz/laravel-installer
+	url = https://github.com/rattfieldnz/laravel-installer

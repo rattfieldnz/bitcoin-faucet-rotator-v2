@@ -1,0 +1,34 @@
+{
+    "name": "dougsisk/laravel-block-referral-spam",
+    "description": "Blocks referral spam using middleware for Laravel 5.5+",
+    "keywords": ["laravel","referer","referral","spam","block","middleware"],
+    "homepage": "https://github.com/DougSisk/Laravel-BlockReferralSpam",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Doug Sisk",
+            "homepage": "http://dougsisk.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/DougSisk/Laravel-BlockReferralSpam/issues"
+    },
+    "require": {
+        "php": ">=7.0.0",
+        "illuminate/http": "^5.5",
+        "matomo/referrer-spam-blacklist": "@dev"
+    },
+    "require-dev": {
+        "orchestra/testbench-browser-kit": "~3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "DougSisk\\BlockReferralSpam\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.1-dev"
+        }
+    }
+}
