@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "784956f161331ea45b169e9b76a93e9c",
+    "content-hash": "5bd9893e32ec75b7e70fa291d7201bc2",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -5497,16 +5497,16 @@
         },
         {
             "name": "snowfire/beautymail",
-            "version": "v1.0.12",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Snowfire/Beautymail.git",
-                "reference": "fc21615cbf78c24a3d08a8d2fb88896433be5434"
+                "reference": "6f503e1db32663ea1a460515c7de9cb0920a5acc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Snowfire/Beautymail/zipball/fc21615cbf78c24a3d08a8d2fb88896433be5434",
-                "reference": "fc21615cbf78c24a3d08a8d2fb88896433be5434",
+                "url": "https://api.github.com/repos/Snowfire/Beautymail/zipball/6f503e1db32663ea1a460515c7de9cb0920a5acc",
+                "reference": "6f503e1db32663ea1a460515c7de9cb0920a5acc",
                 "shasum": ""
             },
             "require": {
@@ -5536,7 +5536,7 @@
                 "html",
                 "laravel"
             ],
-            "time": "2016-09-22T07:25:58+00:00"
+            "time": "2019-04-16T08:34:39+00:00"
         },
         {
             "name": "spatie/laravel-activitylog",
@@ -10759,6 +10759,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "snowfire/beautymail": 20,
         "infyomlabs/laravel-generator": 20,
         "infyomlabs/adminlte-templates": 20,
         "phpmd/phpmd": 0

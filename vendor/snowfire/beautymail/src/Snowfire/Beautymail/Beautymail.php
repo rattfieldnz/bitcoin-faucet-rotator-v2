@@ -3,6 +3,7 @@
 namespace Snowfire\Beautymail;
 
 use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Mail\PendingMail;
 
 class Beautymail implements Mailer
 {
@@ -32,6 +33,21 @@ class Beautymail implements Mailer
         $this->setLogoPath();
     }
 
+    public function to($users)
+    {
+        return (new PendingMail($this))->to($users);
+    }
+
+    public function bcc($users)
+    {
+        return (new PendingMail($this))->bcc($users);
+    }
+    
+    public function cc($users)
+    {
+        return (new PendingMail($this))->cc($users);
+    }
+
     /**
      * Retrieve the settings.
      *
@@ -40,6 +56,14 @@ class Beautymail implements Mailer
     public function getData()
     {
         return $this->settings;
+    }
+    
+    /**
+     * @return \Illuminate\Contracts\Mail\Mailer
+     */
+    public function getMailer()
+    {
+        return $this->mailer;
     }
 
     /**
@@ -77,6 +101,7 @@ class Beautymail implements Mailer
     /**
      * @param $view
      * @param array $data
+     *
      * @return \Illuminate\View\View
      */
     public function view($view, array $data = [])
@@ -89,8 +114,9 @@ class Beautymail implements Mailer
     /**
      * Send a new message when only a raw text part.
      *
-     * @param  string  $text
-     * @param  mixed  $callback
+     * @param string $text
+     * @param mixed  $callback
+     *
      * @return void
      */
     public function raw($text, $callback)
@@ -119,14 +145,4 @@ class Beautymail implements Mailer
             $this->settings['logo']['path']
         );
     }
-
-    public function to($users)
-    {
-	return (new PendingMail($this))->bcc($users);
-    }
-
-    public function bcc($users)
-    {
-        return (new PendingMail($this))->bcc($users);
-    }    
 }

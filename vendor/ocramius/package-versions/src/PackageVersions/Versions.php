@@ -113,7 +113,7 @@ final class Versions
   'sentry/sdk' => '2.0.3@91c36aec83e4c1c5801b64ef4927b78a5aa8ce7f',
   'sentry/sentry' => '2.1.1@8e27e6c5fcf6f01fc2e5235dd14cc0b2b347d793',
   'sentry/sentry-laravel' => '1.1.0@1e5f644b62ee73424ad8316e37b9a2dcf7290de8',
-  'snowfire/beautymail' => 'v1.0.12@fc21615cbf78c24a3d08a8d2fb88896433be5434',
+  'snowfire/beautymail' => 'dev-master@6f503e1db32663ea1a460515c7de9cb0920a5acc',
   'spatie/laravel-activitylog' => '3.6.2@d5fd05eb9edcb2416ada4f1e026d47ee9f8706a3',
   'spatie/laravel-analytics' => '3.7.0@4ac45abeaf68c3bb928154737ac257b004615a82',
   'spatie/string' => '2.2.2@28607b9925b4f0499d48570553ca419c6298e26b',
@@ -205,7 +205,7 @@ final class Versions
   'symfony/filesystem' => 'v4.3.2@b9896d034463ad6fd2bf17e2bf9418caecd6313d',
   'theseer/tokenizer' => '1.1.3@11336f6f84e16a720dae9d8e6ed5019efa85a0f9',
   'webmozart/assert' => '1.4.0@83e253c8e0be5b0257b881e1827274667c5c17a9',
-  'rattfieldnz/bitcoin-faucet-rotator-v2' => 'dev-master@eb6e2bcf1fd8cbf0433ed53f40634495aeaa87d7',
+  'rattfieldnz/bitcoin-faucet-rotator-v2' => 'dev-download@0780ea7bc6490bc0eeeb40c9f7b6fdd72ec349f7',
 );
 
     private function __construct()

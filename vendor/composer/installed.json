@@ -8565,17 +8565,17 @@
     },
     {
         "name": "snowfire/beautymail",
-        "version": "v1.0.12",
-        "version_normalized": "1.0.12.0",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/Snowfire/Beautymail.git",
-            "reference": "fc21615cbf78c24a3d08a8d2fb88896433be5434"
+            "reference": "6f503e1db32663ea1a460515c7de9cb0920a5acc"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Snowfire/Beautymail/zipball/fc21615cbf78c24a3d08a8d2fb88896433be5434",
-            "reference": "fc21615cbf78c24a3d08a8d2fb88896433be5434",
+            "url": "https://api.github.com/repos/Snowfire/Beautymail/zipball/6f503e1db32663ea1a460515c7de9cb0920a5acc",
+            "reference": "6f503e1db32663ea1a460515c7de9cb0920a5acc",
             "shasum": ""
         },
         "require": {
@@ -8583,7 +8583,7 @@
             "pelago/emogrifier": "@dev",
             "php": ">=5.4.0"
         },
-        "time": "2016-09-22T07:25:58+00:00",
+        "time": "2019-04-16T08:34:39+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
