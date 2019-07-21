@@ -108,7 +108,7 @@ final class Versions
   'psr/simple-cache' => '1.0.1@408d5eafb83c57f6365a3ca330ff23aa4a5fa39b',
   'ralouphie/getallheaders' => '3.0.3@120b605dfeb996808c31b6477290a714d356e822',
   'ramsey/uuid' => '3.8.0@d09ea80159c1929d75b3f9c60504d613aeb4a1e3',
-  'rattfieldnz/laravel-installer' => '4.0.19@4.0.19',
+  'rattfieldnz/laravel-installer' => '4.0.19@8b37d2f27fb7db6d8edd49aa3f77d13a470d5ee5',
   'santigarcor/laratrust' => '5.2.2@f9a703639cdde914bdb99499ce2d3bef5070812f',
   'sentry/sdk' => '2.0.3@91c36aec83e4c1c5801b64ef4927b78a5aa8ce7f',
   'sentry/sentry' => '2.1.1@8e27e6c5fcf6f01fc2e5235dd14cc0b2b347d793',
@@ -205,7 +205,7 @@ final class Versions
   'symfony/filesystem' => 'v4.3.2@b9896d034463ad6fd2bf17e2bf9418caecd6313d',
   'theseer/tokenizer' => '1.1.3@11336f6f84e16a720dae9d8e6ed5019efa85a0f9',
   'webmozart/assert' => '1.4.0@83e253c8e0be5b0257b881e1827274667c5c17a9',
-  'rattfieldnz/bitcoin-faucet-rotator-v2' => 'dev-download@0780ea7bc6490bc0eeeb40c9f7b6fdd72ec349f7',
+  'rattfieldnz/bitcoin-faucet-rotator-v2' => 'dev-download@578abad2b600bac4da814f6d0f6adbb29cfee2a2',
 );
 
     private function __construct()

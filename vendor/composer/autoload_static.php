@@ -179,6 +179,7 @@ class ComposerStaticInit19f71d52de2d0c30f8ca8f877e2d4988
         'R' => 
         array (
             'Ramsey\\Uuid\\' => 12,
+            'RachidLaasri\\LaravelInstaller\\' => 30,
         ),
         'P' => 
         array (
@@ -503,6 +504,10 @@ class ComposerStaticInit19f71d52de2d0c30f8ca8f877e2d4988
         'Ramsey\\Uuid\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
+        ),
+        'RachidLaasri\\LaravelInstaller\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src',
         ),
         'Psy\\' => 
         array (
@@ -1730,27 +1735,6 @@ class ComposerStaticInit19f71d52de2d0c30f8ca8f877e2d4988
         'PharIo\\Version\\VersionConstraintValue' => __DIR__ . '/..' . '/phar-io/version/src/VersionConstraintValue.php',
         'PharIo\\Version\\VersionNumber' => __DIR__ . '/..' . '/phar-io/version/src/VersionNumber.php',
         'PrivacyPolicySeeder' => __DIR__ . '/../..' . '/database/seeds/PrivacyPolicySeeder.php',
-        'RachidLaasri\\LaravelInstaller\\Console\\Commands\\RunPhpFile' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Console/Commands/RunPhpFile.php',
-        'RachidLaasri\\LaravelInstaller\\Controllers\\DatabaseController' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Controllers/DatabaseController.php',
-        'RachidLaasri\\LaravelInstaller\\Controllers\\EnvironmentController' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Controllers/EnvironmentController.php',
-        'RachidLaasri\\LaravelInstaller\\Controllers\\FinalController' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Controllers/FinalController.php',
-        'RachidLaasri\\LaravelInstaller\\Controllers\\PermissionsController' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Controllers/PermissionsController.php',
-        'RachidLaasri\\LaravelInstaller\\Controllers\\RequirementsController' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Controllers/RequirementsController.php',
-        'RachidLaasri\\LaravelInstaller\\Controllers\\UpdateController' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Controllers/UpdateController.php',
-        'RachidLaasri\\LaravelInstaller\\Controllers\\WelcomeController' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Controllers/WelcomeController.php',
-        'RachidLaasri\\LaravelInstaller\\Events\\EnvironmentSaved' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Events/EnvironmentSaved.php',
-        'RachidLaasri\\LaravelInstaller\\Events\\LaravelInstallerFinished' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Events/LaravelInstallerFinished.php',
-        'RachidLaasri\\LaravelInstaller\\Helpers\\DatabaseManager' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Helpers/DatabaseManager.php',
-        'RachidLaasri\\LaravelInstaller\\Helpers\\EnvironmentManager' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Helpers/EnvironmentManager.php',
-        'RachidLaasri\\LaravelInstaller\\Helpers\\FinalInstallManager' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Helpers/FinalInstallManager.php',
-        'RachidLaasri\\LaravelInstaller\\Helpers\\InstalledFileManager' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Helpers/InstalledFileManager.php',
-        'RachidLaasri\\LaravelInstaller\\Helpers\\InstallerHelper' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Helpers/InstallerHelper.php',
-        'RachidLaasri\\LaravelInstaller\\Helpers\\MigrationsHelper' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Helpers/MigrationsHelper.php',
-        'RachidLaasri\\LaravelInstaller\\Helpers\\PermissionsChecker' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Helpers/PermissionsChecker.php',
-        'RachidLaasri\\LaravelInstaller\\Helpers\\RequirementsChecker' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Helpers/RequirementsChecker.php',
-        'RachidLaasri\\LaravelInstaller\\Middleware\\canInstall' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Middleware/canInstall.php',
-        'RachidLaasri\\LaravelInstaller\\Middleware\\canUpdate' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Middleware/canUpdate.php',
-        'RachidLaasri\\LaravelInstaller\\Providers\\LaravelInstallerServiceProvider' => __DIR__ . '/..' . '/rattfieldnz/laravel-installer/src/Providers/LaravelInstallerServiceProvider.php',
         'SebastianBergmann\\CodeCoverage\\CodeCoverage' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage.php',
         'SebastianBergmann\\CodeCoverage\\CoveredCodeNotExecutedException' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Exception/CoveredCodeNotExecutedException.php',
         'SebastianBergmann\\CodeCoverage\\Driver\\Driver' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Driver/Driver.php',

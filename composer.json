@@ -13,23 +13,6 @@
     ],
     "license": "MIT",
     "type": "project",
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "rattfieldnz/laravel-installer",
-                "version": "4.0.19",
-                "source": {
-                    "url": "https://github.com/rattfieldnz/LaravelInstaller.git",
-                    "type": "git",
-                    "reference": "4.0.19"
-                },
-                "autoload": {
-                    "classmap": [""]
-                }
-            }
-        }
-    ],
     "require": {
         "php": ">=7.1.3",
         "laravel/framework": "^5.8.0",
@@ -69,7 +52,7 @@
         "infyomlabs/laravel-generator": "5.8.x-dev",
         "infyomlabs/adminlte-templates": "5.8.x-dev",
         "dougsisk/laravel-block-referral-spam": "^1.1",
-        "rattfieldnz/laravel-installer": "4.0.19"
+        "rattfieldnz/laravel-installer": "^4.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.8",

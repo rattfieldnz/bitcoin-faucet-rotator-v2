@@ -1,14 +1,14 @@
-#!/usr/bin/env php
-<?php
+#!/usr/bin/env sh
 
-use Defuse\Crypto\Key;
+dir=$(cd "${0%[/\\]*}" > /dev/null; cd '../defuse/php-encryption/bin' && pwd)
 
-foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php'] as $file) {
-    if (file_exists($file)) {
-        require $file;
-        break;
-    }
-}
+if [ -d /proc/cygdrive ]; then
+    case $(which php) in
+        $(readlink -n /proc/cygdrive)/*)
+            # We are in Cygwin using Windows php, so the path must be translated
+            dir=$(cygpath -m "$dir");
+            ;;
+    esac
+fi
 
-$key = Key::createNewRandomKey();
-echo $key->saveToAsciiSafeString(), "\n";
+"${dir}/generate-defuse-key" "$@"
