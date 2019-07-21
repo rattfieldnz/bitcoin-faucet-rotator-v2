@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5bd9893e32ec75b7e70fa291d7201bc2",
+    "content-hash": "f11c8c2199193052f519defdf12d57f2",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -5241,14 +5241,54 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rattfieldnz/LaravelInstaller.git",
-                "reference": "4.0.19"
+                "reference": "8b37d2f27fb7db6d8edd49aa3f77d13a470d5ee5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rattfieldnz/LaravelInstaller/zipball/8b37d2f27fb7db6d8edd49aa3f77d13a470d5ee5",
+                "reference": "8b37d2f27fb7db6d8edd49aa3f77d13a470d5ee5",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.8",
+                "php": ">=7.2.0"
             },
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "RachidLaasri\\LaravelInstaller\\Providers\\LaravelInstallerServiceProvider"
+                    ],
+                    "aliases": {
+                        "InstallerHelper": "RachidLaasri\\LaravelInstaller\\Helpers\\InstallerHelper"
+                    }
+                }
+            },
             "autoload": {
-                "classmap": [
-                    ""
-                ]
-            }
+                "psr-4": {
+                    "RachidLaasri\\LaravelInstaller\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rachid Laasri",
+                    "email": "rashidlaasri@gmail.com"
+                },
+                {
+                    "name": "Jeremy Kenedy",
+                    "email": "jeremykenedy@gmail.com"
+                },
+                {
+                    "name": "Rob Attfield",
+                    "email": "emailme@robertattfield.com"
+                }
+            ],
+            "description": "Laravel web installer",
+            "time": "2019-07-16T10:11:28+00:00"
         },
         {
             "name": "santigarcor/laratrust",
