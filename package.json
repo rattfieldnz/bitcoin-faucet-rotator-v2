@@ -105,7 +105,11 @@
     "select2": "ivaynberg/select2#^4.0.7",
     "yes": "^1.1.1"
   },
+
+  "resolutions": {
+    "**/**/lodash": "^4.17.12"
+  },
   "engines": {
-    "yarn": ">= 1.16.0"
+    "yarn": ">= 1.17.0"
   }
 }
