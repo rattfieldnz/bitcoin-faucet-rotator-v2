@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersCsvExport;
 use App\Helpers\Functions;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreateUserRequest;
@@ -15,6 +16,7 @@ use App\Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Prettus\Repository\Criteria\RequestCriteria;
 
 /**
@@ -44,8 +46,9 @@ class UserController extends AppBaseController
     /**
      * Display a listing of the User.
      *
-     * @param  Request $request
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function index(Request $request)
     {
@@ -338,5 +341,11 @@ class UserController extends AppBaseController
         flash(($purgedCount == 0 ? 'No' : $purgedCount) . ' archived users were permanently deleted!')->success();
 
         return redirect(route('users.index'));
+    }
+
+    public function exportCSV()
+    {
+        Users::userCanAccessArea(Auth::user(), 'users.export-as-csv', [], []);
+        return Excel::download(new UsersCsvExport(), 'users.csv');
     }
 }

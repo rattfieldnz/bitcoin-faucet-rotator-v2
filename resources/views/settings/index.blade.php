@@ -27,6 +27,9 @@
                             <li><h3><a href="#roles">Roles</a></h3></li>
                             <li><h3><a href="#permissions">Permissions</a></h3></li>
                             <li><h3><a href="#social-links">Social Links</a></h3></li>
+                            @if(Auth::user()->isAnAdmin())
+                            <li><h3><a href="#export-data">Export Data</a></h3></li>
+                            @endif
                         </ul>
                         <div id="main-meta">
                             @include('settings.main-meta')
@@ -45,6 +48,9 @@
                         </div>
                         <div id="social-links">
                             @include('settings.social-links')
+                        </div>
+                        <div id="export-data">
+                            @include('settings.export-data')
                         </div>
                     </div>
                 </div>

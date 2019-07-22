@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TermsAndConditionsCsvExport;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreateTermsAndConditionsRequest;
 use App\Http\Requests\UpdateTermsAndConditionsRequest;
@@ -11,6 +12,7 @@ use App\Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Response;
@@ -187,5 +189,11 @@ class TermsAndConditionsController extends AppBaseController
         Flash::success('Terms And Conditions updated successfully.');
 
         return redirect(route('terms-and-conditions'));
+    }
+
+    public function exportCSV()
+    {
+        Users::userCanAccessArea(Auth::user(), 'terms-and-conditions.export-as-csv', [], []);
+        return Excel::download(new TermsAndConditionsCsvExport(), 'terms_and_conditions.csv');
     }
 }

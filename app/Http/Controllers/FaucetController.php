@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\FaucetCsvExport;
 use App\Helpers\Functions\Faucets;
 use App\Helpers\Functions\Http;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
+use Maatwebsite\Excel\Facades\Excel;
 use Mews\Purifier\Facades\Purifier;
 use Prettus\Repository\Criteria\RequestCriteria;
 
@@ -403,6 +405,12 @@ class FaucetController extends AppBaseController
         flash('The \''. $faucet->name .'\' faucet was successfully restored!')->success();
 
         return redirect($redirectRoute);
+    }
+
+    public function exportCSV()
+    {
+        Users::userCanAccessArea(Auth::user(), 'faucets.export-as-csv', [], []);
+        return Excel::download(new FaucetCsvExport(), 'faucets.csv');
     }
 
     private static function cleanInput(array $data)

@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MainMetaCsvExport;
 use App\Helpers\Functions;
+use App\Helpers\Functions\Users;
 use App\Http\Requests\CreateMainMetaRequest;
 use App\Http\Requests\UpdateMainMetaRequest;
 use App\Models\Language;
 use App\Repositories\MainMetaRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Prettus\Repository\Criteria\RequestCriteria;
 
 /**
@@ -102,5 +105,11 @@ class MainMetaController extends AppBaseController
         flash('Main meta deleted successfully.')->success();
 
         return redirect(route('main-metas.index'));
+    }
+
+    public function exportCSV()
+    {
+        Users::userCanAccessArea(Auth::user(), 'main-meta.export-as-csv', [], []);
+        return Excel::download(new MainMetaCsvExport(), 'main_meta.csv');
     }
 }

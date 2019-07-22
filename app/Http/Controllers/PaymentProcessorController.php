@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PaymentProcessorCsvExport;
 use App\Helpers\Constants;
 use App\Helpers\Functions;
 use App\Helpers\Functions\PaymentProcessors;
@@ -16,6 +17,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Flash;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use App\Helpers\Functions\Users;
@@ -483,5 +485,11 @@ class PaymentProcessorController extends AppBaseController
             ->log("The payment processor ':subject.name' was restored by :causer.user_name");
 
         return redirect(route('payment-processors.index'));
+    }
+
+    public function exportCSV()
+    {
+        Users::userCanAccessArea(Auth::user(), 'payment-processors.export-as-csv', [], []);
+        return Excel::download(new PaymentProcessorCsvExport(), 'payment_processors.csv');
     }
 }

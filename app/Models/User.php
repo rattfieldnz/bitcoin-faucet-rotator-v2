@@ -76,7 +76,7 @@ class User extends Authenticatable implements CanResetPassword
         'remember_token' => 'string',
         'last_login_at' => 'string',
         'last_login_ip' => 'last_login_ip',
-        'last_logout_at',
+        'last_logout_at' => 'string',
         'slug' => 'string'
     ];
 

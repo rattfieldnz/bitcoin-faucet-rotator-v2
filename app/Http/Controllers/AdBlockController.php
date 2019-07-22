@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AdBlockCsvExport;
+use App\Exports\UsersCsvExport;
 use App\Helpers\Functions;
+use App\Helpers\Functions\Users;
 use App\Http\Requests\CreateAdBlockRequest;
 use App\Http\Requests\UpdateAdBlockRequest;
 use App\Models\User;
 use App\Repositories\AdBlockRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Prettus\Repository\Criteria\RequestCriteria;
 
 /**
@@ -97,5 +101,11 @@ class AdBlockController extends AppBaseController
         flash('Ad Block deleted successfully.')->success();
 
         return redirect(route('ad-block.index'));
+    }
+
+    public function exportCSV()
+    {
+        Users::userCanAccessArea(Auth::user(), 'ad-block.export-as-csv', [], []);
+        return Excel::download(new AdBlockCsvExport(), 'adblock.csv');
     }
 }

@@ -200,3 +200,18 @@ Route::patch(
 Route::resource('alerts', 'AlertController');
 
 Route::resource('alert-types', 'AlertTypeController');
+
+Route::get('users.export-as-csv', 'UserController@exportCSV')
+    ->name('users.export-as-csv');
+Route::get('faucets.export-as-csv', 'FaucetController@exportCSV')
+    ->name('faucets.export-as-csv');
+Route::get('payment-processors.export-as-csv', 'PaymentProcessorController@exportCSV')
+    ->name('payment-processors.export-as-csv');
+Route::get('main-meta.export-as-csv', 'MainMetaController@exportCSV')
+    ->name('main-meta.export-as-csv');
+Route::get('ad-block.export-as-csv', 'AdBlockController@exportCSV')
+    ->name('ad-block.export-as-csv');
+Route::get('privacy-policy.export-as-csv', 'PrivacyPolicyController@exportCSV')
+    ->name('privacy-policy.export-as-csv');
+Route::get('terms-and-conditions.export-as-csv', 'TermsAndConditionsController@exportCSV')
+    ->name('terms-and-conditions.export-as-csv');

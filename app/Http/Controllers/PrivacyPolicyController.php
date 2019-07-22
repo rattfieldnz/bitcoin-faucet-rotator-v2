@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PrivacyPolicyCsvExport;
 use App\Helpers\WebsiteMeta\WebsiteMeta;
 use App\Http\Requests\CreatePrivacyPolicyRequest;
 use App\Http\Requests\UpdatePrivacyPolicyRequest;
@@ -11,6 +12,7 @@ use App\Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -171,5 +173,11 @@ class PrivacyPolicyController extends AppBaseController
         Flash::success('Privacy Policy updated successfully.');
 
         return redirect(route('privacy-policy'));
+    }
+
+    public function exportCSV()
+    {
+        Users::userCanAccessArea(Auth::user(), 'privacy-policy.export-as-csv', [], []);
+        return Excel::download(new PrivacyPolicyCsvExport(), 'privacy_policy.csv');
     }
 }

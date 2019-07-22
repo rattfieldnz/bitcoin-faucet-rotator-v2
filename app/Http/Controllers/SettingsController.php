@@ -3,15 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Functions\Users;
-use App\Helpers\Social\SocialNetworkLinks;
 use App\Models\Language;
-use App\Models\User;
 use App\Repositories\AdBlockRepository;
 use App\Repositories\MainMetaRepository;
 use App\Repositories\PermissionRepository;
 use App\Repositories\RoleRepository;
 use App\Repositories\TwitterConfigRepository;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SettingsController extends Controller
