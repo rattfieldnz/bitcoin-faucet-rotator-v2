@@ -44,7 +44,6 @@
         "fideloper/proxy": "~4.1",
         "sentry/sentry-laravel": "^1.0",
         "optimus/api-consumer": "^0.2.3",
-        "snowfire/beautymail": "dev-master",
         "phpseclib/phpseclib": "~2.0",
         "barryvdh/laravel-cors": "^0.11",
         "laracasts/flash": "^3.0",
@@ -52,7 +51,8 @@
         "infyomlabs/laravel-generator": "5.8.x-dev",
         "infyomlabs/adminlte-templates": "5.8.x-dev",
         "dougsisk/laravel-block-referral-spam": "^1.1",
-        "rattfieldnz/laravel-installer": "^4.0"
+        "rattfieldnz/laravel-installer": "^4.0",
+        "snowfire/beautymail": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.8",
@@ -84,28 +84,32 @@
         ]
     },
     "scripts": {
+        "post-autoload-dump": [
+            "@php artisan package:discover --ansi"
+        ],
         "post-root-package-install": [
-            "php -r \"copy('.env.example', '.env');\""
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "chmod u+rwx clear_reset"
         ],
         "post-create-project-cmd": [
-            "php artisan key:generate",
-            "chmod u+rwx beautymail_fix",
+            "@php artisan key:generate",
             "chmod u+rwx clear_reset"
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "./beautymail_fix",
-            "php artisan laroute:generate",
-            "php artisan run-php-file custom-scripts/modify-laroutejs.php"
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:models",
+            "@php artisan ide-helper:meta",
+            "@php artisan laroute:generate",
+            "@php artisan run-php-file custom-scripts/modify-laroutejs.php"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php artisan ide-helper:generate",
-            "php artisan ide-helper:models",
-            "php artisan ide-helper:meta",
-            "./beautymail_fix",
-            "php artisan laroute:generate",
-            "php artisan run-php-file custom-scripts/modify-laroutejs.php"
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:models",
+            "@php artisan ide-helper:meta",
+            "@php artisan laroute:generate",
+            "@php artisan run-php-file custom-scripts/modify-laroutejs.php"
         ]
     },
     "config": {
