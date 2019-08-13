@@ -21,7 +21,7 @@
     "laravel-elixir": "^6.0.0-18",
     "npm": "^6.4.1",
     "sw-precache-webpack-plugin": "^0.11.5",
-    "yarn": "^1.16.0"
+    "yarn": "^1.17"
   },
   "dependencies": {
     "@bower_components/Flot": "flot/flot#^3.1.1",
@@ -110,6 +110,6 @@
     "**/**/lodash": "^4.17.12"
   },
   "engines": {
-    "yarn": ">= 1.17.0"
+    "yarn": ">= 1.17.3"
   }
 }
