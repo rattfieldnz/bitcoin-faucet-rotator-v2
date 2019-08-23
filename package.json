@@ -102,7 +102,7 @@
     "morris.js": "oesmith/morris.js#^0.5.1",
     "pace": "HubSpot/pace#^1.0.2",
     "raphael": "DmitryBaranovskiy/raphael#^2.2.8",
-    "select2": "ivaynberg/select2#^4.0.7",
+    "select2": "4.0.8",
     "yes": "^1.1.1"
   },
 
