@@ -9,19 +9,19 @@
     "postinstall": "node -e \"try { require('fs').symlinkSync(require('path').resolve('node_modules/@bower_components'), 'vendor/bower_components', 'junction') } catch (e) { }\""
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-clean-css": "^3.10.0",
+    "gulp": "3.9.1",
+    "gulp-clean-css": "^4.2.0",
     "gulp-concat-css": "^3.1.0",
-    "gulp-htmlmin": "^4.0.0",
+    "gulp-htmlmin": "^5.0.1",
     "gulp-rename": "^1.4",
-    "gulp-ruby-sass": "^3.0.0",
-    "gulp-sourcemaps": "^2.6.4",
-    "gulp-uglify": "^3.0.1",
+    "gulp-ruby-sass": "^4.0.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
     "gulp-util": "^3.0.8",
     "laravel-elixir": "^6.0.0-18",
-    "npm": "^6.4.1",
+    "npm": "^6.11.2",
     "sw-precache-webpack-plugin": "^0.11.5",
-    "yarn": "^1.17"
+    "yarn": "^1.17.3"
   },
   "dependencies": {
     "@bower_components/Flot": "flot/flot#^3.1.1",
@@ -99,13 +99,13 @@
     "localforage": "mozilla/localForage#^1.7.3",
     "mocha": "mochajs/mocha#~6.1.4",
     "moment": "moment/moment#^2.24.0",
+    "monorepo": "^1.2.2",
     "morris.js": "oesmith/morris.js#^0.5.1",
     "pace": "HubSpot/pace#^1.0.2",
     "raphael": "DmitryBaranovskiy/raphael#^2.2.8",
     "select2": "ivaynberg/select2#^4.0.7",
     "yes": "^1.1.1"
   },
-
   "resolutions": {
     "**/**/lodash": "^4.17.12"
   },
