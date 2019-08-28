@@ -1,0 +1,16 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:morris.js:20140717':
+    - morris.js:
+        reason: None given
+        expires: '2019-09-27T07:21:30.799Z'
+  'npm:mem:20180117':
+    - libnpx > yargs > os-locale > mem:
+        reason: None given
+        expires: '2019-09-27T07:47:14.561Z'
+    - monorepo > yargs > os-locale > mem:
+        reason: None given
+        expires: '2019-09-27T07:47:14.561Z'
+patch: {}
