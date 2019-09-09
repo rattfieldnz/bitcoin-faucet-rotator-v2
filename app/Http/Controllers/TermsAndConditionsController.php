@@ -46,7 +46,7 @@ class TermsAndConditionsController extends AppBaseController
         $this->termsAndConditionsRepository->pushCriteria(new RequestCriteria($request));
         $termsAndConditions = $this->termsAndConditionsRepository->first();
 
-        if (count($termsAndConditions) == 0) {
+        if (empty($termsAndConditions)) {
             if (!empty(Auth::user()) && Auth::user()->isAnAdmin()) {
                 flash(
                     '<i class="fa fa-info-circle" aria-hidden="true" style="font-size: 2em; margin-right: 0.5em;"></i> 
@@ -147,7 +147,7 @@ class TermsAndConditionsController extends AppBaseController
 
         $termsAndConditions = $this->termsAndConditionsRepository->first();
 
-        if (count($termsAndConditions) == 0) {
+        if (empty($termsAndConditions)) {
             if (!empty(Auth::user()) && Auth::user()->isAnAdmin()) {
                 flash(
                     '<i class="fa fa-info-circle" aria-hidden="true" style="font-size: 2em; margin-right: 0.5em;"></i> 
