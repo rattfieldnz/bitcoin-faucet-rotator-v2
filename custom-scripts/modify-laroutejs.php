@@ -2,7 +2,7 @@
 
 require './vendor/autoload.php';
 
-$pattern = '(http://thebitcoinrotator.192.168.22.10.xip.io|freebtc.192.168.22.10.xip.io)';
+$pattern = '(http://thebitcoinrotator.192.168.22.10.xip.io|http://freebtc.192.168.22.10.xip.io)';
 
 $replace = Config::get('app.url');
 
