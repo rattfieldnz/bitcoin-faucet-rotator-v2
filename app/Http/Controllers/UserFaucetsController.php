@@ -351,7 +351,7 @@ class UserFaucetsController extends Controller
 
             $faucet = Faucet::where('id', '=', intval($userFaucetIds[$i]))->first();
 
-            if(!empty($faucet){
+            if(!empty($faucet)){
                 Faucets::setUserFaucetRefCode($user, $faucet, $referralCode);
             }    
         }
