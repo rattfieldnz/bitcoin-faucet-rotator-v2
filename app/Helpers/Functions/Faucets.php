@@ -379,28 +379,31 @@ class Faucets
     {
 
         $refCode = empty($refCode) ? null : Purifier::clean($refCode, 'generalFields');
+        
+        if(!empty($user) && !empty($faucet){
+            $f = DB::table('referral_info')
+                ->where('faucet_id', '=', $faucet->id)
+                ->where('user_id', '=', $user->id)
+                ->get();
 
-        $f = DB::table('referral_info')
-            ->where('faucet_id', '=', $faucet->id)
-            ->where('user_id', '=', $user->id)
-            ->get();
-
-        if (empty($f) || count($f) == 0) {
-            DB::table('referral_info')->insert(
-                [
-                    'faucet_id' => $faucet->id,
-                    'user_id' => $user->id,
-                    'referral_code' => $refCode
-                ]
-            );
-        } else {
-            DB::table('referral_info')->where(
-                [
-                    ['faucet_id', '=', $faucet->id],
-                    ['user_id', '=', $user->id]
-                ]
-            )->update(['referral_code' => $refCode]);
+            if (empty($f) || count($f) == 0) {
+                DB::table('referral_info')->insert(
+                    [
+                        'faucet_id' => $faucet->id,
+                        'user_id' => $user->id,
+                        'referral_code' => $refCode
+                    ]
+                );
+            } else {
+                DB::table('referral_info')->where(
+                    [
+                        ['faucet_id', '=', $faucet->id],
+                        ['user_id', '=', $user->id]
+                    ]
+                )->update(['referral_code' => $refCode]);
+            }
         }
+
     }
 
     /**
