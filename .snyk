@@ -4,8 +4,11 @@ version: v1.13.5
 ignore:
   'npm:morris.js:20140717':
     - morris.js:
-        reason: None given
-        expires: '2019-09-27T07:21:30.799Z'
+        reason: No upgrade available.
+        expires: '2019-12-08T04:48:56.434Z'
+    - admin-lte > morris.js:
+        reason: No upgrade available.
+        expires: '2019-12-08T04:48:56.434Z'
   'npm:mem:20180117':
     - libnpx > yargs > os-locale > mem:
         reason: None given
