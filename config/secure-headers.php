@@ -131,7 +131,9 @@ return [
         ],
 
         'default-src' => [
-            //
+            'allow' => [
+                'c.disquscdn.com'
+			]
         ],
 
         'frame-src' => [
@@ -207,9 +209,8 @@ return [
                 'sc.tynt.com',
                 'de.tynt.com',
                 'c.disquscdn.com',
-				'jsecoin.com',
-				'load.jsecoin.com',
 				'www.reddit.com',
+				'api-public-oci-origin.addthis.com'
             ],
 
             'hashes' => [
@@ -311,8 +312,7 @@ return [
 				'gc.kis.v2.scr.kaspersky-labs.com',
 				'discovery.amp.cloudflare.com',
 				'api.coindesk.com', 
-				'www.google-analytics.com', 
-				'load.jsecoin.com'
+				'www.google-analytics.com'
             ]
         ],
 
