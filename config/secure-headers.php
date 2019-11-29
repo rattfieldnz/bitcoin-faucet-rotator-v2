@@ -210,7 +210,8 @@ return [
                 'de.tynt.com',
                 'c.disquscdn.com',
 				'www.reddit.com',
-				'api-public-oci-origin.addthis.com'
+				'api-public-oci-origin.addthis.com',
+				'z.moatads.com'
             ],
 
             'hashes' => [
