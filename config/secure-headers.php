@@ -132,7 +132,8 @@ return [
 
         'default-src' => [
             'allow' => [
-                'c.disquscdn.com'
+                'c.disquscdn.com',
+				'disqus.com'
 			]
         ],
 
