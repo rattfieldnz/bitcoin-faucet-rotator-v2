@@ -1901,12 +1901,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/adminlte-templates.git",
-                "reference": "9522af30353e8874c5f409acfbd141763d9bbdf0"
+                "reference": "150e3082548cf473e88fea531a291c49a3bfedb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/9522af30353e8874c5f409acfbd141763d9bbdf0",
-                "reference": "9522af30353e8874c5f409acfbd141763d9bbdf0",
+                "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/150e3082548cf473e88fea531a291c49a3bfedb0",
+                "reference": "150e3082548cf473e88fea531a291c49a3bfedb0",
                 "shasum": ""
             },
             "require": {
@@ -1945,7 +1945,7 @@
                 "laravel",
                 "templates"
             ],
-            "time": "2019-10-14T10:53:29+00:00"
+            "time": "2019-11-30T10:45:24+00:00"
         },
         {
             "name": "infyomlabs/laravel-generator",
@@ -1953,12 +1953,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/laravel-generator.git",
-                "reference": "888c332de2e12e26e6bfe58f4a6027e0595e3dc7"
+                "reference": "6b0198f6a9134f3e1ff260f73ca01e942d97c5cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/888c332de2e12e26e6bfe58f4a6027e0595e3dc7",
-                "reference": "888c332de2e12e26e6bfe58f4a6027e0595e3dc7",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/6b0198f6a9134f3e1ff260f73ca01e942d97c5cd",
+                "reference": "6b0198f6a9134f3e1ff260f73ca01e942d97c5cd",
                 "shasum": ""
             },
             "require": {
@@ -2011,7 +2011,7 @@
                 "test",
                 "view"
             ],
-            "time": "2019-11-06T04:20:22+00:00"
+            "time": "2019-11-27T12:56:32+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -7529,16 +7529,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v9.7.1",
+            "version": "v9.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "787eb04e59d754c453e6ed4185073195bc01d967"
+                "reference": "c524b85dbc003552302c9bcfcf2da981e79f675e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/787eb04e59d754c453e6ed4185073195bc01d967",
-                "reference": "787eb04e59d754c453e6ed4185073195bc01d967",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/c524b85dbc003552302c9bcfcf2da981e79f675e",
+                "reference": "c524b85dbc003552302c9bcfcf2da981e79f675e",
                 "shasum": ""
             },
             "require": {
@@ -7596,7 +7596,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2019-10-24T03:50:05+00:00"
+            "time": "2019-11-11T15:07:50+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
@@ -8291,8 +8291,8 @@
             "authors": [
                 {
                     "name": "Filipe Dobreira",
-                    "role": "Developer",
-                    "homepage": "https://github.com/filp"
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
                 }
             ],
             "description": "php error handling for cool kids",
@@ -9301,20 +9301,20 @@
             "authors": [
                 {
                     "name": "Manuel Pichler",
-                    "role": "Project Founder",
                     "email": "github@manuel-pichler.de",
-                    "homepage": "https://github.com/manuelpichler"
+                    "homepage": "https://github.com/manuelpichler",
+                    "role": "Project Founder"
                 },
                 {
                     "name": "Marc Würth",
-                    "role": "Project Maintainer",
                     "email": "ravage@bluewin.ch",
-                    "homepage": "https://github.com/ravage84"
+                    "homepage": "https://github.com/ravage84",
+                    "role": "Project Maintainer"
                 },
                 {
                     "name": "Other contributors",
-                    "role": "Contributors",
-                    "homepage": "https://github.com/phpmd/phpmd/graphs/contributors"
+                    "homepage": "https://github.com/phpmd/phpmd/graphs/contributors",
+                    "role": "Contributors"
                 }
             ],
             "description": "PHPMD is a spin-off project of PHP Depend and aims to be a PHP equivalent of the well known Java tool PMD.",
