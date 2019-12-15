@@ -60,7 +60,7 @@
         "mockery/mockery": "^1.2",
         "phpunit/phpunit": "~8.2",
         "symfony/css-selector": "^4.3",
-        "symfony/dom-crawler": "^4.3",
+        "symfony/dom-crawler": "^5.0",
         "phpmd/phpmd": "@stable",
         "filp/whoops": "~2.3",
         "barryvdh/laravel-debugbar": "^3.2",
