@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "57b7fe5b23ed619110b06ce7a6885af2",
+    "content-hash": "62f71cd29b7e12b56c1ab3348c09b9c6",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1901,12 +1901,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/adminlte-templates.git",
-                "reference": "9522af30353e8874c5f409acfbd141763d9bbdf0"
+                "reference": "150e3082548cf473e88fea531a291c49a3bfedb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/9522af30353e8874c5f409acfbd141763d9bbdf0",
-                "reference": "9522af30353e8874c5f409acfbd141763d9bbdf0",
+                "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/150e3082548cf473e88fea531a291c49a3bfedb0",
+                "reference": "150e3082548cf473e88fea531a291c49a3bfedb0",
                 "shasum": ""
             },
             "require": {
@@ -1945,7 +1945,7 @@
                 "laravel",
                 "templates"
             ],
-            "time": "2019-10-14T10:53:29+00:00"
+            "time": "2019-11-30T10:45:24+00:00"
         },
         {
             "name": "infyomlabs/laravel-generator",
@@ -1953,12 +1953,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/laravel-generator.git",
-                "reference": "888c332de2e12e26e6bfe58f4a6027e0595e3dc7"
+                "reference": "6b0198f6a9134f3e1ff260f73ca01e942d97c5cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/888c332de2e12e26e6bfe58f4a6027e0595e3dc7",
-                "reference": "888c332de2e12e26e6bfe58f4a6027e0595e3dc7",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/6b0198f6a9134f3e1ff260f73ca01e942d97c5cd",
+                "reference": "6b0198f6a9134f3e1ff260f73ca01e942d97c5cd",
                 "shasum": ""
             },
             "require": {
@@ -2011,7 +2011,7 @@
                 "test",
                 "view"
             ],
-            "time": "2019-11-06T04:20:22+00:00"
+            "time": "2019-11-27T12:56:32+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -5816,25 +5816,26 @@
         },
         {
             "name": "stevebauman/purify",
-            "version": "v2.0.2",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stevebauman/purify.git",
-                "reference": "d264520280042a745f4f75f5110bbcc21a0a083f"
+                "reference": "75447eb67edbbf5528a32964e78f155d344b1d0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stevebauman/purify/zipball/d264520280042a745f4f75f5110bbcc21a0a083f",
-                "reference": "d264520280042a745f4f75f5110bbcc21a0a083f",
+                "url": "https://api.github.com/repos/stevebauman/purify/zipball/75447eb67edbbf5528a32964e78f155d344b1d0e",
+                "reference": "75447eb67edbbf5528a32964e78f155d344b1d0e",
                 "shasum": ""
             },
             "require": {
                 "ezyang/htmlpurifier": "^4.9.0",
-                "illuminate/support": "5.*",
-                "php": ">=5.4.0"
+                "illuminate/support": "~5.5|~6.0",
+                "php": ">=7.1"
             },
             "require-dev": {
-                "orchestra/testbench": "~3.0"
+                "orchestra/testbench": "~3.7",
+                "phpunit/phpunit": "~7.0"
             },
             "type": "library",
             "extra": {
@@ -5872,7 +5873,7 @@
                 "purification",
                 "purify"
             ],
-            "time": "2019-05-01T14:25:24+00:00"
+            "time": "2019-10-16T19:02:29+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -8291,8 +8292,8 @@
             "authors": [
                 {
                     "name": "Filipe Dobreira",
-                    "role": "Developer",
-                    "homepage": "https://github.com/filp"
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
                 }
             ],
             "description": "php error handling for cool kids",
@@ -9301,20 +9302,20 @@
             "authors": [
                 {
                     "name": "Manuel Pichler",
-                    "role": "Project Founder",
                     "email": "github@manuel-pichler.de",
-                    "homepage": "https://github.com/manuelpichler"
+                    "homepage": "https://github.com/manuelpichler",
+                    "role": "Project Founder"
                 },
                 {
                     "name": "Marc Würth",
-                    "role": "Project Maintainer",
                     "email": "ravage@bluewin.ch",
-                    "homepage": "https://github.com/ravage84"
+                    "homepage": "https://github.com/ravage84",
+                    "role": "Project Maintainer"
                 },
                 {
                     "name": "Other contributors",
-                    "role": "Contributors",
-                    "homepage": "https://github.com/phpmd/phpmd/graphs/contributors"
+                    "homepage": "https://github.com/phpmd/phpmd/graphs/contributors",
+                    "role": "Contributors"
                 }
             ],
             "description": "PHPMD is a spin-off project of PHP Depend and aims to be a PHP equivalent of the well known Java tool PMD.",
