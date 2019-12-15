@@ -1901,12 +1901,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/adminlte-templates.git",
-                "reference": "9522af30353e8874c5f409acfbd141763d9bbdf0"
+                "reference": "150e3082548cf473e88fea531a291c49a3bfedb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/9522af30353e8874c5f409acfbd141763d9bbdf0",
-                "reference": "9522af30353e8874c5f409acfbd141763d9bbdf0",
+                "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/150e3082548cf473e88fea531a291c49a3bfedb0",
+                "reference": "150e3082548cf473e88fea531a291c49a3bfedb0",
                 "shasum": ""
             },
             "require": {
@@ -1945,7 +1945,7 @@
                 "laravel",
                 "templates"
             ],
-            "time": "2019-10-14T10:53:29+00:00"
+            "time": "2019-11-30T10:45:24+00:00"
         },
         {
             "name": "infyomlabs/laravel-generator",
@@ -1953,12 +1953,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/laravel-generator.git",
-                "reference": "888c332de2e12e26e6bfe58f4a6027e0595e3dc7"
+                "reference": "6b0198f6a9134f3e1ff260f73ca01e942d97c5cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/888c332de2e12e26e6bfe58f4a6027e0595e3dc7",
-                "reference": "888c332de2e12e26e6bfe58f4a6027e0595e3dc7",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/6b0198f6a9134f3e1ff260f73ca01e942d97c5cd",
+                "reference": "6b0198f6a9134f3e1ff260f73ca01e942d97c5cd",
                 "shasum": ""
             },
             "require": {
@@ -2011,7 +2011,7 @@
                 "test",
                 "view"
             ],
-            "time": "2019-11-06T04:20:22+00:00"
+            "time": "2019-11-27T12:56:32+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -8291,8 +8291,8 @@
             "authors": [
                 {
                     "name": "Filipe Dobreira",
-                    "role": "Developer",
-                    "homepage": "https://github.com/filp"
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
                 }
             ],
             "description": "php error handling for cool kids",
@@ -8309,16 +8309,16 @@
         },
         {
             "name": "fzaninotto/faker",
-            "version": "v1.8.0",
+            "version": "v1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "f72816b43e74063c8b10357394b6bba8cb1c10de"
+                "reference": "fc10d778e4b84d5bd315dad194661e091d307c6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/f72816b43e74063c8b10357394b6bba8cb1c10de",
-                "reference": "f72816b43e74063c8b10357394b6bba8cb1c10de",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/fc10d778e4b84d5bd315dad194661e091d307c6f",
+                "reference": "fc10d778e4b84d5bd315dad194661e091d307c6f",
                 "shasum": ""
             },
             "require": {
@@ -8327,12 +8327,12 @@
             "require-dev": {
                 "ext-intl": "*",
                 "phpunit/phpunit": "^4.8.35 || ^5.7",
-                "squizlabs/php_codesniffer": "^1.5"
+                "squizlabs/php_codesniffer": "^2.9.2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8-dev"
+                    "dev-master": "1.9-dev"
                 }
             },
             "autoload": {
@@ -8355,7 +8355,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2018-07-12T10:23:15+00:00"
+            "time": "2019-12-12T13:22:17+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -9301,20 +9301,20 @@
             "authors": [
                 {
                     "name": "Manuel Pichler",
-                    "role": "Project Founder",
                     "email": "github@manuel-pichler.de",
-                    "homepage": "https://github.com/manuelpichler"
+                    "homepage": "https://github.com/manuelpichler",
+                    "role": "Project Founder"
                 },
                 {
                     "name": "Marc Würth",
-                    "role": "Project Maintainer",
                     "email": "ravage@bluewin.ch",
-                    "homepage": "https://github.com/ravage84"
+                    "homepage": "https://github.com/ravage84",
+                    "role": "Project Maintainer"
                 },
                 {
                     "name": "Other contributors",
-                    "role": "Contributors",
-                    "homepage": "https://github.com/phpmd/phpmd/graphs/contributors"
+                    "homepage": "https://github.com/phpmd/phpmd/graphs/contributors",
+                    "role": "Contributors"
                 }
             ],
             "description": "PHPMD is a spin-off project of PHP Depend and aims to be a PHP equivalent of the well known Java tool PMD.",
