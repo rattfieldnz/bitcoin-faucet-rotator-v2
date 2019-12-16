@@ -38,7 +38,7 @@
         "artesaos/seotools": "^0.14",
         "greggilbert/recaptcha": "^2.2",
         "creativeorange/gravatar": "^1.0",
-        "htmlmin/htmlmin": "^5.8",
+        "htmlmin/htmlmin": "^6.0",
         "spatie/laravel-analytics": "^3.7",
         "lord/laroute": "^2.4",
         "fideloper/proxy": "~4.1",
