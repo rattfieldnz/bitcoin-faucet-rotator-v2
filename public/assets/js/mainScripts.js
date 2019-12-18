@@ -37158,18 +37158,18 @@ function _init() {
         }
     });
 })(jQuery);
-/*! DataTables 1.10.19
- * ©2008-2018 SpryMedia Ltd - datatables.net/license
+/*! DataTables 1.10.20
+ * ©2008-2019 SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     DataTables
  * @description Paginate, search and order HTML tables
- * @version     1.10.19
+ * @version     1.10.20
  * @file        jquery.dataTables.js
  * @author      SpryMedia Ltd
  * @contact     www.datatables.net
- * @copyright   Copyright 2008-2018 SpryMedia Ltd.
+ * @copyright   Copyright 2008-2019 SpryMedia Ltd.
  *
  * This source file is free software, available under the following license:
  *   MIT license - http://datatables.net/license
@@ -38058,7 +38058,7 @@ function _init() {
 			_fnCamelToHungarian( defaults.column, defaults.column, true );
 			
 			/* Setting up the initialisation object */
-			_fnCamelToHungarian( defaults, $.extend( oInit, $this.data() ) );
+			_fnCamelToHungarian( defaults, $.extend( oInit, $this.data() ), true );
 			
 			
 			
@@ -38494,7 +38494,7 @@ function _init() {
 	var _api_registerPlural; // DataTable.Api.registerPlural
 	
 	var _re_dic = {};
-	var _re_new_lines = /[\r\n]/g;
+	var _re_new_lines = /[\r\n\u2028]/g;
 	var _re_html = /<.*?>/g;
 	
 	// This is not strict ISO8601 - Date.parse() is quite lax, although
@@ -39184,7 +39184,7 @@ function _init() {
 			_fnCompatCols( oOptions );
 	
 			// Map camel case parameters to their Hungarian counterparts
-			_fnCamelToHungarian( DataTable.defaults.column, oOptions );
+			_fnCamelToHungarian( DataTable.defaults.column, oOptions, true );
 	
 			/* Backwards compatibility for mDataProp */
 			if ( oOptions.mDataProp !== undefined && !oOptions.mData )
@@ -40238,7 +40238,7 @@ function _init() {
 			rowData = row._aData,
 			cells = [],
 			nTr, nTd, oCol,
-			i, iLen;
+			i, iLen, create;
 	
 		if ( row.nTr === null )
 		{
@@ -40259,8 +40259,9 @@ function _init() {
 			for ( i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
 			{
 				oCol = oSettings.aoColumns[i];
+				create = nTrIn ? false : true;
 	
-				nTd = nTrIn ? anTds[i] : document.createElement( oCol.sCellType );
+				nTd = create ? document.createElement( oCol.sCellType ) : anTds[i];
 				nTd._DT_CellIndex = {
 					row: iRow,
 					column: i
@@ -40269,9 +40270,9 @@ function _init() {
 				cells.push( nTd );
 	
 				// Need to create the HTML if new, or if a rendering function is defined
-				if ( (!nTrIn || oCol.mRender || oCol.mData !== i) &&
+				if ( create || ((!nTrIn || oCol.mRender || oCol.mData !== i) &&
 					 (!$.isPlainObject(oCol.mData) || oCol.mData._ !== i+'.display')
-				) {
+				)) {
 					nTd.innerHTML = _fnGetCellData( oSettings, iRow, i, 'display' );
 				}
 	
@@ -41566,6 +41567,7 @@ function _init() {
 			// New search - start from the master array
 			if ( invalidated ||
 				 force ||
+				 regex ||
 				 prevSearch.length > input.length ||
 				 input.indexOf(prevSearch) !== 0 ||
 				 settings.bSorted // On resort, the display master needs to be
@@ -41689,7 +41691,7 @@ function _init() {
 					}
 	
 					if ( cellData.replace ) {
-						cellData = cellData.replace(/[\r\n]/g, '');
+						cellData = cellData.replace(/[\r\n\u2028]/g, '');
 					}
 	
 					filterData.push( cellData );
@@ -42617,7 +42619,7 @@ function _init() {
 		table.children('colgroup').insertBefore( table.children('thead') );
 	
 		/* Adjust the position of the header in case we loose the y-scrollbar */
-		divBody.scroll();
+		divBody.trigger('scroll');
 	
 		// If sorting or filtering has occurred, jump the scrolling back to the top
 		// only if we aren't holding the position
@@ -43570,7 +43572,7 @@ function _init() {
 	
 			_fnCallbackFire( settings, 'aoStateLoaded', 'stateLoaded', [settings, s] );
 			callback();
-		}
+		};
 	
 		if ( ! settings.oFeatures.bStateSave ) {
 			callback();
@@ -44050,7 +44052,7 @@ function _init() {
 		var ctxSettings = function ( o ) {
 			var a = _toSettings( o );
 			if ( a ) {
-				settings = settings.concat( a );
+				settings.push.apply( settings, a );
 			}
 		};
 	
@@ -44348,8 +44350,7 @@ function _init() {
 	
 		var
 			i, ien,
-			j, jen,
-			struct, inner,
+			struct,
 			methodScoping = function ( scope, fn, struc ) {
 				return function () {
 					var ret = fn.apply( scope, arguments );
@@ -44364,9 +44365,9 @@ function _init() {
 			struct = ext[i];
 	
 			// Value
-			obj[ struct.name ] = typeof struct.val === 'function' ?
+			obj[ struct.name ] = struct.type === 'function' ?
 				methodScoping( scope, struct.val, struct ) :
-				$.isPlainObject( struct.val ) ?
+				struct.type === 'object' ?
 					{} :
 					struct.val;
 	
@@ -44447,13 +44448,19 @@ function _init() {
 					name:      key,
 					val:       {},
 					methodExt: [],
-					propExt:   []
+					propExt:   [],
+					type:      'object'
 				};
 				struct.push( src );
 			}
 	
 			if ( i === ien-1 ) {
 				src.val = val;
+				src.type = typeof val === 'function' ?
+					'function' :
+					$.isPlainObject( val ) ?
+						'object' :
+						'other';
 			}
 			else {
 				struct = method ?
@@ -44462,7 +44469,6 @@ function _init() {
 			}
 		}
 	};
-	
 	
 	_Api.registerPlural = _api_registerPlural = function ( pluralName, singularName, val ) {
 		_Api.register( pluralName, val );
@@ -45076,7 +45082,7 @@ function _init() {
 						[];
 				}
 				else if ( cellIdx ) {
-					return aoData[ cellIdx.row ] && aoData[ cellIdx.row ].nTr === sel ?
+					return aoData[ cellIdx.row ] && aoData[ cellIdx.row ].nTr === sel.parentNode ?
 						[ cellIdx.row ] :
 						[];
 				}
@@ -45735,16 +45741,6 @@ function _init() {
 	
 		// Common actions
 		col.bVisible = vis;
-		_fnDrawHead( settings, settings.aoHeader );
-		_fnDrawHead( settings, settings.aoFooter );
-	
-		// Update colspan for no records display. Child rows and extensions will use their own
-		// listeners to do this - only need to update the empty table item here
-		if ( ! settings.aiDisplay.length ) {
-			$(settings.nTBody).find('td[colspan]').attr('colspan', _fnVisbleColumns(settings));
-		}
-	
-		_fnSaveState( settings );
 	};
 	
 	
@@ -45808,6 +45804,7 @@ function _init() {
 	} );
 	
 	_api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis, calc ) {
+		var that = this;
 		var ret = this.iterator( 'column', function ( settings, column ) {
 			if ( vis === undefined ) {
 				return settings.aoColumns[ column ].bVisible;
@@ -45817,14 +45814,28 @@ function _init() {
 	
 		// Group the column visibility changes
 		if ( vis !== undefined ) {
-			// Second loop once the first is done for events
-			this.iterator( 'column', function ( settings, column ) {
-				_fnCallbackFire( settings, null, 'column-visibility', [settings, column, vis, calc] );
-			} );
+			this.iterator( 'table', function ( settings ) {
+				// Redraw the header after changes
+				_fnDrawHead( settings, settings.aoHeader );
+				_fnDrawHead( settings, settings.aoFooter );
+		
+				// Update colspan for no records display. Child rows and extensions will use their own
+				// listeners to do this - only need to update the empty table item here
+				if ( ! settings.aiDisplay.length ) {
+					$(settings.nTBody).find('td[colspan]').attr('colspan', _fnVisbleColumns(settings));
+				}
+		
+				_fnSaveState( settings );
 	
-			if ( calc === undefined || calc ) {
-				this.columns.adjust();
-			}
+				// Second loop once the first is done for events
+				that.iterator( 'column', function ( settings, column ) {
+					_fnCallbackFire( settings, null, 'column-visibility', [settings, column, vis, calc] );
+				} );
+	
+				if ( calc === undefined || calc ) {
+					that.columns.adjust();
+				}
+			});
 		}
 	
 		return ret;
@@ -45975,13 +45986,20 @@ function _init() {
 			} );
 		}
 	
-		// Row + column selector
-		var columns = this.columns( columnSelector );
-		var rows = this.rows( rowSelector );
-		var a, i, ien, j, jen;
+		// The default built in options need to apply to row and columns
+		var internalOpts = opts ? {
+			page: opts.page,
+			order: opts.order,
+			search: opts.search
+		} : {};
 	
-		this.iterator( 'table', function ( settings, idx ) {
-			a = [];
+		// Row + column selector
+		var columns = this.columns( columnSelector, internalOpts );
+		var rows = this.rows( rowSelector, internalOpts );
+		var i, ien, j, jen;
+	
+		var cellsNoOpts = this.iterator( 'table', function ( settings, idx ) {
+			var a = [];
 	
 			for ( i=0, ien=rows[idx].length ; i<ien ; i++ ) {
 				for ( j=0, jen=columns[idx].length ; j<jen ; j++ ) {
@@ -45991,10 +46009,16 @@ function _init() {
 					} );
 				}
 			}
+	
+			return a;
 		}, 1 );
 	
-	    // Now pass through the cell selector for options
-	    var cells = this.cells( a, opts );
+		// There is currently only one extension which uses a cell selector extension
+		// It is a _major_ performance drag to run this if it isn't needed, so this is
+		// an extension specific check at the moment
+		var cells = opts && opts.selected ?
+			this.cells( cellsNoOpts, opts ) :
+			cellsNoOpts;
 	
 		$.extend( cells.selector, {
 			cols: columnSelector,
@@ -46623,7 +46647,7 @@ function _init() {
 	 *  @type string
 	 *  @default Version number
 	 */
-	DataTable.version = "1.10.19";
+	DataTable.version = "1.10.20";
 
 	/**
 	 * Private data store, containing all of the settings objects that are
@@ -51686,7 +51710,8 @@ function _init() {
 				var btnDisplay, btnClass, counter=0;
 	
 				var attach = function( container, buttons ) {
-					var i, ien, node, button;
+					var i, ien, node, button, tabIndex;
+					var disabledClass = classes.sPageButtonDisabled;
 					var clickHandler = function ( e ) {
 						_fnPageChange( settings, e.data.action, true );
 					};
@@ -51701,7 +51726,8 @@ function _init() {
 						}
 						else {
 							btnDisplay = null;
-							btnClass = '';
+							btnClass = button;
+							tabIndex = settings.iTabIndex;
 	
 							switch ( button ) {
 								case 'ellipsis':
@@ -51710,26 +51736,38 @@ function _init() {
 	
 								case 'first':
 									btnDisplay = lang.sFirst;
-									btnClass = button + (page > 0 ?
-										'' : ' '+classes.sPageButtonDisabled);
+	
+									if ( page === 0 ) {
+										tabIndex = -1;
+										btnClass += ' ' + disabledClass;
+									}
 									break;
 	
 								case 'previous':
 									btnDisplay = lang.sPrevious;
-									btnClass = button + (page > 0 ?
-										'' : ' '+classes.sPageButtonDisabled);
+	
+									if ( page === 0 ) {
+										tabIndex = -1;
+										btnClass += ' ' + disabledClass;
+									}
 									break;
 	
 								case 'next':
 									btnDisplay = lang.sNext;
-									btnClass = button + (page < pages-1 ?
-										'' : ' '+classes.sPageButtonDisabled);
+	
+									if ( page === pages-1 ) {
+										tabIndex = -1;
+										btnClass += ' ' + disabledClass;
+									}
 									break;
 	
 								case 'last':
 									btnDisplay = lang.sLast;
-									btnClass = button + (page < pages-1 ?
-										'' : ' '+classes.sPageButtonDisabled);
+	
+									if ( page === pages-1 ) {
+										tabIndex = -1;
+										btnClass += ' ' + disabledClass;
+									}
 									break;
 	
 								default:
@@ -51745,7 +51783,7 @@ function _init() {
 										'aria-controls': settings.sTableId,
 										'aria-label': aria[ button ],
 										'data-dt-idx': counter,
-										'tabindex': settings.iTabIndex,
+										'tabindex': tabIndex,
 										'id': idx === 0 && typeof button === 'string' ?
 											settings.sTableId +'_'+ button :
 											null
@@ -52373,7 +52411,7 @@ function _init() {
 
 	/**
 	 * Processing event, fired when DataTables is doing some kind of processing
-	 * (be it, order, searcg or anything else). It can be used to indicate to
+	 * (be it, order, search or anything else). It can be used to indicate to
 	 * the end user that there is something happening, or that something has
 	 * finished.
 	 *  @name DataTable#processing.dt
@@ -54619,7 +54657,7 @@ if (typeof jQuery === "undefined") {
         var routes = {
 
             absolute: true,
-            rootUrl: 'http://freebtc.192.168.22.10.xip.io',
+            rootUrl: 'http://getfreebitco.in',
             routes : [{"host":null,"methods":["GET","HEAD"],"uri":"install","name":"LaravelInstaller::welcome","action":"RachidLaasri\LaravelInstaller\Controllers\WelcomeController@welcome"},{"host":null,"methods":["GET","HEAD"],"uri":"install\/environment","name":"LaravelInstaller::environment","action":"RachidLaasri\LaravelInstaller\Controllers\EnvironmentController@environmentMenu"},{"host":null,"methods":["GET","HEAD"],"uri":"install\/environment\/wizard","name":"LaravelInstaller::environmentWizard","action":"RachidLaasri\LaravelInstaller\Controllers\EnvironmentController@environmentWizard"},{"host":null,"methods":["POST"],"uri":"install\/environment\/saveWizard","name":"LaravelInstaller::environmentSaveWizard","action":"RachidLaasri\LaravelInstaller\Controllers\EnvironmentController@saveWizard"},{"host":null,"methods":["GET","HEAD"],"uri":"install\/environment\/classic","name":"LaravelInstaller::environmentClassic","action":"RachidLaasri\LaravelInstaller\Controllers\EnvironmentController@environmentClassic"},{"host":null,"methods":["POST"],"uri":"install\/environment\/saveClassic","name":"LaravelInstaller::environmentSaveClassic","action":"RachidLaasri\LaravelInstaller\Controllers\EnvironmentController@saveClassic"},{"host":null,"methods":["GET","HEAD"],"uri":"install\/requirements","name":"LaravelInstaller::requirements","action":"RachidLaasri\LaravelInstaller\Controllers\RequirementsController@requirements"},{"host":null,"methods":["GET","HEAD"],"uri":"install\/permissions","name":"LaravelInstaller::permissions","action":"RachidLaasri\LaravelInstaller\Controllers\PermissionsController@permissions"},{"host":null,"methods":["GET","HEAD"],"uri":"install\/database","name":"LaravelInstaller::database","action":"RachidLaasri\LaravelInstaller\Controllers\DatabaseController@database"},{"host":null,"methods":["GET","HEAD"],"uri":"install\/final","name":"LaravelInstaller::final","action":"RachidLaasri\LaravelInstaller\Controllers\FinalController@finish"},{"host":null,"methods":["GET","HEAD"],"uri":"update","name":"LaravelUpdater::welcome","action":"RachidLaasri\LaravelInstaller\Controllers\UpdateController@welcome"},{"host":null,"methods":["GET","HEAD"],"uri":"update\/overview","name":"LaravelUpdater::overview","action":"RachidLaasri\LaravelInstaller\Controllers\UpdateController@overview"},{"host":null,"methods":["GET","HEAD"],"uri":"update\/database","name":"LaravelUpdater::database","action":"RachidLaasri\LaravelInstaller\Controllers\UpdateController@database"},{"host":null,"methods":["GET","HEAD"],"uri":"update\/final","name":"LaravelUpdater::final","action":"RachidLaasri\LaravelInstaller\Controllers\UpdateController@finish"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/open","name":"debugbar.openhandler","action":"Barryvdh\Debugbar\Controllers\OpenHandlerController@handle"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/clockwork\/{id}","name":"debugbar.clockwork","action":"Barryvdh\Debugbar\Controllers\OpenHandlerController@clockwork"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/telescope\/{id}","name":"debugbar.telescope","action":"Barryvdh\Debugbar\Controllers\TelescopeController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/assets\/stylesheets","name":"debugbar.assets.css","action":"Barryvdh\Debugbar\Controllers\AssetController@css"},{"host":null,"methods":["GET","HEAD"],"uri":"_debugbar\/assets\/javascript","name":"debugbar.assets.js","action":"Barryvdh\Debugbar\Controllers\AssetController@js"},{"host":null,"methods":["DELETE"],"uri":"_debugbar\/cache\/{key}\/{tags?}","name":"debugbar.cache.delete","action":"Barryvdh\Debugbar\Controllers\CacheController@delete"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/authorize","name":"passport.authorizations.authorize","action":"\Laravel\Passport\Http\Controllers\AuthorizationController@authorize"},{"host":null,"methods":["POST"],"uri":"oauth\/authorize","name":"passport.authorizations.approve","action":"\Laravel\Passport\Http\Controllers\ApproveAuthorizationController@approve"},{"host":null,"methods":["DELETE"],"uri":"oauth\/authorize","name":"passport.authorizations.deny","action":"\Laravel\Passport\Http\Controllers\DenyAuthorizationController@deny"},{"host":null,"methods":["POST"],"uri":"oauth\/token","name":"passport.token","action":"\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/tokens","name":"passport.tokens.index","action":"\Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@forUser"},{"host":null,"methods":["DELETE"],"uri":"oauth\/tokens\/{token_id}","name":"passport.tokens.destroy","action":"\Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@destroy"},{"host":null,"methods":["POST"],"uri":"oauth\/token\/refresh","name":"passport.token.refresh","action":"\Laravel\Passport\Http\Controllers\TransientTokenController@refresh"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/clients","name":"passport.clients.index","action":"\Laravel\Passport\Http\Controllers\ClientController@forUser"},{"host":null,"methods":["POST"],"uri":"oauth\/clients","name":"passport.clients.store","action":"\Laravel\Passport\Http\Controllers\ClientController@store"},{"host":null,"methods":["PUT"],"uri":"oauth\/clients\/{client_id}","name":"passport.clients.update","action":"\Laravel\Passport\Http\Controllers\ClientController@update"},{"host":null,"methods":["DELETE"],"uri":"oauth\/clients\/{client_id}","name":"passport.clients.destroy","action":"\Laravel\Passport\Http\Controllers\ClientController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/scopes","name":"passport.scopes.index","action":"\Laravel\Passport\Http\Controllers\ScopeController@all"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/personal-access-tokens","name":"passport.personal.tokens.index","action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@forUser"},{"host":null,"methods":["POST"],"uri":"oauth\/personal-access-tokens","name":"passport.personal.tokens.store","action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@store"},{"host":null,"methods":["DELETE"],"uri":"oauth\/personal-access-tokens\/{token_id}","name":"passport.personal.tokens.destroy","action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets","name":"faucets","action":"App\Http\Controllers\API\FaucetAPIController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets\/{slug}","name":"faucets.show","action":"App\Http\Controllers\API\FaucetAPIController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/first-faucet","name":"faucets.first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets\/{slug}\/previous-faucet","name":"faucets.previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/faucets\/{slug}\/next-faucet","name":"faucets.next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/last-faucet","name":"faucets.last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/random-faucet","name":"faucets.random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users","name":"users","action":"App\Http\Controllers\API\UserAPIController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets","name":"user.faucets","action":"App\Http\Controllers\API\FaucetAPIController@getUserFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets\/{faucetSlug}","name":"user.faucet","action":"App\Http\Controllers\API\FaucetAPIController@getUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/first-faucet","name":"user.first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets\/{faucetSlug}\/next-faucet","name":"user.next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/faucets\/{faucetSlug}\/previous-faucet","name":"user.previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/last-faucet","name":"user.last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/random-faucet","name":"user.random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomUserFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors","name":"user.payment-processors","action":"App\Http\Controllers\API\PaymentProcessorAPIController@userPaymentProcessors"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets","name":"user.payment-processor-faucets","action":"App\Http\Controllers\API\FaucetAPIController@getUserPaymentProcessorFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}","name":"user.payment-processor-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/first-faucet","name":"user.payment-processor-first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/next-faucet","name":"user.payment-processor-next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/previous-faucet","name":"user.payment-processor-previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/last-faucet","name":"user.payment-processor-last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/random-faucet","name":"user.payment-processor-random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomUserPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors","name":"payment-processors","action":"App\Http\Controllers\API\PaymentProcessorAPIController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{slug}","name":"payment-processors.show","action":"App\Http\Controllers\API\PaymentProcessorAPIController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}","name":"payment-processor.faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets","name":"payment-processor.faucets","action":"App\Http\Controllers\API\FaucetAPIController@getPaymentProcessorFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/first-faucet","name":"payment-processor.first-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getFirstPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/previous-faucet","name":"payment-processor.previous-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getPreviousPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/faucets\/{faucetSlug}\/next-faucet","name":"payment-processor.next-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getNextPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/last-faucet","name":"payment-processor.last-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getLastPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/payment-processors\/{paymentProcessorSlug}\/random-faucet","name":"payment-processor.random-faucet","action":"App\Http\Controllers\API\FaucetAPIController@getRandomPaymentProcessorFaucet"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/top-pages\/from\/{dateFrom}\/to\/{dateTo}\/quantity\/{quantity?}","name":"stats.top-pages-between-dates","action":"App\Http\Controllers\API\StatsAPIController@getPagesVisited"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/visits-and-page-views\/from\/{dateFrom}\/to\/{dateTo}\/quantity\/{quantity?}","name":"stats.visits-and-page-views","action":"App\Http\Controllers\API\StatsAPIController@getVisitorsAndPageViews"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/top-x-browsers\/from\/{dateFrom}\/to\/{dateTo}\/max-browsers\/{maxBrowsers?}","name":"stats.top-x-browsers","action":"App\Http\Controllers\API\StatsAPIController@getTopBrowsersAndVisitors"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/countries-and-visitors\/from\/{dateFrom}\/to\/{dateTo}","name":"stats.countries-and-visitors","action":"App\Http\Controllers\API\StatsAPIController@getCountriesAndVisitors"},{"host":null,"methods":["GET","HEAD"],"uri":"api\/v1\/users\/{slug}","name":"users.show","action":"App\Http\Controllers\API\UserAPIController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"login","name":"login","action":"App\Http\Controllers\Auth\LoginController@showLoginForm"},{"host":null,"methods":["POST"],"uri":"login","name":null,"action":"App\Http\Controllers\Auth\LoginController@login"},{"host":null,"methods":["POST"],"uri":"logout","name":"logout","action":"App\Http\Controllers\Auth\LoginController@logout"},{"host":null,"methods":["GET","HEAD"],"uri":"register","name":"register","action":"App\Http\Controllers\Auth\RegisterController@showRegistrationForm"},{"host":null,"methods":["POST"],"uri":"register","name":null,"action":"App\Http\Controllers\Auth\RegisterController@register"},{"host":null,"methods":["GET","HEAD"],"uri":"password\/reset","name":"password.request","action":"App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm"},{"host":null,"methods":["POST"],"uri":"password\/email","name":"password.email","action":"App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail"},{"host":null,"methods":["GET","HEAD"],"uri":"password\/reset\/{token}","name":"password.reset","action":"App\Http\Controllers\Auth\ResetPasswordController@showResetForm"},{"host":null,"methods":["POST"],"uri":"password\/reset","name":"password.update","action":"App\Http\Controllers\Auth\ResetPasswordController@reset"},{"host":null,"methods":["GET","HEAD"],"uri":"logout","name":null,"action":"\App\Http\Controllers\Auth\LoginController@logout"},{"host":null,"methods":["GET","HEAD"],"uri":"\/","name":"home","action":"App\Http\Controllers\RotatorController@index"},{"host":null,"methods":["DELETE"],"uri":"faucets\/{slug}\/delete-permanently","name":"faucets.delete-permanently","action":"App\Http\Controllers\FaucetController@destroyPermanently"},{"host":null,"methods":["PATCH"],"uri":"faucets\/{slug}\/restore","name":"faucets.restore","action":"App\Http\Controllers\FaucetController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/create","name":"faucets.create","action":"App\Http\Controllers\FaucetController@create"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{slug}\/edit","name":"faucets.edit","action":"App\Http\Controllers\FaucetController@edit"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{slug}","name":"faucet.show","action":"App\Http\Controllers\FaucetController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/faucets","name":"users.faucets","action":"App\Http\Controllers\UserFaucetsController@index"},{"host":null,"methods":["POST"],"uri":"users\/{userSlug}\/faucets\/store","name":"users.faucets.store","action":"App\Http\Controllers\UserFaucetsController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/faucets\/{faucetSlug}","name":"users.faucets.show","action":"App\Http\Controllers\UserFaucetsController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors","name":"users.payment-processors","action":"App\Http\Controllers\PaymentProcessorController@userPaymentProcessors"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/faucets","name":"users.payment-processors.faucets","action":"App\Http\Controllers\PaymentProcessorController@userPaymentProcessorFaucets"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/payment-processors\/{paymentProcessorSlug}\/rotator","name":"users.payment-processors.rotator","action":"App\Http\Controllers\RotatorController@getUserPaymentProcessorFaucetRotator"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/faucets\/{faucetSlug}\/edit","name":null,"action":"Closure"},{"host":null,"methods":["PATCH"],"uri":"users\/{userSlug}\/faucets\/update-multiple","name":"users.faucets.update-multiple","action":"App\Http\Controllers\UserFaucetsController@updateMultiple"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{userSlug}\/rotator","name":"users.rotator","action":"App\Http\Controllers\RotatorController@getUserFaucetRotator"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets","name":"faucets.index","action":"App\Http\Controllers\FaucetController@index"},{"host":null,"methods":["POST"],"uri":"faucets","name":"faucets.store","action":"App\Http\Controllers\FaucetController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{faucet}","name":"faucets.show","action":"App\Http\Controllers\FaucetController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets\/{faucet}\/edit","name":"faucets.edit","action":"App\Http\Controllers\FaucetController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"faucets\/{faucet}","name":"faucets.update","action":"App\Http\Controllers\FaucetController@update"},{"host":null,"methods":["DELETE"],"uri":"faucets\/{faucet}","name":"faucets.destroy","action":"App\Http\Controllers\FaucetController@destroy"},{"host":null,"methods":["DELETE"],"uri":"payment-processors\/{slug}\/delete-permanently","name":"payment-processors.delete-permanently","action":"App\Http\Controllers\PaymentProcessorController@destroyPermanently"},{"host":null,"methods":["PATCH"],"uri":"payment-processors\/{slug}\/restore","name":"payment-processors.restore","action":"App\Http\Controllers\PaymentProcessorController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{slug}\/faucets","name":"payment-processors.faucets","action":"App\Http\Controllers\PaymentProcessorController@faucets"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{slug}\/rotator","name":"payment-processors.rotator","action":"App\Http\Controllers\RotatorController@getPaymentProcessorFaucetRotator"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors","name":"payment-processors.index","action":"App\Http\Controllers\PaymentProcessorController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/create","name":"payment-processors.create","action":"App\Http\Controllers\PaymentProcessorController@create"},{"host":null,"methods":["POST"],"uri":"payment-processors","name":"payment-processors.store","action":"App\Http\Controllers\PaymentProcessorController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{payment_processor}","name":"payment-processors.show","action":"App\Http\Controllers\PaymentProcessorController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors\/{payment_processor}\/edit","name":"payment-processors.edit","action":"App\Http\Controllers\PaymentProcessorController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"payment-processors\/{payment_processor}","name":"payment-processors.update","action":"App\Http\Controllers\PaymentProcessorController@update"},{"host":null,"methods":["DELETE"],"uri":"payment-processors\/{payment_processor}","name":"payment-processors.destroy","action":"App\Http\Controllers\PaymentProcessorController@destroy"},{"host":null,"methods":["DELETE"],"uri":"users\/{slug}\/delete-permanently","name":"users.delete-permanently","action":"App\Http\Controllers\UserController@destroyPermanently"},{"host":null,"methods":["DELETE"],"uri":"purge-deleted-users","name":"users.purge-archived","action":"App\Http\Controllers\UserController@purgeArchivedUsers"},{"host":null,"methods":["PATCH"],"uri":"users\/{slug}\/restore","name":"users.restore","action":"App\Http\Controllers\UserController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"users","name":"users.index","action":"App\Http\Controllers\UserController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/create","name":"users.create","action":"App\Http\Controllers\UserController@create"},{"host":null,"methods":["POST"],"uri":"users","name":"users.store","action":"App\Http\Controllers\UserController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{user}","name":"users.show","action":"App\Http\Controllers\UserController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"users\/{user}\/edit","name":"users.edit","action":"App\Http\Controllers\UserController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"users\/{user}","name":"users.update","action":"App\Http\Controllers\UserController@update"},{"host":null,"methods":["DELETE"],"uri":"users\/{user}","name":"users.destroy","action":"App\Http\Controllers\UserController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta","name":"main-meta.index","action":"App\Http\Controllers\MainMetaController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta\/create","name":"main-meta.create","action":"App\Http\Controllers\MainMetaController@create"},{"host":null,"methods":["POST"],"uri":"main-meta","name":"main-meta.store","action":"App\Http\Controllers\MainMetaController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta\/{main_metum}","name":"main-meta.show","action":"App\Http\Controllers\MainMetaController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta\/{main_metum}\/edit","name":"main-meta.edit","action":"App\Http\Controllers\MainMetaController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"main-meta\/{main_metum}","name":"main-meta.update","action":"App\Http\Controllers\MainMetaController@update"},{"host":null,"methods":["DELETE"],"uri":"main-meta\/{main_metum}","name":"main-meta.destroy","action":"App\Http\Controllers\MainMetaController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block","name":"ad-block.index","action":"App\Http\Controllers\AdBlockController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block\/create","name":"ad-block.create","action":"App\Http\Controllers\AdBlockController@create"},{"host":null,"methods":["POST"],"uri":"ad-block","name":"ad-block.store","action":"App\Http\Controllers\AdBlockController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block\/{ad_block}","name":"ad-block.show","action":"App\Http\Controllers\AdBlockController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block\/{ad_block}\/edit","name":"ad-block.edit","action":"App\Http\Controllers\AdBlockController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"ad-block\/{ad_block}","name":"ad-block.update","action":"App\Http\Controllers\AdBlockController@update"},{"host":null,"methods":["DELETE"],"uri":"ad-block\/{ad_block}","name":"ad-block.destroy","action":"App\Http\Controllers\AdBlockController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config","name":"twitter-config.index","action":"App\Http\Controllers\TwitterConfigController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config\/create","name":"twitter-config.create","action":"App\Http\Controllers\TwitterConfigController@create"},{"host":null,"methods":["POST"],"uri":"twitter-config","name":"twitter-config.store","action":"App\Http\Controllers\TwitterConfigController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config\/{twitter_config}","name":"twitter-config.show","action":"App\Http\Controllers\TwitterConfigController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"twitter-config\/{twitter_config}\/edit","name":"twitter-config.edit","action":"App\Http\Controllers\TwitterConfigController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"twitter-config\/{twitter_config}","name":"twitter-config.update","action":"App\Http\Controllers\TwitterConfigController@update"},{"host":null,"methods":["DELETE"],"uri":"twitter-config\/{twitter_config}","name":"twitter-config.destroy","action":"App\Http\Controllers\TwitterConfigController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"roles","name":"roles.index","action":"App\Http\Controllers\RoleController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"roles\/create","name":"roles.create","action":"App\Http\Controllers\RoleController@create"},{"host":null,"methods":["POST"],"uri":"roles","name":"roles.store","action":"App\Http\Controllers\RoleController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"roles\/{role}","name":"roles.show","action":"App\Http\Controllers\RoleController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"roles\/{role}\/edit","name":"roles.edit","action":"App\Http\Controllers\RoleController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"roles\/{role}","name":"roles.update","action":"App\Http\Controllers\RoleController@update"},{"host":null,"methods":["DELETE"],"uri":"roles\/{role}","name":"roles.destroy","action":"App\Http\Controllers\RoleController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions","name":"permissions.index","action":"App\Http\Controllers\PermissionController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions\/create","name":"permissions.create","action":"App\Http\Controllers\PermissionController@create"},{"host":null,"methods":["POST"],"uri":"permissions","name":"permissions.store","action":"App\Http\Controllers\PermissionController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions\/{permission}","name":"permissions.show","action":"App\Http\Controllers\PermissionController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"permissions\/{permission}\/edit","name":"permissions.edit","action":"App\Http\Controllers\PermissionController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"permissions\/{permission}","name":"permissions.update","action":"App\Http\Controllers\PermissionController@update"},{"host":null,"methods":["DELETE"],"uri":"permissions\/{permission}","name":"permissions.destroy","action":"App\Http\Controllers\PermissionController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/edit","name":"privacy-policy.edit","action":"App\Http\Controllers\PrivacyPolicyController@edit"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy","name":"privacy-policy","action":"App\Http\Controllers\PrivacyPolicyController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/create","name":"privacy-policy.create","action":"App\Http\Controllers\PrivacyPolicyController@create"},{"host":null,"methods":["POST"],"uri":"privacy-policy","name":"privacy-policy.store","action":"App\Http\Controllers\PrivacyPolicyController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/{privacy_policy}","name":"privacy-policy.show","action":"App\Http\Controllers\PrivacyPolicyController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy\/{privacy_policy}\/edit","name":"privacy-policy.edit","action":"App\Http\Controllers\PrivacyPolicyController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"privacy-policy\/{privacy_policy}","name":"privacy-policy.update","action":"App\Http\Controllers\PrivacyPolicyController@update"},{"host":null,"methods":["DELETE"],"uri":"privacy-policy\/{privacy_policy}","name":"privacy-policy.destroy","action":"App\Http\Controllers\PrivacyPolicyController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/edit","name":"terms-and-conditions.edit","action":"App\Http\Controllers\TermsAndConditionsController@edit"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions","name":"terms-and-conditions","action":"App\Http\Controllers\TermsAndConditionsController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/create","name":"terms-and-conditions.create","action":"App\Http\Controllers\TermsAndConditionsController@create"},{"host":null,"methods":["POST"],"uri":"terms-and-conditions","name":"terms-and-conditions.store","action":"App\Http\Controllers\TermsAndConditionsController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/{terms_and_condition}","name":"terms-and-conditions.show","action":"App\Http\Controllers\TermsAndConditionsController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions\/{terms_and_condition}\/edit","name":"terms-and-conditions.edit","action":"App\Http\Controllers\TermsAndConditionsController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"terms-and-conditions\/{terms_and_condition}","name":"terms-and-conditions.update","action":"App\Http\Controllers\TermsAndConditionsController@update"},{"host":null,"methods":["DELETE"],"uri":"terms-and-conditions\/{terms_and_condition}","name":"terms-and-conditions.destroy","action":"App\Http\Controllers\TermsAndConditionsController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"stats","name":"stats.index","action":"App\Http\Controllers\StatsController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"settings","name":"settings","action":"App\Http\Controllers\SettingsController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks","name":"social-networks.index","action":"App\Http\Controllers\SocialNetworksController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks\/create","name":"social-networks.create","action":"App\Http\Controllers\SocialNetworksController@create"},{"host":null,"methods":["POST"],"uri":"social-networks","name":"social-networks.store","action":"App\Http\Controllers\SocialNetworksController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks\/{social_network}","name":"social-networks.show","action":"App\Http\Controllers\SocialNetworksController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"social-networks\/{social_network}\/edit","name":"social-networks.edit","action":"App\Http\Controllers\SocialNetworksController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"social-networks\/{social_network}","name":"social-networks.update","action":"App\Http\Controllers\SocialNetworksController@update"},{"host":null,"methods":["DELETE"],"uri":"social-networks\/{social_network}","name":"social-networks.destroy","action":"App\Http\Controllers\SocialNetworksController@destroy"},{"host":null,"methods":["DELETE"],"uri":"alerts\/{slug}\/delete-temporarily","name":"alerts.delete-temporarily","action":"App\Http\Controllers\AlertController@destroy"},{"host":null,"methods":["DELETE"],"uri":"alerts\/{slug}\/delete-permanently","name":"alerts.delete-permanently","action":"App\Http\Controllers\AlertController@destroyPermanently"},{"host":null,"methods":["PATCH"],"uri":"alerts\/{slug}\/restore","name":"alerts.restore","action":"App\Http\Controllers\AlertController@restoreDeleted"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts","name":"alerts.index","action":"App\Http\Controllers\AlertController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts\/create","name":"alerts.create","action":"App\Http\Controllers\AlertController@create"},{"host":null,"methods":["POST"],"uri":"alerts","name":"alerts.store","action":"App\Http\Controllers\AlertController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts\/{alert}","name":"alerts.show","action":"App\Http\Controllers\AlertController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts\/{alert}\/edit","name":"alerts.edit","action":"App\Http\Controllers\AlertController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"alerts\/{alert}","name":"alerts.update","action":"App\Http\Controllers\AlertController@update"},{"host":null,"methods":["DELETE"],"uri":"alerts\/{alert}","name":"alerts.destroy","action":"App\Http\Controllers\AlertController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types","name":"alert-types.index","action":"App\Http\Controllers\AlertTypeController@index"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types\/create","name":"alert-types.create","action":"App\Http\Controllers\AlertTypeController@create"},{"host":null,"methods":["POST"],"uri":"alert-types","name":"alert-types.store","action":"App\Http\Controllers\AlertTypeController@store"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types\/{alert_type}","name":"alert-types.show","action":"App\Http\Controllers\AlertTypeController@show"},{"host":null,"methods":["GET","HEAD"],"uri":"alert-types\/{alert_type}\/edit","name":"alert-types.edit","action":"App\Http\Controllers\AlertTypeController@edit"},{"host":null,"methods":["PUT","PATCH"],"uri":"alert-types\/{alert_type}","name":"alert-types.update","action":"App\Http\Controllers\AlertTypeController@update"},{"host":null,"methods":["DELETE"],"uri":"alert-types\/{alert_type}","name":"alert-types.destroy","action":"App\Http\Controllers\AlertTypeController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"users.export-as-csv","name":"users.export-as-csv","action":"App\Http\Controllers\UserController@exportCSV"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets.export-as-csv","name":"faucets.export-as-csv","action":"App\Http\Controllers\FaucetController@exportCSV"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors.export-as-csv","name":"payment-processors.export-as-csv","action":"App\Http\Controllers\PaymentProcessorController@exportCSV"},{"host":null,"methods":["GET","HEAD"],"uri":"main-meta.export-as-csv","name":"main-meta.export-as-csv","action":"App\Http\Controllers\MainMetaController@exportCSV"},{"host":null,"methods":["GET","HEAD"],"uri":"ad-block.export-as-csv","name":"ad-block.export-as-csv","action":"App\Http\Controllers\AdBlockController@exportCSV"},{"host":null,"methods":["GET","HEAD"],"uri":"privacy-policy.export-as-csv","name":"privacy-policy.export-as-csv","action":"App\Http\Controllers\PrivacyPolicyController@exportCSV"},{"host":null,"methods":["GET","HEAD"],"uri":"terms-and-conditions.export-as-csv","name":"terms-and-conditions.export-as-csv","action":"App\Http\Controllers\TermsAndConditionsController@exportCSV"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-main","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users-faucets","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users-rotators","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-users-payment-processors","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-faucets","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-payment-processors","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"sitemap-alerts","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"faucets-feed","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"users-feed","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"payment-processors-feed","name":null,"action":"Closure"},{"host":null,"methods":["GET","HEAD"],"uri":"alerts-feed","name":null,"action":"Closure"}],
             prefix: '',
 
