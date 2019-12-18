@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "57b7fe5b23ed619110b06ce7a6885af2",
+    "content-hash": "b1c446d0b8194b654580dc7e91c63838",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -112,28 +112,27 @@
         },
         {
             "name": "artesaos/seotools",
-            "version": "v0.14.0",
+            "version": "v0.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/artesaos/seotools.git",
-                "reference": "d52b1a23221693ddcde7d1a1141d44cb23023067"
+                "reference": "9e91926d27f46652ba01ff217028aecd97d757b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/artesaos/seotools/zipball/d52b1a23221693ddcde7d1a1141d44cb23023067",
-                "reference": "d52b1a23221693ddcde7d1a1141d44cb23023067",
+                "url": "https://api.github.com/repos/artesaos/seotools/zipball/9e91926d27f46652ba01ff217028aecd97d757b1",
+                "reference": "9e91926d27f46652ba01ff217028aecd97d757b1",
                 "shasum": ""
             },
             "require": {
-                "illuminate/config": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.* || 5.6.* || 5.7.* || 5.8.*",
-                "illuminate/support": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.* || 5.6.* || 5.7.* || 5.8.*",
-                "php": ">=7.0"
+                "ext-json": "*",
+                "illuminate/config": "5.8.*|^6.0",
+                "illuminate/support": "5.8.*|^6.0",
+                "php": ">=7.1"
             },
             "require-dev": {
-                "mockery/mockery": "~1.0",
-                "orchestra/testbench": "~3.0",
-                "phpspec/phpspec": "~4.0",
-                "phpunit/phpunit": "~6.0"
+                "orchestra/testbench": "~3.8.4|^4.0",
+                "phpspec/phpspec": "~5.1.1"
             },
             "type": "library",
             "extra": {
@@ -166,6 +165,7 @@
             ],
             "description": "SEO Tools for Laravel and Lumen",
             "keywords": [
+                "JSON-LD",
                 "laravel5",
                 "lumen",
                 "metatags",
@@ -174,7 +174,7 @@
                 "seotools",
                 "webmaster"
             ],
-            "time": "2019-03-08T15:39:06+00:00"
+            "time": "2019-09-05T13:49:10+00:00"
         },
         {
             "name": "asm89/stack-cors",
@@ -5298,12 +5298,46 @@
                 "reference": "8b37d2f27fb7db6d8edd49aa3f77d13a470d5ee5",
                 "shasum": ""
             },
+            "require": {
+                "illuminate/support": "^5.8",
+                "php": ">=7.2.0"
+            },
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "RachidLaasri\\LaravelInstaller\\Providers\\LaravelInstallerServiceProvider"
+                    ],
+                    "aliases": {
+                        "InstallerHelper": "RachidLaasri\\LaravelInstaller\\Helpers\\InstallerHelper"
+                    }
+                }
+            },
             "autoload": {
-                "classmap": [
-                    ""
-                ]
-            }
+                "psr-4": {
+                    "RachidLaasri\\LaravelInstaller\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rachid Laasri",
+                    "email": "rashidlaasri@gmail.com"
+                },
+                {
+                    "name": "Jeremy Kenedy",
+                    "email": "jeremykenedy@gmail.com"
+                },
+                {
+                    "name": "Rob Attfield",
+                    "email": "emailme@robertattfield.com"
+                }
+            ],
+            "description": "Laravel web installer",
+            "time": "2019-07-16T10:11:28+00:00"
         },
         {
             "name": "santigarcor/laratrust",
@@ -8340,8 +8374,8 @@
             "authors": [
                 {
                     "name": "Filipe Dobreira",
-                    "role": "Developer",
-                    "homepage": "https://github.com/filp"
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
                 }
             ],
             "description": "php error handling for cool kids",
@@ -9353,20 +9387,20 @@
             "authors": [
                 {
                     "name": "Manuel Pichler",
-                    "role": "Project Founder",
                     "email": "github@manuel-pichler.de",
-                    "homepage": "https://github.com/manuelpichler"
+                    "homepage": "https://github.com/manuelpichler",
+                    "role": "Project Founder"
                 },
                 {
                     "name": "Marc Würth",
-                    "role": "Project Maintainer",
                     "email": "ravage@bluewin.ch",
-                    "homepage": "https://github.com/ravage84"
+                    "homepage": "https://github.com/ravage84",
+                    "role": "Project Maintainer"
                 },
                 {
                     "name": "Other contributors",
-                    "role": "Contributors",
-                    "homepage": "https://github.com/phpmd/phpmd/graphs/contributors"
+                    "homepage": "https://github.com/phpmd/phpmd/graphs/contributors",
+                    "role": "Contributors"
                 }
             ],
             "description": "PHPMD is a spin-off project of PHP Depend and aims to be a PHP equivalent of the well known Java tool PMD.",
