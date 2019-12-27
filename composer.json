@@ -45,7 +45,7 @@
         "sentry/sentry-laravel": "^1.0",
         "optimus/api-consumer": "^0.2.3",
         "phpseclib/phpseclib": "~2.0",
-        "barryvdh/laravel-cors": "^0.11",
+        "barryvdh/laravel-cors": "^1.0",
         "laracasts/flash": "^3.0",
         "symfony/class-loader": "^3.4",
         "infyomlabs/laravel-generator": "5.8.x-dev",
