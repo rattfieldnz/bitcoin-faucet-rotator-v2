@@ -108,6 +108,7 @@
                 "laravel",
                 "toolkit"
             ],
+            "abandoned": true,
             "time": "2015-05-16T19:24:58+00:00"
         },
         {
@@ -233,12 +234,12 @@
             "version": "v0.11.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/barryvdh/laravel-cors.git",
+                "url": "https://github.com/fruitcake/laravel-cors.git",
                 "reference": "03492f1a3bc74a05de23f93b94ac7cc5c173eec9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-cors/zipball/03492f1a3bc74a05de23f93b94ac7cc5c173eec9",
+                "url": "https://api.github.com/repos/fruitcake/laravel-cors/zipball/03492f1a3bc74a05de23f93b94ac7cc5c173eec9",
                 "reference": "03492f1a3bc74a05de23f93b94ac7cc5c173eec9",
                 "shasum": ""
             },
@@ -1589,6 +1590,7 @@
                 "laravel5",
                 "recaptcha"
             ],
+            "abandoned": true,
             "time": "2017-04-06T17:10:49+00:00"
         },
         {
@@ -1911,12 +1913,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/adminlte-templates.git",
-                "reference": "150e3082548cf473e88fea531a291c49a3bfedb0"
+                "reference": "8f83d7e5b255b093d23357d546635a51c5287875"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/150e3082548cf473e88fea531a291c49a3bfedb0",
-                "reference": "150e3082548cf473e88fea531a291c49a3bfedb0",
+                "url": "https://api.github.com/repos/InfyOmLabs/adminlte-templates/zipball/8f83d7e5b255b093d23357d546635a51c5287875",
+                "reference": "8f83d7e5b255b093d23357d546635a51c5287875",
                 "shasum": ""
             },
             "require": {
@@ -1955,7 +1957,7 @@
                 "laravel",
                 "templates"
             ],
-            "time": "2019-11-30T10:45:24+00:00"
+            "time": "2020-02-08T13:35:55+00:00"
         },
         {
             "name": "infyomlabs/laravel-generator",
@@ -1963,12 +1965,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/laravel-generator.git",
-                "reference": "6b0198f6a9134f3e1ff260f73ca01e942d97c5cd"
+                "reference": "7b10b1fe9c48ac6b2e2c3116775fb0a317b96379"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/6b0198f6a9134f3e1ff260f73ca01e942d97c5cd",
-                "reference": "6b0198f6a9134f3e1ff260f73ca01e942d97c5cd",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/7b10b1fe9c48ac6b2e2c3116775fb0a317b96379",
+                "reference": "7b10b1fe9c48ac6b2e2c3116775fb0a317b96379",
                 "shasum": ""
             },
             "require": {
@@ -2021,7 +2023,7 @@
                 "test",
                 "view"
             ],
-            "time": "2019-11-27T12:56:32+00:00"
+            "time": "2020-01-25T13:51:54+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3038,24 +3040,23 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "3.1.17",
+            "version": "3.1.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
-                "reference": "bd377ad37b285d9bc25c9adca360e4392041dea6"
+                "reference": "96527a9ebc2e79e9a5fa7eaef7e23c9e9bcc587c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/bd377ad37b285d9bc25c9adca360e4392041dea6",
-                "reference": "bd377ad37b285d9bc25c9adca360e4392041dea6",
+                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/96527a9ebc2e79e9a5fa7eaef7e23c9e9bcc587c",
+                "reference": "96527a9ebc2e79e9a5fa7eaef7e23c9e9bcc587c",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0",
-                "opis/closure": "^3.1",
+                "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0|^7.0",
                 "php": "^7.0",
-                "phpoffice/phpspreadsheet": "^1.6"
+                "phpoffice/phpspreadsheet": "^1.10"
             },
             "require-dev": {
                 "mockery/mockery": "^1.1",
@@ -3102,7 +3103,7 @@
                 "php",
                 "phpspreadsheet"
             ],
-            "time": "2019-09-04T19:28:20+00:00"
+            "time": "2020-02-28T15:47:45+00:00"
         },
         {
             "name": "madewithlove/illuminate-psr-cache-bridge",
@@ -5298,12 +5299,46 @@
                 "reference": "8b37d2f27fb7db6d8edd49aa3f77d13a470d5ee5",
                 "shasum": ""
             },
+            "require": {
+                "illuminate/support": "^5.8",
+                "php": ">=7.2.0"
+            },
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "RachidLaasri\\LaravelInstaller\\Providers\\LaravelInstallerServiceProvider"
+                    ],
+                    "aliases": {
+                        "InstallerHelper": "RachidLaasri\\LaravelInstaller\\Helpers\\InstallerHelper"
+                    }
+                }
+            },
             "autoload": {
-                "classmap": [
-                    ""
-                ]
-            }
+                "psr-4": {
+                    "RachidLaasri\\LaravelInstaller\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rachid Laasri",
+                    "email": "rashidlaasri@gmail.com"
+                },
+                {
+                    "name": "Jeremy Kenedy",
+                    "email": "jeremykenedy@gmail.com"
+                },
+                {
+                    "name": "Rob Attfield",
+                    "email": "emailme@robertattfield.com"
+                }
+            ],
+            "description": "Laravel web installer",
+            "time": "2019-07-16T10:11:28+00:00"
         },
         {
             "name": "santigarcor/laratrust",
@@ -7712,6 +7747,7 @@
                 "psr",
                 "psr-7"
             ],
+            "abandoned": "laminas/laminas-diactoros",
             "time": "2019-11-13T19:16:13+00:00"
         }
     ],
@@ -8340,8 +8376,8 @@
             "authors": [
                 {
                     "name": "Filipe Dobreira",
-                    "role": "Developer",
-                    "homepage": "https://github.com/filp"
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
                 }
             ],
             "description": "php error handling for cool kids",
@@ -9353,20 +9389,20 @@
             "authors": [
                 {
                     "name": "Manuel Pichler",
-                    "role": "Project Founder",
                     "email": "github@manuel-pichler.de",
-                    "homepage": "https://github.com/manuelpichler"
+                    "homepage": "https://github.com/manuelpichler",
+                    "role": "Project Founder"
                 },
                 {
                     "name": "Marc Würth",
-                    "role": "Project Maintainer",
                     "email": "ravage@bluewin.ch",
-                    "homepage": "https://github.com/ravage84"
+                    "homepage": "https://github.com/ravage84",
+                    "role": "Project Maintainer"
                 },
                 {
                     "name": "Other contributors",
-                    "role": "Contributors",
-                    "homepage": "https://github.com/phpmd/phpmd/graphs/contributors"
+                    "homepage": "https://github.com/phpmd/phpmd/graphs/contributors",
+                    "role": "Contributors"
                 }
             ],
             "description": "PHPMD is a spin-off project of PHP Depend and aims to be a PHP equivalent of the well known Java tool PMD.",
