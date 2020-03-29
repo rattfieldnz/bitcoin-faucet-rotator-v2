@@ -9,8 +9,48 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class SocialNetworks
  *
- * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @author Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Models
+ * @property int $id
+ * @property string|null $facebook_url
+ * @property string|null $twitter_url
+ * @property string|null $reddit_url
+ * @property string|null $google_plus_url
+ * @property string|null $youtube_url
+ * @property string|null $tumblr_url
+ * @property string|null $vimeo_url
+ * @property string|null $vkontakte_url
+ * @property string|null $sinaweibo_url
+ * @property string|null $xing_url
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property int $user_id
+ * @property-read \App\Models\User $user
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\SocialNetworks onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks query()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks whereFacebookUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks whereGooglePlusUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks whereRedditUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks whereSinaweiboUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks whereTumblrUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks whereTwitterUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks whereVimeoUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks whereVkontakteUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks whereXingUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialNetworks whereYoutubeUrl($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\SocialNetworks withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\SocialNetworks withoutTrashed()
+ * @mixin \Eloquent
  */
 class SocialNetworks extends Model
 {

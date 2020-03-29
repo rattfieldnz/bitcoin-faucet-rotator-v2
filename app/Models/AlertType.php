@@ -9,8 +9,36 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class AlertType
  *
- * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @author Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Models
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string $description
+ * @property string $bootstrap_alert_class
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Alert[] $alerts
+ * @property-read int|null $alerts_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType findSimilarSlugs($attribute, $config, $slug)
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\AlertType onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType query()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType whereBootstrapAlertClass($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\AlertType withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\AlertType withoutTrashed()
+ * @mixin \Eloquent
  */
 class AlertType extends Model
 {

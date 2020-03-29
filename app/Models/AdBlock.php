@@ -8,8 +8,30 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class AdBlock
  *
- * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @author Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Models
+ * @property int $id
+ * @property string $ad_content
+ * @property int $user_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\User $user
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\AdBlock onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock query()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock whereAdContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\AdBlock withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\AdBlock withoutTrashed()
+ * @mixin \Eloquent
  */
 class AdBlock extends Model
 {

@@ -9,8 +9,60 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Faucet
  *
- * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @author Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Models
+ * @property int $id
+ * @property string $name
+ * @property string $url
+ * @property int $interval_minutes
+ * @property int $min_payout
+ * @property int $max_payout
+ * @property bool $has_ref_program
+ * @property int $ref_payout_percent
+ * @property string|null $comments
+ * @property bool $is_paused
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string $slug
+ * @property string|null $meta_title
+ * @property string|null $meta_description
+ * @property string|null $meta_keywords
+ * @property bool $has_low_balance
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property string $twitter_message
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PaymentProcessor[] $paymentProcessors
+ * @property-read int|null $payment_processors_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet findSimilarSlugs($attribute, $config, $slug)
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Faucet onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet query()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereComments($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereHasLowBalance($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereHasRefProgram($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereIntervalMinutes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereIsPaused($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereMaxPayout($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereMetaDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereMetaKeywords($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereMetaTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereMinPayout($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereRefPayoutPercent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereTwitterMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereUrl($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Faucet withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Faucet withoutTrashed()
+ * @mixin \Eloquent
  */
 class Faucet extends Model
 {

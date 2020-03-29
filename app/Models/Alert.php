@@ -11,8 +11,48 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Alert
  *
- * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @author Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Models
+ * @property int $id
+ * @property string $title
+ * @property string $slug
+ * @property string $summary
+ * @property string $content
+ * @property string|null $keywords
+ * @property int $alert_type_id
+ * @property int $alert_icon_id
+ * @property bool $hide_alert
+ * @property bool|null $sent_with_twitter
+ * @property string|null $twitter_message
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\AlertIcon $alertIcon
+ * @property-read \App\Models\AlertType $alertType
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert findSimilarSlugs($attribute, $config, $slug)
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Alert onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert query()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereAlertIconId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereAlertTypeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereHideAlert($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereKeywords($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereSentWithTwitter($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereSummary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereTwitterMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Alert withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Alert withoutTrashed()
+ * @mixin \Eloquent
  */
 class Alert extends Model
 {

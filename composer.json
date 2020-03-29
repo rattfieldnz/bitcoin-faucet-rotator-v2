@@ -53,7 +53,7 @@
         "dougsisk/laravel-block-referral-spam": "^1.1",
         "rattfieldnz/laravel-installer": "^4.0",
         "snowfire/beautymail": "dev-master",
-        "pelago/emogrifier": "2.2.0"
+        "pelago/emogrifier": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.8",

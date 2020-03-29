@@ -9,8 +9,40 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class PaymentProcessor
  *
- * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @author Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Models
+ * @property int $id
+ * @property string $name
+ * @property string $url
+ * @property string|null $slug
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $meta_title
+ * @property string|null $meta_description
+ * @property string|null $meta_keywords
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Faucet[] $faucets
+ * @property-read int|null $faucets_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor findSimilarSlugs($attribute, $config, $slug)
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\PaymentProcessor onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor query()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereMetaDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereMetaKeywords($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereMetaTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereUrl($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\PaymentProcessor withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\PaymentProcessor withoutTrashed()
+ * @mixin \Eloquent
  */
 class PaymentProcessor extends Model
 {

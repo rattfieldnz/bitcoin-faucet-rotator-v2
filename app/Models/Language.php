@@ -7,8 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Language
  *
- * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
+ * @author Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Models
+ * @property string $iso_code
+ * @property string $name
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Language newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Language newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Language query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Language whereIsoCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Language whereName($value)
+ * @mixin \Eloquent
  */
 class Language extends Model
 {
