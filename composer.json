@@ -56,7 +56,7 @@
     "require-dev": {
         "fzaninotto/faker": "~1.8",
         "mockery/mockery": "^1.2",
-        "phpunit/phpunit": "~8.2",
+        "phpunit/phpunit": "~9.0",
         "symfony/css-selector": "^4.3",
         "symfony/dom-crawler": "^4.3",
         "phpmd/phpmd": "@stable",
