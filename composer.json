@@ -36,7 +36,6 @@
         "bepsvpt/secure-headers": "^5.4",
         "psr/http-message": "^1.0",
         "artesaos/seotools": "^0.14",
-        "greggilbert/recaptcha": "^2.2",
         "creativeorange/gravatar": "^1.0",
         "htmlmin/htmlmin": "^5.8",
         "spatie/laravel-analytics": "^3.7",
