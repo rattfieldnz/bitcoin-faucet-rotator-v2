@@ -151,7 +151,7 @@ return [
         Creativeorange\Gravatar\GravatarServiceProvider::class,
         \HTMLMin\HTMLMin\HTMLMinServiceProvider::class,
         Spatie\Analytics\AnalyticsServiceProvider::class,
-        Lord\Laroute\LarouteServiceProvider::class,
+        App\Libraries\Laroute\LarouteServiceProvider::class,
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         Optimus\ApiConsumer\Provider\LaravelServiceProvider::class,

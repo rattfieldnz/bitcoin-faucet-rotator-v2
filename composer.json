@@ -40,7 +40,6 @@
         "creativeorange/gravatar": "^1.0",
         "htmlmin/htmlmin": "^5.8",
         "spatie/laravel-analytics": "^3.7",
-        "lord/laroute": "^2.4",
         "fideloper/proxy": "~4.1",
         "sentry/sentry-laravel": "^1.0",
         "optimus/api-consumer": "^0.2.3",
