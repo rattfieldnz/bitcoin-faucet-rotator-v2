@@ -31,19 +31,19 @@
                 var uri = this.replaceNamedParameters(route.uri, parameters);
                 var qs  = this.getRouteQueryString(parameters);
 
-                if (this.absolute && this.isOtherHost(route)){
+                if (this.absolute && this.isOtherHost(route)) {
                     return "//" + route.host + "/" + uri + qs;
                 }
 
                 return this.getCorrectUrl(uri + qs);
             },
 
-            isOtherHost: function (route){
+            isOtherHost: function (route) {
                 return route.host && route.host != window.location.hostname;
             },
 
             replaceNamedParameters : function (uri, parameters) {
-                uri = uri.replace(/\{(.*?)\??\}/g, function(match, key) {
+                uri = uri.replace(/\{(.*?)\??\}/g, function (match, key) {
                     if (parameters.hasOwnProperty(key)) {
                         var value = parameters[key];
                         delete parameters[key];
@@ -82,7 +82,7 @@
                 }
             },
 
-            getByAction : function(action) {
+            getByAction : function (action) {
                 for (var key in this.routes) {
                     if (this.routes.hasOwnProperty(key) && this.routes[key].action === action) {
                         return this.routes[key];
@@ -101,7 +101,7 @@
             }
         };
 
-        var getLinkAttributes = function(attributes) {
+        var getLinkAttributes = function (attributes) {
             if ( ! attributes) {
                 return '';
             }
@@ -166,7 +166,7 @@
 
             // Generate a html link to the given controller action.
             // $NAMESPACE$.link_to_action('HomeController@getIndex', [title=url], [parameters = {}], [attributes = {}])
-            link_to_action : function(action, title, parameters, attributes) {
+            link_to_action : function (action, title, parameters, attributes) {
                 var url = this.action(action, parameters);
 
                 return getHtmlLink(url, title, attributes);
@@ -183,11 +183,9 @@
         define(function () {
             return laroute;
         });
-    }
-    else if (typeof module === 'object' && module.exports){
+    } else if (typeof module === 'object' && module.exports) {
         module.exports = laroute;
-    }
-    else {
+    } else {
         window.$NAMESPACE$ = laroute;
     }
 

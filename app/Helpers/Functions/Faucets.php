@@ -380,7 +380,7 @@ class Faucets
 
         $refCode = empty($refCode) ? null : Purifier::clean($refCode, 'generalFields');
         
-        if(!empty($user) && !empty($faucet)){
+        if (!empty($user) && !empty($faucet)) {
             $f = DB::table('referral_info')
                 ->where('faucet_id', '=', $faucet->id)
                 ->where('user_id', '=', $user->id)
@@ -403,7 +403,6 @@ class Faucets
                 )->update(['referral_code' => $refCode]);
             }
         }
-
     }
 
     /**

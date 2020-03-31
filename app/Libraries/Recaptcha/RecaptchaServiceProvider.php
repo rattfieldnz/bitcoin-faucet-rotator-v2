@@ -67,7 +67,6 @@ class RecaptchaServiceProvider extends ServiceProvider
         $this->app->bind('recaptcha', function () {
             return new Recaptcha($this->app->make('recaptcha.service'), app('config')->get('recaptcha'));
         });
-
     }
 
     protected function handleConfig()

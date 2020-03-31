@@ -2,4 +2,7 @@
 
 namespace App\Libraries\Laroute\Routes\Exceptions;
 
-class ZeroRoutesException extends \Exception { }
+class ZeroRoutesException extends \Exception
+{
+
+}

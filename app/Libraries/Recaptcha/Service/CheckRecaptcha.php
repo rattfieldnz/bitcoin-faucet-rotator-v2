@@ -46,7 +46,7 @@ class CheckRecaptcha implements RecaptchaInterface
 
         fwrite($fs, $http_request);
 
-        while ( ! feof($fs)) {
+        while (! feof($fs)) {
             $apiResponse .= fgets($fs, 1160); // One TCP-IP packet
         }
 

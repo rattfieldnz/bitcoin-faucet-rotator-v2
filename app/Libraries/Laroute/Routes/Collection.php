@@ -69,24 +69,27 @@ class Collection extends \Illuminate\Support\Collection
         $action  = $route->getActionName();
         $laroute = Arr::get($route->getAction(), 'laroute', null);
 
-        if(!empty($namespace)) {
+        if (!empty($namespace)) {
             $a = $route->getAction();
 
-            if(isset($a['controller'])) {
+            if (isset($a['controller'])) {
                 $action = str_replace($namespace.'\\', '', $action);
             }
         }
 
         switch ($filter) {
             case 'all':
-                if($laroute === false) return null;
+                if ($laroute === false) {
+                    return null;
+                }
                 break;
             case 'only':
-                if($laroute !== true) return null;
+                if ($laroute !== true) {
+                    return null;
+                }
                 break;
         }
 
         return compact('host', 'methods', 'uri', 'name', 'action');
     }
-
 }

@@ -71,7 +71,7 @@ class UserRepository extends Repository implements IRepository
         $temporarySkipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
         $user = User::where('slug', $slug)->withTrashed()->first();
-        if(empty($data['password'])){
+        if (empty($data['password'])) {
             unset($data['password']);
         }
 

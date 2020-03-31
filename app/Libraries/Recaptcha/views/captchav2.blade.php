@@ -1,5 +1,5 @@
 <?php
-if ( ! function_exists('renderDataAttributes')) {
+if (! function_exists('renderDataAttributes')) {
     function renderDataAttributes($attributes)
     {
         $mapped = [ ];
