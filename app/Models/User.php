@@ -161,8 +161,9 @@ class User extends Authenticatable implements CanResetPassword
             'confirmed',
             'min:10',
             'max:20',
-            'regex:/^(?=.*[a-z|A-Z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/'
+            'regex:/[A-Za-z0-9_~\-!@#\$%\^&\*\(\)]+$/'
         ],
+        'password_confirmation' => 'sometimes|required_with:password|same:password',
         'bitcoin_address' => 'required|string|min:26|max:35|unique:users,bitcoin_address',
     ];
 

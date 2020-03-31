@@ -71,6 +71,10 @@ class UserRepository extends Repository implements IRepository
         $temporarySkipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
         $user = User::where('slug', $slug)->withTrashed()->first();
+        if(empty($data['password'])){
+            unset($data['password']);
+        }
+
         $userData = self::cleanInput($data);
         $user = $user->fill($userData);
         $this->skipPresenter($temporarySkipPresenter);
@@ -92,8 +96,8 @@ class UserRepository extends Repository implements IRepository
         $data['first_name'] = Purifier::clean($data['first_name'], 'generalFields');
         $data['last_name'] = Purifier::clean($data['last_name'], 'generalFields');
         $data['email'] = Purifier::clean($data['email'], 'generalFields');
-        if (isset($data['password']) && isset($data['password_confirmation'])) {
-            $data['password'] = Purifier::clean(bcrypt($data['password']), 'generalFields');
+        if (!empty($data['password']) && !empty($data['password_confirmation'])) {
+            $data['password'] = bcrypt($data['password']);
         }
         $data['bitcoin_address'] = Purifier::clean($data['bitcoin_address'], 'generalFields');
         if (isset($data['is_admin'])) {
