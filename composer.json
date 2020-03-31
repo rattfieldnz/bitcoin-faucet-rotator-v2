@@ -37,7 +37,7 @@
         "psr/http-message": "^1.0",
         "artesaos/seotools": "^0.14",
         "creativeorange/gravatar": "^1.0",
-        "htmlmin/htmlmin": "^5.8",
+        "htmlmin/htmlmin": "^7.0",
         "spatie/laravel-analytics": "^3.7",
         "fideloper/proxy": "~4.1",
         "sentry/sentry-laravel": "^1.0",
