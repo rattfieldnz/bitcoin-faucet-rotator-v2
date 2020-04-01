@@ -21,7 +21,7 @@ If you experience any issues with installation, please [log them as issues](http
 
 Before you begin installing the script, please make sure your server meets the following specifications:
 
-* PHP >= 7.1.3.
+* PHP >= 7.2.
 * BCMath PHP Extension.
 * Ctype PHP Extension.
 * JSON PHP Extension.

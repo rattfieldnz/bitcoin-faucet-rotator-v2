@@ -1,6 +1,6 @@
 # Bitcoin Faucet Rotator v2
 
-After a few months of coding, development, and security testing, I proudly bring you the second version of the [Bitcoin Faucet Rotator](http://thebitcoinrotator.com) script! The first version can be seen by visiting [https://github.com/rattfieldnz/bitcoin-faucet-rotator](https://github.com/rattfieldnz/bitcoin-faucet-rotator).
+After a few months of coding, development, and security testing, I proudly bring you the second version of the [Bitcoin Faucet Rotator](http://getfreebitco.in) script! The first version can be seen by visiting [https://github.com/rattfieldnz/bitcoin-faucet-rotator](https://github.com/rattfieldnz/bitcoin-faucet-rotator).
 
 ![Guest view of home page](https://i.imgur.com/gx2YfnQ.png)
 
