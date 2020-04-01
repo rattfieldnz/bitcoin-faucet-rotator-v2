@@ -63,7 +63,7 @@
         "phpmd/phpmd": "@stable",
         "filp/whoops": "~2.7",
         "barryvdh/laravel-debugbar": "^3.2",
-        "jaybizzle/laravel-migrations-organiser": "4.*",
+        "jaybizzle/laravel-migrations-organiser": "5.*",
         "barryvdh/laravel-ide-helper": "2.6.*",
         "laracasts/generators": "~1.1",
         "laravel/tinker": "^2.3",
