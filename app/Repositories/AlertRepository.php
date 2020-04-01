@@ -3,9 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Alert;
-use Illuminate\Support\Facades\Validator;
-use InfyOm\Generator\Common\BaseRepository;
-use Mews\Purifier\Facades\Purifier;
+use Stevebauman\Purify\Facades\Purify;
 
 /**
  * Class AlertRepository
@@ -124,15 +122,15 @@ class AlertRepository extends Repository implements IRepository
     public static function cleanInput(array $input)
     {
         $inputToSanitize = [
-            'title' => Purifier::clean($input['title'], 'generalFields'),
-            'summary' => Purifier::clean($input['summary'], 'generalFields'),
-            'content' => Purifier::clean($input['content']),
-            'twitter_message' => Purifier::clean($input['twitter_message'], 'generalFields'),
-            'keywords' => Purifier::clean($input['keywords'], 'generalFields'),
-            'alert_type_id' => intval(Purifier::clean($input['alert_type_id'], 'generalFields')),
-            'alert_icon_id' => intval(Purifier::clean($input['alert_icon_id'], 'generalFields')),
-            'hide_alert' => intval(Purifier::clean($input['hide_alert'], 'generalFields')),
-            'sent_with_twitter' => intval(Purifier::clean($input['sent_with_twitter'], 'generalFields'))
+            'title' => Purify::clean($input['title'], self::$generalFieldsConfig),
+            'summary' => Purify::clean($input['summary'], self::$generalFieldsConfig),
+            'content' => Purify::clean($input['content']),
+            'twitter_message' => Purify::clean($input['twitter_message'], self::$generalFieldsConfig),
+            'keywords' => Purify::clean($input['keywords'], self::$generalFieldsConfig),
+            'alert_type_id' => intval(Purify::clean($input['alert_type_id'], self::$generalFieldsConfig)),
+            'alert_icon_id' => intval(Purify::clean($input['alert_icon_id'], self::$generalFieldsConfig)),
+            'hide_alert' => intval(Purify::clean($input['hide_alert'], self::$generalFieldsConfig)),
+            'sent_with_twitter' => intval(Purify::clean($input['sent_with_twitter'], self::$generalFieldsConfig))
         ];
 
         return $inputToSanitize;

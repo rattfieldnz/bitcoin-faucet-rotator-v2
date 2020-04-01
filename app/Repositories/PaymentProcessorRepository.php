@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\PaymentProcessor;
-use Mews\Purifier\Facades\Purifier;
+use Stevebauman\Purify\Facades\Purify;
 
 /**
  * Class PaymentProcessorRepository
@@ -104,11 +104,11 @@ class PaymentProcessorRepository extends Repository implements IRepository
     public static function cleanInput(array $data)
     {
         return [
-            'name' => Purifier::clean($data['name'], 'generalFields'),
-            'url' => Purifier::clean($data['url'], 'generalFields'),
-            'meta_title' => Purifier::clean($data['meta_title'], 'generalFields'),
-            'meta_description' => Purifier::clean($data['meta_description'], 'generalFields'),
-            'meta_keywords' => Purifier::clean($data['meta_keywords'], 'generalFields')
+            'name' => Purify::clean($data['name'], self::$generalFieldsConfig),
+            'url' => Purify::clean($data['url'], self::$generalFieldsConfig),
+            'meta_title' => Purify::clean($data['meta_title'], self::$generalFieldsConfig),
+            'meta_description' => Purify::clean($data['meta_description'], self::$generalFieldsConfig),
+            'meta_keywords' => Purify::clean($data['meta_keywords'], self::$generalFieldsConfig)
         ];
     }
 }

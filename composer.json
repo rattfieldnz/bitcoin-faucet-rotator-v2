@@ -24,7 +24,6 @@
         "laravelium/sitemap": "^3.0",
         "abraham/twitteroauth": "^1.0",
         "laravelium/feed": "^3.0",
-        "mews/purifier": "~2.0",
         "stevebauman/purify": "2.0.*",
         "league/csv": "^9.2",
         "predis/predis": "1.1.*",

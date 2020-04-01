@@ -3,8 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
-use Mews\Purifier\Facades\Purifier;
+use Stevebauman\Purify\Facades\Purify;
 
 /**
  * Class UserRepository
@@ -92,16 +91,16 @@ class UserRepository extends Repository implements IRepository
      */
     public static function cleanInput(array $data)
     {
-        $data['user_name'] = Purifier::clean($data['user_name'], 'generalFields');
-        $data['first_name'] = Purifier::clean($data['first_name'], 'generalFields');
-        $data['last_name'] = Purifier::clean($data['last_name'], 'generalFields');
-        $data['email'] = Purifier::clean($data['email'], 'generalFields');
+        $data['user_name'] = Purify::clean($data['user_name'], self::$generalFieldsConfig);
+        $data['first_name'] = Purify::clean($data['first_name'], self::$generalFieldsConfig);
+        $data['last_name'] = Purify::clean($data['last_name'], self::$generalFieldsConfig);
+        $data['email'] = Purify::clean($data['email'], self::$generalFieldsConfig);
         if (!empty($data['password']) && !empty($data['password_confirmation'])) {
             $data['password'] = bcrypt($data['password']);
         }
-        $data['bitcoin_address'] = Purifier::clean($data['bitcoin_address'], 'generalFields');
+        $data['bitcoin_address'] = Purify::clean($data['bitcoin_address'], self::$generalFieldsConfig);
         if (isset($data['is_admin'])) {
-            $data['is_admin'] = Purifier::clean($data['is_admin'], 'generalFields');
+            $data['is_admin'] = Purify::clean($data['is_admin'], self::$generalFieldsConfig);
         }
 
         return $data;

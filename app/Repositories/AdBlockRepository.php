@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\AdBlock;
-use InfyOm\Generator\Common\BaseRepository;
 use Stevebauman\Purify\Facades\Purify;
 
 /**
@@ -12,7 +11,7 @@ use Stevebauman\Purify\Facades\Purify;
  * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Repositories
  */
-class AdBlockRepository extends BaseRepository implements IRepository
+class AdBlockRepository extends Repository implements IRepository
 {
     /**
      * @var array
@@ -76,16 +75,8 @@ class AdBlockRepository extends BaseRepository implements IRepository
      */
     public static function cleanInput(array $input)
     {
-        $config = [
-            'HTML.Doctype' => 'XHTML 1.0 Transitional',
-            'HTML.Allowed' => '',
-            'AutoFormat.AutoParagraph' => false,
-            'AutoFormat.Linkify' => false,
-        ];
-        //$input['ad_content'] = Purifier::clean($input['ad_content']);
         $input['ad_content'] = Purify::clean($input['ad_content']);
-        //$input['user_id'] = Purifier::clean($input['user_id'], 'generalFields');
-        $input['user_id'] = Purify::clean($input['user_id'], $config);
+        $input['user_id'] = Purify::clean($input['user_id'], self::$generalFieldsConfig);
 
         return $input;
     }

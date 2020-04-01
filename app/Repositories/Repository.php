@@ -8,6 +8,8 @@
 
 namespace App\Repositories;
 
+use Illuminate\Container\Container as Application;
+use Illuminate\Support\Facades\Config;
 use InfyOm\Generator\Common\BaseRepository;
 use Prettus\Repository\Events\RepositoryEntityDeleted;
 
@@ -19,6 +21,13 @@ use Prettus\Repository\Events\RepositoryEntityDeleted;
  */
 abstract class Repository extends BaseRepository
 {
+    protected static $generalFieldsConfig;
+
+    public function __construct(Application $app)
+    {
+        parent::__construct($app);
+        self::$generalFieldsConfig = Config::get('purify.generalFields');
+    }
 
     /**
      * Find data by field and value

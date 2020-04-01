@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Faucet;
-use Mews\Purifier\Facades\Purifier;
+use Stevebauman\Purify\Facades\Purify;
 
 /**
  * Class FaucetRepository
@@ -115,20 +115,20 @@ class FaucetRepository extends Repository implements IRepository
     public static function cleanInput(array $data)
     {
         return [
-            'name' => Purifier::clean($data['name'], 'generalFields'),
-            'url' => Purifier::clean($data['url'], 'generalFields'),
-            'interval_minutes' => Purifier::clean($data['interval_minutes'], 'generalFields'),
-            'min_payout' => Purifier::clean($data['min_payout'], 'generalFields'),
-            'max_payout' => Purifier::clean($data['max_payout'], 'generalFields'),
-            'has_ref_program' => Purifier::clean($data['has_ref_program'], 'generalFields'),
-            'ref_payout_percent' => Purifier::clean($data['ref_payout_percent'], 'generalFields'),
-            'comments' => Purifier::clean($data['comments'], 'generalFields'),
-            'is_paused' => Purifier::clean($data['is_paused'], 'generalFields'),
-            'meta_title' => Purifier::clean($data['meta_title'], 'generalFields'),
-            'meta_description' => Purifier::clean($data['meta_description'], 'generalFields'),
-            'meta_keywords' => Purifier::clean($data['meta_keywords'], 'generalFields'),
-            'has_low_balance'  => Purifier::clean($data['has_low_balance'], 'generalFields'),
-            'twitter_message' => Purifier::clean($data['twitter_message'], 'generalFields')
+            'name' => Purify::clean($data['name'], self::$generalFieldsConfig),
+            'url' => Purify::clean($data['url'], self::$generalFieldsConfig),
+            'interval_minutes' => Purify::clean($data['interval_minutes'], self::$generalFieldsConfig),
+            'min_payout' => Purify::clean($data['min_payout'], self::$generalFieldsConfig),
+            'max_payout' => Purify::clean($data['max_payout'], self::$generalFieldsConfig),
+            'has_ref_program' => Purify::clean($data['has_ref_program'], self::$generalFieldsConfig),
+            'ref_payout_percent' => Purify::clean($data['ref_payout_percent'], self::$generalFieldsConfig),
+            'comments' => Purify::clean($data['comments'], self::$generalFieldsConfig),
+            'is_paused' => Purify::clean($data['is_paused'], self::$generalFieldsConfig),
+            'meta_title' => Purify::clean($data['meta_title'], self::$generalFieldsConfig),
+            'meta_description' => Purify::clean($data['meta_description'], self::$generalFieldsConfig),
+            'meta_keywords' => Purify::clean($data['meta_keywords'], self::$generalFieldsConfig),
+            'has_low_balance'  => Purify::clean($data['has_low_balance'], self::$generalFieldsConfig),
+            'twitter_message' => Purify::clean($data['twitter_message'], self::$generalFieldsConfig)
         ];
     }
 }
