@@ -33,12 +33,12 @@
                         {!! Form::open(['route' => ['alerts.delete-temporarily', $alert->slug], 'method' => 'delete']) !!}
                         {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-warning btn-xs', 'onclick' => "return confirm('Are you sure you want to archive/delete this alert?')"]) !!}
                         {!! Form::close() !!}
-                        {!! Form::open(['route' => ['alerts.delete-permanently', $alert->slug], 'method' => 'delete']) !!}
-                        {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure you want to PERMANENTLY DELETE this alert?')"]) !!}
-                        {!! Form::close() !!}
                     @else
                         {!! Form::open(['route' => ['alerts.restore', $alert->slug], 'method' => 'patch']) !!}
                         {!! Form::button('<i class="glyphicon glyphicon-refresh"></i>', ['type' => 'submit', 'class' => 'btn btn-info btn-xs', 'onclick' => "return confirm('Are you sure you want to restore this archived/deleted alert?')"]) !!}
+                        {!! Form::close() !!}
+                        {!! Form::open(['route' => ['alerts.delete-permanently', $alert->slug], 'method' => 'delete']) !!}
+                        {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure you want to PERMANENTLY DELETE this alert?')"]) !!}
                         {!! Form::close() !!}
                     @endif
                 </div>

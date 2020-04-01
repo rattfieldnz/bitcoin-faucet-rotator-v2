@@ -11,7 +11,6 @@ namespace App\Repositories;
 use Illuminate\Container\Container as Application;
 use Illuminate\Support\Facades\Config;
 use InfyOm\Generator\Common\BaseRepository;
-use Prettus\Repository\Events\RepositoryEntityDeleted;
 
 /**
  * Class Repository
@@ -73,8 +72,6 @@ abstract class Repository extends BaseRepository
         $this->applyConditions($where);
 
         $deleted = $this->model->delete();
-
-        event(new RepositoryEntityDeleted($this, $this->model->getModel()));
 
         $this->skipPresenter($temporarySkipPresenter);
         $this->resetModel();

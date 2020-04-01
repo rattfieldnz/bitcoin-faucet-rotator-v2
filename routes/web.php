@@ -20,6 +20,22 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/', ['as' => 'home', 'uses' => 'RotatorController@index']);
 
+Route::resource('faucets', 'FaucetController');
+Route::get('faucets/{slug}', [
+    'as' => 'faucets.show',
+    'uses' => 'FaucetController@show'
+]);
+Route::get('faucets/{slug}/edit', [
+    'as' => 'faucets.edit',
+    'uses' => 'FaucetController@edit'
+]);
+Route::delete(
+    'faucets/{slug}/destroy',
+    [
+        'as' => 'faucets.destroy',
+        'uses' => 'FaucetController@destroy'
+    ]
+);
 Route::delete(
     'faucets/{slug}/delete-permanently',
     [
@@ -27,7 +43,6 @@ Route::delete(
         'uses' => 'FaucetController@destroyPermanently'
     ]
 );
-
 Route::patch(
     'faucets/{slug}/restore',
     [
@@ -35,57 +50,40 @@ Route::patch(
         'uses' => 'FaucetController@restoreDeleted'
     ]
 );
-
 Route::get('faucets/create', [
     'as' => 'faucets.create',
     'uses' => 'FaucetController@create'
 ]);
 
-Route::get('faucets/{slug}/edit', [
-    'as' => 'faucets.edit',
-    'uses' => 'FaucetController@edit'
-]);
-
-Route::get('faucets/{slug}', [
-    'as' => 'faucet.show',
-    'uses' => 'FaucetController@show'
-]);
-
-Route::get('users/{userSlug}/faucets', ['as' => 'users.faucets', 'uses' => 'UserFaucetsController@index']);
-Route::post('users/{userSlug}/faucets/store', ['as' => 'users.faucets.store', 'uses' => 'UserFaucetsController@store']);
-Route::get('users/{userSlug}/faucets/{faucetSlug}', ['as' => 'users.faucets.show', 'uses' => 'UserFaucetsController@show']);
-
-Route::get('users/{userSlug}/payment-processors', ['as' => 'users.payment-processors', 'uses' => 'PaymentProcessorController@userPaymentProcessors']);
-Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}', function ($userSlug, $paymentProcessorSlug) {
-    return redirect(route('users.payment-processors.faucets', ['userSlug' =>  $userSlug, 'paymentProcessorSlug' => $paymentProcessorSlug]));
-});
-
-Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}/faucets',
+Route::resource('payment-processors', 'PaymentProcessorController');
+Route::get(
+    'payment-processors/{slug}',
     [
-        'as' => 'users.payment-processors.faucets',
-        'uses' => 'PaymentProcessorController@userPaymentProcessorFaucets'
+        'as' => 'payment-processors.show',
+        'uses' => 'PaymentProcessorController@show'
     ]
 );
-
-Route::get('users/{userSlug}/payment-processors/{paymentProcessorSlug}/rotator',
+Route::get(
+    'payment-processors/{slug}/edit',
     [
-        'as' => 'users.payment-processors.rotator',
-        'uses' => 'RotatorController@getUserPaymentProcessorFaucetRotator'
+        'as' => 'payment-processors.edit',
+        'uses' => 'PaymentProcessorController@edit'
     ]
 );
-
-Route::get('users/{userSlug}/faucets/{faucetSlug}/edit', function ($userSlug) {
-    return redirect(route('users.faucets', ['userSlug' =>  $userSlug]));
-});
-Route::patch('users/{userSlug}/faucets/update-multiple', ['as' => 'users.faucets.update-multiple', 'uses' => 'UserFaucetsController@updateMultiple']);
-
-Route::get('users/{userSlug}/rotator', [
-    'as' => 'users.rotator',
-    'uses' => 'RotatorController@getUserFaucetRotator'
-]);
-
-Route::resource('faucets', 'FaucetController');
-
+Route::patch(
+    'payment-processors/{slug}/update',
+    [
+        'as' => 'payment-processors.update',
+        'uses' => 'PaymentProcessorController@update'
+    ]
+);
+Route::delete(
+    'payment-processors/{slug}/destroy',
+    [
+        'as' => 'payment-processors.destroy',
+        'uses' => 'PaymentProcessorController@destroy'
+    ]
+);
 Route::delete(
     'payment-processors/{slug}/delete-permanently',
     [
@@ -93,7 +91,6 @@ Route::delete(
         'uses' => 'PaymentProcessorController@destroyPermanently'
     ]
 );
-
 Route::patch(
     'payment-processors/{slug}/restore',
     [
@@ -101,7 +98,6 @@ Route::patch(
         'uses' => 'PaymentProcessorController@restoreDeleted'
     ]
 );
-
 Route::get(
     'payment-processors/{slug}/faucets',
     [
@@ -109,7 +105,6 @@ Route::get(
         'uses' => 'PaymentProcessorController@faucets'
     ]
 );
-
 Route::get('payment-processors/{slug}/rotator',
     [
         'as' => 'payment-processors.rotator',
@@ -117,16 +112,35 @@ Route::get('payment-processors/{slug}/rotator',
     ]
 );
 
-Route::resource('payment-processors', 'PaymentProcessorController');
-
+Route::resource('users', 'UserController');
+Route::get(
+    'users/{slug}',
+    [
+        'as' => 'users.show',
+        'uses' => 'UserController@show'
+    ]
+);
+Route::get(
+    'users/{slug}/edit',
+    [
+        'as' => 'users.edit',
+        'uses' => 'UserController@edit'
+    ]
+);
+Route::delete(
+    'users/{slug}/destroy',
+    [
+        'as' => 'users.destroy',
+        'uses' => 'UserController@destroy'
+    ]
+);
 Route::delete(
     'users/{slug}/delete-permanently',
     [
-            'as' => 'users.delete-permanently',
-            'uses' => 'UserController@destroyPermanently'
-        ]
+        'as' => 'users.delete-permanently',
+        'uses' => 'UserController@destroyPermanently'
+    ]
 );
-
 Route::delete(
     'purge-deleted-users',
     [
@@ -134,7 +148,6 @@ Route::delete(
         'uses' => 'UserController@purgeArchivedUsers'
     ]
 );
-
 Route::patch(
     'users/{slug}/restore',
     [
@@ -142,8 +155,33 @@ Route::patch(
         'uses' => 'UserController@restoreDeleted'
     ]
 );
-
-Route::resource('users', 'UserController');
+Route::get('users/{slug}/faucets', ['as' => 'users.faucets', 'uses' => 'UserFaucetsController@index']);
+Route::post('users/{slug}/faucets/store', ['as' => 'users.faucets.store', 'uses' => 'UserFaucetsController@store']);
+Route::get('users/{slug}/faucets/{faucetSlug}', ['as' => 'users.faucets.show', 'uses' => 'UserFaucetsController@show']);
+Route::get('users/{slug}/payment-processors', ['as' => 'users.payment-processors', 'uses' => 'PaymentProcessorController@userPaymentProcessors']);
+Route::get('users/{slug}/payment-processors/{paymentProcessorSlug}', function ($slug, $paymentProcessorSlug) {
+    return redirect(route('users.payment-processors.faucets', ['slug' =>  $slug, 'paymentProcessorSlug' => $paymentProcessorSlug]));
+});
+Route::get('users/{slug}/payment-processors/{paymentProcessorSlug}/faucets',
+    [
+        'as' => 'users.payment-processors.faucets',
+        'uses' => 'PaymentProcessorController@userPaymentProcessorFaucets'
+    ]
+);
+Route::get('users/{slug}/payment-processors/{paymentProcessorSlug}/rotator',
+    [
+        'as' => 'users.payment-processors.rotator',
+        'uses' => 'RotatorController@getUserPaymentProcessorFaucetRotator'
+    ]
+);
+Route::get('users/{slug}/faucets/{faucetSlug}/edit', function ($slug) {
+    return redirect(route('users.faucets', ['slug' =>  $slug]));
+});
+Route::patch('users/{slug}/faucets/update-multiple', ['as' => 'users.faucets.update-multiple', 'uses' => 'UserFaucetsController@updateMultiple']);
+Route::get('users/{slug}/rotator', [
+    'as' => 'users.rotator',
+    'uses' => 'RotatorController@getUserFaucetRotator'
+]);
 
 Route::resource('main-meta', 'MainMetaController');
 

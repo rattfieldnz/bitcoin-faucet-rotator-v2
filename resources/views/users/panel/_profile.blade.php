@@ -29,7 +29,7 @@
                         link_to_route(
                             'users.faucets',
                             $user->user_name . "'s Faucets",
-                            ['userSlug' => $user->slug],
+                            ['slug' => $user->slug],
                             ['itemprop' => 'url', 'target' => '_blank', 'title' => $user->user_name . "'s Faucets."]
                         )
                     !!}
@@ -38,7 +38,7 @@
                             link_to_route(
                                 'users.faucets',
                                 '<i class="fa fa-external-link" style="color: #3c8dbc;"></i>',
-                                ['userSlug' => $user->slug],
+                                ['slug' => $user->slug],
                                 ['itemprop' => 'url', 'target' => '_blank', 'title' => $user->user_name . "'s Faucets."]
                             )
                         )
@@ -52,7 +52,7 @@
                         link_to_route(
                             'users.payment-processors',
                             $user->user_name . "'s Faucets",
-                            ['userSlug' => $user->slug],
+                            ['slug' => $user->slug],
                             [
                                 'itemprop' => 'url', 'target' => '_blank',
                                 'title' => $user->user_name . "'s Faucets, organised by payment processors."
@@ -63,7 +63,7 @@
                             link_to_route(
                             'users.payment-processors',
                             '<i class="fa fa-external-link" style="color: #3c8dbc;"></i>',
-                            ['userSlug' => $user->slug],
+                            ['slug' => $user->slug],
                             [
                                 'itemprop' => 'url', 'target' => '_blank',
                                 'title' => $user->user_name . "'s Faucets, organised by payment processors."
@@ -80,7 +80,7 @@
                         link_to_route(
                             'users.rotator',
                             $user->user_name . "'s Bitcoin Faucet Rotator",
-                            ['userSlug' => $user->slug],
+                            ['slug' => $user->slug],
                             [
                                 'itemprop' => 'url', 'target' => '_blank',
                                 'title' => $user->user_name . "'s Bitcoin Faucet Rotator."
@@ -91,7 +91,7 @@
                             link_to_route(
                             'users.rotator',
                             '<i class="fa fa-external-link" style="color: #3c8dbc;"></i>',
-                            ['userSlug' => $user->slug],
+                            ['slug' => $user->slug],
                             [
                                 'itemprop' => 'url', 'target' => '_blank',
                                 'title' => $user->user_name . "'s Bitcoin Faucet Rotator."

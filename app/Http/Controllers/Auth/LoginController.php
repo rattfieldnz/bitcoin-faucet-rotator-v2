@@ -58,16 +58,18 @@ class LoginController extends Controller
      *
      * @return mixed
      */
-    public function authenticated(Request $request, User $user)
+    public function authenticated(Request $request)
     {
+        $user = User::withTrashed()->where('email', $request->get('email'))->first();
+
         if (empty($user)) {
             return redirect(route('login'));
         }
-        $this->setRedirectedTo(route('users.show', ['userSlug' => $user->slug]));
+        $this->setRedirectedTo(route('users.show', ['slug' => $user->slug]));
 
         flash('Welcome back ' . $user->first_name . "! Glad you have returned :).")->success();
 
-        return redirect()->intended(route('users.show', ['userSlug' => $user->slug]));
+        return redirect()->intended(route('users.show', ['slug' => $user->slug]));
     }
 
     /**

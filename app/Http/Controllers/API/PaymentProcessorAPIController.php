@@ -45,7 +45,9 @@ class PaymentProcessorAPIController extends AppBaseController
      */
     public function index()
     {
-        $paymentProcessors = $this->paymentProcessorRepository->findItemsWhere([], ['*'], false);
+        $isDeleted = Auth::check() && Auth::user()->isAnAdmin() ? true : false;
+
+        $paymentProcessors = $this->paymentProcessorRepository->findItemsWhere([], ['*'], $isDeleted);
         $formattedData = new Collection();
 
         for ($i = 0; $i < count($paymentProcessors); $i++) {
@@ -123,7 +125,7 @@ class PaymentProcessorAPIController extends AppBaseController
             $faucetsRoute = route(
                 'users.payment-processors.faucets',
                 [
-                    'userSlug' => $user->slug,
+                    'slug' => $user->slug,
                     'paymentProcessorSlug' => $paymentProcessors[$i]->slug
                 ]
             );
@@ -141,7 +143,7 @@ class PaymentProcessorAPIController extends AppBaseController
                     'display' => route(
                         'users.payment-processors.rotator',
                         [
-                            'userSlug' => $user->slug,
+                            'slug' => $user->slug,
                             'paymentProcessorSlug' => $paymentProcessors[$i]->slug
                         ]
                     ),

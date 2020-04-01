@@ -57,16 +57,16 @@ class UserFaucetsController extends Controller
     /**
      * Display a listing of the Faucet.
      *
-     * @param  $userSlug
+     * @param  $slug
      * @param  Request  $request
      * @return \Illuminate\View\View
      */
-    public function index($userSlug, Request $request)
+    public function index($slug, Request $request)
     {
         $this->userFaucetRepository->pushCriteria(new RequestCriteria($request));
         $user = null;
 
-        $user = User::where('slug', $userSlug)->withTrashed()->first();
+        $user = User::where('slug', $slug)->withTrashed()->first();
 
         // If the assigned user doesn't exist, redirect to users listing instead, with 'not found' flash message.
         if (empty($user) || ($user->isDeleted() && !Auth::user()->isAnAdmin())) {
@@ -102,7 +102,7 @@ class UserFaucetsController extends Controller
         $seoConfig->publishedTime = Carbon::now()->toW3cString();
         $seoConfig->modifiedTime = Carbon::now()->toW3cString();
         $seoConfig->authorName = $user->fullName();
-        $seoConfig->currentUrl = route('users.faucets', ['userSlug' => $user->slug]);
+        $seoConfig->currentUrl = route('users.faucets', ['slug' => $user->slug]);
         $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
         $seoConfig->categoryDescription  ="List of Faucets";
         WebsiteMeta::setCustomMeta($seoConfig);
@@ -121,10 +121,10 @@ class UserFaucetsController extends Controller
     /**
      * Show the form for creating a new Faucet.
      *
-     * @param  $userSlug
+     * @param  $slug
      * @return \Illuminate\View\View
      */
-    public function create($userSlug)
+    public function create($slug)
     {
         $paymentProcessors = PaymentProcessor::orderBy('name', 'asc')->get();
         $faucetPaymentProcessorIds = null;
@@ -133,7 +133,7 @@ class UserFaucetsController extends Controller
         $faucets = Faucet::distinct()->orderBy('name', 'asc')->get();
         $userFaucets = null;
 
-        $user = User::where('slug', $userSlug)->withTrashed()->first();
+        $user = User::where('slug', $slug)->withTrashed()->first();
 
         // If the assigned user doesn't exist, redirect to users listing instead, with 'not found' flash message.
         if (empty($user) || $user->isDeleted() && !Auth::user()->isAnAdmin()) {
@@ -163,13 +163,13 @@ class UserFaucetsController extends Controller
     /**
      * Store a newly created Faucet in storage.
      *
-     * @param  $userSlug
+     * @param  $slug
      * @param  CreateUserFaucetRequest $request
      * @return Response
      */
-    public function store($userSlug, CreateUserFaucetRequest $request)
+    public function store($slug, CreateUserFaucetRequest $request)
     {
-        $user = $this->userRepository->findByField('slug', $userSlug)->first();
+        $user = $this->userRepository->findByField('slug', $slug)->first();
 
         if (empty($user)) {
             flash('User not found.')->error();
@@ -192,7 +192,7 @@ class UserFaucetsController extends Controller
                 $redirectRoute = route(
                     'users.payment-processors.faucets',
                     [
-                        'userSlug' => $user->slug,
+                        'slug' => $user->slug,
                         'paymentProcessorSlug' => $paymentProcessor->slug
                     ]
                 );
@@ -209,17 +209,17 @@ class UserFaucetsController extends Controller
     /**
      * Display the specified Faucet.
      *
-     * @param  $userSlug
+     * @param  $slug
      * @param  $faucetSlug
      * @return \Illuminate\View\View
      */
-    public function show($userSlug, $faucetSlug)
+    public function show($slug, $faucetSlug)
     {
         $user = null;
         if (!empty(Auth::user()) && Auth::user()->isAnAdmin()) {
-            $user = $this->userRepository->findByField('slug', $userSlug, true)->first();
+            $user = $this->userRepository->findByField('slug', $slug, true)->first();
         } else {
-            $user = $this->userRepository->findByField('slug', $userSlug)->first();
+            $user = $this->userRepository->findByField('slug', $slug)->first();
         }
 
         //If there is no such user, about to 404 page.
@@ -264,7 +264,7 @@ class UserFaucetsController extends Controller
                     ->with('user', $user)
                     ->with('faucet', $faucet)
                     ->with('faucetUrl', $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet))
-                    ->with('currentUrl', route('users.faucets.show', ['userSlug' => $user->slug, 'faucetSlug' => $faucet->slug]))
+                    ->with('currentUrl', route('users.faucets.show', ['slug' => $user->slug, 'faucetSlug' => $faucet->slug]))
                     ->with('disqusIdentifier', $disqusIdentifier)
                     ->with('message', $message)
                     ->with('canShowInIframe', Http::canShowInIframes($faucet->url));
@@ -296,7 +296,7 @@ class UserFaucetsController extends Controller
                     ->with('user', $user)
                     ->with('faucet', $faucet)
                     ->with('faucetUrl', $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet))
-                    ->with('currentUrl', route('users.faucets.show', ['userSlug' => $user->slug, 'faucetSlug' => $faucet->slug]))
+                    ->with('currentUrl', route('users.faucets.show', ['slug' => $user->slug, 'faucetSlug' => $faucet->slug]))
                     ->with('disqusIdentifier', $disqusIdentifier)
                     ->with('message', $message)
                     ->with('canShowInIframe', Http::canShowInIframes($faucet->url));
@@ -318,7 +318,7 @@ class UserFaucetsController extends Controller
                     ->with('user', $user)
                     ->with('faucet', $faucet)
                     ->with('faucetUrl', $faucet->url . Faucets::getUserFaucetRefCode($user, $faucet))
-                    ->with('currentUrl', route('users.faucets.show', ['userSlug' => $user->slug, 'faucetSlug' => $faucet->slug]))
+                    ->with('currentUrl', route('users.faucets.show', ['slug' => $user->slug, 'faucetSlug' => $faucet->slug]))
                     ->with('disqusIdentifier', $disqusIdentifier)
                     ->with('message', $message)
                     ->with('canShowInIframe', Http::canShowInIframes($faucet->url));
@@ -329,9 +329,9 @@ class UserFaucetsController extends Controller
         }
     }
 
-    public function updateMultiple($userSlug, Request $request)
+    public function updateMultiple($slug, Request $request)
     {
-        $user = User::where('slug', $userSlug)->withTrashed()->first();
+        $user = User::where('slug', $slug)->withTrashed()->first();
 
         $input = $request->except('_token', '_method');
 
@@ -364,7 +364,7 @@ class UserFaucetsController extends Controller
                 $redirectRoute = route(
                     'users.payment-processors.faucets',
                     [
-                        'userSlug' => $user->slug,
+                        'slug' => $user->slug,
                         'paymentProcessorSlug' => $paymentProcessor->slug
                     ]
                 );

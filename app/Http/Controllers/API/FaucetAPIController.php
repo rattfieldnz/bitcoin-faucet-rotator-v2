@@ -422,10 +422,10 @@ class FaucetAPIController extends AppBaseController
     }
 
     /* End points for user's main rotator */
-    public function getUserFaucets($userSlug)
+    public function getUserFaucets($slug)
     {
 
-        $user = User::where('slug', '=', $userSlug)->first();
+        $user = User::where('slug', '=', $slug)->first();
 
         if (empty($user)) {
             return $this->sendResponse(
@@ -459,7 +459,7 @@ class FaucetAPIController extends AppBaseController
 
             $faucetRoute = !empty(Users::getFaucet($user, $userFaucets[$i]->slug)) ? route(
                 'users.faucets.show',
-                ['userSlug' => $user->slug, 'faucetSlug' => $userFaucets[$i]->slug]
+                ['slug' => $user->slug, 'faucetSlug' => $userFaucets[$i]->slug]
             ) : route(
                 'faucets.show',
                 ['slug' => $userFaucets[$i]->slug]
@@ -501,7 +501,7 @@ class FaucetAPIController extends AppBaseController
                             'name' => $p->name,
                             'url' => route(
                                 'users.payment-processors.faucets',
-                                ['userSlug' => $user->slug, 'paymentProcessorSlug' => $p->slug]
+                                ['slug' => $user->slug, 'paymentProcessorSlug' => $p->slug]
                             )
                         ]
                     );
@@ -524,10 +524,10 @@ class FaucetAPIController extends AppBaseController
         return Datatables::of($faucets)->rawColumns(['referral_code_form'])->make(true);
     }
 
-    public function getUserFaucet($userSlug, $faucetSlug)
+    public function getUserFaucet($slug, $faucetSlug)
     {
 
-        $user = User::where('slug', '=', $userSlug)->first();
+        $user = User::where('slug', '=', $slug)->first();
 
         if (empty($user)) {
             return $this->sendResponse(
@@ -541,10 +541,10 @@ class FaucetAPIController extends AppBaseController
         return Faucets::faucetJsonResponse($faucet, $user);
     }
 
-    public function getFirstUserFaucet($userSlug)
+    public function getFirstUserFaucet($slug)
     {
 
-        $user = User::where('slug', '=', $userSlug)->first();
+        $user = User::where('slug', '=', $slug)->first();
 
         if (empty($user)) {
             return $this->sendResponse(
@@ -566,10 +566,10 @@ class FaucetAPIController extends AppBaseController
         return Faucets::faucetJsonResponse($faucets->first(), $user);
     }
 
-    public function getPreviousUserFaucet($userSlug, $faucetSlug)
+    public function getPreviousUserFaucet($slug, $faucetSlug)
     {
 
-        $user = User::where('slug', '=', $userSlug)->first();
+        $user = User::where('slug', '=', $slug)->first();
 
         if (empty($user)) {
             return $this->sendResponse(
@@ -614,10 +614,10 @@ class FaucetAPIController extends AppBaseController
         }
     }
 
-    public function getNextUserFaucet($userSlug, $faucetSlug)
+    public function getNextUserFaucet($slug, $faucetSlug)
     {
 
-        $user = User::where('slug', '=', $userSlug)->first();
+        $user = User::where('slug', '=', $slug)->first();
 
         if (empty($user)) {
             return $this->sendResponse(
@@ -669,9 +669,9 @@ class FaucetAPIController extends AppBaseController
         }
     }
 
-    public function getLastUserFaucet($userSlug)
+    public function getLastUserFaucet($slug)
     {
-        $user = User::where('slug', '=', $userSlug)->first();
+        $user = User::where('slug', '=', $slug)->first();
 
         if (empty($user)) {
             return $this->sendResponse(
@@ -693,9 +693,9 @@ class FaucetAPIController extends AppBaseController
         return $this->sendResponse($userFaucet, 'User faucet retrieved successfully');
     }
 
-    public function getRandomUserFaucet($userSlug)
+    public function getRandomUserFaucet($slug)
     {
-        $user = User::where('slug', '=', $userSlug)->first();
+        $user = User::where('slug', '=', $slug)->first();
 
         if (empty($user)) {
             return $this->sendResponse(
@@ -720,10 +720,10 @@ class FaucetAPIController extends AppBaseController
     }
 
     /* End points for user's payment processor rotator */
-    public function getUserPaymentProcessorFaucets($userSlug, $paymentProcessorSlug)
+    public function getUserPaymentProcessorFaucets($slug, $paymentProcessorSlug)
     {
         $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
-        $user = User::where('slug', '=', $userSlug)->first();
+        $user = User::where('slug', '=', $slug)->first();
 
         if (empty($user)) {
             return $this->sendResponse(
@@ -757,10 +757,10 @@ class FaucetAPIController extends AppBaseController
         return Datatables::of($paymentProcessorFaucets)->rawColumns(['referral_code_form'])->make(true);
     }
 
-    public function getUserPaymentProcessorFaucet($userSlug, $paymentProcessorSlug, $faucetSlug)
+    public function getUserPaymentProcessorFaucet($slug, $paymentProcessorSlug, $faucetSlug)
     {
         $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
-        $user = User::where('slug', '=', $userSlug)->first();
+        $user = User::where('slug', '=', $slug)->first();
         $faucet = $this->faucetRepository->findWhere(['slug' => $faucetSlug])->first();
 
         if (empty($user)) {
@@ -795,10 +795,10 @@ class FaucetAPIController extends AppBaseController
         return $this->sendResponse($userFaucet, 'User payment processor faucet retrieved successfully');
     }
 
-    public function getFirstUserPaymentProcessorFaucet($userSlug, $paymentProcessorSlug)
+    public function getFirstUserPaymentProcessorFaucet($slug, $paymentProcessorSlug)
     {
         $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
-        $user = User::where('slug', '=', $userSlug)->first();
+        $user = User::where('slug', '=', $slug)->first();
 
         if (empty($user)) {
             return $this->sendResponse(
@@ -839,10 +839,10 @@ class FaucetAPIController extends AppBaseController
         return $this->sendResponse($faucet, 'User payment processor faucet retrieved successfully');
     }
 
-    public function getNextUserPaymentProcessorFaucet($userSlug, $paymentProcessorSlug, $faucetSlug)
+    public function getNextUserPaymentProcessorFaucet($slug, $paymentProcessorSlug, $faucetSlug)
     {
         $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
-        $user = User::where('slug', '=', $userSlug)->first();
+        $user = User::where('slug', '=', $slug)->first();
         $faucet = $this->faucetRepository->findWhere(['slug' => $faucetSlug])->first();
 
         if (empty($user)) {
@@ -889,10 +889,10 @@ class FaucetAPIController extends AppBaseController
         }
     }
 
-    public function getPreviousUserPaymentProcessorFaucet($userSlug, $paymentProcessorSlug, $faucetSlug)
+    public function getPreviousUserPaymentProcessorFaucet($slug, $paymentProcessorSlug, $faucetSlug)
     {
         $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
-        $user = User::where('slug', '=', $userSlug)->first();
+        $user = User::where('slug', '=', $slug)->first();
         $faucet = $this->faucetRepository->findWhere(['slug' => $faucetSlug])->first();
 
         if (empty($user)) {
@@ -938,10 +938,10 @@ class FaucetAPIController extends AppBaseController
         }
     }
 
-    public function getLastUserPaymentProcessorFaucet($userSlug, $paymentProcessorSlug)
+    public function getLastUserPaymentProcessorFaucet($slug, $paymentProcessorSlug)
     {
         $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
-        $user = User::where('slug', '=', $userSlug)->first();
+        $user = User::where('slug', '=', $slug)->first();
         if (empty($user)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
@@ -967,10 +967,10 @@ class FaucetAPIController extends AppBaseController
         return $this->sendResponse($userFaucet, 'User payment processor faucet retrieved successfully');
     }
 
-    public function getRandomUserPaymentProcessorFaucet($userSlug, $paymentProcessorSlug)
+    public function getRandomUserPaymentProcessorFaucet($slug, $paymentProcessorSlug)
     {
         $paymentProcessor = $this->paymentProcessorRepo->findWhere(['slug' => $paymentProcessorSlug])->first();
-        $user = User::where('slug', '=', $userSlug)->first();
+        $user = User::where('slug', '=', $slug)->first();
         if (empty($user)) {
             return $this->sendResponse(
                 ['status' => 'error', 'code' => 404, 'message' => 'User not found.'],
