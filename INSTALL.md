@@ -9,7 +9,7 @@ The steps below outline the instructions needed to install the script.
 
 ## Installation 
 
-At the time of writing these instructions, this script uses [Laravel version 5.8.*](https://laravel.com/docs/5.8/). 
+At the time of writing these instructions, this script uses [Laravel version 7.3.*](https://github.com/laravel/laravel/tree/v7.3.0). 
 
 These instructions are for Linux-based servers using Apache 2.4+. If you have servers powered by other operating systems (e.g. Windows, MAC OS, etc.), please let me know, and feel free to contribute installation instructions for said operating system/s.
 
@@ -21,7 +21,7 @@ If you experience any issues with installation, please [log them as issues](http
 
 Before you begin installing the script, please make sure your server meets the following specifications:
 
-* PHP >= 7.2.
+* PHP >= 7.2.5.
 * BCMath PHP Extension.
 * Ctype PHP Extension.
 * JSON PHP Extension.
