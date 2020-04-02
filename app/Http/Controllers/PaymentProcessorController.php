@@ -13,10 +13,14 @@ use App\Libraries\Seo\SeoConfig;
 use App\Models\PaymentProcessor;
 use App\Repositories\PaymentProcessorRepository;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Flash;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
@@ -36,8 +40,8 @@ class PaymentProcessorController extends AppBaseController
     /**
      * PaymentProcessorController constructor.
      *
-     * @param \App\Repositories\PaymentProcessorRepository $paymentProcessorRepo
-     * @param \App\Helpers\Functions\Users                     $userFunctions
+     * @param PaymentProcessorRepository $paymentProcessorRepo
+     * @param Users $userFunctions
      */
     public function __construct(PaymentProcessorRepository $paymentProcessorRepo, Users $userFunctions)
     {
@@ -50,7 +54,7 @@ class PaymentProcessorController extends AppBaseController
      * Display a listing of the PaymentProcessor.
      *
      * @param  Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index(Request $request)
     {
@@ -87,7 +91,7 @@ class PaymentProcessorController extends AppBaseController
     /**
      * Show the form for creating a new PaymentProcessor.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -125,7 +129,7 @@ class PaymentProcessorController extends AppBaseController
      *
      * @param string $slug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|Response
+     * @return Factory|View|Response
      */
     public function show($slug)
     {
@@ -158,7 +162,7 @@ class PaymentProcessorController extends AppBaseController
      * Show main faucets associated with a payment processor.
      *
      * @param  $slug
-     * @return PaymentProcessorController|\Illuminate\View\View
+     * @return PaymentProcessorController|View
      */
     public function faucets($slug)
     {
@@ -218,7 +222,7 @@ class PaymentProcessorController extends AppBaseController
      * [userPaymentProcessors description]
      *
      * @param  $userSlug
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function userPaymentProcessors($userSlug)
     {
@@ -268,7 +272,7 @@ class PaymentProcessorController extends AppBaseController
      *
      * @param  $userSlug
      * @param  $paymentProcessorSlug
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function userPaymentProcessorFaucets($userSlug, $paymentProcessorSlug)
     {
@@ -331,7 +335,7 @@ class PaymentProcessorController extends AppBaseController
      *
      * @param string $slug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit($slug)
     {
@@ -413,7 +417,7 @@ class PaymentProcessorController extends AppBaseController
      * Destroys a payment processor permanently.
      *
      * @param  $slug
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function destroyPermanently($slug)
     {
@@ -453,7 +457,7 @@ class PaymentProcessorController extends AppBaseController
      * Restore a soft-deleted payment processor.
      *
      * @param  $slug
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function restoreDeleted($slug)
     {

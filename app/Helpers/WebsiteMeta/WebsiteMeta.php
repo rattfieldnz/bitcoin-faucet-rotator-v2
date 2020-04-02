@@ -138,7 +138,7 @@ class WebsiteMeta
     }
 
     /**
-     * @param \App\Libraries\Seo\SeoConfig $seoConfig
+     * @param SeoConfig $seoConfig
      */
     public static function setCustomMeta(SeoConfig $seoConfig)
     {

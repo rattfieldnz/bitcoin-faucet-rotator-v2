@@ -1,6 +1,9 @@
 <?php
-   $yandexVerification = \App\Helpers\WebsiteMeta\WebsiteMeta::seVerificationIds()['yandex_verification'];
-   $bingVerification = \App\Helpers\WebsiteMeta\WebsiteMeta::seVerificationIds()['bing_verification'];
+
+use App\Helpers\WebsiteMeta\WebsiteMeta;
+
+$yandexVerification = WebsiteMeta::seVerificationIds()['yandex_verification'];
+   $bingVerification = WebsiteMeta::seVerificationIds()['bing_verification'];
 ?>
 
 {!! \Artesaos\SEOTools\Facades\SEOTools::generate() !!}

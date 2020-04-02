@@ -9,9 +9,11 @@ use App\Http\Requests\UpdatePrivacyPolicyRequest;
 use App\Libraries\Seo\SeoConfig;
 use App\Repositories\PrivacyPolicyRepository;
 use App\Helpers\Functions\Users;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
@@ -38,7 +40,7 @@ class PrivacyPolicyController extends AppBaseController
      *
      * @param Request $request
      *
-     * @return \Illuminate\View\View|\Response
+     * @return View|Response
      */
     public function index(Request $request)
     {
@@ -107,7 +109,7 @@ class PrivacyPolicyController extends AppBaseController
     /**
      * Display the specified PrivacyPolicy.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show()
     {
@@ -125,7 +127,7 @@ class PrivacyPolicyController extends AppBaseController
     /**
      * Show the form for editing the specified PrivacyPolicy.
      *
-     * @return \Illuminate\View\View|\Response
+     * @return View|Response
      *
      */
     public function edit()

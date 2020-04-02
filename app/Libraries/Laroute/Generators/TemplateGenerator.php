@@ -10,22 +10,22 @@ class TemplateGenerator implements GeneratorInterface
     /**
      * The compiler instance.
      *
-     * @var \App\Libraries\Laroute\Compilers\CompilerInterface
+     * @var Compiler
      */
     protected $compiler;
 
     /**
      * The filesystem instance.
      *
-     * @var \Illuminate\Filesystem\Filesystem
+     * @var Filesystem
      */
     protected $filesystem;
 
     /**
      * Create a new template generator instance.
      *
-     * @param $compiler   \App\Libraries\Laroute\Compilers\CompilerInterface
-     * @param $filesystem \Illuminate\Filesystem\Filesystem
+     * @param $compiler   Compiler
+     * @param $filesystem Filesystem
      *
      */
     public function __construct(Compiler $compiler, Filesystem $filesystem)

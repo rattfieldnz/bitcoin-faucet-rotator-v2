@@ -13,6 +13,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Validator\Exceptions\ValidatorException;
 use Response;
 
 /**
@@ -38,6 +39,7 @@ class SocialNetworksController extends AppBaseController
      * @param CreateSocialNetworksRequest $request
      *
      * @return Response
+     * @throws ValidatorException
      */
     public function store(CreateSocialNetworksRequest $request)
     {
@@ -69,7 +71,7 @@ class SocialNetworksController extends AppBaseController
             abort(403);
         }
 
-        $socialNetworks = $this->socialNetworksRepository->findWithoutFail($id);
+        $socialNetworks = $this->socialNetworksRepository->find($id);
 
         if (empty($socialNetworks)) {
             Flash::error('Social Networks not found');
@@ -100,7 +102,7 @@ class SocialNetworksController extends AppBaseController
             abort(403);
         }
 
-        $socialNetworks = $this->socialNetworksRepository->findWithoutFail($id);
+        $socialNetworks = $this->socialNetworksRepository->find($id);
 
         if (empty($socialNetworks)) {
             Flash::error('Social Networks not found');

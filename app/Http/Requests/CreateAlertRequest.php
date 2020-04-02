@@ -28,9 +28,9 @@ class CreateAlertRequest extends FormRequest
     }
 
     /**
-     * @param \Illuminate\Contracts\Validation\Validator $validator
+     * @param Validator $validator
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function failedValidation(Validator $validator)
     {

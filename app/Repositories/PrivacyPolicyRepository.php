@@ -3,8 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\PrivacyPolicy;
-use InfyOm\Generator\Common\BaseRepository;
-use Mews\Purifier\Facades\Purifier;
+use Prettus\Validator\Exceptions\ValidatorException;
+use Stevebauman\Purify\Facades\Purify;
 
 /**
  * Class PrivacyPolicyRepository
@@ -12,7 +12,7 @@ use Mews\Purifier\Facades\Purifier;
  * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Repositories
  */
-class PrivacyPolicyRepository extends BaseRepository
+class PrivacyPolicyRepository extends Repository
 {
     /**
      * @var array
@@ -35,8 +35,9 @@ class PrivacyPolicyRepository extends BaseRepository
     /**
      * Create privacy policy data.
      *
-     * @param  array $data
+     * @param array $data
      * @return PrivacyPolicy
+     * @throws ValidatorException
      */
     public function create(array $data)
     {
@@ -54,9 +55,10 @@ class PrivacyPolicyRepository extends BaseRepository
     /**
      * Update privacy policy data,
      *
-     * @param  array $data
+     * @param array $data
      * @param  $id
      * @return mixed
+     * @throws ValidatorException
      */
     public function update(array $data, $id)
     {
@@ -79,10 +81,10 @@ class PrivacyPolicyRepository extends BaseRepository
      */
     public static function cleanInput(array $input)
     {
-        $input['title'] = Purifier::clean($input['title'], 'generalFields');
-        $input['short_description'] = Purifier::clean($input['short_description'], 'generalFields');
-        $input['keywords'] = Purifier::clean($input['keywords'], 'generalFields');
-        $input['content'] = Purifier::clean($input['content']);
+        $input['title'] = Purify::clean($input['title'], self::$generalFieldsConfig);
+        $input['short_description'] = Purify::clean($input['short_description'], self::$generalFieldsConfig);
+        $input['keywords'] = Purify::clean($input['keywords'], self::$generalFieldsConfig);
+        $input['content'] = Purify::clean($input['content']);
 
         return $input;
     }

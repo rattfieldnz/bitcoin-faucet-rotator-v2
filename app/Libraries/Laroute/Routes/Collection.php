@@ -54,7 +54,7 @@ class Collection extends \Illuminate\Support\Collection
     /**
      * Get the route information for a given route.
      *
-     * @param $route \Illuminate\Routing\Route
+     * @param $route Route
      * @param $filter string
      * @param $namespace string
      *

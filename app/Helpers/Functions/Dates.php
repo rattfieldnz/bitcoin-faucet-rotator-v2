@@ -84,7 +84,7 @@ class Dates
      * @param        $dateString
      * @param string $dateFormat
      *
-     * @return \Carbon\Carbon
+     * @return Carbon
      */
     public static function createDate($dateString, $dateFormat = Constants::DATE_FORMAT_DMY) : Carbon
     {
@@ -105,7 +105,7 @@ class Dates
      * @param        $timeString
      * @param string $timeFormat
      *
-     * @return \Carbon\Carbon
+     * @return Carbon
      */
     public static function createTime($timeString, $timeFormat = Constants::TIME_FORMAT_HIS) : Carbon
     {
@@ -125,7 +125,7 @@ class Dates
      * @param        $dateTimeString
      * @param string $dateTimeFormat
      *
-     * @return \Carbon\Carbon|bool
+     * @return Carbon|bool
      */
     public static function createDateTime($dateTimeString, $dateTimeFormat = Constants::DATETIME_FORMAT_DMY_HIS)
     {

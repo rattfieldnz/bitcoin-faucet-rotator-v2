@@ -11,6 +11,7 @@ use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\TwitterCard;
 use Illuminate\Support\Facades\Auth;
 use Form;
+use Illuminate\Support\HtmlString;
 
 /**
  * Class PaymentProcessors
@@ -26,8 +27,8 @@ class PaymentProcessors
     /**
      * Function to set meta data properties for SEO.
      *
-     * @param \App\Models\PaymentProcessor $paymentProcessor
-     * @param \App\Models\User             $user
+     * @param PaymentProcessor $paymentProcessor
+     * @param User $user
      * @return void
      */
     public static function setMeta(PaymentProcessor $paymentProcessor, User $user)
@@ -171,7 +172,7 @@ class PaymentProcessors
 
 
     /**
-     * @param \App\Models\PaymentProcessor $paymentProcessor
+     * @param PaymentProcessor $paymentProcessor
      *
      * @return null|string
      *
@@ -200,7 +201,7 @@ class PaymentProcessors
     }
 
     /**
-     * @param \App\Models\PaymentProcessor $paymentProcessor
+     * @param PaymentProcessor $paymentProcessor
      *
      * @return null|string
      *
@@ -232,9 +233,9 @@ class PaymentProcessors
     }
 
     /**
-     * @param \App\Models\PaymentProcessor $paymentProcessor
+     * @param PaymentProcessor $paymentProcessor
      *
-     * @return \Illuminate\Support\HtmlString|null|string
+     * @return HtmlString|null|string
      */
     public static function restoreForm(PaymentProcessor $paymentProcessor)
     {
@@ -264,9 +265,9 @@ class PaymentProcessors
     }
 
     /**
-     * @param \App\Models\PaymentProcessor $paymentProcessor
+     * @param PaymentProcessor $paymentProcessor
      *
-     * @return \Illuminate\Support\HtmlString|null|string
+     * @return HtmlString|null|string
      */
     public static function softDeleteForm(PaymentProcessor $paymentProcessor)
     {

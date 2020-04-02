@@ -29,7 +29,7 @@ class Alerts
     /**
      * Alerts constructor.
      *
-     * @param \App\Repositories\AlertRepository $alertRepository
+     * @param AlertRepository $alertRepository
      */
     public function __construct(AlertRepository $alertRepository)
     {
@@ -64,7 +64,7 @@ class Alerts
     /**
      * Render a tweet for an alert.
      *
-     * @param \App\Models\Alert $alert
+     * @param Alert $alert
      *
      * @return string
      */
@@ -88,7 +88,7 @@ class Alerts
     /**
      * Send a tweet for an alert.
      *
-     * @param \App\Models\Alert $alert
+     * @param Alert $alert
      * @return void
      */
     public static function sendTweet(Alert $alert)
@@ -105,7 +105,7 @@ class Alerts
     /**
      * Function to set meta data properties for SEO.
      *
-     * @param \App\Models\Alert $alert
+     * @param Alert $alert
      *
      * @return void
      */

@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\AlertIcon;
-use InfyOm\Generator\Common\BaseRepository;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class AlertIconRepository

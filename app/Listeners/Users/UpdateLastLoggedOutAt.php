@@ -20,7 +20,7 @@ class UpdateLastLoggedOutAt
     /**
      * Create the event listener.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      */
     public function __construct(Request $request)
     {

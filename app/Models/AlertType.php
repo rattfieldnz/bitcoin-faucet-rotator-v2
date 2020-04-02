@@ -4,7 +4,11 @@ namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Eloquent as Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * Class AlertType
@@ -16,29 +20,29 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $slug
  * @property string $description
  * @property string $bootstrap_alert_class
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Alert[] $alerts
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read Collection|Alert[] $alerts
  * @property-read int|null $alerts_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType findSimilarSlugs($attribute, $config, $slug)
+ * @method static Builder|AlertType findSimilarSlugs($attribute, $config, $slug)
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\AlertType onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType query()
+ * @method static Builder|AlertType newModelQuery()
+ * @method static Builder|AlertType newQuery()
+ * @method static \Illuminate\Database\Query\Builder|AlertType onlyTrashed()
+ * @method static Builder|AlertType query()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType whereBootstrapAlertClass($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AlertType whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\AlertType withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\AlertType withoutTrashed()
- * @mixin \Eloquent
+ * @method static Builder|AlertType whereBootstrapAlertClass($value)
+ * @method static Builder|AlertType whereCreatedAt($value)
+ * @method static Builder|AlertType whereDeletedAt($value)
+ * @method static Builder|AlertType whereDescription($value)
+ * @method static Builder|AlertType whereId($value)
+ * @method static Builder|AlertType whereName($value)
+ * @method static Builder|AlertType whereSlug($value)
+ * @method static Builder|AlertType whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|AlertType withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|AlertType withoutTrashed()
+ * @mixin Model
  */
 class AlertType extends Model
 {
@@ -84,7 +88,7 @@ class AlertType extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      **/
     public function alerts()
     {

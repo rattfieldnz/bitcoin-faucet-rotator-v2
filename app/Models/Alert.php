@@ -6,7 +6,10 @@ use App\Models\AlertIcon;
 use App\Models\AlertType;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Eloquent as Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * Class Alert
@@ -24,35 +27,35 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property bool $hide_alert
  * @property bool|null $sent_with_twitter
  * @property string|null $twitter_message
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
  * @property-read \App\Models\AlertIcon $alertIcon
  * @property-read \App\Models\AlertType $alertType
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert findSimilarSlugs($attribute, $config, $slug)
+ * @method static Builder|Alert findSimilarSlugs($attribute, $config, $slug)
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Alert onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert query()
+ * @method static Builder|Alert newModelQuery()
+ * @method static Builder|Alert newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Alert onlyTrashed()
+ * @method static Builder|Alert query()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereAlertIconId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereAlertTypeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereHideAlert($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereKeywords($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereSentWithTwitter($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereSummary($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereTwitterMessage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Alert whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Alert withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Alert withoutTrashed()
- * @mixin \Eloquent
+ * @method static Builder|Alert whereAlertIconId($value)
+ * @method static Builder|Alert whereAlertTypeId($value)
+ * @method static Builder|Alert whereContent($value)
+ * @method static Builder|Alert whereCreatedAt($value)
+ * @method static Builder|Alert whereDeletedAt($value)
+ * @method static Builder|Alert whereHideAlert($value)
+ * @method static Builder|Alert whereId($value)
+ * @method static Builder|Alert whereKeywords($value)
+ * @method static Builder|Alert whereSentWithTwitter($value)
+ * @method static Builder|Alert whereSlug($value)
+ * @method static Builder|Alert whereSummary($value)
+ * @method static Builder|Alert whereTitle($value)
+ * @method static Builder|Alert whereTwitterMessage($value)
+ * @method static Builder|Alert whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Alert withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Alert withoutTrashed()
+ * @mixin Model
  */
 class Alert extends Model
 {
@@ -117,7 +120,7 @@ class Alert extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      **/
     public function alertIcon()
     {
@@ -125,7 +128,7 @@ class Alert extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      **/
     public function alertType()
     {

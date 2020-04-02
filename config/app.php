@@ -1,5 +1,7 @@
 <?php
 
+use HTMLMin\HTMLMin\HTMLMinServiceProvider;
+
 return [
 
     /*
@@ -148,7 +150,7 @@ return [
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         App\Libraries\Recaptcha\RecaptchaServiceProvider::class,
         Creativeorange\Gravatar\GravatarServiceProvider::class,
-        \HTMLMin\HTMLMin\HTMLMinServiceProvider::class,
+        HTMLMinServiceProvider::class,
         Spatie\Analytics\AnalyticsServiceProvider::class,
         App\Libraries\Laroute\LarouteServiceProvider::class,
         Fideloper\Proxy\TrustedProxyServiceProvider::class,

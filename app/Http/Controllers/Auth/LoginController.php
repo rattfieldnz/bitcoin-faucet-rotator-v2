@@ -6,6 +6,7 @@ use App\Events\LogEvent;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -53,7 +54,7 @@ class LoginController extends Controller
     /**
      * The user has been authenticated.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param mixed                    $user
      *
      * @return mixed
@@ -75,7 +76,7 @@ class LoginController extends Controller
     /**
      * Attempt to log the user into the application.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param Request $request
      * @return bool
      */
     protected function attemptLogin(Request $request)
@@ -103,7 +104,7 @@ class LoginController extends Controller
      * Over-riding function to handle users logging out.
      *
      * @param  Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function logout(Request $request)
     {
@@ -126,7 +127,7 @@ class LoginController extends Controller
     /**
      * Get the throttle key for the given request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return string
      */
     public function throttleKey(Request $request)
@@ -139,7 +140,7 @@ class LoginController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      */
     protected function validateLogin(Request $request)
     {

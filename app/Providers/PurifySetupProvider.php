@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use HTMLPurifier_HTMLDefinition;
 use Stevebauman\Purify\Facades\Purify;
 use Illuminate\Support\ServiceProvider;
@@ -18,10 +20,10 @@ class PurifySetupProvider extends ServiceProvider
      */
     public function boot()
     {
-        /** @var \HTMLPurifier $purifier */
+        /** @var HTMLPurifier $purifier */
         $purifier = Purify::getPurifier();
 
-        /** @var \HTMLPurifier_Config $config */
+        /** @var HTMLPurifier_Config $config */
         $config = $purifier->config;
 
         $config->set('HTML.DefinitionID', static::DEFINITION_ID);

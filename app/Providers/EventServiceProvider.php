@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Listeners\Users\UpdateLastLoggedInAt;
+use App\Listeners\Users\UpdateLastLoggedOutAt;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -20,10 +22,10 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'Illuminate\Auth\Events\Login' => [
-            \App\Listeners\Users\UpdateLastLoggedInAt::class,
+            UpdateLastLoggedInAt::class,
         ],
         'Illuminate\Auth\Events\Logout' => [
-            \App\Listeners\Users\UpdateLastLoggedOutAt::class,
+            UpdateLastLoggedOutAt::class,
         ],
     ];
 

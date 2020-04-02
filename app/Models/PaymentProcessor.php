@@ -4,7 +4,11 @@ namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Eloquent as Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * Class PaymentProcessor
@@ -15,34 +19,34 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $name
  * @property string $url
  * @property string|null $slug
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $meta_title
  * @property string|null $meta_description
  * @property string|null $meta_keywords
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Faucet[] $faucets
+ * @property Carbon|null $deleted_at
+ * @property-read Collection|Faucet[] $faucets
  * @property-read int|null $faucets_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor findSimilarSlugs($attribute, $config, $slug)
+ * @method static Builder|PaymentProcessor findSimilarSlugs($attribute, $config, $slug)
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\PaymentProcessor onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor query()
+ * @method static Builder|PaymentProcessor newModelQuery()
+ * @method static Builder|PaymentProcessor newQuery()
+ * @method static \Illuminate\Database\Query\Builder|PaymentProcessor onlyTrashed()
+ * @method static Builder|PaymentProcessor query()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereMetaDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereMetaKeywords($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereMetaTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PaymentProcessor whereUrl($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\PaymentProcessor withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\PaymentProcessor withoutTrashed()
- * @mixin \Eloquent
+ * @method static Builder|PaymentProcessor whereCreatedAt($value)
+ * @method static Builder|PaymentProcessor whereDeletedAt($value)
+ * @method static Builder|PaymentProcessor whereId($value)
+ * @method static Builder|PaymentProcessor whereMetaDescription($value)
+ * @method static Builder|PaymentProcessor whereMetaKeywords($value)
+ * @method static Builder|PaymentProcessor whereMetaTitle($value)
+ * @method static Builder|PaymentProcessor whereName($value)
+ * @method static Builder|PaymentProcessor whereSlug($value)
+ * @method static Builder|PaymentProcessor whereUpdatedAt($value)
+ * @method static Builder|PaymentProcessor whereUrl($value)
+ * @method static \Illuminate\Database\Query\Builder|PaymentProcessor withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|PaymentProcessor withoutTrashed()
+ * @mixin Model
  */
 class PaymentProcessor extends Model
 {
@@ -106,7 +110,7 @@ class PaymentProcessor extends Model
     protected static $logOnlyDirty = true;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      **/
     public function faucets()
     {

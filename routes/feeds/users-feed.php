@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+
 Route::get('users-feed', function(){
 
     // create new feed
@@ -10,7 +12,7 @@ Route::get('users-feed', function(){
     // check if there is cached feed and build new only if is not
     if (!$feed->isCached())
     {
-        $users = \App\Models\User::where('deleted_at', '=', null)
+        $users = User::where('deleted_at', '=', null)
             ->orderBy('created_at', 'desc')
             ->get();
 

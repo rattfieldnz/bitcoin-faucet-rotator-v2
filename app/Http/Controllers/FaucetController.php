@@ -13,13 +13,17 @@ use App\Models\PaymentProcessor;
 use App\Repositories\FaucetRepository;
 use Carbon\Carbon;
 use App\Helpers\Functions\Users;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Illuminate\Support\Facades\Request as Input;
+use Prettus\Repository\Exceptions\RepositoryException;
 
 /**
  * Class FaucetController
@@ -51,8 +55,9 @@ class FaucetController extends AppBaseController
     /**
      * Display a listing of the Faucet.
      *
-     * @param  Request $request
-     * @return \Illuminate\View\View
+     * @param Request $request
+     * @return View
+     * @throws RepositoryException
      */
     public function index(Request $request)
     {
@@ -100,7 +105,7 @@ class FaucetController extends AppBaseController
     /**
      * Show the form for creating a new Faucet.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function create()
     {
@@ -147,7 +152,8 @@ class FaucetController extends AppBaseController
      *
      * @param string $slug
      *
-     * @return \Illuminate\View\View
+     * @return View
+     * @throws RepositoryException
      */
     public function show($slug)
     {
@@ -219,7 +225,8 @@ class FaucetController extends AppBaseController
      *
      * @param string $slug
      *
-     * @return \Illuminate\View\View
+     * @return View
+     * @throws RepositoryException
      */
     public function edit($slug)
     {
@@ -248,10 +255,11 @@ class FaucetController extends AppBaseController
     /**
      * Update the specified Faucet in storage.
      *
-     * @param string              $slug
+     * @param string $slug
      * @param UpdateFaucetRequest $request
      *
      * @return Response
+     * @throws RepositoryException
      */
     public function update($slug, UpdateFaucetRequest $request)
     {
@@ -275,7 +283,7 @@ class FaucetController extends AppBaseController
      * Remove the specified Faucet from storage.
      *
      * @param  string $slug
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function destroy($slug)
     {
@@ -322,7 +330,7 @@ class FaucetController extends AppBaseController
      * Permanently remove the specified Faucet from storage.
      *
      * @param  $slug
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function destroyPermanently($slug)
     {
@@ -370,7 +378,7 @@ class FaucetController extends AppBaseController
      * Restore a soft-deleted faucet.
      *
      * @param  $slug
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function restoreDeleted($slug)
     {

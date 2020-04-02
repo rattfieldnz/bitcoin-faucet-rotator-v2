@@ -7,6 +7,7 @@ use App\Helpers\Functions\Users;
 use App\Models\User;
 use App\Repositories\PaymentProcessorRepository;
 use App\Transformers\PaymentProcessorsTransformer;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Collection;
@@ -29,7 +30,7 @@ class PaymentProcessorAPIController extends AppBaseController
     /**
      * PaymentProcessorAPIController constructor.
      *
-     * @param \App\Repositories\PaymentProcessorRepository $paymentProcessorRepo
+     * @param PaymentProcessorRepository $paymentProcessorRepo
      */
     public function __construct(PaymentProcessorRepository $paymentProcessorRepo)
     {
@@ -39,7 +40,7 @@ class PaymentProcessorAPIController extends AppBaseController
     /**
      * Return JSON with payment processors and associated faucets.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @internal param \Illuminate\Http\Request $request
      *
      */
@@ -100,7 +101,7 @@ class PaymentProcessorAPIController extends AppBaseController
     /**
      * @param $userSlug
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function userPaymentProcessors($userSlug)
     {
@@ -186,7 +187,7 @@ class PaymentProcessorAPIController extends AppBaseController
      *
      * @param $slug
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function show($slug)
     {

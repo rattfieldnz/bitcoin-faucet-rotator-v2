@@ -5,6 +5,7 @@ namespace App\Libraries\Google\Analytics;
 use Analytics;
 use App\Helpers\Functions\Dates;
 use App\Helpers\Functions\Http;
+use Exception;
 use Google_Service_Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
@@ -32,7 +33,7 @@ class GoogleAnalytics
      *
      * @param int $numberOfDays
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public static function countries(int $numberOfDays = 1) : Collection
     {
@@ -51,7 +52,7 @@ class GoogleAnalytics
      * @param string $fromDate
      * @param string $toDate
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public static function countriesBetweenTwoDates(string $fromDate, string $toDate): Collection
     {
@@ -119,8 +120,8 @@ class GoogleAnalytics
      * @param string $endDate
      * @param int    $maxBrowsers
      *
-     * @return \Illuminate\Support\Collection
-     * @throws \Exception
+     * @return Collection
+     * @throws Exception
      */
     public static function topBrowsersBetweenTwoDates(string $startDate, string $endDate, int $maxBrowsers = 10): Collection
     {
@@ -174,8 +175,8 @@ class GoogleAnalytics
      * @param string $endDate
      * @param int    $count
      *
-     * @return \Illuminate\Support\Collection
-     * @throws \Exception
+     * @return Collection
+     * @throws Exception
      */
     public static function topPagesBetweenTwoDates(string $startDate, string $endDate, int $count = null)
     {
@@ -272,8 +273,8 @@ class GoogleAnalytics
      * @param          $endDate
      * @param int|null $count
      *
-     * @return \Illuminate\Support\Collection
-     * @throws \Exception
+     * @return Collection
+     * @throws Exception
      */
     public static function visitsAndPageViews($startDate, $endDate, int $count = null): Collection
     {
@@ -331,7 +332,7 @@ class GoogleAnalytics
      * @see \Spatie\Analytics\Period
      * @see https://github.com/spatie/laravel-analytics
      *
-     * @param \Spatie\Analytics\Period $period
+     * @param Period $period
      * @param                          $urlPath
      *
      * @return int|Collection
@@ -356,7 +357,7 @@ class GoogleAnalytics
      *
      * @param $data
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     private static function getCountryData(array $data): Collection
     {
@@ -380,14 +381,14 @@ class GoogleAnalytics
     /**
      * Return a Google_service_Exception as a collection (good for API usage with Laravel framework).
      *
-     * @param \Google_Service_Exception $e
+     * @param Google_Service_Exception $e
      *
-     * @see https://github.com/spatie/laravel-analytics
-     * @see https://github.com/google/google-api-php-client/blob/master/src/Google/Service/Exception.php
+     * @return Collection
+     *@see https://github.com/google/google-api-php-client/blob/master/src/Google/Service/Exception.php
      * @see https://developers.google.com/analytics/devguides/reporting/core/v3/errors
      * @see https://github.com/laravel/framework/blob/5.4/src/Illuminate/Support/Collection.php
      *
-     * @return \Illuminate\Support\Collection
+     * @see https://github.com/spatie/laravel-analytics
      */
     public static function googleException(Google_Service_Exception $e): Collection
     {
@@ -402,7 +403,7 @@ class GoogleAnalytics
 
         Log::error($e->getMessage());
 
-        if ($e instanceof \Google_Service_Exception && !empty($e)) {
+        if ($e instanceof Google_Service_Exception && !empty($e)) {
             $errorException = json_decode($e->getMessage())->error;
 
             if (!empty($errorException) && !empty($errorException->errors[0])) {

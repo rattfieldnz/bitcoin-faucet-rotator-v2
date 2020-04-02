@@ -1,21 +1,26 @@
 <?php
 
+use App\Helpers\Functions\PaymentProcessors;
+use App\Models\PaymentProcessor;
+use App\Models\User;
+use Carbon\Carbon;
+
 Route::get('sitemap-users-payment-processors', function() {
     $sitemap = App::make('sitemap');
 
-    $users = \App\Models\User::all();
-    $paymentProcessors = \App\Models\PaymentProcessor::all();
+    $users = User::all();
+    $paymentProcessors = PaymentProcessor::all();
 
     if (!$sitemap->isCached()) {
 
         foreach($users as $u){
 
             $paymentProcessorList = route('users.payment-processors', ['userSlug' => $u->slug]);
-            $sitemap->add($paymentProcessorList, \Carbon\Carbon::now()->toW3cString(), '1.0', 'daily');
+            $sitemap->add($paymentProcessorList, Carbon::now()->toW3cString(), '1.0', 'daily');
 
             foreach($paymentProcessors as $p){
 
-                $lastFaucet = \App\Helpers\Functions\PaymentProcessors::userPaymentProcessorFaucets($u, $p)
+                $lastFaucet = PaymentProcessors::userPaymentProcessorFaucets($u, $p)
                     ->sortByDesc('updated_at')
                     ->first();
 

@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\User;
+
 Route::get('sitemap-users', function() {
     $sitemap = App::make('sitemap');
 
     if (!$sitemap->isCached()) {
 
-        $users = \App\Models\User::all();
+        $users = User::all();
 
         foreach($users as $u){
             $url = route('users.show', ['slug' => $u->slug]);

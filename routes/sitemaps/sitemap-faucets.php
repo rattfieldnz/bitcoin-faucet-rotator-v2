@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\Faucet;
+
 Route::get('sitemap-faucets', function() {
     $sitemap = App::make('sitemap');
 
     if (!$sitemap->isCached()) {
 
-        $faucets = \App\Models\Faucet::all();
+        $faucets = Faucet::all();
 
         foreach($faucets as $f){
             $url = route('faucets.show', ['slug' => $f->slug]);

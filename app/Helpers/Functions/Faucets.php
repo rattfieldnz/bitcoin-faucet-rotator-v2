@@ -13,6 +13,8 @@ use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\TwitterCard;
 use Carbon\Carbon;
 use Form;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use InfyOm\Generator\Utils\ResponseUtil;
 use Response;
 use Illuminate\Support\Collection;
@@ -40,7 +42,7 @@ class Faucets
     /**
      * Faucets constructor.
      *
-     * @param \App\Repositories\FaucetRepository $faucetRepository
+     * @param FaucetRepository $faucetRepository
      */
     public function __construct(FaucetRepository $faucetRepository)
     {
@@ -182,7 +184,7 @@ class Faucets
      *
      * @param  $slug
      * @param  UpdateFaucetRequest $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function updateFaucet($slug, UpdateFaucetRequest $request)
     {
@@ -235,7 +237,7 @@ class Faucets
      *
      * @param  $slug
      * @param  bool $permanentlyDelete
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function destroyFaucet($slug, $permanentlyDelete = false)
     {
@@ -272,8 +274,8 @@ class Faucets
     /**
      * Soft-delete or permanently delete a user's faucet and referral information.
      *
-     * @param \App\Models\User   $user
-     * @param \App\Models\Faucet $faucet
+     * @param User $user
+     * @param Faucet $faucet
      * @param bool               $permanentlyDelete
      *
      * @return bool
@@ -314,7 +316,7 @@ class Faucets
      *
      * @param $slug
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function restoreFaucet($slug)
     {
@@ -410,7 +412,7 @@ class Faucets
      *
      * @param  User $user
      * @param  bool $isDeleted
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function getUserFaucets(User $user, bool $isDeleted = false)
     {
@@ -429,8 +431,8 @@ class Faucets
      * Set CSP secure iframe rules for faucet.
      * I.E: https://content-security-policy.com/.
      *
-     * @param \App\Models\User   $user
-     * @param \App\Models\Faucet $faucet
+     * @param User $user
+     * @param Faucet $faucet
      * @return void
      */
     public static function setSecureFaucetIframe(User $user, Faucet $faucet)
@@ -491,8 +493,8 @@ class Faucets
     /**
      * Function to set meta data properties for SEO.
      *
-     * @param \App\Models\Faucet $faucet
-     * @param \App\Models\User   $user
+     * @param Faucet $faucet
+     * @param User $user
      * @return void
      */
     public static function setMeta(Faucet $faucet, User $user)
@@ -544,7 +546,7 @@ class Faucets
     }
 
     /**
-     * @param \App\Models\Faucet $faucet
+     * @param Faucet $faucet
      *
      * @return null|string
      * @internal param \App\Models\User $user
@@ -572,7 +574,7 @@ class Faucets
     }
 
     /**
-     * @param \App\Models\Faucet $faucet
+     * @param Faucet $faucet
      *
      * @return null|string
      *
@@ -604,7 +606,7 @@ class Faucets
     }
 
     /**
-     * @param \App\Models\Faucet $faucet
+     * @param Faucet $faucet
      *
      * @return null|string
      *
@@ -635,7 +637,7 @@ class Faucets
     }
 
     /**
-     * @param \App\Models\Faucet $faucet
+     * @param Faucet $faucet
      *
      * @return null|string
      *
@@ -665,7 +667,7 @@ class Faucets
     }
 
     /**
-     * @param \App\Models\Faucet $faucet
+     * @param Faucet $faucet
      *
      * @return array|null
      *
@@ -736,8 +738,8 @@ class Faucets
     }
 
     /**
-     * @param \App\Models\Faucet $faucet
-     * @param \App\Models\User   $user
+     * @param Faucet $faucet
+     * @param User $user
      *
      * @return array|null
      */
@@ -816,7 +818,7 @@ class Faucets
     }
 
     /**
-     * @param \App\Models\Faucet $faucet
+     * @param Faucet $faucet
      *
      * @return string
      */
@@ -843,7 +845,7 @@ class Faucets
      *
      * @param int                                $timedout
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function excludeTimedOutFaucets(int $timedout = 5): Collection
     {
@@ -892,7 +894,7 @@ class Faucets
      *
      * @param  User $user
      * @param  bool $isDeleted
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     private function getUserFaucetIds(User $user, bool $isDeleted = false)
     {

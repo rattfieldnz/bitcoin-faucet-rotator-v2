@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Helpers\Functions\Users;
 use App\Repositories\UserRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,7 @@ class UserAPIController extends AppBaseController
     /**
      * UserAPIController constructor.
      *
-     * @param \App\Repositories\UserRepository $userRepo
+     * @param UserRepository $userRepo
      */
     public function __construct(UserRepository $userRepo)
     {
@@ -37,9 +38,9 @@ class UserAPIController extends AppBaseController
     /**
      * Retrieve all users as JSON.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index(Request $request)
     {

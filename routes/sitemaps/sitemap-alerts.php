@@ -1,13 +1,16 @@
 <?php
 
+use App\Models\Alert;
+use Carbon\Carbon;
+
 Route::get('sitemap-alerts', function() {
     $sitemap = App::make('sitemap');
 
     if (!$sitemap->isCached()) {
 
-        $alerts = \App\Models\Alert::all();
+        $alerts = Alert::all();
 
-        $sitemap->add(route('alerts.index'), \Carbon\Carbon::now()->toW3cString(), '1.0', 'daily');
+        $sitemap->add(route('alerts.index'), Carbon::now()->toW3cString(), '1.0', 'daily');
 
         foreach($alerts as $a){
             $url = route('alerts.show', ['slug' => $a->slug]);

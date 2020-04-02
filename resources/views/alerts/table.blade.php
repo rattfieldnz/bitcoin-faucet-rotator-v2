@@ -14,7 +14,7 @@
         @php
             $alertType = $alert->alertType()->first();
             $alertClass = $alertType->bootstrap_alert_class;
-            $alertIcon = $alert->alertIcon()->first();
+            $alertIcon = $alert->alertIcon()->first()
         @endphp
         <tr>
             <td><i

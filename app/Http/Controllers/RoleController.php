@@ -6,9 +6,13 @@ use App\Helpers\Functions;
 use App\Http\Requests\CreateRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Repositories\RoleRepository;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Exceptions\RepositoryException;
+use Prettus\Validator\Exceptions\ValidatorException;
 use Response;
 
 /**
@@ -24,7 +28,7 @@ class RoleController extends AppBaseController
     /**
      * RoleController constructor.
      *
-     * @param \App\Repositories\RoleRepository $roleRepo
+     * @param RoleRepository $roleRepo
      */
     public function __construct(RoleRepository $roleRepo)
     {
@@ -37,7 +41,8 @@ class RoleController extends AppBaseController
      *
      * @param string $slug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
+     * @throws RepositoryException
      */
     public function show($slug)
     {
@@ -58,7 +63,8 @@ class RoleController extends AppBaseController
      *
      * @param string $slug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
+     * @throws RepositoryException
      */
     public function edit($slug)
     {
@@ -77,10 +83,12 @@ class RoleController extends AppBaseController
     /**
      * Update the specified Role in storage.
      *
-     * @param string            $slug
+     * @param string $slug
      * @param UpdateRoleRequest $request
      *
      * @return Response
+     * @throws RepositoryException
+     * @throws ValidatorException
      */
     public function update($slug, UpdateRoleRequest $request)
     {

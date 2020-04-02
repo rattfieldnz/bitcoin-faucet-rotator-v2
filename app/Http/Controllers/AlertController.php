@@ -10,10 +10,14 @@ use App\Http\Requests\UpdateAlertRequest;
 use App\Libraries\Seo\SeoConfig;
 use App\Repositories\AlertRepository;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\View\View;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Response;
@@ -41,7 +45,7 @@ class AlertController extends AppBaseController
      *
      * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Response
+     * @return Factory|View|Response
      */
     public function index(Request $request)
     {
@@ -105,7 +109,7 @@ class AlertController extends AppBaseController
      *
      * @param CreateAlertRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse|\Response
+     * @return RedirectResponse|Response
      */
     public function store(CreateAlertRequest $request)
     {
@@ -127,7 +131,7 @@ class AlertController extends AppBaseController
      *
      * @param  $slug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Response
+     * @return Factory|View|Response
      */
     public function show($slug)
     {
@@ -154,7 +158,7 @@ class AlertController extends AppBaseController
      *
      * @param  $slug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Response
+     * @return Factory|View|Response
      */
     public function edit($slug)
     {
@@ -179,7 +183,7 @@ class AlertController extends AppBaseController
      * @param $slug
      * @param UpdateAlertRequest $request
      *
-     * @return \Response
+     * @return Response
      */
     public function update($slug, UpdateAlertRequest $request)
     {
@@ -212,7 +216,7 @@ class AlertController extends AppBaseController
      *
      * @param $slug
      *
-     * @return \Response
+     * @return Response
      *
      */
     public function destroy($slug)
@@ -247,7 +251,7 @@ class AlertController extends AppBaseController
      *
      * @param $slug
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function destroyPermanently($slug)
     {
@@ -285,7 +289,7 @@ class AlertController extends AppBaseController
      *
      * @param  $slug
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function restoreDeleted($slug)
     {

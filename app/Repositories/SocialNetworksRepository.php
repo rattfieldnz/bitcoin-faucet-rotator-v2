@@ -3,8 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\SocialNetworks;
-use InfyOm\Generator\Common\BaseRepository;
-use Mews\Purifier\Facades\Purifier;
+use Prettus\Validator\Exceptions\ValidatorException;
+use Stevebauman\Purify\Facades\Purify;
 
 /**
  * Class SocialNetworksRepository
@@ -17,7 +17,7 @@ use Mews\Purifier\Facades\Purifier;
  * @method SocialNetworks find($id, $columns = ['*'])
  * @method SocialNetworks first($columns = ['*'])
 */
-class SocialNetworksRepository extends BaseRepository
+class SocialNetworksRepository extends Repository
 {
     /**
      * @var array
@@ -47,8 +47,9 @@ class SocialNetworksRepository extends BaseRepository
     /**
      * Create a new set of social links.
      *
-     * @param  array $data
+     * @param array $data
      * @return SocialNetworks
+     * @throws ValidatorException
      */
     public function create(array $data)
     {
@@ -94,17 +95,17 @@ class SocialNetworksRepository extends BaseRepository
     public static function cleanInput(array $data)
     {
         return [
-            'facebook_url' => !empty($data['facebook_url']) ? Purifier::clean($data['facebook_url'], 'generalFields') : null,
-            'twitter_url' => !empty($data['twitter_url']) ? Purifier::clean($data['twitter_url'], 'generalFields'): null,
-            'reddit_url' => !empty($data['reddit_url']) ? Purifier::clean($data['reddit_url'], 'generalFields'): null,
-            'google_plus_url' => !empty($data['google_plus_url']) ? Purifier::clean($data['google_plus_url'], 'generalFields'): null,
-            'youtube_url' => !empty($data['youtube_url']) ? Purifier::clean($data['youtube_url'], 'generalFields'): null,
-            'tumblr_url' => !empty($data['tumblr_url']) ? Purifier::clean($data['tumblr_url'], 'generalFields'): null,
-            'vimeo_url' => !empty($data['vimeo_url']) ? Purifier::clean($data['vimeo_url'], 'generalFields'): null,
-            'vkontakte_url' => !empty($data['vkontakte_url']) ? Purifier::clean($data['vkontakte_url'], 'generalFields'): null,
-            'sinaweibo_url' => !empty($data['sinaweibo_url']) ? Purifier::clean($data['sinaweibo_url'], 'generalFields'): null,
-            'xing_url' => !empty($data['xing_url']) ? Purifier::clean($data['xing_url'], 'generalFields'): null,
-            'user_id' => Purifier::clean($data['user_id'], 'generalFields'),
+            'facebook_url' => !empty($data['facebook_url']) ? Purify::clean($data['facebook_url'], self::$generalFieldsConfig) : null,
+            'twitter_url' => !empty($data['twitter_url']) ? Purify::clean($data['twitter_url'], self::$generalFieldsConfig): null,
+            'reddit_url' => !empty($data['reddit_url']) ? Purify::clean($data['reddit_url'], self::$generalFieldsConfig): null,
+            'google_plus_url' => !empty($data['google_plus_url']) ? Purify::clean($data['google_plus_url'], self::$generalFieldsConfig): null,
+            'youtube_url' => !empty($data['youtube_url']) ? Purify::clean($data['youtube_url'], self::$generalFieldsConfig): null,
+            'tumblr_url' => !empty($data['tumblr_url']) ? Purify::clean($data['tumblr_url'], self::$generalFieldsConfig): null,
+            'vimeo_url' => !empty($data['vimeo_url']) ? Purify::clean($data['vimeo_url'], self::$generalFieldsConfig): null,
+            'vkontakte_url' => !empty($data['vkontakte_url']) ? Purify::clean($data['vkontakte_url'], self::$generalFieldsConfig): null,
+            'sinaweibo_url' => !empty($data['sinaweibo_url']) ? Purify::clean($data['sinaweibo_url'], self::$generalFieldsConfig): null,
+            'xing_url' => !empty($data['xing_url']) ? Purify::clean($data['xing_url'], self::$generalFieldsConfig): null,
+            'user_id' => Purify::clean($data['user_id'], self::$generalFieldsConfig),
         ];
     }
 }

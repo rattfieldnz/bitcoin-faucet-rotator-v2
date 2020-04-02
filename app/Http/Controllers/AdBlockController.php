@@ -10,10 +10,13 @@ use App\Http\Requests\CreateAdBlockRequest;
 use App\Http\Requests\UpdateAdBlockRequest;
 use App\Models\User;
 use App\Repositories\AdBlockRepository;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 /**
  * Class AdBlockController
@@ -28,7 +31,7 @@ class AdBlockController extends AppBaseController
     /**
      * AdBlockController constructor.
      *
-     * @param \App\Repositories\AdBlockRepository $adBlockRepo
+     * @param AdBlockRepository $adBlockRepo
      */
     public function __construct(AdBlockRepository $adBlockRepo)
     {
@@ -39,8 +42,9 @@ class AdBlockController extends AppBaseController
     /**
      * Store a newly created AdBlock in storage.
      *
-     * @param  CreateAdBlockRequest $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param CreateAdBlockRequest $request
+     * @return RedirectResponse|Redirector
+     * @throws ValidatorException
      */
     public function store(CreateAdBlockRequest $request)
     {
@@ -57,14 +61,15 @@ class AdBlockController extends AppBaseController
     /**
      * Update the specified AdBlock in storage.
      *
-     * @param  int                  $id
-     * @param  UpdateAdBlockRequest $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param int $id
+     * @param UpdateAdBlockRequest $request
+     * @return RedirectResponse|Redirector
+     * @throws ValidatorException
      */
     public function update($id, UpdateAdBlockRequest $request)
     {
         Functions::userCanAccessArea(Auth::user(), 'ad-block.update', ['id' => $id], ['id' => $id]);
-        $adBlock = $this->adBlockRepository->findWithoutFail($id);
+        $adBlock = $this->adBlockRepository->find($id);
 
         if (empty($adBlock)) {
             flash('Ad Block not found')->error();
@@ -83,7 +88,7 @@ class AdBlockController extends AppBaseController
      * Remove the specified AdBlock from storage.
      *
      * @param  int $id
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function destroy($id)
     {

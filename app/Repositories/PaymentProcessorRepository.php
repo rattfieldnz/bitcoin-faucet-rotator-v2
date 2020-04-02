@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\PaymentProcessor;
+use Prettus\Repository\Exceptions\RepositoryException;
+use Prettus\Validator\Exceptions\ValidatorException;
 use Stevebauman\Purify\Facades\Purify;
 
 /**
@@ -33,8 +35,9 @@ class PaymentProcessorRepository extends Repository implements IRepository
     /**
      * Create a new payment processor.
      *
-     * @param  array $data
+     * @param array $data
      * @return PaymentProcessor
+     * @throws ValidatorException
      */
     public function create(array $data)
     {
@@ -77,9 +80,10 @@ class PaymentProcessorRepository extends Repository implements IRepository
      * @param array $where
      * @param array $columns
      *
-     * @param bool  $deleted
+     * @param bool $deleted
      *
      * @return mixed
+     * @throws RepositoryException
      */
     public function findItemsWhere(array $where, $columns = ['*'], bool $deleted = false)
     {

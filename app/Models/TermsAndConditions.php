@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Eloquent as Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * Class TermsAndConditions
@@ -15,19 +17,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $short_description
  * @property string $content
  * @property string|null $keywords
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TermsAndConditions newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TermsAndConditions newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TermsAndConditions query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TermsAndConditions whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TermsAndConditions whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TermsAndConditions whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TermsAndConditions whereKeywords($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TermsAndConditions whereShortDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TermsAndConditions whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TermsAndConditions whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|TermsAndConditions newModelQuery()
+ * @method static Builder|TermsAndConditions newQuery()
+ * @method static Builder|TermsAndConditions query()
+ * @method static Builder|TermsAndConditions whereContent($value)
+ * @method static Builder|TermsAndConditions whereCreatedAt($value)
+ * @method static Builder|TermsAndConditions whereId($value)
+ * @method static Builder|TermsAndConditions whereKeywords($value)
+ * @method static Builder|TermsAndConditions whereShortDescription($value)
+ * @method static Builder|TermsAndConditions whereTitle($value)
+ * @method static Builder|TermsAndConditions whereUpdatedAt($value)
+ * @mixin Model
  */
 class TermsAndConditions extends Model
 {

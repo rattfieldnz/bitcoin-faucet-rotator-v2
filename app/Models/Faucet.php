@@ -3,8 +3,13 @@
 namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * Class Faucet
@@ -21,48 +26,48 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $ref_payout_percent
  * @property string|null $comments
  * @property bool $is_paused
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string $slug
  * @property string|null $meta_title
  * @property string|null $meta_description
  * @property string|null $meta_keywords
  * @property bool $has_low_balance
- * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property Carbon|null $deleted_at
  * @property string $twitter_message
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PaymentProcessor[] $paymentProcessors
+ * @property-read Collection|PaymentProcessor[] $paymentProcessors
  * @property-read int|null $payment_processors_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read Collection|User[] $users
  * @property-read int|null $users_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet findSimilarSlugs($attribute, $config, $slug)
+ * @method static Builder|Faucet findSimilarSlugs($attribute, $config, $slug)
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Faucet onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet query()
+ * @method static Builder|Faucet newModelQuery()
+ * @method static Builder|Faucet newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Faucet onlyTrashed()
+ * @method static Builder|Faucet query()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereComments($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereHasLowBalance($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereHasRefProgram($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereIntervalMinutes($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereIsPaused($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereMaxPayout($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereMetaDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereMetaKeywords($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereMetaTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereMinPayout($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereRefPayoutPercent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereTwitterMessage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Faucet whereUrl($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Faucet withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Faucet withoutTrashed()
- * @mixin \Eloquent
+ * @method static Builder|Faucet whereComments($value)
+ * @method static Builder|Faucet whereCreatedAt($value)
+ * @method static Builder|Faucet whereDeletedAt($value)
+ * @method static Builder|Faucet whereHasLowBalance($value)
+ * @method static Builder|Faucet whereHasRefProgram($value)
+ * @method static Builder|Faucet whereId($value)
+ * @method static Builder|Faucet whereIntervalMinutes($value)
+ * @method static Builder|Faucet whereIsPaused($value)
+ * @method static Builder|Faucet whereMaxPayout($value)
+ * @method static Builder|Faucet whereMetaDescription($value)
+ * @method static Builder|Faucet whereMetaKeywords($value)
+ * @method static Builder|Faucet whereMetaTitle($value)
+ * @method static Builder|Faucet whereMinPayout($value)
+ * @method static Builder|Faucet whereName($value)
+ * @method static Builder|Faucet whereRefPayoutPercent($value)
+ * @method static Builder|Faucet whereSlug($value)
+ * @method static Builder|Faucet whereTwitterMessage($value)
+ * @method static Builder|Faucet whereUpdatedAt($value)
+ * @method static Builder|Faucet whereUrl($value)
+ * @method static \Illuminate\Database\Query\Builder|Faucet withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Faucet withoutTrashed()
+ * @mixin Eloquent
  */
 class Faucet extends Model
 {
@@ -171,7 +176,7 @@ class Faucet extends Model
     protected static $logOnlyDirty = true;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      **/
     public function paymentProcessors()
     {
@@ -179,7 +184,7 @@ class Faucet extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      **/
     public function users()
     {

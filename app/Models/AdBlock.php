@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use Eloquent as Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Carbon;
 
 /**
  * Class AdBlock
@@ -13,25 +16,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property string $ad_content
  * @property int $user_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\User $user
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read User $user
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\AdBlock onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock query()
+ * @method static \Illuminate\Database\Eloquent\Builder|AdBlock newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|AdBlock newQuery()
+ * @method static Builder|AdBlock onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|AdBlock query()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock whereAdContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdBlock whereUserId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\AdBlock withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\AdBlock withoutTrashed()
- * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|AdBlock whereAdContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdBlock whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdBlock whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdBlock whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdBlock whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdBlock whereUserId($value)
+ * @method static Builder|AdBlock withTrashed()
+ * @method static Builder|AdBlock withoutTrashed()
+ * @mixin Model
  */
 class AdBlock extends Model
 {
@@ -71,10 +74,10 @@ class AdBlock extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      **/
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class);
+        return $this->belongsTo(User::class);
     }
 }

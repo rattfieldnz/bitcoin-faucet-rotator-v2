@@ -3,12 +3,13 @@
 namespace App\Exports;
 
 use App\Models\PrivacyPolicy;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class PrivacyPolicyCsvExport implements FromCollection
 {
     /**
-    * @return \Illuminate\Support\Collection
+    * @return Collection
     */
     public function collection()
     {

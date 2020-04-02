@@ -61,7 +61,7 @@ class Http
      * @param string $status
      * @param int    $code
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public static function exceptionAsCollection(string $message = 'Message not set.', string $status = 'error', int $code = 500): Collection
     {
@@ -81,7 +81,7 @@ class Http
      * @param int    $code
      * @param string $message
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public static function jsonException(
         string $status = 'error',

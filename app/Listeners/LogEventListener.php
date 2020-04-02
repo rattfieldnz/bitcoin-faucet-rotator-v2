@@ -18,13 +18,12 @@ class LogEventListener
      */
     public function __construct()
     {
-        ;
     }
 
     /**
      * Handle the event.
      *
-     * @param  \App\Events\LogEvent $event
+     * @param LogEvent $event
      * @return void
      */
     public function handle(LogEvent $event)

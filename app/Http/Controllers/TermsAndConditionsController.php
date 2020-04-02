@@ -12,8 +12,10 @@ use App\Helpers\Functions\Users;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Exceptions\RepositoryException;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Response;
 
@@ -38,8 +40,8 @@ class TermsAndConditionsController extends AppBaseController
      *
      * @param Request $request
      *
-     * @return \Illuminate\View\View|\Response
-     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     * @return View|Response
+     * @throws RepositoryException
      */
     public function index(Request $request)
     {
@@ -93,7 +95,7 @@ class TermsAndConditionsController extends AppBaseController
      * @param CreateTermsAndConditionsRequest $request
      *
      * @return Response
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @throws ValidatorException
      */
     public function store(CreateTermsAndConditionsRequest $request)
     {
@@ -109,7 +111,7 @@ class TermsAndConditionsController extends AppBaseController
     /**
      * Display the specified TermsAndConditions.
      *
-     * @return \Response
+     * @return Response
      */
     public function show()
     {
@@ -140,7 +142,7 @@ class TermsAndConditionsController extends AppBaseController
     /**
      * Show the form for editing the specified TermsAndConditions.
      *
-     * @return \Illuminate\View\View|\Response
+     * @return View|Response
      */
     public function edit()
     {
@@ -172,7 +174,7 @@ class TermsAndConditionsController extends AppBaseController
      * @param UpdateTermsAndConditionsRequest $request
      *
      * @return Response
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @throws ValidatorException
      */
     public function update($id, UpdateTermsAndConditionsRequest $request)
     {

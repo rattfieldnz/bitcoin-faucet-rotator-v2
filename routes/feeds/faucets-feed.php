@@ -1,5 +1,8 @@
 <?php
 
+use App\Helpers\Functions\Users;
+use App\Models\Faucet;
+
 Route::get('faucets-feed', function(){
 
     // create new feed
@@ -11,8 +14,8 @@ Route::get('faucets-feed', function(){
     // check if there is cached feed and build new only if is not
     if (!$feed->isCached())
     {
-        $adminUser = \App\Helpers\Functions\Users::adminUser();
-        $faucets = \App\Models\Faucet::where('deleted_at', '=', null)
+        $adminUser = Users::adminUser();
+        $faucets = Faucet::where('deleted_at', '=', null)
             ->orderBy('created_at', 'desc')
             ->get();
 

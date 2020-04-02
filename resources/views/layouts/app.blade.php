@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php $isoCode = \App\Models\MainMeta::first()->language()->first()->isoCode(); ?>
+<?php use App\Models\MainMeta;$isoCode = MainMeta::first()->language()->first()->isoCode(); ?>
 <html lang="{{ $isoCode }}">
     <head>
         <meta charset="utf-8">
@@ -10,10 +10,10 @@
         @include('layouts.partials.seo._meta-tags-data')
         <!-- END SEO / Meta Tags / Twitter Graph / Open Graph data -->
 
-        {!! \Feed::link(url('users-feed'),'rss','Feed: Users',$isoCode) !!}
-        {!! \Feed::link(url('faucets-feed'),'rss','Feed: Faucets',$isoCode) !!}
-        {!! \Feed::link(url('payment-processors-feed'),'rss','Feed: Payment Processors',$isoCode) !!}
-        {!! \Feed::link(url('alerts-feed'),'rss','Feed: Alerts',$isoCode) !!}
+        {!! Feed::link(url('users-feed'),'rss','Feed: Users',$isoCode) !!}
+        {!! Feed::link(url('faucets-feed'),'rss','Feed: Faucets',$isoCode) !!}
+        {!! Feed::link(url('payment-processors-feed'),'rss','Feed: Payment Processors',$isoCode) !!}
+        {!! Feed::link(url('alerts-feed'),'rss','Feed: Alerts',$isoCode) !!}
 
         <link rel="shortcut icon" href="{{ asset("/assets/images/bitcoin-16x16.ico") }}">
 

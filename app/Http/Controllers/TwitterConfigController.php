@@ -9,6 +9,7 @@ use App\Repositories\TwitterConfigRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Validator\Exceptions\ValidatorException;
 use Response;
 
 /**
@@ -24,7 +25,7 @@ class TwitterConfigController extends AppBaseController
     /**
      * TwitterConfigController constructor.
      *
-     * @param \App\Repositories\TwitterConfigRepository $twitterConfigRepo
+     * @param TwitterConfigRepository $twitterConfigRepo
      */
     public function __construct(TwitterConfigRepository $twitterConfigRepo)
     {
@@ -38,6 +39,7 @@ class TwitterConfigController extends AppBaseController
      * @param CreateTwitterConfigRequest $request
      *
      * @return Response
+     * @throws ValidatorException
      */
     public function store(CreateTwitterConfigRequest $request)
     {
@@ -54,15 +56,16 @@ class TwitterConfigController extends AppBaseController
     /**
      * Update the specified TwitterConfig in storage.
      *
-     * @param int                        $id
+     * @param int $id
      * @param UpdateTwitterConfigRequest $request
      *
      * @return Response
+     * @throws ValidatorException
      */
     public function update($id, UpdateTwitterConfigRequest $request)
     {
         Functions::userCanAccessArea(Auth::user(), 'twitter-config.update', ['id' => $id], ['id' => $id]);
-        $twitterConfig = $this->twitterConfigRepository->findWithoutFail($id);
+        $twitterConfig = $this->twitterConfigRepository->find($id);
 
         if (empty($twitterConfig)) {
             flash('Twitter Config not found.')->error();
@@ -87,7 +90,7 @@ class TwitterConfigController extends AppBaseController
     public function destroy($id)
     {
         Functions::userCanAccessArea(Auth::user(), 'twitter-config.destroy', ['id' => $id], ['id' => $id]);
-        $twitterConfig = $this->twitterConfigRepository->findWithoutFail($id);
+        $twitterConfig = $this->twitterConfigRepository->find($id);
 
         if (empty($twitterConfig)) {
             flash('Twitter Config not found.')->error();

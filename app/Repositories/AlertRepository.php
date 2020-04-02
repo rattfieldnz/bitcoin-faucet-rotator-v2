@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Alert;
+use Prettus\Repository\Exceptions\RepositoryException;
 use Stevebauman\Purify\Facades\Purify;
 
 /**
@@ -97,7 +98,7 @@ class AlertRepository extends Repository implements IRepository
      * @param bool  $deleted
      *
      * @return mixed
-     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     * @throws RepositoryException
      */
     public function findItemsWhere(array $where, $columns = ['*'], bool $deleted = false)
     {

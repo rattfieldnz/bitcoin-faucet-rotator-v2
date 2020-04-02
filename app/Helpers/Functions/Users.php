@@ -23,11 +23,13 @@ use Artesaos\SEOTools\Facades\TwitterCard;
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Exception;
 use Form;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash as LaracastsFlash;
 use App\Helpers\Functions\Faucets;
+use Prettus\Repository\Exceptions\RepositoryException;
 
 /**
  * Class Users
@@ -43,7 +45,7 @@ class Users
     /**
      * Users constructor.
      *
-     * @param \App\Repositories\UserRepository $userRepository
+     * @param UserRepository $userRepository
      * @param \App\Helpers\Functions\Faucets   $faucetFunctions
      */
     public function __construct(UserRepository $userRepository, Faucets $faucetFunctions)
@@ -109,8 +111,9 @@ class Users
      * Delete a user.
      *
      * @param  $slug
-     * @param  bool $permanentlyDelete True if user permanently deleted, false for soft-delete.
+     * @param bool $permanentlyDelete True if user permanently deleted, false for soft-delete.
      * @return bool|int
+     * @throws RepositoryException
      */
     public function destroyUser($slug, bool $permanentlyDelete = false)
     {
@@ -149,6 +152,7 @@ class Users
      *
      * @param  $slug
      * @return bool|mixed
+     * @throws RepositoryException
      */
     public function restoreUser($slug)
     {
@@ -194,8 +198,9 @@ class Users
      * Update a specified user.
      *
      * @param  $slug
-     * @param  UpdateUserRequest $request
+     * @param UpdateUserRequest $request
      * @return bool|mixed
+     * @throws RepositoryException
      */
     public function updateUser($slug, UpdateUserRequest $request)
     {
@@ -242,7 +247,7 @@ class Users
      * @param  $routeName
      * @param  array      $routeParameters
      * @param  array|null $dataParameters
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public static function userCanAccessArea(User $user, $routeName, array $routeParameters, array $dataParameters = [])
     {
@@ -306,7 +311,7 @@ class Users
     /**
      * Function to set meta data properties for SEO.
      *
-     * @param \App\Models\User $user
+     * @param User $user
      * @return void
      */
     public static function setMeta(User $user)
@@ -360,7 +365,7 @@ class Users
     }
 
     /**
-     * @param \App\Models\User $user
+     * @param User $user
      *
      * @return string
      */
@@ -373,9 +378,9 @@ class Users
     }
 
     /**
-     * @param \App\Models\User $user
+     * @param User $user
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public static function getFaucets(User $user): Collection
     {
@@ -394,10 +399,10 @@ class Users
     }
 
     /**
-     * @param \App\Models\User $user
+     * @param User $user
      * @param                  $faucetSlug
      *
-     * @return \App\Models\Faucet|null
+     * @return Faucet|null
      */
     public static function getFaucet(User $user, $faucetSlug)
     {
@@ -420,7 +425,7 @@ class Users
     }
 
     /**
-     * @param \App\Models\User $user
+     * @param User $user
      *
      * @return null|string
      *
@@ -449,7 +454,7 @@ class Users
     }
 
     /**
-     * @param \App\Models\User $user
+     * @param User $user
      *
      * @return null|string
      *
@@ -481,7 +486,7 @@ class Users
     }
 
     /**
-     * @param \App\Models\User $user
+     * @param User $user
      *
      * @return null|string
      *
@@ -513,7 +518,7 @@ class Users
     }
 
     /**
-     * @param \App\Models\User $user
+     * @param User $user
      *
      * @return null|string
      * @internal param \App\Models\Faucet $faucet

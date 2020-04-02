@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use Eloquent as Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Carbon;
 
 /**
  * Class TwitterConfig
@@ -16,28 +19,28 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $access_token
  * @property string $access_token_secret
  * @property int $user_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\User $user
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read User $user
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwitterConfig newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwitterConfig newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\TwitterConfig onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwitterConfig query()
+ * @method static \Illuminate\Database\Eloquent\Builder|TwitterConfig newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TwitterConfig newQuery()
+ * @method static Builder|TwitterConfig onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|TwitterConfig query()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwitterConfig whereAccessToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwitterConfig whereAccessTokenSecret($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwitterConfig whereConsumerKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwitterConfig whereConsumerKeySecret($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwitterConfig whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwitterConfig whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwitterConfig whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwitterConfig whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwitterConfig whereUserId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\TwitterConfig withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\TwitterConfig withoutTrashed()
- * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|TwitterConfig whereAccessToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TwitterConfig whereAccessTokenSecret($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TwitterConfig whereConsumerKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TwitterConfig whereConsumerKeySecret($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TwitterConfig whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TwitterConfig whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TwitterConfig whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TwitterConfig whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TwitterConfig whereUserId($value)
+ * @method static Builder|TwitterConfig withTrashed()
+ * @method static Builder|TwitterConfig withoutTrashed()
+ * @mixin Model
  */
 class TwitterConfig extends Model
 {
@@ -88,7 +91,7 @@ class TwitterConfig extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      **/
     public function user()
     {

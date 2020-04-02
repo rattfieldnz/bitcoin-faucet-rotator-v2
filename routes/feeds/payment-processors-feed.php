@@ -1,5 +1,8 @@
 <?php
 
+use App\Helpers\Functions\Users;
+use App\Models\PaymentProcessor;
+
 Route::get('payment-processors-feed', function(){
 
     // create new feed
@@ -11,8 +14,8 @@ Route::get('payment-processors-feed', function(){
     // check if there is cached feed and build new only if is not
     if (!$feed->isCached())
     {
-        $adminUser = \App\Helpers\Functions\Users::adminUser();
-        $paymentProcessor = \App\Models\PaymentProcessor::where('deleted_at', '=', null)
+        $adminUser = Users::adminUser();
+        $paymentProcessor = PaymentProcessor::where('deleted_at', '=', null)
             ->orderBy('created_at', 'desc')
             ->get();
 

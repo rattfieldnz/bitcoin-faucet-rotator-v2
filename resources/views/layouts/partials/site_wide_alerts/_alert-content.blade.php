@@ -1,5 +1,5 @@
 @php
-$alert = \App\Models\Alert::where('hide_alert', '==', 1)->first();
+use App\Models\Alert;$alert = Alert::where('hide_alert', '==', 1)->first()
 @endphp
 
 @if(!empty($alert))
@@ -8,7 +8,7 @@ $alert = \App\Models\Alert::where('hide_alert', '==', 1)->first();
     @php
         $alertType = $alert->alertType()->first();
         $alertClass = $alertType->bootstrap_alert_class;
-        $alertIcon = $alert->alertIcon()->first();
+        $alertIcon = $alert->alertIcon()->first()
     @endphp
 
     <p>

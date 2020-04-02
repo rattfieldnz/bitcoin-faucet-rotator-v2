@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\PaymentProcessor;
+
 Route::get('sitemap-payment-processors', function() {
     $sitemap = App::make('sitemap');
 
     if (!$sitemap->isCached()) {
 
-        $paymentProcessors = \App\Models\PaymentProcessor::all();
+        $paymentProcessors = PaymentProcessor::all();
 
         foreach($paymentProcessors as $p){
             $url = route('payment-processors.show', ['slug' => $p->slug]);

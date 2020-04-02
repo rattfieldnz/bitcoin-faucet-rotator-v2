@@ -7,7 +7,7 @@
     @php
         $bread = URL::to('/');
         $link = Request::path();
-        $subs = explode("/", $link);
+        $subs = explode("/", $link)
     @endphp
 
     @if (Request::path() != '/')
@@ -18,7 +18,7 @@
                 $bread = $bread."/".$subs[$i];
                 $title = urldecode($subs[$i]);
                 $title = str_replace("-", " ", $title);
-                $title = title_case($title);
+                $title = title_case($title)
             @endphp
 
             <li>

@@ -1,14 +1,17 @@
 <?php
 
+use App\Helpers\Functions\Users;
+use App\Models\User;
+
 Route::get('sitemap-users-faucets', function() {
     $sitemap = App::make('sitemap');
 
-    $users = \App\Models\User::all();
+    $users = User::all();
 
     if (!$sitemap->isCached()) {
 
         foreach($users as $u){
-            $faucets = \App\Helpers\Functions\Users::getFaucets($u);
+            $faucets = Users::getFaucets($u);
 
             foreach($faucets as $f){
                 if(!empty($f->pivot->referral_code)){

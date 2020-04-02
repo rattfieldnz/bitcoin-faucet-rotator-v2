@@ -5,7 +5,7 @@ if (! function_exists('renderDataAttributes')) {
         $mapped = [ ];
         foreach ($attributes as $key => $value) {
             $mapped[] = 'data-' . $key . '="' . $value . '"';
-        };
+        }
 
         return implode(' ', $mapped);
     }

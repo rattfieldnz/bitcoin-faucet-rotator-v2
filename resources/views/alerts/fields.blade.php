@@ -1,5 +1,5 @@
 <?php
-    $currentDate = \Carbon\Carbon::now();
+use App\Models\AlertIcon;use App\Models\AlertType;use Carbon\Carbon;$currentDate = Carbon::now();
     $formattedCurrentDate = $currentDate->format('d/m/Y H:i:s');
     $futureDate = $currentDate->addDay();
     $formattedFutureDate = $futureDate->format('d/m/Y H:i:s');
@@ -68,8 +68,8 @@
 <!-- Alert Type Id Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('alert_type_id') ? ' has-error' : '' }}">
     <?php
-        $alertTypes = \App\Models\AlertType::all();
-        $defaultAlertType = \App\Models\AlertType::where('name', '=', 'info')->first();
+        $alertTypes = AlertType::all();
+        $defaultAlertType = AlertType::where('name', '=', 'info')->first();
         $alertTypeId = old('alert_type_id', $alert->alert_type_id ?? null);
     ?>
     <label for="alert_type_id">Alert Type:</label>
@@ -95,8 +95,8 @@
 <!-- Alert Icon Id Field -->
 <div class="form-group col-sm-6 has-feedback{{ $errors->has('alert_icon_id') ? ' has-error' : '' }}">
     <?php
-        $icons = \App\Models\AlertIcon::all();
-        $defaultIcon = \App\Models\AlertIcon::where('icon_class', '=', 'fa-info')->first();
+        $icons = AlertIcon::all();
+        $defaultIcon = AlertIcon::where('icon_class', '=', 'fa-info')->first();
         $alertIconId = old('alert_icon_id', !empty($alert) ? $alert->alert_icon_id : $defaultIcon->id);
     ?>
     <label for="alert_icon_id">FontAwesome Alert Icon:</label>

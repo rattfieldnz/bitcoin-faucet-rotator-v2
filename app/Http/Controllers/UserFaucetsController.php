@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\View\View;
 use Mews\Purifier\Facades\Purifier;
 use Prettus\Repository\Criteria\RequestCriteria;
 
@@ -59,7 +60,7 @@ class UserFaucetsController extends Controller
      *
      * @param  $slug
      * @param  Request  $request
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function index($slug, Request $request)
     {
@@ -122,7 +123,7 @@ class UserFaucetsController extends Controller
      * Show the form for creating a new Faucet.
      *
      * @param  $slug
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function create($slug)
     {
@@ -211,7 +212,7 @@ class UserFaucetsController extends Controller
      *
      * @param  $slug
      * @param  $faucetSlug
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function show($slug, $faucetSlug)
     {

@@ -4,7 +4,7 @@
     @php
         $alertType = $alert->alertType()->first();
         $alertClass = $alertType->bootstrap_alert_class;
-        $alertIcon = $alert->alertIcon()->first();
+        $alertIcon = $alert->alertIcon()->first()
     @endphp
     <section class="content-header">
         <div class="row {{ empty(Auth::user()) ? 'guest-page-title' : 'auth-page-title' }}">

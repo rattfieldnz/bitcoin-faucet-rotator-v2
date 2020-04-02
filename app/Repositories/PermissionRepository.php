@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Permission;
-use Mews\Purifier\Facades\Purifier;
 use Stevebauman\Purify\Facades\Purify;
 
 /**

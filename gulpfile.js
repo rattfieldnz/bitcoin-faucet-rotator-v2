@@ -5,7 +5,7 @@ let elixir = require('laravel-elixir');
 let concatCSS = require('gulp-concat-css');
 let cleanCSS = require('gulp-clean-css');
 let sourcemaps = require('gulp-sourcemaps');
-let uglify = require('gulp-uglify');
+let uglify = require('gulp-uglify-es').default;
 let htmlmin = require('gulp-htmlmin');
 let gulputil = require('gulp-util');
 
@@ -92,13 +92,13 @@ gulp.task("copyfiles", function() {
         .pipe(gulp.dest("resources/assets/js/admin-lte/"));
 
     // DataTables //
-    gulp.src("node_modules/@bower_components/datatables.net-bs/css/dataTables.bootstrap.css")
+    gulp.src("node_modules/datatables.net-bs/css/dataTables.bootstrap.css")
         .pipe(gulp.dest("resources/assets/css/datatables.net/"));
 
-    gulp.src("node_modules/@bower_components/datatables.net-bs/js/dataTables.bootstrap.js")
+    gulp.src("node_modules/datatables.net-bs/js/dataTables.bootstrap.min.js")
         .pipe(gulp.dest("resources/assets/js/datatables.net/"));
 
-    gulp.src("node_modules/@bower_components/datatables.net/js/jquery.dataTables.js")
+    gulp.src("node_modules/datatables.net/js/jquery.dataTables.min.js")
         .pipe(gulp.dest("resources/assets/js/datatables.net/"));
 
     // iCheck //
@@ -166,8 +166,6 @@ elixir(function(mix) {
             'js/custom/jquery.doubleScroll.js',
             'js/custom/jquery.livepreview.js',
             'js/custom/jquery.tablesorter.js',
-            'js/datatables.net/jquery.dataTables.js',
-            'js/datatables.net/dataTables.bootstrap.js',
             'js/custom/tablesorter_custom_code.js',
             'js/cookieconsent/cookieconsent.js',
             'js/jquery-progresstimer/jquery.progresstimer.js',
@@ -184,10 +182,10 @@ elixir(function(mix) {
     );
 
     mix.scripts([
-            'js/datatables.net/jquery.dataTables.js',
-            'js/datatables.net/dataTables.bootstrap.js'
+            'js/datatables.net/jquery.dataTables.min.js',
+            'js/datatables.net/dataTables.bootstrap.min.js',
         ],
-        'public/assets/js/datatables.net/datatables.js',
+        'public/assets/js/datatables.net/datatables.min.js',
         'resources/assets/'
     );
 
@@ -286,7 +284,6 @@ gulp.task('minifycss', function(){
 });
 
 gulp.task('minifyjs', function(){
-    compressDataTablesJs();
     compressChartJsScripts();
     compressStatsScripts();
     compressMainJS();
@@ -305,14 +302,6 @@ function compressMainJS(){
         .on('error', function (err) { gulputil.log(gulputil.colors.red('[Error]'), err.toString()); })
         .pipe(rename("mainScripts.min.js"))
         .pipe(gulp.dest('public/assets/js/'));
-}
-
-function compressDataTablesJs(){
-    return gulp.src('public/assets/js/datatables.net/datatables.js')
-        .pipe(uglify())
-        .on('error', function (err) { gulputil.log(gulputil.colors.red('[Error]'), err.toString()); })
-        .pipe(rename("datatables.min.js"))
-        .pipe(gulp.dest('public/assets/js/datatables.net/'));
 }
 
 function compressDataTablesCss(){

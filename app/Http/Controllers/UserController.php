@@ -13,11 +13,16 @@ use App\Models\Permission;
 use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use App\Helpers\Functions\Users;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Exceptions\RepositoryException;
 
 /**
  * Class UserController
@@ -47,8 +52,8 @@ class UserController extends AppBaseController
      * Display a listing of the User.
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     * @return Factory|View
+     * @throws RepositoryException
      */
     public function index(Request $request)
     {
@@ -85,7 +90,7 @@ class UserController extends AppBaseController
     /**
      * Show the form for creating a new User.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -101,7 +106,7 @@ class UserController extends AppBaseController
      * Store a newly created User in storage.
      *
      * @param  CreateUserRequest $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function store(CreateUserRequest $request)
     {
@@ -122,7 +127,7 @@ class UserController extends AppBaseController
      * Display the specified User.
      *
      * @param  $slug
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function show($slug)
     {
@@ -186,7 +191,7 @@ class UserController extends AppBaseController
      * Show the form for editing the specified User.
      *
      * @param  $slug
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function edit($slug)
     {
@@ -210,7 +215,7 @@ class UserController extends AppBaseController
      *
      * @param  $slug
      * @param  UpdateUserRequest $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function update($slug, UpdateUserRequest $request)
     {
@@ -239,7 +244,7 @@ class UserController extends AppBaseController
      * Remove the specified User from storage.
      *
      * @param  $slug
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function destroy($slug)
     {
@@ -268,7 +273,7 @@ class UserController extends AppBaseController
      * Permanently delete the specified user.
      *
      * @param  $slug
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function destroyPermanently($slug)
     {
@@ -305,7 +310,7 @@ class UserController extends AppBaseController
      * Restore the specified soft-deleted user.
      *
      * @param  $slug
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function restoreDeleted($slug)
     {
@@ -328,7 +333,7 @@ class UserController extends AppBaseController
     /**
      * Purge all archived / soft-deleted users.
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function purgeArchivedUsers()
     {

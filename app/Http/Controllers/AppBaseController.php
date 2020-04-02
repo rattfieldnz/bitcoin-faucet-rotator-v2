@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use InfyOm\Generator\Utils\ResponseUtil;
 use Response;
 
@@ -19,7 +20,7 @@ class AppBaseController extends Controller
      * @param $result
      * @param $message
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function sendResponse($result, $message)
     {
@@ -32,7 +33,7 @@ class AppBaseController extends Controller
      * @param $error
      * @param int   $code
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function sendError($error, $code = 404)
     {

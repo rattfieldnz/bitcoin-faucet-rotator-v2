@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\AdBlock;
+use Prettus\Validator\Exceptions\ValidatorException;
 use Stevebauman\Purify\Facades\Purify;
 
 /**
@@ -32,8 +33,9 @@ class AdBlockRepository extends Repository implements IRepository
     /**
      * Create main meta data.
      *
-     * @param  array $data
+     * @param array $data
      * @return AdBlock
+     * @throws ValidatorException
      */
     public function create(array $data)
     {
@@ -52,9 +54,10 @@ class AdBlockRepository extends Repository implements IRepository
     /**
      * Update main meta data,
      *
-     * @param  array $data
+     * @param array $data
      * @param  $id
      * @return mixed
+     * @throws ValidatorException
      */
     public function update(array $data, $id)
     {

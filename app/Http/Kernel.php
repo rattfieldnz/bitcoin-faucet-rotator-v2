@@ -2,7 +2,28 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\Cors;
+use App\Http\Middleware\EncryptCookies;
+use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Middleware\VerifyCsrfToken;
+use App\Libraries\Matthewbdaly\ETagMiddleware\ETag;
+use Bepsvpt\SecureHeaders\SecureHeadersMiddleware;
+use DougSisk\BlockReferralSpam\Middleware\BlockReferralSpam;
+use Fideloper\Proxy\TrustProxies;
+use HTMLMin\HTMLMin\Http\Middleware\MinifyMiddleware;
+use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Foundation\Http\Middleware\Authorize;
+use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
+use Illuminate\Routing\Middleware\ThrottleRequests;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Laratrust\Middleware\LaratrustAbility;
+use Laratrust\Middleware\LaratrustPermission;
+use Laratrust\Middleware\LaratrustRole;
+use Laravel\Passport\Http\Middleware\CreateFreshApiToken;
 
 /**
  * Class Kernel
@@ -20,17 +41,17 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-        \App\Http\Middleware\EncryptCookies::class,
-        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-        \Illuminate\Session\Middleware\StartSession::class,
-        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        \App\Http\Middleware\Cors::class,
-        \App\Http\Middleware\VerifyCsrfToken::class,
-        \Fideloper\Proxy\TrustProxies::class,
-        \App\Libraries\Matthewbdaly\ETagMiddleware\ETag::class,
-        \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
-        \HTMLMin\HTMLMin\Http\Middleware\MinifyMiddleware::class
+        CheckForMaintenanceMode::class,
+        EncryptCookies::class,
+        AddQueuedCookiesToResponse::class,
+        StartSession::class,
+        ShareErrorsFromSession::class,
+        Cors::class,
+        VerifyCsrfToken::class,
+        TrustProxies::class,
+        ETag::class,
+        SecureHeadersMiddleware::class,
+        MinifyMiddleware::class
     ];
 
     /**
@@ -40,8 +61,8 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \DougSisk\BlockReferralSpam\Middleware\BlockReferralSpam::class,
-            \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
+            BlockReferralSpam::class,
+            CreateFreshApiToken::class,
             //\GrahamCampbell\HTMLMin\Http\Middleware\MinifyMiddleware::class
         ],
 
@@ -58,14 +79,14 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'role' => \Laratrust\Middleware\LaratrustRole::class,
-        'permission' => \Laratrust\Middleware\LaratrustPermission::class,
-        'ability' => \Laratrust\Middleware\LaratrustAbility::class,
-        'create_fresh_api_token' => \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
+        'auth' => Authenticate::class,
+        'auth.basic' => AuthenticateWithBasicAuth::class,
+        'can' => Authorize::class,
+        'guest' => RedirectIfAuthenticated::class,
+        'throttle' => ThrottleRequests::class,
+        'role' => LaratrustRole::class,
+        'permission' => LaratrustPermission::class,
+        'ability' => LaratrustAbility::class,
+        'create_fresh_api_token' => CreateFreshApiToken::class,
     ];
 }

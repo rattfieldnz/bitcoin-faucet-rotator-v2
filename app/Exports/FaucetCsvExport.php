@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 class FaucetCsvExport implements FromCollection
 {
     /**
-    * @return \Illuminate\Support\Collection
+    * @return Collection
     */
     public function collection()
     {

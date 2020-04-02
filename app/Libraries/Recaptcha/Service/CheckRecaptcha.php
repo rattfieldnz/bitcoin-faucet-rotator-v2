@@ -2,6 +2,8 @@
 
 namespace App\Libraries\Recaptcha\Service;
 
+use Exception;
+
 /**
  * Handle sending out and receiving a response to validate the captcha
  */
@@ -41,7 +43,7 @@ class CheckRecaptcha implements RecaptchaInterface
         $apiResponse = '';
 
         if (false == ( $fs = @fsockopen(self::VERIFY_SERVER, 80) )) {
-            throw new \Exception('Could not open socket');
+            throw new Exception('Could not open socket');
         }
 
         fwrite($fs, $http_request);

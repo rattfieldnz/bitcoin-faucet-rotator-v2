@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Eloquent as Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 
 /**
  * Class PrivacyPolicy
@@ -14,19 +16,19 @@ use Eloquent as Model;
  * @property string|null $short_description
  * @property string $content
  * @property string|null $keywords
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivacyPolicy newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivacyPolicy newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivacyPolicy query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivacyPolicy whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivacyPolicy whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivacyPolicy whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivacyPolicy whereKeywords($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivacyPolicy whereShortDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivacyPolicy whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivacyPolicy whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|PrivacyPolicy newModelQuery()
+ * @method static Builder|PrivacyPolicy newQuery()
+ * @method static Builder|PrivacyPolicy query()
+ * @method static Builder|PrivacyPolicy whereContent($value)
+ * @method static Builder|PrivacyPolicy whereCreatedAt($value)
+ * @method static Builder|PrivacyPolicy whereId($value)
+ * @method static Builder|PrivacyPolicy whereKeywords($value)
+ * @method static Builder|PrivacyPolicy whereShortDescription($value)
+ * @method static Builder|PrivacyPolicy whereTitle($value)
+ * @method static Builder|PrivacyPolicy whereUpdatedAt($value)
+ * @mixin Model
  */
 class PrivacyPolicy extends Model
 {

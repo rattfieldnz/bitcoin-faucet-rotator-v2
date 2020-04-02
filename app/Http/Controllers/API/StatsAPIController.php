@@ -8,7 +8,10 @@ use App\Helpers\Functions\Http;
 use App\Http\Controllers\AppBaseController;
 use App\Libraries\DataTables\DataTables;
 use App\Libraries\Google\Analytics\GoogleAnalytics;
+use Exception;
 use Google_Service_Exception;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 use Yajra\DataTables\Utilities\Request;
 
 /**
@@ -27,12 +30,12 @@ class StatsAPIController extends AppBaseController
     /**
      * Get top x pages between date_from and date_to.
      *
-     * @param \Yajra\DataTables\Utilities\Request $request
+     * @param Request $request
      * @param string                    $dateFrom
      * @param string                    $dateTo
      * @param int                       $quantity
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Support\Collection
+     * @return JsonResponse|Collection
      * @see \App\Libraries\Google\Analytics\GoogleAnalytics::topPagesBetweenTwoDates()
      *
      */
@@ -57,7 +60,7 @@ class StatsAPIController extends AppBaseController
             }
         } catch (Google_Service_Exception $e) {
             return GoogleAnalytics::googleException($e);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return Http::exceptionAsCollection($e->getMessage());
         }
     }
@@ -71,7 +74,7 @@ class StatsAPIController extends AppBaseController
      *
      * @see \App\Libraries\Google\Analytics\GoogleAnalytics::visitsAndPageViews()
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function getVisitorsAndPageViews(string $dateFrom, string $dateTo, int $quantity = 20)
     {
@@ -92,7 +95,7 @@ class StatsAPIController extends AppBaseController
             return GoogleAnalytics::visitsAndPageViews($fromDateInput, $toDateInput, $quantity);
         } catch (Google_Service_Exception $e) {
             return GoogleAnalytics::googleException($e);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return Http::exceptionAsCollection($e->getMessage());
         }
     }
@@ -106,7 +109,7 @@ class StatsAPIController extends AppBaseController
      *
      * @see \App\Libraries\Google\Analytics\GoogleAnalytics::topBrowsersBetweenTwoDates()
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function getTopBrowsersAndVisitors(string $dateFrom, string $dateTo, int $maxBrowserCount = 10)
     {
@@ -126,7 +129,7 @@ class StatsAPIController extends AppBaseController
             }
         } catch (Google_Service_Exception $e) {
             return GoogleAnalytics::googleException($e);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return Http::exceptionAsCollection($e->getMessage());
         }
     }
@@ -139,7 +142,7 @@ class StatsAPIController extends AppBaseController
      *
      * @see \App\Libraries\Google\Analytics\GoogleAnalytics::countriesBetweenTwoDates()
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function getCountriesAndVisitors(string $dateFrom, string $dateTo)
     {
@@ -157,7 +160,7 @@ class StatsAPIController extends AppBaseController
             }
         } catch (Google_Service_Exception $e) {
             return GoogleAnalytics::googleException($e);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return Http::exceptionAsCollection($e->getMessage());
         }
     }

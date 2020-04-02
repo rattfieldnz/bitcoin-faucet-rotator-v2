@@ -92,7 +92,7 @@
             $topScrollBar.width($self.width());
             $topScrollBar.scrollLeft($self.scrollLeft());
             
-        }
+        };
     
         return this.each(function () {
             

@@ -9,8 +9,16 @@
 namespace App\Repositories;
 
 use Illuminate\Container\Container as Application;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
-use InfyOm\Generator\Common\BaseRepository;
+use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Exceptions\RepositoryException;
 
 /**
  * Class Repository
@@ -33,9 +41,11 @@ abstract class Repository extends BaseRepository
      *
      * @param $field
      * @param $value
+     * @param bool $trashed
      * @param array $columns
      *
      * @return mixed
+     * @throws RepositoryException
      */
     public function findByField($field, $value = null, $trashed = false, $columns = ['*'])
     {
@@ -59,6 +69,7 @@ abstract class Repository extends BaseRepository
      * @param array $where
      *
      * @return   int
+     * @throws RepositoryException
      * @internal param bool $permanent
      */
     public function deleteWhere(array $where)
@@ -115,5 +126,70 @@ abstract class Repository extends BaseRepository
     public function onlyTrashed()
     {
         return $this->model->onlyTrashed();
+    }
+
+    /**
+     * Below function is taken from InfyomLabs/laravel-generator v6.0-dev-master.
+     * @param $model
+     * @param $attributes
+     * @see https://github.com/InfyOmLabs/laravel-generator/blob/6.0/src/Common/BaseRepository.php.
+     * @return mixed
+     */
+    public function updateRelations($model, $attributes)
+    {
+        foreach ($attributes as $key => $val) {
+            if (isset($model) &&
+                method_exists($model, $key) &&
+                is_a(@$model->$key(), Relation::class)
+            ) {
+                $methodClass = get_class($model->$key($key));
+                switch ($methodClass) {
+                    case BelongsToMany::class:
+                        $new_values = Arr::get($attributes, $key, []);
+                        if (array_search('', $new_values) !== false) {
+                            unset($new_values[array_search('', $new_values)]);
+                        }
+                        $model->$key()->sync(array_values($new_values));
+                        break;
+                    case BelongsTo::class:
+                        $model_key = $model->$key()->getQualifiedForeignKeyName();
+                        $new_value = Arr::get($attributes, $key, null);
+                        $new_value = $new_value == '' ? null : $new_value;
+                        $model->$model_key = $new_value;
+                        break;
+                    case HasOne::class:
+                        break;
+                    case HasOneOrMany::class:
+                        break;
+                    case HasMany::class:
+                        $new_values = Arr::get($attributes, $key, []);
+                        if (array_search('', $new_values) !== false) {
+                            unset($new_values[array_search('', $new_values)]);
+                        }
+
+                        list($temp, $model_key) = explode('.', $model->$key($key)->getQualifiedForeignKeyName());
+
+                        foreach ($model->$key as $rel) {
+                            if (!in_array($rel->id, $new_values)) {
+                                $rel->$model_key = null;
+                                $rel->save();
+                            }
+                            unset($new_values[array_search($rel->id, $new_values)]);
+                        }
+
+                        if (count($new_values) > 0) {
+                            $related = get_class($model->$key()->getRelated());
+                            foreach ($new_values as $val) {
+                                $rel = $related::find($val);
+                                $rel->$model_key = $model->id;
+                                $rel->save();
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+
+        return $model;
     }
 }

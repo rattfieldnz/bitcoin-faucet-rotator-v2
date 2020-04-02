@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Faucet;
+use Prettus\Repository\Exceptions\RepositoryException;
+use Prettus\Validator\Exceptions\ValidatorException;
 use Stevebauman\Purify\Facades\Purify;
 
 /**
@@ -44,8 +46,9 @@ class FaucetRepository extends Repository implements IRepository
     /**
      * Create a new faucet.
      *
-     * @param  array $data
+     * @param array $data
      * @return Faucet
+     * @throws ValidatorException
      */
     public function create(array $data)
     {
@@ -88,9 +91,10 @@ class FaucetRepository extends Repository implements IRepository
      * @param array $where
      * @param array $columns
      *
-     * @param bool  $deleted
+     * @param bool $deleted
      *
      * @return mixed
+     * @throws RepositoryException
      */
     public function findItemsWhere(array $where, $columns = ['*'], bool $deleted = false)
     {

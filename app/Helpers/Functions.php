@@ -12,6 +12,7 @@ use App\Models\Faucet;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -25,19 +26,26 @@ class Functions
     /**
      * Function to see if user can access route/area.
      *
-     * @param \App\Models\User $user
+     * @param User $user
      * @param $routeName
      * @param array            $routeParameters
      * @param array|null       $dataParameters
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public static function userCanAccessArea(User $user, $routeName, array $routeParameters, array $dataParameters = null)
     {
         if ($user->is_admin == false || !$user->hasRole('owner')) {
             abort(403);
         }
-        $currentRoute = route($routeName, $routeParameters);
+
+        $idName = 'id';
+
+        if (!empty($routeParameters['slug'])){
+            $idName = 'slug';
+        }
+
+        $currentRoute = route($routeName, $routeParameters[$idName]);
         if (!$currentRoute) {
             abort(404);
         }

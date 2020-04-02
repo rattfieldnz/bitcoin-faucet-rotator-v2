@@ -12,7 +12,7 @@
         <link href="{{ asset('installer/css/style.min.css') }}" rel="stylesheet"/>
         @yield('style')
         <script>
-            window.Laravel = <?php echo json_encode([
+            window.Laravel =; <?php echo json_encode([
                 'csrfToken' => csrf_token(),
             ]); ?>
         </script>

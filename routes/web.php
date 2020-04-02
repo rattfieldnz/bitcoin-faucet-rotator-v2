@@ -29,6 +29,13 @@ Route::get('faucets/{slug}/edit', [
     'as' => 'faucets.edit',
     'uses' => 'FaucetController@edit'
 ]);
+Route::patch(
+    'faucets/{slug}/update',
+    [
+        'as' => 'faucets.update',
+        'uses' => 'FaucetController@update'
+    ]
+);
 Route::delete(
     'faucets/{slug}/destroy',
     [
@@ -185,11 +192,19 @@ Route::get('users/{slug}/rotator', [
 
 Route::resource('main-meta', 'MainMetaController');
 
+
 Route::resource('ad-block', 'AdBlockController');
 
 Route::resource('twitter-config', 'TwitterConfigController');
 
 Route::resource('roles', 'RoleController');
+Route::get(
+    'roles/{slug}',
+    [
+        'as' => 'roles.show',
+        'uses' => 'RolesController@show'
+    ]
+);
 
 Route::resource('permissions', 'PermissionController');
 

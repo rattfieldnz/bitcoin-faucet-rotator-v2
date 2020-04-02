@@ -5,6 +5,7 @@ namespace App\Libraries\Laroute\Console\Commands;
 use App\Libraries\Laroute\Routes\Collection as Routes;
 use App\Libraries\Laroute\Generators\GeneratorInterface as Generator;
 
+use Exception;
 use Illuminate\Config\Repository as Config;
 use Illuminate\Console\Command;
 
@@ -36,14 +37,14 @@ class LarouteGeneratorCommand extends Command
     /**
      * An array of all the registered routes.
      *
-     * @var \App\Libraries\Laroute\Routes\Collection
+     * @var Routes
      */
     protected $routes;
 
     /**
      * The generator instance.
      *
-     * @var \App\Libraries\Laroute\Generators\GeneratorInterface
+     * @var Generator
      */
     protected $generator;
 
@@ -78,7 +79,7 @@ class LarouteGeneratorCommand extends Command
             );
 
             $this->info("Created: {$filePath}");
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->error($e->getMessage());
         }
     }

@@ -3,8 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\TwitterConfig;
-use InfyOm\Generator\Common\BaseRepository;
-use Mews\Purifier\Facades\Purifier;
+use Prettus\Validator\Exceptions\ValidatorException;
+use Stevebauman\Purify\Facades\Purify;
 
 /**
  * Class TwitterConfigRepository
@@ -12,7 +12,7 @@ use Mews\Purifier\Facades\Purifier;
  * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Repositories
  */
-class TwitterConfigRepository extends BaseRepository implements IRepository
+class TwitterConfigRepository extends Repository implements IRepository
 {
     protected $fieldSearchable = [
         'consumer_key',
@@ -33,8 +33,9 @@ class TwitterConfigRepository extends BaseRepository implements IRepository
     /**
      * Create Twitter config data.
      *
-     * @param  array $data
+     * @param array $data
      * @return TwitterConfig
+     * @throws ValidatorException
      */
     public function create(array $data)
     {
@@ -53,9 +54,10 @@ class TwitterConfigRepository extends BaseRepository implements IRepository
     /**
      * Update Twitter config data.
      *
-     * @param  array $data
+     * @param array $data
      * @param  $id
      * @return mixed
+     * @throws ValidatorException
      */
     public function update(array $data, $id)
     {
@@ -79,11 +81,11 @@ class TwitterConfigRepository extends BaseRepository implements IRepository
      */
     public static function cleanInput(array $input)
     {
-        $input['consumer_key'] = Purifier::clean($input['consumer_key'], 'generalFields');
-        $input['consumer_key_secret'] = Purifier::clean($input['consumer_key_secret'], 'generalFields');
-        $input['access_token'] = Purifier::clean($input['access_token'], 'generalFields');
-        $input['access_token_secret'] = Purifier::clean($input['access_token_secret'], 'generalFields');
-        $input['user_id'] = Purifier::clean($input['user_id'], 'generalFields');
+        $input['consumer_key'] = Purify::clean($input['consumer_key'], self::$generalFieldsConfig);
+        $input['consumer_key_secret'] = Purify::clean($input['consumer_key_secret'], self::$generalFieldsConfig);
+        $input['access_token'] = Purify::clean($input['access_token'], self::$generalFieldsConfig);
+        $input['access_token_secret'] = Purify::clean($input['access_token_secret'], self::$generalFieldsConfig);
+        $input['user_id'] = Purify::clean($input['user_id'], self::$generalFieldsConfig);
 
         return $input;
     }

@@ -6,9 +6,11 @@ use App\Helpers\Functions;
 use App\Http\Requests\CreatePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Repositories\PermissionRepository;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -25,7 +27,7 @@ class PermissionController extends AppBaseController
     /**
      * PermissionController constructor.
      *
-     * @param \App\Repositories\PermissionRepository $permissionRepo
+     * @param PermissionRepository $permissionRepo
      */
     public function __construct(PermissionRepository $permissionRepo)
     {
@@ -38,7 +40,7 @@ class PermissionController extends AppBaseController
      *
      * @param string $slug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show($slug)
     {
@@ -59,7 +61,7 @@ class PermissionController extends AppBaseController
      *
      * @param string $slug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit($slug)
     {

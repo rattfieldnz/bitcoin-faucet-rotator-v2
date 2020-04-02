@@ -22,8 +22,8 @@ class FaucetsTransformer extends TransformerAbstract
     /**
      * Transform the Faucet entity
      *
-     * @param \App\Models\User $user
-     * @param \App\Models\Faucet $model
+     * @param User $user
+     * @param Faucet $model
      * @param bool $addPaymentProcessors
      *
      * @return array

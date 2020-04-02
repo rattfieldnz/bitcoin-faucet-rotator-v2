@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,12 +13,12 @@ use Illuminate\Database\Eloquent\Model;
  * @package App\Models
  * @property string $iso_code
  * @property string $name
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Language newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Language newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Language query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Language whereIsoCode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Language whereName($value)
- * @mixin \Eloquent
+ * @method static Builder|Language newModelQuery()
+ * @method static Builder|Language newQuery()
+ * @method static Builder|Language query()
+ * @method static Builder|Language whereIsoCode($value)
+ * @method static Builder|Language whereName($value)
+ * @mixin Eloquent
  */
 class Language extends Model
 {

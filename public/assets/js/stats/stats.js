@@ -231,7 +231,7 @@ function generateVisitorsLineChart(data, chartElement)
     var pageViewsRGB = getRandomRgb();
 
     if (typeof data !== 'undefined' && data.status !== 'error' && typeof $(chartElement)[0] !== 'undefined') {
-        var areaChartContext = $(chartElement)[0].getContext('2d');;
+        var areaChartContext = $(chartElement)[0].getContext('2d');
 
         var labels = [], visitorsData = [], pageViewsData = [];
 

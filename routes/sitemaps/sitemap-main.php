@@ -1,29 +1,37 @@
 <?php
 
+use App\Models\Alert;
+use App\Models\Faucet;
+use App\Models\PaymentProcessor;
+use App\Models\PrivacyPolicy;
+use App\Models\TermsAndConditions;
+use App\Models\User;
+use Carbon\Carbon;
+
 Route::get('sitemap-main', function() {
     $sitemap = App::make('sitemap');
 
     if (!$sitemap->isCached()) {
 
-        $currentTime = \Carbon\Carbon::now()->toW3cString();
+        $currentTime = Carbon::now()->toW3cString();
         $sitemap->add(route('home'), $currentTime, '1.0', 'daily');
 
-        $lastModifiedUser = \App\Models\User::where('deleted_at', '=', null)
+        $lastModifiedUser = User::where('deleted_at', '=', null)
             ->orderBy('updated_at', 'desc')
             ->get()->first();
         $sitemap->add(route('users.index'), $lastModifiedUser->updated_at->toW3cString(), '1.0', 'daily');
 
-        $lastModifiedFaucet = \App\Models\Faucet::where('deleted_at', '=', null)
+        $lastModifiedFaucet = Faucet::where('deleted_at', '=', null)
             ->orderBy('updated_at', 'desc')
             ->get()->first();
         $sitemap->add(route('faucets.index'), $lastModifiedFaucet->updated_at->toW3cString(), '1.0', 'daily');
 
-        $lastModifiedPaymentProcessor = \App\Models\PaymentProcessor::where('deleted_at', '=', null)
+        $lastModifiedPaymentProcessor = PaymentProcessor::where('deleted_at', '=', null)
             ->orderBy('updated_at', 'desc')
             ->get()->first();
         $sitemap->add(route('payment-processors.index'), $lastModifiedPaymentProcessor->updated_at->toW3cString(), '1.0', 'daily');
 
-        $privacyPolicy = \App\Models\PrivacyPolicy::first();
+        $privacyPolicy = PrivacyPolicy::first();
         if(!empty($privacyPolicy)){
             $sitemap->add(
                 route('privacy-policy'),
@@ -33,7 +41,7 @@ Route::get('sitemap-main', function() {
             );
         }
 
-        $termsAndConditions = \App\Models\TermsAndConditions::first();
+        $termsAndConditions = TermsAndConditions::first();
         if(!empty($termsAndConditions)){
             $sitemap->add(
                 route('terms-and-conditions'),
@@ -43,10 +51,10 @@ Route::get('sitemap-main', function() {
             );
         }
 
-        $alert = \App\Models\Alert::where('deleted_at', '=', null)
+        $alert = Alert::where('deleted_at', '=', null)
             ->orderBy('updated_at', 'desc')
             ->get()->first();
-        $alertDate = !empty($alert) ? $alert->updated_at->toW3cString() : \Carbon\Carbon::now()->toW3cString();
+        $alertDate = !empty($alert) ? $alert->updated_at->toW3cString() : Carbon::now()->toW3cString();
         $sitemap->add(route('alerts.index'), $alertDate, '1.0', 'daily');
     }
 

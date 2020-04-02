@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\TermsAndConditions;
-use InfyOm\Generator\Common\BaseRepository;
 
 /**
  * Class TermsAndConditionsRepository
@@ -11,7 +10,7 @@ use InfyOm\Generator\Common\BaseRepository;
  * @author  Rob Attfield <emailme@robertattfield.com> <http://www.robertattfield.com>
  * @package App\Repositories
  */
-class TermsAndConditionsRepository extends BaseRepository
+class TermsAndConditionsRepository extends Repository
 {
     /**
      * @var array
