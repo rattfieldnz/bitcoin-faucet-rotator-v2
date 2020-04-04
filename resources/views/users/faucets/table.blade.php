@@ -81,7 +81,7 @@
         //--------------------------------
         var dataTablesName = 'faucets datatable';
         var userSlug = $('#title').data('user-slug');
-        var route = laroute.route('user.faucets', {userSlug: userSlug});
+        var route = laroute.url('api/v1/users', [userSlug, 'faucets']);
         var faucetsData = getFaucetsDataAjax(route);
         var faucetsTableProgressBar = generateProgressBar("#faucetsTable-progressbar",dataTablesName);
         renderFaucetsDataTable(faucetsData, '#faucetsTable', faucetsTableProgressBar);
