@@ -104,10 +104,7 @@ $(function () {
                         noIframeContent.find('#faucet-link').attr('title', 'View "' + data.data.name + '" faucet in a new window');
 
                         if (typeof editFaucetLink !== 'undefined') {
-                            var editFaucetRoute = laroute.route(
-                                'faucets.edit',
-                                {slug: currentFaucetSlug}
-                            );
+                            var editFaucetRoute = laroute.url('faucets', [currentFaucetSlug, 'edit']);
 
                             editFaucetLink.attr('href', editFaucetRoute);
                         }
@@ -115,10 +112,7 @@ $(function () {
                         noIframeContent.show();
                     }
 
-                    var currentFaucetRoute = laroute.route(
-                        'faucet.show',
-                        {slug: currentFaucetSlug}
-                    );
+                    var currentFaucetRoute = laroute.url('faucets', [currentFaucetSlug]);
 
                     $('#current').attr('href', currentFaucetRoute);
                 },
