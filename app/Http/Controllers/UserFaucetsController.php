@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\View\View;
-use Mews\Purifier\Facades\Purifier;
+use Stevebauman\Purify\Facades\Purify;
+use Illuminate\Support\Facades\Config;
 use Prettus\Repository\Criteria\RequestCriteria;
 
 /**
@@ -35,6 +36,8 @@ class UserFaucetsController extends Controller
     private $userRepository;
 
     private $faucetFunctions;
+    
+    private $generalFieldsConfig;
 
     /**
      * UserFaucetsController constructor.
@@ -51,6 +54,8 @@ class UserFaucetsController extends Controller
         $this->userFaucetRepository = $userFaucetRepo;
         $this->userRepository = $userRepository;
         $this->faucetFunctions = $faucetFunctions;
+        $this->generalFieldsConfig = Config::get('purify.generalFields');
+        
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
@@ -185,7 +190,7 @@ class UserFaucetsController extends Controller
             $this->userFaucetRepository->create($input);
 
             if (!empty(request('payment-processor'))) {
-                $slug = Purifier::clean(request('payment-processor'), 'generalFields');
+                $slug = Purify::clean(request('payment-processor'), $this->generalFieldsConfig);
                 $paymentProcessor = PaymentProcessor::where('slug', $slug)->first();
             }
 
@@ -348,7 +353,7 @@ class UserFaucetsController extends Controller
         $referralCodes = $input['referral_code'];
 
         for ($i = 0; $i < count($userFaucetIds); $i++) {
-            $referralCode = !empty($referralCodes[$i]) ? $referralCodes[$i] : null;
+            $referralCode = !empty($referralCodes[$i]) ? Purify::clean($referralCodes[$i], $this->generalFieldsConfig)  : null;
 
             $faucet = Faucet::where('id', '=', intval($userFaucetIds[$i]))->first();
 
@@ -358,7 +363,7 @@ class UserFaucetsController extends Controller
         }
 
         if (!empty(request('payment_processor'))) {
-            $slug = Purifier::clean(request('payment_processor'), 'generalFields');
+            $slug = Purify::clean(request('payment_processor'), $this->generalFieldsConfig);
             $paymentProcessor = PaymentProcessor::where('slug', $slug)->first();
 
             if (!empty($paymentProcessor)) {
@@ -373,7 +378,7 @@ class UserFaucetsController extends Controller
         }
 
         if (!empty(request('current_route_name'))) {
-            $currentRouteName = Purifier::clean(request('current_route_name'), 'generalFields');
+            $currentRouteName = Purify::clean(request('current_route_name'), $this->generalFieldsConfig);
 
             if ($currentRouteName == 'users.show') {
                 $redirectRoute = route('users.show', ['slug' => $user->slug]) . "#faucets";

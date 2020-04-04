@@ -129,7 +129,7 @@ class RotatorController extends Controller
         $seoConfig->publishedTime = Carbon::now()->toW3cString();
         $seoConfig->modifiedTime = Carbon::now()->toW3cString();
         $seoConfig->authorName = $user->fullName();
-        $seoConfig->currentUrl = route('users.rotator', ['userSlug' => $user->slug]);
+        $seoConfig->currentUrl = route('users.rotator', ['slug' => $user->slug]);
         $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
         $seoConfig->categoryDescription = "User Bitcoin Faucet Rotator";
         WebsiteMeta::setCustomMeta($seoConfig);
@@ -181,7 +181,7 @@ class RotatorController extends Controller
         $seoConfig->currentUrl = route(
             'users.payment-processors.rotator',
             [
-                    'userSlug' => $user->slug,
+                    'slug' => $user->slug,
                     'paymentProcessorSlug' => $paymentProcessor->slug
                 ]
         );
@@ -199,7 +199,7 @@ class RotatorController extends Controller
             ->with('userName', $user->user_name)
             ->with('faucetsCount', count($faucets))
             ->with('paymentProcessorName', $paymentProcessor->name)
-            ->with('currentUrl', route('users.payment-processors.rotator', ['userSlug' =>$user->slug, 'paymentProcessorSlug' => $paymentProcessor->slug]))
+            ->with('currentUrl', route('users.payment-processors.rotator', ['slug' =>$user->slug, 'paymentProcessorSlug' => $paymentProcessor->slug]))
             ->with('disqusIdentifier', $disqusIdentifier);
     }
 }

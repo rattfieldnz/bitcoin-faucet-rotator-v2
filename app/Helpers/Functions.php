@@ -38,14 +38,20 @@ class Functions
         if ($user->is_admin == false || !$user->hasRole('owner')) {
             abort(403);
         }
+        
+        $idName = null;
 
-        $idName = 'id';
-
-        if (!empty($routeParameters['slug'])){
+        if (!empty($routeParameters['slug'])) {
             $idName = 'slug';
         }
+        
+        if (!empty($routeParameters['id'])) {
+            $idName = 'id';
+        }
 
-        $currentRoute = route($routeName, $routeParameters[$idName]);
+
+        $currentRoute = !empty($idName) && !empty($routeParameters[$idName]) ?
+            route($routeName, $routeParameters[$idName]) : route($routeName);
         if (!$currentRoute) {
             abort(404);
         }

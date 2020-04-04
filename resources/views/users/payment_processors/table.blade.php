@@ -80,7 +80,7 @@
         //--------------------------------
         var dataTablesName = 'payment processors datatable';
         var userSlug = $('#title').data('user-slug');
-        var route = laroute.route('user.payment-processors', {userSlug: userSlug});
+        var route = laroute.url('api/v1/users', [userSlug, 'payment-processors']);
         var faucetsData = getFaucetsDataAjax(route);
         var paymentProcessorsTableProgressBar = generateProgressBar("#paymentProcessorsTable-progressbar",dataTablesName);
         renderPaymentProcessorsDataTable(faucetsData, '#paymentProcessorsTable', paymentProcessorsTableProgressBar);

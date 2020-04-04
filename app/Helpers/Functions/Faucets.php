@@ -24,7 +24,7 @@ use App\Models\PaymentProcessor;
 use App\Repositories\FaucetRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Mews\Purifier\Facades\Purifier;
+use Stevebauman\Purify\Facades\Purify;
 
 /**
  * Class Faucets
@@ -38,6 +38,8 @@ use Mews\Purifier\Facades\Purifier;
 class Faucets
 {
     private $faucetRepository;
+    
+    private $generalFieldsConfig;
 
     /**
      * Faucets constructor.
@@ -47,6 +49,7 @@ class Faucets
     public function __construct(FaucetRepository $faucetRepository)
     {
         $this->faucetRepository = $faucetRepository;
+        $this->generalFieldsConfig = Config::get('purify.generalFields');
     }
 
     /**
@@ -71,6 +74,8 @@ class Faucets
                 $faucet->paymentProcessors()->attach((int)$paymentProcessorId);
             }
         }
+        
+        $referralCode = Purify::clean($referralCode, $this->generalFieldsConfig);
 
         Users::adminUser()->faucets()->attach([$faucet->id => ['referral_code' => $referralCode]]);
 
@@ -104,7 +109,7 @@ class Faucets
             $userFaucetData = self::cleanUserFaucetInput($data);
             $userId = $userFaucetData['user_id'];
             $faucetId = $userFaucetData['faucet_id'];
-            $referralCode = !empty($userFaucetData['referral_code']) ? $userFaucetData['referral_code'] : null;
+            $referralCode = !empty($userFaucetData['referral_code']) ? Purify::clean($userFaucetData['referral_code'], $this->generalFieldsConfig) : null;
 
             $user = User::where('id', $userId)->first();
             $faucet = Faucet::where('id', $faucetId)->first();
@@ -136,7 +141,7 @@ class Faucets
         ) {
             $userFaucetData = self::cleanUserFaucetInput($data);
             $faucetId = $userFaucetData['faucet_id'];
-            $referralCode = !empty($userFaucetData['referral_code']) ? $userFaucetData['referral_code'] : null;
+            $referralCode = !empty($userFaucetData['referral_code']) ? Purify::clean($userFaucetData['referral_code'], $this->generalFieldsConfig) : null;
 
             $user = User::where('id', $userId)->first();
             $faucet = Faucet::where('id', $faucetId)->first();
@@ -159,7 +164,7 @@ class Faucets
      */
     public static function cleanInput(array $data)
     {
-        $data['payment_processor'] = Purifier::clean($data['payment_processor'], 'generalFields');
+        $data['payment_processor'] = Purify::clean($data['payment_processor'], $this->generalFieldsConfig);
         return $data;
     }
 
@@ -173,9 +178,9 @@ class Faucets
     public static function cleanUserFaucetInput(array $data)
     {
         return [
-            'user_id' => Purifier::clean($data['user_id'], 'generalFields'),
-            'faucet_id' => Purifier::clean($data['faucet_id'], 'generalFields'),
-            'referral_code' => Purifier::clean($data['referral_code'], 'generalFields'),
+            'user_id' => Purify::clean($data['user_id'], $this->generalFieldsConfig),
+            'faucet_id' => Purify::clean($data['faucet_id'], $this->generalFieldsConfig),
+            'referral_code' => Purify::clean($data['referral_code'], $this->generalFieldsConfig),
         ];
     }
 
@@ -195,7 +200,7 @@ class Faucets
         $paymentProcessors = $request->get('payment_processors');
         $paymentProcessorIds = $request->get('payment_processors');
 
-        $referralCodeData = $request->get('referral_code');
+        $referralCodeData = Purify::clean($request->get('referral_code'), $this->generalFieldsConfig);
         $referralCode = !empty($referralCodeData) ? $referralCodeData : null;
 
         if (count($paymentProcessorIds) == 1) {
@@ -380,13 +385,15 @@ class Faucets
     public static function setUserFaucetRefCode(User $user, Faucet $faucet, $refCode = null)
     {
 
-        $refCode = empty($refCode) ? null : Purifier::clean($refCode, 'generalFields');
+        $refCode = empty($refCode) ? null : Purify::clean($refCode, Config::get('purify.generalFields'));
         
         if (!empty($user) && !empty($faucet)) {
             $f = DB::table('referral_info')
                 ->where('faucet_id', '=', $faucet->id)
                 ->where('user_id', '=', $user->id)
                 ->get();
+                
+                
 
             if (empty($f) || count($f) == 0) {
                 DB::table('referral_info')->insert(
@@ -760,7 +767,7 @@ class Faucets
                 'name' => [
                     'display' => route(
                         'users.faucets.show',
-                        ['userSlug' => $user->slug, 'faucetSlug' => $faucet->slug]
+                        ['slug' => $user->slug, 'faucetSlug' => $faucet->slug]
                     ),
                     'original' => $faucet->name,
                 ],
@@ -795,7 +802,7 @@ class Faucets
                             'name' => $p->name,
                             'url' => route(
                                 'users.payment-processors.faucets',
-                                ['userSlug' => $user->slug, 'paymentProcessorSlug' => $p->slug]
+                                ['slug' => $user->slug, 'paymentProcessorSlug' => $p->slug]
                             )
                         ]
                     );

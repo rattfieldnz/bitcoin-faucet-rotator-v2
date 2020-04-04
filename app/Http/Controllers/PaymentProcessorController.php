@@ -253,7 +253,7 @@ class PaymentProcessorController extends AppBaseController
         $seoConfig->publishedTime = Carbon::now()->toW3CString();
         $seoConfig->modifiedTime = Carbon::now()->toW3CString();
         $seoConfig->authorName = $user->fullName();
-        $seoConfig->currentUrl = route('users.payment-processors', ['userSlug' =>  $userSlug]);
+        $seoConfig->currentUrl = route('users.payment-processors', ['slug' =>  $userSlug]);
         $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
         $seoConfig->categoryDescription = 'Crypto Payment Processors';
         WebsiteMeta::setCustomMeta($seoConfig);
@@ -315,7 +315,7 @@ class PaymentProcessorController extends AppBaseController
         $seoConfig->publishedTime = Carbon::now()->toW3CString();
         $seoConfig->modifiedTime = Carbon::now()->toW3CString();
         $seoConfig->authorName = $user->fullName();
-        $seoConfig->currentUrl = route('users.payment-processors.faucets', ['userSlug' =>  $userSlug, 'paymentProcessorSlug' => $paymentProcessor->slug]);
+        $seoConfig->currentUrl = route('users.payment-processors.faucets', ['slug' =>  $userSlug, 'paymentProcessorSlug' => $paymentProcessor->slug]);
         $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
         $seoConfig->categoryDescription = 'Crypto Payment Processor Faucets';
         WebsiteMeta::setCustomMeta($seoConfig);

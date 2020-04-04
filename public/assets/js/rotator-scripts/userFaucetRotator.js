@@ -8,9 +8,9 @@ $(function () {
     $('#first_faucet').click(function (event) {
         event.preventDefault();
 
-        var route = laroute.route(
-            'user.first-faucet',
-            { userSlug : userSlug }
+        var route = laroute.url(
+            'api/v1/users',
+            [userSlug, 'first-faucet']
         );
 
         generateFaucet(route);
@@ -18,10 +18,10 @@ $(function () {
 
     $('#next_faucet').click(function (event) {
         event.preventDefault();
-
-        var route = laroute.route(
-            'user.next-faucet',
-            { userSlug : userSlug, faucetSlug : currentFaucetSlug }
+		
+        var route = laroute.url(
+            'api/v1/users',
+			[userSlug, 'faucets', currentFaucetSlug , 'next-faucet']
         );
 
         generateFaucet(route);
@@ -30,9 +30,9 @@ $(function () {
     $('#previous_faucet').click(function (event) {
         event.preventDefault();
 
-        var route = laroute.route(
-            'user.previous-faucet',
-            { userSlug : userSlug, faucetSlug : currentFaucetSlug }
+        var route = laroute.url(
+            'api/v1/users',
+            [userSlug, 'faucets', currentFaucetSlug , 'previous-faucet']
         );
         generateFaucet(route);
     });
@@ -40,9 +40,9 @@ $(function () {
     $('#last_faucet').click(function (event) {
         event.preventDefault();
 
-        var route = laroute.route(
-            'user.last-faucet',
-            { userSlug : userSlug }
+        var route = laroute.url(
+            'api/v1/users',
+            [userSlug, 'last-faucet']
         );
         generateFaucet(route);
     });
@@ -50,9 +50,9 @@ $(function () {
     $('#reload_current').click(function (event) {
         event.preventDefault();
 
-        var route = laroute.route(
-            'user.faucet',
-            { userSlug : userSlug, faucetSlug : currentFaucetSlug }
+        var route = laroute.url(
+            'api/v1/users',
+            [userSlug, 'faucets', currentFaucetSlug]
         );
         generateFaucet(route);
     });
@@ -61,8 +61,8 @@ $(function () {
         event.preventDefault();
 
         var route = laroute.route(
-            'user.random-faucet',
-            { userSlug : userSlug }
+            'api/v1/users',
+            [userSlug, 'random-faucet']
         );
         generateFaucet(route);
     });
@@ -71,9 +71,9 @@ $(function () {
     function init()
     {
         userSlug = $("#title").data("user-slug");
-        var route = laroute.route(
-            'user.first-faucet',
-            { userSlug : userSlug }
+        var route = laroute.url(
+            'api/v1/users',
+            [userSlug, 'first-faucet']
         );
         generateFaucet(route);
     }
@@ -108,27 +108,27 @@ $(function () {
                         noIframeContent.find('#faucet-link').attr('title', 'View "' + data.data.name + '" faucet in a new window');
 
                         if (typeof editFaucetLink !== 'undefined') {
-                            var editFaucetRoute = laroute.route(
-                                'users.faucets.edit',
-                                { userSlug : userSlug, faucetSlug : currentFaucetSlug }
-                            );
 
+                            var editFaucetRoute = laroute.url(
+                                'users',
+                                [userSlug, 'faucets']
+                            );
                             editFaucetLink.attr('href', editFaucetRoute);
                         }
 
                         noIframeContent.show();
                     }
 
-                    var currentFaucetRoute = laroute.route(
-                        'users.faucets.show',
-                        { userSlug : userSlug, faucetSlug : currentFaucetSlug }
+                    var currentFaucetRoute = laroute.url(
+                        'users',
+                        [userSlug, 'faucets', currentFaucetSlug]
                     );
 
                     $('#current').attr('href', currentFaucetRoute);
-
-                    var faucetListsRoute = laroute.route(
-                        'users.faucets',
-                        { userSlug : userSlug }
+					
+                    var faucetListsRoute = laroute.url(
+                        'users',
+                        [userSlug, 'faucets']
                     );
 
                     $('#list_of_faucets').attr('href', faucetListsRoute);
