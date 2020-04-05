@@ -112,7 +112,8 @@ Route::get(
         'uses' => 'PaymentProcessorController@faucets'
     ]
 );
-Route::get('payment-processors/{slug}/rotator',
+Route::get(
+    'payment-processors/{slug}/rotator',
     [
         'as' => 'payment-processors.rotator',
         'uses' => 'RotatorController@getPaymentProcessorFaucetRotator'
@@ -169,13 +170,15 @@ Route::get('users/{slug}/payment-processors', ['as' => 'users.payment-processors
 Route::get('users/{slug}/payment-processors/{paymentProcessorSlug}', function ($slug, $paymentProcessorSlug) {
     return redirect(route('users.payment-processors.faucets', ['slug' =>  $slug, 'paymentProcessorSlug' => $paymentProcessorSlug]));
 });
-Route::get('users/{slug}/payment-processors/{paymentProcessorSlug}/faucets',
+Route::get(
+    'users/{slug}/payment-processors/{paymentProcessorSlug}/faucets',
     [
         'as' => 'users.payment-processors.faucets',
         'uses' => 'PaymentProcessorController@userPaymentProcessorFaucets'
     ]
 );
-Route::get('users/{slug}/payment-processors/{paymentProcessorSlug}/rotator',
+Route::get(
+    'users/{slug}/payment-processors/{paymentProcessorSlug}/rotator',
     [
         'as' => 'users.payment-processors.rotator',
         'uses' => 'RotatorController@getUserPaymentProcessorFaucetRotator'

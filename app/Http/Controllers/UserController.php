@@ -279,12 +279,6 @@ class UserController extends AppBaseController
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
         $userName = $user->user_name;
-        Functions::userCanAccessArea(
-            Auth::user(),
-            'users.delete-permanently',
-            ['user' => $user, 'slug' => $slug],
-            ['user' => $user, 'slug' => $slug]
-        );
 
         if ($user->isAnAdmin()) {
             flash('An owner-admin-user cannot be permanently deleted.')->error();
@@ -296,10 +290,17 @@ class UserController extends AppBaseController
 
             return redirect(route('users.index'));
         }
-        $user->forceDelete();
-        DB::table('referral_info')
-            ->where('user_id', $user->id)
-            ->delete();
+        if (Auth::user()->id == $user->id || Auth::user()->isAnAdmin()) {
+            $this->userRepository->delete($user->id);
+            DB::table('referral_info')
+                ->where('user_id', $user->id)
+                ->delete();
+        }
+
+        if (Auth::user()->id == $user->id && !Auth::user()->isAnAdmin()) {
+            Auth::setUser($user);
+            Auth::logout();
+        }
 
         flash('The user \'' . $userName . '\' was permanently deleted!')->success();
 

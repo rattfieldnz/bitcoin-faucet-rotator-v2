@@ -11,10 +11,15 @@
                 @if(Auth::user() == $user ||Auth::user()->isAnAdmin())
                     <?php
                     if (Auth::user() == $user) {
-                        $buttonText = "Edit Your Profile";
+                        $buttonText = "Edit My Profile";
+                        $deleteButtonText = "Delete My Profile";
+                        $onClickDeleteText = "Your profile";
                     } else {
-                        $buttonText = "Edit Current User";
+                        $buttonText = "Edit User";
+                        $deleteButtonText = "Delete User";
+                        $onClickDeleteText = "This user";
                     }
+                    $deleteButtonText = '<i class="fa fa-2x fa-trash" style="vertical-align: middle; margin-right:0.25em;"> </i> ' . $deleteButtonText;
                     ?>
                     {!! Form::button(
                         '<i class="fa fa-2x fa-edit" style="vertical-align: middle; margin-right:0.25em;"></i>' . $buttonText,
@@ -25,31 +30,23 @@
                             'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;'
                         ])
                     !!}
-                @endif
+
+                    {!! Form::open(['route' => ['users.delete-permanently', $user->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
+                    {!! Form::button(
+                        $deleteButtonText,
+                        [
+                            'type' => 'submit',
+                            'class' => 'btn btn-danger col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                            'id' => 'delete_user_button',
+                            'style' => 'margin:0.25em 0.5em 0 0; min-width:16em;',
+                        ])
+                    !!}
+                    {!! Form::close() !!}
+            @endif
 
                 @if(Auth::user()->isAnAdmin())
 
-                    {!! Form::button(
-                        '<i class="fa fa-2x fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Add New User',
-                        [
-                            'type' => 'button',
-                            'onClick' => "location.href='" . route('users.create') . "'",
-                            'class' => 'btn btn-success col-lg-2 col-md-2 col-sm-3 col-xs-12',
-                            'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;'
-                        ])
-                    !!}
-
                     @if($user->isDeleted())
-                        {!! Form::open(['route' => ['users.delete-permanently', $user->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
-                        {!! Form::button(
-                            '<i class="fa fa-2x fa-trash" style="vertical-align: middle; margin-right:0.25em;"> </i> Permanently Delete',
-                            [
-                                'type' => 'submit',
-                                'class' => 'btn btn-danger col-lg-2 col-md-2 col-sm-3 col-xs-12',
-                                'style' => 'margin:0.25em 0.5em 0 0; min-width:12em;',
-                                'onclick' => "return confirm('Are you sure? The user will be PERMANENTLY deleted!')"
-                            ])
-                        !!}
                         {!! Form::close() !!}
                         {!! Form::open(['route' => ['users.restore', $user->slug], 'method' => 'patch', 'class' => 'form-inline']) !!}
                         {!! Form::button(
@@ -64,19 +61,38 @@
                         {!! Form::close() !!}
                     @else
                         @if(!$user->isAnAdmin())
+                        <?php
+                        if (Auth::user() == $user) {
+                            $buttonText = "Delete Your Profile";
+                            $onClickText = "Are you sure you want to PERMANENTLY delete your profile?.";
+                        } else {
+                            $buttonText = "Archive Current User";
+                            $onClickText = "Are you sure you want to archive this user?";
+                        }
+                        $buttonText = '<i class="fa fa-2x fa-trash" style="vertical-align: middle; margin-right:0.25em;"> </i> ' . $buttonText;
+                        ?>
                         {!! Form::open(['route' => ['users.destroy', 'slug' => $user->slug], 'method' => 'delete', 'class' => 'form-inline']) !!}
                         {!! Form::button(
-                            '<i class="fa fa-2x fa-trash" style="vertical-align: middle; margin-right:0.25em;"> </i> Archive Current User',
+                            $buttonText,
                             [
                                 'type' => 'submit',
                                 'class' => 'btn btn-warning col-lg-2 col-md-2 col-sm-3 col-xs-12',
-                                'style' => 'margin:0.25em 0.5em 0 0; min-width:12em;',
-                                'onclick' => "return confirm('Are you sure you want to archive this user?')"
+                                'style' => 'margin:0.25em 0.5em 0 0; min-width:14em;',
+                                'onclick' => "return confirm('" . $onClickText .  "')"
                             ])
                         !!}
                         {!! Form::close() !!}
                         @endif
                     @endif
+                    {!! Form::button(
+                        '<i class="fa fa-2x fa-plus" style="vertical-align: middle; margin-right:0.25em;"></i>Add New User',
+                        [
+                            'type' => 'button',
+                            'onClick' => "location.href='" . route('users.create') . "'",
+                            'class' => 'btn btn-success col-lg-2 col-md-2 col-sm-3 col-xs-12',
+                            'style' => 'margin:0.25em 0.5em 0 0; color: white; min-width:12em;'
+                        ])
+                    !!}
                 @endif
             @endif
         </div>
@@ -119,6 +135,11 @@
     <script>
         $( function() {
             $( "#tabs" ).tabs();
+            @if(!empty(Auth::user()) && (Auth::user()->id == $user->id || Auth::user()->isAnAdmin()))
+            $( "#delete_user_button" ).click(function(e){
+                return confirm('Are you sure? {{ $onClickDeleteText }} will be PERMANENTLY deleted!')
+            });
+            @endif
         } );
     </script>
 @endpush
