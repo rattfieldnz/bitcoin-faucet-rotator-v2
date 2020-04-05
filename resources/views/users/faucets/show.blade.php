@@ -53,7 +53,7 @@
                                                             link_to_route(
                                                                 'users.payment-processors.faucets',
                                                                 $p->name,
-                                                                ['userSlug' => $user->slug,'paymentProcessorSlug' =>  $p->slug],
+                                                                ['slug' => $user->slug,'paymentProcessorSlug' =>  $p->slug],
                                                                 ['title' => $user->user_name . "'s " . $p->name . " faucets", 'style' => 'text-decoration:underline;']
                                                             )
                                                         !!}
