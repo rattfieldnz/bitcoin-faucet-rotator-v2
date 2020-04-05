@@ -15,7 +15,7 @@ Route::get('sitemap-users-payment-processors', function() {
 
         foreach($users as $u){
 
-            $paymentProcessorList = route('users.payment-processors', ['userSlug' => $u->slug]);
+            $paymentProcessorList = route('users.payment-processors', ['slug' => $u->slug]);
             $sitemap->add($paymentProcessorList, Carbon::now()->toW3cString(), '1.0', 'daily');
 
             foreach($paymentProcessors as $p){
@@ -28,7 +28,7 @@ Route::get('sitemap-users-payment-processors', function() {
                     $faucetsList = route(
                         'users.payment-processors.faucets',
                         [
-                            'userSlug' => $u->slug,
+                            'slug' => $u->slug,
                             'paymentProcessorSlug' => $p->slug
                         ]
                     );
@@ -37,7 +37,7 @@ Route::get('sitemap-users-payment-processors', function() {
 
                     $rotatorList = route('users.payment-processors.rotator',
                         [
-                            'userSlug' => $u->slug,
+                            'slug' => $u->slug,
                             'paymentProcessorSlug' => $p->slug
                         ]
                     );

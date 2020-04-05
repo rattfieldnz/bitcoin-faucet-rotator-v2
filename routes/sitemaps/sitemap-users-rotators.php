@@ -13,7 +13,7 @@ Route::get('sitemap-users-rotators', function() {
 
         foreach($users as $u){
 
-            $url = route('users.rotator', ['userSlug' => $u->slug]);
+            $url = route('users.rotator', ['slug' => $u->slug]);
             $lastFaucet = Users::getFaucets($u)
                 ->sortByDesc('updated_at')
                 ->first();
