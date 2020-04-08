@@ -39,6 +39,7 @@ use Illuminate\Auth\Passwords\CanResetPassword as ResetPassword;
  * @property string $email
  * @property string $password
  * @property string $bitcoin_address
+ * @property bool $subscribe_email
  * @property bool $is_admin
  * @property string|null $remember_token
  * @property string|null $last_login_at
@@ -122,6 +123,7 @@ class User extends Authenticatable implements CanResetPassword
         'email',
         'password',
         'bitcoin_address',
+        'subscribe_email',
         'is_admin',
         'remember_token',
         'last_login_at',
@@ -146,6 +148,7 @@ class User extends Authenticatable implements CanResetPassword
         'email' => 'string',
         'password' => 'string',
         'bitcoin_address' => 'string',
+        'subscribe_email' => 'boolean',
         'is_admin' => 'boolean',
         'remember_token' => 'string',
         'last_login_at' => 'string',

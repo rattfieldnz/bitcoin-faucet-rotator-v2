@@ -23,6 +23,7 @@ class UserRepository extends Repository implements IRepository
         'email',
         'password',
         'bitcoin_address',
+        'subscribed_email',
         'remember_token',
         'slug'
     ];
@@ -78,6 +79,7 @@ class UserRepository extends Repository implements IRepository
         $user = $user->fill($userData);
         $this->skipPresenter($temporarySkipPresenter);
         $user = $this->updateRelations($user, $userData);
+        //dd($user);
         $user->save();
         return $this->parserResult($user);
     }
@@ -99,6 +101,9 @@ class UserRepository extends Repository implements IRepository
             $data['password'] = bcrypt($data['password']);
         }
         $data['bitcoin_address'] = Purify::clean($data['bitcoin_address'], self::$generalFieldsConfig);
+        if(isset($data['subscribe_email'])){
+            $data['subscribe_email'] = intval(Purify::clean($data['subscribe_email'], self::$generalFieldsConfig));
+        }
         if (isset($data['is_admin'])) {
             $data['is_admin'] = Purify::clean($data['is_admin'], self::$generalFieldsConfig);
         }

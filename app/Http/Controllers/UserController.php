@@ -133,6 +133,7 @@ class UserController extends AppBaseController
     {
         $user = $this->userRepository->findByField('slug', $slug)->first();
         $message = null;
+        //dd($user->subscribe_email);
 
         if (empty($user) && (Auth::guest() || Auth::user() != null && !Auth::user()->isAnAdmin())) {
             flash('User not found')->error();
@@ -236,7 +237,7 @@ class UserController extends AppBaseController
                 flash('The user profile for \''. $user->user_name . '\' was successfully updated!')->success();
             }
 
-            return redirect(route('users.index'));
+            return redirect(route('users.show', ['slug' => $user->slug]));
         }
     }
 

@@ -88,9 +88,23 @@
     @endif
 </div>
 
+<!-- Subscribed Email Field -->
+<div class="form-group col-sm-6 has-feedback{{ $errors->has('subscribe_email') ? ' has-error' : '' }}">
+    {!! Form::label('subscribe_email', 'Subscribed to emails:') !!}
+
+    {!! Form::select('subscribe_email', [true => 'Yes', false => 'No'], !empty($user) ? intval($user->subscribe_email): null, ['class' => 'form-control']) !!}
+
+
+    @if ($errors->has('subscribe_email'))
+        <span class="help-block">
+		    <strong>{{ $errors->first('subscribe_email') }}</strong>
+		</span>
+    @endif
+</div>
+
 <!-- Submit Field -->
 <div class="row">
-    <div class="form-group col-sm-6">
+    <div class="form-group col-sm-12" style="margin-left: 1.1em;">
         {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
         <a href="{!! route('users.index') !!}" class="btn btn-default">Cancel</a>
     </div>

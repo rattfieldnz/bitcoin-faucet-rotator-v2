@@ -46,6 +46,12 @@
             <p>{!! $user->bitcoin_address !!}</p>
         </div>
 
+        <!-- Subscribed email Field -->
+        <div class="form-group">
+            {!! Form::label('subscribe_email', 'Subscribed to emails:') !!}
+            <p>{!! $user->subscribed_email == true ? "Yes" : "No" !!}</p>
+        </div>
+
         <!-- Is Admin Field -->
         <div class="form-group">
             {!! Form::label('is_admin', 'Is Admin:') !!}
