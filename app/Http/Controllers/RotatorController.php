@@ -38,8 +38,8 @@ class RotatorController extends Controller
             $seoConfig->publishedTime = Carbon::now()->toW3cString();
             $seoConfig->modifiedTime = Carbon::now()->toW3cString();
             $seoConfig->authorName = Users::adminUser()->fullName();
-            $seoConfig->currentUrl = env('APP_URL');
-            $seoConfig->imagePath = env('APP_URL') . '/assets/images/og/bitcoin.png';
+            $seoConfig->currentUrl = Config::get('app.url');
+            $seoConfig->imagePath = Config::get('app.url') . '/assets/images/og/bitcoin.png';
             $seoConfig->categoryDescription = "Bitcoin Faucet Rotator";
 
             $pageTitle = $mainMeta->page_main_title;
