@@ -37,7 +37,7 @@ $sw = $socialNetworks->pluck('sinaweibo_url')->first();
 $xing = $socialNetworks->pluck('xing_url')->first();
 !empty($xing) ? array_push($sameAs, $xing) : null;
 
-JsonLd::setType("Website")
+JsonLd::setType("WebSite")
     ->addValue('name', MainMeta::first()->page_main_title)
     ->setTitle(MainMeta::first()->page_main_title)
     ->setDescription(MainMeta::first()->description)
