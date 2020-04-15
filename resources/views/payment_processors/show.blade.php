@@ -94,3 +94,11 @@
 @push('google-analytics')
     @include('layouts.partials.tracking._google_analytics')
 @endpush
+
+@push('jsonld_schema')
+
+    <!-- START JSONld / schema -->
+    @include('layouts.partials.seo._social_jsonld')
+    <!-- END JSONld / schema -->
+
+@endpush

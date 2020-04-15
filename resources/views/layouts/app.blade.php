@@ -47,5 +47,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <!-- START Site Scripts/JS -->
         @include('layouts.partials.scripts._js')
         <!-- END Site Scripts/JS -->
+
+        @stack('jsonld_schema')
     </body>
 </html>
