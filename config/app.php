@@ -163,6 +163,7 @@ return [
         Snowfire\Beautymail\BeautymailServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         RachidLaasri\LaravelInstaller\Providers\LaravelInstallerServiceProvider::class,
+        Verschuur\Laravel\RobotsTxt\Providers\RobotsTxtProvider::class,
 
         /*
          * Application Service Providers...
