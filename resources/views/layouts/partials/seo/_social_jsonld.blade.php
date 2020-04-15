@@ -48,5 +48,3 @@ JsonLd::setType("Website")
 JsonLd::setUrl(\Illuminate\Support\Facades\Config::get('app.url'));
 
 ?>
-
-{!! JsonLd::generate() !!}
