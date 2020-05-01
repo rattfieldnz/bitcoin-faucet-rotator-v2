@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.5
+version: v1.14.1
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   'npm:morris.js:20140717':
@@ -16,4 +16,10 @@ ignore:
     - monorepo > yargs > os-locale > mem:
         reason: None given
         expires: '2019-09-27T07:47:14.561Z'
-patch: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - '@bower_components/mocha > yargs-unparser > lodash':
+        patched: '2020-05-01T05:12:35.715Z'
+    - mocha > yargs-unparser > lodash:
+        patched: '2020-05-01T05:12:35.715Z'
