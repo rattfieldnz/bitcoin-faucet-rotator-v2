@@ -89,12 +89,6 @@
     },
     "scripts": {
         "post-autoload-dump": [
-            "chmod -R 755 bootstrap && mkdir -p bootstrap/cache",
-            "find ./ -type f -exec chmod 664 {} \\;",
-            "find ./ -type d -exec chmod 775 {} \\;",
-            "mkdir -p storage && mkdir -p storage/logs && mkdir -p storage/framework && mkdir -p storage/logs",
-            "mkdir -p storage/framework/sessions && mkdir -p storage/framework/views && mkdir -p storage/framework/cache",
-            "chmod -R ugo+rwx storage bootstrap/cache",
             "@php artisan package:discover --ansi"
         ],
         "post-root-package-install": [
