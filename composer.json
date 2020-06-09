@@ -100,18 +100,10 @@
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:models",
-            "@php artisan ide-helper:meta",
-            "@php artisan laroute:generate",
             "@php artisan run-php-file custom-scripts/modify-laroutejs.php"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:models",
-            "@php artisan ide-helper:meta",
-            "@php artisan laroute:generate",
             "@php artisan run-php-file custom-scripts/modify-laroutejs.php"
         ]
     },
