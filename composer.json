@@ -94,8 +94,7 @@
             "find ./ -type d -exec chmod 775 {} \\;",
             "mkdir -p storage && mkdir -p storage/logs && mkdir -p storage/framework && mkdir -p storage/logs",
             "mkdir -p storage/framework/sessions && mkdir -p storage/framework/views && mkdir -p storage/framework/cache",
-            "chmod -R ugo+rwx storage bootstrap/cache",
-            "php artisan package:discover --ansi"
+            "chmod -R ugo+rwx storage bootstrap/cache"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
@@ -114,20 +113,10 @@
         "post-install-cmd": [
             "php artisan clear-compiled",
             "chmod -R 775 public/",
-            "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:models",
-            "@php artisan ide-helper:meta",
-            "@php artisan laroute:generate",
-            "@php artisan run-php-file custom-scripts/modify-laroutejs.php"
+            "Illuminate\\Foundation\\ComposerScripts::postInstall"
         ],
         "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:models",
-            "@php artisan ide-helper:meta",
-            "@php artisan laroute:generate",
-            "@php artisan run-php-file custom-scripts/modify-laroutejs.php"
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate"
         ]
     },
     "config": {
