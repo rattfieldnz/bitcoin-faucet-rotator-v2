@@ -95,7 +95,7 @@
             "mkdir -p storage && mkdir -p storage/logs && mkdir -p storage/framework && mkdir -p storage/logs",
             "mkdir -p storage/framework/sessions && mkdir -p storage/framework/views && mkdir -p storage/framework/cache",
             "chmod -R ugo+rwx storage bootstrap/cache",
-            "php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
