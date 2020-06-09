@@ -112,8 +112,6 @@
             "chmod u+rwx clear_reset"
         ],
         "post-install-cmd": [
-            "php artisan clear-compiled",
-            "chmod -R 775 public/"
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "@php artisan ide-helper:generate",
             "@php artisan ide-helper:models",
