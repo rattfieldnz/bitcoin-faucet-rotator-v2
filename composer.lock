@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d44d1a3eb686bf741bf474a08a99551",
+    "content-hash": "c4abfe7c7c1664b212116d822544f697",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -2046,12 +2046,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/laravel-generator.git",
-                "reference": "63d397e6a6835410376ca61913ab37f99895d240"
+                "reference": "c257f9fe25160ea3bc518972c6cc0fee43202d0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/63d397e6a6835410376ca61913ab37f99895d240",
-                "reference": "63d397e6a6835410376ca61913ab37f99895d240",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/c257f9fe25160ea3bc518972c6cc0fee43202d0e",
+                "reference": "c257f9fe25160ea3bc518972c6cc0fee43202d0e",
                 "shasum": ""
             },
             "require": {
@@ -2109,7 +2109,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2020-08-07T04:54:33+00:00"
+            "time": "2020-08-07T07:55:23+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -2881,7 +2881,7 @@
                 "laravelium",
                 "rss"
             ],
-            "time": "2020-03-28T12:53:42+00:00"
+            "time": "2020-03-28T10:53:42+00:00"
         },
         {
             "name": "laravelium/sitemap",
@@ -2944,7 +2944,7 @@
                 "php",
                 "xml"
             ],
-            "time": "2020-03-21T21:06:08+00:00"
+            "time": "2020-03-21T19:06:08+00:00"
         },
         {
             "name": "lcobucci/jwt",
@@ -5833,27 +5833,27 @@
         },
         {
             "name": "santigarcor/laratrust",
-            "version": "5.2.9",
+            "version": "6.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/santigarcor/laratrust.git",
-                "reference": "454a338500ea5ab2807da5ee0a799c9c3d01cc05"
+                "reference": "fdb0bd92d96098d39e22086afe897af4cb2db432"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/454a338500ea5ab2807da5ee0a799c9c3d01cc05",
-                "reference": "454a338500ea5ab2807da5ee0a799c9c3d01cc05",
+                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/fdb0bd92d96098d39e22086afe897af4cb2db432",
+                "reference": "fdb0bd92d96098d39e22086afe897af4cb2db432",
                 "shasum": ""
             },
             "require": {
                 "kkszymanowski/traitor": "^0.2.0",
-                "laravel/framework": "~5.6.0|~5.7.0|~5.8.0|~6.0|~7.0",
-                "php": "^7.1"
+                "laravel/framework": "~6.0|~7.0",
+                "php": "^7.2"
             },
             "require-dev": {
-                "mockery/mockery": ">=0.9.9",
-                "orchestra/testbench": "~3.6.0|~3.7.0|~3.8.0|~3.9.0|4.*|5.*",
-                "phpunit/phpunit": ">=4.1"
+                "mockery/mockery": "^1.3.1",
+                "orchestra/testbench": "4.*|5.*",
+                "phpunit/phpunit": "^7.5.15|^8.4|^9.0"
             },
             "type": "library",
             "extra": {
@@ -5894,7 +5894,13 @@
                 "rbac",
                 "roles"
             ],
-            "time": "2020-04-29T23:28:02+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/santigarcor",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-07-10T14:25:09+00:00"
         },
         {
             "name": "sentry/sdk",
