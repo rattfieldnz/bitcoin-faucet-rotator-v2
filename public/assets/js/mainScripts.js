@@ -31820,7 +31820,7 @@ if (typeof jQuery === 'undefined') {
 
 /*!
     localForage -- Offline Storage, Improved
-    Version 1.7.4
+    Version 1.9.0
     https://localforage.github.io/localForage
     (c) 2013-2017 Mozilla, Apache License 2.0
 */
