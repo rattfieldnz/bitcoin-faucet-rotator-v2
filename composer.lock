@@ -2046,12 +2046,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/laravel-generator.git",
-                "reference": "63d397e6a6835410376ca61913ab37f99895d240"
+                "reference": "c257f9fe25160ea3bc518972c6cc0fee43202d0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/63d397e6a6835410376ca61913ab37f99895d240",
-                "reference": "63d397e6a6835410376ca61913ab37f99895d240",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/c257f9fe25160ea3bc518972c6cc0fee43202d0e",
+                "reference": "c257f9fe25160ea3bc518972c6cc0fee43202d0e",
                 "shasum": ""
             },
             "require": {
@@ -2109,7 +2109,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2020-08-07T04:54:33+00:00"
+            "time": "2020-08-07T07:55:23+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -2881,7 +2881,7 @@
                 "laravelium",
                 "rss"
             ],
-            "time": "2020-03-28T12:53:42+00:00"
+            "time": "2020-03-28T10:53:42+00:00"
         },
         {
             "name": "laravelium/sitemap",
@@ -2944,7 +2944,7 @@
                 "php",
                 "xml"
             ],
-            "time": "2020-03-21T21:06:08+00:00"
+            "time": "2020-03-21T19:06:08+00:00"
         },
         {
             "name": "lcobucci/jwt",
@@ -9447,29 +9447,30 @@
     "packages-dev": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v3.3.3",
+            "version": "v3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "57f2219f6d9efe41ed1bc880d86701c52f261bf5"
+                "reference": "9e785aa5584e8839fd43070202dd7f2e912db51c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/57f2219f6d9efe41ed1bc880d86701c52f261bf5",
-                "reference": "57f2219f6d9efe41ed1bc880d86701c52f261bf5",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/9e785aa5584e8839fd43070202dd7f2e912db51c",
+                "reference": "9e785aa5584e8839fd43070202dd7f2e912db51c",
                 "shasum": ""
             },
             "require": {
                 "illuminate/routing": "^5.5|^6|^7",
                 "illuminate/session": "^5.5|^6|^7",
                 "illuminate/support": "^5.5|^6|^7",
-                "maximebf/debugbar": "^1.15.1",
+                "maximebf/debugbar": "^1.16.3",
                 "php": ">=7.0",
                 "symfony/debug": "^3|^4|^5",
                 "symfony/finder": "^3|^4|^5"
             },
             "require-dev": {
-                "laravel/framework": "5.5.x"
+                "orchestra/testbench": "^3.5|^4.0|^5.0",
+                "phpunit/phpunit": "^6.0|^7.0|^8.5|^9.0"
             },
             "type": "library",
             "extra": {
@@ -9517,7 +9518,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-05-05T10:53:32+00:00"
+            "time": "2020-08-11T10:30:51+00:00"
         },
         {
             "name": "barryvdh/laravel-ide-helper",
