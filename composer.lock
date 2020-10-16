@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d44d1a3eb686bf741bf474a08a99551",
+    "content-hash": "f6bd4be66a2a8d14ac42e81f6b5aa44e",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -254,27 +254,27 @@
         },
         {
             "name": "bepsvpt/secure-headers",
-            "version": "6.1.0",
+            "version": "7.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bepsvpt/secure-headers.git",
-                "reference": "8f6837efa19ac140b0eff23c7976483c5666b27e"
+                "reference": "954d001e76b65bb5a5c6fbc33c4a1727bd41357a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bepsvpt/secure-headers/zipball/8f6837efa19ac140b0eff23c7976483c5666b27e",
-                "reference": "8f6837efa19ac140b0eff23c7976483c5666b27e",
+                "url": "https://api.github.com/repos/bepsvpt/secure-headers/zipball/954d001e76b65bb5a5c6fbc33c4a1727bd41357a",
+                "reference": "954d001e76b65bb5a5c6fbc33c4a1727bd41357a",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "~5.1|~6.0|~7.0",
-                "php": "^7.0"
+                "illuminate/support": "~5.1|~6.0|~7.0|~8.0",
+                "php": "^7.0|^8.0"
             },
             "require-dev": {
                 "ext-json": "*",
                 "ext-xdebug": "*",
                 "friendsofphp/php-cs-fixer": "~2.2",
-                "orchestra/testbench": "~3.1|~4.0|~5.0",
+                "orchestra/testbench": "~3.1|~4.0|~5.0|~6.0",
                 "phpstan/phpstan": "~0.7",
                 "phpunit/phpunit": "~5.7|~6.5|~7.5|~8.4|~9.0"
             },
@@ -321,7 +321,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2020-07-28T00:12:56+00:00"
+            "time": "2020-10-14T13:28:07+00:00"
         },
         {
             "name": "brick/math",
@@ -2046,12 +2046,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/laravel-generator.git",
-                "reference": "63d397e6a6835410376ca61913ab37f99895d240"
+                "reference": "c693fdab3b2e83f6680b73e88358702148b94c49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/63d397e6a6835410376ca61913ab37f99895d240",
-                "reference": "63d397e6a6835410376ca61913ab37f99895d240",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/c693fdab3b2e83f6680b73e88358702148b94c49",
+                "reference": "c693fdab3b2e83f6680b73e88358702148b94c49",
                 "shasum": ""
             },
             "require": {
@@ -2109,7 +2109,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2020-08-07T04:54:33+00:00"
+            "time": "2020-08-29T06:28:46+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -2881,7 +2881,7 @@
                 "laravelium",
                 "rss"
             ],
-            "time": "2020-03-28T12:53:42+00:00"
+            "time": "2020-03-28T10:53:42+00:00"
         },
         {
             "name": "laravelium/sitemap",
@@ -2944,7 +2944,7 @@
                 "php",
                 "xml"
             ],
-            "time": "2020-03-21T21:06:08+00:00"
+            "time": "2020-03-21T19:06:08+00:00"
         },
         {
             "name": "lcobucci/jwt",
@@ -5081,12 +5081,12 @@
             "version": "v1.1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nrk/predis.git",
+                "url": "https://github.com/predis/predis.git",
                 "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nrk/predis/zipball/f0210e38881631afeafb56ab43405a92cafd9fd1",
+                "url": "https://api.github.com/repos/predis/predis/zipball/f0210e38881631afeafb56ab43405a92cafd9fd1",
                 "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1",
                 "shasum": ""
             },
@@ -5123,6 +5123,16 @@
                 "nosql",
                 "predis",
                 "redis"
+            ],
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/tillkruss",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/tillkruss",
+                    "type": "github"
+                }
             ],
             "time": "2016-06-16T16:22:20+00:00"
         },
@@ -6120,7 +6130,7 @@
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "4.*|5.*|^6.0.0|^7.0.0",
+                "illuminate/support": "4.*|5.*|^6.0.0|^7.0.0|^8.0.0",
                 "pelago/emogrifier": "^3.0",
                 "php": ">=5.4.0"
             },
