@@ -2,7 +2,7 @@
 
 require './vendor/autoload.php';
 
-$pattern = '(http://freebtc.192.168.22.10.xip.io)';
+$pattern = '(http://freebtc.localhost)';
 
 $replace = Config::get('app.url');
 
