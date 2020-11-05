@@ -36,7 +36,7 @@
         "laravel/framework": "^8.0",
         "laravel/helpers": "^1.4",
         "laravel/passport": "~10.0",
-        "laravel/ui": "^2.0",
+        "laravel/ui": "^3.1",
         "laravelcollective/html": "^6.2",
         "laravelium/feed": "8.0.*",
         "laravelium/sitemap": "8.0.*",
