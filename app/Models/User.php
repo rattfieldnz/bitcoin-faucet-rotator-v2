@@ -43,7 +43,7 @@ use Illuminate\Auth\Passwords\CanResetPassword as ResetPassword;
  * @property bool $is_admin
  * @property string|null $remember_token
  * @property string|null $last_login_at
- * @property mixed|null $last_login_ip
+ * @property string|null $last_login_ip
  * @property string|null $last_logout_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -152,7 +152,7 @@ class User extends Authenticatable implements CanResetPassword
         'is_admin' => 'boolean',
         'remember_token' => 'string',
         'last_login_at' => 'string',
-        'last_login_ip' => 'last_login_ip',
+        'last_login_ip' => 'string',
         'last_logout_at' => 'string',
         'slug' => 'string'
     ];
