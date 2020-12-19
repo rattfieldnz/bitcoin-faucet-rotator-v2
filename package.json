@@ -55,7 +55,7 @@
     "ckeditor": "ckeditor/ckeditor-releases#^4.10.0",
     "components-jqueryui": "components/jqueryui#^1.12.1",
     "cookieconsent": "insites/cookieconsent#^3.1.1",
-    "datatables.net": "DataTables/Dist-DataTables#^1.10.20",
+    "datatables.net": "1.10.23",
     "datatables.net-bs": "DataTables/Dist-DataTables-Bootstrap#^2.1.1",
     "daterangepicker": "dangrossman/bootstrap-daterangepicker#^3.0.5",
     "eve": "tomasAlabes/eve#0.5.0",
