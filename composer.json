@@ -21,7 +21,7 @@
         "php": ">=7.3",
         "ext-json": "*",
         "abraham/twitteroauth": "^1.2",
-        "artesaos/seotools": "^0.19.1",
+        "artesaos/seotools": "^0.20.0",
         "barryvdh/laravel-cors": "^2.0.2",
         "bepsvpt/secure-headers": "^7.0",
         "creativeorange/gravatar": "^1.0",
