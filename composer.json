@@ -57,7 +57,7 @@
         "snowfire/beautymail": "^1.1",
         "spatie/laravel-activitylog": "^3.16",
         "spatie/laravel-analytics": "^3.10",
-        "stevebauman/purify": "3.0.*",
+        "stevebauman/purify": "4.0.*",
         "symfony/class-loader": "^3.4",
         "yajra/laravel-datatables-oracle": "9.*",
         "verschuur/laravel-robotstxt": "^3.0",
