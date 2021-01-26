@@ -23,7 +23,7 @@
     "npm": "^6.13.0",
     "snyk": "^1.244.0",
     "sw-precache-webpack-plugin": "^0.11.5",
-    "yarn": "^1.22.5"
+    "yarn": "^1.22.10"
   },
   "dependencies": {
     "@bower_components/jquery": "jquery/jquery-dist#3.4.1",
@@ -91,6 +91,6 @@
     "raphael": "^2.2.8"
   },
   "engines": {
-    "yarn": ">= 1.22.5"
+    "yarn": ">= 1.22.10"
   }
 }
