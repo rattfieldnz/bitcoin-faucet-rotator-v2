@@ -2250,12 +2250,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/laravel-generator.git",
-                "reference": "1e0ceeeec2f779b24543388fd8c0ec3934530de3"
+                "reference": "b46642480d36488de4301fdb812bfda6d975bcb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/1e0ceeeec2f779b24543388fd8c0ec3934530de3",
-                "reference": "1e0ceeeec2f779b24543388fd8c0ec3934530de3",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/b46642480d36488de4301fdb812bfda6d975bcb4",
+                "reference": "b46642480d36488de4301fdb812bfda6d975bcb4",
                 "shasum": ""
             },
             "require": {
@@ -2313,7 +2313,7 @@
                     "type": "opencollective"
                 }
             ],
-            "time": "2021-01-09T17:17:09+00:00"
+            "time": "2021-01-28T03:22:54+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -11644,16 +11644,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.1",
+            "version": "9.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "e7bdf4085de85a825f4424eae52c99a1cec2f360"
+                "reference": "f661659747f2f87f9e72095bb207bceb0f151cb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e7bdf4085de85a825f4424eae52c99a1cec2f360",
-                "reference": "e7bdf4085de85a825f4424eae52c99a1cec2f360",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/f661659747f2f87f9e72095bb207bceb0f151cb4",
+                "reference": "f661659747f2f87f9e72095bb207bceb0f151cb4",
                 "shasum": ""
             },
             "require": {
@@ -11739,7 +11739,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-01-17T07:42:25+00:00"
+            "time": "2021-02-02T14:45:58+00:00"
         },
         {
             "name": "psy/psysh",
