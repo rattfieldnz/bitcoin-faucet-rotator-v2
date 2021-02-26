@@ -10997,21 +10997,21 @@
         },
         {
             "name": "jaybizzle/laravel-migrations-organiser",
-            "version": "v6.0.0",
+            "version": "v6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Laravel-Migrations-Organiser.git",
-                "reference": "8b2b0370f80f1a6c767ebb74b21f85a623d53038"
+                "reference": "b40b5b085127761fc12c759a52c8dc47be86126b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Laravel-Migrations-Organiser/zipball/8b2b0370f80f1a6c767ebb74b21f85a623d53038",
-                "reference": "8b2b0370f80f1a6c767ebb74b21f85a623d53038",
+                "url": "https://api.github.com/repos/JayBizzle/Laravel-Migrations-Organiser/zipball/b40b5b085127761fc12c759a52c8dc47be86126b",
+                "reference": "b40b5b085127761fc12c759a52c8dc47be86126b",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "^8.0",
-                "php": "^7.3"
+                "php": ">=7.3 <8.1"
             },
             "require-dev": {
                 "illuminate/database": "^8.0",
@@ -11061,9 +11061,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JayBizzle/Laravel-Migrations-Organiser/issues",
-                "source": "https://github.com/JayBizzle/Laravel-Migrations-Organiser/tree/v6.0.0"
+                "source": "https://github.com/JayBizzle/Laravel-Migrations-Organiser/tree/v6.1.0"
             },
-            "time": "2020-10-17T07:51:56+00:00"
+            "time": "2021-02-24T20:32:17+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
