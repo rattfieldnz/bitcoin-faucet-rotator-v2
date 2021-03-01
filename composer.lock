@@ -688,16 +688,16 @@
         },
         {
             "name": "cviebrock/eloquent-sluggable",
-            "version": "8.0.4",
+            "version": "8.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cviebrock/eloquent-sluggable.git",
-                "reference": "e1f27c7b48dc7cec352d12351a147e4032c43f60"
+                "reference": "69cd660715fc05a7e5a1cd51c88dc56128b0ca7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cviebrock/eloquent-sluggable/zipball/e1f27c7b48dc7cec352d12351a147e4032c43f60",
-                "reference": "e1f27c7b48dc7cec352d12351a147e4032c43f60",
+                "url": "https://api.github.com/repos/cviebrock/eloquent-sluggable/zipball/69cd660715fc05a7e5a1cd51c88dc56128b0ca7e",
+                "reference": "69cd660715fc05a7e5a1cd51c88dc56128b0ca7e",
                 "shasum": ""
             },
             "require": {
@@ -749,9 +749,9 @@
             ],
             "support": {
                 "issues": "https://github.com/cviebrock/eloquent-sluggable/issues",
-                "source": "https://github.com/cviebrock/eloquent-sluggable/tree/8.0.4"
+                "source": "https://github.com/cviebrock/eloquent-sluggable/tree/8.0.5"
             },
-            "time": "2021-01-20T16:25:06+00:00"
+            "time": "2021-02-28T20:03:09+00:00"
         },
         {
             "name": "defuse/php-encryption",
