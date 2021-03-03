@@ -2553,16 +2553,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.30.0",
+            "version": "v8.30.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "81ef9850cc388f2f92b868fb35ffb76f0c9a0f46"
+                "reference": "ab7e1c19ee0403e15fc59983b7ccb86d85db45e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/81ef9850cc388f2f92b868fb35ffb76f0c9a0f46",
-                "reference": "81ef9850cc388f2f92b868fb35ffb76f0c9a0f46",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/ab7e1c19ee0403e15fc59983b7ccb86d85db45e6",
+                "reference": "ab7e1c19ee0403e15fc59983b7ccb86d85db45e6",
                 "shasum": ""
             },
             "require": {
@@ -2717,7 +2717,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-03-02T14:28:44+00:00"
+            "time": "2021-03-03T14:59:13+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -6336,16 +6336,16 @@
         },
         {
             "name": "santigarcor/laratrust",
-            "version": "6.3.1",
+            "version": "6.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/santigarcor/laratrust.git",
-                "reference": "dcb43416ecfeacb67e056423780e288c325e9c82"
+                "reference": "9ab3bfdc06afe18b17f69b77cb77291c36dae9f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/dcb43416ecfeacb67e056423780e288c325e9c82",
-                "reference": "dcb43416ecfeacb67e056423780e288c325e9c82",
+                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/9ab3bfdc06afe18b17f69b77cb77291c36dae9f6",
+                "reference": "9ab3bfdc06afe18b17f69b77cb77291c36dae9f6",
                 "shasum": ""
             },
             "require": {
@@ -6399,7 +6399,7 @@
             ],
             "support": {
                 "issues": "https://github.com/santigarcor/laratrust/issues",
-                "source": "https://github.com/santigarcor/laratrust/tree/6.3.1"
+                "source": "https://github.com/santigarcor/laratrust/tree/6.3.2"
             },
             "funding": [
                 {
@@ -6407,7 +6407,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-12-09T14:25:23+00:00"
+            "time": "2021-03-03T13:34:32+00:00"
         },
         {
             "name": "sentry/sdk",
