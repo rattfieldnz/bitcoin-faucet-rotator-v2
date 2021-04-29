@@ -1,0 +1,104 @@
+version: 2
+updates:
+- package-ecosystem: composer
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "17:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: laravel/framework
+    versions:
+    - 8.26.1
+    - 8.27.0
+    - 8.28.0
+    - 8.28.1
+    - 8.30.0
+    - 8.30.1
+    - 8.31.0
+    - 8.32.1
+    - 8.33.0
+    - 8.33.1
+    - 8.34.0
+    - 8.35.0
+    - 8.35.1
+    - 8.36.0
+    - 8.36.2
+    - 8.37.0
+    - 8.38.0
+    - 8.39.0
+  - dependency-name: yajra/laravel-datatables-oracle
+    versions:
+    - 9.17.0
+    - 9.17.1
+    - 9.17.2
+    - 9.17.3
+    - 9.17.4
+  - dependency-name: barryvdh/laravel-ide-helper
+    versions:
+    - 2.9.1
+    - 2.9.2
+    - 2.9.3
+  - dependency-name: doctrine/dbal
+    versions:
+    - 2.13.0
+  - dependency-name: filp/whoops
+    versions:
+    - 2.10.0
+    - 2.11.0
+    - 2.12.0
+  - dependency-name: league/csv
+    versions:
+    - 9.7.0
+  - dependency-name: sentry/sentry-laravel
+    versions:
+    - 2.4.1
+    - 2.4.2
+  - dependency-name: phpunit/phpunit
+    versions:
+    - 9.5.3
+    - 9.5.4
+  - dependency-name: maatwebsite/excel
+    versions:
+    - 3.1.28
+    - 3.1.29
+  - dependency-name: phpseclib/phpseclib
+    versions:
+    - 3.0.5
+    - 3.0.6
+  - dependency-name: prettus/l5-repository
+    versions:
+    - 2.7.5
+  - dependency-name: nesbot/carbon
+    versions:
+    - 2.44.0
+    - 2.45.0
+    - 2.46.0
+  - dependency-name: symfony/dom-crawler
+    versions:
+    - 5.2.2
+    - 5.2.4
+  - dependency-name: spatie/laravel-analytics
+    versions:
+    - 3.11.0
+  - dependency-name: santigarcor/laratrust
+    versions:
+    - 6.3.2
+  - dependency-name: laravel/passport
+    versions:
+    - 10.1.2
+  - dependency-name: laravel/tinker
+    versions:
+    - 2.6.1
+  - dependency-name: spatie/laravel-activitylog
+    versions:
+    - 3.17.0
+  - dependency-name: cviebrock/eloquent-sluggable
+    versions:
+    - 8.0.5
+  - dependency-name: jaybizzle/laravel-migrations-organiser
+    versions:
+    - 6.1.0
+  - dependency-name: mockery/mockery
+    versions:
+    - 1.4.3
