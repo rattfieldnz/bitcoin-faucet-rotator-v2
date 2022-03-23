@@ -76,7 +76,7 @@
     "jvectormap": "bjornd/jvectormap#^2.0.4",
     "localforage": "mozilla/localForage#^1.7.3",
     "lodash": "^4.17.12",
-    "mocha": "mochajs/mocha#~6.1.4",
+    "mocha": "6.2.3",
     "moment": "moment/moment#^2.24.0",
     "monorepo": "^1.2.2",
     "morris.js": "^0.5.0",
