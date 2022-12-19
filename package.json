@@ -42,7 +42,7 @@
     "@bower_components/raphael": "DmitryBaranovskiy/raphael#^2.2.8",
     "@bower_components/select2": "ivaynberg/select2#^4.0.8",
     "Flot": "flot/flot#^3.1.1",
-    "admin-lte": "3.1.0",
+    "admin-lte": "3.2.0",
     "bootstrap": "twbs/bootstrap#~3.4.1",
     "bootstrap-colorpicker": "itsjavi/bootstrap-colorpicker#^3.1.2",
     "bootstrap-datepicker": "eternicode/bootstrap-datepicker#^1.9.0",
